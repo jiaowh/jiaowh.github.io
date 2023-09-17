@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="model.css" />
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Henny+Penny&display=swap" rel="stylesheet">
+    <script src="model.js" ></script>
+  <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+    
+</head>
+<body  style="background-color:#C1AD8E;">
+    <div class = "mobile">
+        <div class = "header">
+            <a href="index.html">
+                <img class="logo" id="logo" src="img/logo-1.png" />
+            </a>
+            <img class="menu"  src="img/hamburger.png" onclick="loadSideBar()"/>
+            <div class="sidebar" id="sidebar">
+                <div class="fill" id="fill" onclick="removeSideBar()"></div>
+
+                <div class="crafter-crad" id="craft"   >
+                    
+                      <img class="crafter-card" src="img/s_craft.png" />
+                      
+                      <a href="works.html">
+                        <img class="works" src="img/works.png" />
+                      </a>
+                      
+                  </div>
+        
+                  <div class="artist-card" id="art"  >
+                   
+                      <img class="artist-card-2"  src="img/s_art.png" />
+                      <a href="illust.html">
+                        <img class="illustration" src="img/illustration.png" />
+                      </a>
+                      <img class="element-model" src="img/3d-model-1.png" onclick='test()' />
+                    
+                  </div>
+        
+                  <div class="rider-card" id="ride"  >
+                    
+                      <img class="rider-card-2" src="img/s_ride.png" />
+                      <img class="photos" src="img/photos.png" />
+                      <a href="video.html">
+                        <img class="video" src="img/video.png" />
+                      </a>
+                   
+                  </div>
+                  <div class ="developer-card1" id="dev"  >
+                    <img class="developer-card" src="img/s_dev.png" />
+                    <a href="dev.html">
+                      <img class="works1" src="img/works.png" />
+                    </a>
+
+            </div>
+        </div>
+
+        <div class ="dropdown">
+            <div class="select-btn" onclick="showSelectionBar()">
+                <span class="sBtn-text">Select Model</span>
+            </div>
+            <ul class="options"id="options" >
+                <li class="option" >
+                    <span class="option-text" onclick="setLogo()">Logo</span>
+                </li>
+                <li class="option">
+                    <span class="option-text" onclick="setDragon()">Dragon</span>
+                </li>
+            
+            </ul>
+        </div>
+    
+
+        <div class = "portfolio" >
+
+            <img class = "card" src="img/card.png"/>
+
+            <a-scene embedded class='vgScene' id="vgScene">
+                <a-camera>
+                    <a-cursor></a-cursor>
+                  </a-camera>
+                
+                <a-entity id="3dlogo" visible="true">
+                    <a-gltf-model
+                    src="assets/logo.glb"
+                    scale="0.03 0.03 0.03 "
+                    position="-0.03 1.55 -0.7"
+                    rotation="0 -90 0"      
+                    
+                  ></a-gltf-model>      
+                </a-entity>
+                <a-entity id="dragon" visible="false">
+                    <a-gltf-model
+                      src="assets/dragon.glb"
+                      scale="2 2 2 "
+                      position="0.15 1.7 -1.4"
+                      rotation="0 60 10"  
+                      animation-mixer             
+                    ></a-gltf-model>    
+                </a-entity>
+                <p class="name" id="name">Logo</p>
+
+                <a-entity light="type: ambient; intensity: 1;"></a-entity>
+                <a-entity light="type: directional; color: #fff; intensity: 0.5; castShadow: true;" position="0 1 2" ></a-entity>
+              </a-scene>
+
+
+
+              
+        </div>
+    </div>    
+</body>
+</html>

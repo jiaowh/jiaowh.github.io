@@ -1,0 +1,266 @@
+.mobile{
+    height:100vh;
+    width: 100vw;
+
+}
+
+.mobile .header {
+    position: absolute;
+    height:15vh;
+    width: 100vw;
+    left:0vw;
+    background: linear-gradient(180deg, #C0AD8E 85.66%, #B5A07F 85.67%);
+  }
+
+.mobile .logo {
+    position: absolute;
+    width: 30vw;
+    height: 15vh;
+    top: -0vh;
+    left: 0vw;
+  }
+
+  .mobile .menu {
+    position: absolute;
+    width: 10vw;
+    height: 5vh;
+    top: 5vh;
+    right: 10vw;
+  }
+
+  .mobile .dropdown{
+    position: absolute;
+    width:40vw;
+    height:6vh;
+    top: 19.6vh;
+    left: 12vw;
+    z-index: 999;
+  }
+
+  .dropdown .select-btn{
+    position: absolute;
+    height: 9vh;
+    width:77vw;
+
+    font-family: 'Henny Penny', cursive;
+    font-size: 4vh;
+    font-weight: 400;
+  
+    align-items: center;
+    cursor: pointer;
+    justify-content: space-between;
+    
+    text-shadow: 7px 4px 4px rgba(0, 0, 0, 0.25);
+    transition: 0.3s;
+    left:0vw;
+}
+
+.sBtn-text{
+  position: absolute;
+  top:1vh;
+  left:19vw;
+}
+
+
+
+.dropdown .options{
+  position: absolute;
+  padding: 0.1vh;
+  margin-top: 1vh;
+  border-radius: 8px;
+  background: #6b5f4b;
+  box-shadow: 0 0 3px rgba(0,0,0,0.1);
+  display: block;
+  z-index: 999;
+  top:8vh;
+  left:23vw;
+  visibility:hidden;
+}
+
+
+.options .option{
+  display: flex;
+  height: 6vh;
+  cursor: pointer;
+  padding: 0 16px;
+  border-radius: 8px;
+  align-items: center;
+  background: #C1AD8E;
+}
+
+.options .option:hover{
+  background: #d4c4ac;
+}
+
+.option .option-text{
+  font-size: 18px;
+  color: #333;
+  font-family: 'Henny Penny', cursive;
+  text-shadow: 7px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+  .mobile .portfolio{
+    position:absolute;
+    height:82vh;
+    width: 96vw;
+    top:17vh;
+  }
+
+  .name{
+    position: relative;
+    font-family: 'Henny Penny', cursive;
+    font-size: 3.5vh;
+    text-align: center;
+    top:65vh;
+    font-weight: 400;
+    transform: rotate(1.99deg);
+    text-shadow: 7px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  .mobile .left{
+    position: absolute;
+    height:16vh;
+    width: 15vw;
+    top:30vh;
+    left:3vw;
+    transition-duration: 1000ms;
+  }
+
+  .mobile .right{
+    position: absolute;
+    height:16vh;
+    width: 15vw;
+    top:30vh;
+    right: -0vw;
+    transform: rotate(180deg);
+    z-index: 600;
+    transition-duration: 1000ms;
+  }
+
+  .mobile .sidebar{
+    position:absolute;
+    height:100vh;
+    width:100vw;
+    z-index:9000;
+    top:-1vh;
+    left:90vw;
+    transition-duration: 1000ms;
+  }
+
+  .mobile .fill{
+    position:absolute;
+    height:100vh;
+    width:190vw;
+    left:-90vw;
+    background-color: black;
+    opacity: 0.8;
+    visibility: hidden;
+
+  }
+
+  .mobile .crafter-crad{
+    position: absolute;
+    height:25vh;
+    width: 60vw;
+    left:40vw;
+    top:-9vh;
+  }
+
+  .mobile .works{
+    position: absolute;
+    top:16vh;
+    transform: rotate(-35.99deg);
+    left: 25vw;
+    height:10vh;
+    width: auto;
+  }
+
+  .mobile .artist-card{
+    position: absolute;
+    height:25vh;
+    width: 60vw;
+    left:30vw;
+    top: 15vh;
+  }
+
+  .mobile .illustration{
+    position: absolute;
+    top:15vh;
+    transform: rotate(18.99deg);
+    left: 21vw;
+    height:9vh;
+    width: auto;
+  }
+
+  .mobile .element-model{
+    position: absolute;
+    top:23vh;
+    transform: rotate(18.99deg);
+    left: 20vw;
+    height:9vh;
+    width: auto;
+  }
+
+  .mobile .rider-card{
+    position: absolute;
+    height:25vh;
+    width: 60vw;
+    left:34vw;
+    top: 42vh;
+  }
+
+  .mobile .photos{
+    position: absolute;
+    top:17vh;
+    transform: rotate(-21.99deg);
+    left: 27vw;
+    height:9vh;
+    width: auto;
+  }
+  .mobile .video{
+    position: absolute;
+    top:24vh;
+    transform: rotate(-21.99deg);
+    left: 38vw;
+    height:9vh;
+    width: auto;
+  }
+
+  .mobile .developer-card1{
+    position: absolute;
+    height:25vh;
+    width: 60vw;
+    left:10vw;
+    top: 71vh;
+  }
+
+  .mobile .works1{
+    position: absolute;
+    top:16vh;
+    transform: rotate(-5.99deg);
+    left: 37vw;
+    height:10vh;
+    width: auto;
+  }
+
+  .vgScene{
+    visibility: visible; }
+
+  
+  .ygoScene{
+    visibility: hidden;
+    top:-85vh;
+  }
+
+  .card{
+    position: absolute;
+    width: 95vw;
+    left: 2.5vw;
+    height: 80vh;
+  }
+
+body{
+  position:relative;
+  overflow: hidden;
+  height:100vh;
+}

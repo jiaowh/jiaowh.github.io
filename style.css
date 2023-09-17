@@ -1,0 +1,228 @@
+.mobile {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.mobile .overlap-wrapper {
+  background-color: #b29e7f;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+.mobile .overlap {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  left: 0px;
+}
+
+.mobile .logo {
+  position: absolute;
+  width: 546px;
+  height: 479px;
+  top: -500px;
+  left: 204px;
+  object-fit: cover;
+  transition-duration: 2000ms;
+}
+
+.mobile .crafter-crad {
+  position: absolute;
+  width: 100vw;
+  height: 50vh;
+  top: 90vh;
+  transition-duration: 2000ms;
+}
+
+
+.mobile .crafter-card {
+  position:absolute;
+  width: 100vw;
+  height: 60vh;
+  top: 0vh;
+  left: 0vw;
+}
+
+
+.mobile .works {
+  position: absolute;
+  width: 28vw;
+  height: 9vh;
+  top: 29vh;
+  left: 33vw;
+  
+}
+
+.mobile .works_twitter {
+  position: absolute;
+  width: 6vw;
+  height: 4vh;
+  top: 25vh;
+  left: 24vw;
+  
+  transform: rotate(24.99deg);
+}
+
+.mobile .works_insta {
+  position: absolute;
+  width: 6vw;
+  height: 4vh;
+  top: 30vh;
+  left: 19vw;
+  
+  transform: rotate(21.99deg);
+}
+
+.mobile .artist-card {
+  position: absolute;
+  width: 100vw;
+  height: 599px;
+  top: 100vh;
+  transition-duration: 2000ms;
+  transform: rotate(3.99deg);
+}
+
+.mobile .div {
+  position: relative;
+  width: 485px;
+  height: 622px;
+  top: -50px;
+  left: -35px;
+}
+
+.mobile .artist-card-2 {
+  position: absolute;
+  width:100vw;
+  left:4vw;
+  height:70vh;
+  top:-5vh
+}
+
+.mobile .illustration {
+  position: absolute;
+  width: 30vw;
+  height: 9vh;
+  top: 30vh;
+  left: 40vw;
+  transform: rotate(3.99deg);
+}
+
+.mobile .element-model {
+  position: absolute;
+  width: 25vw;
+  height: 9vh;
+  top: 38vh;
+  left: 46vw;
+  transform: rotate(3.99deg);
+}
+
+
+.mobile .rider-card {
+  position: absolute;
+  width: 100vw;
+  height: 30vh;
+  top:100vh;
+  transform: rotate(8.58deg);
+  transition-duration: 2000ms;
+  left: 50vw;
+}
+
+
+
+.mobile .rider-card-2 {
+  position: absolute;
+  width: 100vw;
+  height: 70vh;
+  top:-3vh;
+  left: -6vw;
+  transform: rotate(-8.58deg);
+}
+
+
+.mobile .photos {
+  position: absolute;
+  width: 25vw;
+  height: 9vh;
+  top: 27vh;
+  left: 30vw;
+  transform: rotate(-8.58deg);
+}
+
+.mobile .video {
+  position: absolute;
+  width: 24vw;
+  height: 9vh;
+  top: 36vh;
+  left: 30vw;
+  transform: rotate(-11deg);
+}
+
+.mobile .developer-card1 {
+  position: absolute;
+  width: 100vw;
+  height: 60vh;
+  top:100vh;
+ 
+  transition-duration: 2000ms;
+}
+
+.mobile .developer-card {
+  position: absolute;
+  width: 100vw;
+  height: 80vh;
+  transform: rotate(15.58deg);
+  top:-6vh;
+}
+
+.mobile .works1 {
+  position: absolute;
+  width: 24vw;
+  height: 9vh;
+  top: 33vh;
+  left: 39vw;
+  transform: rotate(-16.05deg);
+}
+
+.artist-button{
+  height: 10vh;
+  width: 70vw;
+  position: relative; 
+  top:2vh;
+  left: 10vw;
+  transform: rotate(-10.05deg);
+  z-index: 999;
+}
+
+.crafter-button{
+  height: 10vh;
+  width: 50vw;
+  position: relative; 
+  top:5vh;
+  left: 30vw;
+  transform: rotate(18.05deg);
+  z-index: 999;
+}
+
+.rider-button{
+  height: 10vh;
+  width: 70vw;
+  position: relative; 
+  top:1vh;
+  left: 7vw;
+  transform: rotate(-.05deg);
+  z-index: 999;
+}
+
+.developer-button{
+  height: 10vh;
+  width: 70vw;
+  position: relative; 
+  top:1vh;
+  left: 20vw;
+  transform: rotate(.05deg);
+  z-index: 999;
+}
