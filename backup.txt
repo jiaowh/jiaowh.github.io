@@ -1,0 +1,47 @@
+
+<script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+ <a-scene embedded>
+                <a-entity id="logo">
+                    <a-gltf-model
+                      src="assets/logo.glb"
+                      scale="0.025 0.025 0.025"
+                      position="-0.02 1.93 -1"
+                      rotation="-20 -130 -25"
+                      animation="property: rotation; to: 5 -80 -35; dur: 3000; easing:linear; "
+                      animation__2="property: scale; to: 0.015 0.015 0.015; dur: 3000; easing:linear;"
+                      animation__3="property: position; to: -0.02 2.23 -1; dur: 3000; easing:linear;"                     
+                    ></a-gltf-model>
+                  </a-entity>
+                  <a-entity light="type: ambient; intensity: 0.5;"></a-entity>
+                  <a-entity light="type: directional; color: #fff; intensity: 3; castShadow: true;" position="0 1 2" ></a-entity>
+              </a-scene>
+
+              
+
+setTimeout(onLoad, 2000);
+
+function onLoad() {
+    var a = document.getElementById("craft"); 
+    a.style.top='301px';
+    a=document.getElementById("art");
+    a.style.top='757px'
+}
+
+
+transition-duration: 3000ms;
+
+
+
+                      animation__2="property: rotation; to: 20 40 -2; dur: 1000; easing: linear; loop: true"
+                      animation="property: position; to: -1 1.2 -1.1; dur: 1000; easing: linear; loop: true"
+                      animation__3="property: scale; to: 10 14 10; dur: 1000; easing: linear; loop: true"  
+
+                       <a-gltf-model
+                      src="assets/vg1.glb"
+                      scale="10 10 10 "
+                      position="0 1.3 -1.1"
+                      rotation="20 0 -2"             
+                    ></a-gltf-model>  
+
+position="-0.4 1.2 -1.1"
+
