@@ -264,3 +264,8 @@ body{
   overflow: hidden;
   height:100vh;
 }
+
+.digimonScene{
+  visibility: hidden;
+  top:-171vh;
+}
