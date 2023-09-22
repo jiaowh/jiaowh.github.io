@@ -1,5 +1,6 @@
 const names = ["Captain Nightkid", "Maelstrom", "Nirvana"]
 const ygonames = ["Egyptian Gods", "New World Formation", "Leviathan", "Hiita", "Havnis", "Exceed The Pendulum"]
+const digimonnames = ["Lillymon", "Angewomon", "Faeriemon", "Taomon"]
 const games=["vg", "ygo","digi","poke","tcg","others"]
 let current_item=0;
 let current_game=0;
@@ -22,6 +23,11 @@ function left(){
         current_item = (current_item -1+6) % 6;
         document.getElementById("ygoname").innerText = ygonames[current_item];
     }
+    else if(current_game==2){
+        digi_left(current_item);
+        current_item = (current_item -1+6) % 6;
+        document.getElementById("diginame").innerText = digimonnames[current_item];
+    }
     
 }
 
@@ -40,6 +46,11 @@ function right(){
         ygo_right(current_item);
         current_item = (current_item +1) % 6;
         document.getElementById("ygoname").innerText = ygonames[current_item];
+    }
+    else if(current_game==2){
+        digi_right(current_item);
+        current_item = (current_item + 1) % 3;
+        document.getElementById("diginame").innerText = digimonnames[current_item];
     }
     
 }
@@ -84,6 +95,26 @@ function ygo_right(item){
 
 }
 
+function digi_left(item){
+    let a = document.getElementById("digi_"+item);
+    a.setAttribute('animation', {'property':'rotation', 'to':{x:0, y:90, z:0}, 'dur':'1000'});
+    item=(item-1+4)%4;
+    a = document.getElementById("digi_"+item);
+    a.setAttribute("visible","true");
+    a.setAttribute('animation', {'property':'rotation', 'from':{x:0, y:-90, z:0}, 'to':{x:0, y:0, z:0}, 'dur':'1000'});
+    
+}
+
+function digi_right(item){
+    let a = document.getElementById("digi_"+item);
+    a.setAttribute('animation', {'property':'rotation', 'to':{x:0, y:-90, z:0}, 'dur':'1000'});
+    item=(item+1)%4;
+    a = document.getElementById("digi_"+item);
+    a.setAttribute("visible","true");
+    a.setAttribute('animation', {'property':'rotation', 'from':{x:0, y:90, z:0}, 'to':{x:0, y:0, z:0}, 'dur':'1000'});
+    
+}
+
 function loadSideBar(){
     var a = document.getElementById("sidebar"); 
     a.style.left='0vw';
@@ -125,10 +156,18 @@ function setYGO(){
     current_game=1;
     refresh();
 }
+
+function setDigimon(){
+    var a = document.getElementById("options");
+    a.style.visibility='hidden';
+    current_game=2;
+    refresh();
+}
+
 function refresh(){
     current_item=0;
     var a;
-    for(i=0;i<=1;i++){
+    for(i=0;i<=2;i++){
         a = document.getElementById(games[i]+"Scene");
         a.style.visibility='hidden';
     }
