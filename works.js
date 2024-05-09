@@ -1,3 +1,4 @@
+
 const names = ["Captain Nightkid", "Maelstrom", "Nirvana"]
 const ygonames = ["Egyptian Gods", "New World Formation", "Leviathan", "Hiita", "Havnis", "Exceed The Pendulum"]
 const digimonnames = ["Lillymon", "Angewomon", "Faeriemon", "Taomon"]

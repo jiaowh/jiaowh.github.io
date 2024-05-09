@@ -14,57 +14,67 @@
 </head>
 <body  style="background-color:#C1AD8E;">
     <div class = "mobile">
-        <div class = "header">
-            <a href="index.html">
-                <img class="logo" id="logo" src="img/logo-1.png" />
-            </a>
-            <img class="menu"  src="img/hamburger.png" onclick="loadSideBar()"/>
-            <div class="sidebar" id="sidebar">
-                <div class="fill" id="fill" onclick="removeSideBar()"></div>
+      <div class = "header">
+        <a href="index.html">
+            <img class="logo" id="logo" src="img/logo-1.png" />
+        </a>
+        <img class="menu"  src="img/hamburger.png" onclick="loadSideBar()"/>
+        <div class="sidebar" id="sidebar">
+            <div class="fill" id="fill" onclick="removeSideBar()"></div>
 
-                <div class="crafter-crad" id="craft"   >
-                    
-                      <img class="crafter-card" src="img/s_craft.png" />
-                      
-                      <a href="works.html">
-                        <img class="works" src="img/works.png" />
-                      </a>
-                      
-                  </div>
-        
-                  <div class="artist-card" id="art"  >
-                   
-                      <img class="artist-card-2"  src="img/s_art.png" />
-                      <a href="illust.html">
-                        <img class="illustration" src="img/illustration.png" />
-                      </a>
-                      <img class="element-model" src="img/3d-model-1.png" onclick='test()' />
-                    
-                  </div>
-        
-                  <div class="rider-card" id="ride"  >
-                    
-                      <img class="rider-card-2" src="img/s_ride.png" />
-                      <img class="photos" src="img/photos.png" />
-                      <a href="video.html">
-                        <img class="video" src="img/video.png" />
-                      </a>
-                   
-                  </div>
-                  <div class ="developer-card1" id="dev"  >
-                    <img class="developer-card" src="img/s_dev.png" />
-                    <a href="dev.html">
-                      <img class="works1" src="img/works.png" />
-                    </a>
-
+            <div class="crafter-crad" id="craft"   >
+                
+                  <img class="crafter-card" src="img/s_craft.png" />
+                  
+                  <a href="works_new.html">
+                    <img class="works" src="img/works.png" />
+                  </a>
+                  
+              </div>
+    
+              <div class="artist-card" id="art"  >
+               
+                  <img class="artist-card-2"  src="img/s_art.png" />
+                  <a href="illust.html">
+                  <img class="illustration" src="img/illustrations.png"  />
+                </a>
+                  <a href="model.html">
+                    <img class="element-model" src="img/3D_model.png"  />
+                  </a>
+                
+              </div>
+    
+              <div class="rider-card" id="ride"  >
+                
+                  <img class="rider-card-2" src="img/s_ride.png" />
+                  <img class="photos" src="img/photos.png" />
+                  <img class="video" src="img/videos.png" />
+               
+              </div>
+              <div class ="developer-card1" id="dev"  >
+                <img class="developer-card" src="img/s_dev.png" />
+                <a href="dev.html">
+                  <img class="works1" src="img/Projects.png" />
+                </a>
             </div>
+        </div>
         </div>
 
         <div class ="dropdown">
             <div class="select-btn" onclick="showSelectionBar()">
-                <span class="sBtn-text">Select Model</span>
+                <span class="sBtn-text" id="name">Select Model</span>
             </div>
             <ul class="options"id="options" >
+              <li class="option" >
+                <span class="option-text" onclick="setEagle()">Eagle</span>
+              </li>
+             <li class="option">
+                <span class="option-text" onclick="setAkbk()">Akabeko</span>
+             </li>
+              <li class="option" >
+                <span class="option-text" onclick="setJasmine()">Jasmine</span>
+            </li>
+          
                 <li class="option" >
                     <span class="option-text" onclick="setLogo()">Logo</span>
                 </li>
@@ -81,11 +91,37 @@
             <img class = "card" src="img/card.png"/>
 
             <a-scene embedded class='vgScene' id="vgScene">
-                <a-camera>
+                <a-camera listener look-controls-enabled="false">
                     <a-cursor></a-cursor>
                   </a-camera>
+                  <a-entity id="eagle" visible="true">
+                    <a-gltf-model
+                    src="assets/eagle.glb"
+                    scale="0.2 0.2 0.2 "
+                    position="0.17 1.65 -0.7"
+                    rotation="0 -90 -20"      
+                    
+                  ></a-gltf-model>      
+                </a-entity>
+                <a-entity id="akbk" visible="false">
+                  <a-gltf-model
+                  src="assets/akbk.glb"
+                  scale="0.125 0.125 0.125 "
+                  position="0.06 1.67 -0.7"
+                  rotation="0 -90 0"      
+                  
+                ></a-gltf-model>      
+              </a-entity>
+              <a-entity id="jasmine" visible="false">
+                <a-gltf-model
+                src="assets/jasmine.glb"
+                scale="0.07 0.07 0.07 "
+                position="-0.04 1.50 -0.7"
+                rotation="-15 -90 0"      
                 
-                <a-entity id="3dlogo" visible="true">
+              ></a-gltf-model>      
+            </a-entity>
+                <a-entity id="3dlogo" visible="false">
                     <a-gltf-model
                     src="assets/logo.glb"
                     scale="0.03 0.03 0.03 "
@@ -103,16 +139,31 @@
                       animation-mixer             
                     ></a-gltf-model>    
                 </a-entity>
-                <p class="name" id="name">Logo</p>
+                <p class="name">Renders</p>
 
-                <a-entity light="type: ambient; intensity: 1;"></a-entity>
-                <a-entity light="type: directional; color: #fff; intensity: 0.5; castShadow: true;" position="0 1 2" ></a-entity>
+                <a-entity light="type: ambient; intensity: 0.4;"></a-entity>
+                <a-entity light="type: directional; color: #ffffff; intensity: 0.8; castShadow: true;" position="0.2 1.65 0.7" ></a-entity>
+                <a-entity light="type: directional; color: #ffffff; intensity: 0.8; castShadow: true;" position="-0.17 1.85 0.7" ></a-entity>
+                <a-entity light="type: directional; color: #ffffff; intensity: 1; castShadow: true;" position="0 0 1"></a-entity>
+
               </a-scene>
+              <button id="transparentButton"></button>
 
 
 
               
         </div>
+
+        <div class="renders">
+          <div class="render" id="render1">
+            <img class="img_h" src="img/eagle1.png" alt="render3">
+            <img class="img_h" src="img/eagle.gif" alt="render1">
+            <img class="img_h" src="img/eagle.png" alt="render2">
+
+            <p onclick="scrollToTop()">Back to Top</p>
+          </div>
+        </div>
+        
     </div>    
 </body>
 </html>

@@ -11,48 +11,58 @@ function onLoad() {
     a.style.top = '0px';
     a.style.left='0px';
     a = document.getElementById("craft"); 
-    a.style.top='35vh';
+    a.style.top='42vh';
     a=document.getElementById("art");
-    a.style.top='78vh'
+    a.style.top='60vh'
     a=document.getElementById("ride");
-    a.style.top='80vh'
-    a.style.left='50vw';
+    a.style.top='68vh'
+    a=document.getElementById("dev");
+    a.style.top='90vh'
+}
+
+function frame1(){
+    a = document.getElementById("craft"); 
+    a.style.top='3vh';
+    a=document.getElementById("art");
+    a.style.top='60vh';
+    a=document.getElementById("ride");
+    a.style.top='68vh'
+    
     a=document.getElementById("dev");
     a.style.top='90vh'
 }
 
 function frame2(){
     a = document.getElementById("craft"); 
-    a.style.top='14vh';
+    a.style.top='3vh';
     a=document.getElementById("art");
-    a.style.top='35vh';
+    a.style.top='20vh';
     a=document.getElementById("ride");
-    a.style.top='80vh'
-    a.style.left='0vw';
+    a.style.top='68vh'
+   
     a=document.getElementById("dev");
     a.style.top='90vh'
 }
 
 function frame3(){
     a = document.getElementById("craft"); 
-    a.style.top='5vh';
+    a.style.top='3vh';
     a=document.getElementById("art");
-    a.style.top='21vh';
+    a.style.top='20vh';
     a=document.getElementById("ride");
-    a.style.top='34vh';
-    a.style.left='0vw';
+    a.style.top='29vh';
+    
     a=document.getElementById("dev");
-    a.style.top='80vh'
+    a.style.top='90vh'
 }
 
 function frame4() {
     a = document.getElementById("craft"); 
-    a.style.top='5vh';
+    a.style.top='3vh';
     a=document.getElementById("art");
-    a.style.top='21vh'
+    a.style.top='20vh';
     a=document.getElementById("ride");
-    a.style.top='34vh'
-    a.style.left='0vw';
+    a.style.top='29vh';
     a=document.getElementById("dev");
-    a.style.top='47vh'
+    a.style.top='53vh'
 }

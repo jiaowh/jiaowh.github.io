@@ -16,7 +16,7 @@
 .mobile .overlap {
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: 200vh;
   left: 0px;
 }
 
@@ -27,33 +27,31 @@
   top: -500px;
   left: 204px;
   object-fit: cover;
-  transition-duration: 2000ms;
+  transition-duration: 1000ms;
 }
 
 .mobile .crafter-crad {
   position: absolute;
-  width: 100vw;
-  height: 50vh;
+  width: 90vw;
+  height: 70vh;
   top: 90vh;
-  transition-duration: 2000ms;
+  left:10vw;
+  transition-duration: 1000ms;
+  transform: rotate(-10deg);
 }
 
-
-.mobile .crafter-card {
-  position:absolute;
-  width: 100vw;
-  height: 60vh;
-  top: 0vh;
-  left: 0vw;
+.mobile .crafter-card{
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
-
 
 .mobile .works {
   position: absolute;
-  width: 28vw;
-  height: 9vh;
-  top: 29vh;
-  left: 33vw;
+  width: 28%;
+  height: 9%;
+  top: 32vh;
+  left: 36%;
   
 }
 
@@ -61,168 +59,115 @@
   position: absolute;
   width: 6vw;
   height: 4vh;
-  top: 25vh;
-  left: 24vw;
-  
-  transform: rotate(24.99deg);
+  top: 33vh;
+  left: 67vw;
 }
 
 .mobile .works_insta {
   position: absolute;
   width: 6vw;
   height: 4vh;
-  top: 30vh;
+  top: 33vh;
   left: 19vw;
-  
-  transform: rotate(21.99deg);
 }
 
 .mobile .artist-card {
   position: absolute;
-  width: 100vw;
-  height: 599px;
+  width: 90vw;
+  height: 70vh;
+  left:0vw;
   top: 100vh;
-  transition-duration: 2000ms;
-  transform: rotate(3.99deg);
+  transition-duration: 1000ms;
+  transform: rotate(10deg);
 }
 
-.mobile .div {
-  position: relative;
-  width: 485px;
-  height: 622px;
-  top: -50px;
-  left: -35px;
-}
 
 .mobile .artist-card-2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  width:100vw;
-  left:4vw;
-  height:70vh;
-  top:-5vh
+  width:100%;
+  height:100%;
 }
 
 .mobile .illustration {
   position: absolute;
-  width: 30vw;
-  height: 9vh;
-  top: 30vh;
-  left: 40vw;
-  transform: rotate(3.99deg);
+  width: auto;
+  height: 6%;
+  top: 32vh;
+  left: 12vw;
+
 }
 
 .mobile .element-model {
   position: absolute;
-  width: 25vw;
-  height: 9vh;
-  top: 38vh;
-  left: 46vw;
-  transform: rotate(3.99deg);
+  width: auto;
+  height: 6%;
+  top: 40vh;
+  left: 14vw;
+  
 }
 
 
 .mobile .rider-card {
   position: absolute;
-  width: 100vw;
-  height: 30vh;
-  top:100vh;
-  transform: rotate(8.58deg);
-  transition-duration: 2000ms;
-  left: 50vw;
+  width: 90vw;
+  height: 70vh;
+  left:10vw;
+  top: 100vh;
+  transition-duration: 1000ms;
+  transform: rotate(-10deg);
 }
 
 
 
 .mobile .rider-card-2 {
   position: absolute;
-  width: 100vw;
-  height: 70vh;
-  top:-3vh;
-  left: -6vw;
-  transform: rotate(-8.58deg);
+  width: 100%;
+  height: 100%; 
 }
-
 
 .mobile .photos {
   position: absolute;
-  width: 25vw;
-  height: 9vh;
-  top: 27vh;
-  left: 30vw;
-  transform: rotate(-8.58deg);
+  width: auto;
+  height: 6%;
+  top: 35vh;
+  left: 32vw;
+  
 }
 
 .mobile .video {
   position: absolute;
-  width: 24vw;
-  height: 9vh;
-  top: 36vh;
-  left: 30vw;
-  transform: rotate(-11deg);
+  width: auto;
+  height: 6%;
+  top: 42vh;
+  left: 32vw;
+  
 }
 
 .mobile .developer-card1 {
   position: absolute;
-  width: 100vw;
-  height: 60vh;
+  width: 90vw;
+  height: 70vh;
   top:100vh;
- 
-  transition-duration: 2000ms;
+  transform: rotate(10deg);
+  transition-duration: 1000ms;
 }
 
 .mobile .developer-card {
   position: absolute;
-  width: 100vw;
-  height: 80vh;
-  transform: rotate(15.58deg);
+  width: 100%;
+  height: 100%;
+ 
   top:-6vh;
 }
 
 .mobile .works1 {
   position: absolute;
-  width: 24vw;
-  height: 9vh;
-  top: 33vh;
-  left: 39vw;
-  transform: rotate(-16.05deg);
+  width: auto;
+  height: 9%;
+  top: 28vh;
+  left: 25vw;
 }
 
-.artist-button{
-  height: 10vh;
-  width: 70vw;
-  position: relative; 
-  top:2vh;
-  left: 10vw;
-  transform: rotate(-10.05deg);
-  z-index: 999;
-}
-
-.crafter-button{
-  height: 10vh;
-  width: 50vw;
-  position: relative; 
-  top:5vh;
-  left: 30vw;
-  transform: rotate(18.05deg);
-  z-index: 999;
-}
-
-.rider-button{
-  height: 10vh;
-  width: 70vw;
-  position: relative; 
-  top:1vh;
-  left: 7vw;
-  transform: rotate(-.05deg);
-  z-index: 999;
-}
-
-.developer-button{
-  height: 10vh;
-  width: 70vw;
-  position: relative; 
-  top:1vh;
-  left: 20vw;
-  transform: rotate(.05deg);
-  z-index: 999;
-}
