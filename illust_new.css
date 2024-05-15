@@ -1,0 +1,415 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    
+}
+body {
+    background-color: #FDF0D6;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 2dvh;
+    height: 100dvh;
+    top:15vh;
+    position: inherit;
+    overflow:hidden;
+}
+@media screen and (max-width: 768px) {
+.changeBorder {
+    width: 20vw;
+    height: auto; /* Use auto to adapt to content */
+    margin: 1em auto;
+    left:0vw;
+    position: relative;
+    top:15vh;
+}
+
+.circleBorder {
+    width: 20vw;
+    height: auto; /* Use auto to adapt to content */
+    margin: 1em auto;
+    left:2vw;
+    top:24vh;
+    position: relative;
+}
+
+.emoBorder {
+    width: 25vw;
+    height: auto; /* Use auto to adapt to content */
+    margin: 1em auto;
+    left:2vw;
+    position: relative;
+    top:15vh;
+}
+
+.higanbanaBorder {
+    width: 20vw;
+    height: auto; /* Use auto to adapt to content */
+    margin: 1em auto;
+    left:2vw;
+    position: relative;
+    top:12vh;
+}
+
+.sakuraBorder {
+    width: 20vw;
+    height: 20vh; /* Use auto to adapt to content */
+    margin: 1em auto;
+    left:49vw;
+    position: relative;
+    top:5vh;
+}
+
+.dragonBorder {
+    width: 20vw;
+    height: auto; /* Use auto to adapt to content */
+    margin: 1em auto;
+    left:-24vw;
+    position: relative;
+    top:0vh;
+}
+
+.dsbrBorder {
+    width: 20vw;
+    height: auto; /* Use auto to adapt to content */
+    margin: 1em auto;
+    left:-22vw;
+    position: relative;
+    top:7vh;
+}
+
+.msndBorder {
+    width: 20vw;
+    height: auto; /* Use auto to adapt to content */
+    margin: 1em auto;
+    left:3vw;
+    position: relative;
+    top:-7vh;
+}
+
+.mbrsBorder {
+    width: 23vw;
+    height: auto; /* Use auto to adapt to content */
+    margin: 1em auto;
+    left:37vw;
+    position: relative;
+    top:-22vh;
+}
+
+.outerBevel {
+    box-shadow: 4px 6px 12px 0 black;
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgb(109, 84, 58) rgb(24, 19, 13) rgb(24, 19, 13) rgb(109, 84, 58);
+}
+.flatSurface {
+    border: 3px solid rgb(65, 40, 16);
+}
+.innerBevel {
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgb(24, 19, 13) rgb(109, 84, 58) rgb(109, 84, 58) rgb(24, 19, 13);
+}
+.change {
+    display: block;
+    clear: both;
+    width: 100%;
+    height: auto; /* Ensure the height maintains aspect ratio */
+    padding: 7.5% 7.5% 10% 7.5%; /* Mat width */
+    background-color: rgb(255, 249, 224); /* Mat color */
+    border-width: 3px; /* Gold edge of mat */
+    border-style: solid;
+    border-color: rgb(207, 166, 0) rgb(207, 166, 0) rgb(145, 110, 0) rgb(145, 110, 0);
+    z-index: 0;
+}
+
+.circle {
+    display: block;
+    clear: both;
+    width: 100%;
+    height: auto; /* Ensure the height maintains aspect ratio */
+    padding: 7.5% 7.5% 10% 7.5%; /* Mat width */
+    background-color: rgb(255, 249, 224); /* Mat color */
+    border-width: 3px; /* Gold edge of mat */
+    border-style: solid;
+    border-color: rgb(207, 166, 0) rgb(207, 166, 0) rgb(145, 110, 0) rgb(145, 110, 0);
+    z-index: 0;
+}
+
+.emo {
+    display: block;
+    clear: both;
+    width: 100%;
+    height: auto; /* Ensure the height maintains aspect ratio */
+    padding: 7.5% 7.5% 10% 7.5%; /* Mat width */
+    background-color: rgb(255, 249, 224); /* Mat color */
+    border-width: 3px; /* Gold edge of mat */
+    border-style: solid;
+    border-color: rgb(207, 166, 0) rgb(207, 166, 0) rgb(145, 110, 0) rgb(145, 110, 0);
+    z-index: 0;
+}
+
+.higanbana {
+    display: block;
+    clear: both;
+    width: 100%;
+    height: auto; /* Ensure the height maintains aspect ratio */
+    padding: 7.5% 7.5% 10% 7.5%; /* Mat width */
+    background-color: rgb(255, 249, 224); /* Mat color */
+    border-width: 3px; /* Gold edge of mat */
+    border-style: solid;
+    border-color: rgb(207, 166, 0) rgb(207, 166, 0) rgb(145, 110, 0) rgb(145, 110, 0);
+    z-index: 0;
+}
+
+.sakura {
+    display: block;
+    clear: both;
+    width: 100%;
+    height: auto; /* Ensure the height maintains aspect ratio */
+    padding: 7.5% 7.5% 10% 7.5%; /* Mat width */
+    background-color: rgb(255, 249, 224); /* Mat color */
+    border-width: 3px; /* Gold edge of mat */
+    border-style: solid;
+    border-color: rgb(207, 166, 0) rgb(207, 166, 0) rgb(145, 110, 0) rgb(145, 110, 0);
+    z-index: 0;
+}
+
+.dragon {
+    display: block;
+    clear: both;
+    width: 100%;
+    height: auto; /* Ensure the height maintains aspect ratio */
+    padding: 7.5% 7.5% 10% 7.5%; /* Mat width */
+    background-color: rgb(255, 249, 224); /* Mat color */
+    border-width: 3px; /* Gold edge of mat */
+    border-style: solid;
+    border-color: rgb(207, 166, 0) rgb(207, 166, 0) rgb(145, 110, 0) rgb(145, 110, 0);
+    z-index: 0;
+}
+
+.dsbr {
+    display: block;
+    clear: both;
+    width: 100%;
+    height: auto; /* Ensure the height maintains aspect ratio */
+    padding: 7.5% 7.5% 10% 7.5%; /* Mat width */
+    background-color: rgb(255, 249, 224); /* Mat color */
+    border-width: 3px; /* Gold edge of mat */
+    border-style: solid;
+    border-color: rgb(207, 166, 0) rgb(207, 166, 0) rgb(145, 110, 0) rgb(145, 110, 0);
+    z-index: 0;
+}
+
+.msnd {
+    display: block;
+    clear: both;
+    width: 100%;
+    height: auto; /* Ensure the height maintains aspect ratio */
+    padding: 7.5% 7.5% 10% 7.5%; /* Mat width */
+    background-color: rgb(255, 249, 224); /* Mat color */
+    border-width: 3px; /* Gold edge of mat */
+    border-style: solid;
+    border-color: rgb(207, 166, 0) rgb(207, 166, 0) rgb(145, 110, 0) rgb(145, 110, 0);
+    z-index: 0;
+}
+
+.mbrs {
+    display: block;
+    clear: both;
+    width: 100%;
+    height: auto; /* Ensure the height maintains aspect ratio */
+    padding: 7.5% 7.5% 10% 7.5%; /* Mat width */
+    background-color: rgb(255, 249, 224); /* Mat color */
+    border-width: 3px; /* Gold edge of mat */
+    border-style: solid;
+    border-color: rgb(207, 166, 0) rgb(207, 166, 0) rgb(145, 110, 0) rgb(145, 110, 0);
+    z-index: 0;
+}
+
+.me {
+    position: absolute;
+    bottom: 0;
+    right: 50%;
+    width: 80vw;
+    translate: 50% 0;
+    max-width: 480px;
+    height: auto;
+    z-index: -1;
+}
+@keyframes highlight {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.highlight-animation {
+    animation: highlight 1s infinite;
+}
+}
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+}
+
+
+
+
+.header {
+    position: absolute;
+    height:15vh;
+    width: 100vw;
+    left:0vw;
+    top:0;
+    background: linear-gradient(180deg, #C0AD8E 85.66%, #B5A07F 85.67%);
+
+    
+  }
+  
+  .logo {
+    position: absolute;
+    width: 30vw;
+    height: 15vh;
+    top: -0vh;
+    left: 0vw;
+  }
+  
+  .menu {
+    position: absolute;
+    width: 10vw;
+    height: 5vh;
+    top: 5vh;
+    right: 10vw;
+  }
+  
+  .sidebar{
+    position:absolute;
+    height:100dvh;
+    width:100vw;
+    z-index:9000;
+    top:0vh;
+    left:90vw;
+    transition-duration: 1000ms;
+    visibility: hidden;
+    display: none;
+    overflow-x:hidden;
+  }
+  
+  .fill{
+    position:absolute;
+    height:520vh;
+    width:190vw;
+    left:-90vw;
+    background-color: black;
+    opacity: 0.8;
+    visibility: hidden;
+    top:0vh;
+  }
+  
+  .crafter-crad{
+    position: absolute;
+    height:27vh;
+    width: 60vw;
+    left:52vw;
+    top:-7vh;
+  }
+  
+  .crafter-card{
+    height:60vh;
+  }
+  .works{
+    position: absolute;
+    top:17vh;
+    transform: rotate(-12.99deg);
+    left: 12vw;
+    height:5vh;
+    width: auto;
+  }
+  
+  .artist-card{
+    position: absolute;
+    height:25vh;
+    width: 60vw;
+    left:36vw;
+    top: 19vh;
+  }
+
+  .artist-card-2{height: 60vh;}
+  
+  .illustration{
+    position: absolute;
+    top:13vh;
+    transform: rotate(8.99deg);
+    left: 11vw;
+    height:5vh;
+    width: auto;
+  }
+  
+  .element-model{
+    position: absolute;
+    top:20vh;
+    transform: rotate(8.99deg);
+    left: 9vw;
+    height:5vh;
+    width: auto;
+  }
+  
+  .rider-card{
+    position: absolute;
+    height:25vh;
+    width: 60vw;
+    left:49vw;
+    top: 42vh;
+  }
+  
+  .rider-card-2{height: 60vh;}
+  .photos{
+    position: absolute;
+    top:15vh;
+    transform: rotate(-11.99deg);
+    left: 10vw;
+    height:5vh;
+    width: auto;
+  }
+  .video{
+    position: absolute;
+    top:21vh;
+    transform: rotate(-11.99deg);
+    left: 12vw;
+    height:5vh;
+    width: auto;
+  }
+  
+  .developer-card1{
+    position: absolute;
+    height:25vh;
+    width: 60vw;
+    left:19vw;
+    top: 68vh;
+  }
+
+ .developer-card{height: 60vh;}
+  
+  .works1{
+    position: absolute;
+    top:15vh;
+    transform: rotate(11.99deg);
+    left: 30vw;
+    height:5vh;
+    width: auto;
+  }
