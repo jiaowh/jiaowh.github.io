@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="works.css" />
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Henny+Penny&display=swap" rel="stylesheet">
+    <script src="works.js" ></script>
+</head>
+<body  style="background-color:#C1AD8E;">
+    <div class = "mobile">
+        <div class = "header">
+            <a href="index.html">
+                <img class="logo" id="logo" src="img/logo-1.png" />
+            </a>
+            <img class="menu"  src="img/hamburger.png" onclick="loadSideBar()"/>
+            <div class="sidebar" id="sidebar">
+                <div class="fill" id="fill" onclick="removeSideBar()"></div>
+
+                <div class="crafter-crad" id="craft"   >
+                    
+                      <img class="crafter-card" src="img/s_craft.png" />
+                      
+                        <img class="works" src="img/works.png" />
+                      
+                  </div>
+        
+                  <div class="artist-card" id="art"  >
+                   
+                      <img class="artist-card-2"  src="img/s_art.png" />
+                      <a href="illust.html">
+                        <img class="illustration" src="img/illustration.png" />
+                      </a>
+                      <a href="model.html">
+                        <img class="element-model" src="img/3d-model-1.png"  />
+                      </a>
+                    
+                  </div>
+        
+                  <div class="rider-card" id="ride"  >
+                    
+                      <img class="rider-card-2" src="img/s_ride.png" />
+                      <img class="photos" src="img/photos.png" />
+                      <a href="video.html">
+                        <img class="video" src="img/video.png" />
+                      </a>
+                   
+                  </div>
+                  <div class ="developer-card1" id="dev"  >
+                    <img class="developer-card" src="img/s_dev.png" />
+                    <a href="dev.html">
+                      <img class="works1" src="img/works.png" />
+                    </a>
+
+            </div>
+        </div>
+
+        <div class ="dropdown">
+            <div class="select-btn" onclick="showSelectionBar()">
+                <span class="sBtn-text">Select genre</span>
+            </div>
+            <ul class="options"id="options" >
+                <li class="option" >
+                    <span class="option-text" onclick="setVG()">Vanguard</span>
+                </li>
+                <li class="option">
+                    <span class="option-text" onclick="setYGO()">Yugioh</span>
+                </li>
+                <li class="option">
+                    <span class="option-text" onclick="setDigimon()">Digimon</span>
+                </li>
+                <li class="option">
+                    <span class="option-text">Pokemon</span>
+                </li>
+                <li class="option">
+                    <span class="option-text">Other TCG</span>
+                </li>
+                <li class="option">
+                    <span class="option-text">Others</span>
+                </li>
+            </ul>
+        </div>
+    
+
+        <div class = "portfolio" >
+
+            <img class = "card" src="img/card.png"/>
+
+            <a-scene embedded class='vgScene' id="vgScene">
+                <a-camera listener look-controls-enabled="false">
+                    <a-cursor></a-cursor>
+                  </a-camera>
+                
+                <a-entity id="vg_0" visible="true">
+                    <a-gltf-model
+                    src="assets/vg1.glb"
+                    scale="10 10 10 "
+                    position="0 1.3 -1.1"
+                    rotation="20 0 -2"      
+                    
+                  ></a-gltf-model>      
+                </a-entity>
+                <a-entity id="vg_1" visible="false">
+                    <a-gltf-model
+                      src="assets/vg2.glb"
+                      scale="10 10 10 "
+                      position="0.0 1.3 -1.3"
+                      rotation="30 0 0"               
+                    ></a-gltf-model>    
+                </a-entity>
+                <a-entity id="vg_2" visible="false">
+                    <a-gltf-model
+                      src="assets/vg3.glb"
+                      scale="10 10 10 "
+                      position="0.0 1.3 -2.5"
+                      rotation="20 0 0"               
+                    ></a-gltf-model>    
+                </a-entity>
+                <p class="name" id="name">Captain Nightkid</p>
+
+                <a-entity light="type: ambient; intensity: 1;"></a-entity>
+                <a-entity light="type: directional; color: #fff; intensity: 0.5; castShadow: true;" position="0 1 2" ></a-entity>
+              </a-scene>
+
+              <a-scene embedded class='ygoScene' id="ygoScene">
+                <a-camera listener look-controls="enabled: false">
+                    <a-cursor></a-cursor>
+                  </a-camera>
+                
+                <a-entity id="ygo_0" visible="true">
+                    <a-gltf-model
+                    src="assets/ygo1.glb"
+                    scale="2 2 2 "
+                    position="0 1.5 -1.2"
+                    rotation="10 0 0"      
+                    
+                  ></a-gltf-model>      
+                </a-entity>
+                <a-entity id="ygo_1" visible="false">
+                    <a-gltf-model
+                      src="assets/ygo2.glb"
+                      scale="10 10 10 "
+                      position="0.02 1.7 -1.1"
+                      rotation="90 0 0"               
+                    ></a-gltf-model>    
+                </a-entity>
+                <a-entity id="ygo_2" visible="false">
+                    <a-gltf-model
+                      src="assets/ygo3.glb"
+                      scale="10 10 10 "
+                      position="0.0 1.4 -1.1"
+                      rotation="40 0 0"               
+                    ></a-gltf-model>    
+                </a-entity>
+                <a-entity id="ygo_3" visible="false">
+                    <a-gltf-model
+                      src="assets/ygo4.glb"
+                      scale="10 10 10 "
+                      position="0.0 1.68 -1.1"
+                      rotation="90 0 0"               
+                    ></a-gltf-model>    
+                </a-entity>
+                <a-entity id="ygo_4" visible="false">
+                    <a-gltf-model
+                      src="assets/ygo5.glb"
+                      scale="10 10 10 "
+                      position="0.0 1.68 -1.0"
+                      rotation="90 0 0"               
+                    ></a-gltf-model>    
+                </a-entity>
+                <a-entity id="ygo_5" visible="false">
+                    <a-gltf-model
+                      src="assets/ygo6.glb"
+                      scale="10 10 10 "
+                      position="0.0 1.4 -1.2"
+                      rotation="30 2 -2"               
+                    ></a-gltf-model>    
+                </a-entity>
+                <p class="name" id="ygoname">Egyptian Gods</p>
+
+                <a-entity light="type: ambient; intensity: 1;"></a-entity>
+                <a-entity light="type: directional; color: #fff; intensity: 0.5; castShadow: true;" position="0 1 2" ></a-entity>
+              </a-scene>
+
+              <a-scene embedded class='digimonScene' id="digiScene">
+                <a-camera listener look-controls-enabled="false">
+                    <a-cursor></a-cursor>
+                  </a-camera>
+                
+                <a-entity id="digi_0" visible="true">
+                    <a-gltf-model
+                    src="assets/digi1.glb"
+                    scale="10 10 10 "
+                    position="0 1.7 -1.4"
+                    rotation="90 0 0"      
+                    
+                  ></a-gltf-model>      
+                </a-entity>
+                <a-entity id="digi_1" visible="false">
+                    <a-gltf-model
+                      src="assets/digi2.glb"
+                      scale="10 10 10 "
+                      position="0.0 1.7 -1.1"
+                      rotation="90 0 0"               
+                    ></a-gltf-model>    
+                </a-entity>
+                <a-entity id="digi_2" visible="false">
+                    <a-gltf-model
+                      src="assets/digi3.glb"
+                      scale="10 10 10 "
+                      position="0.1 1.7 -2.3"
+                      rotation="80 0 0"               
+                    ></a-gltf-model>    
+                </a-entity>
+                <a-entity id="digi_3" visible="false">
+                  <a-gltf-model
+                    src="assets/digi4.glb"
+                    scale="10 10 10 "
+                    position="0.0 1.7 -1.4"
+                    rotation="90 0 0"               
+                  ></a-gltf-model>    
+              </a-entity>
+                <p class="name" id="diginame">Lillymon</p>
+
+                <a-entity light="type: ambient; intensity: 1;"></a-entity>
+                <a-entity light="type: directional; color: #fff; intensity: 0.5; castShadow: true;" position="0 1 2" ></a-entity>
+              </a-scene>
+
+
+
+              <img class ="left" id="left" src = "img/arrow.png" onclick='left()'>
+              <img class ="right" id='right' src = "img/arrow.png" onclick="right()">
+        </div>
+    </div>    
+</body>
+</html>
