@@ -56,7 +56,7 @@ body {
     width: 20vw;
     height: 20vh; /* Use auto to adapt to content */
     margin: 1em auto;
-    left:49vw;
+    left:46vw;
     position: relative;
     top:5vh;
 }
@@ -85,14 +85,23 @@ body {
     margin: 1em auto;
     left:3vw;
     position: relative;
-    top:-7vh;
+    top:-3vh;
 }
 
 .mbrsBorder {
     width: 23vw;
     height: auto; /* Use auto to adapt to content */
     margin: 1em auto;
-    left:37vw;
+    left:-10vw;
+    position: relative;
+    top:-17vh;
+}
+
+.maiBorder {
+  width: 23vw;
+    height: auto; /* Use auto to adapt to content */
+    margin: 1em auto;
+    left:12vw;
     position: relative;
     top:-22vh;
 }
@@ -226,6 +235,19 @@ body {
     border-style: solid;
     border-color: rgb(207, 166, 0) rgb(207, 166, 0) rgb(145, 110, 0) rgb(145, 110, 0);
     z-index: 0;
+}
+
+.mai {
+  display: block;
+  clear: both;
+  width: 100%;
+  height: auto; /* Ensure the height maintains aspect ratio */
+  padding: 7.5% 7.5% 10% 7.5%; /* Mat width */
+  background-color: rgb(255, 249, 224); /* Mat color */
+  border-width: 3px; /* Gold edge of mat */
+  border-style: solid;
+  border-color: rgb(207, 166, 0) rgb(207, 166, 0) rgb(145, 110, 0) rgb(145, 110, 0);
+  z-index: 0;
 }
 
 .me {
