@@ -193,12 +193,13 @@
   </div>
   <script>
    var map;
-      var src = 'https://github.com/jiaowh/jiaowh.github.io/blob/4fefd46a5203fcecc0344d26d03a9a9ec10901f1/test.kmz';
+      var src = 'https://docs.google.com/uc?id=19XXprxwvTU18_B44_I0KfX3zWKftX-KN&amp;export=kml';
 
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           center: new google.maps.LatLng(35.68339538574219, 139.765380859375),
           zoom: 7,
+          mapTypeId: google.maps.MapTypeId.TERRAIN
         });
 
         var kmlLayer = new google.maps.KmlLayer({
