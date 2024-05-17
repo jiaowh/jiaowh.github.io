@@ -1,134 +1,147 @@
+
 .header {
-    position: absolute;
-    height:15vh;
-    width: 100vw;
-    left:0vw;
-    top:-1vh;
-    background: linear-gradient(180deg, #C0AD8E 85.66%, #B5A07F 85.67%);
-  }
+  position: absolute;
+  height:15vh;
+  width: 100vw;
+  left:0vw;
+  top:0;
+  background: linear-gradient(180deg, #C0AD8E 85.66%, #B5A07F 85.67%);
+
   
-  .logo {
-    position: absolute;
-    width: 30vw;
-    height: 15vh;
-    top: -0vh;
-    left: 0vw;
-  }
-  
-  .menu {
-    position: absolute;
-    width: 10vw;
-    height: 5vh;
-    top: 5vh;
-    right: 10vw;
-  }
-  
-  .sidebar{
-    position:absolute;
-    height:100vh;
-    width:100vw;
-    z-index:9000;
-    top:1vh;
-    left:90vw;
-    transition-duration: 1000ms;
-  }
-  
-  .fill{
-    position:absolute;
-    height:100vh;
-    width:190vw;
-    left:-90vw;
-    background-color: black;
-    opacity: 0.8;
-    visibility: hidden;
-    top:0vh;
-  
-  }
-  
-  .crafter-crad{
-    position: absolute;
-    height:27vh;
-    width: 60vw;
-    left:52vw;
-    top:-3vh;
-  }
-  
-  .works{
-    position: absolute;
-    top:17vh;
-    transform: rotate(-35.99deg);
-    left: 17vw;
-    height:10vh;
-    width: auto;
-  }
-  
-  .artist-card{
-    position: absolute;
-    height:25vh;
-    width: 60vw;
-    left:50vw;
-    top: 22vh;
-  }
-  
-  .illustration{
-    position: absolute;
-    top:15vh;
-    transform: rotate(18.99deg);
-    left: 10vw;
-    height:9vh;
-    width: auto;
-  }
-  
-  .element-model{
-    position: absolute;
-    top:23vh;
-    transform: rotate(18.99deg);
-    left: 9vw;
-    height:9vh;
-    width: auto;
-  }
-  
-  .rider-card{
-    position: absolute;
-    height:25vh;
-    width: 60vw;
-    left:49vw;
-    top: 47vh;
-  }
-  
-  .photos{
-    position: absolute;
-    top:17vh;
-    transform: rotate(-21.99deg);
-    left: 13vw;
-    height:9vh;
-    width: auto;
-  }
-  .video{
-    position: absolute;
-    top:23vh;
-    transform: rotate(-21.99deg);
-    left: 20vw;
-    height:9vh;
-    width: auto;
-  }
-  
-  .developer-card1{
-    position: absolute;
-    height:25vh;
-    width: 60vw;
-    left:48vw;
-    top: 78vh;
-  }
-  
-  .works1{
-    position: absolute;
-    top:13vh;
-    transform: rotate(-5.99deg);
-    left: 24vw;
-    height:10vh;
-    width: auto;
-  }
+}
+
+.logo {
+  position: absolute;
+  width: 30vw;
+  height: 15vh;
+  top: -0vh;
+  left: 0vw;
+}
+
+.menu {
+  position: absolute;
+  width: 10vw;
+  height: 5vh;
+  top: 5vh;
+  right: 10vw;
+}
+
+.sidebar{
+  position:absolute;
+  height:100dvh;
+  width:100vw;
+  z-index:9000;
+  top:0vh;
+  left:90vw;
+  transition-duration: 1000ms;
+  visibility: hidden;
+  display: none;
+  overflow-x:hidden;
+}
+
+.fill{
+  position:absolute;
+  height:520vh;
+  width:190vw;
+  left:-90vw;
+  background-color: black;
+  opacity: 0.8;
+  visibility: hidden;
+  top:0vh;
+}
+
+.crafter-crad{
+  position: absolute;
+  height:27vh;
+  width: 60vw;
+  left:52vw;
+  top:-7vh;
+}
+
+.crafter-card{
+  height:60vh;
+}
+.works{
+  position: absolute;
+  top:17vh;
+  transform: rotate(-12.99deg);
+  left: 12vw;
+  height:5vh;
+  width: auto;
+}
+
+.artist-card{
+  position: absolute;
+  height:25vh;
+  width: 60vw;
+  left:36vw;
+  top: 19vh;
+}
+
+.artist-card-2{height: 60vh;}
+
+.illustration{
+  position: absolute;
+  top:13vh;
+  transform: rotate(8.99deg);
+  left: 11vw;
+  height:5vh;
+  width: auto;
+}
+
+.element-model{
+  position: absolute;
+  top:20vh;
+  transform: rotate(8.99deg);
+  left: 9vw;
+  height:5vh;
+  width: auto;
+}
+
+.rider-card{
+  position: absolute;
+  height:25vh;
+  width: 60vw;
+  left:49vw;
+  top: 42vh;
+}
+
+.rider-card-2{height: 60vh;}
+.photos{
+  position: absolute;
+  top:15vh;
+  transform: rotate(-11.99deg);
+  left: 10vw;
+  height:5vh;
+  width: auto;
+}
+.video{
+  position: absolute;
+  top:21vh;
+  transform: rotate(-11.99deg);
+  left: 12vw;
+  height:5vh;
+  width: auto;
+}
+
+.developer-card1{
+  position: absolute;
+  height:25vh;
+  width: 60vw;
+  left:19vw;
+  top: 68vh;
+}
+
+.developer-card{height: 60vh;}
+
+.works1{
+  position: absolute;
+  top:15vh;
+  transform: rotate(11.99deg);
+  left: 30vw;
+  height:5vh;
+  width: auto;
+}
 
   
   html, body {margin: 0; height: 100%;  background-color: #B5A07F;
