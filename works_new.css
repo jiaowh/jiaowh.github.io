@@ -35,7 +35,7 @@ p {
     width:100%;
     height:auto;
     position: absolute;
-    background: url("./img/comments.png");
+    background: url("./img/comments.webp");
     background-size: cover;
     animation: infinite 500s linear infinite;
     padding:0;
