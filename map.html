@@ -470,6 +470,33 @@
       backdrop-filter: blur(5px);
       -webkit-backdrop-filter: blur(5px);
     }
+    #loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    display:none;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #000;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
 
   
 
@@ -481,6 +508,9 @@
 
 <body>
   <div id="map"></div>
+  <div id="loading-overlay">
+    <div class="spinner"></div>
+</div>
   <div id="capture">
     
 
@@ -640,27 +670,44 @@
         };
   
         var description = event.featureData.description;
-        var imageContainers = document.querySelectorAll('.image-container');
-  
-        if (pinClicked) {
-          for (var i = 0; i < imageContainers.length; i++) {
-            imageContainers[i].style.display = 'block';
-          }
-        }
-  
-        var parser = new DOMParser();
-        var xmlDoc = parser.parseFromString(description, 'text/xml');
-        var imageUrls = xmlDoc.querySelectorAll('img');
-  
-        for (var i = 0; i < imageContainers.length; i++) {
-          if (i < imageUrls.length) {
-            var image = imageContainers[i].querySelector('img');
-            image.src = imageUrls[i].getAttribute('src');
-            imageContainers[i].style.display = 'block';
-          } else {
-            imageContainers[i].style.display = 'none';
-          }
-        }
+var imageContainers = document.querySelectorAll('.image-container');
+
+var parser = new DOMParser();
+var xmlDoc = parser.parseFromString(description, 'text/xml');
+var imageUrls = xmlDoc.querySelectorAll('img');
+
+var imagesLoaded = 0;
+var totalImages = Math.min(imageContainers.length, imageUrls.length);
+
+// Show the loading overlay
+var loadingOverlay = document.getElementById('loading-overlay');
+loadingOverlay.style.display = 'flex';
+
+function imageLoaded() {
+    imagesLoaded++;
+    if (imagesLoaded === totalImages) {
+        // Hide the loading overlay once all images are loaded
+        loadingOverlay.style.display = 'none';
+    }
+}
+
+for (var i = 0; i < imageContainers.length; i++) {
+    if (i < imageUrls.length) {
+        var image = imageContainers[i].querySelector('img');
+        image.onload = imageLoaded;
+        image.onerror = imageLoaded;
+        image.src = imageUrls[i].getAttribute('src');
+        imageContainers[i].style.display = 'block';
+    } else {
+        imageContainers[i].style.display = 'none';
+    }
+}
+
+// If no images to load, hide the loading overlay immediately
+if (totalImages === 0) {
+    loadingOverlay.style.display = 'none';
+}
+
       });
     }
   </script>
