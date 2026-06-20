@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BTC/USD · Cycle Lows</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- charting library loaded defensively in the script below (multi-CDN fallback) -->
+<style>
+  :root{
+    --bg:#0a0e12; --panel:#11161c; --panel2:#0d1217; --grid:#1e262e;
+    --text:#c7d0d9; --muted:#6b7882; --amber:#ffb000; --cyan:#38bdf8;
+    --up:#3fb950; --down:#f85149;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--text);
+    font-family:"IBM Plex Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .mono{font-family:"IBM Plex Mono",monospace}
+  header{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 20px;
+    padding:18px 22px;border-bottom:1px solid var(--grid)}
+  header .title{font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:13px}
+  header .title b{color:var(--amber)}
+  .price{font-family:"IBM Plex Mono",monospace;font-size:22px;font-weight:600}
+  .price small{font-size:12px;color:var(--muted);font-weight:400;margin-left:6px}
+  .status{margin-left:auto;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+  .status .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--muted);margin-right:6px;vertical-align:middle}
+  .status.ok .dot{background:var(--up)} .status.err .dot{background:var(--down)}
+  button{font-family:inherit;background:transparent;color:var(--text);border:1px solid var(--grid);padding:5px 12px;border-radius:3px;cursor:pointer;font-size:12px}
+  button:hover{border-color:var(--amber);color:var(--amber)}
+  main{padding:22px;display:grid;gap:18px;max-width:1320px;margin:0 auto}
+  .toolbar{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:12px;color:var(--muted)}
+  .toolbar label{display:inline-flex;align-items:center;gap:7px;cursor:pointer;user-select:none}
+  .toolbar input{accent-color:var(--amber)}
+  .toolbar .sw{width:11px;height:11px;border-radius:2px;display:inline-block}
+  #chart{height:420px;border:1px solid var(--grid);border-radius:4px;background:var(--panel2)}
+  .integrity{font-size:11px;color:var(--muted);font-family:"IBM Plex Mono",monospace}
+  .integrity b{color:var(--up)} .integrity .bad{color:var(--down)}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:760px){.cards{grid-template-columns:1fr}}
+  .card{border:1px solid var(--grid);border-radius:4px;background:var(--panel);padding:16px 18px}
+  .card h2{margin:0 0 14px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;display:flex;align-items:center;gap:8px}
+  .card.daily h2{color:var(--amber)} .card.weekly h2{color:var(--cyan)}
+  .kv{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:13px}
+  .kv .k{color:var(--muted)} .kv .v{font-family:"IBM Plex Mono",monospace;text-align:right}
+  .v.r{color:var(--up)} .v.l{color:var(--down)} .v.due{color:var(--amber)}
+  footer{max-width:1320px;margin:0 auto;padding:0 22px 40px;color:var(--muted);font-size:12px;line-height:1.55}
+  footer b{color:var(--text);font-weight:500}
+  .note{border-left:2px solid var(--amber);padding:8px 0 8px 14px;margin-top:8px}
+</style>
+</head>
+<body>
+<header>
+  <div class="title"><b>BTC/USD</b> · Cycle Lows</div>
+  <div class="price mono" id="price">—<small id="src"></small></div>
+  <div class="status" id="status"><span class="dot"></span><span id="statusText">connecting</span></div>
+  <button id="refresh">Refresh</button>
+</header>
+
+<main>
+  <div class="toolbar">
+    <label><input type="checkbox" id="tDCL" checked><span class="sw" style="background:var(--amber)"></span>Daily lows (DCL)</label>
+    <label><input type="checkbox" id="tWCL" checked><span class="sw" style="background:var(--cyan)"></span>Weekly lows (WCL)</label>
+    <label><input type="checkbox" id="tDsine"><span class="sw" style="background:var(--amber);opacity:.5"></span>Daily cycle wave</label>
+    <label><input type="checkbox" id="tWsine"><span class="sw" style="background:var(--cyan);opacity:.5"></span>Weekly cycle wave</label>
+    <span class="integrity" id="integrity" style="margin-left:auto"></span>
+  </div>
+
+  <div id="chart"></div>
+
+  <div class="cards">
+    <div class="card daily">
+      <h2><span class="sw" style="background:var(--amber);width:11px;height:11px;border-radius:2px"></span>Daily cycle · ~60 days</h2>
+      <div class="kv" id="dailyKV"></div>
+    </div>
+    <div class="card weekly">
+      <h2><span class="sw" style="background:var(--cyan);width:11px;height:11px;border-radius:2px"></span>Weekly cycle · ~22 weeks</h2>
+      <div class="kv" id="weeklyKV"></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div><b>How lows are found.</b> Cycles are counted low-to-low. From each confirmed low the detector opens a timing window — 40–75 days for daily, 120–190 for weekly — and takes the lowest price inside it as the next cycle low, using a 5-day smoothing to ignore single-bar noise. Weekly lows are chosen from the daily lows, so every weekly low is also a daily low.</div>
+  <div><b>Translation</b> measures where the high sits inside a completed cycle: a peak in the second half (right-translated) is bullish; a peak in the first half (left-translated) is weak. The sine waves are an idealized rhythm phase-locked to the most recent low — a guide to when the next low is "due," not a fit to price.</div>
+  <div class="note"><b>Read it as structure, not prophecy.</b> The timing windows are wide and the most recent low stays provisional until price turns up, so the right edge can revise. This is a discretionary orientation and risk-management frame (a broken cycle low is a natural invalidation), not a forecast. Not investment advice.</div>
+</footer>
+
+<script>
+const SYMBOL="BTCUSDT"; let SOURCE="";
+const $=id=>document.getElementById(id);
+const DAY=86400;
+const setStatus=(s,t)=>{$("status").className="status "+(s||"");$("statusText").textContent=t;};
+
+// daily/weekly timing bands (verified in prototype)
+const D_MIN=40,D_MAX=75,D_IDEAL=60;
+const W_MIN=120,W_MAX=190,W_IDEAL=154;
+
+// ---------- data ----------
+async function fetchBinance(){
+  const u=`https://api.binance.com/api/v3/klines?symbol=${SYMBOL}&interval=1d&limit=1000`;
+  const r=await fetch(u); if(!r.ok)throw new Error("binance "+r.status);
+  return (await r.json()).map(k=>({time:Math.floor(k[0]/1000),open:+k[1],high:+k[2],low:+k[3],close:+k[4]}));
+}
+async function fetchCoinbase(){
+  const u="https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400";
+  const r=await fetch(u); if(!r.ok)throw new Error("coinbase "+r.status);
+  return (await r.json()).map(k=>({time:k[0],open:k[3],high:k[2],low:k[1],close:k[4]})).sort((a,b)=>a.time-b.time);
+}
+async function getCandles(){ try{const d=await fetchBinance();SOURCE="Binance";return d;}
+  catch(e){const d=await fetchCoinbase();SOURCE="Coinbase";return d;} }
+async function getPrice(){
+  try{const r=await fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${SYMBOL}`);return +(await r.json()).price;}
+  catch(e){const r=await fetch("https://api.coinbase.com/v2/prices/BTC-USD/spot");return +(await r.json()).data.amount;}
+}
+
+// ---------- detection (mirrors verified Python) ----------
+function smooth(x,k){ if(k<=1)return x.slice(); const o=new Array(x.length),h=k>>1;
+  for(let i=0;i<x.length;i++){let s=0,c=0;for(let j=i-h;j<=i+h;j++)if(j>=0&&j<x.length){s+=x[j];c++;}o[i]=s/c;}return o;}
+function argmin(a,lo,hi){let bi=lo,bv=Infinity;for(let i=lo;i<=hi;i++)if(a[i]<bv){bv=a[i];bi=i;}return bi;}
+function argmax(a,lo,hi){let bi=lo,bv=-Infinity;for(let i=lo;i<=hi;i++)if(a[i]>bv){bv=a[i];bi=i;}return bi;}
+
+function detectCycleLows(low,minGap,maxGap,k=5){
+  const n=low.length; if(!n)return[];
+  const s=smooth(low,k);
+  let anchor=argmin(s,0,Math.min(maxGap,n)-1);
+  anchor=argmin(low,Math.max(0,anchor-4),Math.min(n-1,anchor+4));
+  const dcls=[anchor];
+  while(true){
+    const last=dcls[dcls.length-1];
+    const lo=last+minGap, hi=Math.min(last+maxGap,n-1);
+    if(lo>n-1)break;
+    let idx=argmin(s,lo,hi);
+    const a=Math.max(lo,idx-4), b=Math.min(hi,idx+4);
+    idx=argmin(low,a,b);
+    idx=Math.max(lo,Math.min(idx,hi));
+    if(idx<=last)break;
+    dcls.push(idx);
+    if(hi>=n-1)break;
+  }
+  return dcls;
+}
+function nestWeekly(dcls,low,minW,maxW){
+  if(!dcls.length)return[];
+  const wcls=[dcls[0]];
+  while(true){
+    const last=wcls[wcls.length-1];
+    const cand=dcls.filter(i=>i>=last+minW&&i<=last+maxW);
+    if(!cand.length)break;
+    let nxt=cand[0];for(const i of cand)if(low[i]<low[nxt])nxt=i;
+    if(nxt<=last)break;
+    wcls.push(nxt);
+  }
+  return wcls;
+}
+function translations(dcls,high){
+  const out=[];
+  for(let i=0;i<dcls.length-1;i++){
+    const a=dcls[i],b=dcls[i+1];
+    const pk=argmax(high,a,b);
+    const frac=(pk-a)/(b-a);
+    out.push({frac,side:frac>0.5?"R":"L"});
+  }
+  return out;
+}
+// helpers for the sine guides
+function ema(x,span){const a=2/(span+1),o=[];let p=x[0];for(let i=0;i<x.length;i++){p=i?a*x[i]+(1-a)*p:x[i];o.push(p);}return o;}
+function smaArr(x,w){const o=[];let s=0;for(let i=0;i<x.length;i++){s+=x[i];if(i>=w)s-=x[i-w];o.push(s/Math.min(i+1,w));}return o;}
+
+// ---------- chart ----------
+let chart,candles,dSine,wSine;
+function initChart(){
+  chart=LightweightCharts.createChart($("chart"),{
+    layout:{background:{color:"#0d1217"},textColor:"#6b7882",fontFamily:"IBM Plex Mono"},
+    grid:{vertLines:{color:"#1e262e"},horzLines:{color:"#1e262e"}},
+    rightPriceScale:{borderColor:"#1e262e"},
+    timeScale:{borderColor:"#1e262e"},crosshair:{mode:0}
+  });
+  candles=chart.addCandlestickSeries({upColor:"#3fb950",downColor:"#f85149",
+    borderUpColor:"#3fb950",borderDownColor:"#f85149",wickUpColor:"#3fb950",wickDownColor:"#f85149"});
+  dSine=chart.addLineSeries({color:"rgba(255,176,0,0.55)",lineWidth:2,priceLineVisible:false,
+    lastValueVisible:false,crosshairMarkerVisible:false,visible:false});
+  wSine=chart.addLineSeries({color:"rgba(56,189,248,0.55)",lineWidth:2,priceLineVisible:false,
+    lastValueVisible:false,crosshairMarkerVisible:false,visible:false});
+  new ResizeObserver(()=>chart.applyOptions({width:$("chart").clientWidth})).observe($("chart"));
+}
+
+// ---------- state ----------
+let C=null,DCL=[],WCL=[],TRANS=[];
+
+function dstr(ts){return new Date(ts*1000).toISOString().slice(0,10);}
+function buildMarkers(){
+  const wset=new Set(WCL);
+  const m=[];
+  if($("tDCL").checked){
+    DCL.forEach((i,k)=>{ if(wset.has(i)&&$("tWCL").checked)return; // weekly arrow drawn instead
+      const isLast=k===DCL.length-1;
+      m.push({time:C[i].time,position:"belowBar",color:"#ffb000",shape:"circle",
+        size:isLast?2:1,text:isLast?"DCL":""});});
+  }
+  if($("tWCL").checked){
+    WCL.forEach(i=>m.push({time:C[i].time,position:"belowBar",color:"#38bdf8",shape:"arrowUp",text:"WCL"}));
+  }
+  m.sort((a,b)=>a.time-b.time);
+  candles.setMarkers(m);
+}
+function buildSines(){
+  const n=C.length;
+  const close=C.map(c=>c.close), high=C.map(c=>c.high), low=C.map(c=>c.low);
+  const amp=smaArr(high.map((h,i)=>h-low[i]),20);
+  if($("tDsine").checked && DCL.length){
+    const base=ema(close,D_IDEAL), anchor=DCL[DCL.length-1];
+    dSine.setData(C.map((c,i)=>({time:c.time,
+      value:base[i]-1.6*amp[i]*Math.cos(2*Math.PI*(i-anchor)/D_IDEAL)})));
+    dSine.applyOptions({visible:true});
+  } else dSine.applyOptions({visible:false});
+  if($("tWsine").checked && WCL.length){
+    const base=ema(close,W_IDEAL), anchor=WCL[WCL.length-1];
+    wSine.setData(C.map((c,i)=>({time:c.time,
+      value:base[i]-2.4*amp[i]*Math.cos(2*Math.PI*(i-anchor)/W_IDEAL)})));
+    wSine.applyOptions({visible:true});
+  } else wSine.applyOptions({visible:false});
+}
+
+function renderCard(elId,idxs,low,minGap,maxGap,trans,unit){
+  const n=C.length, last=idxs[idxs.length-1], cycleDay=(n-1)-last;
+  const winLo=C[last].time+minGap*DAY, winHi=C[last].time+maxGap*DAY;
+  let phase,cls="";
+  if(cycleDay<minGap){phase="too early";}
+  else if(cycleDay<=maxGap){phase="in timing window";cls="due";}
+  else {phase="overdue";cls="due";}
+  const t=trans[trans.length-1];
+  const transTxt=t?(t.side==="R"?"Right · bullish":"Left · weak"):"—";
+  const transCls=t?(t.side==="R"?"r":"l"):"";
+  const div=unit==="d"?1:7, u=unit==="d"?"d":"w";
+  $(elId).innerHTML=`
+    <div class="k">Last low</div><div class="v">${dstr(C[last].time)}</div>
+    <div class="k">Cycle age</div><div class="v ${cls}">${Math.round(cycleDay/div)} ${u} · ${phase}</div>
+    <div class="k">Next low window</div><div class="v">${dstr(winLo)} → ${dstr(winHi)}</div>
+    <div class="k">Last translation</div><div class="v ${transCls}">${transTxt}</div>
+    <div class="k">Lows found</div><div class="v">${idxs.length}</div>`;
+}
+
+function integrityCheck(){
+  const low=C.map(c=>c.low);
+  const gaps=[];for(let i=1;i<DCL.length;i++)gaps.push(DCL[i]-DCL[i-1]);
+  const gapsOk=gaps.every(g=>g>=D_MIN&&g<=D_MAX);
+  // local-minimum test (ignore the provisional last one)
+  let localOk=true;
+  for(let k=1;k<DCL.length-1;k++){const i=DCL[k],a=Math.max(0,i-5),b=Math.min(low.length-1,i+5);
+    if(low[i]>low[argmin(low,a,b)])localOk=false;}
+  const nest=WCL.every(w=>DCL.includes(w));
+  const mark=ok=>ok?'<b>✓</b>':'<span class="bad">✗</span>';
+  $("integrity").innerHTML=
+    `${DCL.length} DCL · ${WCL.length} WCL &nbsp;|&nbsp; gaps in band ${mark(gapsOk)} &nbsp; local minima ${mark(localOk)} &nbsp; nested ${mark(nest)}`;
+}
+
+function renderAll(){
+  candles.setData(C);
+  buildMarkers(); buildSines();
+  const low=C.map(c=>c.low), high=C.map(c=>c.high);
+  renderCard("dailyKV",DCL,low,D_MIN,D_MAX,TRANS,"d");
+  const wtrans=translations(WCL,high);
+  renderCard("weeklyKV",WCL,low,W_MIN,W_MAX,wtrans,"w");
+  integrityCheck();
+  chart.timeScale().fitContent();
+}
+
+async function load(){
+  setStatus("","loading");
+  try{
+    const [data,price]=await Promise.all([getCandles(),getPrice()]);
+    C=data;
+    const low=C.map(c=>c.low), high=C.map(c=>c.high);
+    DCL=detectCycleLows(low,D_MIN,D_MAX);
+    WCL=nestWeekly(DCL,low,W_MIN,W_MAX);
+    TRANS=translations(DCL,high);
+    $("price").firstChild.nodeValue=price.toLocaleString("en-US",{style:"currency",currency:"USD"});
+    $("src").textContent="  via "+SOURCE;
+    renderAll();
+    setStatus("ok","live · "+SOURCE);
+  }catch(e){
+    console.error(e);
+    setStatus("err","data unreachable");
+    $("integrity").innerHTML='<span class="bad">Couldn\'t reach Binance or Coinbase — host the file or swap endpoints in getCandles().</span>';
+  }
+}
+
+// ---------- chart-library loader (multi-CDN fallback) ----------
+function loadChartLib(){
+  if(window.LightweightCharts)return Promise.resolve();
+  const cdns=["https://cdn.jsdelivr.net/npm/lightweight-charts@4/dist/lightweight-charts.standalone.production.js",
+              "https://unpkg.com/lightweight-charts@4/dist/lightweight-charts.standalone.production.js"];
+  return new Promise((res,rej)=>{let i=0;const go=()=>{if(i>=cdns.length){rej();return;}
+    const s=document.createElement("script");s.src=cdns[i++];
+    s.onload=()=>window.LightweightCharts?res():go();s.onerror=go;document.head.appendChild(s);};go();});
+}
+loadChartLib().then(()=>{initChart();load();
+  ["tDCL","tWCL","tDsine","tWsine"].forEach(id=>$(id).onchange=()=>{if(C){buildMarkers();buildSines();}});
+}).catch(()=>{setStatus("err","chart library blocked");
+  $("chart").innerHTML='<div style="padding:22px;color:#6b7882;font-size:13px;line-height:1.5">Couldn\'t load the charting library from jsDelivr or unpkg — likely a network block. Download <span class="mono">lightweight-charts.standalone.production.js</span> and reference it locally.</div>';});
+$("refresh").onclick=()=>{if(window.LightweightCharts)load();};
+setInterval(async()=>{try{const p=await getPrice();$("price").firstChild.nodeValue=p.toLocaleString("en-US",{style:"currency",currency:"USD"});}catch(e){}},60000);
+</script>
+</body>
+</html>
