@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KAEDE ARLOW — TAKE YOUR DESIGN</title>
+<meta name="description" content="Kaede Arlow — Art Director & Visual Designer. A Persona-inspired portfolio." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Oswald:wght@300;400;500;600;700&family=Permanent+Marker&family=Noto+Sans+JP:wght@700;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ===================== CUSTOM CURSOR ===================== -->
+<div class="reticle" id="reticle" aria-hidden="true">
+  <svg viewBox="0 0 80 80"><polygon points="40,4 48,32 76,40 48,48 40,76 32,48 4,40 32,32" /></svg>
+</div>
+
+<!-- ===================== PAGE TRANSITION SWIPE ===================== -->
+<div class="swipe" id="swipe" aria-hidden="true">
+  <div class="swipe__panel"></div>
+  <div class="swipe__panel"></div>
+  <div class="swipe__panel"></div>
+  <div class="swipe__word">王</div>
+</div>
+
+<!-- ===================== TITLE / ENTER SCREEN ===================== -->
+<section class="enter" id="enter">
+  <div class="enter__bg" aria-hidden="true"></div>
+  <div class="enter__halftone" aria-hidden="true"></div>
+  <div class="enter__content">
+    <p class="enter__kicker">ATELIER NO.<span>09</span> &nbsp;/&nbsp; VELVET STUDIO</p>
+    <h1 class="enter__logo">
+      <span class="enter__logo-line">TAKE</span>
+      <span class="enter__logo-line enter__logo-line--red">YOUR</span>
+      <span class="enter__logo-line">DESIGN</span>
+    </h1>
+    <button class="enter__btn" id="enterBtn">
+      <span class="enter__btn-label">PRESS&nbsp;START</span>
+    </button>
+    <p class="enter__hint">click anywhere to break in</p>
+  </div>
+  <div class="enter__credits">©ATELIER&nbsp;ARLOW · ALL HEARTS RESERVED</div>
+  <div class="enter__star" aria-hidden="true">
+    <svg viewBox="0 0 100 100"><polygon points="50,2 61,38 98,38 68,60 79,96 50,74 21,96 32,60 2,38 39,38"/></svg>
+  </div>
+</section>
+
+<!-- ===================== SIDE NAV (in-game pause menu) ===================== -->
+<nav class="nav" id="nav" aria-label="Main">
+  <div class="nav__tab" id="navTab">
+    <span>MENU</span>
+  </div>
+  <ul class="nav__list">
+    <li class="nav__item" style="--i:0"><a href="#about" data-label="01"><span class="nav__num">01</span><span class="nav__txt">ABOUT</span></a></li>
+    <li class="nav__item" style="--i:1"><a href="#skills" data-label="02"><span class="nav__num">02</span><span class="nav__txt">SKILL</span></a></li>
+    <li class="nav__item" style="--i:2"><a href="#work" data-label="03"><span class="nav__num">03</span><span class="nav__txt">WORK</span></a></li>
+    <li class="nav__item" style="--i:3"><a href="#shop" data-label="04"><span class="nav__num">04</span><span class="nav__txt">SHOP</span></a></li>
+    <li class="nav__item" style="--i:4"><a href="#contact" data-label="05"><span class="nav__num">05</span><span class="nav__txt">CONTACT</span></a></li>
+  </ul>
+  <div class="nav__foot">EX</div>
+</nav>
+
+<!-- ===================== MAIN ===================== -->
+<main id="main">
+
+  <!-- ---------- HERO ---------- -->
+  <header class="hero section" id="hero">
+    <div class="hero__grid" aria-hidden="true"></div>
+    <div class="hero__streaks" aria-hidden="true">
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <div class="hero__marquee" aria-hidden="true">
+      <div class="hero__marquee-track">
+        <span>怪盗 · PHANTOM · ART DIRECTION · 怪盗 · PHANTOM · ART DIRECTION · 怪盗 · PHANTOM · ART DIRECTION · </span>
+        <span>怪盗 · PHANTOM · ART DIRECTION · 怪盗 · PHANTOM · ART DIRECTION · 怪盗 · PHANTOM · ART DIRECTION · </span>
+      </div>
+    </div>
+
+    <div class="hero__silhouette" id="silhouette" aria-hidden="true">
+      <svg viewBox="0 0 380 620" preserveAspectRatio="xMidYMax meet">
+        <path d="M205 12c-26-6-58 4-70 30-9 19-4 38 2 50-14 6-30 16-38 33-12 25-10 44-26 70-12 20-30 36-30 64 0 14 9 22 9 36-1 22-14 40-12 70 1 18 10 33 10 52 0 24-12 40-12 60l250 0c2-24-8-40-8-64 0-22 12-38 12-62 0-20-10-36-8-58 2-26 16-44 14-72-1-20-12-34-12-54 0-26-16-44-28-66-9-16-22-28-36-36 8-12 14-30 6-50-7-18-20-30-37-31z"/>
+        <polygon class="hero__mask" points="120,108 150,96 196,108 244,98 270,112 250,150 196,160 142,150"/>
+      </svg>
+    </div>
+
+    <div class="hero__copy">
+      <p class="tag tag--skew">CODE NAME</p>
+      <h2 class="hero__name">
+        <span class="hero__name-row">KAEDE</span>
+        <span class="hero__name-row hero__name-row--out">ARLOW</span>
+      </h2>
+      <div class="hero__role">
+        <span class="chip">ART&nbsp;DIRECTOR</span>
+        <span class="chip chip--red">VISUAL&nbsp;DESIGNER</span>
+        <span class="chip">MOTION</span>
+      </div>
+      <p class="hero__lede">I break into the hearts of brands and steal back what makes them
+        unforgettable. Ten years turning grey identities into <b>all-out attacks.</b></p>
+      <div class="hero__cta">
+        <button class="btn btn--attack" data-attack>
+          <span class="btn__face">ALL-OUT&nbsp;ATTACK</span>
+          <span class="btn__back"></span>
+        </button>
+        <a class="btn btn--ghost" href="#work" data-nav>SEE THE HEIST&nbsp;↘</a>
+      </div>
+    </div>
+
+    <aside class="hero__card" aria-hidden="true">
+      <div class="confcard">
+        <div class="confcard__head"><span class="confcard__arc">ARCANA</span><span class="confcard__name">THE FOOL</span></div>
+        <div class="confcard__rank"><span>RANK</span><b>X</b></div>
+        <div class="confcard__stars">
+          <i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i>
+          <i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i>
+        </div>
+        <p class="confcard__line">Available · accepting commissions for Q3</p>
+      </div>
+    </aside>
+
+    <div class="hero__scroll" aria-hidden="true"><span>SCROLL</span><i></i></div>
+  </header>
+
+  <!-- ---------- ABOUT (Confidant profile) ---------- -->
+  <section class="section about" id="about">
+    <div class="bigword bigword--about" aria-hidden="true">PROFILE</div>
+    <div class="sec-head">
+      <span class="sec-head__num">01</span>
+      <h2 class="sec-head__title">THE&nbsp;DESIGNER</h2>
+      <span class="sec-head__jp">仮面の下</span>
+    </div>
+
+    <div class="about__wrap">
+      <div class="about__portrait">
+        <div class="halftone-card">
+          <div class="halftone-card__inner">
+            <svg viewBox="0 0 300 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <rect width="300" height="360" fill="#0a0a0a"/>
+              <path d="M150 70c40 0 64 30 64 74 0 28-12 50-12 70 0 30 26 40 40 64 12 22 14 52 14 82H44c0-30 2-60 14-82 14-24 40-34 40-64 0-20-12-42-12-70 0-44 24-74 64-74z" fill="#e7000f"/>
+              <polygon points="98,120 124,108 150,118 176,108 202,120 188,150 150,160 112,150" fill="#0a0a0a"/>
+              <polygon points="98,120 124,108 150,118 176,108 202,120 188,150 150,160 112,150" fill="none" stroke="#f4f1ea" stroke-width="3"/>
+            </svg>
+          </div>
+          <span class="halftone-card__tag">CONFIDANT</span>
+        </div>
+      </div>
+
+      <div class="about__bio">
+        <p class="about__hello">“Every brand has a Palace. I find the treasure.”</p>
+        <p>Kaede Arlow is an art director and visual designer working at the seam where
+          <b>editorial systems</b> meet <b>game-grade motion</b>. She builds identities that
+          don't sit still — type that lunges, grids that refuse to behave, and interfaces
+          that feel like the moment before a battle starts.</p>
+        <p>Previously lead designer for record labels, fighting games and three coffee brands
+          that all somehow wanted to look like a riot. Now running a one-woman atelier and
+          taking hearts on commission.</p>
+
+        <ul class="stats">
+          <li><span class="stats__k">GUTS</span><span class="stats__bar"><i style="--v:96%"></i></span></li>
+          <li><span class="stats__k">KNOWLEDGE</span><span class="stats__bar"><i style="--v:88%"></i></span></li>
+          <li><span class="stats__k">PROFICIENCY</span><span class="stats__bar"><i style="--v:92%"></i></span></li>
+          <li><span class="stats__k">KINDNESS</span><span class="stats__bar"><i style="--v:80%"></i></span></li>
+          <li><span class="stats__k">CHARM</span><span class="stats__bar"><i style="--v:99%"></i></span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- SKILLS ---------- -->
+  <section class="section skills" id="skills">
+    <div class="bigword bigword--skill" aria-hidden="true">SKILL</div>
+    <div class="sec-head">
+      <span class="sec-head__num">02</span>
+      <h2 class="sec-head__title">SKILL&nbsp;SET</h2>
+      <span class="sec-head__jp">技能</span>
+    </div>
+
+    <ul class="skill-list" id="skillList">
+      <li class="skill" style="--i:0">
+        <span class="skill__name">BRAND&nbsp;IDENTITY</span>
+        <span class="skill__cost">SP&nbsp;24</span>
+        <span class="skill__stars" data-stars="5"></span>
+      </li>
+      <li class="skill" style="--i:1">
+        <span class="skill__name">ART&nbsp;DIRECTION</span>
+        <span class="skill__cost">SP&nbsp;30</span>
+        <span class="skill__stars" data-stars="5"></span>
+      </li>
+      <li class="skill" style="--i:2">
+        <span class="skill__name">MOTION&nbsp;&amp;&nbsp;UI</span>
+        <span class="skill__cost">SP&nbsp;28</span>
+        <span class="skill__stars" data-stars="4"></span>
+      </li>
+      <li class="skill" style="--i:3">
+        <span class="skill__name">TYPOGRAPHY</span>
+        <span class="skill__cost">SP&nbsp;18</span>
+        <span class="skill__stars" data-stars="5"></span>
+      </li>
+      <li class="skill" style="--i:4">
+        <span class="skill__name">EDITORIAL&nbsp;LAYOUT</span>
+        <span class="skill__cost">SP&nbsp;20</span>
+        <span class="skill__stars" data-stars="4"></span>
+      </li>
+      <li class="skill" style="--i:5">
+        <span class="skill__name">3D&nbsp;&amp;&nbsp;PACKAGING</span>
+        <span class="skill__cost">SP&nbsp;26</span>
+        <span class="skill__stars" data-stars="3"></span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ---------- WORK ---------- -->
+  <section class="section work" id="work">
+    <div class="bigword bigword--work" aria-hidden="true">HEIST</div>
+    <div class="sec-head">
+      <span class="sec-head__num">03</span>
+      <h2 class="sec-head__title">THE&nbsp;HEISTS</h2>
+      <span class="sec-head__jp">作品</span>
+    </div>
+
+    <div class="work__grid" id="workGrid">
+      <article class="proj" style="--i:0" data-tilt>
+        <div class="proj__media proj__media--a"><span class="proj__no">No.01</span></div>
+        <div class="proj__meta">
+          <h3>NEON&nbsp;CASINO</h3>
+          <p>Rebrand · Motion Identity</p>
+          <span class="proj__tag">SECURED</span>
+        </div>
+      </article>
+      <article class="proj" style="--i:1" data-tilt>
+        <div class="proj__media proj__media--b"><span class="proj__no">No.02</span></div>
+        <div class="proj__meta">
+          <h3>VELVET&nbsp;RECORDS</h3>
+          <p>Visual System · Packaging</p>
+          <span class="proj__tag">SECURED</span>
+        </div>
+      </article>
+      <article class="proj" style="--i:2" data-tilt>
+        <div class="proj__media proj__media--c"><span class="proj__no">No.03</span></div>
+        <div class="proj__meta">
+          <h3>MEMENTO&nbsp;COFFEE</h3>
+          <p>Brand · Editorial · Web</p>
+          <span class="proj__tag">SECURED</span>
+        </div>
+      </article>
+      <article class="proj" style="--i:3" data-tilt>
+        <div class="proj__media proj__media--d"><span class="proj__no">No.04</span></div>
+        <div class="proj__meta">
+          <h3>ROYAL&nbsp;FIGHT&nbsp;CLUB</h3>
+          <p>Game UI · HUD · Title Art</p>
+          <span class="proj__tag">SECURED</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ---------- SHOP (Iwai-style services) ---------- -->
+  <section class="section shop" id="shop">
+    <div class="bigword bigword--shop" aria-hidden="true">SHOP</div>
+    <div class="shop__chain" aria-hidden="true"></div>
+    <div class="sec-head sec-head--light">
+      <span class="sec-head__num">04</span>
+      <h2 class="sec-head__title">UNTOUCHABLE</h2>
+      <span class="sec-head__jp">取扱品</span>
+    </div>
+    <p class="shop__whaddya">Whaddya want?</p>
+
+    <div class="shop__menu" id="shopMenu">
+      <button class="buy" style="--i:0">
+        <b>BUY</b><span>BRAND IDENTITY PACKAGE</span><em>¥ from 480,000</em>
+      </button>
+      <button class="buy" style="--i:1">
+        <b>BUY</b><span>ART DIRECTION / CAMPAIGN</span><em>¥ from 620,000</em>
+      </button>
+      <button class="buy" style="--i:2">
+        <b>BUY</b><span>MOTION + UI SYSTEM</span><em>¥ from 540,000</em>
+      </button>
+      <button class="buy buy--gold" style="--i:3">
+        <b>HIRE</b><span>FULL RETAINER · MONTHLY</span><em>¥ let's talk</em>
+      </button>
+    </div>
+  </section>
+
+  <!-- ---------- CONTACT (calling card) ---------- -->
+  <section class="section contact" id="contact">
+    <div class="sec-head">
+      <span class="sec-head__num">05</span>
+      <h2 class="sec-head__title">CALLING&nbsp;CARD</h2>
+      <span class="sec-head__jp">予告状</span>
+    </div>
+
+    <div class="card-letter" data-tilt>
+      <div class="card-letter__noise" aria-hidden="true"></div>
+      <p class="card-letter__to">TO&nbsp;THE&nbsp;ONE&nbsp;WITH&nbsp;A&nbsp;BORING&nbsp;BRAND,</p>
+      <p class="card-letter__body">
+        <span class="rn rn-1">YOUR</span> <span class="rn rn-2">design</span>
+        <span class="rn rn-3">has</span> <span class="rn rn-4">GROWN</span>
+        <span class="rn rn-5">dull</span><span class="rn rn-6">.</span>
+        <span class="rn rn-7">I</span> <span class="rn rn-8">WILL</span>
+        <span class="rn rn-9">make</span> <span class="rn rn-10">you</span>
+        <span class="rn rn-11">UN</span><span class="rn rn-12">forget</span><span class="rn rn-13">TABLE.</span>
+      </p>
+      <p class="card-letter__sign">— KAEDE&nbsp;ARLOW, PHANTOM&nbsp;DESIGNER</p>
+
+      <div class="card-letter__cta">
+        <a class="btn btn--attack" href="mailto:kaede@atelier-arlow.studio" data-attack>
+          <span class="btn__face">SEND THE CARD</span><span class="btn__back"></span>
+        </a>
+        <div class="card-letter__links">
+          <a href="#" data-mag>INSTAGRAM</a><a href="#" data-mag>BEHANCE</a><a href="#" data-mag>READ.CV</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="foot__row">
+      <span class="foot__logo">アトリエ・アロウ</span>
+      <span>ATELIER&nbsp;ARLOW</span>
+    </div>
+    <p class="foot__fine">A fan-made, Persona-inspired concept · Built with code, not theft ·
+      ©2026 ALL&nbsp;HEARTS&nbsp;RESERVED</p>
+  </footer>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

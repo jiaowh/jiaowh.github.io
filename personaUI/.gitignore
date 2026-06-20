@@ -1,0 +1,6 @@
+# Reference screenshots (copyrighted ATLUS material — not part of the site)
+ref/
+# Windows WSL metadata
+*:Zone.Identifier
+*.Zone.Identifier
+.DS_Store
