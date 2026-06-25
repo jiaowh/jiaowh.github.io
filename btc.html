@@ -48,6 +48,15 @@
   footer{max-width:1320px;margin:0 auto;padding:0 22px 40px;color:var(--muted);font-size:12px;line-height:1.55}
   footer b{color:var(--text);font-weight:500}
   .note{border-left:2px solid var(--amber);padding:8px 0 8px 14px;margin-top:8px}
+  /* iMACD pane */
+  .imacd-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;margin-bottom:-8px}
+  .imacd-head .h{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--text)}
+  .imacd-head .sub{font-size:11px;color:var(--muted)}
+  .imacd-legend{display:flex;flex-wrap:wrap;gap:6px 20px;align-items:center;font-size:12px;color:var(--muted);margin-left:auto}
+  .imacd-legend .item{display:inline-flex;align-items:center;gap:7px}
+  .imacd-legend .ln{width:16px;border-top:2px solid;display:inline-block}
+  .imacd-legend .thr{font-family:"IBM Plex Mono",monospace;color:var(--text)}
+  #imacd{height:210px;border:1px solid var(--grid);border-radius:4px;background:var(--panel2)}
 </style>
 </head>
 <body>
@@ -68,6 +77,16 @@
   </div>
 
   <div id="chart"></div>
+
+  <div class="imacd-head">
+    <span class="h">Impulse MACD · 34 / 9</span>
+    <span class="sub">thresholds = the major/minor crossover split (55th pct of crossover size)</span>
+    <span class="imacd-legend">
+      <span class="item"><span class="ln" style="border-top-color:var(--amber)"></span>Daily · thr <span class="thr" id="thrD" style="color:var(--amber)">—</span></span>
+      <span class="item"><span class="ln" style="border-top-color:var(--cyan)"></span>Weekly · thr <span class="thr" id="thrW" style="color:var(--cyan)">—</span></span>
+    </span>
+  </div>
+  <div id="imacd"></div>
 
   <div class="cards">
     <div class="card daily">
@@ -168,6 +187,46 @@ function translations(dcls,high){
 function ema(x,span){const a=2/(span+1),o=[];let p=x[0];for(let i=0;i<x.length;i++){p=i?a*x[i]+(1-a)*p:x[i];o.push(p);}return o;}
 function smaArr(x,w){const o=[];let s=0;for(let i=0;i<x.length;i++){s+=x[i];if(i>=w)s-=x[i-w];o.push(s/Math.min(i+1,w));}return o;}
 
+// ---------- Impulse MACD (LazyBear) ----------
+function iEMA(src,len){const k=2/(len+1),o=new Array(src.length).fill(NaN);let p;
+  for(let i=0;i<src.length;i++){const v=src[i];if(v==null||isNaN(v)){o[i]=NaN;continue;}
+    p=(p===undefined)?v:v*k+p*(1-k);o[i]=p;}return o;}
+function iSMMA(src,len){const o=new Array(src.length).fill(NaN);let p;
+  for(let i=0;i<src.length;i++){if(i<len-1)continue;
+    if(p===undefined){let s=0;for(let j=i-len+1;j<=i;j++)s+=src[j];p=s/len;}
+    else p=(p*(len-1)+src[i])/len;o[i]=p;}return o;}
+function iZLEMA(src,len){const e1=iEMA(src,len),e2=iEMA(e1,len);
+  return src.map((_,i)=>(isNaN(e1[i])||isNaN(e2[i]))?NaN:e1[i]+(e1[i]-e2[i]));}
+function iSMAv(src,len){const o=new Array(src.length).fill(NaN);
+  for(let i=len-1;i<src.length;i++){let s=0,ok=true;
+    for(let j=i-len+1;j<=i;j++){if(isNaN(src[j])){ok=false;break;}s+=src[j];}if(ok)o[i]=s/len;}return o;}
+function impulseMACD(bars,lenMA=34,lenSig=9){
+  const hi=iSMMA(bars.map(b=>b.high),lenMA),lo=iSMMA(bars.map(b=>b.low),lenMA),
+        mi=iZLEMA(bars.map(b=>(b.high+b.low+b.close)/3),lenMA);
+  const md=bars.map((b,i)=>(isNaN(hi[i])||isNaN(lo[i])||isNaN(mi[i]))?NaN
+    :(mi[i]>hi[i]?mi[i]-hi[i]:mi[i]<lo[i]?mi[i]-lo[i]:0));
+  return {md,sb:iSMAv(md,lenSig)};
+}
+// magnitude of |md| at each signal-line crossover — used to size the threshold
+function crossMags(md,sb){const m=[];for(let i=1;i<md.length;i++){
+  if(isNaN(md[i])||isNaN(sb[i])||isNaN(md[i-1])||isNaN(sb[i-1]))continue;
+  if((md[i]>sb[i]&&md[i-1]<=sb[i-1])||(md[i]<sb[i]&&md[i-1]>=sb[i-1]))m.push(Math.abs(md[i]));}
+  return m;}
+function pctile(a,p){if(!a.length)return NaN;const s=a.slice().sort((x,y)=>x-y);
+  return s[Math.min(s.length-1,Math.floor(s.length*p))];}
+// resample daily candles into Monday-anchored weekly OHLC + a daily->week index map
+function resampleWeekly(daily){
+  const buckets=new Map();
+  for(const c of daily){const wk=Math.floor((Math.floor(c.time/DAY)+3)/7);
+    let b=buckets.get(wk);
+    if(!b)buckets.set(wk,{time:c.time,open:c.open,high:c.high,low:c.low,close:c.close});
+    else{b.high=Math.max(b.high,c.high);b.low=Math.min(b.low,c.low);b.close=c.close;}
+    c._wk=wk;}
+  const keys=[...buckets.keys()].sort((a,b)=>a-b);
+  const idxOf=new Map(keys.map((k,i)=>[k,i]));
+  return {weekly:keys.map(k=>buckets.get(k)),wkIndexForDaily:daily.map(c=>idxOf.get(c._wk))};
+}
+
 // ---------- chart ----------
 let chart,candles,dSine,wSine;
 function initChart(){
@@ -184,6 +243,60 @@ function initChart(){
   wSine=chart.addLineSeries({color:"rgba(56,189,248,0.55)",lineWidth:2,priceLineVisible:false,
     lastValueVisible:false,crosshairMarkerVisible:false,visible:false});
   new ResizeObserver(()=>chart.applyOptions({width:$("chart").clientWidth})).observe($("chart"));
+}
+
+// ---------- iMACD pane ----------
+let imChart,imD,imW,imThr=[];
+function initIMACD(){
+  imChart=LightweightCharts.createChart($("imacd"),{
+    layout:{background:{color:"#0d1217"},textColor:"#6b7882",fontFamily:"IBM Plex Mono"},
+    grid:{vertLines:{color:"#1e262e"},horzLines:{color:"#1e262e"}},
+    rightPriceScale:{borderColor:"#1e262e"},
+    leftPriceScale:{borderColor:"#1e262e",visible:true},
+    timeScale:{borderColor:"#1e262e"},crosshair:{mode:0}
+  });
+  // daily on the right axis (amber), weekly on the left axis (cyan, stepped)
+  imD=imChart.addLineSeries({color:"#ffb000",lineWidth:2,priceScaleId:"right",
+    priceLineVisible:false,crosshairMarkerVisible:true,title:"D"});
+  imW=imChart.addLineSeries({color:"#38bdf8",lineWidth:2,priceScaleId:"left",lineType:1,
+    priceLineVisible:false,crosshairMarkerVisible:true,title:"W"});
+  new ResizeObserver(()=>imChart.applyOptions({width:$("imacd").clientWidth})).observe($("imacd"));
+  // keep the two panes' time axes locked together
+  let lock=false;
+  const link=(a,b)=>a.timeScale().subscribeVisibleLogicalRangeChange(r=>{
+    if(lock||!r)return;lock=true;b.timeScale().setVisibleLogicalRange(r);lock=false;});
+  link(chart,imChart);link(imChart,chart);
+}
+function renderIMACD(){
+  if(!imChart)initIMACD();
+  // daily iMACD straight off the daily candles
+  const d=impulseMACD(C);
+  imD.setData(C.map((c,i)=>({time:c.time,value:d.md[i]})).filter(p=>!isNaN(p.value)));
+  const thrD=pctile(crossMags(d.md,d.sb),0.55);
+
+  // weekly iMACD from resampled weekly bars, forward-filled onto the daily axis
+  const {weekly,wkIndexForDaily}=resampleWeekly(C);
+  const w=impulseMACD(weekly);
+  imW.setData(C.map((c,i)=>{const v=w.md[wkIndexForDaily[i]];
+    return (v==null||isNaN(v))?null:{time:c.time,value:v};}).filter(Boolean));
+  const thrW=pctile(crossMags(w.md,w.sb),0.55);
+
+  // center each axis on zero so both thresholds read symmetrically
+  const maxAbs=(arr,extra)=>Math.max(extra||0,...arr.filter(v=>!isNaN(v)).map(Math.abs))*1.12;
+  const mD=maxAbs(d.md,thrD), mW=maxAbs(w.md,thrW);
+  imD.applyOptions({autoscaleInfoProvider:()=>({priceRange:{minValue:-mD,maxValue:mD}})});
+  imW.applyOptions({autoscaleInfoProvider:()=>({priceRange:{minValue:-mW,maxValue:mW}})});
+
+  // redraw threshold lines, color-matched to each series
+  imThr.forEach(({s,l})=>{try{s.removePriceLine(l)}catch(e){}});imThr=[];
+  const add=(s,price,color,title)=>imThr.push({s,l:s.createPriceLine(
+    {price,color,lineWidth:1,lineStyle:2,axisLabelVisible:true,title})});
+  if(!isNaN(thrD)){add(imD,thrD,"#ffb000","OB");add(imD,-thrD,"#ffb000","OS");}
+  add(imD,0,"#33404a","");
+  if(!isNaN(thrW)){add(imW,thrW,"#38bdf8","OB");add(imW,-thrW,"#38bdf8","OS");}
+
+  $("thrD").textContent=isNaN(thrD)?"—":"±"+thrD.toFixed(2);
+  $("thrW").textContent=isNaN(thrW)?"—":"±"+thrW.toFixed(2);
 }
 
 // ---------- state ----------
@@ -264,6 +377,7 @@ function renderAll(){
   const wtrans=translations(WCL,high);
   renderCard("weeklyKV",WCL,low,W_MIN,W_MAX,wtrans,"w");
   integrityCheck();
+  renderIMACD();
   chart.timeScale().fitContent();
 }
 
