@@ -29,19 +29,28 @@
   .status.ok .dot{background:var(--up)} .status.err .dot{background:var(--down)}
   button{font-family:inherit;background:transparent;color:var(--text);border:1px solid var(--grid);padding:5px 12px;border-radius:3px;cursor:pointer;font-size:12px}
   button:hover{border-color:var(--amber);color:var(--amber)}
-  main{padding:22px;display:grid;gap:18px;max-width:1320px;margin:0 auto}
+  /* tabs */
+  .tabs{display:flex;gap:4px;max-width:1320px;margin:0 auto;padding:16px 22px 0}
+  .tab{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+    padding:9px 18px;border:1px solid var(--grid);border-bottom:none;border-radius:5px 5px 0 0;
+    background:var(--panel2);color:var(--muted);cursor:pointer}
+  .tab.active{background:var(--panel);color:var(--amber)}
+  .tab:hover{color:var(--amber)}
+  main{padding:14px 22px 22px;max-width:1320px;margin:0 auto}
+  .panel{display:grid;gap:18px;border:1px solid var(--grid);border-radius:0 4px 4px 4px;padding:18px;background:rgba(255,255,255,0.012)}
+  .panel[hidden]{display:none}
   .toolbar{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:12px;color:var(--muted)}
   .toolbar label{display:inline-flex;align-items:center;gap:7px;cursor:pointer;user-select:none}
   .toolbar input{accent-color:var(--amber)}
   .toolbar .sw{width:11px;height:11px;border-radius:2px;display:inline-block}
-  #chart{height:420px;border:1px solid var(--grid);border-radius:4px;background:var(--panel2)}
+  .chartbox{height:420px;border:1px solid var(--grid);border-radius:4px;background:var(--panel2)}
   .integrity{font-size:11px;color:var(--muted);font-family:"IBM Plex Mono",monospace}
   .integrity b{color:var(--up)} .integrity .bad{color:var(--down)}
   .cards{display:grid;grid-template-columns:1fr 1fr;gap:18px}
   @media(max-width:760px){.cards{grid-template-columns:1fr}}
   .card{border:1px solid var(--grid);border-radius:4px;background:var(--panel);padding:16px 18px}
   .card h2{margin:0 0 14px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;display:flex;align-items:center;gap:8px}
-  .card.daily h2{color:var(--amber)} .card.weekly h2{color:var(--cyan)}
+  .card.fast h2{color:var(--amber)} .card.slow h2{color:var(--cyan)}
   .kv{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:13px}
   .kv .k{color:var(--muted)} .kv .v{font-family:"IBM Plex Mono",monospace;text-align:right}
   .v.r{color:var(--up)} .v.l{color:var(--down)} .v.due{color:var(--amber)}
@@ -56,7 +65,7 @@
   .imacd-legend .item{display:inline-flex;align-items:center;gap:7px}
   .imacd-legend .ln{width:16px;border-top:2px solid;display:inline-block}
   .imacd-legend .thr{font-family:"IBM Plex Mono",monospace;color:var(--text)}
-  #imacd{height:210px;border:1px solid var(--grid);border-radius:4px;background:var(--panel2)}
+  .imacdbox{height:210px;border:1px solid var(--grid);border-radius:4px;background:var(--panel2)}
 </style>
 </head>
 <body>
@@ -67,68 +76,109 @@
   <button id="refresh">Refresh</button>
 </header>
 
+<nav class="tabs">
+  <button class="tab active" data-tab="d">Daily</button>
+  <button class="tab" data-tab="h">4-Hour</button>
+</nav>
+
 <main>
-  <div class="toolbar">
-    <label><input type="checkbox" id="tDCL" checked><span class="sw" style="background:var(--amber)"></span>Daily lows (DCL)</label>
-    <label><input type="checkbox" id="tWCL" checked><span class="sw" style="background:var(--cyan)"></span>Weekly lows (WCL)</label>
-    <label><input type="checkbox" id="tDsine"><span class="sw" style="background:var(--amber);opacity:.5"></span>Daily cycle wave</label>
-    <label><input type="checkbox" id="tWsine"><span class="sw" style="background:var(--cyan);opacity:.5"></span>Weekly cycle wave</label>
-    <span class="integrity" id="integrity" style="margin-left:auto"></span>
-  </div>
-
-  <div id="chart"></div>
-
-  <div class="imacd-head">
-    <span class="h">Impulse MACD · 34 / 9</span>
-    <span class="sub">thresholds = the major/minor crossover split (55th pct of crossover size)</span>
-    <span class="imacd-legend">
-      <span class="item"><span class="ln" style="border-top-color:var(--amber)"></span>Daily · thr <span class="thr" id="thrD" style="color:var(--amber)">—</span></span>
-      <span class="item"><span class="ln" style="border-top-color:var(--cyan)"></span>Weekly · thr <span class="thr" id="thrW" style="color:var(--cyan)">—</span></span>
-    </span>
-  </div>
-  <div id="imacd"></div>
-
-  <div class="cards">
-    <div class="card daily">
-      <h2><span class="sw" style="background:var(--amber);width:11px;height:11px;border-radius:2px"></span>Daily cycle · ~60 days</h2>
-      <div class="kv" id="dailyKV"></div>
+  <!-- ================= DAILY ================= -->
+  <section class="panel" id="panel_d">
+    <div class="toolbar">
+      <label><input type="checkbox" id="tFast_d" checked><span class="sw" style="background:var(--amber)"></span>Daily lows (DCL)</label>
+      <label><input type="checkbox" id="tSlow_d" checked><span class="sw" style="background:var(--cyan)"></span>Weekly lows (WCL)</label>
+      <label><input type="checkbox" id="tFsine_d"><span class="sw" style="background:var(--amber);opacity:.5"></span>Daily cycle wave</label>
+      <label><input type="checkbox" id="tSsine_d"><span class="sw" style="background:var(--cyan);opacity:.5"></span>Weekly cycle wave</label>
+      <label title="When a cycle runs past its window and price is still dropping, keep searching to the true low and start the next count there."><input type="checkbox" id="tChase_d" checked>Chase stretched lows</label>
+      <label title="Shaded band projects the next expected daily cycle-low timing window."><input type="checkbox" id="tWin_d" checked><span class="sw" style="background:var(--amber)"></span>Next DCL window</label>
+      <span class="integrity" id="integrity_d" style="margin-left:auto"></span>
     </div>
-    <div class="card weekly">
-      <h2><span class="sw" style="background:var(--cyan);width:11px;height:11px;border-radius:2px"></span>Weekly cycle · ~22 weeks</h2>
-      <div class="kv" id="weeklyKV"></div>
+    <div id="chart_d" class="chartbox"></div>
+    <div class="imacd-head">
+      <span class="h">Impulse MACD · 34 / 9</span>
+      <span class="sub">thresholds = the major/minor crossover split (55th pct)</span>
+      <span class="imacd-legend">
+        <span class="item"><span class="ln" style="border-top-color:var(--amber)"></span>Impulse</span>
+        <span class="item"><span class="ln" style="border-top-color:#6f9fcf"></span>Signal (9)</span>
+        <span class="item"><span style="color:#3fb950;font-size:9px">&#9679;</span><span style="color:#f85149;font-size:9px">&#9679;</span> turns</span>
+        <span class="item">threshold <span class="thr" id="thr_d" style="color:var(--amber)">—</span></span>
+      </span>
     </div>
-  </div>
+    <div id="imacd_d" class="imacdbox"></div>
+    <div class="cards">
+      <div class="card fast"><h2><span class="sw" style="background:var(--amber);width:11px;height:11px;border-radius:2px"></span>Daily cycle · ~60 days</h2><div class="kv" id="fastKV_d"></div></div>
+      <div class="card slow"><h2><span class="sw" style="background:var(--cyan);width:11px;height:11px;border-radius:2px"></span>Weekly cycle · ~22 weeks</h2><div class="kv" id="slowKV_d"></div></div>
+    </div>
+  </section>
+
+  <!-- ================= 4-HOUR ================= -->
+  <section class="panel" id="panel_h" hidden>
+    <div class="toolbar">
+      <label><input type="checkbox" id="tFast_h" checked><span class="sw" style="background:var(--amber)"></span>4H lows</label>
+      <label><input type="checkbox" id="tSlow_h" checked><span class="sw" style="background:var(--cyan)"></span>Daily lows</label>
+      <label><input type="checkbox" id="tFsine_h"><span class="sw" style="background:var(--amber);opacity:.5"></span>4H cycle wave</label>
+      <label><input type="checkbox" id="tSsine_h"><span class="sw" style="background:var(--cyan);opacity:.5"></span>Daily cycle wave</label>
+      <label title="When a cycle runs past its window and price is still dropping, keep searching to the true low and start the next count there."><input type="checkbox" id="tChase_h" checked>Chase stretched lows</label>
+      <label title="Shaded band projects the next expected 4H cycle-low timing window."><input type="checkbox" id="tWin_h" checked><span class="sw" style="background:var(--amber)"></span>Next 4H window</label>
+      <span class="integrity" id="integrity_h" style="margin-left:auto"></span>
+    </div>
+    <div id="chart_h" class="chartbox"></div>
+    <div class="imacd-head">
+      <span class="h">Impulse MACD · 34 / 9 · 4H</span>
+      <span class="sub">thresholds = the major/minor crossover split (55th pct)</span>
+      <span class="imacd-legend">
+        <span class="item"><span class="ln" style="border-top-color:var(--amber)"></span>Impulse</span>
+        <span class="item"><span class="ln" style="border-top-color:#6f9fcf"></span>Signal (9)</span>
+        <span class="item"><span style="color:#3fb950;font-size:9px">&#9679;</span><span style="color:#f85149;font-size:9px">&#9679;</span> turns</span>
+        <span class="item">threshold <span class="thr" id="thr_h" style="color:var(--amber)">—</span></span>
+      </span>
+    </div>
+    <div id="imacd_h" class="imacdbox"></div>
+    <div class="cards">
+      <div class="card fast"><h2><span class="sw" style="background:var(--amber);width:11px;height:11px;border-radius:2px"></span>4H cycle · ~8 days</h2><div class="kv" id="fastKV_h"></div></div>
+      <div class="card slow"><h2><span class="sw" style="background:var(--cyan);width:11px;height:11px;border-radius:2px"></span>Daily cycle · ~60 days</h2><div class="kv" id="slowKV_h"></div></div>
+    </div>
+  </section>
 </main>
 
 <footer>
-  <div><b>How lows are found.</b> Cycles are counted low-to-low. From each confirmed low the detector opens a timing window — 40–75 days for daily, 120–190 for weekly — and takes the lowest price inside it as the next cycle low, using a 5-day smoothing to ignore single-bar noise. Weekly lows are chosen from the daily lows, so every weekly low is also a daily low.</div>
-  <div><b>Translation</b> measures where the high sits inside a completed cycle: a peak in the second half (right-translated) is bullish; a peak in the first half (left-translated) is weak. The sine waves are an idealized rhythm phase-locked to the most recent low — a guide to when the next low is "due," not a fit to price.</div>
-  <div class="note"><b>Read it as structure, not prophecy.</b> The timing windows are wide and the most recent low stays provisional until price turns up, so the right edge can revise. This is a discretionary orientation and risk-management frame (a broken cycle low is a natural invalidation), not a forecast. Not investment advice.</div>
+  <div><b>Two timeframes.</b> The <b>Daily</b> tab counts the ~60-day daily cycle (40–75d window) with the ~22-week weekly cycle nested from it. The <b>4-Hour</b> tab runs the same engine on a faster ~8-day cycle (36–72 bars ≈ 6–12 days) with the daily cycle (240–450 bars) nested on top. Cycles are counted low-to-low; from each confirmed low a timing window opens and the lowest price inside it becomes the next low, with smoothing to ignore single-bar noise and a "chase" that follows a still-falling low past its window.</div>
+  <div><b>iMACD.</b> Each tab's impulse pane (LazyBear 34/9) is computed on that tab's candles. Threshold = the 55th-percentile crossover size (the major/minor split); dots mark impulse turns (green up, red down), zigzag-filtered to ignore noise. The amber band projects the next cycle-low timing window.</div>
+  <div class="note"><b>Read it as structure, not prophecy.</b> Timing windows are wide and the most recent low stays provisional until price turns up, so the right edge can revise. This is a discretionary orientation and risk frame (a broken cycle low is a natural invalidation), not a forecast. Not investment advice.</div>
 </footer>
 
 <script>
-const SYMBOL="BTCUSDT"; let SOURCE="";
+const SYMBOL="BTCUSDT";
 const $=id=>document.getElementById(id);
+const $$=s=>document.querySelectorAll(s);
 const DAY=86400;
 const setStatus=(s,t)=>{$("status").className="status "+(s||"");$("statusText").textContent=t;};
+function dstr(ts){return new Date(ts*1000).toISOString().slice(0,10);}
 
-// daily/weekly timing bands (verified in prototype)
-const D_MIN=40,D_MAX=75,D_IDEAL=60;
-const W_MIN=120,W_MAX=190,W_IDEAL=154;
-
-// ---------- data ----------
-async function fetchBinance(){
-  const u=`https://api.binance.com/api/v3/klines?symbol=${SYMBOL}&interval=1d&limit=1000`;
+// ---------- data (multi-exchange fallback; supports 1d and 4h) ----------
+async function fetchBinance(interval,limit){
+  const u=`https://api.binance.com/api/v3/klines?symbol=${SYMBOL}&interval=${interval}&limit=${limit}`;
   const r=await fetch(u); if(!r.ok)throw new Error("binance "+r.status);
   return (await r.json()).map(k=>({time:Math.floor(k[0]/1000),open:+k[1],high:+k[2],low:+k[3],close:+k[4]}));
 }
-async function fetchCoinbase(){
-  const u="https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400";
+async function fetchBybit(interval,limit){
+  const map={"1d":"D","4h":"240"};
+  const u=`https://api.bybit.com/v5/market/kline?category=spot&symbol=${SYMBOL}&interval=${map[interval]}&limit=${Math.min(limit,1000)}`;
+  const r=await fetch(u); if(!r.ok)throw new Error("bybit "+r.status);
+  const j=await r.json();
+  return j.result.list.map(k=>({time:Math.floor(+k[0]/1000),open:+k[1],high:+k[2],low:+k[3],close:+k[4]})).reverse();
+}
+async function fetchCoinbase(gran){
+  const u=`https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=${gran}`;
   const r=await fetch(u); if(!r.ok)throw new Error("coinbase "+r.status);
   return (await r.json()).map(k=>({time:k[0],open:k[3],high:k[2],low:k[1],close:k[4]})).sort((a,b)=>a.time-b.time);
 }
-async function getCandles(){ try{const d=await fetchBinance();SOURCE="Binance";return d;}
-  catch(e){const d=await fetchCoinbase();SOURCE="Coinbase";return d;} }
+async function getCandles(interval,gran,limit){
+  try{return {data:await fetchBinance(interval,limit),src:"Binance"};}catch(e){}
+  try{return {data:await fetchBybit(interval,limit),src:"Bybit"};}catch(e){}
+  if(gran===86400){try{return {data:await fetchCoinbase(gran),src:"Coinbase"};}catch(e){}}
+  throw new Error("all candle sources failed");
+}
 async function getPrice(){
   try{const r=await fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${SYMBOL}`);return +(await r.json()).price;}
   catch(e){const r=await fetch("https://api.coinbase.com/v2/prices/BTC-USD/spot");return +(await r.json()).data.amount;}
@@ -140,7 +190,7 @@ function smooth(x,k){ if(k<=1)return x.slice(); const o=new Array(x.length),h=k>
 function argmin(a,lo,hi){let bi=lo,bv=Infinity;for(let i=lo;i<=hi;i++)if(a[i]<bv){bv=a[i];bi=i;}return bi;}
 function argmax(a,lo,hi){let bi=lo,bv=-Infinity;for(let i=lo;i<=hi;i++)if(a[i]>bv){bv=a[i];bi=i;}return bi;}
 
-function detectCycleLows(low,minGap,maxGap,k=5){
+function detectCycleLows(low,minGap,maxGap,k=5,confirm=8,chase=true){
   const n=low.length; if(!n)return[];
   const s=smooth(low,k);
   let anchor=argmin(s,0,Math.min(maxGap,n)-1);
@@ -148,15 +198,30 @@ function detectCycleLows(low,minGap,maxGap,k=5){
   const dcls=[anchor];
   while(true){
     const last=dcls[dcls.length-1];
-    const lo=last+minGap, hi=Math.min(last+maxGap,n-1);
+    const lo=last+minGap;
     if(lo>n-1)break;
+    let hi=Math.min(last+maxGap,n-1);
     let idx=argmin(s,lo,hi);
-    const a=Math.max(lo,idx-4), b=Math.min(hi,idx+4);
+    let chased=false;
+    // CHASE: a smoothed low pinned to the window's right edge means price is still
+    // falling at the cutoff. Keep walking forward, tracking the running low,
+    // until it holds for `confirm` bars without a new low — i.e. price has turned.
+    if(chase && idx>=hi-2 && hi<n-1){
+      let lowIdx=idx, lowVal=s[idx], since=0;
+      for(let i=hi+1;i<n;i++){
+        if(s[i]<lowVal){ lowVal=s[i]; lowIdx=i; since=0; }
+        else if(++since>=confirm) break;
+      }
+      idx=lowIdx; chased=true;
+    }
+    const hiRef=chased?Math.min(idx+4,n-1):hi;
+    const a=Math.max(lo,idx-4), b=Math.min(hiRef,idx+4);
     idx=argmin(low,a,b);
-    idx=Math.max(lo,Math.min(idx,hi));
+    if(!chased) idx=Math.max(lo,Math.min(idx,hi));
     if(idx<=last)break;
     dcls.push(idx);
-    if(hi>=n-1)break;
+    if(idx>=n-1)break;
+    if(!chased && hi>=n-1)break;
   }
   return dcls;
 }
@@ -178,12 +243,10 @@ function translations(dcls,high){
   for(let i=0;i<dcls.length-1;i++){
     const a=dcls[i],b=dcls[i+1];
     const pk=argmax(high,a,b);
-    const frac=(pk-a)/(b-a);
-    out.push({frac,side:frac>0.5?"R":"L"});
+    out.push({frac:(pk-a)/(b-a),side:(pk-a)/(b-a)>0.5?"R":"L"});
   }
   return out;
 }
-// helpers for the sine guides
 function ema(x,span){const a=2/(span+1),o=[];let p=x[0];for(let i=0;i<x.length;i++){p=i?a*x[i]+(1-a)*p:x[i];o.push(p);}return o;}
 function smaArr(x,w){const o=[];let s=0;for(let i=0;i<x.length;i++){s+=x[i];if(i>=w)s-=x[i-w];o.push(s/Math.min(i+1,w));}return o;}
 
@@ -207,198 +270,256 @@ function impulseMACD(bars,lenMA=34,lenSig=9){
     :(mi[i]>hi[i]?mi[i]-hi[i]:mi[i]<lo[i]?mi[i]-lo[i]:0));
   return {md,sb:iSMAv(md,lenSig)};
 }
-// magnitude of |md| at each signal-line crossover — used to size the threshold
 function crossMags(md,sb){const m=[];for(let i=1;i<md.length;i++){
   if(isNaN(md[i])||isNaN(sb[i])||isNaN(md[i-1])||isNaN(sb[i-1]))continue;
   if((md[i]>sb[i]&&md[i-1]<=sb[i-1])||(md[i]<sb[i]&&md[i-1]>=sb[i-1]))m.push(Math.abs(md[i]));}
   return m;}
 function pctile(a,p){if(!a.length)return NaN;const s=a.slice().sort((x,y)=>x-y);
   return s[Math.min(s.length-1,Math.floor(s.length*p))];}
-// resample daily candles into Monday-anchored weekly OHLC + a daily->week index map
-function resampleWeekly(daily){
-  const buckets=new Map();
-  for(const c of daily){const wk=Math.floor((Math.floor(c.time/DAY)+3)/7);
-    let b=buckets.get(wk);
-    if(!b)buckets.set(wk,{time:c.time,open:c.open,high:c.high,low:c.low,close:c.close});
-    else{b.high=Math.max(b.high,c.high);b.low=Math.min(b.low,c.low);b.close=c.close;}
-    c._wk=wk;}
-  const keys=[...buckets.keys()].sort((a,b)=>a-b);
-  const idxOf=new Map(keys.map((k,i)=>[k,i]));
-  return {weekly:keys.map(k=>buckets.get(k)),wkIndexForDaily:daily.map(c=>idxOf.get(c._wk))};
+// impulse-line turning points via a zigzag: a reversal only counts once the line
+// has moved `minSwing` against the prior extreme, so micro-wiggles are ignored.
+function turningPoints(md,minSwing){
+  const out=[],n=md.length;
+  let i0=0;while(i0<n&&isNaN(md[i0]))i0++;if(i0>=n)return out;
+  let extIdx=i0,extVal=md[i0],dir=0;
+  for(let i=i0+1;i<n;i++){const v=md[i];if(isNaN(v))continue;
+    if(dir>=0&&v>=extVal){extVal=v;extIdx=i;if(dir===0)dir=1;}
+    else if(dir<=0&&v<=extVal){extVal=v;extIdx=i;if(dir===0)dir=-1;}
+    else if(dir>0&&v<=extVal-minSwing){out.push({i:extIdx,type:"max"});dir=-1;extVal=v;extIdx=i;}
+    else if(dir<0&&v>=extVal+minSwing){out.push({i:extIdx,type:"min"});dir=1;extVal=v;extIdx=i;}}
+  return out;
 }
 
-// ---------- chart ----------
-let chart,candles,dSine,wSine;
-function initChart(){
-  chart=LightweightCharts.createChart($("chart"),{
-    layout:{background:{color:"#0d1217"},textColor:"#6b7882",fontFamily:"IBM Plex Mono"},
-    grid:{vertLines:{color:"#1e262e"},horzLines:{color:"#1e262e"}},
-    rightPriceScale:{borderColor:"#1e262e"},
-    timeScale:{borderColor:"#1e262e"},crosshair:{mode:0}
-  });
-  candles=chart.addCandlestickSeries({upColor:"#3fb950",downColor:"#f85149",
-    borderUpColor:"#3fb950",borderDownColor:"#f85149",wickUpColor:"#3fb950",wickDownColor:"#f85149"});
-  dSine=chart.addLineSeries({color:"rgba(255,176,0,0.55)",lineWidth:2,priceLineVisible:false,
-    lastValueVisible:false,crosshairMarkerVisible:false,visible:false});
-  wSine=chart.addLineSeries({color:"rgba(56,189,248,0.55)",lineWidth:2,priceLineVisible:false,
-    lastValueVisible:false,crosshairMarkerVisible:false,visible:false});
-  new ResizeObserver(()=>chart.applyOptions({width:$("chart").clientWidth})).observe($("chart"));
-}
+// =================================================================
+//  VIEW FACTORY — one instance per timeframe (daily, 4h). All chart
+//  state and rendering live in the closure; the math above is shared.
+// =================================================================
+function makeView(cfg){
+  const E=cfg.el;
+  let chart,candles,fastSine,slowSine,winD;
+  let imChart,imD,imS,imThr=[];
+  let C=null,FAST=[],SLOW=[],TRANS=[],CHASE=true,SRC="";
 
-// ---------- iMACD pane ----------
-let imChart,imD,imW,imThr=[];
-function initIMACD(){
-  imChart=LightweightCharts.createChart($("imacd"),{
-    layout:{background:{color:"#0d1217"},textColor:"#6b7882",fontFamily:"IBM Plex Mono"},
-    grid:{vertLines:{color:"#1e262e"},horzLines:{color:"#1e262e"}},
-    rightPriceScale:{borderColor:"#1e262e"},
-    leftPriceScale:{borderColor:"#1e262e",visible:true},
-    timeScale:{borderColor:"#1e262e"},crosshair:{mode:0}
-  });
-  // daily on the right axis (amber), weekly on the left axis (cyan, stepped)
-  imD=imChart.addLineSeries({color:"#ffb000",lineWidth:2,priceScaleId:"right",
-    priceLineVisible:false,crosshairMarkerVisible:true,title:"D"});
-  imW=imChart.addLineSeries({color:"#38bdf8",lineWidth:2,priceScaleId:"left",lineType:1,
-    priceLineVisible:false,crosshairMarkerVisible:true,title:"W"});
-  new ResizeObserver(()=>imChart.applyOptions({width:$("imacd").clientWidth})).observe($("imacd"));
-  // keep the two panes' time axes locked together
-  let lock=false;
-  const link=(a,b)=>a.timeScale().subscribeVisibleLogicalRangeChange(r=>{
-    if(lock||!r)return;lock=true;b.timeScale().setVisibleLogicalRange(r);lock=false;});
-  link(chart,imChart);link(imChart,chart);
-}
-function renderIMACD(){
-  if(!imChart)initIMACD();
-  // daily iMACD straight off the daily candles
-  const d=impulseMACD(C);
-  imD.setData(C.map((c,i)=>({time:c.time,value:d.md[i]})).filter(p=>!isNaN(p.value)));
-  const thrD=pctile(crossMags(d.md,d.sb),0.55);
+  function initCharts(){
+    chart=LightweightCharts.createChart($(E.chart),{
+      autoSize:true,
+      layout:{background:{color:"#0d1217"},textColor:"#6b7882",fontFamily:"IBM Plex Mono"},
+      grid:{vertLines:{color:"#1e262e"},horzLines:{color:"#1e262e"}},
+      rightPriceScale:{borderColor:"#1e262e",minimumWidth:72},
+      timeScale:{borderColor:"#1e262e"},crosshair:{mode:0}
+    });
+    candles=chart.addCandlestickSeries({upColor:"#3fb950",downColor:"#f85149",
+      borderUpColor:"#3fb950",borderDownColor:"#f85149",wickUpColor:"#3fb950",wickDownColor:"#f85149"});
+    fastSine=chart.addLineSeries({color:"rgba(255,176,0,0.55)",lineWidth:2,priceLineVisible:false,
+      lastValueVisible:false,crosshairMarkerVisible:false,visible:false});
+    slowSine=chart.addLineSeries({color:"rgba(56,189,248,0.55)",lineWidth:2,priceLineVisible:false,
+      lastValueVisible:false,crosshairMarkerVisible:false,visible:false});
 
-  // weekly iMACD from resampled weekly bars, forward-filled onto the daily axis
-  const {weekly,wkIndexForDaily}=resampleWeekly(C);
-  const w=impulseMACD(weekly);
-  imW.setData(C.map((c,i)=>{const v=w.md[wkIndexForDaily[i]];
-    return (v==null||isNaN(v))?null:{time:c.time,value:v};}).filter(Boolean));
-  const thrW=pctile(crossMags(w.md,w.sb),0.55);
+    imChart=LightweightCharts.createChart($(E.imacd),{
+      autoSize:true,
+      layout:{background:{color:"#0d1217"},textColor:"#6b7882",fontFamily:"IBM Plex Mono"},
+      grid:{vertLines:{color:"#1e262e"},horzLines:{color:"#1e262e"}},
+      rightPriceScale:{borderColor:"#1e262e",minimumWidth:72},
+      leftPriceScale:{visible:false},
+      timeScale:{borderColor:"#1e262e"},crosshair:{mode:0}
+    });
+    imD=imChart.addLineSeries({color:"#ffb000",lineWidth:2,priceScaleId:"right",
+      priceLineVisible:false,crosshairMarkerVisible:true,title:"iMACD"});
+    imS=imChart.addLineSeries({color:"#6f9fcf",lineWidth:1,priceScaleId:"right",
+      priceLineVisible:false,crosshairMarkerVisible:true,title:"signal"});
 
-  // center each axis on zero so both thresholds read symmetrically
-  const maxAbs=(arr,extra)=>Math.max(extra||0,...arr.filter(v=>!isNaN(v)).map(Math.abs))*1.12;
-  const mD=maxAbs(d.md,thrD), mW=maxAbs(w.md,thrW);
-  imD.applyOptions({autoscaleInfoProvider:()=>({priceRange:{minValue:-mD,maxValue:mD}})});
-  imW.applyOptions({autoscaleInfoProvider:()=>({priceRange:{minValue:-mW,maxValue:mW}})});
-
-  // redraw threshold lines, color-matched to each series
-  imThr.forEach(({s,l})=>{try{s.removePriceLine(l)}catch(e){}});imThr=[];
-  const add=(s,price,color,title)=>imThr.push({s,l:s.createPriceLine(
-    {price,color,lineWidth:1,lineStyle:2,axisLabelVisible:true,title})});
-  if(!isNaN(thrD)){add(imD,thrD,"#ffb000","OB");add(imD,-thrD,"#ffb000","OS");}
-  add(imD,0,"#33404a","");
-  if(!isNaN(thrW)){add(imW,thrW,"#38bdf8","OB");add(imW,-thrW,"#38bdf8","OS");}
-
-  $("thrD").textContent=isNaN(thrD)?"—":"±"+thrD.toFixed(2);
-  $("thrW").textContent=isNaN(thrW)?"—":"±"+thrW.toFixed(2);
-}
-
-// ---------- state ----------
-let C=null,DCL=[],WCL=[],TRANS=[];
-
-function dstr(ts){return new Date(ts*1000).toISOString().slice(0,10);}
-function buildMarkers(){
-  const wset=new Set(WCL);
-  const m=[];
-  if($("tDCL").checked){
-    DCL.forEach((i,k)=>{ if(wset.has(i)&&$("tWCL").checked)return; // weekly arrow drawn instead
-      const isLast=k===DCL.length-1;
-      m.push({time:C[i].time,position:"belowBar",color:"#ffb000",shape:"circle",
-        size:isLast?2:1,text:isLast?"DCL":""});});
+    let lock=false;
+    const link=(a,b)=>a.timeScale().subscribeVisibleLogicalRangeChange(r=>{
+      if(lock||!r)return;lock=true;b.timeScale().setVisibleLogicalRange(r);lock=false;});
+    link(chart,imChart);link(imChart,chart);
   }
-  if($("tWCL").checked){
-    WCL.forEach(i=>m.push({time:C[i].time,position:"belowBar",color:"#38bdf8",shape:"arrowUp",text:"WCL"}));
+
+  function buildMarkers(){
+    const sset=new Set(SLOW);const m=[];
+    if($(E.tFast).checked){
+      FAST.forEach((i,k)=>{ if(sset.has(i)&&$(E.tSlow).checked)return;
+        const last=k===FAST.length-1;
+        m.push({time:C[i].time,position:"belowBar",color:"#ffb000",shape:"circle",
+          size:last?2:1,text:last?cfg.fast.tag:""});});
+    }
+    if($(E.tSlow).checked){
+      SLOW.forEach(i=>m.push({time:C[i].time,position:"belowBar",color:"#38bdf8",shape:"arrowUp",text:cfg.slow.tag}));
+    }
+    m.sort((a,b)=>a.time-b.time);candles.setMarkers(m);
   }
-  m.sort((a,b)=>a.time-b.time);
-  candles.setMarkers(m);
-}
-function buildSines(){
-  const n=C.length;
-  const close=C.map(c=>c.close), high=C.map(c=>c.high), low=C.map(c=>c.low);
-  const amp=smaArr(high.map((h,i)=>h-low[i]),20);
-  if($("tDsine").checked && DCL.length){
-    const base=ema(close,D_IDEAL), anchor=DCL[DCL.length-1];
-    dSine.setData(C.map((c,i)=>({time:c.time,
-      value:base[i]-1.6*amp[i]*Math.cos(2*Math.PI*(i-anchor)/D_IDEAL)})));
-    dSine.applyOptions({visible:true});
-  } else dSine.applyOptions({visible:false});
-  if($("tWsine").checked && WCL.length){
-    const base=ema(close,W_IDEAL), anchor=WCL[WCL.length-1];
-    wSine.setData(C.map((c,i)=>({time:c.time,
-      value:base[i]-2.4*amp[i]*Math.cos(2*Math.PI*(i-anchor)/W_IDEAL)})));
-    wSine.applyOptions({visible:true});
-  } else wSine.applyOptions({visible:false});
-}
 
-function renderCard(elId,idxs,low,minGap,maxGap,trans,unit){
-  const n=C.length, last=idxs[idxs.length-1], cycleDay=(n-1)-last;
-  const winLo=C[last].time+minGap*DAY, winHi=C[last].time+maxGap*DAY;
-  let phase,cls="";
-  if(cycleDay<minGap){phase="too early";}
-  else if(cycleDay<=maxGap){phase="in timing window";cls="due";}
-  else {phase="overdue";cls="due";}
-  const t=trans[trans.length-1];
-  const transTxt=t?(t.side==="R"?"Right · bullish":"Left · weak"):"—";
-  const transCls=t?(t.side==="R"?"r":"l"):"";
-  const div=unit==="d"?1:7, u=unit==="d"?"d":"w";
-  $(elId).innerHTML=`
-    <div class="k">Last low</div><div class="v">${dstr(C[last].time)}</div>
-    <div class="k">Cycle age</div><div class="v ${cls}">${Math.round(cycleDay/div)} ${u} · ${phase}</div>
-    <div class="k">Next low window</div><div class="v">${dstr(winLo)} → ${dstr(winHi)}</div>
-    <div class="k">Last translation</div><div class="v ${transCls}">${transTxt}</div>
-    <div class="k">Lows found</div><div class="v">${idxs.length}</div>`;
-}
+  function buildSines(){
+    const close=C.map(c=>c.close),high=C.map(c=>c.high),low=C.map(c=>c.low);
+    const amp=smaArr(high.map((h,i)=>h-low[i]),20);
+    if($(E.tFsine).checked&&FAST.length){
+      const base=ema(close,cfg.fast.ideal),anc=FAST[FAST.length-1];
+      fastSine.setData(C.map((c,i)=>({time:c.time,value:base[i]-cfg.fast.amp*amp[i]*Math.cos(2*Math.PI*(i-anc)/cfg.fast.ideal)})));
+      fastSine.applyOptions({visible:true});
+    } else fastSine.applyOptions({visible:false});
+    if($(E.tSsine).checked&&SLOW.length){
+      const base=ema(close,cfg.slow.ideal),anc=SLOW[SLOW.length-1];
+      slowSine.setData(C.map((c,i)=>({time:c.time,value:base[i]-cfg.slow.amp*amp[i]*Math.cos(2*Math.PI*(i-anc)/cfg.slow.ideal)})));
+      slowSine.applyOptions({visible:true});
+    } else slowSine.applyOptions({visible:false});
+  }
 
-function integrityCheck(){
-  const low=C.map(c=>c.low);
-  const gaps=[];for(let i=1;i<DCL.length;i++)gaps.push(DCL[i]-DCL[i-1]);
-  const gapsOk=gaps.every(g=>g>=D_MIN&&g<=D_MAX);
-  // local-minimum test (ignore the provisional last one)
-  let localOk=true;
-  for(let k=1;k<DCL.length-1;k++){const i=DCL[k],a=Math.max(0,i-5),b=Math.min(low.length-1,i+5);
-    if(low[i]>low[argmin(low,a,b)])localOk=false;}
-  const nest=WCL.every(w=>DCL.includes(w));
-  const mark=ok=>ok?'<b>✓</b>':'<span class="bad">✗</span>';
-  $("integrity").innerHTML=
-    `${DCL.length} DCL · ${WCL.length} WCL &nbsp;|&nbsp; gaps in band ${mark(gapsOk)} &nbsp; local minima ${mark(localOk)} &nbsp; nested ${mark(nest)}`;
-}
+  function renderCard(elId,idxs,cyc,trans){
+    if(!idxs.length){$(elId).innerHTML="";return;}
+    const n=C.length,last=idxs[idxs.length-1],ageBars=(n-1)-last;
+    const winLo=C[last].time+cyc.min*cfg.barSecs,winHi=C[last].time+cyc.max*cfg.barSecs;
+    let phase,cls="";
+    if(ageBars<cyc.min)phase="too early";
+    else if(ageBars<=cyc.max){phase="in timing window";cls="due";}
+    else {phase="overdue";cls="due";}
+    const t=trans[trans.length-1];
+    const transTxt=t?(t.side==="R"?"Right · bullish":"Left · weak"):"—";
+    const transCls=t?(t.side==="R"?"r":"l"):"";
+    const days=ageBars/cfg.barsPerDay;
+    const ageVal=cyc.unit==="w"?days/7:days;
+    $(elId).innerHTML=`
+      <div class="k">Last low</div><div class="v">${dstr(C[last].time)}</div>
+      <div class="k">Cycle age</div><div class="v ${cls}">${Math.round(ageVal)} ${cyc.unit} · ${phase}</div>
+      <div class="k">Next low window</div><div class="v">${dstr(winLo)} → ${dstr(winHi)}</div>
+      <div class="k">Last translation</div><div class="v ${transCls}">${transTxt}</div>
+      <div class="k">Lows found</div><div class="v">${idxs.length}</div>`;
+  }
 
-function renderAll(){
-  candles.setData(C);
-  buildMarkers(); buildSines();
-  const low=C.map(c=>c.low), high=C.map(c=>c.high);
-  renderCard("dailyKV",DCL,low,D_MIN,D_MAX,TRANS,"d");
-  const wtrans=translations(WCL,high);
-  renderCard("weeklyKV",WCL,low,W_MIN,W_MAX,wtrans,"w");
-  integrityCheck();
-  renderIMACD();
-  chart.timeScale().fitContent();
-}
+  function integrityCheck(){
+    const low=C.map(c=>c.low);
+    const gaps=[];for(let i=1;i<FAST.length;i++)gaps.push(FAST[i]-FAST[i-1]);
+    const longest=gaps.length?Math.max(...gaps):0;
+    const gapsOk=gaps.every(g=>g>=cfg.fast.min&&(CHASE||g<=cfg.fast.max));
+    let localOk=true;
+    for(let k=1;k<FAST.length-1;k++){const i=FAST[k],a=Math.max(0,i-5),b=Math.min(low.length-1,i+5);
+      if(low[i]>low[argmin(low,a,b)])localOk=false;}
+    const nest=SLOW.every(w=>FAST.includes(w));
+    const mark=ok=>ok?'<b>&#10003;</b>':'<span class="bad">&#10007;</span>';
+    const longestD=Math.round(longest/cfg.barsPerDay);
+    $(E.integrity).innerHTML=
+      `${FAST.length} ${cfg.fast.tag} · ${SLOW.length} ${cfg.slow.tag} &nbsp;|&nbsp; gaps ${mark(gapsOk)} &nbsp; minima ${mark(localOk)} &nbsp; nested ${mark(nest)} &nbsp; longest ${longestD}d${SRC?" · "+SRC:""}`;
+  }
 
-async function load(){
-  setStatus("","loading");
-  try{
-    const [data,price]=await Promise.all([getCandles(),getPrice()]);
-    C=data;
-    const low=C.map(c=>c.low), high=C.map(c=>c.high);
-    DCL=detectCycleLows(low,D_MIN,D_MAX);
-    WCL=nestWeekly(DCL,low,W_MIN,W_MAX);
-    TRANS=translations(DCL,high);
-    $("price").firstChild.nodeValue=price.toLocaleString("en-US",{style:"currency",currency:"USD"});
-    $("src").textContent="  via "+SOURCE;
+  function nextWindow(){
+    if(!FAST.length)return null;
+    const lastF=C[FAST[FAST.length-1]].time;
+    return {lo:lastF+cfg.fast.min*cfg.barSecs,hi:lastF+cfg.fast.max*cfg.barSecs};
+  }
+  function renderWindows(win,fws){
+    if(!winD){
+      winD=chart.addAreaSeries({priceScaleId:"win",lineColor:"rgba(255,176,0,0)",lineWidth:1,
+        topColor:"rgba(255,176,0,0.15)",bottomColor:"rgba(255,176,0,0.15)",
+        priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
+      winD.applyOptions({autoscaleInfoProvider:()=>({priceRange:{minValue:0,maxValue:1}})});
+      chart.priceScale("win").applyOptions({scaleMargins:{top:0,bottom:0}});
+    }
+    if(!win){winD.setData([]);return;}
+    const times=C.map(c=>c.time).concat(fws.map(f=>f.time));
+    // value 1 inside the window, blank (whitespace) elsewhere -> clean vertical band
+    winD.setData(times.map(t=>(t>=win.lo&&t<=win.hi)?{time:t,value:1}:{time:t}));
+  }
+
+  function renderIMACD(fws){
+    const d=impulseMACD(C);
+    // whitespace at warmup + future so the pane shares bar indices with the price chart
+    const dData=C.map((c,i)=>isNaN(d.md[i])?{time:c.time}:{time:c.time,value:d.md[i]});
+    const sData=C.map((c,i)=>isNaN(d.sb[i])?{time:c.time}:{time:c.time,value:d.sb[i]});
+    imD.setData((fws&&fws.length)?dData.concat(fws):dData);
+    imS.setData((fws&&fws.length)?sData.concat(fws):sData);
+    const thrD=pctile(crossMags(d.md,d.sb),0.55);
+    const absVals=[];
+    for(const v of d.md) if(!isNaN(v)) absVals.push(Math.abs(v));
+    for(const v of d.sb) if(!isNaN(v)) absVals.push(Math.abs(v));
+    const half=(Math.max(thrD||0,pctile(absVals,0.95))||1)*1.05;
+    imD.applyOptions({autoscaleInfoProvider:()=>({priceRange:{minValue:-half,maxValue:half}})});
+    imThr.forEach(({s,l})=>{try{s.removePriceLine(l)}catch(e){}});imThr=[];
+    const add=(price,color,title)=>imThr.push({s:imD,l:imD.createPriceLine(
+      {price,color,lineWidth:1,lineStyle:2,axisLabelVisible:true,title})});
+    if(!isNaN(thrD)){add(thrD,"#ffb000","OB");add(-thrD,"#ffb000","OS");}
+    add(0,"#33404a","");
+    const minSwing=(thrD||half*0.15)*0.8;
+    const turns=turningPoints(d.md,minSwing);
+    imD.setMarkers(turns.map(t=>({time:C[t.i].time,position:"inBar",shape:"circle",size:0.5,
+      color:t.type==="min"?"rgba(63,185,80,0.9)":"rgba(248,81,73,0.9)"})));
+    $(E.thr).textContent=isNaN(thrD)?"—":"±"+thrD.toFixed(2);
+  }
+
+  function renderAll(){
+    const showWin=$(E.tWin)?$(E.tWin).checked:true;
+    const win=showWin?nextWindow():null;
+    const lastT=C[C.length-1].time;
+    const fws=[];
+    if(win){for(let t=lastT+cfg.barSecs;t<=win.hi+cfg.barSecs;t+=cfg.barSecs)fws.push({time:t});}
+    candles.setData(fws.length?C.concat(fws):C);
+    buildMarkers();buildSines();
+    renderCard(E.fastKV,FAST,cfg.fast,TRANS);
+    const strans=translations(SLOW,C.map(c=>c.high));
+    renderCard(E.slowKV,SLOW,cfg.slow,strans);
+    integrityCheck();
+    renderIMACD(fws);
+    renderWindows(win,fws);
+    chart.timeScale().fitContent();
+  }
+
+  function recompute(){
+    if(!C)return;
+    const low=C.map(c=>c.low),high=C.map(c=>c.high);
+    FAST=detectCycleLows(low,cfg.fast.min,cfg.fast.max,5,8,CHASE);
+    SLOW=nestWeekly(FAST,low,cfg.slow.min,cfg.slow.max);
+    TRANS=translations(FAST,high);
     renderAll();
-    setStatus("ok","live · "+SOURCE);
-  }catch(e){
-    console.error(e);
-    setStatus("err","data unreachable");
-    $("integrity").innerHTML='<span class="bad">Couldn\'t reach Binance or Coinbase — host the file or swap endpoints in getCandles().</span>';
   }
+
+  async function load(){
+    try{
+      const {data,src}=await getCandles(cfg.interval,cfg.gran,cfg.limit);
+      C=data;SRC=src;recompute();return true;
+    }catch(e){console.error(e);
+      $(E.integrity).innerHTML='<span class="bad">data unreachable — host the file or check the network</span>';
+      return false;}
+  }
+  function onShow(){
+    if(!chart)return;
+    requestAnimationFrame(()=>chart.timeScale().fitContent());
+  }
+  function wire(){
+    [E.tFast,E.tSlow,E.tFsine,E.tSsine].forEach(id=>{const el=$(id);if(el)el.onchange=()=>{if(C){buildMarkers();buildSines();}};});
+    const ch=$(E.tChase);if(ch)ch.onchange=()=>{CHASE=ch.checked;recompute();};
+    const w=$(E.tWin);if(w)w.onchange=()=>{if(C)renderAll();};
+  }
+
+  initCharts();wire();
+  return {load,onShow};
+}
+
+// ---------- view configs ----------
+const CFG_D={
+  interval:"1d", gran:86400, limit:1000, barSecs:DAY, barsPerDay:1,
+  fast:{min:40,max:75,ideal:60,amp:1.6,tag:"DCL",unit:"d"},
+  slow:{min:120,max:190,ideal:154,amp:2.4,tag:"WCL",unit:"w"},
+  el:{chart:"chart_d",imacd:"imacd_d",integrity:"integrity_d",fastKV:"fastKV_d",slowKV:"slowKV_d",thr:"thr_d",
+      tFast:"tFast_d",tSlow:"tSlow_d",tFsine:"tFsine_d",tSsine:"tSsine_d",tChase:"tChase_d",tWin:"tWin_d"}
+};
+const CFG_H={
+  interval:"4h", gran:14400, limit:1000, barSecs:14400, barsPerDay:6,
+  fast:{min:36,max:72,ideal:48,amp:1.6,tag:"4HCL",unit:"d"},
+  slow:{min:240,max:450,ideal:360,amp:2.4,tag:"DCL",unit:"d"},
+  el:{chart:"chart_h",imacd:"imacd_h",integrity:"integrity_h",fastKV:"fastKV_h",slowKV:"slowKV_h",thr:"thr_h",
+      tFast:"tFast_h",tSlow:"tSlow_h",tFsine:"tFsine_h",tSsine:"tSsine_h",tChase:"tChase_h",tWin:"tWin_h"}
+};
+
+let viewD,viewH;
+function showTab(tab){
+  $$(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));
+  $("panel_d").hidden=tab!=="d";
+  $("panel_h").hidden=tab!=="h";
+  (tab==="d"?viewD:viewH).onShow();
+}
+async function loadAll(){
+  setStatus("","loading");
+  try{const p=await getPrice();$("price").firstChild.nodeValue=p.toLocaleString("en-US",{style:"currency",currency:"USD"});}catch(e){}
+  const res=await Promise.allSettled([viewD.load(),viewH.load()]);
+  const ok=res.some(r=>r.status==="fulfilled"&&r.value);
+  setStatus(ok?"ok":"err",ok?"live":"data unreachable");
 }
 
 // ---------- chart-library loader (multi-CDN fallback) ----------
@@ -410,11 +531,14 @@ function loadChartLib(){
     const s=document.createElement("script");s.src=cdns[i++];
     s.onload=()=>window.LightweightCharts?res():go();s.onerror=go;document.head.appendChild(s);};go();});
 }
-loadChartLib().then(()=>{initChart();load();
-  ["tDCL","tWCL","tDsine","tWsine"].forEach(id=>$(id).onchange=()=>{if(C){buildMarkers();buildSines();}});
+loadChartLib().then(()=>{
+  viewD=makeView(CFG_D);
+  viewH=makeView(CFG_H);
+  $$(".tab").forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
+  loadAll();
 }).catch(()=>{setStatus("err","chart library blocked");
-  $("chart").innerHTML='<div style="padding:22px;color:#6b7882;font-size:13px;line-height:1.5">Couldn\'t load the charting library from jsDelivr or unpkg — likely a network block. Download <span class="mono">lightweight-charts.standalone.production.js</span> and reference it locally.</div>';});
-$("refresh").onclick=()=>{if(window.LightweightCharts)load();};
+  ["chart_d","chart_h"].forEach(id=>{const e=$(id);if(e)e.innerHTML='<div style="padding:22px;color:#6b7882;font-size:13px;line-height:1.5">Couldn\'t load the charting library from jsDelivr or unpkg — likely a network block. Download <span class="mono">lightweight-charts.standalone.production.js</span> and reference it locally.</div>';});});
+$("refresh").onclick=()=>{if(window.LightweightCharts&&viewD)loadAll();};
 setInterval(async()=>{try{const p=await getPrice();$("price").firstChild.nodeValue=p.toLocaleString("en-US",{style:"currency",currency:"USD"});}catch(e){}},60000);
 </script>
 </body>
