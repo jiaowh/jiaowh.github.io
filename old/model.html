@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css_old/model.css" />
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Henny+Penny&display=swap" rel="stylesheet">
+    <script src="js_old/model.js" ></script>
+  <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+    
+</head>
+<body  style="background-color:#C1AD8E;">
+    <div class = "mobile">
+      <div class = "header">
+        <a href="index.html">
+            <img class="logo" id="logo" src="../assets/img/logo-1.png" />
+        </a>
+        <img class="menu"  src="../assets/img/hamburger.png" onclick="loadSideBar()"/>
+        <div class="sidebar" id="sidebar">
+            <div class="fill" id="fill" onclick="removeSideBar()"></div>
+
+            <div class="crafter-crad" id="craft"   >
+                
+                  <img class="crafter-card" src="../assets/img/s_craft.png" />
+                  
+                  <a href="works_new.html">
+                    <img class="works" src="../assets/img/works.png" />
+                  </a>
+                  
+              </div>
+    
+              <div class="artist-card" id="art"  >
+               
+                  <img class="artist-card-2"  src="../assets/img/s_art.png" />
+                  <a href="illust_new.html">
+                  <img class="illustration" src="../assets/img/illustrations.png"  />
+                </a>
+                  <a href="model.html">
+                    <img class="element-model" src="../assets/img/3D_model.png"  />
+                  </a>
+                
+              </div>
+    
+              <div class="rider-card" id="ride"  >
+                
+                  <img class="rider-card-2" src="../assets/img/s_ride.png" />
+                  <a href="map.html">
+                  <img class="photos" src="../assets/img/photos.png" />
+                </a>
+                  <a href="video.html">
+                  <img class="video" src="../assets/img/videos.png" />
+                  </a>
+               
+              </div>
+              <div class ="developer-card1" id="dev"  >
+                <img class="developer-card" src="../assets/img/s_dev.png" />
+                <a href="dev.html">
+                  <img class="works1" src="../assets/img/Projects.png" />
+                </a>
+            </div>
+        </div>
+        </div>
+
+        <div class ="dropdown">
+            <div class="select-btn" onclick="showSelectionBar()">
+                <span class="sBtn-text" id="name">Select Model</span>
+            </div>
+            <ul class="options"id="options" >
+              <li class="option" >
+                <span class="option-text" onclick="setEagle()">Eagle</span>
+              </li>
+             <li class="option">
+                <span class="option-text" onclick="setAkbk()">Akabeko</span>
+             </li>
+              <li class="option" >
+                <span class="option-text" onclick="setJasmine()">Jasmine</span>
+            </li>
+          
+                <li class="option" >
+                    <span class="option-text" onclick="setLogo()">Logo</span>
+                </li>
+                <li class="option">
+                    <span class="option-text" onclick="setDragon()">Dragon</span>
+                </li>
+            
+            </ul>
+        </div>
+    
+
+        <div class = "portfolio" >
+
+            <img class = "card" src="../assets/img/card.png"/>
+
+            <a-scene embedded class='vgScene' id="vgScene">
+                <a-camera listener look-controls-enabled="false">
+                    <a-cursor></a-cursor>
+                  </a-camera>
+                  <a-entity id="eagle" visible="true">
+                    <a-gltf-model
+                    src="../assets/models/eagle.glb"
+                    scale="0.2 0.2 0.2 "
+                    position="0.17 1.65 -0.7"
+                    rotation="0 -90 -20"      
+                    
+                  ></a-gltf-model>      
+                </a-entity>
+                <a-entity id="akbk" visible="false">
+                  <a-gltf-model
+                  src="../assets/models/akbk.glb"
+                  scale="0.125 0.125 0.125 "
+                  position="0.06 1.67 -0.7"
+                  rotation="0 -90 0"      
+                  
+                ></a-gltf-model>      
+              </a-entity>
+              <a-entity id="jasmine" visible="false">
+                <a-gltf-model
+                src="../assets/models/jasmine.glb"
+                scale="0.07 0.07 0.07 "
+                position="-0.04 1.50 -0.7"
+                rotation="-15 -90 0"      
+                
+              ></a-gltf-model>      
+            </a-entity>
+                <a-entity id="3dlogo" visible="false">
+                    <a-gltf-model
+                    src="../assets/models/logo.glb"
+                    scale="0.03 0.03 0.03 "
+                    position="-0.03 1.55 -0.7"
+                    rotation="0 -90 0"      
+                    
+                  ></a-gltf-model>      
+                </a-entity>
+                <a-entity id="dragon" visible="false">
+                    <a-gltf-model
+                      src="../assets/models/dragon.glb"
+                      scale="2 2 2 "
+                      position="0.15 1.7 -1.4"
+                      rotation="0 60 10"  
+                      animation-mixer             
+                    ></a-gltf-model>    
+                </a-entity>
+                <p class="name">Renders</p>
+
+                <a-entity light="type: ambient; intensity: 0.4;"></a-entity>
+                <a-entity light="type: directional; color: #ffffff; intensity: 0.8; castShadow: true;" position="0.2 1.65 0.7" ></a-entity>
+                <a-entity light="type: directional; color: #ffffff; intensity: 0.8; castShadow: true;" position="-0.17 1.85 0.7" ></a-entity>
+                <a-entity light="type: directional; color: #ffffff; intensity: 1; castShadow: true;" position="0 0 1"></a-entity>
+
+              </a-scene>
+              <button id="transparentButton"></button>
+
+
+
+              
+        </div>
+
+        <div class="renders">
+          <div class="render" id="render1">
+            <img class="img_h" src="../assets/img/eagle1.png" alt="render3">
+            <img class="img_h" src="../assets/img/eagle.gif" alt="render1">
+            <img class="img_h" src="../assets/img/eagle.png" alt="render2">
+
+            <p onclick="scrollToTop()">Back to Top</p>
+          </div>
+        </div>
+        
+    </div>    
+</body>
+</html>

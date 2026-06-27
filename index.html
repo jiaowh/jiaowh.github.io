@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NAHNEW — One artist. Gotta do 'em all.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  body{margin:0;background:#e7dcbf;}
+  @keyframes nn-rise{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes nn-bob{0%,100%{transform:translateY(0) rotate(-4deg);}50%{transform:translateY(-6px) rotate(-4deg);}}
+  @keyframes nn-sway{0%,100%{transform:translateX(0);}50%{transform:translateX(-4px);}}
+  @keyframes nn-wiggle{0%{transform:rotate(0deg);}12%{transform:rotate(-7deg) scale(1.03);}28%{transform:rotate(6deg);}44%{transform:rotate(-4.5deg);}60%{transform:rotate(3deg);}76%{transform:rotate(-1.6deg);}100%{transform:rotate(0deg);}}
+  .nav-link:hover,.menu-link:hover{color:#b1402f !important;}
+  .cta-pick:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 rgba(177,64,47,.7) !important;}
+  @media (max-width:820px){
+    #wrap{padding:0 24px !important;}
+    #hero{grid-template-columns:1fr !important;gap:30px !important;padding:44px 0 40px !important;}
+    #heroH1{font-size:52px !important;}
+    #herocard{padding-left:0 !important;justify-content:flex-start !important;transform:none !important;}
+    #deckgrid{grid-template-columns:repeat(2,1fr) !important;gap:26px !important;}
+  }
+  @media (max-width:640px){
+    #wrap{padding:0 18px !important;}
+    #nav{align-items:center !important;}
+    #navlinks{display:none !important;}
+    #navhamburger{display:flex !important;}
+    #navmenu{display:block !important;}
+    #heroH1{font-size:40px !important;}
+    #hero{padding:34px 0 6px !important;}
+    #herolede{display:none !important;}
+    #deckhdr{display:none !important;}
+    #herocard{display:none !important;}
+    #deckgrid{display:none !important;}
+    #mcarousel{display:block !important;}
+    #footrow{flex-direction:column !important;gap:12px !important;text-align:center !important;padding:24px 18px !important;}
+  }
+  @media (max-width:400px){
+    #heroH1{font-size:34px !important;}
+  }
+</style>
+</head>
+<body>
+
+<div style="position:relative;min-height:100vh;overflow:hidden;background:#e7dcbf;color:#160f06;font-family:'Spectral',serif;cursor:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2222%22%20height%3D%2222%22%3E%3Cpath%20d%3D%22M11%202%20L12.6%209.4%20L20%2011%20L12.6%2012.6%20L11%2020%20L9.4%2012.6%20L2%2011%20L9.4%209.4%20Z%22%20fill%3D%22%23160f06%22%20fill-opacity%3D%220.66%22%2F%3E%3C%2Fsvg%3E') 11 11, auto;">
+
+  <!-- aged vignette -->
+  <div style="position:absolute;inset:0;background:radial-gradient(120% 95% at 50% 38%, transparent 52%, rgba(70,50,22,.24));pointer-events:none;z-index:1;"></div>
+
+  <div id="wrap" style="position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:0 40px;">
+
+    <!-- nav -->
+    <nav id="nav" style="display:flex;align-items:center;justify-content:space-between;padding:26px 0 18px;border-bottom:1.5px solid #160f06;position:relative;">
+      <div style="display:flex;align-items:center;gap:11px;">
+        <span style="color:#b1402f;font-size:24px;line-height:1;display:inline-block;">✦</span>
+        <span style="font-family:'Cinzel',serif;font-weight:700;font-size:18px;letter-spacing:.18em;color:#160f06;">NAHNEW</span>
+      </div>
+      <div id="navlinks" style="display:flex;align-items:center;gap:16px;font:400 12px/1 'Courier Prime',monospace;letter-spacing:.12em;text-transform:uppercase;color:#5b4d35;cursor:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2230%22%20height%3D%2230%22%3E%3Cpath%20d%3D%22M15%202%20L18%2012%20L28%2015%20L18%2018%20L15%2028%20L12%2018%20L2%2015%20L12%2012%20Z%22%20fill%3D%22%23b1402f%22%20stroke%3D%22white%22%20stroke-width%3D%221.4%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E') 15 15, pointer;">
+        <a class="nav-link" href="oil-painting.html" style="color:inherit;text-decoration:none;cursor:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2230%22%20height%3D%2230%22%3E%3Cpath%20d%3D%22M15%202%20L18%2012%20L28%2015%20L18%2018%20L15%2028%20L12%2018%20L2%2015%20L12%2012%20Z%22%20fill%3D%22%23b1402f%22%20stroke%3D%22white%22%20stroke-width%3D%221.4%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E') 15 15, pointer;">Painting</a>
+        <span style="color:#b1402f;font-size:9px;">✦</span>
+        <a class="nav-link" href="digital-art.html" style="color:inherit;text-decoration:none;cursor:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2230%22%20height%3D%2230%22%3E%3Cpath%20d%3D%22M15%202%20L18%2012%20L28%2015%20L18%2018%20L15%2028%20L12%2018%20L2%2015%20L12%2012%20Z%22%20fill%3D%22%23b1402f%22%20stroke%3D%22white%22%20stroke-width%3D%221.4%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E') 15 15, pointer;">Illustration</a>
+        <span style="color:#b1402f;font-size:9px;">✦</span>
+        <a class="nav-link" href="craft.html" style="color:inherit;text-decoration:none;cursor:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2230%22%20height%3D%2230%22%3E%3Cpath%20d%3D%22M15%202%20L18%2012%20L28%2015%20L18%2018%20L15%2028%20L12%2018%20L2%2015%20L12%2012%20Z%22%20fill%3D%22%23b1402f%22%20stroke%3D%22white%22%20stroke-width%3D%221.4%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E') 15 15, pointer;">Shadowbox</a>
+        <span style="color:#b1402f;font-size:9px;">✦</span>
+        <a class="nav-link" href="3d-models.html" style="color:inherit;text-decoration:none;cursor:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2230%22%20height%3D%2230%22%3E%3Cpath%20d%3D%22M15%202%20L18%2012%20L28%2015%20L18%2018%20L15%2028%20L12%2018%20L2%2015%20L12%2012%20Z%22%20fill%3D%22%23b1402f%22%20stroke%3D%22white%22%20stroke-width%3D%221.4%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E') 15 15, pointer;">3D Models</a>
+        <span style="color:#b1402f;font-size:9px;">✦</span>
+        <a class="nav-link" href="tosou.html" style="color:inherit;text-decoration:none;cursor:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2230%22%20height%3D%2230%22%3E%3Cpath%20d%3D%22M15%202%20L18%2012%20L28%2015%20L18%2018%20L15%2028%20L12%2018%20L2%2015%20L12%2012%20Z%22%20fill%3D%22%23b1402f%22%20stroke%3D%22white%22%20stroke-width%3D%221.4%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E') 15 15, pointer;">Sculptures</a>
+        <span style="color:#b1402f;font-size:9px;">✦</span>
+        <a class="nav-link" href="software.html" style="color:inherit;text-decoration:none;cursor:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2230%22%20height%3D%2230%22%3E%3Cpath%20d%3D%22M15%202%20L18%2012%20L28%2015%20L18%2018%20L15%2028%20L12%2018%20L2%2015%20L12%2012%20Z%22%20fill%3D%22%23b1402f%22%20stroke%3D%22white%22%20stroke-width%3D%221.4%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E') 15 15, pointer;">Developer</a>
+      </div>
+      <button id="navhamburger" aria-label="Open menu" style="display:none;flex-direction:column;align-items:center;justify-content:center;gap:4px;width:42px;height:42px;padding:0;background:#160f06;border:1.5px solid #000;border-radius:2px;box-shadow:3px 3px 0 rgba(177,64,47,.55);cursor:pointer;">
+        <span style="display:block;width:18px;height:2px;background:#f4ecd6;"></span>
+        <span style="display:block;width:18px;height:2px;background:#f4ecd6;"></span>
+        <span style="display:block;width:18px;height:2px;background:#f4ecd6;"></span>
+      </button>
+      <div id="navmenu" data-open="0" style="display:none;position:absolute;top:calc(100% + 7px);right:0;z-index:40;width:236px;max-height:0;opacity:0;overflow:hidden;transition:max-height .42s cubic-bezier(.2,.7,.2,1),opacity .3s ease;background:#e9dec0;border:1.5px solid #000;border-radius:2px;box-shadow:6px 8px 0 rgba(42,32,20,.28);">
+        <div style="display:flex;flex-direction:column;padding:6px;font:400 13px/1 'Courier Prime',monospace;letter-spacing:.12em;text-transform:uppercase;color:#160f06;">
+          <a class="menu-link" href="oil-painting.html" style="display:flex;align-items:center;gap:11px;padding:12px 12px;color:inherit;text-decoration:none;border-bottom:1px dashed rgba(22,15,6,.22);"><span style="color:#b1402f;font-size:10px;">✦</span>Painting</a>
+          <a class="menu-link" href="digital-art.html" style="display:flex;align-items:center;gap:11px;padding:12px 12px;color:inherit;text-decoration:none;border-bottom:1px dashed rgba(22,15,6,.22);"><span style="color:#b1402f;font-size:10px;">✦</span>Illustration</a>
+          <a class="menu-link" href="craft.html" style="display:flex;align-items:center;gap:11px;padding:12px 12px;color:inherit;text-decoration:none;border-bottom:1px dashed rgba(22,15,6,.22);"><span style="color:#b1402f;font-size:10px;">✦</span>Shadowbox</a>
+          <a class="menu-link" href="3d-models.html" style="display:flex;align-items:center;gap:11px;padding:12px 12px;color:inherit;text-decoration:none;border-bottom:1px dashed rgba(22,15,6,.22);"><span style="color:#b1402f;font-size:10px;">✦</span>3D Models</a>
+          <a class="menu-link" href="tosou.html" style="display:flex;align-items:center;gap:11px;padding:12px 12px;color:inherit;text-decoration:none;border-bottom:1px dashed rgba(22,15,6,.22);"><span style="color:#b1402f;font-size:10px;">✦</span>Sculptures</a>
+          <a class="menu-link" href="software.html" style="display:flex;align-items:center;gap:11px;padding:12px 12px;color:inherit;text-decoration:none;"><span style="color:#b1402f;font-size:10px;">✦</span>Developer</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- hero -->
+    <section id="hero" style="display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding:74px 0 64px;">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;font:400 12px/1 'Courier Prime',monospace;letter-spacing:.2em;text-transform:uppercase;color:#b1402f;margin-bottom:26px;">
+          <span style="color:#b1402f;font-size:11px;line-height:1;">✦</span>
+          A portfolio, drawn as a hand
+        </div>
+        <h1 id="heroH1" style="margin:0;font-family:'Cinzel',serif;font-weight:700;font-size:76px;line-height:1.02;letter-spacing:-.005em;color:#160f06;text-shadow:1.5px 0 rgba(177,64,47,.16),-1.5px 0 rgba(47,125,128,.14);">One&nbsp;artist.<br><span style="color:#b1402f;">Gotta<br>d<span style="display:inline-block;width:0.6em;height:0.6em;border-radius:50%;background:linear-gradient(#b1402f 0 50%, #f4ecd6 50% 100%);position:relative;transform:rotate(-20deg);vertical-align:-0.015em;line-height:0;"><span style="position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);height:0.09em;background:#160f06;"></span><span style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:0.2em;height:0.2em;border-radius:50%;background:#f4ecd6;border:0.045em solid #160f06;"></span></span>&nbsp;'em all.</span></h1>
+        <p id="herolede" style="margin:30px 0 0;max-width:46ch;font-size:20px;line-height:1.6;font-weight:300;color:#4a3d28;">Brush, pen, paint, blade, glue and keyboard. Six practices, one masterful maker — choose a card and see where it leads.</p>
+        <div style="display:flex;gap:16px;margin-top:38px;">
+          <a class="cta-pick" href="#deck" style="display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:2px;text-decoration:none;font:700 12px/1 'Courier Prime',monospace;letter-spacing:.12em;cursor:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2230%22%20height%3D%2230%22%3E%3Cpath%20d%3D%22M15%202%20L18%2012%20L28%2015%20L18%2018%20L15%2028%20L12%2018%20L2%2015%20L12%2012%20Z%22%20fill%3D%22%23b1402f%22%20stroke%3D%22white%22%20stroke-width%3D%221.4%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E') 15 15, pointer;;text-transform:uppercase;color:#f4ecd6;background:#160f06;box-shadow:3px 3px 0 rgba(177,64,47,.55);">Pick a card ↓</a>
+        </div>
+      </div>
+
+      <!-- HERO CARD -->
+      <div id="herocard" style="display:flex;justify-content:center;perspective:1200px;padding-left:28px;">
+        <div style="animation:nn-bob 6s ease-in-out infinite;">
+          <a id="herocardlink" href="#deck" data-rot="-4" style="--ink:#b1402f;position:relative;display:block;width:330px;text-decoration:none;border-radius:2px;background:repeating-linear-gradient(45deg, rgba(50,30,10,.06) 0 1px, transparent 1px 5px),#ab9462;border:1.5px solid #000;box-shadow:0 16px 30px -14px rgba(40,30,16,.6),0 2px 0 rgba(0,0,0,.18),inset 0 0 34px rgba(44,26,8,.34),inset 0 0 7px rgba(44,26,8,.42);transform:perspective(950px) rotate(-4deg);transform-origin:center;transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s;will-change:transform;cursor:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2230%22%20height%3D%2230%22%3E%3Cpath%20d%3D%22M15%202%20L18%2012%20L28%2015%20L18%2018%20L15%2028%20L12%2018%20L2%2015%20L12%2012%20Z%22%20fill%3D%22%23b1402f%22%20stroke%3D%22white%22%20stroke-width%3D%221.4%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E') 15 15, pointer;">
+            <div style="margin:6px;border:1.5px solid #000;background:radial-gradient(circle at 16% 20%, rgba(120,86,36,.15), transparent 26%),radial-gradient(circle at 84% 80%, rgba(108,76,28,.13), transparent 24%),radial-gradient(circle at 70% 13%, rgba(78,50,16,.11), transparent 22%),radial-gradient(circle at 30% 90%, rgba(92,60,22,.10), transparent 20%),#e9dec0;padding:14px 14px 16px;display:flex;flex-direction:column;gap:11px;position:relative;">
+              <span style="position:absolute;top:3px;left:4px;font:400 9px/1 'Courier Prime',monospace;color:rgba(42,32,20,.4);">+</span>
+              <span style="position:absolute;bottom:3px;right:5px;font:400 9px/1 'Courier Prime',monospace;color:rgba(42,32,20,.4);">+</span>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;border:1.5px solid #000;padding:6px 10px;background:#e5d8b4;box-shadow:2px 2px 0 rgba(42,32,20,.28);">
+                <span data-title="" style="font-family:'Cinzel',serif;font-weight:700;font-size:23px;color:#160f06;">nahnew</span>
+                <span style="flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:17px;font-weight:700;color:#fff;background:radial-gradient(circle at 34% 26%, #8a5a28, #3a2410 50%, #060300);border:2px solid #fff;box-shadow:0 0 0 1.5px #000,1.5px 1.5px 0 rgba(42,32,20,.22),inset 0 1px 2px rgba(255,255,255,.3);text-shadow:0 1px 1px rgba(0,0,0,.6);">神</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;gap:4px;color:#160f06;font-size:13px;letter-spacing:2px;"><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span></div>
+              <div data-half="" style="position:relative;aspect-ratio:5/4;overflow:visible;transition:filter .3s;">
+                <div style="position:absolute;inset:0;border:1px solid #160f06;overflow:hidden;background:#e9dec0;">
+                  <img src="assets/uploads/logo.png" alt="nahnew" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center bottom;transform:scale(1.55);transform-origin:center bottom;display:block;">
+                </div>
+                <img src="assets/uploads/logo_cutout.png" alt="" aria-hidden="true" style="position:absolute;left:0;bottom:0;width:100%;height:100%;object-fit:cover;object-position:center bottom;transform:scale(1.55);transform-origin:center bottom;pointer-events:none;display:block;z-index:3;filter:drop-shadow(0 2px 3px rgba(40,30,16,.45));">
+              </div>
+              <div style="font:400 9px/1 'Courier Prime',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);border-top:1px dashed #160f06;border-bottom:1px dashed #160f06;padding:6px 0;">[ Artist · Legendary ]</div>
+              <p style="margin:0;font-family:'Spectral',serif;font-style:italic;font-size:14px;line-height:1.45;color:#4a3d28;">Jack of all trades, master of the art.</p>
+              <div style="display:flex;justify-content:space-between;align-items:center;font:400 9px/1 'Courier Prime',monospace;letter-spacing:.08em;text-transform:uppercase;color:#7a6a4c;margin-top:2px;"><span>Est. 2018</span></div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- DECK -->
+    <section id="deck" style="padding:30px 0 90px;">
+      <div id="deckhdr" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:34px;border-bottom:1px dashed #160f06;padding-bottom:16px;">
+        <div style="display:flex;align-items:baseline;gap:16px;">
+          <h2 id="deckhead" style="margin:0;font-family:'Cinzel',serif;font-weight:700;font-size:30px;letter-spacing:.03em;color:#160f06;">The Cards</h2>
+          <span id="decksub" style="font:400 12px/1 'Courier Prime',monospace;letter-spacing:.14em;text-transform:uppercase;color:#7a6a4c;">six cards · pick one</span>
+        </div>
+      </div>
+
+      <div id="deckgrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:36px;perspective:1400px;">
+
+        <!-- 01 OIL PAINTING -->
+        <div style="animation:nn-rise .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:.05s;">
+          <a class="deck-card" href="oil-painting.html" data-rot="-1.8" style="--ink:#b1402f;position:relative;display:block;text-decoration:none;border-radius:2px;background:repeating-linear-gradient(45deg, rgba(50,30,10,.06) 0 1px, transparent 1px 5px),#ab9462;border:1.5px solid #000;box-shadow:0 12px 24px -12px rgba(40,30,16,.55),0 1px 0 rgba(0,0,0,.18),inset 0 0 34px rgba(44,26,8,.34),inset 0 0 7px rgba(44,26,8,.42);transform:perspective(950px) rotate(-1.8deg);transform-origin:center;transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s;will-change:transform;cursor:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2230%22%20height%3D%2230%22%3E%3Cpath%20d%3D%22M15%202%20L18%2012%20L28%2015%20L18%2018%20L15%2028%20L12%2018%20L2%2015%20L12%2012%20Z%22%20fill%3D%22%23b1402f%22%20stroke%3D%22white%22%20stroke-width%3D%221.4%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E') 15 15, pointer;">
+            <div style="margin:6px;border:1.5px solid #000;background:radial-gradient(circle at 16% 20%, rgba(120,86,36,.15), transparent 26%),radial-gradient(circle at 84% 80%, rgba(108,76,28,.13), transparent 24%),radial-gradient(circle at 70% 13%, rgba(78,50,16,.11), transparent 22%),radial-gradient(circle at 30% 90%, rgba(92,60,22,.10), transparent 20%),#e9dec0;padding:13px 13px 15px;display:flex;flex-direction:column;gap:10px;position:relative;">
+              <span style="position:absolute;top:3px;left:4px;font:400 9px/1 'Courier Prime',monospace;color:rgba(42,32,20,.4);">+</span>
+              <span style="position:absolute;bottom:3px;right:5px;font:400 9px/1 'Courier Prime',monospace;color:rgba(42,32,20,.4);">+</span>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;border:1.5px solid #000;padding:5px 9px;background:#e5d8b4;box-shadow:2px 2px 0 rgba(42,32,20,.28);"><span data-title="" style="font-family:'Cinzel',serif;font-weight:700;font-size:20px;color:#160f06;">Painting</span><span style="flex:none;width:31px;height:31px;border-radius:50%;display:grid;place-items:center;font-size:15px;font-weight:700;color:#fff;background:radial-gradient(circle at 34% 28%, rgba(255,255,255,.6), var(--ink) 52%, rgba(0,0,0,.55));border:1.5px solid #000;box-shadow:1.5px 1.5px 0 rgba(42,32,20,.18),inset 0 1px 2px rgba(255,255,255,.45);text-shadow:0 1px 1px rgba(0,0,0,.5);">油</span></div>
+              <div style="display:flex;justify-content:flex-end;gap:4px;color:#160f06;font-size:13px;letter-spacing:2px;"><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span></div>
+              <div data-half="" style="position:relative;aspect-ratio:5/4;border:1px solid #160f06;overflow:hidden;transition:filter .3s;background-image:url('assets/uploads/20250531_223542.jpg');background-size:175%;background-position:54% 26%;background-repeat:no-repeat;"></div>
+              <div style="font:400 9px/1 'Courier Prime',monospace;letter-spacing:.13em;text-transform:uppercase;color:var(--ink);border-top:1px dashed #160f06;border-bottom:1px dashed #160f06;padding:6px 0;">[ Brushwork · Master ]</div>
+              <p style="margin:0;font-family:'Spectral',serif;font-style:italic;font-size:13.5px;line-height:1.45;color:#4a3d28;">Layer over layer, wet into wet, until the surface holds light.</p>
+              <div style="display:flex;justify-content:space-between;align-items:center;font:400 9px/1 'Courier Prime',monospace;letter-spacing:.08em;text-transform:uppercase;color:#7a6a4c;margin-top:2px;"><span>Oil · Linen</span><span style="color:var(--ink);">ENTER →</span></div>
+            </div>
+          </a>
+        </div>
+
+        <!-- 02 DIGITAL ART -->
+        <div style="animation:nn-rise .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:.12s;">
+          <a class="deck-card" href="digital-art.html" data-rot="1.2" style="--ink:#2f7d80;position:relative;display:block;text-decoration:none;border-radius:2px;background:repeating-linear-gradient(45deg, rgba(50,30,10,.06) 0 1px, transparent 1px 5px),#ab9462;border:1.5px solid #000;box-shadow:0 12px 24px -12px rgba(40,30,16,.55),0 1px 0 rgba(0,0,0,.18),inset 0 0 34px rgba(44,26,8,.34),inset 0 0 7px rgba(44,26,8,.42);transform:perspective(950px) rotate(1.2deg);transform-origin:center;transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s;will-change:transform;cursor:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2230%22%20height%3D%2230%22%3E%3Cpath%20d%3D%22M15%202%20L18%2012%20L28%2015%20L18%2018%20L15%2028%20L12%2018%20L2%2015%20L12%2012%20Z%22%20fill%3D%22%23b1402f%22%20stroke%3D%22white%22%20stroke-width%3D%221.4%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E') 15 15, pointer;">
+            <div style="margin:6px;border:1.5px solid #000;background:radial-gradient(circle at 16% 20%, rgba(120,86,36,.15), transparent 26%),radial-gradient(circle at 84% 80%, rgba(108,76,28,.13), transparent 24%),radial-gradient(circle at 70% 13%, rgba(78,50,16,.11), transparent 22%),radial-gradient(circle at 30% 90%, rgba(92,60,22,.10), transparent 20%),#e9dec0;padding:13px 13px 15px;display:flex;flex-direction:column;gap:10px;position:relative;">
+              <span style="position:absolute;top:3px;left:4px;font:400 9px/1 'Courier Prime',monospace;color:rgba(42,32,20,.4);">+</span>
+              <span style="position:absolute;bottom:3px;right:5px;font:400 9px/1 'Courier Prime',monospace;color:rgba(42,32,20,.4);">+</span>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;border:1.5px solid #000;padding:5px 9px;background:#e5d8b4;box-shadow:2px 2px 0 rgba(42,32,20,.28);"><span data-title="" style="font-family:'Cinzel',serif;font-weight:700;font-size:20px;color:#160f06;">Illustration</span><span style="flex:none;width:31px;height:31px;border-radius:50%;display:grid;place-items:center;font-size:15px;font-weight:700;color:#fff;background:radial-gradient(circle at 34% 28%, rgba(255,255,255,.6), var(--ink) 52%, rgba(0,0,0,.55));border:1.5px solid #000;box-shadow:1.5px 1.5px 0 rgba(42,32,20,.18),inset 0 1px 2px rgba(255,255,255,.45);text-shadow:0 1px 1px rgba(0,0,0,.5);">絵</span></div>
+              <div style="display:flex;justify-content:flex-end;gap:4px;color:#160f06;font-size:13px;letter-spacing:2px;"><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span></div>
+              <div data-half="" style="position:relative;aspect-ratio:5/4;border:1px solid #160f06;overflow:hidden;transition:filter .3s;">
+                <img src="assets/uploads/setsu_ddf.png" alt="digital art" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;">
+              </div>
+              <div style="font:400 9px/1 'Courier Prime',monospace;letter-spacing:.13em;text-transform:uppercase;color:var(--ink);border-top:1px dashed #160f06;border-bottom:1px dashed #160f06;padding:6px 0;">[ Illustration · Arcane ]</div>
+              <p style="margin:0;font-family:'Spectral',serif;font-style:italic;font-size:13.5px;line-height:1.45;color:#4a3d28;">Linework, color, and light — assembled one layer at a time.</p>
+              <div style="display:flex;justify-content:space-between;align-items:center;font:400 9px/1 'Courier Prime',monospace;letter-spacing:.08em;text-transform:uppercase;color:#7a6a4c;margin-top:2px;"><span>Photoshop · Krita</span><span style="color:var(--ink);">ENTER →</span></div>
+            </div>
+          </a>
+        </div>
+
+        <!-- 03 CRAFT -->
+        <div style="animation:nn-rise .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:.19s;">
+          <a class="deck-card" href="craft.html" data-rot="-0.8" style="--ink:#b07a1f;position:relative;display:block;text-decoration:none;border-radius:2px;background:repeating-linear-gradient(45deg, rgba(50,30,10,.06) 0 1px, transparent 1px 5px),#ab9462;border:1.5px solid #000;box-shadow:0 12px 24px -12px rgba(40,30,16,.55),0 1px 0 rgba(0,0,0,.18),inset 0 0 34px rgba(44,26,8,.34),inset 0 0 7px rgba(44,26,8,.42);transform:perspective(950px) rotate(-0.8deg);transform-origin:center;transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s;will-change:transform;cursor:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2230%22%20height%3D%2230%22%3E%3Cpath%20d%3D%22M15%202%20L18%2012%20L28%2015%20L18%2018%20L15%2028%20L12%2018%20L2%2015%20L12%2012%20Z%22%20fill%3D%22%23b1402f%22%20stroke%3D%22white%22%20stroke-width%3D%221.4%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E') 15 15, pointer;">
+            <div style="margin:6px;border:1.5px solid #000;background:radial-gradient(circle at 16% 20%, rgba(120,86,36,.15), transparent 26%),radial-gradient(circle at 84% 80%, rgba(108,76,28,.13), transparent 24%),radial-gradient(circle at 70% 13%, rgba(78,50,16,.11), transparent 22%),radial-gradient(circle at 30% 90%, rgba(92,60,22,.10), transparent 20%),#e9dec0;padding:13px 13px 15px;display:flex;flex-direction:column;gap:10px;position:relative;">
+              <span style="position:absolute;top:3px;left:4px;font:400 9px/1 'Courier Prime',monospace;color:rgba(42,32,20,.4);">+</span>
+              <span style="position:absolute;bottom:3px;right:5px;font:400 9px/1 'Courier Prime',monospace;color:rgba(42,32,20,.4);">+</span>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;border:1.5px solid #000;padding:5px 9px;background:#e5d8b4;box-shadow:2px 2px 0 rgba(42,32,20,.28);"><span data-title="" style="font-family:'Cinzel',serif;font-weight:700;font-size:20px;color:#160f06;">Shadowbox</span><span style="flex:none;width:31px;height:31px;border-radius:50%;display:grid;place-items:center;font-size:15px;font-weight:700;color:#fff;background:radial-gradient(circle at 34% 28%, rgba(255,255,255,.6), var(--ink) 52%, rgba(0,0,0,.55));border:1.5px solid #000;box-shadow:1.5px 1.5px 0 rgba(42,32,20,.18),inset 0 1px 2px rgba(255,255,255,.45);text-shadow:0 1px 1px rgba(0,0,0,.5);">造</span></div>
+              <div style="display:flex;justify-content:flex-end;gap:4px;color:#160f06;font-size:13px;letter-spacing:2px;"><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span></div>
+              <div data-half="" style="position:relative;aspect-ratio:5/4;border:1px solid #160f06;overflow:hidden;transition:filter .3s;">
+                <img src="assets/uploads/GMKwJ3kbEAAqc6h.jpg" alt="papercraft" style="width:100%;height:100%;object-fit:cover;object-position:center 40%;transform:scale(1.18);transform-origin:center 40%;display:block;">
+              </div>
+              <div style="font:400 9px/1 'Courier Prime',monospace;letter-spacing:.13em;text-transform:uppercase;color:var(--ink);border-top:1px dashed #160f06;border-bottom:1px dashed #160f06;padding:6px 0;">[ Handmade · Artisan ]</div>
+              <p style="margin:0;font-family:'Spectral',serif;font-style:italic;font-size:13.5px;line-height:1.45;color:#4a3d28;">Carefully cut, shaped, and stacked — paper given depth, one layer at a time.</p>
+              <div style="display:flex;justify-content:space-between;align-items:center;font:400 9px/1 'Courier Prime',monospace;letter-spacing:.08em;text-transform:uppercase;color:#7a6a4c;margin-top:2px;"><span>Shadowbox · Diorama</span><span style="color:var(--ink);">ENTER →</span></div>
+            </div>
+          </a>
+        </div>
+
+        <!-- 04 3D MODELS -->
+        <div style="animation:nn-rise .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:.26s;">
+          <a class="deck-card" href="3d-models.html" data-rot="1.6" style="--ink:#5b4b8a;position:relative;display:block;text-decoration:none;border-radius:2px;background:repeating-linear-gradient(45deg, rgba(50,30,10,.06) 0 1px, transparent 1px 5px),#ab9462;border:1.5px solid #000;box-shadow:0 12px 24px -12px rgba(40,30,16,.55),0 1px 0 rgba(0,0,0,.18),inset 0 0 34px rgba(44,26,8,.34),inset 0 0 7px rgba(44,26,8,.42);transform:perspective(950px) rotate(1.6deg);transform-origin:center;transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s;will-change:transform;cursor:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2230%22%20height%3D%2230%22%3E%3Cpath%20d%3D%22M15%202%20L18%2012%20L28%2015%20L18%2018%20L15%2028%20L12%2018%20L2%2015%20L12%2012%20Z%22%20fill%3D%22%23b1402f%22%20stroke%3D%22white%22%20stroke-width%3D%221.4%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E') 15 15, pointer;">
+            <div style="margin:6px;border:1.5px solid #000;background:radial-gradient(circle at 16% 20%, rgba(120,86,36,.15), transparent 26%),radial-gradient(circle at 84% 80%, rgba(108,76,28,.13), transparent 24%),radial-gradient(circle at 70% 13%, rgba(78,50,16,.11), transparent 22%),radial-gradient(circle at 30% 90%, rgba(92,60,22,.10), transparent 20%),#e9dec0;padding:13px 13px 15px;display:flex;flex-direction:column;gap:10px;position:relative;">
+              <span style="position:absolute;top:3px;left:4px;font:400 9px/1 'Courier Prime',monospace;color:rgba(42,32,20,.4);">+</span>
+              <span style="position:absolute;bottom:3px;right:5px;font:400 9px/1 'Courier Prime',monospace;color:rgba(42,32,20,.4);">+</span>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;border:1.5px solid #000;padding:5px 9px;background:#e5d8b4;box-shadow:2px 2px 0 rgba(42,32,20,.28);"><span data-title="" style="font-family:'Cinzel',serif;font-weight:700;font-size:20px;color:#160f06;">3D Models</span><span style="flex:none;width:31px;height:31px;border-radius:50%;display:grid;place-items:center;font-size:15px;font-weight:700;color:#fff;background:radial-gradient(circle at 34% 28%, rgba(255,255,255,.6), var(--ink) 52%, rgba(0,0,0,.55));border:1.5px solid #000;box-shadow:1.5px 1.5px 0 rgba(42,32,20,.18),inset 0 1px 2px rgba(255,255,255,.45);text-shadow:0 1px 1px rgba(0,0,0,.5);">模</span></div>
+              <div style="display:flex;justify-content:flex-end;gap:4px;color:#160f06;font-size:13px;letter-spacing:2px;"><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span></div>
+              <div data-half="" style="position:relative;aspect-ratio:5/4;border:1px solid #160f06;overflow:hidden;transition:filter .3s;">
+                <img src="assets/uploads/Screenshot 2025-06-12 020037.png" alt="3d model" style="width:100%;height:100%;object-fit:cover;object-position:27% 32%;transform:scale(1.12);transform-origin:27% 32%;display:block;">
+              </div>
+              <div style="font:400 9px/1 'Courier Prime',monospace;letter-spacing:.13em;text-transform:uppercase;color:var(--ink);border-top:1px dashed #160f06;border-bottom:1px dashed #160f06;padding:6px 0;">[ Sculpt · Prime ]</div>
+              <p style="margin:0;font-family:'Spectral',serif;font-style:italic;font-size:13.5px;line-height:1.45;color:#4a3d28;">Polygons shaped, vertex by vertex, into something that truly breathes.</p>
+              <div style="display:flex;justify-content:space-between;align-items:center;font:400 9px/1 'Courier Prime',monospace;letter-spacing:.08em;text-transform:uppercase;color:#7a6a4c;margin-top:2px;"><span>Blender · Nomad</span><span style="color:var(--ink);">ENTER →</span></div>
+            </div>
+          </a>
+        </div>
+
+        <!-- 05 SCULPTURES / 塗装 -->
+        <div style="animation:nn-rise .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:.33s;">
+          <a class="deck-card" href="tosou.html" data-rot="-1.3" style="--ink:#c05a26;position:relative;display:block;text-decoration:none;border-radius:2px;background:repeating-linear-gradient(45deg, rgba(50,30,10,.06) 0 1px, transparent 1px 5px),#ab9462;border:1.5px solid #000;box-shadow:0 12px 24px -12px rgba(40,30,16,.55),0 1px 0 rgba(0,0,0,.18),inset 0 0 34px rgba(44,26,8,.34),inset 0 0 7px rgba(44,26,8,.42);transform:perspective(950px) rotate(-1.3deg);transform-origin:center;transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s;will-change:transform;cursor:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2230%22%20height%3D%2230%22%3E%3Cpath%20d%3D%22M15%202%20L18%2012%20L28%2015%20L18%2018%20L15%2028%20L12%2018%20L2%2015%20L12%2012%20Z%22%20fill%3D%22%23b1402f%22%20stroke%3D%22white%22%20stroke-width%3D%221.4%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E') 15 15, pointer;">
+            <div style="margin:6px;border:1.5px solid #000;background:radial-gradient(circle at 16% 20%, rgba(120,86,36,.15), transparent 26%),radial-gradient(circle at 84% 80%, rgba(108,76,28,.13), transparent 24%),radial-gradient(circle at 70% 13%, rgba(78,50,16,.11), transparent 22%),radial-gradient(circle at 30% 90%, rgba(92,60,22,.10), transparent 20%),#e9dec0;padding:13px 13px 15px;display:flex;flex-direction:column;gap:10px;position:relative;">
+              <span style="position:absolute;top:3px;left:4px;font:400 9px/1 'Courier Prime',monospace;color:rgba(42,32,20,.4);">+</span>
+              <span style="position:absolute;bottom:3px;right:5px;font:400 9px/1 'Courier Prime',monospace;color:rgba(42,32,20,.4);">+</span>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;border:1.5px solid #000;padding:5px 9px;background:#e5d8b4;box-shadow:2px 2px 0 rgba(42,32,20,.28);"><span data-title="" style="font-family:'Cinzel',serif;font-weight:700;font-size:20px;color:#160f06;">Sculptures</span><span style="flex:none;width:31px;height:31px;border-radius:50%;display:grid;place-items:center;font-size:15px;font-weight:700;color:#fff;background:radial-gradient(circle at 34% 28%, rgba(255,255,255,.6), var(--ink) 52%, rgba(0,0,0,.55));border:1.5px solid #000;box-shadow:1.5px 1.5px 0 rgba(42,32,20,.18),inset 0 1px 2px rgba(255,255,255,.45);text-shadow:0 1px 1px rgba(0,0,0,.5);">塗</span></div>
+              <div style="display:flex;justify-content:flex-end;gap:4px;color:#160f06;font-size:13px;letter-spacing:2px;"><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span></div>
+              <div data-half="" style="position:relative;aspect-ratio:5/4;border:1px solid #160f06;overflow:hidden;transition:filter .3s;">
+                <img src="assets/uploads/20260425_144509.jpg" alt="painted figure" style="width:100%;height:100%;object-fit:cover;object-position:center 22%;display:block;">
+              </div>
+              <div style="font:400 9px/1 'Courier Prime',monospace;letter-spacing:.13em;text-transform:uppercase;color:var(--ink);border-top:1px dashed #160f06;border-bottom:1px dashed #160f06;padding:6px 0;">[ Paintwork · Ultimate ]</div>
+              <p style="margin:0;font-family:'Spectral',serif;font-style:italic;font-size:13.5px;line-height:1.45;color:#4a3d28;">Every part polished, fixed, and painted — patience measured in thin coats.</p>
+              <div style="display:flex;justify-content:space-between;align-items:center;font:400 9px/1 'Courier Prime',monospace;letter-spacing:.08em;text-transform:uppercase;color:#7a6a4c;margin-top:2px;"><span>Assemble · Paint</span><span style="color:var(--ink);">ENTER →</span></div>
+            </div>
+          </a>
+        </div>
+
+        <!-- 06 SOFTWARE -->
+        <div style="animation:nn-rise .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:.40s;">
+          <a class="deck-card" href="software.html" data-rot="0.9" style="--ink:#3d7a4e;position:relative;display:block;text-decoration:none;border-radius:2px;background:repeating-linear-gradient(45deg, rgba(50,30,10,.06) 0 1px, transparent 1px 5px),#ab9462;border:1.5px solid #000;box-shadow:0 12px 24px -12px rgba(40,30,16,.55),0 1px 0 rgba(0,0,0,.18),inset 0 0 34px rgba(44,26,8,.34),inset 0 0 7px rgba(44,26,8,.42);transform:perspective(950px) rotate(0.9deg);transform-origin:center;transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s;will-change:transform;cursor:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2230%22%20height%3D%2230%22%3E%3Cpath%20d%3D%22M15%202%20L18%2012%20L28%2015%20L18%2018%20L15%2028%20L12%2018%20L2%2015%20L12%2012%20Z%22%20fill%3D%22%23b1402f%22%20stroke%3D%22white%22%20stroke-width%3D%221.4%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E') 15 15, pointer;">
+            <div style="margin:6px;border:1.5px solid #000;background:radial-gradient(circle at 16% 20%, rgba(120,86,36,.15), transparent 26%),radial-gradient(circle at 84% 80%, rgba(108,76,28,.13), transparent 24%),radial-gradient(circle at 70% 13%, rgba(78,50,16,.11), transparent 22%),radial-gradient(circle at 30% 90%, rgba(92,60,22,.10), transparent 20%),#e9dec0;padding:13px 13px 15px;display:flex;flex-direction:column;gap:10px;position:relative;">
+              <span style="position:absolute;top:3px;left:4px;font:400 9px/1 'Courier Prime',monospace;color:rgba(42,32,20,.4);">+</span>
+              <span style="position:absolute;bottom:3px;right:5px;font:400 9px/1 'Courier Prime',monospace;color:rgba(42,32,20,.4);">+</span>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;border:1.5px solid #000;padding:5px 9px;background:#e5d8b4;box-shadow:2px 2px 0 rgba(42,32,20,.28);"><span data-title="" style="font-family:'Cinzel',serif;font-weight:700;font-size:20px;color:#160f06;">Developer</span><span style="flex:none;width:31px;height:31px;border-radius:50%;display:grid;place-items:center;font-size:15px;font-weight:700;color:#fff;background:radial-gradient(circle at 34% 28%, rgba(255,255,255,.6), var(--ink) 52%, rgba(0,0,0,.55));border:1.5px solid #000;box-shadow:1.5px 1.5px 0 rgba(42,32,20,.18),inset 0 1px 2px rgba(255,255,255,.45);text-shadow:0 1px 1px rgba(0,0,0,.5);">創</span></div>
+              <div style="display:flex;justify-content:flex-end;gap:4px;color:#160f06;font-size:13px;letter-spacing:2px;"><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span><span style="flex:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.55), #c24a37 45%, #7d2418 100%);border:1px solid #000;display:grid;place-items:center;font-size:9px;line-height:1;color:#f4cf2e;text-shadow:0 1px 0 rgba(42,32,20,.4);box-shadow:1px 1px 0 rgba(42,32,20,.25);">★</span></div>
+              <div data-half="" style="position:relative;aspect-ratio:5/4;border:1px solid #160f06;overflow:hidden;background:#e7dcbf;transition:filter .3s;">
+                <div id="devmirror"></div>
+                <span style="position:absolute;bottom:6px;right:6px;z-index:2;font:400 8px/1 'Courier Prime',monospace;letter-spacing:.06em;text-transform:uppercase;color:#5b4d35;background:rgba(244,236,214,.82);padding:2px 6px;border:1px solid rgba(42,32,20,.25);pointer-events:none;">live · this site</span>
+              </div>
+              <div style="font:400 9px/1 'Courier Prime',monospace;letter-spacing:.13em;text-transform:uppercase;color:var(--ink);border-top:1px dashed #160f06;border-bottom:1px dashed #160f06;padding:6px 0;">[ Builder · Mythic ]</div>
+              <p style="margin:0;font-family:'Spectral',serif;font-style:italic;font-size:13.5px;line-height:1.45;color:#4a3d28;">Code as a craft — logic shaped and designed until intention simply runs.</p>
+              <div style="display:flex;justify-content:space-between;align-items:center;font:400 9px/1 'Courier Prime',monospace;letter-spacing:.08em;text-transform:uppercase;color:#7a6a4c;margin-top:2px;"><span>Design · Code · Ship</span><span style="color:var(--ink);">ENTER →</span></div>
+            </div>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- MOBILE CAROUSEL -->
+      <div id="mcarousel" style="display:none;position:relative;margin-top:8px;">
+        <div id="mtrack" style="position:relative;height:524px;perspective:1250px;touch-action:pan-y;user-select:none;-webkit-user-select:none;"></div>
+        <div id="mdots" style="display:flex;justify-content:center;gap:8px;margin-top:8px;"></div>
+        <div style="display:flex;justify-content:center;align-items:center;gap:12px;margin-top:14px;font:400 10px/1 'Courier Prime',monospace;letter-spacing:.2em;text-transform:uppercase;color:#7a6a4c;">
+          <span style="display:inline-block;color:#b1402f;animation:nn-sway 1.6s ease-in-out infinite;">‹</span>swipe the deck<span style="display:inline-block;color:#b1402f;animation:nn-sway 1.6s ease-in-out infinite reverse;">›</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- footer -->
+  <footer style="position:relative;z-index:2;border-top:1.5px solid #160f06;background:rgba(42,32,20,.04);">
+    <div id="footrow" style="max-width:1280px;margin:0 auto;padding:28px 40px;display:flex;justify-content:space-between;align-items:center;font:400 12px/1 'Courier Prime',monospace;letter-spacing:.1em;text-transform:uppercase;color:#7a6a4c;">
+      <span style="display:flex;align-items:center;gap:10px;color:#160f06;"><span style="color:#b1402f;font-size:13px;line-height:1;">✦</span>© 2026 nahnew</span>
+      <span id="footemail"></span>
+      <span>Twitter · Instagram · GitHub →</span>
+    </div>
+  </footer>
+
+  <!-- paper grain overlay -->
+  <div style="position:absolute;inset:0;z-index:6;pointer-events:none;mix-blend-mode:multiply;opacity:.16;background-image:url('data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22180%22%20height=%22180%22%3E%3Cfilter%20id=%22n%22%3E%3CfeTurbulence%20type=%22fractalNoise%22%20baseFrequency=%220.8%22%20numOctaves=%222%22%20stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect%20width=%22100%25%22%20height=%22100%25%22%20filter=%22url%28%23n%29%22/%3E%3C/svg%3E');background-size:180px 180px;"></div>
+
+</div>
+
+<script>
+(function () {
+  var tilt = 8, shift = 2;
+  var baseShadow = "0 12px 24px -12px rgba(40,30,16,.55), 0 1px 0 rgba(0,0,0,.18), inset 0 0 34px rgba(44,26,8,.34), inset 0 0 7px rgba(44,26,8,.42)";
+  var hoverShadow = "0 26px 46px -16px rgba(40,30,16,.6), 0 2px 0 rgba(0,0,0,.2), inset 0 0 28px rgba(44,26,8,.28), inset 0 0 7px rgba(44,26,8,.38)";
+
+  function focusOthers(cardA, dim) {
+    var grid = cardA.closest("#deckgrid");
+    if (!grid) return;
+    var wraps = grid.querySelectorAll(":scope > div");
+    var myWrap = cardA.parentElement;
+    wraps.forEach(function (wgt) {
+      wgt.style.transition = "opacity .35s ease, filter .35s ease";
+      if (dim && wgt !== myWrap) {
+        wgt.style.opacity = "0.4";
+        wgt.style.filter = "saturate(.65) brightness(.95)";
+        wgt.style.zIndex = "1";
+      } else {
+        wgt.style.opacity = "";
+        wgt.style.filter = "";
+        wgt.style.zIndex = dim ? "5" : "";
+      }
+    });
+  }
+
+  function onMove(e) {
+    var card = e.currentTarget;
+    var r = card.getBoundingClientRect();
+    var px = (e.clientX - r.left) / r.width;
+    var py = (e.clientY - r.top) / r.height;
+    card.style.transition = "transform .1s ease-out, box-shadow .3s";
+    card.style.transform = "perspective(950px) rotate(0deg) rotateX(" + ((0.5 - py) * tilt).toFixed(2) + "deg) rotateY(" + ((px - 0.5) * tilt).toFixed(2) + "deg) translateY(-12px) scale(1.06)";
+    card.style.boxShadow = hoverShadow;
+    var t = card.querySelector("[data-title]");
+    if (t) t.style.textShadow = shift + "px 0 rgba(177,64,47,.55), " + (-shift) + "px 0 rgba(47,125,128,.45)";
+    var ht = card.querySelector("[data-half]");
+    if (ht) ht.style.filter = "saturate(1.2) contrast(1.06)";
+  }
+
+  function onMoveHero(e) {
+    var card = e.currentTarget;
+    var r = card.getBoundingClientRect();
+    var px = (e.clientX - r.left) / r.width;
+    var py = (e.clientY - r.top) / r.height;
+    card.style.transition = "transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .3s";
+    card.style.transform = "perspective(950px) rotate(0deg) rotateX(" + ((0.5 - py) * tilt).toFixed(2) + "deg) rotateY(" + ((px - 0.5) * tilt).toFixed(2) + "deg) translateX(-72px) translateY(-9px) scale(1.04)";
+    card.style.boxShadow = hoverShadow;
+    var t = card.querySelector("[data-title]");
+    if (t) t.style.textShadow = shift + "px 0 rgba(177,64,47,.55), " + (-shift) + "px 0 rgba(47,125,128,.45)";
+    var ht = card.querySelector("[data-half]");
+    if (ht) ht.style.filter = "saturate(1.2) contrast(1.06)";
+  }
+
+  function onLeave(e) {
+    var card = e.currentTarget;
+    focusOthers(card, false);
+    var rot = card.dataset.rot || "0";
+    card.style.transition = "transform .6s cubic-bezier(.34,1.56,.64,1), box-shadow .55s";
+    card.style.transform = "perspective(950px) rotate(" + rot + "deg)";
+    card.style.boxShadow = baseShadow;
+    var t = card.querySelector("[data-title]");
+    if (t) t.style.textShadow = "none";
+    var ht = card.querySelector("[data-half]");
+    if (ht) ht.style.filter = "none";
+    var orb = t ? t.nextElementSibling : null;
+    if (orb) { orb.style.transition = "transform .5s cubic-bezier(.34,1.56,.64,1)"; orb.style.transform = "rotate(0deg) scale(1)"; }
+  }
+
+  function onEnter(e) {
+    var card = e.currentTarget;
+    focusOthers(card, true);
+    var titleEl = card.querySelector("[data-title]");
+    var orb = titleEl ? titleEl.nextElementSibling : null;
+    if (orb) {
+      orb.style.transition = "transform .65s cubic-bezier(.2,.85,.25,1)";
+      orb.style.transform = "rotate(360deg) scale(1.14)";
+    }
+    var stars = [].slice.call(card.querySelectorAll("span")).filter(function (s) { return s.textContent.trim() === "★"; });
+    stars.forEach(function (s, idx) {
+      setTimeout(function () {
+        s.style.transition = "transform .32s cubic-bezier(.3,1.5,.5,1)";
+        s.style.transform = "translateY(-6px) scale(1.22) rotate(-12deg)";
+        setTimeout(function () { s.style.transform = "translateY(0) scale(1) rotate(0deg)"; }, 190);
+      }, idx * 40);
+    });
+  }
+
+  function goDeck(e) {
+    e.preventDefault();
+    var target = document.querySelector("#deck");
+    if (!target) return;
+    var isScrollable = function (el) {
+      if (!el || el === document.body || el === document.documentElement) return false;
+      var o = getComputedStyle(el).overflowY;
+      return (o === "auto" || o === "scroll") && el.scrollHeight > el.clientHeight + 2;
+    };
+    var sc = target.parentElement;
+    while (sc && !isScrollable(sc)) sc = sc.parentElement;
+    var useWin = !sc;
+    var startY = useWin ? (window.scrollY || document.documentElement.scrollTop || 0) : sc.scrollTop;
+    var endY = useWin
+      ? target.getBoundingClientRect().top + startY - 18
+      : sc.scrollTop + target.getBoundingClientRect().top - sc.getBoundingClientRect().top - 18;
+    var dur = 850;
+    var t0 = performance.now();
+    var ease = function (p) { return (p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2); };
+    var step = function (now) {
+      var p = Math.min(1, (now - t0) / dur);
+      var y = startY + (endY - startY) * ease(p);
+      if (useWin) window.scrollTo(0, y); else sc.scrollTop = y;
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  function toggleMenu() {
+    var m = document.getElementById("navmenu");
+    if (!m) return;
+    var open = m.dataset.open === "1";
+    if (open) { m.style.maxHeight = "0"; m.style.opacity = "0"; m.dataset.open = "0"; }
+    else { m.style.maxHeight = (m.scrollHeight + 24) + "px"; m.style.opacity = "1"; m.dataset.open = "1"; }
+  }
+
+  // ---- wire up desktop interactions ----
+  [].slice.call(document.querySelectorAll(".deck-card")).forEach(function (a) {
+    a.addEventListener("mouseenter", onEnter);
+    a.addEventListener("mousemove", onMove);
+    a.addEventListener("mouseleave", onLeave);
+  });
+  var hero = document.getElementById("herocardlink");
+  if (hero) {
+    hero.addEventListener("click", goDeck);
+    hero.addEventListener("mouseenter", onEnter);
+    hero.addEventListener("mousemove", onMoveHero);
+    hero.addEventListener("mouseleave", onLeave);
+  }
+  var cta = document.querySelector(".cta-pick");
+  if (cta) cta.addEventListener("click", goDeck);
+  var ham = document.getElementById("navhamburger");
+  if (ham) ham.addEventListener("click", toggleMenu);
+
+  // ---- footer email (lightly obfuscated) ----
+  var emailEl = document.getElementById("footemail");
+  if (emailEl) emailEl.textContent = ["jiaowh", "hotmail.com"].join(String.fromCharCode(64));
+
+  // ---- developer card live self-embed (depth-limited) ----
+  var depth = 0;
+  try { depth = parseInt(new URLSearchParams(window.location.search).get("m") || "0", 10) || 0; } catch (e) { depth = 0; }
+  var devmirror = document.getElementById("devmirror");
+  if (devmirror) {
+    if (depth < 2) {
+      var f = document.createElement("iframe");
+      f.src = "index.html?m=" + (depth + 1);
+      f.setAttribute("scrolling", "no");
+      f.setAttribute("tabindex", "-1");
+      f.setAttribute("aria-hidden", "true");
+      f.style.cssText = "position:absolute;top:0;left:0;width:500%;height:500%;border:0;transform:scale(.2);transform-origin:top left;pointer-events:none;";
+      devmirror.appendChild(f);
+    } else {
+      var ph = document.createElement("div");
+      ph.style.cssText = "position:absolute;inset:0;background:radial-gradient(circle at 50% 40%, #2a3a52, #0c0f16);display:grid;place-items:center;color:#7fd1c4;font:700 12px/1 'Courier Prime',monospace;letter-spacing:.18em;text-transform:uppercase;";
+      ph.textContent = "nahnew.exe";
+      devmirror.appendChild(ph);
+    }
+  }
+
+  // =====================================================================
+  //  MOBILE COVERFLOW CAROUSEL
+  // =====================================================================
+  var mq = window.matchMedia("(max-width:640px)");
+  var cz = { built: false, slides: [], dots: [], track: null, pos: 0, target: 0, vel: 0, dragging: false, dragPos: 0, startX: 0, startTarget: 0, moved: 0, t0: 0, downSlide: null, raf: null };
+
+  function layout(pos) {
+    if (!cz.track) return;
+    var W = cz.track.clientWidth || 320;
+    var SPACE = Math.max(118, Math.min(168, W * 0.36));
+    var N = cz.slides.length;
+    cz.slides.forEach(function (s, i) {
+      var d = i - pos;
+      d = d - N * Math.round(d / N);
+      var ad = Math.abs(d);
+      var cl = Math.min(ad, 2.4);
+      var tx = d * SPACE;
+      var rot = Math.max(-42, Math.min(42, -d * 30));
+      var scale = Math.max(0.62, 1 - cl * 0.17);
+      var op = 1 - ad * 0.46; if (op < 0) op = 0;
+      var tz = -cl * 70;
+      s.style.transform = "translate(-50%,-50%) translateX(" + tx.toFixed(1) + "px) translateZ(" + tz.toFixed(1) + "px) rotateY(" + rot.toFixed(1) + "deg) scale(" + scale.toFixed(3) + ")";
+      s.style.zIndex = String(100 - Math.round(ad * 10));
+      s.style.opacity = op.toFixed(2);
+      s.style.pointerEvents = ad > 2.3 ? "none" : "auto";
+    });
+    var active = ((Math.round(pos) % N) + N) % N;
+    cz.dots.forEach(function (dt, i) {
+      var on = i === active;
+      dt.style.background = on ? "#b1402f" : "transparent";
+      dt.style.borderColor = on ? "#b1402f" : "#160f06";
+      dt.style.transform = on ? "scale(1.3)" : "scale(1)";
+    });
+  }
+
+  function loop() {
+    if (!mq || !mq.matches) { cz.raf = null; return; }
+    if (cz.dragging) {
+      cz.pos = cz.dragPos;
+      layout(cz.pos);
+      cz.raf = requestAnimationFrame(loop);
+      return;
+    }
+    cz.vel += (cz.target - cz.pos) * 0.16;
+    cz.vel *= 0.76;
+    cz.pos += cz.vel;
+    var settled = Math.abs(cz.target - cz.pos) < 0.0006 && Math.abs(cz.vel) < 0.0006;
+    if (settled) { cz.pos = cz.target; cz.vel = 0; layout(cz.pos); cz.raf = null; return; }
+    layout(cz.pos);
+    cz.raf = requestAnimationFrame(loop);
+  }
+  function startLoop() { if (cz && !cz.raf) loop(); }
+  function stopLoop() { if (cz && cz.raf) { cancelAnimationFrame(cz.raf); cz.raf = null; } }
+
+  function wiggleMain(card) {
+    if (!card || card._wiggling) return;
+    card._wiggling = true;
+    card.style.animation = "none";
+    void card.offsetWidth;
+    card.style.animation = "nn-wiggle .7s ease-in-out";
+    var done = function () { card.style.animation = "none"; card._wiggling = false; card.removeEventListener("animationend", done); };
+    card.addEventListener("animationend", done);
+  }
+
+  function activate(slide) {
+    if (slide.dataset.main === "1") { wiggleMain(slide.firstElementChild); return; }
+    var href = slide.dataset.href;
+    if (href) window.location.href = href;
+  }
+
+  function onDown(e) {
+    cz.dragging = true;
+    cz.startX = e.clientX;
+    cz.startTarget = cz.target;
+    cz.dragPos = cz.target;
+    cz.moved = 0;
+    cz.t0 = performance.now();
+    cz.downSlide = e.target.closest(".mslide");
+    window.addEventListener("pointermove", onPMove);
+    window.addEventListener("pointerup", onUp);
+    window.addEventListener("pointercancel", onUp);
+    startLoop();
+  }
+  function onPMove(e) {
+    if (!cz.dragging) return;
+    var W = cz.track.clientWidth || 320;
+    var SPACE = Math.max(118, Math.min(168, W * 0.36));
+    var dx = e.clientX - cz.startX;
+    cz.moved = Math.max(cz.moved, Math.abs(dx));
+    cz.dragPos = cz.startTarget - dx / SPACE;
+  }
+  function onUp() {
+    if (!cz.dragging) return;
+    cz.dragging = false;
+    window.removeEventListener("pointermove", onPMove);
+    window.removeEventListener("pointerup", onUp);
+    window.removeEventListener("pointercancel", onUp);
+    var dt = performance.now() - cz.t0;
+    var N = cz.slides.length;
+    var activeMod = ((cz.target % N) + N) % N;
+    if (cz.moved < 9 && dt < 420) {
+      var slide = cz.downSlide;
+      if (slide) {
+        var idx = cz.slides.indexOf(slide);
+        if (idx >= 0) {
+          if (idx === activeMod) activate(slide);
+          else cz.target = idx + N * Math.round((cz.target - idx) / N);
+        }
+      }
+    } else {
+      cz.target = Math.round(cz.dragPos);
+    }
+    startLoop();
+  }
+
+  function buildCarousel() {
+    var track = document.getElementById("mtrack");
+    var heroA = document.querySelector("#herocard a");
+    var deckAs = document.querySelectorAll("#deckgrid a");
+    if (!track || !heroA || !deckAs.length) return;
+    var cards = [heroA].concat([].slice.call(deckAs));
+    cz.track = track;
+    track.innerHTML = "";
+    cz.slides = [];
+    cards.forEach(function (node, i) {
+      var slide = document.createElement("div");
+      slide.className = "mslide";
+      slide.style.cssText = "position:absolute;top:50%;left:50%;width:286px;max-width:82vw;transform-origin:center;perspective:1000px;will-change:transform,opacity;";
+      var clone = node.cloneNode(true);
+      clone.style.transform = "none";
+      clone.style.transition = "none";
+      clone.style.margin = "0";
+      clone.style.width = "100%";
+      clone.removeAttribute("id");
+      [].slice.call(clone.querySelectorAll("iframe")).forEach(function (fr) {
+        var p = fr.parentElement; fr.remove();
+        var ph = document.createElement("div");
+        ph.style.cssText = "position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,#2a3a52,#0c0f16);display:grid;place-items:center;color:#7fd1c4;font:700 12px/1 'Courier Prime',monospace;letter-spacing:.18em;text-transform:uppercase;";
+        ph.textContent = "nahnew.exe";
+        if (p) p.insertBefore(ph, p.firstChild);
+      });
+      if (i === 0) slide.dataset.main = "1";
+      slide.dataset.href = node.getAttribute("href") || "";
+      slide.appendChild(clone);
+      track.appendChild(slide);
+      cz.slides.push(slide);
+    });
+    var dotsWrap = document.getElementById("mdots");
+    cz.dots = [];
+    if (dotsWrap) {
+      dotsWrap.innerHTML = "";
+      cards.forEach(function () {
+        var d = document.createElement("span");
+        d.style.cssText = "width:7px;height:7px;border-radius:50%;border:1px solid #160f06;background:transparent;transition:background .3s,transform .3s,border-color .3s;";
+        dotsWrap.appendChild(d);
+        cz.dots.push(d);
+      });
+    }
+    track.addEventListener("click", function (e) { e.preventDefault(); e.stopPropagation(); }, true);
+    track.addEventListener("pointerdown", onDown);
+    cz.built = true;
+    cz.pos = 0; cz.target = 0;
+    layout(0);
+  }
+
+  function syncMode() {
+    if (!mq) return;
+    if (mq.matches) {
+      if (!cz.built) buildCarousel();
+      if (cz.built) startLoop();
+    } else {
+      stopLoop();
+    }
+  }
+
+  window.addEventListener("resize", syncMode);
+  setTimeout(syncMode, 60);
+})();
+</script>
+
+</body>
+</html>

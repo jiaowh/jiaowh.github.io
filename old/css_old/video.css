@@ -1,0 +1,201 @@
+.header {
+    position: absolute;
+    height:15vh;
+    width: 100vw;
+    left:0vw;
+    top:-1vh;
+    background: linear-gradient(180deg, #C0AD8E 85.66%, #B5A07F 85.67%);
+  }
+  
+  .logo {
+    position: absolute;
+    width: 30vw;
+    height: 15vh;
+    top: -0vh;
+    left: 0vw;
+  }
+  
+  .menu {
+    position: absolute;
+    width: 10vw;
+    height: 5vh;
+    top: 5vh;
+    right: 10vw;
+  }
+  
+  .sidebar{
+    position:absolute;
+    height:100vh;
+    width:100vw;
+    z-index:9000;
+    top:1vh;
+    left:90vw;
+    transition-duration: 1000ms;
+  }
+  
+  .fill{
+    position:absolute;
+    height:100vh;
+    width:190vw;
+    left:-90vw;
+    background-color: black;
+    opacity: 0.8;
+    visibility: hidden;
+    top:0vh;
+  
+  }
+  
+  .crafter-crad{
+    position: absolute;
+    height:27vh;
+    width: 60vw;
+    left:52vw;
+    top:-3vh;
+  }
+  
+  .works{
+    position: absolute;
+    top:19vh;
+    transform: rotate(-12.99deg);
+    left: 22vw;
+    height:5vh;
+    width: auto;
+  }
+  
+  .artist-card{
+    position: absolute;
+    height:25vh;
+    width: 60vw;
+    left:40vw;
+    top: 22vh;
+  }
+  
+  .illustration{
+    position: absolute;
+    top:15vh;
+    transform: rotate(8.99deg);
+    left: 13vw;
+    height:5vh;
+    width: auto;
+  }
+  
+  .element-model{
+    position: absolute;
+    top:21vh;
+    transform: rotate(8.99deg);
+    left: 13vw;
+    height:5vh;
+    width: auto;
+  }
+  
+  .rider-card{
+    position: absolute;
+    height:25vh;
+    width: 60vw;
+    left:49vw;
+    top: 47vh;
+  }
+  
+  .photos{
+    position: absolute;
+    top:19vh;
+    transform: rotate(-11.99deg);
+    left: 13vw;
+    height:5vh;
+    width: auto;
+  }
+  .video{
+    position: absolute;
+    top:24vh;
+    transform: rotate(-11.99deg);
+    left: 15vw;
+    height:5vh;
+    width: auto;
+  }
+  
+  .developer-card1{
+    position: absolute;
+    height:25vh;
+    width: 60vw;
+    left:14vw;
+    top: 78vh;
+  }
+  
+  .works1{
+    position: absolute;
+    top:15vh;
+    transform: rotate(11.99deg);
+    left: 30vw;
+    height:5vh;
+    width: auto;
+  }
+
+  .japan{
+    position: absolute;
+    height:85vh;
+    width: 100vw;
+    top: 13vh;
+    left: 3vw;
+  }
+
+  video{
+    width:40vw;
+    
+  }
+
+  .hokkaido{
+    position: absolute;
+    top:20vh;
+    left:19vw;
+  }
+
+  .kita{
+    position: absolute;
+    top:40vh;
+    left:5vw;
+  }
+
+  .monochro{
+    position:absolute;
+    bottom:16vh;
+    right:2vw;
+  }
+ 
+  .yumetabibito{
+    position: absolute;
+    bottom: 1vh;
+    right: 40vw;
+
+  }
+
+  .doodle1{
+    position:absolute;
+    width:40vw;
+    left:48vw;
+    top:20vh;
+    transform: rotate(20deg);
+  }
+
+  .doodle2{
+    position: absolute;
+    width:40vw;
+    top: 40vh;
+    left:33vw;
+    transform: rotate(-20deg);
+  }
+
+  .doodle3{
+    position: absolute;
+    width:40vw;
+    top: 63vh;
+    left:11vw;
+    transform: rotate(170deg);
+  }
+  .doodle4{
+    position:absolute;
+    width:40vw;
+    top:57vh;
+    left:22vw;
+    transform: rotate(-20deg);
+  }
+  html, body {margin: 0; height: 100%; height: -webkit-fill-available; overflow: hidden; background-color: #448DAE; position:relative;}
