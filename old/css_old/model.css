@@ -1,0 +1,324 @@
+.mobile{
+    height:100vh;
+    width: 100vw;
+    left:0;
+    position: absolute;
+}
+
+.mobile .header {
+    position: absolute;
+    height:15vh;
+    width: 100%;
+    left:0vw;
+    background: linear-gradient(180deg, #C0AD8E 85.66%, #B5A07F 85.67%);
+  }
+
+  .render{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .img_h{
+  width:80vw;
+  margin: 0 auto; 
+  padding-top: 20px;
+  }
+  .renders{
+    position: absolute;
+    top:110vh;
+    height: 100vh;
+    width:100vw;
+    left: 0;
+
+  }
+
+  .portfolio{
+    left:0vw;
+    position: absolute;
+    height:82vh;
+  }
+.mobile .logo {
+    position: absolute;
+    width: 30vw;
+    height: 15vh;
+    top: -0vh;
+    left: 0vw;
+  }
+
+  .mobile .menu {
+    position: absolute;
+    width: 10vw;
+    height: 5vh;
+    top: 5vh;
+    right: 10vw;
+  }
+
+  .mobile .dropdown{
+    position: absolute;
+    width:96vw;
+    height:6vh;
+    top: 19.6vh;
+   
+    z-index: 999;
+  }
+
+  .dropdown .select-btn{
+    font-family: 'Podkova', sans-serif; /* Set font to Podkova */
+    font-weight: 800; /* Set font weight to extrabold */
+    font-size:32px; /* Set font size to 64 pixels */
+    color: #D2CD82; /* Set font color to D2CD82 */
+    text-align: center; /* Center align the text */
+    text-shadow: 0 0 8px black;
+    margin: 20px;
+    top:-3vh;
+    position: relative;
+    z-index: 999;
+}
+
+.sBtn-text{
+  position: relative;
+  top:1vh;
+  text-align: center;
+}
+
+
+
+.dropdown .options{
+  position: absolute;
+  padding: 0.1vh;
+  margin-top: 1vh;
+  border-radius: 8px;
+  background: #6b5f4b;
+  box-shadow: 0 0 3px rgba(0,0,0,0.1);
+  display: block;
+  z-index: 999;
+  top:8vh;
+  left:37vw;
+  visibility:hidden;
+}
+
+
+.options .option{
+  display: flex;
+  height: 6vh;
+  cursor: pointer;
+  padding: 0 16px;
+  border-radius: 8px;
+  align-items: center;
+  background: #C1AD8E;
+}
+
+.options .option:hover{
+  background: #d4c4ac;
+}
+
+.option .option-text{
+  font-size: 18px;
+  color: #333;
+  font-family: 'Podkova', sans-serif;
+  text-shadow: 7px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+  .mobile .portfolio{
+    position:absolute;
+    height:82vh;
+    width: 96vw;
+    top:17vh;
+  }
+
+  .name{
+    position: absolute;
+    font-family: 'Podkova', sans-serif;
+    font-size: 3.5vh;
+    text-align: center;
+    top:65.5vh;
+    left:30vw;
+    font-weight: 800;
+    text-decoration: underline;
+    text-shadow: 7px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  .header {
+    position: absolute;
+    height:15vh;
+    width: 100vw;
+    left:0vw;
+    background: linear-gradient(180deg, #C0AD8E 85.66%, #B5A07F 85.67%);
+
+    
+  }
+  
+  .logo {
+    position: absolute;
+    width: 30vw;
+    height: 15vh;
+    top: -0vh;
+    left: 0vw;
+  }
+  
+  .menu {
+    position: absolute;
+    width: 10vw;
+    height: 5vh;
+    top: 5vh;
+    right: 10vw;
+  }
+  
+  .sidebar{
+    position:absolute;
+    height:100vh;
+    width:100vw;
+    z-index:9000;
+    top:-1vh;
+    left:90vw;
+    transition-duration: 1000ms;
+    visibility: hidden;
+    display: none;
+    overflow-x:hidden;
+  }
+  
+  .fill{
+    position:absolute;
+    height:520vh;
+    width:190vw;
+    left:-90vw;
+    background-color: black;
+    opacity: 0.8;
+    visibility: hidden;
+    top:-1vh;
+  }
+  
+  .crafter-crad{
+    position: absolute;
+    height:27vh;
+    width: 60vw;
+    left:52vw;
+    top:vh;
+  }
+  
+  .crafter-card{
+    height:60vh;
+  }
+  .works{
+    position: absolute;
+    top:17vh;
+    transform: rotate(-12.99deg);
+    left: 12vw;
+    height:5vh;
+    width: auto;
+  }
+  
+  .artist-card{
+    position: absolute;
+    height:25vh;
+    width: 60vw;
+    left:36vw;
+    top: 29vh;
+  }
+
+  .artist-card-2{height: 60vh;}
+  
+  .illustration{
+    position: absolute;
+    top:13vh;
+    transform: rotate(8.99deg);
+    left: 11vw;
+    height:5vh;
+    width: auto;
+  }
+  
+  .element-model{
+    position: absolute;
+    top:20vh;
+    transform: rotate(8.99deg);
+    left: 9vw;
+    height:5vh;
+    width: auto;
+  }
+  
+  .rider-card{
+    position: absolute;
+    height:25vh;
+    width: 60vw;
+    left:49vw;
+    top: 52vh;
+  }
+  
+  .rider-card-2{height: 60vh;}
+  .photos{
+    position: absolute;
+    top:15vh;
+    transform: rotate(-11.99deg);
+    left: 10vw;
+    height:5vh;
+    width: auto;
+  }
+  .video{
+    position: absolute;
+    top:21vh;
+    transform: rotate(-11.99deg);
+    left: 12vw;
+    height:5vh;
+    width: auto;
+  }
+  
+  .developer-card1{
+    position: absolute;
+    height:25vh;
+    width: 60vw;
+    left:14vw;
+    top: 78vh;
+  }
+
+ .developer-card{height: 60vh;}
+  
+  .works1{
+    position: absolute;
+    top:15vh;
+    transform: rotate(11.99deg);
+    left: 30vw;
+    height:5vh;
+    width: auto;
+  }
+  .vgScene{
+    visibility: visible; }
+
+  .card{
+    position: absolute;
+    width: 95vw;
+    left: 2.5vw;
+    height: 80vh;
+  }
+
+  #transparentButton {
+    background-color: transparent;
+    border: none;
+    color: white; /* Text color */
+    left:10vw;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    top:-15vh;
+    position: relative;
+    width:80vw;
+    height:8vh;
+}
+
+.arrow{
+position: absolute;
+top:202vh;
+right:2vw;
+}
+
+p{
+  font-family: 'Podkova', sans-serif; /* Set font to Podkova */
+    font-weight: 800; /* Set font weight to extrabold */
+    font-size:32px; /* Set font size to 64 pixels */
+    color: #D2CD82; /* Set font color to D2CD82 */
+    text-align: center; /* Center align the text */
+    text-shadow: 0 0 8px black;
+    margin: 20px;
+    top:0vh;
+    position: relative;
+    text-decoration: underline;
+}
