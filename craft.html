@@ -3,24 +3,441 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NAHNEW — Shadowbox</title>
+<title>nahnew — Shadowbox · Crafting 2D into 3D</title>
+<meta name="description" content="3D trading-card shadowbox art by nahnew (@n_nahnew) — flat Yu-Gi-Oh, Pokémon and Digimon card art rebuilt as layered paper dioramas.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://platform.twitter.com">
+<link rel="preconnect" href="https://cdn.syndication.twimg.com">
+<link rel="preconnect" href="https://pbs.twimg.com">
+<link rel="preconnect" href="https://abs.twimg.com">
+<link rel="preconnect" href="https://video.twimg.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <style>
   *{box-sizing:border-box;}
-  body{margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;background:#e7dcbf;color:#160f06;font-family:'Spectral',serif;text-align:center;padding:40px;}
-  .eyebrow{font:400 12px/1 'Courier Prime',monospace;letter-spacing:.2em;text-transform:uppercase;color:#b07a1f;}
-  h1{margin:0;font-family:'Cinzel',serif;font-weight:700;font-size:clamp(40px,8vw,76px);letter-spacing:-.005em;color:#160f06;}
-  p{margin:0;max-width:46ch;font-size:18px;font-weight:300;color:#4a3d28;}
-  a.back{display:inline-flex;align-items:center;gap:10px;margin-top:8px;padding:14px 26px;border-radius:2px;text-decoration:none;font:700 12px/1 'Courier Prime',monospace;letter-spacing:.12em;text-transform:uppercase;color:#f4ecd6;background:#160f06;box-shadow:3px 3px 0 #b07a1f;transition:transform .25s,box-shadow .25s;}
-  a.back:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 #b07a1f;}
+  body{
+    margin:0;font-family:'Space Grotesk',sans-serif;-webkit-font-smoothing:antialiased;
+    background:#1d4a54;color:#eaf3f2;
+  }
+  a{-webkit-tap-highlight-color:transparent;}
+
+  /* cutting mat */
+  .mat{
+    position:relative;min-height:100vh;width:100%;overflow-x:clip;background:#27606e;
+    background-image:
+      linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px),
+      linear-gradient(rgba(255,255,255,.11) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.11) 1px,transparent 1px);
+    background-size:19px 19px,19px 19px,95px 95px,95px 95px;
+  }
+
+  /* ---- nav ---- */
+  .topbar{position:relative;z-index:5;background:rgba(0,0,0,.26);border-bottom:1.5px solid rgba(255,255,255,.14);}
+  .topbar nav{max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:15px 22px;}
+  .logo{text-decoration:none;display:flex;align-items:center;gap:9px;}
+  .logo .star{color:#ffe27a;font-size:19px;line-height:1;}
+  .logo .word{font-weight:700;font-size:17px;letter-spacing:.02em;color:#eaf3f2;}
+  #nav-links{display:flex;align-items:center;gap:20px;font:500 11px 'Space Mono',monospace;letter-spacing:.14em;text-transform:uppercase;}
+  .nl{color:#bcd6d4;text-decoration:none;transition:color .2s ease;}
+  .nl:hover,.nl.active{color:#ffe27a;}
+  #nav-ham{
+    display:none;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+    width:42px;height:42px;padding:0;background:#ffe27a;border:none;border-radius:5px;
+    box-shadow:0 5px 12px rgba(0,0,0,.32);cursor:pointer;
+  }
+  #nav-ham span{display:block;width:18px;height:2px;background:#23332f;}
+  #nav-menu{display:none;max-height:0;opacity:0;overflow:hidden;transition:max-height .42s cubic-bezier(.2,.7,.2,1),opacity .3s ease;}
+  #nav-menu.open{max-height:380px;opacity:1;}
+  #nav-menu .rows{display:flex;flex-direction:column;padding:2px 18px 14px;font:500 13px 'Space Mono',monospace;letter-spacing:.1em;text-transform:uppercase;}
+  .nlm{color:#cfe0dd;text-decoration:none;display:flex;align-items:center;gap:11px;padding:13px 6px;border-bottom:1px dashed rgba(255,255,255,.14);}
+  .nlm:last-child{border-bottom:none;}
+  .nlm:hover,.nlm.active{color:#ffe27a;}
+  .nlm .star{color:#ffe27a;font-size:11px;}
+  @media(max-width:760px){
+    #nav-links{display:none;}
+    #nav-ham{display:flex;}
+    #nav-menu{display:block;}
+  }
+
+  /* ---- desk column ---- */
+  .desk{position:relative;z-index:1;max-width:432px;margin:0 auto;padding:0 20px 70px;}
+  .tagline{position:relative;text-align:center;margin:48px 0 0;z-index:3;}
+  .tagline span{
+    display:inline-block;transform:rotate(-3deg);
+    font-family:'Caveat',cursive;font-weight:700;font-size:44px;line-height:1;color:#fff;
+    text-shadow:0 2px 10px rgba(0,0,0,.35);
+  }
+  .tagline .star{color:#ffe27a;}
+
+  /* ---- works grid ---- */
+  .works-grid{display:grid;grid-template-columns:1fr;gap:48px;margin:48px 0 0;}
+  .work{position:relative;}
+  .tape{
+    position:absolute;left:50%;top:-13px;width:74px;height:22px;margin-left:-37px;
+    opacity:.92;box-shadow:0 3px 8px rgba(0,0,0,.22);z-index:4;
+  }
+  .photo{background:#fbfbf7;padding:10px 10px 0;box-shadow:0 18px 32px rgba(0,0,0,.34);}
+  .tw{display:flex;justify-content:center;min-height:320px;}
+  .tw .twitter-tweet{margin:0 auto !important;width:100% !important;}
+  .tw blockquote{font-family:'Space Grotesk',sans-serif;color:#54635f;font-size:12px;padding:10px;line-height:1.5;}
+  .caption{padding:10px 4px 14px;}
+  .caption .title{font-family:'Caveat',cursive;font-weight:700;font-size:26px;color:#23332f;line-height:1;}
+  .caption .sub{font-family:'Noto Sans JP',sans-serif;font-size:11px;color:#6a7470;margin-top:3px;}
+
+  /* ---- post-its ---- */
+  .note{
+    position:absolute;z-index:6;display:block;text-decoration:none;
+    box-shadow:0 10px 18px rgba(0,0,0,.3);padding:12px 13px 10px;
+  }
+  .note .quote{font-family:'Caveat',cursive;font-weight:600;font-size:18px;line-height:1.1;}
+  .note .handle{font:400 9px 'Space Mono',monospace;margin-top:7px;}
+  .note.gold{background:#ffe27a;}   .note.gold .quote{color:#33312a;}   .note.gold .handle{color:#6a6757;}
+  .note.pink{background:#ffc4d1;}   .note.pink .quote{color:#3a2730;}   .note.pink .handle{color:#6e5a61;}
+  .note.green{background:#bfeacb;}  .note.green .quote{color:#26332a;}  .note.green .handle{color:#5f6b60;}
+  .note.blue{background:#cfe0ff;}   .note.blue .quote{color:#27303a;}   .note.blue .handle{color:#5d6573;}
+  .note.orange{background:#ffd9a8;} .note.orange .quote{color:#3a3127;} .note.orange .handle{color:#6e6253;}
+
+  /* ---- comments printout ---- */
+  .printout-wrap{position:relative;max-width:520px;margin:60px auto 0;}
+  .printout-tape{
+    position:absolute;top:34px;width:64px;height:22px;background:rgba(228,216,182,.9);
+    box-shadow:0 3px 8px rgba(0,0,0,.2);z-index:4;
+  }
+  .printout-tape.l{left:-6px;transform:rotate(-38deg);}
+  .printout-tape.r{right:-6px;transform:rotate(38deg);}
+  .printout{margin-top:46px;background:#fbfbf7;padding:9px;box-shadow:0 20px 38px rgba(0,0,0,.42);position:relative;}
+  .comm-window{height:466px;overflow:hidden;position:relative;background:#0c0c0c;border:1px solid #e2e2dc;cursor:zoom-in;}
+  .comm-track{position:absolute;top:0;left:0;width:100%;will-change:transform;animation:commScroll 80s linear infinite;}
+  .comm-track img{display:block;width:100%;}
+  @keyframes commScroll{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+  .printout .thanks{padding:10px 4px 22px;}
+  .printout .thanks span{font-family:'Caveat',cursive;font-weight:700;font-size:21px;color:#23332f;}
+  .printout .hint{position:absolute;right:12px;bottom:12px;font:400 9px 'Space Mono',monospace;color:#9aa6a8;white-space:nowrap;}
+
+  /* ---- footer ---- */
+  .footer{
+    position:relative;max-width:520px;margin:60px auto 0;padding:32px 24px 28px;
+    background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.08);text-align:center;
+  }
+  .footer h2{margin:0;font-family:'Caveat',cursive;font-weight:700;font-size:30px;color:#fff;line-height:1;}
+  .footer .socials{display:flex;gap:11px;flex-wrap:wrap;margin-top:18px;justify-content:center;}
+  .btn-kraft{
+    text-decoration:none;background:rgba(228,216,182,.94);padding:9px 17px;
+    font-family:'Caveat',cursive;font-weight:700;font-size:20px;color:#2a2a26;
+    box-shadow:0 5px 12px rgba(0,0,0,.26);
+  }
+  .btn-gold{
+    text-decoration:none;background:#ffe27a;padding:9px 17px;
+    font-family:'Caveat',cursive;font-weight:700;font-size:20px;color:#33312a;
+    box-shadow:0 5px 12px rgba(0,0,0,.26);
+  }
+  .footer .commission{display:flex;margin-top:12px;justify-content:center;}
+  .footer .copy{font:400 9px 'Space Mono',monospace;color:#a7c4c2;margin-top:22px;letter-spacing:.06em;}
+
+  /* ---- lightbox ---- */
+  #lightbox{
+    position:fixed;inset:0;z-index:50;background:rgba(8,16,18,.92);display:none;
+    align-items:flex-start;justify-content:center;overflow:auto;cursor:zoom-out;padding:34px 16px;
+  }
+  #lightbox.open{display:flex;}
+  #lightbox img{width:100%;max-width:760px;height:auto;box-shadow:0 30px 80px rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.12);}
+  #lightbox .close{
+    position:fixed;top:16px;right:18px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;
+    background:#ffe27a;border-radius:6px;color:#23332f;font:700 20px 'Space Grotesk',sans-serif;box-shadow:0 6px 14px rgba(0,0,0,.4);
+  }
+
+  /* ---- responsive desk ---- */
+  @media(min-width:820px){
+    .desk{max-width:900px;padding:0 40px 90px;}
+    .works-grid{grid-template-columns:repeat(2,1fr);column-gap:52px;row-gap:64px;}
+  }
+  @media(min-width:1180px){
+    .desk{max-width:1140px;}
+    .works-grid{grid-template-columns:repeat(3,1fr);column-gap:48px;}
+  }
 </style>
 </head>
 <body>
-  <div class="eyebrow">✦ NAHNEW · Shadowbox</div>
-  <h1>Shadowbox</h1>
-  <p>This page is under construction. Work for this discipline will live here soon.</p>
-  <a class="back" href="index.html">← Back to the deck</a>
+<div class="mat">
+
+  <!-- NAV -->
+  <header class="topbar">
+    <nav>
+      <a class="logo" href="index.html">
+        <span class="star">✦</span>
+        <span class="word">nahnew</span>
+      </a>
+      <div id="nav-links">
+        <a class="nl" href="oil-painting.html">Painting</a>
+        <a class="nl" href="digital-art.html">Illustration</a>
+        <a class="nl active" href="craft.html">Shadowbox</a>
+        <a class="nl" href="3d-models.html">3D Models</a>
+        <a class="nl" href="tosou.html">Sculptures</a>
+        <a class="nl" href="software.html">Developer</a>
+      </div>
+      <button id="nav-ham" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <div id="nav-menu">
+      <div class="rows">
+        <a class="nlm" href="oil-painting.html"><span class="star">✦</span>Painting</a>
+        <a class="nlm" href="digital-art.html"><span class="star">✦</span>Illustration</a>
+        <a class="nlm active" href="craft.html"><span class="star">✦</span>Shadowbox</a>
+        <a class="nlm" href="3d-models.html"><span class="star">✦</span>3D Models</a>
+        <a class="nlm" href="tosou.html"><span class="star">✦</span>Sculptures</a>
+        <a class="nlm" href="software.html"><span class="star">✦</span>Developer</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- DESK -->
+  <main class="desk">
+
+    <div class="tagline">
+      <span>Crafting 2D into 3D <span class="star">✦</span></span>
+    </div>
+
+    <!-- WORKS -->
+    <div class="works-grid">
+
+      <!-- 01 · Spirit Familiar Token (video) -->
+      <div class="work" style="transform:rotate(-2.6deg);">
+        <div class="tape" style="transform:rotate(4deg);background:#e9dcb4;"></div>
+        <div class="photo">
+          <div class="tw">
+            <blockquote class="twitter-tweet" data-conversation="none" data-dnt="true"><a href="https://twitter.com/n_nahnew/status/1783801835448602629?ref_src=twsrc%5Etfw"></a></blockquote>
+          </div>
+          <div class="caption">
+            <div class="title">Spirit Familiar Token</div>
+            <div class="sub">霊使いトークン · Yu-Gi-Oh · 2024</div>
+          </div>
+        </div>
+        <a class="note gold" href="https://twitter.com/n_nahnew/status/1783801835448602629" target="_blank" rel="noopener" style="top:-20px;right:-14px;width:128px;transform:rotate(5.5deg);">
+          <div class="quote">“Most creative shadowbox artist 🔥”</div>
+          <div class="handle">@Sunforge_Cards</div>
+        </a>
+      </div>
+
+      <!-- 02 · Mismagius -->
+      <div class="work" style="transform:rotate(2.2deg);">
+        <div class="tape" style="transform:rotate(-5deg);background:#d9c0c8;"></div>
+        <div class="photo">
+          <div class="tw">
+            <blockquote class="twitter-tweet" data-conversation="none" data-dnt="true"><a href="https://twitter.com/n_nahnew/status/1646856555516788738?ref_src=twsrc%5Etfw"></a></blockquote>
+          </div>
+          <div class="caption">
+            <div class="title">Mismagius</div>
+            <div class="sub">ムウマージ · Pokémon · 2023</div>
+          </div>
+        </div>
+        <a class="note pink" href="https://twitter.com/n_nahnew/status/1646856555516788738" target="_blank" rel="noopener" style="top:14px;right:-18px;width:122px;transform:rotate(6deg);">
+          <div class="quote">“Absolutely beautiful”</div>
+          <div class="handle">@kredible</div>
+        </a>
+      </div>
+
+      <!-- 03 · Lillymon -->
+      <div class="work" style="transform:rotate(-1.8deg);">
+        <div class="tape" style="transform:rotate(3deg);background:#cfe0d2;"></div>
+        <div class="photo">
+          <div class="tw">
+            <blockquote class="twitter-tweet" data-conversation="none" data-dnt="true"><a href="https://twitter.com/n_nahnew/status/1667721855141285888?ref_src=twsrc%5Etfw"></a></blockquote>
+          </div>
+          <div class="caption">
+            <div class="title">Lillymon</div>
+            <div class="sub">リリモン · Digimon · 2023</div>
+          </div>
+        </div>
+        <a class="note green" href="https://twitter.com/n_nahnew/status/1667721855141285888" target="_blank" rel="noopener" style="top:-22px;right:-12px;width:120px;transform:rotate(6deg);">
+          <div class="quote">“So detailed — incredible”</div>
+          <div class="handle">@mr_shadowbox</div>
+        </a>
+      </div>
+
+      <!-- 04 · Otamamon & Gekomon -->
+      <div class="work" style="transform:rotate(2.6deg);">
+        <div class="tape" style="transform:rotate(-4deg);background:#e3d2b0;"></div>
+        <div class="photo">
+          <div class="tw">
+            <blockquote class="twitter-tweet" data-conversation="none" data-dnt="true"><a href="https://twitter.com/n_nahnew/status/1745747288688140628?ref_src=twsrc%5Etfw"></a></blockquote>
+          </div>
+          <div class="caption">
+            <div class="title">Otamamon &amp; Gekomon</div>
+            <div class="sub">オタマモン &amp; ゲコモン · Digimon · 2024</div>
+          </div>
+        </div>
+        <a class="note blue" href="https://twitter.com/n_nahnew/status/1745747288688140628" target="_blank" rel="noopener" style="top:-20px;left:-20px;width:120px;transform:rotate(-5.5deg);">
+          <div class="quote">“All those tiny pieces!”</div>
+          <div class="handle">@enzotica</div>
+        </a>
+        <div class="note gold" style="top:-20px;right:-18px;width:120px;transform:rotate(4deg);">
+          <div class="quote">“What a masterpiece”</div>
+          <div class="handle">@customcardworld</div>
+        </div>
+        <div class="note orange" style="top:-144px;right:-6px;width:126px;transform:rotate(-4deg);z-index:7;">
+          <div class="quote">“You're out of this world!”</div>
+          <div class="handle">@pierrotcards</div>
+        </div>
+      </div>
+
+      <!-- 05 · Hiita the Fire Charmer -->
+      <div class="work" style="transform:rotate(-2.2deg);">
+        <div class="tape" style="transform:rotate(4.5deg);background:#d6cbe0;"></div>
+        <div class="photo">
+          <div class="tw">
+            <blockquote class="twitter-tweet" data-conversation="none" data-dnt="true"><a href="https://twitter.com/n_nahnew/status/1651909387928346624?ref_src=twsrc%5Etfw"></a></blockquote>
+          </div>
+          <div class="caption">
+            <div class="title">Hiita the Fire Charmer</div>
+            <div class="sub">火霊媒師ヒータ · Yu-Gi-Oh · 2023</div>
+          </div>
+        </div>
+        <div class="note gold" style="top:-22px;left:-16px;width:120px;transform:rotate(-5deg);">
+          <div class="quote">“So much detail!”</div>
+          <div class="handle">@3decksdesigns</div>
+        </div>
+        <a class="note orange" href="https://twitter.com/n_nahnew/status/1651909387928346624" target="_blank" rel="noopener" style="top:-18px;right:-14px;width:118px;transform:rotate(5deg);">
+          <div class="quote">“This is freaking bonkers!”</div>
+          <div class="handle">@BibilishBuilds</div>
+        </a>
+        <div class="note green" style="bottom:18px;right:-18px;width:118px;transform:rotate(3deg);">
+          <div class="quote">“These are amazing!”</div>
+          <div class="handle">@archer40</div>
+        </div>
+      </div>
+
+      <!-- 06 · Mika -->
+      <div class="work" style="transform:rotate(1.8deg);">
+        <div class="tape" style="transform:rotate(-4deg);background:#cfe0d2;"></div>
+        <div class="photo">
+          <div class="tw">
+            <blockquote class="twitter-tweet" data-conversation="none" data-dnt="true"><a href="https://twitter.com/n_nahnew/status/1545964787016040448?ref_src=twsrc%5Etfw"></a></blockquote>
+          </div>
+          <div class="caption">
+            <div class="title">Mika</div>
+            <div class="sub">百合咲ミカ · @n_nahnew</div>
+          </div>
+        </div>
+        <div class="note pink" style="top:-20px;right:-14px;width:120px;transform:rotate(5deg);">
+          <div class="quote">“This is freaking bonkers”</div>
+          <div class="handle">@bibilish_tcg</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- COMMENTS PRINTOUT -->
+    <div class="printout-wrap">
+      <div class="printout-tape l"></div>
+      <div class="printout-tape r"></div>
+      <div class="printout">
+        <div class="comm-window" id="comm-window" role="button" tabindex="0" aria-label="Expand the wall of comments">
+          <div class="comm-track">
+            <img src="assets/craft/comments.webp" alt="wall of comments">
+            <img src="assets/craft/comments.webp" aria-hidden="true" alt="">
+          </div>
+        </div>
+        <div class="thanks">
+          <span>to each and every one of you. thank you ♥</span>
+        </div>
+        <span class="hint">tap to expand</span>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <h2>Let's make something →</h2>
+      <div class="socials">
+        <a class="btn-kraft" href="https://twitter.com/n_nahnew" target="_blank" rel="noopener" style="transform:rotate(-1.5deg);">Twitter / X →</a>
+        <a class="btn-kraft" href="https://www.instagram.com/n_nahnew" target="_blank" rel="noopener" style="transform:rotate(1.5deg);">Instagram →</a>
+      </div>
+      <div class="commission">
+        <a class="btn-gold" href="https://twitter.com/n_nahnew" target="_blank" rel="noopener" style="transform:rotate(-1deg);">✦ Message for commissions</a>
+      </div>
+      <div class="copy">© nahnew · @n_nahnew · made by hand</div>
+    </footer>
+
+  </main>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox">
+    <img src="assets/craft/comments.webp" alt="wall of comments — full">
+    <div class="close" aria-hidden="true">✕</div>
+  </div>
+
+</div>
+
+<script>
+  // mobile menu
+  var ham = document.getElementById('nav-ham');
+  var menu = document.getElementById('nav-menu');
+  ham.addEventListener('click', function(){
+    var open = menu.classList.toggle('open');
+    ham.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  // comments lightbox — auto-scrolls like the printout until the reader takes over
+  var lightbox = document.getElementById('lightbox');
+  var commWindow = document.getElementById('comm-window');
+  var autoScrollRAF = null;
+  function startAutoScroll(){
+    stopAutoScroll();
+    var img = lightbox.querySelector('img');
+    var pos = lightbox.scrollTop;
+    var last = performance.now();
+    function step(now){
+      // px/s — one full image in 80s, matching the printout (re-read each frame in case the image is still loading)
+      var speed = Math.max(img.clientHeight, 300) / 80;
+      pos += speed * (now - last) / 1000;
+      last = now;
+      lightbox.scrollTop = pos;
+      if(lightbox.scrollTop + lightbox.clientHeight < lightbox.scrollHeight - 1){
+        autoScrollRAF = requestAnimationFrame(step);
+      } else {
+        autoScrollRAF = null;
+      }
+    }
+    autoScrollRAF = requestAnimationFrame(step);
+  }
+  function stopAutoScroll(){
+    if(autoScrollRAF !== null){ cancelAnimationFrame(autoScrollRAF); autoScrollRAF = null; }
+  }
+  lightbox.addEventListener('wheel', stopAutoScroll, {passive:true});
+  lightbox.addEventListener('touchstart', stopAutoScroll, {passive:true});
+  function openLightbox(){
+    lightbox.classList.add('open');
+    lightbox.scrollTop = 0;
+    startAutoScroll();
+  }
+  function closeLightbox(){
+    stopAutoScroll();
+    lightbox.classList.remove('open');
+  }
+  commWindow.addEventListener('click', openLightbox);
+  commWindow.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openLightbox(); }
+  });
+  lightbox.addEventListener('click', closeLightbox);
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){ closeLightbox(); }
+  });
+
+  // hydrate tweet embeds once widgets.js is ready
+  (function(){
+    var tries = 0;
+    function load(){
+      if(window.twttr && window.twttr.widgets && window.twttr.widgets.load){
+        window.twttr.widgets.load();
+      } else if(tries++ < 40){
+        setTimeout(load, 350);
+      }
+    }
+    load();
+    setTimeout(load, 2500); // re-scan after layout settles
+  })();
+</script>
 </body>
 </html>
