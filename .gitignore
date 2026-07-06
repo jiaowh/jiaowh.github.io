@@ -3,4 +3,9 @@
 assets/3d models/
 *.blend1
 *:Zone.Identifier
+# WSL materializes Zone.Identifier ADS as files with a U+F03A char — catch those too
+*.Identifier
 assets/developer/rheed analysis pipeline.mp4
+
+# Dependencies — never commit
+node_modules/
