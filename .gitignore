@@ -1,0 +1,6 @@
+# 3D source files (blends, fbx, renders) — too large for GitHub (>100MB files).
+# Web-ready GLBs/posters are exported to assets/models/ instead.
+assets/3d models/
+*.blend1
+*:Zone.Identifier
+assets/developer/rheed analysis pipeline.mp4
