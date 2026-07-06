@@ -15,12 +15,16 @@ export interface ArtPictureOptions {
   alt?: string;
 }
 
+// Public-dir URLs built at runtime must go through BASE_URL — the site is
+// deployed under a subpath (GitHub Pages), so root-absolute "/art/…" 404s.
+const ART_BASE = `${import.meta.env.BASE_URL}art/`;
+
 function srcset(entry: ArtworkManifestEntry, format: "avif" | "webp"): string {
-  return entry.sources[format].map((w) => `/art/${entry.id}-${w}.${format} ${w}w`).join(", ");
+  return entry.sources[format].map((w) => `${ART_BASE}${entry.id}-${w}.${format} ${w}w`).join(", ");
 }
 
 export function artUrl(entry: ArtworkManifestEntry, width: number, format: "avif" | "webp"): string {
-  return `/art/${entry.id}-${width}.${format}`;
+  return `${ART_BASE}${entry.id}-${width}.${format}`;
 }
 
 export function buildPicture(entry: ArtworkManifestEntry, opts: ArtPictureOptions): HTMLPictureElement {

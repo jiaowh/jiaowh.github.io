@@ -1,5 +1,6 @@
 node_modules/
-dist/
+# dist/ is committed on purpose — GitHub Pages serves the built site from
+# gyokai/site/dist/ (no CI build step on this repo).
 public/art/
 public/fonts/
 src/data/manifest.json
