@@ -1,0 +1,9 @@
+node_modules/
+dist/
+public/art/
+public/fonts/
+src/data/manifest.json
+
+# editor/OS cruft
+.DS_Store
+*.log

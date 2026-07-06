@@ -1,0 +1,179 @@
+{
+  "$comment": "THE ONLY images the site may process or serve. Curated by the creative director. Do not add files. Do not glob the source directory. src is relative to the repo's gyokai/ folder. room/accent are hand-tuned art-direction overrides: room = the color-world background, accent = the clash accent. Pipeline must prefer these over extracted values.",
+  "sourceDir": "../gyokai",
+  "artworks": [
+    {
+      "src": "GmEvkHQbcAALLM1.jfif",
+      "id": "sparkle-plaid",
+      "title": "SPARKLE PLAID",
+      "titleJa": "キラキラ",
+      "role": "hero",
+      "alt": "A winking girl in a pink plaid outfit throwing a peace sign, surrounded by sparkles and pop stickers on a lemon-white ground.",
+      "room": "#FBFBEC",
+      "accent": "#E9EC3F"
+    },
+    {
+      "src": "EYIXeBnVAAAva7_.jfif",
+      "id": "lime-rabbit",
+      "title": "LIME RABBIT",
+      "titleJa": "ライムラビット",
+      "alt": "A rabbit-eared girl with braided blue-white hair and black gloves smiling on a bright lime-green halftone background.",
+      "room": "#8DFE8B",
+      "accent": "#FD8A49"
+    },
+    {
+      "src": "EbwfE9vUEAEXqvj.jfif",
+      "id": "captain-teal",
+      "title": "CAPTAIN TEAL",
+      "titleJa": "キャプテン",
+      "alt": "A red-haired girl in a captain's hat and crimson outfit clenching her fists with a grin, on a flat teal background.",
+      "room": "#45D4D6",
+      "accent": "#E6396A"
+    },
+    {
+      "src": "Ent5cNoVQAAQDd_.jfif",
+      "id": "checker-idol",
+      "title": "CHECKER IDOL",
+      "titleJa": "チェッカー",
+      "alt": "A blonde idol with heart-shaped irises framed by black panels, checkerboard patterns and cyan accents.",
+      "room": "#0A0A12",
+      "accent": "#15FE9D"
+    },
+    {
+      "src": "EnzuhRCUwAAzz1u.jfif",
+      "id": "acid-noise",
+      "title": "ACID NOISE",
+      "titleJa": "アシッドノイズ",
+      "alt": "A lavender-haired girl in a white dress with a spiked choker against an acid-yellow background with neon geometric shapes.",
+      "room": "#FEF501",
+      "accent": "#F838FE"
+    },
+    {
+      "src": "EoidN8AU0AExiWi.jfif",
+      "id": "bandage-red",
+      "title": "BANDAGE RED",
+      "titleJa": "ホータイ",
+      "alt": "A silver-haired girl with an eyepatch and arm bandages standing against a deep red poster-collage background.",
+      "room": "#E43C84",
+      "accent": "#FFD34C"
+    },
+    {
+      "src": "EqkyFYMVgAEKem4.jfif",
+      "id": "new-year-twins",
+      "title": "NEW YEAR TWINS",
+      "titleJa": "ハッピーニューイヤー",
+      "alt": "Two girls in matching black-and-white racing outfits with checkered flags, on shocking pink with HAPPY NEW YEAR lettering.",
+      "room": "#FE19A1",
+      "accent": "#45D4D6"
+    },
+    {
+      "src": "F4nnIDxaYAAdR7S.jfif",
+      "id": "candy-crown",
+      "title": "CANDY CROWN",
+      "titleJa": "キャンディクラウン",
+      "alt": "A pink-haired princess with a tiny gold crown and pastel gradient hair holding a scepter, in soft whites and pinks.",
+      "room": "#FFC0FE",
+      "accent": "#FE19A1"
+    },
+    {
+      "src": "F4ntwxgaMAAx1vN.jfif",
+      "id": "bubblegum-wink",
+      "title": "BUBBLEGUM WINK",
+      "titleJa": "バブルガム",
+      "alt": "A blue-haired girl in a glossy magenta racing suit winking and blowing a bubblegum bubble on a dark ground.",
+      "room": "#141019",
+      "accent": "#FD68E9"
+    },
+    {
+      "src": "FVnSNKZUsAALONs.jfif",
+      "id": "pastel-dragon",
+      "title": "PASTEL DRAGON",
+      "titleJa": "パステル",
+      "alt": "A small lavender-haired girl in a frilly pink cardigan and cream skirt, jumping happily on a warm cream background.",
+      "room": "#FFE6B5",
+      "accent": "#F782B5"
+    },
+    {
+      "src": "Fjx9ASHVsAYUtDs.jfif",
+      "id": "hazard-jacket",
+      "title": "HAZARD JACKET",
+      "titleJa": "ハザード",
+      "alt": "A girl with mint-and-pink hair in an oversized yellow jacket mid-jump against pink halftone bursts.",
+      "room": "#FCDCE4",
+      "accent": "#E9E930"
+    },
+    {
+      "src": "GCcBLRRa4AAOl5b.jfif",
+      "id": "crimson-grin",
+      "title": "CRIMSON GRIN",
+      "titleJa": "クリムゾン",
+      "alt": "A grinning girl with long blue hair in a high-collar crimson bodysuit, framed by steel-gray panels.",
+      "room": "#C0C0C0",
+      "accent": "#D52B65"
+    },
+    {
+      "src": "GLshHqLawAA0opz.jfif",
+      "id": "kimono-rabbit",
+      "title": "KIMONO RABBIT",
+      "titleJa": "キモノラビット",
+      "alt": "A rabbit-eared girl in a black-and-gold kimono with an obi, posed dramatically on a dark textured background.",
+      "room": "#3E3E46",
+      "accent": "#FE61EE"
+    },
+    {
+      "src": "GMapAvrbkAAQ1HU.jfif",
+      "id": "prism-specs",
+      "title": "PRISM SPECS",
+      "titleJa": "プリズム",
+      "alt": "A girl with glasses and iridescent rainbow-streaked dark hair raising one arm, sharp pink and black collage panels behind her.",
+      "room": "#0A0A12",
+      "accent": "#F5306D"
+    },
+    {
+      "src": "GOwHCt3aYAAH8C9.jfif",
+      "id": "magenta-runner",
+      "title": "MAGENTA RUNNER",
+      "titleJa": "マゼンタ",
+      "alt": "A long-haired girl in a glossy magenta-and-black bodysuit posing with a hand behind her head on an orchid-white ground.",
+      "room": "#EB60DA",
+      "accent": "#FEF501"
+    },
+    {
+      "src": "GShYHhPaMAEi4bP.jfif",
+      "id": "tangerine-suit",
+      "title": "TANGERINE SUIT",
+      "titleJa": "タンジェリン",
+      "alt": "A blue-haired girl in a glossy tangerine-orange bodysuit holding a staff, framed by black ink panels.",
+      "room": "#0A0A12",
+      "accent": "#FD9330"
+    },
+    {
+      "src": "GZnaNsfa4AA_3BW.jfif",
+      "id": "cherry-maid",
+      "title": "CHERRY MAID",
+      "titleJa": "チェリーメイド",
+      "alt": "A red-haired cat-eared girl in a white maid apron with paw gloves and a teddy bear, on a bright aqua-dotted ground.",
+      "room": "#61D9DD",
+      "accent": "#ED4864"
+    },
+    {
+      "src": "download (13).png",
+      "id": "frill-sniper",
+      "title": "FRILL SNIPER",
+      "titleJa": "スナイパー",
+      "alt": "A blonde girl in a frilled violet dress aiming a long scoped rifle, lit by pink and purple night light at a dramatic angle.",
+      "room": "#1C1630",
+      "accent": "#F5306D"
+    },
+    {
+      "src": "download.png",
+      "id": "master-up",
+      "title": "MASTER UP!!",
+      "titleJa": "マスターアップ!!",
+      "role": "finale",
+      "alt": "Two girls throwing peace signs in celebration, katakana banners reading master up, on shocking pink with halftone dots and confetti.",
+      "room": "#EA01C5",
+      "accent": "#45D4D6"
+    }
+  ]
+}

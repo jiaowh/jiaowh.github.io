@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark light" />
+    <meta
+      name="description"
+      content="GYOKAI — Acid Pop Archive: an interactive fan tribute to illustrator Gyokai (魚介) — @_himehajime."
+    />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22></svg>" />
+    <!-- LCP: the hero artwork (sparkle-plaid, role "hero" in the manifest). -->
+    <link
+      rel="preload"
+      as="image"
+      href="/art/sparkle-plaid-960.avif"
+      imagesrcset="/art/sparkle-plaid-480.avif 480w, /art/sparkle-plaid-960.avif 960w, /art/sparkle-plaid-1600.avif 1600w"
+      imagesizes="(max-width: 768px) 72vw, 34vw"
+      type="image/avif"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/dela-gothic-one-subset.woff2"
+      crossorigin
+    />
+    <title>GYOKAI — Acid Pop Archive</title>
+  </head>
+  <body>
+    <!-- JP display strings ([data-jp]) are filled from src/data/strings.ts —
+         the single source of truth the font subset is also derived from. -->
+
+    <!-- Beat 0 — "INK CHECK" loader overlay. Decorative graphics hidden
+         from AT; the live region + skip button keep it accessible. -->
+    <div id="loader">
+      <p class="caption-box loader__caption">
+        <span lang="ja" data-jp="inkCheck"></span> · INK CHECK
+      </p>
+      <div class="loader__plates" aria-hidden="true">
+        <span class="loader__plate loader__plate--c">GYOKAI</span>
+        <span class="loader__plate loader__plate--m">GYOKAI</span>
+        <span class="loader__plate loader__plate--y">GYOKAI</span>
+      </div>
+      <svg class="loader__reg" width="56" height="56" aria-hidden="true">
+        <use href="#motif-registration-mark" />
+      </svg>
+      <p class="visually-hidden" role="status">Loading GYOKAI — Acid Pop Archive…</p>
+      <button type="button" class="btn-sticker loader__skip" data-loader-skip>Skip intro</button>
+    </div>
+
+    <header class="site-header">
+      <a class="skip-link" href="#main">Skip to content</a>
+      <a class="site-header__brand" href="#hero" aria-label="GYOKAI — Acid Pop Archive, back to top">
+        <span lang="ja" data-jp="artist"></span> <span class="site-header__latin">GYOKAI</span>
+      </a>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <!-- Beat 1 — "KANBAN" hero -->
+      <section id="hero" aria-labelledby="hero-heading">
+        <canvas class="hero__canvas z-bg" id="hero-particles" aria-hidden="true"></canvas>
+
+        <div class="tape hero__tape z-tapes" aria-hidden="true">
+          <div class="tape__track" id="hero-tape-top"></div>
+        </div>
+
+        <div class="hero__stage">
+          <!-- R1a: giant flat accent panel anchoring top-left→center — a
+               print plate behind the wordmark lockup, not a gradient blob. -->
+          <div class="hero__accent-panel" aria-hidden="true"></div>
+
+          <p class="caption-box section-caption">01 · KANBAN · <span lang="ja" data-jp="kanban"></span></p>
+          <h1 id="hero-heading" class="hero__wordmarks">
+            <span class="hero__wordmark-jp" lang="ja" data-jp="artist" aria-hidden="true"></span>
+            <span class="hero__wordmark-latin" aria-hidden="true">GYOKAI</span>
+            <span class="visually-hidden">Gyokai (魚介) — Acid Pop Archive</span>
+          </h1>
+          <p class="hero__tagline">
+            ACID POP ARCHIVE — a fan tribute to the illustrator Gyokai
+            (<span lang="ja" data-jp="artist"></span>)
+          </p>
+          <figure class="hero__art z-diecut" id="hero-art">
+            <!-- hero.ts injects the die-cut hero artwork (manifest role: "hero") -->
+          </figure>
+
+          <!-- R1d: utilitarian sticker filling the left-middle dead zone. -->
+          <div class="hero__sticker" aria-hidden="true">
+            <div class="hero__barcode"></div>
+            <p class="caption-box hero__barcode-caption">ACID POP</p>
+          </div>
+
+          <button type="button" class="hero__scroll-cue btn-sticker registration-focus" id="hero-scroll-cue">
+            <svg width="26" height="26" aria-hidden="true"><use href="#motif-arrow-chunky" /></svg>
+            <span class="visually-hidden">Scroll to explore</span>
+          </button>
+        </div>
+
+        <div class="tape hero__tape z-tapes" aria-hidden="true">
+          <div class="tape__track" id="hero-tape-bottom"></div>
+        </div>
+      </section>
+
+      <!-- Beat 2 — "THE CODE" style anatomy -->
+      <section id="the-code" aria-labelledby="code-heading">
+        <!-- R5: giant low-alpha watermark gives THE CODE its own identity
+             against the hero's matching cream — 掟 already exists in
+             strings.ts (JP.okite), reused here from the same source. -->
+        <div class="the-code__watermark" aria-hidden="true" lang="ja" data-jp="okite"></div>
+        <div class="section-inner">
+          <p class="caption-box section-caption">02 · THE CODE</p>
+          <h2 id="code-heading" class="section-heading">
+            THE CODE <span class="section-heading__ja" lang="ja" data-jp="okite"></span>
+          </h2>
+          <p class="the-code__lead">Flat ink. Hard shadows. Colors that argue.</p>
+          <p class="the-code__manifesto">
+            Everything on this page is printed in the language of Gyokai's posters — CMYK pushed
+            to eleven, halftone air, stickers that refuse to sit straight. Press, don't drift.
+          </p>
+
+          <div class="specimen-grid">
+            <article class="specimen-card" id="specimen-palette" aria-labelledby="specimen-palette-heading">
+              <h3 id="specimen-palette-heading" class="caption-box">PALETTE</h3>
+              <div class="specimen-card__body" data-specimen="palette"></div>
+            </article>
+
+            <article class="specimen-card" id="specimen-halftone" aria-labelledby="specimen-halftone-heading">
+              <h3 id="specimen-halftone-heading" class="caption-box">HALFTONE</h3>
+              <div class="specimen-card__body" data-specimen="halftone"></div>
+            </article>
+
+            <article class="specimen-card" id="specimen-sticker" aria-labelledby="specimen-sticker-heading">
+              <h3 id="specimen-sticker-heading" class="caption-box">STICKER ANATOMY</h3>
+              <div class="specimen-card__body" data-specimen="sticker"></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Beat 3 — "THE STREET" pinned horizontal gallery -->
+      <section id="the-street" aria-labelledby="street-heading">
+        <header class="street__heading-block">
+          <p class="caption-box section-caption">03 · THE STREET · <span lang="ja" data-jp="street"></span></p>
+          <h2 id="street-heading" class="visually-hidden">THE STREET — poster gallery</h2>
+        </header>
+        <div class="street__viewport">
+          <ul class="street__track" id="street-track">
+            <!-- street.ts renders one full-viewport color room per manifest entry -->
+          </ul>
+        </div>
+      </section>
+
+      <!-- Beat 5 — "ENCORE" finale -->
+      <section id="encore" aria-labelledby="encore-heading">
+        <div class="tape encore__tape z-tapes" aria-hidden="true">
+          <div class="tape__track" id="encore-tape-a"></div>
+        </div>
+
+        <div class="encore__body">
+          <p class="caption-box section-caption">05 · ENCORE · <span lang="ja" data-jp="encore"></span></p>
+          <h2 id="encore-heading" class="section-heading encore__heading">
+            <span lang="ja" data-jp="artist"></span>
+            <span class="visually-hidden">Gyokai — encore</span>
+          </h2>
+
+          <div class="meta-plate encore__credit">
+            <p>
+              All artwork © Gyokai (<span lang="ja" data-jp="artist"></span>) · This is an
+              unofficial fan tribute · Follow the artist:
+              <a href="https://x.com/_himehajime" rel="noopener noreferrer" target="_blank">x.com/_himehajime</a>
+            </p>
+          </div>
+
+          <button type="button" class="btn-sticker btn-sticker--hype registration-focus" id="hype-button" data-hype>
+            HYPE
+          </button>
+        </div>
+
+        <div class="encore__chaos-layer" id="encore-chaos" aria-hidden="true"></div>
+
+        <div class="tape encore__tape z-tapes" aria-hidden="true">
+          <div class="tape__track" id="encore-tape-b"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Beat 4 — "CLOSE-UP" detail takeover (native dialog, focus-trapped) -->
+    <dialog id="closeup" aria-labelledby="closeup-title">
+      <div class="closeup__stage">
+        <p class="caption-box section-caption closeup__caption-label">
+          04 · CLOSE-UP · <span lang="ja" data-jp="closeup"></span>
+        </p>
+        <button type="button" class="btn-sticker closeup__close registration-focus" id="closeup-close" aria-label="Close close-up">
+          <span aria-hidden="true">✕</span>
+        </button>
+
+        <figure class="closeup__art" id="closeup-art"></figure>
+
+        <div class="meta-plate closeup__meta" id="closeup-meta">
+          <h2 class="meta-plate__title" id="closeup-title"></h2>
+          <div class="meta-plate__row">
+            <span id="closeup-meta-ja" lang="ja"></span>
+            <span id="closeup-meta-id"></span>
+          </div>
+          <p class="meta-plate__caption" id="closeup-caption"></p>
+          <div class="meta-plate__row meta-plate__row--swatches">
+            <div class="meta-plate__swatches" id="closeup-swatches" aria-label="Palette swatches (click to copy)"></div>
+            <a class="meta-plate__link" href="https://x.com/_himehajime" rel="noopener noreferrer" target="_blank">
+              View artist on X →
+            </a>
+          </div>
+        </div>
+
+        <nav class="closeup__nav" aria-label="Artwork navigation">
+          <button type="button" class="btn-sticker registration-focus" id="closeup-prev" aria-label="Previous artwork">
+            <svg width="20" height="20" aria-hidden="true" style="transform: rotate(90deg)">
+              <use href="#motif-arrow-chunky" />
+            </svg>
+          </button>
+          <button type="button" class="btn-sticker registration-focus" id="closeup-next" aria-label="Next artwork">
+            <svg width="20" height="20" aria-hidden="true" style="transform: rotate(-90deg)">
+              <use href="#motif-arrow-chunky" />
+            </svg>
+          </button>
+        </nav>
+      </div>
+    </dialog>
+
+    <footer class="site-footer">
+      <p>
+        Fan tribute to <span lang="ja" data-jp="artist"></span> (Gyokai) — all art
+        © the artist, <a href="https://x.com/_himehajime" rel="noopener noreferrer" target="_blank">@_himehajime</a>.
+        Not affiliated. Built with Vite, TypeScript, and GSAP.
+      </p>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,258 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true" focusable="false">
+  <!--
+    GYOKAI — ACID POP ARCHIVE · shared motif sprite (design-system.md §4)
+    Inlined into the DOM (never referenced via <img>) so `currentColor`
+    resolves against whatever element does `<svg><use href="#motif-x"/></svg>`.
+    All shapes are chunky / bold / rounded, per the source visual language.
+    Every <symbol> here is decorative only — consumers must add
+    aria-hidden="true" on the using <svg>.
+  -->
+
+  <!-- 4-point sparkle star -->
+  <symbol id="motif-star-4pt" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M12 0
+      C12.5 5.5 13.2 8 14.5 9.5
+      C16 10.8 18.5 11.5 24 12
+      C18.5 12.5 16 13.2 14.5 14.5
+      C13.2 16 12.5 18.5 12 24
+      C11.5 18.5 10.8 16 9.5 14.5
+      C8 13.2 5.5 12.5 0 12
+      C5.5 11.5 8 10.8 9.5 9.5
+      C10.8 8 11.5 5.5 12 0 Z" />
+  </symbol>
+
+  <!-- Sparkle cluster: one big 4pt star + one small one, offset -->
+  <symbol id="motif-star-sparkle" viewBox="0 0 32 32">
+    <path fill="currentColor" d="M14 2
+      C14.4 6.4 15 8.3 16 9.3
+      C17 10.3 18.9 10.9 23.3 11.3
+      C18.9 11.7 17 12.3 16 13.3
+      C15 14.3 14.4 16.2 14 20.6
+      C13.6 16.2 13 14.3 12 13.3
+      C11 12.3 9.1 11.7 4.7 11.3
+      C9.1 10.9 11 10.3 12 9.3
+      C13 8.3 13.6 6.4 14 2 Z" />
+    <path fill="currentColor" d="M24 18
+      C24.2 20.4 24.6 21.4 25.2 22
+      C25.8 22.6 26.8 23 29.2 23.2
+      C26.8 23.4 25.8 23.8 25.2 24.4
+      C24.6 25 24.2 26 24 28.4
+      C23.8 26 23.4 25 22.8 24.4
+      C22.2 23.8 21.2 23.4 18.8 23.2
+      C21.2 23 22.2 22.6 22.8 22
+      C23.4 21.4 23.8 20.4 24 18 Z" />
+  </symbol>
+
+  <!-- Chunky rounded plus -->
+  <symbol id="motif-plus" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M9 1.5
+      h6
+      a1.5 1.5 0 0 1 1.5 1.5
+      v6
+      h6
+      a1.5 1.5 0 0 1 1.5 1.5
+      v6
+      a1.5 1.5 0 0 1 -1.5 1.5
+      h-6
+      v6
+      a1.5 1.5 0 0 1 -1.5 1.5
+      h-6
+      a1.5 1.5 0 0 1 -1.5 -1.5
+      v-6
+      h-6
+      a1.5 1.5 0 0 1 -1.5 -1.5
+      v-6
+      a1.5 1.5 0 0 1 1.5 -1.5
+      h6
+      v-6
+      a1.5 1.5 0 0 1 1.5 -1.5 Z" />
+  </symbol>
+
+  <!-- Chunky lightning bolt -->
+  <symbol id="motif-lightning" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M14.5 0.5
+      L4 13.5
+      a1 1 0 0 0 0.9 1.6
+      L10 15
+      L8 22.5
+      a1 1 0 0 0 1.8 0.7
+      L20.5 9.5
+      a1 1 0 0 0 -0.9 -1.6
+      L14.5 8
+      L16.4 1.3
+      a1 1 0 0 0 -1.9 -0.8 Z" />
+  </symbol>
+
+  <!-- Outline variants (stroke-only, fill="none") of the three motifs used
+       for THE STREET's background room dressing (design-system.md §7.4
+       revision R2b) — a <use> element's referenced content lives in an
+       inaccessible UA shadow tree, so an external stylesheet cannot repaint
+       a solid symbol's fill/stroke; these read as line-art from their own
+       attributes instead. Same path data as their solid counterparts. -->
+  <symbol id="motif-star-4pt-outline" viewBox="0 0 24 24">
+    <path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" d="M12 0
+      C12.5 5.5 13.2 8 14.5 9.5
+      C16 10.8 18.5 11.5 24 12
+      C18.5 12.5 16 13.2 14.5 14.5
+      C13.2 16 12.5 18.5 12 24
+      C11.5 18.5 10.8 16 9.5 14.5
+      C8 13.2 5.5 12.5 0 12
+      C5.5 11.5 8 10.8 9.5 9.5
+      C10.8 8 11.5 5.5 12 0 Z" />
+  </symbol>
+
+  <symbol id="motif-plus-outline" viewBox="0 0 24 24">
+    <path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" d="M9 1.5
+      h6
+      a1.5 1.5 0 0 1 1.5 1.5
+      v6
+      h6
+      a1.5 1.5 0 0 1 1.5 1.5
+      v6
+      a1.5 1.5 0 0 1 -1.5 1.5
+      h-6
+      v6
+      a1.5 1.5 0 0 1 -1.5 1.5
+      h-6
+      a1.5 1.5 0 0 1 -1.5 -1.5
+      v-6
+      h-6
+      a1.5 1.5 0 0 1 -1.5 -1.5
+      v-6
+      a1.5 1.5 0 0 1 1.5 -1.5
+      h6
+      v-6
+      a1.5 1.5 0 0 1 1.5 -1.5 Z" />
+  </symbol>
+
+  <symbol id="motif-lightning-outline" viewBox="0 0 24 24">
+    <path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" d="M14.5 0.5
+      L4 13.5
+      a1 1 0 0 0 0.9 1.6
+      L10 15
+      L8 22.5
+      a1 1 0 0 0 1.8 0.7
+      L20.5 9.5
+      a1 1 0 0 0 -0.9 -1.6
+      L14.5 8
+      L16.4 1.3
+      a1 1 0 0 0 -1.9 -0.8 Z" />
+  </symbol>
+
+  <!-- Chunky arrow (used for the hero scroll-cue) -->
+  <symbol id="motif-arrow-chunky" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M10.5 1
+      h3
+      a1 1 0 0 1 1 1
+      v11
+      h3.5
+      a1 1 0 0 1 0.75 1.66
+      l-6.75 7.6
+      a1 1 0 0 1 -1.5 0
+      l-6.75 -7.6
+      A1 1 0 0 1 4.5 13
+      h3.5
+      v-11
+      a1 1 0 0 1 1 -1 Z" />
+  </symbol>
+
+  <!-- Registration mark (printer's crosshair) -->
+  <symbol id="motif-registration-mark" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5" />
+    <circle cx="12" cy="12" r="1.75" fill="currentColor" />
+    <path d="M12 0 V6 M12 18 V24 M0 12 H6 M18 12 H24"
+      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+    <path d="M12 5.5 A6.5 6.5 0 0 1 18.5 12 L12 12 Z" fill="currentColor" opacity="0.85" />
+    <path d="M12 18.5 A6.5 6.5 0 0 1 5.5 12 L12 12 Z" fill="currentColor" opacity="0.85" />
+  </symbol>
+
+  <!-- Skull + ribbon banner (chunky, rounded-bold) -->
+  <symbol id="motif-skull-ribbon" viewBox="0 0 32 32">
+    <path fill="currentColor" fill-rule="evenodd" d="
+      M16 1
+      C22.6 1 27 5.6 27 11.5
+      C27 15.4 25.3 17.9 23.4 19.6
+      L23.4 23.5
+      a1.6 1.6 0 0 1 -1.6 1.6
+      h-2.3
+      v-2.4
+      h-2.3
+      v2.4
+      h-2.4
+      v-2.4
+      h-2.3
+      v2.4
+      H9.8
+      a1.6 1.6 0 0 1 -1.6 -1.6
+      L8.2 19.6
+      C6.3 17.9 4.6 15.4 4.6 11.5
+      C4.6 5.6 9.4 1 16 1 Z
+      M11.4 10.2a2.6 2.6 0 1 0 0 5.2 2.6 2.6 0 0 0 0 -5.2 Z
+      M20.6 10.2a2.6 2.6 0 1 0 0 5.2 2.6 2.6 0 0 0 0 -5.2 Z
+      M14.6 16.4h2.8l-1 3.4 -0.4 0 Z" />
+    <path fill="currentColor" d="M4 24
+      h24
+      l-3.2 3.6
+      L28 31
+      H4
+      l3.2 -3.4
+      L4 24 Z" opacity="0.9" />
+  </symbol>
+
+  <!-- Halftone dot tile: graduated dot grid, currentColor, tileable -->
+  <symbol id="motif-halftone-dot-tile" viewBox="0 0 32 32">
+    <g fill="currentColor">
+      <circle cx="4"  cy="4"  r="1.4" />
+      <circle cx="12" cy="4"  r="2.2" />
+      <circle cx="20" cy="4"  r="2.9" />
+      <circle cx="28" cy="4"  r="3.4" />
+      <circle cx="4"  cy="12" r="2.2" />
+      <circle cx="12" cy="12" r="3"   />
+      <circle cx="20" cy="12" r="3.6" />
+      <circle cx="28" cy="12" r="4"   />
+      <circle cx="4"  cy="20" r="2.9" />
+      <circle cx="12" cy="20" r="3.6" />
+      <circle cx="20" cy="20" r="4.1" />
+      <circle cx="28" cy="20" r="4.4" />
+      <circle cx="4"  cy="28" r="3.4" />
+      <circle cx="12" cy="28" r="4"   />
+      <circle cx="20" cy="28" r="4.4" />
+      <circle cx="28" cy="28" r="4.6" />
+    </g>
+  </symbol>
+
+  <!-- Checkerboard tile: currentColor squares, tileable -->
+  <symbol id="motif-checker-tile" viewBox="0 0 32 32">
+    <g fill="currentColor">
+      <rect x="0"  y="0"  width="8" height="8" />
+      <rect x="16" y="0"  width="8" height="8" />
+      <rect x="8"  y="8"  width="8" height="8" />
+      <rect x="24" y="8"  width="8" height="8" />
+      <rect x="0"  y="16" width="8" height="8" />
+      <rect x="16" y="16" width="8" height="8" />
+      <rect x="8"  y="24" width="8" height="8" />
+      <rect x="24" y="24" width="8" height="8" />
+    </g>
+  </symbol>
+
+  <!-- Caution stripe tiles: fixed two-tone (not currentColor) — the
+       yellow/black + pink/black variants are inherent to the motif,
+       called out explicitly in design-system.md §4. -->
+  <symbol id="motif-caution-stripe-tile-yellow" viewBox="0 0 40 40">
+    <rect width="40" height="40" fill="#0A0A12" />
+    <g fill="#FEF501">
+      <polygon points="0,8 8,0 16,0 0,16" />
+      <polygon points="0,32 32,0 40,0 40,8 8,40 0,40" />
+      <polygon points="24,40 40,24 40,32 32,40" />
+    </g>
+  </symbol>
+
+  <symbol id="motif-caution-stripe-tile-pink" viewBox="0 0 40 40">
+    <rect width="40" height="40" fill="#0A0A12" />
+    <g fill="#FE19A1">
+      <polygon points="0,8 8,0 16,0 0,16" />
+      <polygon points="0,32 32,0 40,0 40,8 8,40 0,40" />
+      <polygon points="24,40 40,24 40,32 32,40" />
+    </g>
+  </symbol>
+</svg>

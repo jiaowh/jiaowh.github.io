@@ -1,0 +1,560 @@
+/**
+ * GYOKAI — ACID POP ARCHIVE · Components
+ * Static presentation only — no @keyframes, no ScrollTrigger, no canvas.
+ * Entrance slaps, halftone wipes, marquee scroll, and re-ink tweens are
+ * wired up in src/lib/*.ts and src/sections/*.ts in the next pass.
+ * Reference: design-system.md §6.
+ */
+
+/* ---------------------------------------------------------------------
+ * Sticker button
+ * `<button class="btn-sticker">` — paper bg, ink border, hard offset
+ * shadow; hover/focus reveal a magenta/cyan plate-split; active presses in.
+ * ------------------------------------------------------------------- */
+.btn-sticker {
+  --sticker-rotate: -1deg;
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  min-width: 44px;
+  min-height: 44px;
+  padding: 12px 24px;
+  background: var(--paper);
+  color: var(--ink);
+  border: 3px solid var(--ink);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: var(--label-tracking);
+  box-shadow: 4px 4px 0 var(--ink);
+  transform: rotate(var(--sticker-rotate));
+  transition:
+    transform 0.15s var(--ease-snap),
+    box-shadow 0.15s var(--ease-snap);
+}
+
+.btn-sticker::before,
+.btn-sticker::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border: 3px solid transparent;
+  opacity: 0;
+  transition:
+    opacity 0.15s var(--ease-snap),
+    transform 0.15s var(--ease-snap);
+  pointer-events: none;
+}
+
+.btn-sticker::before {
+  border-color: var(--magenta);
+}
+
+.btn-sticker::after {
+  border-color: var(--cyan);
+}
+
+.btn-sticker:hover,
+.btn-sticker:focus-visible {
+  transform: rotate(var(--sticker-rotate)) translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.btn-sticker:hover::before,
+.btn-sticker:focus-visible::before {
+  opacity: 1;
+  transform: translate(-3px, -3px);
+}
+
+.btn-sticker:hover::after,
+.btn-sticker:focus-visible::after {
+  opacity: 1;
+  transform: translate(3px, 3px);
+}
+
+.btn-sticker:active {
+  transform: rotate(var(--sticker-rotate)) translate(2px, 2px);
+  box-shadow: 0 0 0 var(--ink);
+}
+
+.btn-sticker:focus-visible {
+  outline: 3px solid var(--live-accent);
+  outline-offset: 6px;
+}
+
+/* Oversized variant for the ENCORE "HYPE" button — still an oversized
+ * sticker button, just not literally --fs-h2 sized (R3b/c: that, plus the
+ * old space-4 gaps everywhere in #encore, pushed it below the fold at
+ * 1440×900). */
+.btn-sticker--hype {
+  min-width: 220px;
+  min-height: 64px;
+  padding: var(--space-2) var(--space-4);
+  font-size: clamp(32px, 5.5vw, 68px);
+  font-family: var(--font-latin);
+}
+
+/* ---------------------------------------------------------------------
+ * Caption box — bordered label used for meta text, ticker labels, and
+ * poster captions.
+ * ------------------------------------------------------------------- */
+.caption-box {
+  display: inline-block;
+  border: 2px solid currentColor;
+  padding: 2px 8px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: var(--label-tracking);
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------------
+ * Tape / marquee shell — full-width ink strip; two opposing tracks for
+ * top/bottom tapes. The scrolling transform itself is applied by
+ * src/lib/marquee.ts (GSAP, EASE.convey = linear, 60-90px/s) — this shell
+ * only supplies the static look and duplicated-content layout contract.
+ * ------------------------------------------------------------------- */
+.tape {
+  position: relative;
+  z-index: var(--z-tapes);
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--live-accent);
+  padding: var(--space-1) 0;
+  white-space: nowrap;
+  transition: color 0.6s var(--ease-ink);
+}
+
+.tape__track {
+  display: inline-flex;
+  gap: var(--space-4);
+  will-change: transform;
+}
+
+.tape__item {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: var(--label-tracking);
+}
+
+/* JP tape runs must keep the JP display face — this repeats base.css's
+ * [lang="ja"] rule at higher specificity because .tape__item's font-ui
+ * declaration would otherwise win the cascade (same specificity, later
+ * source order). */
+.tape__item[lang="ja"] {
+  font-family: var(--font-jp);
+  font-weight: 400;
+}
+
+.tape__star {
+  flex: none;
+  align-self: center;
+  color: inherit;
+}
+
+/* Giant ticker rows (ENCORE). Capped a bit below the original 128px (R3b/c
+ * viewport rebalance at 1440×900) — still reads as giant, just leaves room
+ * for the HYPE button + credit card to fit the same viewport at rest. */
+.tape__item--giant {
+  font-size: clamp(40px, 6.5vw, 100px);
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+}
+
+.tape__item--giant.tape__item--latin {
+  font-family: var(--font-latin);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tape__track {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* ---------------------------------------------------------------------
+ * Poster frame (gallery) — artwork + paper border + hard shadow + offset
+ * accent keyline; caption box overlaps bottom-left; slight rotation.
+ * ------------------------------------------------------------------- */
+.poster-frame {
+  --frame-rotate: -2deg;
+  position: relative;
+  display: inline-block;
+  transform: rotate(var(--frame-rotate));
+}
+
+.poster-frame__art {
+  position: relative;
+  display: block;
+  border: 6px solid var(--paper);
+  box-shadow: 8px 8px 0 var(--ink);
+  outline: 3px solid var(--live-accent);
+  outline-offset: -9px;
+  background: var(--live-bg);
+  transition:
+    box-shadow 0.6s var(--ease-ink),
+    outline-color 0.6s var(--ease-ink);
+}
+
+.poster-frame__art img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.poster-frame__caption {
+  position: absolute;
+  left: var(--space-2);
+  bottom: calc(var(--space-2) * -1);
+  transform: rotate(1deg);
+}
+
+/* ---------------------------------------------------------------------
+ * Section divider (R5) — caution-tape strip punctuating section boundaries
+ * (hero→code, code→street) so the cream hero and cream THE CODE don't read
+ * as one monotone stretch. Mounted by main.ts via lib/tape-strip.ts (same
+ * tiling technique as THE STREET's per-room floor strip); slight rotation
+ * + hard ink shadow so it reads as a slapped-down piece of tape, not a
+ * clean rule.
+ * ------------------------------------------------------------------- */
+.section-divider {
+  position: relative;
+  z-index: var(--z-tapes);
+  height: 34px;
+  overflow: hidden;
+}
+
+.section-divider__strip {
+  position: absolute;
+  left: -4%;
+  right: -4%;
+  top: -8px;
+  height: 50px;
+  display: flex;
+  transform: rotate(-1.4deg);
+  box-shadow:
+    0 6px 0 var(--ink),
+    0 -6px 0 var(--ink);
+}
+
+.section-divider__strip svg {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 100%;
+  display: block;
+}
+
+/* ---------------------------------------------------------------------
+ * Meta plate (close-up takeover) — Space Grotesk info table.
+ * ------------------------------------------------------------------- */
+.meta-plate {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background: var(--paper);
+  color: var(--ink);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  font-family: var(--font-ui);
+}
+
+.meta-plate__title {
+  font-family: var(--font-latin);
+  font-size: var(--fs-h2);
+  line-height: 1;
+}
+
+.meta-plate__row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  border-top: 1px solid var(--ink);
+  padding-top: var(--space-1);
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: var(--label-tracking);
+}
+
+.meta-plate__swatches {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.meta-plate__swatch {
+  position: relative;
+  min-width: 44px;
+  min-height: 44px;
+  background: var(--swatch, var(--paper));
+  border: 2px solid var(--ink);
+  cursor: pointer;
+}
+
+.meta-plate__swatch--copied::after {
+  content: "COPIED";
+  position: absolute;
+  left: 50%;
+  top: -22px;
+  transform: translateX(-50%);
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 1px 5px;
+  white-space: nowrap;
+}
+
+.meta-plate__caption {
+  font-size: var(--fs-label);
+  text-transform: none;
+  letter-spacing: 0;
+  max-width: 52ch;
+}
+
+.meta-plate__link {
+  font-weight: 700;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+/* ---------------------------------------------------------------------
+ * Registration-mark motif used decoratively (crosshair-in-circle) and as
+ * the richer focus treatment for interactive elements.
+ * ------------------------------------------------------------------- */
+.registration-mark {
+  color: var(--live-accent);
+  transition: color 0.6s var(--ease-ink);
+}
+
+/* ---------------------------------------------------------------------
+ * Custom cursor (lib/cursor.ts) — registration crosshair in the live
+ * accent, mix-blend difference; grows + rotates 45° over interactives.
+ * Outer element carries GSAP x/y; inner core carries the state transform.
+ * ------------------------------------------------------------------- */
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-cursor);
+  pointer-events: none;
+  color: var(--live-accent);
+  mix-blend-mode: difference;
+  opacity: 0;
+  transition: opacity 0.2s linear, color 0.6s var(--ease-ink);
+}
+
+.cursor--visible {
+  opacity: 1;
+}
+
+.cursor__core {
+  display: block;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s var(--ease-snap);
+}
+
+.cursor--active .cursor__core {
+  transform: translate(-50%, -50%) scale(1.9) rotate(45deg);
+}
+
+/* ---------------------------------------------------------------------
+ * Halftone wipe canvas (lib/halftone.ts) — fixed, above the takeover,
+ * below the cursor. Never intercepts input.
+ * ------------------------------------------------------------------- */
+.halftone-wipe {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-wipe);
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  display: none;
+}
+
+.halftone-wipe--on {
+  display: block;
+}
+
+/* ---------------------------------------------------------------------
+ * Spray bits (THE CODE palette chips, ENCORE confetti) — short-lived
+ * absolutely-positioned motif particles, GSAP-animated then removed.
+ * ------------------------------------------------------------------- */
+.spray-bit {
+  position: absolute;
+  z-index: 6;
+  pointer-events: none;
+  line-height: 0;
+}
+
+/* ---------------------------------------------------------------------
+ * Ink chips (THE CODE · PALETTE specimen).
+ * ------------------------------------------------------------------- */
+.chip-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-1);
+}
+
+.chip {
+  position: relative;
+  display: grid;
+  gap: 4px;
+  padding: 6px;
+  min-height: 44px;
+  background: var(--white);
+  border: 2px solid var(--ink);
+  font-family: var(--font-ui);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+  transition: transform 0.15s var(--ease-snap);
+}
+
+.chip:hover,
+.chip:focus-visible {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.chip__swatch {
+  display: block;
+  width: 100%;
+  height: 30px;
+  background: var(--chip-color, var(--pink));
+  border: 2px solid var(--ink);
+}
+
+.chip--copied::after {
+  content: "COPIED!";
+  position: absolute;
+  left: 50%;
+  top: -14px;
+  transform: translateX(-50%) rotate(-3deg);
+  z-index: 7;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 9px;
+  padding: 1px 6px;
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------------
+ * Halftone demo canvas (THE CODE · HALFTONE specimen).
+ * ------------------------------------------------------------------- */
+.halftone-demo {
+  width: 100%;
+  height: 150px;
+  border: 2px solid var(--ink);
+  background: var(--ink);
+}
+
+.specimen-hint {
+  margin-top: var(--space-2);
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: var(--label-tracking);
+}
+
+.specimen-hint input[type="range"] {
+  display: block;
+  width: 100%;
+  margin-top: var(--space-1);
+  accent-color: var(--live-accent);
+  min-height: 24px;
+}
+
+/* ---------------------------------------------------------------------
+ * Sticker anatomy (THE CODE · STICKER specimen) — layered poster that
+ * pulls apart on hover/focus; layers labeled with tiny caption boxes.
+ * ------------------------------------------------------------------- */
+.anatomy {
+  position: relative;
+  display: block;
+  width: min(220px, 78%);
+  margin: var(--space-3) auto var(--space-2);
+  padding: 0;
+  text-align: left;
+}
+
+.anatomy__layer {
+  display: block;
+}
+
+.anatomy__shadow {
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+}
+
+.anatomy__keyline {
+  position: absolute;
+  inset: 0;
+  border: 4px solid var(--pink);
+}
+
+.anatomy__art {
+  position: relative;
+}
+
+.anatomy__art img {
+  width: 100%;
+  height: auto;
+  border: 4px solid var(--paper);
+  display: block;
+}
+
+.anatomy__caption {
+  position: absolute;
+  left: -10px;
+  bottom: -12px;
+  font-size: 10px;
+}
+
+.anatomy__tag {
+  position: absolute;
+  opacity: 0;
+  font-size: 9px;
+  padding: 1px 5px;
+  background: var(--yellow);
+  pointer-events: none;
+}
+
+.anatomy__tag--shadow  { right: -18px; bottom: -20px; }
+.anatomy__tag--keyline { left: -20px; top: -16px; }
+.anatomy__tag--art     { right: -14px; top: 34%; }
+.anatomy__tag--caption { left: -16px; bottom: 26%; }
+
+/* ---------------------------------------------------------------------
+ * ENCORE chaos stickers + 最高!!! overload banner.
+ * ------------------------------------------------------------------- */
+.chaos-sticker {
+  position: absolute;
+  line-height: 0;
+  filter: drop-shadow(4px 4px 0 var(--ink));
+}
+
+.saikou-banner {
+  position: fixed;
+  inset: 0;
+  z-index: 45; /* above takeover (40), below the wipe (50) */
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  font-size: clamp(72px, 17vw, 300px);
+  color: var(--yellow);
+  text-shadow:
+    5px 5px 0 var(--ink),
+    -3px -3px 0 var(--pink);
+}

@@ -1,0 +1,108 @@
+/**
+ * GYOKAI — ACID POP ARCHIVE · Design tokens
+ * Source of truth: /design-system.md — read that file before changing values.
+ *
+ * GSAP easings (registered once in src/lib/gsap-setup.ts — §5.1, not
+ * expressible 1:1 as CSS timing-functions, kept here as documentation):
+ *   EASE.slap   = back.out(2)     // element entrances ("slap in")
+ *   EASE.snap   = power3.out      // hovers, small UI
+ *   EASE.plate  = steps(6)        // print-plate / halftone stepping
+ *   EASE.ink    = power2.out      // ambient re-inking color tweens
+ *   EASE.convey = none            // marquees, tickers (linear, constant)
+ */
+
+/**
+ * Dela Gothic One (JP display) — manually subset at build time by
+ * scripts/subset-fonts.mjs (design-system.md §9: the full fontsource
+ * "japanese" file is ~944KB and blows the perf budget; see that script's
+ * header comment for why and how to extend the subset). Archivo Black and
+ * Space Grotesk are small enough as-is and are loaded straight from
+ * @fontsource in src/main.ts.
+ */
+@font-face {
+  font-family: "Dela Gothic One";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/dela-gothic-one-subset.woff2") format("woff2");
+}
+
+:root {
+  /* ---------------------------------------------------------------------
+   * 1.1 Fixed ink tokens
+   * ------------------------------------------------------------------- */
+  --ink: #0a0a12; /* near-black, blue-cast — panels, outlines, text on light */
+  --paper: #fff3dc; /* warm cream — "paper" surfaces, text on dark */
+  --white: #fdfcfa;
+  --pink: #fe19a1; /* shocking pink — primary brand accent */
+  --magenta: #e901c6;
+  --cyan: #45d4d6;
+  --cyan-hot: #00e5ff;
+  --yellow: #fef501; /* acid yellow — caution, highlights */
+  --lime: #8dfe8b;
+  --orange: #fa9735;
+  --purple: #6549a8;
+  --red: #e7477c;
+
+  /* ---------------------------------------------------------------------
+   * 1.2 Ambient re-inking tokens (LIVE — tweened by GSAP, never hand-set
+   * in CSS). Defaults below match the hero artwork's palette so the very
+   * first paint before JS runs is already in-world; src/main.ts overwrites
+   * these from the manifest on load and src/lib/reink.ts tweens them
+   * (0.6s, power2.out) on every gallery focus change.
+   * ------------------------------------------------------------------- */
+  --live-bg: var(--paper);
+  --live-accent: var(--pink);
+  --live-text: var(--ink);
+
+  /* CSS approximations of the GSAP eases above, for the handful of purely
+   * CSS-driven transitions (e.g. static hover fallback before JS attaches).
+   * Prefer the GSAP registry for anything scroll- or state-driven. */
+  --ease-slap: cubic-bezier(0.34, 1.56, 0.64, 1); /* approximates back.out(2) */
+  --ease-snap: cubic-bezier(0.17, 0.84, 0.44, 1); /* approximates power3.out */
+  --ease-ink: cubic-bezier(0.16, 0.68, 0.43, 1); /* approximates power2.out */
+
+  /* ---------------------------------------------------------------------
+   * 2. Typography
+   * ------------------------------------------------------------------- */
+  --font-jp: "Dela Gothic One", "Hiragino Sans", sans-serif; /* 魚介, katakana, section titles */
+  --font-latin: "Archivo Black", sans-serif; /* GYOKAI, big English words */
+  --font-ui: "Space Grotesk", sans-serif; /* captions, meta plates, buttons, tickers */
+
+  --fs-hero: clamp(64px, 14vw, 220px);
+  --fs-h2: clamp(40px, 7vw, 112px);
+  --fs-label: clamp(11px, 1.1vw, 14px);
+  --fs-body: clamp(15px, 1.4vw, 18px);
+
+  --lh-body: 1.6;
+  --measure-body: 60ch;
+  --label-tracking: 0.12em;
+
+  /* ---------------------------------------------------------------------
+   * 3. Spacing, grid
+   * ------------------------------------------------------------------- */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 40px;
+  --space-5: 64px;
+  --space-6: 104px;
+  --space-7: 168px;
+
+  --grid-cols: 12;
+  --grid-gap: 24px;
+  --grid-margin: clamp(16px, 4vw, 64px);
+
+  /* z-layers (design-system.md §3) */
+  --z-bg: 0; /* bg-canvas (particles) */
+  --z-content: 10; /* section content */
+  --z-tapes: 20; /* tapes / marquees */
+  --z-diecut: 30; /* die-cut overflow art */
+  --z-takeover: 40; /* close-up takeover */
+  --z-wipe: 50; /* halftone wipe canvas */
+  --z-cursor: 60; /* custom cursor */
+
+  /* Hard offset shadow used everywhere instead of soft/blurred shadows. */
+  --shadow-offset: 6px;
+  --shadow-hard: 6px 6px 0 var(--ink);
+}

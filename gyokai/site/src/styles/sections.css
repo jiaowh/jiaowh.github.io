@@ -1,0 +1,833 @@
+/**
+ * GYOKAI — ACID POP ARCHIVE · Section shells + full section layouts
+ * z-layers and shells per design-system.md §3; per-section layout per §7.
+ * Choreography (pinning, wipes, parallax, entrances) lives in
+ * src/sections/*.ts — this file is the static frame those scripts animate.
+ */
+
+/* ---------------------------------------------------------------------
+ * z-layers: 0 bg-canvas · 10 content · 20 tapes · 30 die-cut · 40 takeover
+ * · 50 halftone wipe · 60 cursor.
+ * ------------------------------------------------------------------- */
+.z-bg {
+  z-index: var(--z-bg);
+}
+.z-content {
+  z-index: var(--z-content);
+}
+.z-tapes {
+  z-index: var(--z-tapes);
+}
+.z-diecut {
+  z-index: var(--z-diecut);
+}
+.z-takeover {
+  z-index: var(--z-takeover);
+}
+.z-wipe {
+  z-index: var(--z-wipe);
+}
+.z-cursor {
+  z-index: var(--z-cursor);
+}
+
+/* ---------------------------------------------------------------------
+ * 12-col content grid — internal layout for section content; collage
+ * elements may break out of it deliberately, but each section keeps one
+ * dominant alignment axis (design-system.md §3).
+ * ------------------------------------------------------------------- */
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-cols), 1fr);
+  gap: var(--grid-gap);
+  padding-inline: var(--grid-margin);
+}
+
+.section-inner {
+  position: relative;
+  z-index: var(--z-content);
+  padding-block: var(--space-6);
+  padding-inline: var(--grid-margin);
+}
+
+.section-caption {
+  transform: rotate(-1deg);
+}
+
+/* ---------------------------------------------------------------------
+ * Generic full-bleed section shell.
+ * ------------------------------------------------------------------- */
+main {
+  position: relative;
+}
+
+section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: clip;
+  background: var(--live-bg);
+  color: var(--live-text);
+  transition:
+    background-color 0.6s var(--ease-ink),
+    color 0.6s var(--ease-ink);
+}
+
+.section-heading {
+  position: relative;
+  z-index: var(--z-content);
+  font-family: var(--font-jp);
+  font-size: var(--fs-h2);
+  line-height: 1.05;
+  transform: rotate(-1.5deg);
+  margin-block: var(--space-2) var(--space-3);
+}
+
+.section-heading__ja {
+  display: inline-block;
+  transform: rotate(3deg) translateY(-0.08em);
+  color: var(--live-accent);
+  text-shadow: 3px 3px 0 var(--ink);
+  transition: color 0.6s var(--ease-ink);
+}
+
+/* ---------------------------------------------------------------------
+ * #loader — "INK CHECK". Full-viewport ink overlay; C/M/Y GYOKAI plates
+ * stacked in one grid cell, screen-blended so overlaps register white.
+ * ------------------------------------------------------------------- */
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-takeover);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.loader__caption {
+  background: transparent;
+  color: var(--paper);
+}
+
+.loader__plates {
+  display: grid;
+  place-items: center;
+}
+
+.loader__plate {
+  grid-area: 1 / 1;
+  font-family: var(--font-latin);
+  font-size: clamp(44px, 11vw, 170px);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  mix-blend-mode: screen;
+  opacity: 0;
+  will-change: transform;
+}
+
+.loader__plate--c {
+  color: var(--cyan-hot);
+}
+.loader__plate--m {
+  color: var(--magenta);
+}
+.loader__plate--y {
+  color: var(--yellow);
+}
+
+.loader__reg {
+  color: var(--paper);
+  opacity: 0;
+}
+
+.loader__skip {
+  position: absolute;
+  right: var(--space-3);
+  bottom: var(--space-3);
+}
+
+/* ---------------------------------------------------------------------
+ * Hero — "KANBAN". Vertical 魚介 crossing horizontal GYOKAI; die-cut
+ * artwork breaking the section edge; tapes top+bottom; particles behind.
+ * ------------------------------------------------------------------- */
+#hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+.hero__canvas {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-bg);
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.hero__stage {
+  position: relative;
+  z-index: var(--z-content);
+  flex: 1;
+  padding: var(--space-4) var(--grid-margin);
+}
+
+.hero__stage .section-caption {
+  position: absolute;
+  top: var(--space-5);
+  left: var(--grid-margin);
+}
+
+.hero__wordmarks {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.hero__wordmark-jp {
+  grid-area: 1 / 1;
+  writing-mode: vertical-rl;
+  font-family: var(--font-jp);
+  font-size: var(--fs-hero);
+  line-height: 1;
+  color: var(--live-text);
+  transform: translateX(-16vw) rotate(0.5deg);
+  -webkit-text-stroke: 2px var(--live-accent);
+}
+
+.hero__wordmark-latin {
+  grid-area: 1 / 1;
+  font-family: var(--font-latin);
+  font-size: calc(var(--fs-hero) * 0.62);
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  transform: rotate(-2.5deg) translateY(4vh);
+  /* R1b: ink fill + acid-yellow keyline + hard accent shadow — matches the
+   * 魚介 wordmark's ink+keyline treatment so both carry equal weight instead
+   * of GYOKAI half-vanishing as a flat accent-colored fill on cream. */
+  color: var(--live-text);
+  -webkit-text-stroke: 3px var(--live-accent);
+  text-shadow: 7px 7px 0 var(--live-accent);
+  transition:
+    color 0.6s var(--ease-ink),
+    text-shadow 0.6s var(--ease-ink);
+}
+
+/* R1a: giant flat accent panel anchoring top-left→center, ink-outlined —
+ * a print plate structuring the pale hero, not a gradient. Sits behind the
+ * wordmark lockup and die-cut art (negative z-index keeps it under every
+ * z-index:auto sibling in .hero__stage's own stacking context, regardless
+ * of DOM order — see hero__sticker below for the layer above it). */
+.hero__accent-panel {
+  position: absolute;
+  z-index: -1;
+  top: -16%;
+  left: -14%;
+  width: min(80vw, 1040px);
+  height: 64%;
+  background: var(--live-accent);
+  border: 6px solid var(--ink);
+  box-shadow: 12px 12px 0 var(--ink);
+  transform: rotate(-7deg);
+  transition: background-color 0.6s var(--ease-ink);
+}
+
+/* R1d: utilitarian sticker (barcode block + caption) filling the
+ * left-middle dead zone between the vertical 魚介 wordmark and the tagline. */
+.hero__sticker {
+  position: absolute;
+  left: 5%;
+  top: 44%;
+  display: grid;
+  gap: 6px;
+  justify-items: start;
+  transform: rotate(6deg);
+}
+
+.hero__barcode {
+  width: 112px;
+  height: 46px;
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--ink) 0 3px,
+    transparent 3px 6px,
+    var(--ink) 6px 7px,
+    transparent 7px 13px,
+    var(--ink) 13px 17px,
+    transparent 17px 20px,
+    var(--ink) 20px 22px,
+    transparent 22px 28px,
+    var(--ink) 28px 31px,
+    transparent 31px 36px,
+    var(--ink) 36px 37px,
+    transparent 37px 42px
+  );
+  border: 3px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.hero__barcode-caption {
+  transform: rotate(-2deg);
+  background: var(--yellow);
+}
+
+.hero__tagline {
+  position: absolute;
+  left: var(--grid-margin);
+  bottom: var(--space-6);
+  max-width: 34ch;
+  font-size: var(--fs-label);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--label-tracking);
+}
+
+/* Die-cut: the artwork breaks the right section edge (§7.2). */
+.hero__art {
+  position: absolute;
+  right: -5vw;
+  top: 50%;
+  width: min(34vw, 460px);
+  transform: translateY(-50%) rotate(2.5deg);
+}
+
+.hero__art img {
+  width: 100%;
+  height: auto;
+  border: 6px solid var(--paper);
+  /* Ink die-cut edge — keeps the (often pale) artwork legible against
+   * pale rooms; the offset accent keyline reads as the misregistered
+   * second print pass (§6 poster frame, adapted for the hero). */
+  outline: 3px solid var(--ink);
+  box-shadow:
+    -7px -7px 0 var(--live-accent),
+    12px 12px 0 var(--ink);
+  transition: box-shadow 0.6s var(--ease-ink);
+}
+
+.hero__scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: var(--space-3);
+  transform: translateX(-50%);
+}
+
+@media (max-width: 768px) {
+  .hero__wordmark-jp {
+    transform: translateX(-28vw);
+    font-size: clamp(56px, 20vw, 120px);
+  }
+
+  .hero__wordmark-latin {
+    font-size: clamp(40px, 13vw, 90px);
+    transform: rotate(-2.5deg) translateY(-16vh);
+  }
+
+  .hero__art {
+    right: -10vw;
+    top: 58%;
+    width: 62vw;
+  }
+
+  .hero__tagline {
+    bottom: var(--space-7);
+    /* Wrap clear of the die-cut art breaking the right edge. */
+    max-width: min(26ch, 42vw);
+  }
+
+  .hero__accent-panel {
+    width: min(92vw, 640px);
+    height: 46%;
+    top: -8%;
+    left: -10%;
+  }
+
+  /* The mobile hero is already dense (vertical wordmark stack + die-cut
+   * art + tagline) — the barcode sticker's dead-zone problem is a desktop
+   * composition issue; skip it here rather than add clutter. */
+  .hero__sticker {
+    display: none;
+  }
+}
+
+/* ---------------------------------------------------------------------
+ * The Code — style-anatomy specimen board.
+ * ------------------------------------------------------------------- */
+
+/* R5: giant watermark behind the specimen cards — the hero and THE CODE
+ * share the same cream; this gives the section its own identity instead of
+ * reading as a monotone continuation. */
+.the-code__watermark {
+  /* Fixed to one viewport's height (not inset:0/100%) — THE CODE's content
+   * flow is taller than 100vh, and inset:0 would center the glyph in the
+   * middle of that full scrollable height, leaving only a corner of it
+   * inside the first, visible fold. */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-jp);
+  font-size: 50vh;
+  line-height: 1;
+  color: var(--live-accent);
+  opacity: 0.12;
+  transform: rotate(-8deg);
+  pointer-events: none;
+  user-select: none;
+}
+
+.the-code__lead {
+  font-family: var(--font-latin);
+  font-size: clamp(20px, 3vw, 34px);
+  max-width: 24ch;
+  margin-block: var(--space-3) var(--space-2);
+}
+
+.the-code__manifesto {
+  max-width: var(--measure-body);
+  margin-block-end: var(--space-5);
+}
+
+.specimen-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.specimen-card {
+  position: relative;
+  overflow: visible;
+  padding: var(--space-3);
+  background: var(--paper);
+  color: var(--ink);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.specimen-card:nth-child(1) {
+  transform: rotate(-1.2deg);
+}
+.specimen-card:nth-child(2) {
+  transform: rotate(0.8deg);
+}
+.specimen-card:nth-child(3) {
+  transform: rotate(-0.6deg);
+}
+
+.specimen-card > .caption-box {
+  position: relative;
+  top: calc(var(--space-3) * -1 - 12px);
+  left: -6px;
+  transform: rotate(-2deg);
+  background: var(--yellow);
+}
+
+/* ---------------------------------------------------------------------
+ * The Street — pinned horizontal color rooms (desktop) / vertical stack
+ * (<768px or reduced motion). Rooms carry their own fixed palette via
+ * --room-* (they are the color-worlds; the page chrome re-inks around them).
+ * ------------------------------------------------------------------- */
+#the-street {
+  padding: 0;
+}
+
+.street__heading-block {
+  position: absolute;
+  top: var(--space-5);
+  left: var(--grid-margin);
+  z-index: var(--z-tapes);
+}
+
+.street__viewport {
+  position: relative;
+  z-index: var(--z-content);
+  overflow: hidden;
+}
+
+.street__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.street__room {
+  position: relative;
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100vh;
+  height: 100svh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--room-bg, var(--live-bg));
+  color: var(--room-text, var(--live-text));
+}
+
+/* R2c: giant index numeral, ~40vh, low alpha, in the vertical band shared
+ * with the kinetic titleJa. Anchored to the left edge rather than dead-
+ * center: the poster is centered in the room and — now that R2a scaled
+ * posters up to 58-72vh — a numeral centered on that same point would sit
+ * fully inside the poster's footprint and never actually show. Left-
+ * anchored, it reads clearly in the open margin beside the poster instead. */
+.street__numeral {
+  position: absolute;
+  z-index: 0;
+  left: 3%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-latin);
+  font-size: clamp(160px, 40vh, 560px);
+  line-height: 0.85;
+  color: var(--room-accent, var(--live-accent));
+  opacity: 0.18;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* R2b: 2-3 outlined (stroke-only, no fill) motif shapes on the 0.4× parallax
+ * layer — replaces the old single huge halftone-dot-tile/checker motif that
+ * read as a soft halo-dots artifact behind the poster. */
+.street__motif {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  color: var(--room-accent, var(--live-accent));
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.street__motif-shape {
+  position: absolute;
+}
+
+.street__kinetic {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  font-size: clamp(70px, 15vw, 230px);
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--room-accent, var(--live-accent));
+  text-shadow: 5px 5px 0 var(--ink);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.street__poster {
+  position: relative;
+  z-index: 2;
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+/* R2a: posters were floating too small in the color-rooms — scale up per
+ * orientation, capping width sensibly so wide landscape pieces never
+ * outrun the viewport. */
+.street__poster .poster-frame__art img {
+  width: auto;
+  max-width: 78vw;
+  max-height: 56vh;
+}
+
+.street__poster[data-orientation="portrait"] .poster-frame__art img {
+  max-height: 72vh;
+  max-width: min(58vw, 640px);
+}
+
+.street__poster[data-orientation="landscape"] .poster-frame__art img {
+  max-height: 58vh;
+  max-width: min(88vw, 980px);
+}
+
+.street__index {
+  position: absolute;
+  right: var(--grid-margin);
+  bottom: var(--space-4);
+  z-index: 2;
+}
+
+/* R2c: continuous caution-stripe strip along the very bottom of each room —
+ * alternates yellow/black and pink/black per room parity (street.ts), reads
+ * as one continuous tape as the pinned track scrubs from room to room. */
+.street__tape-strip {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  height: 28px;
+  display: flex;
+  box-shadow: 0 -3px 0 var(--ink);
+  pointer-events: none;
+}
+
+.street__tape-strip svg {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 100%;
+  display: block;
+}
+
+/* Vertical stack: mobile & reduced motion (street.ts skips pinning). */
+@media (max-width: 767px), (prefers-reduced-motion: reduce) {
+  .street__track {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .street__room {
+    flex: none;
+    width: 100%;
+    min-height: 100svh;
+    height: auto;
+    padding-block: var(--space-6);
+  }
+
+  .street__poster .poster-frame__art img,
+  .street__poster[data-orientation="portrait"] .poster-frame__art img {
+    max-width: 78vw;
+    max-height: 62vh;
+  }
+
+  .street__poster[data-orientation="landscape"] .poster-frame__art img {
+    max-width: 90vw;
+    max-height: 48vh;
+  }
+
+  .street__numeral {
+    font-size: clamp(120px, 34vh, 420px);
+  }
+
+  /* R4: titleJa becomes a single bold accent-colored line above each
+   * poster — flows in-grid (ahead of the poster in source order) instead
+   * of overlaying it, no parallax (street.ts never applies the horizontal
+   * parallax tween outside isHorizontalMode()). */
+  .street__kinetic {
+    position: static;
+    z-index: auto;
+    transform: rotate(-2deg);
+    inset: auto;
+    display: block;
+    width: 100%;
+    max-width: 92vw;
+    margin-inline: auto;
+    margin-block-end: var(--space-2);
+    overflow: clip;
+    text-align: center;
+    font-size: clamp(28px, 11vw, 56px);
+    opacity: 1;
+  }
+}
+
+/* ---------------------------------------------------------------------
+ * Close-up takeover — native <dialog>, focus-trapped. Stage bg is set
+ * inline to the artwork's room color by closeup.ts.
+ * ------------------------------------------------------------------- */
+#closeup {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-takeover);
+  max-width: none;
+  max-height: none;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+#closeup::backdrop {
+  background: rgb(10 10 18 / 0.92);
+}
+
+.closeup__stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  align-items: center;
+  justify-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--grid-margin) var(--space-3);
+  overflow-y: auto;
+  background: var(--live-bg);
+}
+
+.closeup__caption-label {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--grid-margin);
+}
+
+.closeup__close {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--grid-margin);
+  z-index: 3;
+}
+
+.closeup__art {
+  position: relative;
+  display: grid;
+  place-items: center;
+  max-width: 92vw;
+}
+
+.closeup__art img {
+  max-width: 92vw;
+  max-height: 52vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border: 6px solid var(--paper);
+  box-shadow: 10px 10px 0 var(--ink);
+}
+
+/* RGB-split settle clones (closeup.ts adds/removes them). */
+.closeup__split {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  max-width: 92vw;
+  max-height: 52vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border: 6px solid transparent;
+  box-shadow: none;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.closeup__split--a {
+  filter: hue-rotate(280deg) saturate(3);
+}
+
+.closeup__split--b {
+  filter: hue-rotate(140deg) saturate(3);
+}
+
+.closeup__meta {
+  max-width: min(92vw, 620px);
+  z-index: 2;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+}
+
+/* The takeover plate is an info card, not a billboard — cap the title. */
+.closeup__meta .meta-plate__title {
+  font-size: clamp(26px, 4vw, 52px);
+}
+
+.closeup__nav {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: var(--space-2);
+  pointer-events: none;
+}
+
+.closeup__nav > * {
+  pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+  .closeup__art img,
+  .closeup__split {
+    max-height: 44vh;
+  }
+
+  .closeup__nav {
+    inset-block: auto 0;
+    align-items: flex-end;
+    padding-block-end: var(--space-2);
+  }
+}
+
+/* ---------------------------------------------------------------------
+ * Encore — finale. Ink room (fixed palette — the page's last breath is
+ * always black), opposing giant tickers, credit plate, HYPE chaos.
+ * ------------------------------------------------------------------- */
+/* R3b/c: at 1440×900 the previous sizing (space-4 gaps throughout + a
+ * 190px-cap heading + a full fs-h2 HYPE button) summed to well over one
+ * viewport of flow height, pushing the HYPE button and the second ticker
+ * row below the fold at rest. Tightened gaps/padding + a smaller (but still
+ * big) heading and button keep both ticker rows, the credit card, and HYPE
+ * all visible without scrolling, while the tickers stay genuinely giant. */
+#encore {
+  --live-bg: var(--ink);
+  --live-text: var(--paper);
+  background: var(--ink);
+  color: var(--paper);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-3);
+  text-align: center;
+}
+
+.encore__body {
+  position: relative;
+  z-index: var(--z-content);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--grid-margin);
+}
+
+.encore__heading {
+  font-size: clamp(40px, 6vw, 96px);
+  color: var(--paper);
+  text-shadow: 6px 6px 0 var(--live-accent);
+  transition: text-shadow 0.6s var(--ease-ink);
+  margin: 0;
+}
+
+.encore__tape {
+  background: transparent;
+  border-block: 3px solid var(--live-accent);
+  transition: border-color 0.6s var(--ease-ink), color 0.6s var(--ease-ink);
+}
+
+.encore__credit {
+  max-width: min(92vw, 560px);
+  transform: rotate(-1deg);
+  text-align: left;
+}
+
+.encore__credit a {
+  font-weight: 700;
+}
+
+.encore__chaos-layer {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-diecut);
+  pointer-events: none;
+  overflow: clip;
+}

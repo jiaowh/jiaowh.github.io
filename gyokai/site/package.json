@@ -1,0 +1,32 @@
+{
+  "name": "gyokai-acid-pop-archive",
+  "version": "0.1.0",
+  "private": true,
+  "description": "GYOKAI — Acid Pop Archive: an interactive tribute site to illustrator Gyokai (魚介).",
+  "type": "module",
+  "engines": {
+    "node": ">=18.19 <20"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "assets": "node scripts/build-assets.mjs && node scripts/subset-fonts.mjs",
+    "review": "node scripts/review-shots.mjs"
+  },
+  "dependencies": {
+    "@fontsource/archivo-black": "^5.0.20",
+    "@fontsource/dela-gothic-one": "^5.0.20",
+    "@fontsource/space-grotesk": "^5.0.20",
+    "gsap": "^3.12.5",
+    "lenis": "^1.1.13"
+  },
+  "devDependencies": {
+    "puppeteer": "^25.3.0",
+    "sharp": "0.32.6",
+    "subset-font": "^2.5.0",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.2",
+    "yauzl": "^3.4.0"
+  }
+}

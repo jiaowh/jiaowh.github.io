@@ -1,0 +1,244 @@
+/**
+ * GYOKAI — ACID POP ARCHIVE · Base layer
+ * Reset, global type defaults, selection, focus rings, reduced-motion guards.
+ * See design-system.md §5.3 for the motion contract these guards enforce.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark light;
+  -webkit-text-size-adjust: 100%;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--live-bg);
+  color: var(--live-text);
+  font-family: var(--font-ui);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  overflow-x: hidden;
+  transition: background-color 0.6s var(--ease-ink), color 0.6s var(--ease-ink);
+}
+
+img,
+picture,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure {
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------------
+ * Selection — always the current live accent, ink text: a "misprinted
+ * highlighter" rather than a soft OS blue.
+ * ------------------------------------------------------------------- */
+::selection {
+  background: var(--live-accent);
+  color: var(--ink);
+}
+
+/* ---------------------------------------------------------------------
+ * Japanese runs always render in the JP display face — the only JP font
+ * we ship (subset by scripts/subset-fonts.mjs from src/data/strings.ts
+ * + allowlist titleJa).
+ * ------------------------------------------------------------------- */
+[lang="ja"] {
+  font-family: var(--font-jp);
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* ---------------------------------------------------------------------
+ * Hard scroll lock (loader / takeover) — toggled by lib/lenis.ts.
+ * ------------------------------------------------------------------- */
+html.scroll-locked,
+html.scroll-locked body {
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------------------
+ * Custom cursor active — lib/cursor.ts adds this class only once the
+ * replacement cursor is actually mounted (§6: the system cursor is never
+ * removed without an active replacement).
+ * ------------------------------------------------------------------- */
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none;
+}
+
+/* ---------------------------------------------------------------------
+ * Site chrome: minimal fixed brand mark + footer.
+ * ------------------------------------------------------------------- */
+.site-header {
+  position: fixed;
+  top: var(--space-2);
+  left: var(--space-2);
+  /* Above tapes/marquees: the brand is a sticker slapped over the tape. */
+  z-index: var(--z-diecut);
+}
+
+.site-header__brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 4px 10px;
+  background: var(--ink);
+  color: var(--paper);
+  border: 2px solid var(--paper);
+  box-shadow: 4px 4px 0 var(--live-accent);
+  font-family: var(--font-latin);
+  font-size: 13px;
+  text-decoration: none;
+  transform: rotate(-1.5deg);
+  transition: box-shadow 0.6s var(--ease-ink);
+}
+
+.site-header__brand [lang="ja"] {
+  font-size: 15px;
+}
+
+.site-footer {
+  position: relative;
+  z-index: var(--z-content);
+  background: var(--ink);
+  color: var(--paper);
+  padding: var(--space-3) var(--grid-margin);
+  font-size: var(--fs-label);
+}
+
+.site-footer a {
+  color: var(--live-accent);
+}
+
+/* ---------------------------------------------------------------------
+ * Skip link — first focusable element, visually hidden until focused.
+ * ------------------------------------------------------------------- */
+.skip-link {
+  position: fixed;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 100;
+  transform: translateY(-200%);
+  background: var(--paper);
+  color: var(--ink);
+  border: 3px solid var(--ink);
+  padding: var(--space-1) var(--space-2);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--label-tracking);
+  text-decoration: none;
+  transition: transform 0.2s var(--ease-snap);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* ---------------------------------------------------------------------
+ * Focus rings — a registration-mark crosshair-in-a-circle instead of a
+ * generic outline. Visible always for keyboard users; never removed.
+ * ------------------------------------------------------------------- */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 3px solid var(--live-accent);
+  outline-offset: 4px;
+  border-radius: 0;
+}
+
+/* Elements that opt into the fuller registration-mark treatment (buttons,
+ * poster frames, gallery controls) get a background crosshair motif instead
+ * of a plain outline. The motif itself is painted by .registration-focus
+ * in components.css; this rule just guarantees a visible fallback ring
+ * everywhere else. */
+.registration-focus:focus-visible {
+  outline: 3px solid var(--live-accent);
+  outline-offset: 6px;
+}
+
+/* ---------------------------------------------------------------------
+ * Visually-hidden utility (screen-reader-only text).
+ * ------------------------------------------------------------------- */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------------------------------------------------------------------
+ * Reduced motion — global guardrails (design-system.md §5.3).
+ * Section/component modules must still respect this locally (pausing
+ * canvases, skipping ScrollTrigger pins, etc.) — these rules cover the
+ * pieces that are pure CSS.
+ * ------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* §5.3: the halftone wipe is REPLACED by a 0.25s crossfade under
+   * reduced motion — that crossfade itself must be allowed to run. */
+  .halftone-wipe {
+    transition-duration: 0.25s !important;
+  }
+}
