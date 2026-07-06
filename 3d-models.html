@@ -397,7 +397,7 @@ const orbit = {
   target: new THREE.Vector3(0, .72, 0),
   dragging: false, lastX: 0, lastY: 0,
 };
-let turntable = !RM, idleAt = now(), matMode = 'final';
+let turntable = !RM && !IS_MOBILE, idleAt = now(), matMode = 'final';
 let currentIdx = -1, summoning = false;
 
 function initThree(host){
@@ -1114,7 +1114,7 @@ function onDevOrientation(ev){
     const s = Math.sqrt(1 - w*w) || 1e-6;
     const ax = inhand.qDelta.x/s, ay = inhand.qDelta.y/s, az = inhand.qDelta.z/s;
     const sign = w < 0 ? -1 : 1;
-    ang = clamp(ang * 1.18, 0, 1.35); /* amplify slightly, cap ~77° */
+    ang = clamp(ang * 0.65, 0, 1.1); /* gentle: ~2/3 of phone tilt, cap ~63° */
     inhand.qDelta.setFromAxisAngle(new THREE.Vector3(ax*sign, ay*sign, az*sign), ang);
   }
 }
