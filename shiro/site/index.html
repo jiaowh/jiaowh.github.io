@@ -1,0 +1,884 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#F5F1E6" />
+    <meta name="description" content="真昼の月 — 白身魚 自選イラスト集. The Midday Moon: an unofficial digital tribute built from 白身魚's illustration collection." />
+    <title>真昼の月 — The Midday Moon</title>
+
+    <!-- Google Fonts: Shippori Mincho B1, Klee One, EB Garamond (+Italic), IBM Plex Mono. §3/§10 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;500&family=Klee+One:wght@400;600&family=EB+Garamond:ital,wght@0,400;1,400&family=IBM+Plex+Mono:wght@400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--
+      Progressive-enhancement flag: every hidden-until-animated element in
+      the CSS is gated behind `html.js` so a no-JS (or JS-crashed) visitor
+      always sees a complete, fully visible document — see src/styles/motion.css.
+      Must run synchronously in <head>, before the gated elements paint.
+    -->
+    <script>document.documentElement.classList.add('js');</script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main" lang="en">Skip to content</a>
+
+    <nav class="chapter-rail" aria-label="Chapters" data-chapter-rail>
+      <div class="chapter-rail__thread" aria-hidden="true" data-rail-thread></div>
+      <div class="chapter-rail__progress" aria-hidden="true" data-rail-progress></div>
+      <ol class="chapter-rail__list">
+        <li class="chapter-rail__item" data-rail-item="s0">
+          <a class="chapter-rail__link" href="#s0" data-rail-link="s0">
+            <span class="chapter-rail__index">0</span>
+            <span class="chapter-rail__name"><span lang="en">Arrival</span></span>
+          </a>
+        </li>
+        <li class="chapter-rail__item" data-rail-item="s1">
+          <a class="chapter-rail__link" href="#s1" data-rail-link="s1">
+            <span class="chapter-rail__index">1</span>
+            <span class="chapter-rail__name"><span lang="en">Chapter.1 girl meets girl</span></span>
+          </a>
+        </li>
+        <li class="chapter-rail__item" data-rail-item="s2">
+          <a class="chapter-rail__link" href="#s2" data-rail-link="s2">
+            <span class="chapter-rail__index">2</span>
+            <span class="chapter-rail__name"><span lang="en">Chapter.2 Novel illustration</span></span>
+          </a>
+        </li>
+        <li class="chapter-rail__item" data-rail-item="s3">
+          <a class="chapter-rail__link" href="#s3" data-rail-link="s3">
+            <span class="chapter-rail__index">3</span>
+            <span class="chapter-rail__name"><span lang="en">Chapter.3</span> <span lang="ja">ナナブンノニジュウニ</span></span>
+          </a>
+        </li>
+        <li class="chapter-rail__item" data-rail-item="s4">
+          <a class="chapter-rail__link" href="#s4" data-rail-link="s4">
+            <span class="chapter-rail__index">4</span>
+            <span class="chapter-rail__name"><span lang="en">Chapter.4</span> <span lang="ja">ラフと画材</span></span>
+          </a>
+        </li>
+        <li class="chapter-rail__item" data-rail-item="s5">
+          <a class="chapter-rail__link" href="#s5" data-rail-link="s5">
+            <span class="chapter-rail__index">5</span>
+            <span class="chapter-rail__name"><span lang="ja">奥付</span></span>
+          </a>
+        </li>
+      </ol>
+    </nav>
+
+    <button type="button" class="moon-button" data-moon-button aria-label="真昼の月">
+      <svg viewBox="0 0 26 26" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+        <mask id="moon-crescent-mask">
+          <rect width="26" height="26" fill="#fff" />
+          <circle cx="16.5" cy="9.5" r="9" fill="#000" />
+        </mask>
+        <circle cx="13" cy="13" r="10" fill="currentColor" mask="url(#moon-crescent-mask)" />
+      </svg>
+    </button>
+    <div class="moon-toast" data-moon-toast aria-hidden="true">
+      <p class="moon-toast__line" data-moon-toast-line></p>
+      <p class="moon-toast__counter" data-moon-toast-counter lang="en"></p>
+    </div>
+    <div class="visually-hidden" role="status" aria-live="polite" data-moon-announcer></div>
+
+    <main id="main">
+      <!-- ==================================================================
+           S0 — 表紙 / Arrival (Register A). Fully built this wave: §7 S0.
+           ================================================================== -->
+      <section id="s0" class="chapter-section" aria-labelledby="s0-heading">
+        <div class="s0-arrival">
+          <div class="arrival-lockup">
+            <div class="arrival-wash wash-blob wash-blob--a" style="--wash-color: var(--title-green);" data-bloom aria-hidden="true"></div>
+
+            <h1 id="s0-heading" class="arrival-title__heading">
+            <svg class="arrival-title__svg" viewBox="-48 -871 4096 1028" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="arrival-title-label" xmlns="http://www.w3.org/2000/svg">
+              <title id="arrival-title-label">真昼の月</title>
+              <path class="glyph-path" data-char="真" transform="translate(0,0)" d="M343-200L342-213L733-231Q745-232 754-232.5Q763-233 763-238Q763-243 756.5-251.5Q750-260 734-276L751-556Q752-561 755.5-566Q759-571 759-577Q759-589 741-600Q723-611 708-611L702-611L525-600L527-665L801-681Q809-682 816-684.5Q823-687 823-694Q823-702 812.5-712Q802-722 789-729Q776-736 768-736Q762-736 760-735Q744-730 731.5-727Q719-724 705-723L529-713L532-785Q532-795 525.5-802Q519-809 501-814Q474-823 462-823Q452-823 452-815Q452-810 455-804Q462-790 465-778.5Q468-767 468-752L468-710L242-696L234-696Q213-696 195-702Q193-703 190-703Q185-703 185-696Q185-691 191.5-678Q198-665 208-657Q215-652 224.5-650Q234-648 246-648Q251-648 257-648Q263-648 269-649L467-661L466-597L334-589Q304-602 286.5-607.5Q269-613 260-613Q248-613 248-604Q248-600 250-595.5Q252-591 255-585Q259-578 262-565Q265-552 266-538L278-278L278-267Q278-254 276.5-245Q275-236 273-223Q273-221 272.5-219Q272-217 272-215Q272-202 282.5-193.5Q293-185 305.5-181.5Q318-178 324-178Q343-178 343-197L343-200M329-542L688-562L685-503L331-484L329-542M333-436L683-454L680-395L336-378L333-436M338-331L678-348L675-276L340-261L338-331M134-90L923-125Q934-126 942-129Q950-132 950-139Q950-148 939-159Q928-170 915-178.5Q902-187 895-187Q891-187 886.5-186Q882-185 877-183Q865-179 851.5-177.5Q838-176 823-175L113-144L104-144Q80-144 60-150Q57-151 53-151Q49-151 49-147Q49-144 50-142Q63-104 81-96.5Q99-89 110-89Q115-89 121-89.5Q127-90 134-90M426-14Q434-19 434-29Q434-40 424.5-55.5Q415-71 402-83Q389-95 380-95Q371-95 368-82Q363-62 343-47Q300-16 248.5 14Q197 44 141 69Q115 81 115 90Q115 97 131 97Q149 97 196 84.5Q243 72 304.5 47Q366 22 426-14M816 96Q828 96 834.5 86Q841 76 843.5 64.5Q846 53 846 50Q846 41 840 35Q834 29 822 22Q719-39 661-63.5Q603-88 597-88Q590-88 579.5-73Q569-58 569-47Q569-35 586-27Q639-5 692 25Q745 55 797 89Q807 96 816 96" />
+              <path class="glyph-path" data-char="昼" transform="translate(1000,0)" d="M348-60L347-77L696-89Q708-90 716.5-91Q725-92 725-99Q725-105 718.5-115.5Q712-126 696-143L720-351Q721-356 723.5-360.5Q726-365 727-370Q777-338 825-312Q873-286 925-264Q931-261 937-261Q945-261 954.5-272Q964-283 971-295Q978-307 978-309Q978-318 963-322Q862-357 774.5-409Q687-461 610-541L749-548Q763-549 771-551Q779-553 779-560Q779-566 772.5-576.5Q766-587 750-603L767-706Q769-714 772.5-720Q776-726 776-733Q776-735 771.5-743.5Q767-752 756.5-759.5Q746-767 726-767L716-767L313-743Q282-757 263.5-762.5Q245-768 236-768Q226-768 226-760Q226-754 231-744Q236-735 238-716.5Q240-698 240-690Q240-577 216.5-492Q193-407 150.5-342.5Q108-278 50-226Q31-208 31-197Q31-190 39-190Q44-190 66.5-202.5Q89-215 121.5-241.5Q154-268 189-309.5Q224-351 252-409Q253-407 254-404Q255-401 256-398Q270-371 271-341L283-158Q283-154 283.5-149.5Q284-145 284-140Q284-126 283-113.5Q282-101 280-88L280-84Q280-71 291-61Q302-51 315.5-46Q329-41 335-41Q348-41 348-57L348-60M305-688L702-710L689-601L296-578Q303-635 305-688M288-524L538-537Q570-503 602-472.5Q634-442 666-416L330-401Q304-411 287.5-415Q271-419 263-419Q258-419 256-418L270-452Q281-485 288-524M330-348L656-362L649-284L335-270L330-348M338-219L644-232L635-140L343-130L338-219M182 65L195 65L875 47Q898 45 898 30Q898 17 885.5 6.5Q873-4 859.5-11Q846-18 842-18Q840-18 837.5-17.5Q835-17 832-16Q822-12 809.5-10.5Q797-9 781-8L182 7L177 7Q162 7 147.5 4Q133 1 119-3Q117-4 114-4Q109-4 109 3Q109 4 109.5 5.5Q110 7 110 9Q116 33 136 53Q148 65 182 65" />
+              <path class="glyph-path" data-char="の" transform="translate(2000,0)" d="M541-619L545-619Q637-619 690.5-585Q744-551 767-496.5Q790-442 790-380Q790-372 790-364Q790-356 789-348Q784-293 755-243Q726-193 683.5-152Q641-111 594-79.5Q547-48 506-28Q474-11 474-2Q474 1 476 3Q477 5 486 5Q502 5 535-4.5Q568-14 610.5-34Q653-54 697-84.5Q741-115 778.5-157.5Q816-200 839-254.5Q862-309 862-377Q862-456 828.5-524Q795-592 726-633.5Q657-675 548-675L537-675Q459-674 386.5-642.5Q314-611 257-560Q200-509 166.5-447Q133-385 133-322Q133-269 157.5-215.5Q182-162 236-113Q257-95 284-95Q297-95 309.5-100Q322-105 332-117Q365-156 393-209Q421-262 443.5-319.5Q466-377 482.5-430Q499-483 508.5-523Q518-563 520-580Q520-582 520.5-584.5Q521-587 521-588Q521-600 515-605.5Q509-611 499-617Q509-618 519.5-618.5Q530-619 541-619M452-608Q454-602 454.5-595.5Q455-589 455-587Q453-559 442.5-518Q432-477 416-430Q400-383 381-337.5Q362-292 343.5-254Q325-216 308.5-193.5Q292-171 281-171Q277-171 263-182.5Q249-194 233-215Q217-236 205.5-263.5Q194-291 194-322Q194-351 209.5-392Q225-433 257-476.5Q289-520 337.5-555.5Q386-591 452-608" />
+              <path class="glyph-path" data-char="月" transform="translate(3000,0)" d="M333-245L699-260L701 27Q664 14 635.5 0.5Q607-13 579-29Q557-42 546-42Q539-42 539-36Q539-28 553.5-11Q568 6 591 26.5Q614 47 638.5 66Q663 85 684.5 97Q706 109 717 109Q724 109 736 103.5Q748 98 758 84Q768 70 768 47Q768 39 767.5 31Q767 23 767 13L762-680Q762-688 765-693Q768-698 768-705Q768-713 756-727.5Q744-742 725-742Q723-742 720-741.5Q717-741 714-741L357-720Q303-747 287-747Q278-747 278-739Q278-733 281-725Q288-705 289.5-684Q291-663 291-640L291-546Q291-437 282.5-353.5Q274-270 251.5-201.5Q229-133 189.5-69.5Q150-6 88 62Q72 79 72 89Q72 96 79 96Q92 96 113 79Q163 39 206-6Q249-51 282-109Q315-167 333-245M359-661L697-682L698-529L357-512L359-661M355-458L698-471L699-315L343-300Q348-333 351-375.5Q354-418 355-458" />
+            </svg>
+            </h1>
+
+            <p class="arrival-caption">
+              <span class="arrival-caption__jp">白身魚 自選イラスト集</span>
+              <span class="arrival-caption__en" lang="en">The Midday Moon</span>
+            </p>
+          </div>
+
+          <p class="arrival-line" data-dwell data-arrival-line>空にはいつも、見えない月がある。</p>
+        </div>
+
+        <!-- ================================================================
+             S0 prologue plate (Wave 3, §7 S0 / manifest role "prologue"):
+             plate_p003, the site's first image. "The book opens as you
+             leave the title page." Plate-solo layout, generous rhythm. No
+             caption — the alt carries no parenthetical source citation
+             (it's the book's own cover art, not a citation of another
+             work), so per this wave's caption rule (§3, extracted from
+             `alt`'s parenthetical/leading-bracket source) none is shown.
+             ================================================================ -->
+        <div class="plate-block plate-block--solo s0-prologue">
+          <figure class="plate-block__figure cols-plate-solo" data-bloom>
+            <picture>
+              <source type="image/avif" srcset="/assets/plates/plate_p003-1600.avif 1600w, /assets/plates/plate_p003-800.avif 800w" sizes="(min-width: 1080px) 50vw, 88vw">
+              <source type="image/webp" srcset="/assets/plates/plate_p003-1600.webp 1600w, /assets/plates/plate_p003-800.webp 800w" sizes="(min-width: 1080px) 50vw, 88vw">
+              <img src="/assets/plates/plate_p003-1600.png" width="1600" height="2154" alt="『真昼の月』表紙アートワーク — 麦わら帽子の少女、自転車の標識、水たまりに映る空のコラージュ" loading="lazy" decoding="async" style="aspect-ratio: 1600 / 2154;">
+            </picture>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           S1 — Chapter.1 girl meets girl. Structural placeholder: wash
+           title only. Plates + 2019 archive board are a later wave (§7 S1).
+           ================================================================== -->
+      <section id="s1" class="chapter-section" aria-labelledby="s1-heading">
+        <!-- Wash title: plate_p004 (the book's own Chapter.1 opening page)
+             stands in for the CSS-only gradient wash per its manifest note.
+             It carries the chapter identity visually, so the real <h2> is
+             visually hidden (kept for the document outline / a11y); the
+             kicker stays visible for wayfinding. Rail integration (id=
+             s1-heading, aria-labelledby) is unchanged. -->
+        <div class="wash-title" style="--wash-color: var(--snow);">
+          <picture class="wash-title__art wash-blob wash-blob--b" data-bloom aria-hidden="true">
+            <source type="image/avif" srcset="/assets/plates/plate_p004-1600.avif 1600w, /assets/plates/plate_p004-800.avif 800w" sizes="(min-width: 1080px) 46vw, 74vw">
+            <source type="image/webp" srcset="/assets/plates/plate_p004-1600.webp 1600w, /assets/plates/plate_p004-800.webp 800w" sizes="(min-width: 1080px) 46vw, 74vw">
+            <img src="/assets/plates/plate_p004-1600.png" width="1600" height="2150" alt="" loading="lazy" decoding="async">
+          </picture>
+          <p class="wash-title__kicker" lang="en">Chapter.1</p>
+          <h2 id="s1-heading" class="wash-title__heading" data-bloom><span lang="en">girl meets girl</span></h2>
+        </div>
+
+        <!-- ================================================================
+             Centerpiece: jacket_yurihime_snow_umbrella — a photograph of
+             the physical 百合姫 2019/02 magazine cover. Kept in a
+             --paper-deep "plate well" so its own paper edges stay visible
+             (it grounds the archive); it carries --accent-red intrinsically
+             so no additional UI accent is introduced here. Margin note
+             (green ink) is dwell-revealed, reusing dwell-reveal.ts as-is.
+             ================================================================ -->
+        <div class="plate-block plate-block--centerpiece">
+          <figure class="plate-block__figure" data-bloom>
+            <picture>
+              <source type="image/avif" srcset="/assets/jackets/jacket_yurihime_snow_umbrella-736.avif">
+              <source type="image/webp" srcset="/assets/jackets/jacket_yurihime_snow_umbrella-736.webp">
+              <img src="/assets/jackets/jacket_yurihime_snow_umbrella-736.jpeg" width="736" height="981" alt="『コミック百合姫』2019年2月号表紙(誌面写真)— 雪の日、黄色い傘を差す少女と赤いランドセル" loading="lazy" decoding="async" style="aspect-ratio: 736 / 981;">
+            </picture>
+          </figure>
+          <p class="plate-block__note margin-note margin-note--green" data-dwell>
+            <span class="margin-note__text" style="--rot: -1.5deg;">傘の黄色だけが、冬を明るくする。</span>
+          </p>
+        </div>
+
+        <!-- ================================================================
+             2019 archive board: plate_p017, shown whole. Interactive —
+             hover/focus/tap raises it slightly (transform only, no drop
+             shadow) and reveals its margin note; this is a direct
+             interaction, not the dwell mechanic (Ch.2 teaches dwell).
+             Credit line in catalog mono, placed asymmetrically below.
+             ================================================================ -->
+        <div id="s1-archive" class="plate-block plate-block--archive archive-board">
+          <!-- The grid item (sized via .plate-block__figure) is the button
+               itself; the bloom mask target is the nested <picture>, not
+               the button — bloom-reveal.ts leaves a persistent inline
+               `transform` on whatever element it animates, which would
+               silently defeat the button's own CSS :hover/:focus-visible
+               lift transform if they shared one element (inline style
+               always outranks a stylesheet rule). Keeping them on separate
+               nodes lets both transforms coexist. -->
+          <button type="button" class="plate-block__figure archive-board__trigger" data-archive-trigger aria-expanded="false" aria-describedby="s1-archive-note">
+            <picture data-bloom>
+              <source type="image/avif" srcset="/assets/plates/plate_p017-1600.avif 1600w, /assets/plates/plate_p017-800.avif 800w" sizes="(min-width: 1080px) 64vw, 90vw">
+              <source type="image/webp" srcset="/assets/plates/plate_p017-1600.webp 1600w, /assets/plates/plate_p017-800.webp 800w" sizes="(min-width: 1080px) 64vw, 90vw">
+              <img src="/assets/plates/plate_p017-1600.png" width="1600" height="2160" alt="百合姫2019年 表紙12点とコメントの一覧ページ" loading="lazy" decoding="async" style="aspect-ratio: 1600 / 2160;">
+            </picture>
+          </button>
+          <p id="s1-archive-note" class="plate-block__note margin-note margin-note--red" data-archive-note>
+            <span class="margin-note__text" style="--rot: 1.5deg;">2019年、月にひとつの表紙。</span>
+          </p>
+          <p class="plate-block__credit catalog">COVER DESIGN — BALCOLONY.</p>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           S2 — Chapter.2 Novel illustration. Structural placeholder (§7 S2).
+           ================================================================== -->
+      <section id="s2" class="chapter-section" aria-labelledby="s2-heading">
+        <!-- Wash title: plate_p018, same treatment as S1's plate_p004. -->
+        <div class="wash-title" style="--wash-color: var(--clover);">
+          <picture class="wash-title__art wash-blob wash-blob--c" data-bloom aria-hidden="true">
+            <source type="image/avif" srcset="/assets/plates/plate_p018-1600.avif 1600w, /assets/plates/plate_p018-800.avif 800w" sizes="(min-width: 1080px) 46vw, 74vw">
+            <source type="image/webp" srcset="/assets/plates/plate_p018-1600.webp 1600w, /assets/plates/plate_p018-800.webp 800w" sizes="(min-width: 1080px) 46vw, 74vw">
+            <img src="/assets/plates/plate_p018-1600.png" width="1600" height="2158" alt="" loading="lazy" decoding="async">
+          </picture>
+          <p class="wash-title__kicker" lang="en">Chapter.2</p>
+          <h2 id="s2-heading" class="wash-title__heading" data-bloom><span lang="en">Novel illustration</span></h2>
+        </div>
+
+        <!-- ================================================================
+             Plate scroll order is CD-fixed (season arc spring → summer-sky
+             → neutral → autumn → winter): p019, p020, p084, p049, p050,
+             p051, p052 — INTERLUDE — p081, p082, p033, p034, p097.
+
+             Layout = manifest role (solo/pair/intimate), per §4. Three of
+             these roles repeat back-to-back in the CD's own order (p020,
+             p084, p049 are all "solo"), which the §4 "never the same
+             layout twice in a row" rule can't fully avoid without
+             reassigning roles the CD already fixed — mitigated here by
+             alternating a mirrored "-flip" placement (image/caption/note
+             swap sides) between consecutive same-role plates, so no two
+             adjacent plates are visually identical even when their
+             category repeats. Flagged for CD review.
+
+             Every "pair"-role entry here (p019/p050/p081/p033) is a SINGLE
+             scanned page whose content already depicts two panels (季刊エス
+             "連作2点" etc.) — there is no second image asset to lay out
+             side-by-side. Implemented as one image at the pair-a/pair-b
+             column slot with its margin note carrying the "≥20vh vertical
+             offset" that §4 specifies for a second paired image. Flagged
+             for CD review in case a literal two-image split was intended.
+
+             Captions: the parenthetical/leading-bracket source citation
+             extracted from each `alt` (§3), asymmetric, never centered.
+             Plates whose alt carries no citation (p020, p097) render with
+             no caption.
+
+             Margin-note ink rotates green→red→blue in document order,
+             counting only plates that have a marginNote (p050/p051 have
+             none) — restarting at green for this chapter, per
+             tools/curation.json's "_meta" note.
+             ================================================================ -->
+
+        <!-- 1. p019 — pair-a — sakura accent — green -->
+        <div id="s2-plate-p019" class="plate-block plate-block--pair-a">
+          <figure class="plate-block__figure cols-plate-pair-a" data-bloom>
+            <picture>
+              <source type="image/avif" srcset="/assets/plates/plate_p019-1600.avif 1600w, /assets/plates/plate_p019-800.avif 800w" sizes="(min-width: 1080px) 36vw, 88vw">
+              <source type="image/webp" srcset="/assets/plates/plate_p019-1600.webp 1600w, /assets/plates/plate_p019-800.webp 800w" sizes="(min-width: 1080px) 36vw, 88vw">
+              <img src="/assets/plates/plate_p019-1600.png" width="1600" height="2161" alt="桜の枝に手を伸ばす少女、電線と春空 — 連作2点(季刊エス)" loading="lazy" decoding="async" style="aspect-ratio: 1600 / 2161;">
+            </picture>
+            <figcaption class="plate-caption plate-caption--left">季刊エス</figcaption>
+          </figure>
+          <p class="plate-block__note margin-note margin-note--green" data-dwell>
+            <span class="margin-note__text" style="--rot: -1.5deg;">電線の高さに、春が咲く。</span>
+          </p>
+        </div>
+
+        <!-- 2. p020 — solo — sakura accent — red -->
+        <div class="plate-block plate-block--solo">
+          <figure class="plate-block__figure cols-plate-solo" data-bloom>
+            <picture>
+              <source type="image/avif" srcset="/assets/plates/plate_p020-1600.avif 1600w, /assets/plates/plate_p020-800.avif 800w" sizes="(min-width: 1080px) 50vw, 88vw">
+              <source type="image/webp" srcset="/assets/plates/plate_p020-1600.webp 1600w, /assets/plates/plate_p020-800.webp 800w" sizes="(min-width: 1080px) 50vw, 88vw">
+              <img src="/assets/plates/plate_p020-1600.png" width="1600" height="2167" alt="桜並木の通学路に立つ制服の少女" loading="lazy" decoding="async" style="aspect-ratio: 1600 / 2167;">
+            </picture>
+          </figure>
+          <p class="plate-block__note margin-note margin-note--red" data-dwell>
+            <span class="margin-note__text" style="--rot: 1.2deg;">入学式の朝のような光。</span>
+          </p>
+        </div>
+
+        <!-- 3. p084 — solo-flip — blue -->
+        <div class="plate-block plate-block--solo-flip">
+          <figure class="plate-block__figure cols-plate-solo-flip" data-bloom>
+            <picture>
+              <source type="image/avif" srcset="/assets/plates/plate_p084-1600.avif 1600w, /assets/plates/plate_p084-800.avif 800w" sizes="(min-width: 1080px) 50vw, 88vw">
+              <source type="image/webp" srcset="/assets/plates/plate_p084-1600.webp 1600w, /assets/plates/plate_p084-800.webp 800w" sizes="(min-width: 1080px) 50vw, 88vw">
+              <img src="/assets/plates/plate_p084-1600.png" width="1600" height="2160" alt="桜の校門前、鍵盤ハーモニカを抱えた眼鏡の少女(『ジャナ研』)" loading="lazy" decoding="async" style="aspect-ratio: 1600 / 2160;">
+            </picture>
+            <figcaption class="plate-caption plate-caption--left">『ジャナ研』</figcaption>
+          </figure>
+          <p class="plate-block__note margin-note margin-note--blue" data-dwell>
+            <span class="margin-note__text" style="--rot: -1.8deg;">校門の桜と、鍵盤ハーモニカ。</span>
+          </p>
+        </div>
+
+        <!-- 4. p049 — solo — green -->
+        <div class="plate-block plate-block--solo">
+          <figure class="plate-block__figure cols-plate-solo" data-bloom>
+            <picture>
+              <source type="image/avif" srcset="/assets/plates/plate_p049-1600.avif 1600w, /assets/plates/plate_p049-800.avif 800w" sizes="(min-width: 1080px) 50vw, 88vw">
+              <source type="image/webp" srcset="/assets/plates/plate_p049-1600.webp 1600w, /assets/plates/plate_p049-800.webp 800w" sizes="(min-width: 1080px) 50vw, 88vw">
+              <img src="/assets/plates/plate_p049-1600.png" width="1600" height="2158" alt="青空の窓辺で鉢植えの芽を抱く少女(『ツァラトゥストラへの階段』口絵)" loading="lazy" decoding="async" style="aspect-ratio: 1600 / 2158;">
+            </picture>
+            <figcaption class="plate-caption plate-caption--right">『ツァラトゥストラへの階段』口絵</figcaption>
+          </figure>
+          <p class="plate-block__note margin-note margin-note--green" data-dwell>
+            <span class="margin-note__text" style="--rot: 1.4deg;">小さな芽と、大きな空。</span>
+          </p>
+        </div>
+
+        <!-- 5. p050 — pair-b — no note -->
+        <div class="plate-block plate-block--pair-b">
+          <figure class="plate-block__figure cols-plate-pair-b" data-bloom>
+            <picture>
+              <source type="image/avif" srcset="/assets/plates/plate_p050-1600.avif 1600w, /assets/plates/plate_p050-800.avif 800w" sizes="(min-width: 1080px) 36vw, 88vw">
+              <source type="image/webp" srcset="/assets/plates/plate_p050-1600.webp 1600w, /assets/plates/plate_p050-800.webp 800w" sizes="(min-width: 1080px) 36vw, 88vw">
+              <img src="/assets/plates/plate_p050-1600.png" width="1600" height="2162" alt="『ツァラトゥストラへの階段』カバーと口絵 — 湯上がりの二人、都市の少年" loading="lazy" decoding="async" style="aspect-ratio: 1600 / 2162;">
+            </picture>
+            <figcaption class="plate-caption plate-caption--right">『ツァラトゥストラへの階段』カバーと口絵</figcaption>
+          </figure>
+        </div>
+
+        <!-- 6. p051 — solo-flip — no note -->
+        <div class="plate-block plate-block--solo-flip">
+          <figure class="plate-block__figure cols-plate-solo-flip" data-bloom>
+            <picture>
+              <source type="image/avif" srcset="/assets/plates/plate_p051-1600.avif 1600w, /assets/plates/plate_p051-800.avif 800w" sizes="(min-width: 1080px) 50vw, 88vw">
+              <source type="image/webp" srcset="/assets/plates/plate_p051-1600.webp 1600w, /assets/plates/plate_p051-800.webp 800w" sizes="(min-width: 1080px) 50vw, 88vw">
+              <img src="/assets/plates/plate_p051-1600.png" width="1600" height="2154" alt="並んで膝を抱える制服の二人(『ツァラトゥストラへの階段』挿絵)" loading="lazy" decoding="async" style="aspect-ratio: 1600 / 2154;">
+            </picture>
+            <figcaption class="plate-caption plate-caption--left">『ツァラトゥストラへの階段』挿絵</figcaption>
+          </figure>
+        </div>
+
+        <!-- 7. p052 — intimate — red -->
+        <div class="plate-block plate-block--intimate">
+          <figure class="plate-block__figure cols-plate-intimate" data-bloom>
+            <picture>
+              <source type="image/avif" srcset="/assets/plates/plate_p052-1600.avif 1600w, /assets/plates/plate_p052-800.avif 800w" sizes="(min-width: 1080px) 420px, 70vw">
+              <source type="image/webp" srcset="/assets/plates/plate_p052-1600.webp 1600w, /assets/plates/plate_p052-800.webp 800w" sizes="(min-width: 1080px) 420px, 70vw">
+              <img src="/assets/plates/plate_p052-1600.png" width="1600" height="2150" alt="『ツァラトゥストラへの階段』3巻カバー — 抱きつく少女、たじろぐ少女" loading="lazy" decoding="async" style="aspect-ratio: 1600 / 2150;">
+            </picture>
+            <figcaption class="plate-caption plate-caption--left">『ツァラトゥストラへの階段』3巻カバー</figcaption>
+          </figure>
+          <p class="plate-block__note margin-note margin-note--red" data-dwell>
+            <span class="margin-note__text" style="--rot: -1.1deg;">三巻のカバー。抱きつく側と、たじろぐ側。</span>
+          </p>
+        </div>
+
+        <!-- ================================================================
+             Interlude (§7 S2): a near-empty viewport, one Hand-voice line,
+             huge whitespace. "It should feel like turning to a blank page
+             and noticing." Dwell-revealed like every note in this chapter —
+             the interlude keeps teaching the same mechanic it just taught.
+             ================================================================ -->
+        <div id="s2-interlude" class="s2-interlude">
+          <p class="s2-interlude__line" data-dwell>よく見ると、どのページにも空がある。</p>
+        </div>
+
+        <!-- 8. p081 — pair-a — clover accent — blue -->
+        <div class="plate-block plate-block--pair-a">
+          <figure class="plate-block__figure cols-plate-pair-a" data-bloom>
+            <picture>
+              <source type="image/avif" srcset="/assets/plates/plate_p081-1600.avif 1600w, /assets/plates/plate_p081-800.avif 800w" sizes="(min-width: 1080px) 36vw, 88vw">
+              <source type="image/webp" srcset="/assets/plates/plate_p081-1600.webp 1600w, /assets/plates/plate_p081-800.webp 800w" sizes="(min-width: 1080px) 36vw, 88vw">
+              <img src="/assets/plates/plate_p081-1600.png" width="1600" height="2153" alt="『ジャナ研の憂鬱な事件簿』カバー・口絵 — 着物の少女、教室の面々" loading="lazy" decoding="async" style="aspect-ratio: 1600 / 2153;">
+            </picture>
+            <figcaption class="plate-caption plate-caption--left">『ジャナ研の憂鬱な事件簿』カバー・口絵</figcaption>
+          </figure>
+          <p class="plate-block__note margin-note margin-note--blue" data-dwell>
+            <span class="margin-note__text" style="--rot: 1.6deg;">放課後、事件簿はひらかれる。</span>
+          </p>
+        </div>
+
+        <!-- 9. p082 — solo — storm accent (autumn turn) — green -->
+        <div class="plate-block plate-block--solo">
+          <figure class="plate-block__figure cols-plate-solo" data-bloom>
+            <picture>
+              <source type="image/avif" srcset="/assets/plates/plate_p082-1600.avif 1600w, /assets/plates/plate_p082-800.avif 800w" sizes="(min-width: 1080px) 50vw, 88vw">
+              <source type="image/webp" srcset="/assets/plates/plate_p082-1600.webp 1600w, /assets/plates/plate_p082-800.webp 800w" sizes="(min-width: 1080px) 50vw, 88vw">
+              <img src="/assets/plates/plate_p082-1600.png" width="1600" height="2156" alt="紅葉の下、オレンジのマフラーの少女と見つめる少年(『ジャナ研』)" loading="lazy" decoding="async" style="aspect-ratio: 1600 / 2156;">
+            </picture>
+            <figcaption class="plate-caption plate-caption--right">『ジャナ研』</figcaption>
+          </figure>
+          <p class="plate-block__note margin-note margin-note--green" data-dwell>
+            <span class="margin-note__text" style="--rot: -1.3deg;">紅葉の下で、目が合う。</span>
+          </p>
+        </div>
+
+        <!-- 10. p033 — pair-b — red -->
+        <div class="plate-block plate-block--pair-b">
+          <figure class="plate-block__figure cols-plate-pair-b" data-bloom>
+            <picture>
+              <source type="image/avif" srcset="/assets/plates/plate_p033-1600.avif 1600w, /assets/plates/plate_p033-800.avif 800w" sizes="(min-width: 1080px) 36vw, 88vw">
+              <source type="image/webp" srcset="/assets/plates/plate_p033-1600.webp 1600w, /assets/plates/plate_p033-800.webp 800w" sizes="(min-width: 1080px) 36vw, 88vw">
+              <img src="/assets/plates/plate_p033-1600.png" width="1600" height="2158" alt="昇降口で靴を履き替える少女と、頬を染めるセーラー服の少女(季刊エス vol.54・53)" loading="lazy" decoding="async" style="aspect-ratio: 1600 / 2158;">
+            </picture>
+            <figcaption class="plate-caption plate-caption--right">季刊エス vol.54・53</figcaption>
+          </figure>
+          <p class="plate-block__note margin-note margin-note--red" data-dwell>
+            <span class="margin-note__text" style="--rot: 1.7deg;">上履きに履き替える、いちばん短い旅。</span>
+          </p>
+        </div>
+
+        <!-- 11. p034 — intimate — the dwell teaching moment (manifest note) — blue -->
+        <div class="plate-block plate-block--intimate">
+          <figure class="plate-block__figure cols-plate-intimate" data-bloom>
+            <picture>
+              <source type="image/avif" srcset="/assets/plates/plate_p034-1600.avif 1600w, /assets/plates/plate_p034-800.avif 800w" sizes="(min-width: 1080px) 420px, 70vw">
+              <source type="image/webp" srcset="/assets/plates/plate_p034-1600.webp 1600w, /assets/plates/plate_p034-800.webp 800w" sizes="(min-width: 1080px) 420px, 70vw">
+              <img src="/assets/plates/plate_p034-1600.png" width="1600" height="2157" alt="冬の窓辺、机の陰から顔をのぞかせる少女(季刊エス vol.52)" loading="lazy" decoding="async" style="aspect-ratio: 1600 / 2157;">
+            </picture>
+            <figcaption class="plate-caption plate-caption--left">季刊エス vol.52</figcaption>
+          </figure>
+          <p class="plate-block__note margin-note margin-note--blue" data-dwell>
+            <span class="margin-note__text" style="--rot: -1.4deg;">机の上の小瓶に、冬の光がとまる。</span>
+          </p>
+        </div>
+
+        <!-- 12. p097 — solo-flip — snow accent (winter close of the season arc) — green -->
+        <div id="s2-plate-p097" class="plate-block plate-block--solo-flip">
+          <figure class="plate-block__figure cols-plate-solo-flip" data-bloom>
+            <picture>
+              <source type="image/avif" srcset="/assets/plates/plate_p097-1600.avif 1600w, /assets/plates/plate_p097-800.avif 800w" sizes="(min-width: 1080px) 50vw, 88vw">
+              <source type="image/webp" srcset="/assets/plates/plate_p097-1600.webp 1600w, /assets/plates/plate_p097-800.webp 800w" sizes="(min-width: 1080px) 50vw, 88vw">
+              <img src="/assets/plates/plate_p097-1600.png" width="1600" height="2163" alt="冬の坂道、ガードレール越しの白髪の少女と学生服の少年" loading="lazy" decoding="async" style="aspect-ratio: 1600 / 2163;">
+            </picture>
+          </figure>
+          <p class="plate-block__note margin-note margin-note--green" data-dwell>
+            <span class="margin-note__text" style="--rot: 1.1deg;">章の終わりに、雪がふる。</span>
+          </p>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           S3 — Chapter.3 22/7 (Register B, CINEMA). Wave 4: full build
+           (§1 register handoff, §5 kanji depth, §6.4 catalog chrome, §6.5
+           variant switcher, §7 S3's five scenes). Behavior lives in
+           src/scripts/cinema/{burn,scenes,switcher}.ts; resting/armed
+           visual states in src/styles/cinema.css (see that file's
+           docblock for the shared per-scene markup shape).
+           ================================================================== -->
+      <section id="s3" class="chapter-section chapter-section--cinema" aria-labelledby="s3-heading">
+        <h2 id="s3-heading" class="visually-hidden"><span lang="en">Chapter.3</span> <span lang="ja">ナナブンノニジュウニ</span></h2>
+
+        <!-- §1 register handoff: paper burn-away/un-burn mask overlay (cinema/burn.ts drives the SVG mask + show/hide). -->
+        <div class="s3-burn" data-s3-burn aria-hidden="true"></div>
+
+        <div class="s3-cinema" data-s3-cinema>
+          <!-- ============================================================
+               s3-1 — シャンプーの匂いがした — overhead sakura circle — accent sakura
+               ============================================================ -->
+          <article id="s3-1-frame" class="s3-scene s3-scene--s3-1" data-s3-scene="s3-1" data-pin="true" style="--scene-accent: var(--sakura);" role="tabpanel" tabindex="0" aria-labelledby="s3-1-title">
+            <picture class="s3-scene__media is-active" data-variant="jacket_210641" style="--focus: 50% 42%;">
+              <source type="image/avif" srcset="/assets/jackets/jacket_210641-716.avif" sizes="100vw">
+              <source type="image/webp" srcset="/assets/jackets/jacket_210641-716.webp" sizes="100vw">
+              <img src="/assets/jackets/jacket_210641-716.png" width="716" height="714" alt="「シャンプーの匂いがした」ジャケット — 桜の絨毯に円になって寝転ぶ少女たちの俯瞰" loading="lazy" decoding="async">
+            </picture>
+            <picture class="s3-scene__media" data-variant="jacket_210651" style="--focus: 50% 35%;" aria-hidden="true">
+              <source type="image/avif" srcset="/assets/jackets/jacket_210651-710.avif" sizes="100vw">
+              <source type="image/webp" srcset="/assets/jackets/jacket_210651-710.webp" sizes="100vw">
+              <img src="/assets/jackets/jacket_210651-710.png" width="710" height="712" alt="同曲別ジャケット — 舞う花びらの中、寄り添う二人のクローズアップ" loading="lazy" decoding="async">
+            </picture>
+            <div class="s3-scene__scrim" aria-hidden="true"></div>
+            <h3 id="s3-1-title" class="s3-scene__title" aria-label="シャンプーの匂いがした" lang="ja">
+              <span class="s3-kanji" data-s3-kanji aria-hidden="true">
+                <span class="s3-kanji__glyph">シ</span><span class="s3-kanji__glyph">ャ</span><span class="s3-kanji__glyph">ン</span><span class="s3-kanji__glyph">プ</span><span class="s3-kanji__glyph">ー</span><span class="s3-kanji__glyph">の</span><span class="s3-kanji__glyph">匂</span><span class="s3-kanji__glyph">い</span><span class="s3-kanji__glyph">が</span><span class="s3-kanji__glyph">し</span><span class="s3-kanji__glyph">た</span>
+              </span>
+            </h3>
+            <div class="s3-switcher" role="tablist" aria-label="収録ジャケット" data-s3-switcher>
+              <button type="button" role="tab" id="s3-1-tab-0" aria-selected="true" tabindex="0" aria-controls="s3-1-frame" data-variant="jacket_210641">通常盤</button>
+              <button type="button" role="tab" id="s3-1-tab-1" aria-selected="false" tabindex="-1" aria-controls="s3-1-frame" data-variant="jacket_210651">Type-B</button>
+            </div>
+          </article>
+
+          <div class="s3-gap" data-s3-gap aria-hidden="true">
+            <p class="s3-gap__rail" lang="ja">曇り空の向こうは晴れている</p>
+          </div>
+
+          <!-- ============================================================
+               s3-2 — 風は吹いてるか? — mint sky diagonals — accent mint
+               ============================================================ -->
+          <article id="s3-2-frame" class="s3-scene s3-scene--s3-2" data-s3-scene="s3-2" data-pin="true" style="--scene-accent: var(--mint);" role="tabpanel" tabindex="0" aria-labelledby="s3-2-title">
+            <picture class="s3-scene__media is-active" data-variant="jacket_210739" style="--focus: 50% 45%;">
+              <source type="image/avif" srcset="/assets/jackets/jacket_210739-705.avif" sizes="100vw">
+              <source type="image/webp" srcset="/assets/jackets/jacket_210739-705.webp" sizes="100vw">
+              <img src="/assets/jackets/jacket_210739-705.png" width="705" height="710" alt="「風は吹いてるか?」ジャケット — ミント色の斜めのタイポグラフィと駆け出す少女たち" loading="lazy" decoding="async">
+            </picture>
+            <picture class="s3-scene__media" data-variant="jacket_210745" style="--focus: 50% 40%;" aria-hidden="true">
+              <source type="image/avif" srcset="/assets/jackets/jacket_210745-706.avif" sizes="100vw">
+              <source type="image/webp" srcset="/assets/jackets/jacket_210745-706.webp" sizes="100vw">
+              <img src="/assets/jackets/jacket_210745-706.png" width="706" height="708" alt="同曲別ジャケット — 見上げる三人、ミントの格子" loading="lazy" decoding="async">
+            </picture>
+            <picture class="s3-scene__media" data-variant="jacket_210752" style="--focus: 50% 40%;" aria-hidden="true">
+              <source type="image/avif" srcset="/assets/jackets/jacket_210752-703.avif" sizes="100vw">
+              <source type="image/webp" srcset="/assets/jackets/jacket_210752-703.webp" sizes="100vw">
+              <img src="/assets/jackets/jacket_210752-703.png" width="703" height="714" alt="同曲別ジャケット — 肩を組む五人、ミントの格子" loading="lazy" decoding="async">
+            </picture>
+            <div class="s3-scene__scrim" aria-hidden="true"></div>
+            <h3 id="s3-2-title" class="s3-scene__title" aria-label="風は吹いてるか?" lang="ja">
+              <span class="s3-kanji" data-s3-kanji aria-hidden="true">
+                <span class="s3-kanji__glyph">風</span><span class="s3-kanji__glyph">は</span><span class="s3-kanji__glyph">吹</span><span class="s3-kanji__glyph">い</span><span class="s3-kanji__glyph">て</span><span class="s3-kanji__glyph">る</span><span class="s3-kanji__glyph">か</span><span class="s3-kanji__glyph">?</span>
+              </span>
+            </h3>
+            <div class="s3-switcher" role="tablist" aria-label="収録ジャケット" data-s3-switcher>
+              <button type="button" role="tab" id="s3-2-tab-0" aria-selected="true" tabindex="0" aria-controls="s3-2-frame" data-variant="jacket_210739">通常盤</button>
+              <button type="button" role="tab" id="s3-2-tab-1" aria-selected="false" tabindex="-1" aria-controls="s3-2-frame" data-variant="jacket_210745">Type-B</button>
+              <button type="button" role="tab" id="s3-2-tab-2" aria-selected="false" tabindex="-1" aria-controls="s3-2-frame" data-variant="jacket_210752">Type-C</button>
+            </div>
+          </article>
+
+          <div class="s3-gap" data-s3-gap aria-hidden="true">
+            <p class="s3-gap__rail" lang="ja">神様だって決められない</p>
+          </div>
+
+          <!-- ============================================================
+               s3-3 — 僕が持ってるものなら — blue-sky jump, ribbons — accent scrawl
+               ============================================================ -->
+          <article id="s3-3-frame" class="s3-scene s3-scene--s3-3" data-s3-scene="s3-3" data-pin="true" style="--scene-accent: var(--scrawl);" role="tabpanel" tabindex="0" aria-labelledby="s3-3-title">
+            <picture class="s3-scene__media is-active" data-variant="jacket_210800" style="--focus: 50% 38%;">
+              <source type="image/avif" srcset="/assets/jackets/jacket_210800-800.avif" sizes="100vw">
+              <source type="image/webp" srcset="/assets/jackets/jacket_210800-800.webp" sizes="100vw">
+              <img src="/assets/jackets/jacket_210800-800.png" width="800" height="562" alt="「僕が持ってるものなら」ジャケット — 青空に流れる白いリボンと見上げる少女たち" loading="lazy" decoding="async">
+            </picture>
+            <picture class="s3-scene__media" data-variant="jacket_210806" style="--focus: 50% 35%;" aria-hidden="true">
+              <source type="image/avif" srcset="/assets/jackets/jacket_210806-800.avif" sizes="100vw">
+              <source type="image/webp" srcset="/assets/jackets/jacket_210806-800.webp" sizes="100vw">
+              <img src="/assets/jackets/jacket_210806-800.png" width="800" height="565" alt="同曲別ジャケット — 笑う少女とウーパールーパーのぬいぐるみ、青のリボン" loading="lazy" decoding="async">
+            </picture>
+            <picture class="s3-scene__media" data-variant="jacket_210819" style="--focus: 50% 35%;" aria-hidden="true">
+              <source type="image/avif" srcset="/assets/jackets/jacket_210819-800.avif" sizes="100vw">
+              <source type="image/webp" srcset="/assets/jackets/jacket_210819-800.webp" sizes="100vw">
+              <img src="/assets/jackets/jacket_210819-800.png" width="800" height="670" alt="同曲別ジャケット — ぬいぐるみを抱えて笑う少女、流れる帯" loading="lazy" decoding="async">
+            </picture>
+            <div class="s3-scene__scrim" aria-hidden="true"></div>
+            <h3 id="s3-3-title" class="visually-hidden" lang="ja">僕が持ってるものなら</h3>
+            <p class="s3-signature" data-s3-signature aria-hidden="true" lang="ja">僕が持ってるものなら</p>
+            <div class="s3-switcher" role="tablist" aria-label="収録ジャケット" data-s3-switcher>
+              <button type="button" role="tab" id="s3-3-tab-0" aria-selected="true" tabindex="0" aria-controls="s3-3-frame" data-variant="jacket_210800">通常盤</button>
+              <button type="button" role="tab" id="s3-3-tab-1" aria-selected="false" tabindex="-1" aria-controls="s3-3-frame" data-variant="jacket_210806">Type-B</button>
+              <button type="button" role="tab" id="s3-3-tab-2" aria-selected="false" tabindex="-1" aria-controls="s3-3-frame" data-variant="jacket_210819">Type-C</button>
+            </div>
+          </article>
+
+          <div class="s3-gap" data-s3-gap aria-hidden="true">
+            <p class="s3-gap__rail" lang="ja">ムズイ</p>
+          </div>
+
+          <!-- ============================================================
+               s3-4 — 覚醒 — storm beach — accent storm — THE hero moment.
+               醒 renders at `top: 5%` and spans roughly x:1171–1397px /
+               y:45–275px at the 1440×900 reference viewport (measured via
+               getBoundingClientRect on the actual glyph) — the ONLY figure
+               it geometrically overlaps at that box is the rightmost
+               (orange-haired) girl's head/hair/ribbon, so the silhouette
+               below is hand-traced directly from her outline in
+               jacket_210825 (traced pixel-by-pixel against a clean,
+               glyph-hidden render, then converted to objectBoundingBox
+               fractions of the full scene box — see the sibling
+               `.s3-hero-clip` rule in cinema.css for why the box is sized
+               to the whole scene rather than just the glyph). The outer
+               full-box rect + inner polygon punch a hole wherever the two
+               overlap under an even-odd fill — but that rule must be
+               spelled `clip-rule`, not `fill-rule`: a <path> used as
+               `<clipPath>` content is never painted directly, so
+               `fill-rule` (which only governs actual painting) is
+               silently ignored there, and the applicable property
+               defaults to nonzero — which does NOT create a hole (both
+               subpaths wind the same direction, so the "inside" region is
+               simply their union: the whole box, i.e. no clipping at
+               all). This was previously set as `fill-rule="evenodd"`
+               only, which rendered 醒 fully opaque with no hole ever
+               appearing — confirmed by a real headless render before this
+               fix, then re-traced and re-verified after it (both
+               screenshots on file). Both attributes are kept so an engine
+               that (incorrectly) honors `fill-rule` here still gets the
+               right shape either way. -->
+          <svg width="0" height="0" style="position: absolute;" aria-hidden="true">
+            <defs>
+              <clipPath id="s3-4-clip" clipPathUnits="objectBoundingBox">
+                <path clip-rule="evenodd" fill-rule="evenodd" d="M0,0 L1,0 L1,1 L0,1 Z
+                  M0.783,0.261 L0.788,0.228 L0.806,0.203 L0.818,0.189 L0.832,0.217 L0.846,0.183 L0.868,0.198
+                  L0.885,0.178 L0.906,0.217 L0.931,0.256 L0.939,0.306 L0.924,0.344 L0.896,0.372 L0.854,0.406
+                  L0.812,0.394 L0.792,0.356 L0.779,0.311 Z" />
+              </clipPath>
+            </defs>
+          </svg>
+          <article id="s3-4-frame" class="s3-scene s3-scene--s3-4" data-s3-scene="s3-4" data-pin="true" style="--scene-accent: var(--storm);" role="tabpanel" tabindex="0" aria-labelledby="s3-4-title">
+            <picture class="s3-scene__media is-active" data-variant="jacket_210825" style="--focus: 50% 48%;">
+              <source type="image/avif" srcset="/assets/jackets/jacket_210825-800.avif" sizes="100vw">
+              <source type="image/webp" srcset="/assets/jackets/jacket_210825-800.webp" sizes="100vw">
+              <img src="/assets/jackets/jacket_210825-800.png" width="800" height="576" alt="「覚醒」ジャケット — 嵐の海辺に立つコートの少女たち、両端に巨大な「覚」「醒」" loading="lazy" decoding="async">
+            </picture>
+            <picture class="s3-scene__media" data-variant="jacket_210833" style="--focus: 50% 45%;" aria-hidden="true">
+              <source type="image/avif" srcset="/assets/jackets/jacket_210833-800.avif" sizes="100vw">
+              <source type="image/webp" srcset="/assets/jackets/jacket_210833-800.webp" sizes="100vw">
+              <img src="/assets/jackets/jacket_210833-800.png" width="800" height="587" alt="同曲別ジャケット — 夕光の海辺、振り向く少女たち" loading="lazy" decoding="async">
+            </picture>
+            <div class="s3-scene__scrim" aria-hidden="true"></div>
+            <h3 id="s3-4-title" class="s3-scene__title" aria-label="覚醒" lang="ja">
+              <span class="s3-hero-glyph s3-hero-glyph--left s3-kanji__glyph" aria-hidden="true">覚</span>
+              <div class="s3-hero-clip" aria-hidden="true">
+                <span class="s3-hero-glyph s3-hero-glyph--right s3-kanji__glyph">醒</span>
+              </div>
+            </h3>
+            <div class="s3-switcher" role="tablist" aria-label="収録ジャケット" data-s3-switcher>
+              <button type="button" role="tab" id="s3-4-tab-0" aria-selected="true" tabindex="0" aria-controls="s3-4-frame" data-variant="jacket_210825">通常盤</button>
+              <button type="button" role="tab" id="s3-4-tab-1" aria-selected="false" tabindex="-1" aria-controls="s3-4-frame" data-variant="jacket_210833">Type-B</button>
+            </div>
+          </article>
+
+          <div class="s3-gap" data-s3-gap aria-hidden="true">
+            <p class="s3-gap__rail" lang="ja">何もしてあげられない</p>
+          </div>
+
+          <!-- ============================================================
+               s3-5 — 11という名の永遠の素数 (album) — accent sage — UNPINNED,
+               the chapter's resolution. Full catalog chrome (§6.4).
+               ============================================================ -->
+          <article id="s3-5-frame" class="s3-scene s3-scene--s3-5" data-s3-scene="s3-5" style="--scene-accent: var(--sage);" role="tabpanel" tabindex="0" aria-labelledby="s3-5-title">
+            <picture class="s3-scene__media is-active" data-variant="jacket_kanzen" style="--focus: 50% 40%;">
+              <source type="image/avif" srcset="/assets/jackets/jacket_kanzen-1600.avif 1600w, /assets/jackets/jacket_kanzen-800.avif 800w" sizes="100vw">
+              <source type="image/webp" srcset="/assets/jackets/jacket_kanzen-1600.webp 1600w, /assets/jackets/jacket_kanzen-800.webp 800w" sizes="100vw">
+              <img src="/assets/jackets/jacket_kanzen-1600.jpeg" width="1600" height="1186" alt="アルバム「11という名の永遠の素数」完全生産限定盤 — 赤い制服の五人、セージの枠と筆記体の一文" loading="lazy" decoding="async">
+            </picture>
+            <picture class="s3-scene__media" data-variant="jacket_211053" style="--focus: 50% 40%;" aria-hidden="true">
+              <source type="image/avif" srcset="/assets/jackets/jacket_211053-800.avif" sizes="100vw">
+              <source type="image/webp" srcset="/assets/jackets/jacket_211053-800.webp" sizes="100vw">
+              <img src="/assets/jackets/jacket_211053-800.png" width="800" height="582" alt="同アルバム別盤 — 街角の四人、枠と筆記体" loading="lazy" decoding="async">
+            </picture>
+            <picture class="s3-scene__media" data-variant="jacket_211100" style="--focus: 50% 40%;" aria-hidden="true">
+              <source type="image/avif" srcset="/assets/jackets/jacket_211100-800.avif" sizes="100vw">
+              <source type="image/webp" srcset="/assets/jackets/jacket_211100-800.webp" sizes="100vw">
+              <img src="/assets/jackets/jacket_211100-800.png" width="800" height="589" alt="同アルバム通常盤 — 笑い合う四人、ビル街" loading="lazy" decoding="async">
+            </picture>
+            <div class="s3-scene__scrim" aria-hidden="true"></div>
+
+            <div class="s3-vertical-rail" data-s3-kanji>
+              <h3 id="s3-5-title" class="s3-scene__title" aria-label="11という名の永遠の素数" lang="ja">
+                <span class="s3-kanji" data-s3-parallax aria-hidden="true">
+                  <span class="s3-kanji__glyph">1</span><span class="s3-kanji__glyph">1</span><span class="s3-kanji__glyph">と</span><span class="s3-kanji__glyph">い</span><span class="s3-kanji__glyph">う</span><span class="s3-kanji__glyph">名</span><span class="s3-kanji__glyph">の</span><span class="s3-kanji__glyph">永</span><span class="s3-kanji__glyph">遠</span><span class="s3-kanji__glyph">の</span><span class="s3-kanji__glyph">素</span><span class="s3-kanji__glyph">数</span>
+                </span>
+              </h3>
+            </div>
+
+            <p class="s3-catalog-number catalog">SRCL-XXXXX</p>
+            <p class="s3-cursive font-caption-italic" lang="en">An eternal prime number named 11.</p>
+
+            <div class="s3-switcher" role="tablist" aria-label="収録ジャケット" data-s3-switcher>
+              <button type="button" role="tab" id="s3-5-tab-0" aria-selected="true" tabindex="0" aria-controls="s3-5-frame" data-variant="jacket_kanzen">完全生産限定盤</button>
+              <button type="button" role="tab" id="s3-5-tab-1" aria-selected="false" tabindex="-1" aria-controls="s3-5-frame" data-variant="jacket_211053">初回仕様限定盤</button>
+              <button type="button" role="tab" id="s3-5-tab-2" aria-selected="false" tabindex="-1" aria-controls="s3-5-frame" data-variant="jacket_211100">通常盤</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           S4 — Chapter.4 ラフと画材 (Register A, sepia/storm register).
+           Wave 5: full build (§7 S4). Paper is 2% warmer here
+           (--paper-warm, set on #s4 in motion.css) — "you're touching the
+           raw sheet." The intimate rough + closing plate reuse plate.css's
+           existing `.plate-block` shape untouched (plates.ts's existing
+           global selectors already wire their bloom-reveal + any margin
+           notes — see src/scripts/s4.ts's docblock); this wave's only new
+           component is the materials-as-typography table (src/styles/s4.css).
+           ================================================================== -->
+      <section id="s4" class="chapter-section" aria-labelledby="s4-heading">
+        <div class="wash-title" style="--wash-color: var(--storm);">
+          <div class="wash-title__swatch wash-blob wash-blob--b" data-bloom aria-hidden="true"></div>
+          <p class="wash-title__kicker" lang="en">Chapter.4</p>
+          <h2 id="s4-heading" class="wash-title__heading" data-bloom><span lang="ja">ラフと画材</span></h2>
+          <span class="wash-title__gloss" lang="en">Rough &amp; materials</span>
+        </div>
+
+        <!-- plate_p002 — the yellow pencil underdrawing of the cover.
+             Intimate small plate (≤420px), huge whitespace. No caption:
+             its manifest `alt` carries no source citation, matching the
+             p020/p097 no-caption rule established in Wave 3. -->
+        <div class="plate-block plate-block--intimate s4-rough">
+          <figure class="plate-block__figure cols-plate-intimate" data-bloom>
+            <picture>
+              <source type="image/avif" srcset="/assets/plates/plate_p002-800.avif" sizes="(min-width: 1080px) 380px, 62vw">
+              <source type="image/webp" srcset="/assets/plates/plate_p002-800.webp" sizes="(min-width: 1080px) 380px, 62vw">
+              <img src="/assets/plates/plate_p002-800.png" width="1595" height="2200" alt="表紙イラストの下描き — 黄色い色鉛筆の線だけの少女と窓辺" loading="lazy" decoding="async" style="aspect-ratio: 1595 / 2200;">
+            </picture>
+          </figure>
+        </div>
+
+        <!-- Materials still-life AS TYPOGRAPHY: the book's own colophon
+             list, catalog-mono, generous spacing, sepia/storm register.
+             Hand-voice notes are in English (this wave's brief: no new
+             Japanese sentences beyond the deck/manifest); each reuses the
+             existing `.margin-note[data-dwell]` mechanic exactly like a
+             plate's margin note (plates.ts's dwell wiring is selector-global,
+             not scoped to plate-block, so this needs no new dwell code). -->
+        <div class="s4-materials">
+          <p class="s4-materials__kicker catalog" lang="en">Materials — from the colophon</p>
+          <table class="materials-table" data-bloom>
+            <caption class="visually-hidden">呉竹漫画ブラック・Gペン・ドクターマーチン ピグメント(ホワイト)・シリウス水彩紙</caption>
+            <thead>
+              <tr>
+                <th scope="col" class="visually-hidden">No.</th>
+                <th scope="col" class="visually-hidden">Material</th>
+                <th scope="col" class="visually-hidden">Role</th>
+                <th scope="col" class="visually-hidden">Note</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="materials-table__row">
+                <td class="materials-table__no catalog">01</td>
+                <td class="materials-table__name" lang="ja">呉竹漫画ブラック</td>
+                <td class="materials-table__role catalog" lang="en">ink</td>
+                <td class="materials-table__note">
+                  <span class="margin-note margin-note--green" data-dwell><span class="margin-note__text" style="--rot: -1.4deg;" lang="en">the black that never fades</span></span>
+                </td>
+              </tr>
+              <tr class="materials-table__row">
+                <td class="materials-table__no catalog">02</td>
+                <td class="materials-table__name" lang="ja">Gペン</td>
+                <td class="materials-table__role catalog" lang="en">pen nib</td>
+                <td class="materials-table__note">
+                  <span class="margin-note margin-note--red" data-dwell><span class="margin-note__text" style="--rot: 1.2deg;" lang="en">line weight lives in the wrist</span></span>
+                </td>
+              </tr>
+              <tr class="materials-table__row">
+                <td class="materials-table__no catalog">03</td>
+                <td class="materials-table__name" lang="ja">ドクターマーチン ピグメント(ホワイト)</td>
+                <td class="materials-table__role catalog" lang="en">highlight</td>
+                <td class="materials-table__note">
+                  <span class="margin-note margin-note--blue" data-dwell><span class="margin-note__text" style="--rot: -1.6deg;" lang="en">one dot, and the whole eye lights up</span></span>
+                </td>
+              </tr>
+              <tr class="materials-table__row">
+                <td class="materials-table__no catalog">04</td>
+                <td class="materials-table__name" lang="ja">シリウス水彩紙</td>
+                <td class="materials-table__role catalog" lang="en">paper</td>
+                <td class="materials-table__note">
+                  <span class="margin-note margin-note--green" data-dwell><span class="margin-note__text" style="--rot: 1.3deg;" lang="en">the sheet under everything</span></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- plate_p142 — cover artwork + colophon page: the book closes
+             before the finale. Closing plate, solo layout, extra lead-out
+             rhythm (`.plate-block--closing`, plate.css). -->
+        <div class="plate-block plate-block--solo plate-block--closing">
+          <figure class="plate-block__figure cols-plate-solo" data-bloom>
+            <picture>
+              <source type="image/avif" srcset="/assets/plates/plate_p142-1600.avif 1600w, /assets/plates/plate_p142-800.avif 800w" sizes="(min-width: 1080px) 50vw, 88vw">
+              <source type="image/webp" srcset="/assets/plates/plate_p142-1600.webp 1600w, /assets/plates/plate_p142-800.webp 800w" sizes="(min-width: 1080px) 50vw, 88vw">
+              <img src="/assets/plates/plate_p142-1600.png" width="1631" height="2200" alt="見返しの表紙アートワークと奥付ページ" loading="lazy" decoding="async" style="aspect-ratio: 1631 / 2200;">
+            </picture>
+            <figcaption class="plate-caption plate-caption--latin plate-caption--right" lang="en">The book closes.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           S5 — 奥付 / Finale (Register A → night). Wave 5: full build
+           (§7 S5, §6.1 moon payoff, §6.6 postcard). Colophon credits sit
+           on paper; scrolling through `.s5-dusk` slowly deepens the sky to
+           --night while the found moon phases + obi line assemble
+           (behavior: src/scripts/finale/dusk.ts, a live subscription to
+           moon/state.ts — the same store the moon button and chapter rail
+           already read); the Postcard returns to paper below it, in the
+           same section (§7 S5 folds the postcard into the finale — it has
+           no separate rail entry or moon-position keyframe of its own).
+           ================================================================== -->
+      <section id="s5" class="chapter-section" aria-labelledby="s5-heading">
+        <div class="wash-title" style="--wash-color: var(--night-12);">
+          <div class="wash-title__swatch wash-blob wash-blob--c" data-bloom aria-hidden="true"></div>
+          <p class="wash-title__kicker" lang="en">Finale</p>
+          <!-- CD (Wave 5 review): English gloss lives in the heading only,
+               visually hidden — the on-paper opener is purely 奥付. -->
+          <h2 id="s5-heading" class="wash-title__heading" data-bloom><span lang="ja">奥付</span> <span class="visually-hidden" lang="en">Colophon</span></h2>
+        </div>
+
+        <!-- Colophon-style credits: mono + caption voices, generous
+             spacing. plate_p001 (the cover with title lettering) sits
+             beside them as a tiny artifact — the physical object itself. -->
+        <div class="colophon">
+          <figure class="colophon__artifact" data-bloom>
+            <picture>
+              <source type="image/avif" srcset="/assets/plates/plate_p001-800.avif">
+              <source type="image/webp" srcset="/assets/plates/plate_p001-800.webp">
+              <img src="/assets/plates/plate_p001-800.png" width="1648" height="2200" alt="『真昼の月』表紙(題字入り)" loading="lazy" decoding="async" style="aspect-ratio: 1648 / 2200;">
+            </picture>
+          </figure>
+          <div class="colophon__text">
+            <p class="colophon__title font-hand">真昼の月</p>
+            <p class="colophon__subtitle">
+              <span class="colophon__subtitle-jp" lang="ja">白身魚 自選イラスト集</span>
+              <span class="colophon__subtitle-en font-caption-italic" lang="en">Selected illustrations by Shiromizakana</span>
+            </p>
+            <p class="colophon__credit catalog-jp">All artwork © 白身魚(堀口悠紀子)/『真昼の月』復刊ドットコム 2020 — unofficial tribute</p>
+            <p class="colophon__meta catalog" lang="en">Web edition — fan-made, non-commercial, 2026</p>
+          </div>
+        </div>
+
+        <!-- Dusk: across ~one viewport of scroll, paper deepens to night —
+             not a hard section break, a slow dusk (behavior: finale/dusk.ts).
+             Resting/no-JS/reduced-motion state is simply --night already
+             with the payoff content fully visible (progressive-enhancement
+             pattern used throughout this codebase — see s5.css's docblock);
+             full motion arms a paper-colored overlay to fade out instead. -->
+        <div class="s5-dusk" data-s5-dusk>
+          <div class="s5-dusk__sky" data-s5-sky>
+            <div class="s5-dusk__paper" data-s5-paper aria-hidden="true"></div>
+            <div class="s5-payoff" data-s5-payoff>
+              <div class="s5-payoff__moon">
+                <svg class="s5-hero-moon" data-s5-hero-moon viewBox="-60 -60 120 120" width="132" height="132" aria-hidden="true" focusable="false">
+                  <circle class="s5-hero-moon__ring" cx="0" cy="0" r="46" />
+                  <mask id="s5-moon-mask">
+                    <rect x="-60" y="-60" width="120" height="120" fill="#000" />
+                    <circle cx="0" cy="0" r="46" fill="#fff" />
+                    <circle data-s5-moon-shadow cx="0" cy="0" r="46" fill="#000" />
+                  </mask>
+                  <circle class="s5-hero-moon__disc" cx="0" cy="0" r="46" mask="url(#s5-moon-mask)" />
+                </svg>
+                <div class="s5-moon-ticks" data-s5-ticks aria-hidden="true"></div>
+                <p class="s5-moon-counter catalog" data-s5-counter lang="en"></p>
+                <p class="visually-hidden" data-s5-status role="status"></p>
+              </div>
+              <p class="s5-obi" lang="ja">あなただけが、いつも私を見つけてくれる。</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- The Postcard (§6.6), back on paper. A faithful 読者カード:
+             dashed border (the book's own postcard style — explicitly
+             allowed here), mono POST CARD header, ペンネーム (P.N.) +
+             感想 fields, a 料金受取人払 stamp block. "送る" IS the mailto:
+             link itself (behavior: finale/postcard.ts), so no <form>/
+             submit plumbing is needed — see that file's docblock. -->
+        <section id="s5-postcard" class="postcard-section" aria-labelledby="postcard-heading">
+          <h3 id="postcard-heading" class="visually-hidden">読者カード</h3>
+          <div class="postcard" data-postcard>
+            <div class="postcard__row postcard__row--header">
+              <p class="postcard__title catalog-jp">
+                <span lang="ja">読者カード</span>
+                <span class="postcard__title-en" lang="en">POST CARD</span>
+              </p>
+              <div class="postcard__permit catalog-jp" aria-hidden="true">
+                <span lang="ja">料金受取人払</span>
+              </div>
+            </div>
+
+            <div class="postcard__field-group">
+              <label class="postcard__field" for="postcard-name">
+                <span class="postcard__field-label"><span lang="ja">ペンネーム</span> <span lang="en">(P.N.)</span></span>
+                <input id="postcard-name" name="name" type="text" class="postcard__input" data-postcard-name autocomplete="off">
+              </label>
+
+              <label class="postcard__field postcard__field--message" for="postcard-message">
+                <span class="postcard__field-label" lang="ja">感想</span>
+                <textarea id="postcard-message" name="message" class="postcard__textarea" data-postcard-message rows="5"></textarea>
+              </label>
+            </div>
+
+            <div class="postcard__row postcard__row--footer">
+              <p class="postcard__note" lang="ja">切手は不要なので送ってね!</p>
+              <a class="postcard__send" href="mailto:" data-postcard-send aria-label="送る — send">
+                <span class="postcard__send-label" lang="ja">送る</span>
+              </a>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p class="site-footer__credit catalog-jp">All artwork © 白身魚(堀口悠紀子)/『真昼の月』復刊ドットコム 2020 — unofficial tribute</p>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

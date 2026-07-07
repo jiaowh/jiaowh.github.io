@@ -1,0 +1,223 @@
+/**
+ * 真昼の月 — chapter rail (§4). Fixed left edge, vertical-rl, current
+ * chapter name in Hand voice + 1px progress thread stitching downward.
+ * Below 1080px this becomes a 2px top thread + chapter mark (§4/§9,
+ * Wave 6) — same nav, same six links (full keyboard reachability is
+ * non-negotiable per §8), re-laid-out horizontally rather than hidden.
+ */
+
+.chapter-rail {
+  position: fixed;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: var(--rail-width);
+  z-index: var(--z-rail);
+}
+
+.chapter-rail__thread,
+.chapter-rail__progress {
+  position: absolute;
+  inset-block: 8vh;
+  inset-inline-start: 50%;
+  margin-inline-start: -0.5px; /* centers the 1px line without a transform, keeping transform free for scaleY */
+  width: 1px;
+  transform-origin: top center;
+}
+
+.chapter-rail__thread {
+  background: var(--ink-20);
+  transform: scaleY(1);
+}
+
+/* Armed by JS to scaleY(0) so chapter-rail.ts can play the "first stitch"
+   grow-in on load in place of a scroll hint (§7 S0: "no scroll hint — the
+   progress thread's first stitch animates downward instead"). GSAP then
+   tweens scaleY back to 1 — kept transform-only (no translateX mixed in)
+   so GSAP's transform decomposition has nothing else to preserve. */
+html.js .chapter-rail__thread {
+  transform: scaleY(0);
+}
+
+.chapter-rail__progress {
+  background: var(--title-green);
+  transform: scaleY(var(--rail-progress, 0));
+}
+
+.chapter-rail__list {
+  position: absolute;
+  inset-block: 8vh;
+  inset-inline: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.chapter-rail__item {
+  position: relative;
+  display: flex;
+}
+
+.chapter-rail__link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.4rem;
+  text-decoration: none;
+  color: var(--ink-soft);
+  transition: color var(--dur-hover) var(--ease-soak);
+}
+
+.chapter-rail__link:hover {
+  color: var(--ink);
+}
+
+.chapter-rail__index {
+  font-family: var(--font-mono);
+  font-size: var(--type-catalog);
+  letter-spacing: var(--type-catalog-tracking);
+}
+
+.chapter-rail__link[aria-current='true'] .chapter-rail__index {
+  color: var(--title-green);
+}
+
+/* Moon-found phase mark (§6.1: "a moon phase appears in the progress
+   thread"). Quiet by default — most visitors will not notice it until
+   they have actually found that section's moon. */
+.chapter-rail__item[data-moon-found='true'] .chapter-rail__index::after {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 4px;
+  margin: 0.35em auto 0;
+  border-radius: 50%;
+  background: var(--title-green);
+}
+
+.chapter-rail__name {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: var(--font-hand);
+  font-size: var(--type-caption);
+  color: var(--ink);
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height var(--dur-caption) var(--ease-soak), opacity var(--dur-caption) var(--ease-soak);
+}
+
+.chapter-rail__link[aria-current='true'] .chapter-rail__name {
+  max-height: 16em;
+  opacity: 1;
+}
+
+/* ---------------------------------------------------------------------
+ * Mobile/tablet (§4/§9): "becomes a 2px top thread + chapter mark."
+ * Threshold matches exactly where the desktop rail would otherwise hide
+ * (1080px) so there is never a gap width where no chapter nav exists —
+ * previously the desktop rail hid at <1080px but had no replacement,
+ * leaving the whole 768–1079px band (which includes the spec's own named
+ * 768 tablet breakpoint) with no chapter navigation at all.
+ *
+ * Same list, same links — reflowed from a vertical always-visible column
+ * into a horizontal row of small catalog-mono numerals (mirrors the
+ * desktop numeral chrome exactly, just re-oriented); only the CURRENT
+ * chapter's Hand-voice name expands into view beside its numeral, exactly
+ * matching the desktop's own aria-current reveal, just horizontal instead
+ * of vertical-rl. Nothing is removed from the tab order.
+ *
+ * This block must stay AFTER every base rule above it: same-specificity
+ * selectors (e.g. the plain `.chapter-rail__list` here vs. the plain
+ * `.chapter-rail__list` above) resolve by source order regardless of one
+ * being inside a media query, so placing this earlier in the file (as a
+ * first draft of this block briefly did) let the desktop rules silently
+ * win at every width — confirmed via a real headless render, where the
+ * whole list collapsed to 0 height. Every other responsive block in this
+ * codebase (plate.css, cinema.css, s4.css, s5.css) already keeps its
+ * `@media` block last for exactly this reason.
+ * ------------------------------------------------------------------- */
+@media (max-width: 1079px) {
+  .chapter-rail {
+    inset-block: auto;
+    inset-inline: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+    padding-block: 0.6rem 0.55rem;
+    padding-inline: var(--margin);
+  }
+
+  /* Soft paper-toned fade behind the bar — legibility over whatever
+     content has scrolled underneath a fixed overlay, without a hard-edged
+     "card" (hard ban). Cinema mode re-tints this dark (cinema.css). */
+  .chapter-rail::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset-inline: 0;
+    inset-block-start: 0;
+    width: 100%;
+    height: calc(100% + 1.5rem);
+    background: linear-gradient(to bottom, var(--paper) 60%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .chapter-rail__thread,
+  .chapter-rail__progress {
+    inset-block: auto;
+    inset-inline: 0;
+    top: 0;
+    left: 0;
+    margin-inline-start: 0;
+    width: 100%;
+    height: 2px;
+    transform-origin: left center;
+  }
+
+  .chapter-rail__progress {
+    transform: scaleX(var(--rail-progress, 0));
+  }
+
+  /* Armed base state (mirrors the desktop scaleY(0) rule) — playInitialStitch()
+     detects this orientation and tweens scaleX instead (chapter-rail.ts). */
+  html.js .chapter-rail__thread {
+    transform: scaleX(0);
+  }
+
+  .chapter-rail__list {
+    position: static;
+    inset: auto;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 0.15em 0.9rem;
+    margin-block-start: 0.85rem;
+  }
+
+  .chapter-rail__link {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.5em;
+    padding: 0.3rem;
+  }
+
+  .chapter-rail__name {
+    writing-mode: horizontal-tb;
+    text-orientation: initial;
+    max-width: 0;
+    max-height: none;
+    white-space: nowrap;
+    transition: max-width var(--dur-caption) var(--ease-soak), opacity var(--dur-caption) var(--ease-soak);
+  }
+
+  .chapter-rail__link[aria-current='true'] .chapter-rail__name {
+    max-width: 20em;
+    opacity: 1;
+  }
+}

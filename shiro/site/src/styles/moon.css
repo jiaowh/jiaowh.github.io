@@ -1,0 +1,132 @@
+/**
+ * 真昼の月 — the moon system (§6.1). A single fixed-position accessible
+ * button that relocates per section and drifts on scroll. Positioning is
+ * applied entirely via `transform` (see src/scripts/moon/moon.ts) so the
+ * continuous parallax drift never touches layout — §10 "transforms/opacity
+ * only".
+ */
+
+.moon-button {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-moon);
+  width: calc(var(--moon-size) * 2.6);
+  height: calc(var(--moon-size) * 2.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--moon);
+  will-change: transform;
+}
+
+/* §6.1/§2: the crescent is EXACTLY --moon (#E9E4D8) — ~3% contrast against
+   --paper, intentionally almost missable. No stroke, no shadow, no opacity
+   dimming (opacity < 1 would darken it against the lighter paper).
+   Hover/focus feedback is scale only. */
+.moon-button svg {
+  width: var(--moon-size);
+  height: var(--moon-size);
+  transition: transform var(--dur-hover) var(--ease-soak);
+}
+
+.moon-button:hover svg,
+.moon-button:focus-visible svg {
+  transform: scale(1.08);
+}
+
+.moon-button[data-found='true'] svg {
+  color: var(--title-green);
+}
+
+/* ---------------------------------------------------------------------
+ * Bloom ripple — transient "found" feedback, reuses the organic bloom
+ * language at a small scale. Created/destroyed by bloom-reveal.ts.
+ * ------------------------------------------------------------------- */
+.bloom-ripple {
+  position: fixed;
+  z-index: var(--z-moon-toast);
+  pointer-events: none;
+  border-radius: 50%;
+  background: var(--title-green);
+  mix-blend-mode: multiply;
+}
+
+/* ---------------------------------------------------------------------
+ * Moon toast — Hand-voice microcopy + catalog-mono counter on find.
+ *
+ * F8 fix: this was a bordered, centered card (`background: var(--paper);
+ * border: 1px solid...`) — bordered cards are a hard ban (§ "no cards
+ * with drop shadows" / cookie-cutter chrome). Restyled as bare floating
+ * text: no background, no border, no padding box. moon.ts positions it
+ * directly next to the moon's own on-screen position (computed from the
+ * button's rect at click time) instead of a fixed bottom-center dock, so
+ * it reads as the moon itself softly saying something, not a UI toast.
+ * A soft paper-toned text-shadow stands in for a "bloom" halo behind the
+ * glyphs — legible over both the paper register and Ch.3's dark scenes
+ * without ever becoming a box. Dissolves via opacity + a gentle upward
+ * drift (§5's "everything blooms, settles, soaks").
+ * ------------------------------------------------------------------- */
+.moon-toast {
+  position: fixed;
+  z-index: var(--z-moon-toast);
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3em;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  text-shadow:
+    0 0 10px var(--paper),
+    0 0 18px var(--paper);
+  transition: opacity var(--dur-bloom) var(--ease-soak), transform var(--dur-bloom) var(--ease-soak);
+}
+
+.moon-toast.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.moon-toast__line {
+  margin: 0;
+  font-family: var(--font-hand);
+  font-size: 1.05rem;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.moon-toast__counter {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--type-catalog);
+  letter-spacing: var(--type-catalog-tracking);
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+/* Over Ch.3's dark scenes the paper-toned halo would read as a odd pale
+   smudge and the default --ink line color would lose contrast — the
+   cinema register inverts both to match its own white-on-dark palette
+   (chapter-rail.ts sets data-rail-mode; moon.ts mirrors that same "is s3
+   current" check onto the toast via data-cinema). */
+.moon-toast[data-cinema='true'] {
+  text-shadow:
+    0 0 10px rgba(10, 12, 16, 0.9),
+    0 0 20px rgba(10, 12, 16, 0.75);
+}
+
+.moon-toast[data-cinema='true'] .moon-toast__line {
+  color: #fff;
+}
+
+.moon-toast[data-cinema='true'] .moon-toast__counter {
+  color: rgba(255, 255, 255, 0.72);
+}

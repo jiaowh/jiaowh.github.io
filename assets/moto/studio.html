@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MOTO VAULT Studio</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.js"></script>
+<style>
+:root{--paper:#f2ead8;--ink:#3a2c1a;--dim:#8a7a5c;--line:#c9b995;--red:#b0413e}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Klee One','Yu Gothic UI',system-ui,sans-serif;background:var(--paper);color:var(--ink);
+  display:grid;grid-template-rows:52px 1fr;grid-template-columns:1fr 460px;height:100vh;overflow:hidden}
+header{grid-column:1/3;display:flex;align-items:center;gap:12px;padding:0 14px;border-bottom:2px solid var(--line);background:#efe6cf}
+header h1{font-size:15px;letter-spacing:.14em}
+header .hint{font-size:11px;color:var(--dim)}
+select,input,textarea,button{font-family:inherit;font-size:13px;color:var(--ink);background:#fffdf4;
+  border:1px solid var(--line);border-radius:3px;padding:5px 8px}
+button{cursor:pointer}button:hover{background:#fff4d8}
+button.primary{background:var(--ink);color:var(--paper);border-color:var(--ink);font-weight:600;padding:6px 18px}
+button.primary:disabled{opacity:.5;cursor:wait}
+#map{grid-row:2;grid-column:1}
+#side{grid-row:2;grid-column:2;overflow-y:auto;padding:14px;border-left:2px solid var(--line);background:#f6efdd}
+.sec{margin-bottom:18px}
+.sec h2{font-size:12px;letter-spacing:.2em;color:var(--dim);border-bottom:1px dashed var(--line);padding-bottom:4px;margin-bottom:8px}
+.row{display:flex;gap:6px;margin-bottom:6px;align-items:center}
+.row label{font-size:11px;color:var(--dim);width:52px;flex:none}
+.row input,.row textarea{flex:1}
+textarea{resize:vertical;min-height:40px}
+.stopcard{background:#fffdf4;border:1px solid var(--line);border-radius:4px;padding:9px;margin-bottom:10px;position:relative}
+.stopcard.sel{border-color:var(--red);box-shadow:0 0 0 2px rgba(176,65,62,.25)}
+.stopcard .num{position:absolute;left:-9px;top:-9px;width:22px;height:22px;border-radius:50%;background:var(--ink);
+  color:var(--paper);font-size:11px;display:flex;align-items:center;justify-content:center}
+.stopcard .tools{position:absolute;right:6px;top:6px;display:flex;gap:4px}
+.stopcard .tools button{padding:1px 7px;font-size:11px}
+.geo{font-size:11px;color:var(--dim);margin:2px 0 4px}
+.geo.none{color:#b06a2a}
+.thumbs{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.thumbs .t{position:relative;width:64px}
+.thumbs img{width:64px;height:48px;object-fit:cover;border:1px solid var(--line);border-radius:2px;display:block}
+.thumbs .vid{width:64px;height:48px;display:flex;align-items:center;justify-content:center;background:#241f16;color:#e8d9a8;
+  font-size:9px;text-align:center;border-radius:2px;padding:2px;overflow:hidden;word-break:break-all}
+.thumbs .x{position:absolute;top:-6px;right:-6px;width:16px;height:16px;border-radius:50%;background:var(--red);
+  color:#fff;border:none;font-size:9px;line-height:1;padding:0}
+.thumbs .t.dropped img,.thumbs .t.dropped .vid{opacity:.25}
+.srch{position:relative}
+.srchres{position:absolute;z-index:5;left:0;right:0;top:100%;background:#fffdf4;border:1px solid var(--line);
+  box-shadow:0 6px 16px rgba(60,40,10,.25);max-height:180px;overflow-y:auto}
+.srchres button{display:block;width:100%;text-align:left;border:none;border-bottom:1px solid #eee2c8;font-size:12px}
+.srchres small{color:var(--dim)}
+#report{white-space:pre-wrap;font-size:11px;background:#241f16;color:#d8c69a;border-radius:4px;padding:10px;
+  display:none;max-height:200px;overflow-y:auto}
+#kmzlist button{margin:2px 4px 2px 0;font-size:11px}
+#dropzone{border:2px dashed var(--line);border-radius:5px;background:#fffdf4;padding:18px 12px;text-align:center;
+  font-size:13px;color:var(--dim);cursor:pointer;line-height:1.7}
+#dropzone.over{border-color:var(--red);background:#fff4d8;color:var(--ink)}
+#dropzone small{font-size:10px}
+.pill{font-size:10px;background:#e5d9b8;border-radius:8px;padding:1px 8px;color:var(--dim)}
+.mkS{width:22px;height:22px;border-radius:50%;background:#fffdf4;border:2px solid var(--red);color:var(--red);
+  display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;cursor:pointer;
+  box-shadow:0 2px 5px rgba(40,25,5,.35)}
+.mkS.sel{background:var(--red);color:#fff;transform:scale(1.2)}
+</style>
+</head>
+<body>
+<header>
+  <h1>MOTO VAULT STUDIO</h1>
+  <select id="jsel"><option value="">＋ 新しい旅</option></select>
+  <span class="hint">inbox: <span id="inboxcount">…</span> files · 地図クリックで選択中の停留点を配置 · ピンはドラッグ可</span>
+  <span style="flex:1"></span>
+  <button class="primary" id="save">保存 SAVE</button>
+</header>
+<div id="map"></div>
+<div id="side">
+  <div class="sec"><h2>旅 JOURNEY</h2>
+    <div class="row"><label>id</label><input id="f-id" placeholder="hokkaido-2026 (小文字英数と-)"></div>
+    <div class="row"><label>題</label><input id="f-title" placeholder="旅のタイトル"></div>
+    <div class="row"><label>期間</label><input id="f-start" type="date"><input id="f-end" type="date"></div>
+    <div class="row"><label>色</label><input id="f-color" type="color" value="#b0413e" style="height:30px;width:60px;padding:2px">
+      <span class="pill">ルートとスタンプの色</span></div>
+    <div class="row"><label>概要</label><textarea id="f-summary"></textarea></div>
+  </div>
+  <div class="sec"><h2>写真・動画を追加 ADD MEDIA</h2>
+    <div id="dropzone">ここにファイルをドロップ / クリックで選択<br>
+      <small>inbox に保存される（HEIC対応）。追加したら「取り込み直す」で停留点を作り直せる</small>
+      <input type="file" id="upl" multiple accept="image/*,video/*,.heic,.heif,.mov,.mp4" hidden></div>
+    <div class="row" style="margin-top:6px">
+      <div id="uplstatus" style="flex:1;font-size:11px;color:var(--dim)"></div>
+      <button id="rescan" style="font-size:11px">↻ 取り込み直す</button>
+    </div>
+  </div>
+  <div class="sec"><h2>停留点 STOPS <button id="addstop" style="float:right;font-size:11px">＋ 追加</button></h2>
+    <div id="stops"></div>
+  </div>
+  <div class="sec"><h2>KMZ 取り込み (Google My Maps)</h2>
+    <div class="row"><input type="file" id="kmz" accept=".kmz,.kml" style="flex:1"></div>
+    <div id="kmzlist"></div>
+  </div>
+  <div class="sec"><h2>結果 REPORT</h2><div id="report"></div></div>
+</div>
+<script>
+'use strict';
+const $=s=>document.querySelector(s);
+const api=(p,body)=>fetch(p,body?{method:'POST',headers:{'Content-Type':'application/json'},
+  body:JSON.stringify(body)}:{}).then(r=>r.json());
+
+let STATE={journeys:[],letters:[],inbox:{clusters:[],count:0}};
+let J=null;            // journey being edited
+let sel=-1;            // selected stop index
+let mks=[];            // maplibre markers
+
+const map=new maplibregl.Map({container:'map',center:[138.7,36.5],zoom:5,attributionControl:false,
+  style:{version:8,sources:{c:{type:'raster',tiles:['https://a.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png',
+    'https://b.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png'],tileSize:256,
+    attribution:'© OpenStreetMap contributors © CARTO'}},layers:[{id:'c',type:'raster',source:'c'}]}});
+map.addControl(new maplibregl.AttributionControl({compact:true}));
+map.on('click',e=>{
+  if(sel<0||!J)return;
+  J.stops[sel].lat=+e.lngLat.lat.toFixed(6);J.stops[sel].lng=+e.lngLat.lng.toFixed(6);
+  renderStops();renderMarkers();
+});
+
+function newJourney(){
+  const clusters=STATE.inbox.clusters;
+  const stops=clusters.length?clusters.map((c,i)=>({
+    name:`Stop ${i+1}`,lat:c.gps?+c.gps[0].toFixed(6):null,lng:c.gps?+c.gps[1].toFixed(6):null,
+    date:c.start.slice(0,10),note:'',
+    media:c.files.map(f=>({pend:f.name,kind:f.kind}))
+  })):[{name:'Stop 1',lat:null,lng:null,date:'',note:'',media:[]}];
+  return{id:'',title:'',start:clusters[0]?clusters[0].start.slice(0,10):'',end:'',
+    color:'#b0413e',summary:'',stops};
+}
+function loadJourney(id){
+  const src=STATE.journeys.find(j=>j.id===id);
+  J=src?JSON.parse(JSON.stringify(src)):newJourney();
+  delete J.legs;
+  sel=J.stops.length?0:-1;
+  $('#f-id').value=J.id||'';$('#f-id').disabled=!!src;
+  $('#f-title').value=J.title||'';$('#f-start').value=J.start||'';$('#f-end').value=J.end||'';
+  $('#f-color').value=J.color||'#b0413e';$('#f-summary').value=J.summary||'';
+  renderStops();renderMarkers(true);
+}
+function bindMeta(){
+  $('#f-id').oninput=e=>J.id=e.target.value.trim();
+  $('#f-title').oninput=e=>J.title=e.target.value;
+  $('#f-start').oninput=e=>J.start=e.target.value;
+  $('#f-end').oninput=e=>J.end=e.target.value;
+  $('#f-color').oninput=e=>{J.color=e.target.value;renderMarkers();};
+  $('#f-summary').oninput=e=>J.summary=e.target.value;
+}
+function mediaThumb(m,si,mi){
+  const dropped=m._drop?' dropped':'';
+  const inner=m.pend
+    ?(m.kind==='img'?`<img src="/inbox/${encodeURIComponent(m.pend)}">`:`<span class="vid">🎬 ${m.pend}</span>`)
+    :(m.img?`<img src="/thumb/${m.img}.webp">`:`<span class="vid">🎬 ${m.video}</span>`);
+  return`<span class="t${dropped}">${inner}<button class="x" data-drop="${si}|${mi}" title="除外">✕</button></span>`;
+}
+function renderStops(){
+  $('#stops').innerHTML=J.stops.map((s,i)=>`
+    <div class="stopcard${i===sel?' sel':''}" data-i="${i}">
+      <span class="num">${i+1}</span>
+      <span class="tools">
+        <button data-up="${i}" title="上へ">↑</button><button data-dn="${i}" title="下へ">↓</button>
+        <button data-mg="${i}" title="前の停留点と合体">⇤</button><button data-del="${i}" title="削除">🗑</button>
+      </span>
+      <div class="row srch"><label>名前</label><input data-name="${i}" value="${(s.name||'').replace(/"/g,'&quot;')}">
+        <button data-srch="${i}" title="地名検索">🔎</button><div class="srchres" id="sr-${i}" hidden></div></div>
+      <div class="geo ${s.lat==null?'none':''}">${s.lat==null
+        ?'⚠ 未配置 — 🔎検索するか、このカードを選んで地図をクリック'
+        :`📍 ${s.lat.toFixed(4)}, ${s.lng.toFixed(4)}（ピンをドラッグで微調整)`}</div>
+      <div class="row"><label>日付</label><input type="date" data-date="${i}" value="${s.date||''}">
+        <label style="width:26px">メモ</label><input data-note="${i}" value="${(s.note||'').replace(/"/g,'&quot;')}" style="flex:2"></div>
+      <div class="thumbs">${(s.media||[]).map((m,k)=>mediaThumb(m,i,k)).join('')}</div>
+    </div>`).join('');
+  $('#stops').querySelectorAll('.stopcard').forEach(c=>{
+    c.addEventListener('click',e=>{
+      if(e.target.dataset.drop||e.target.dataset.del||e.target.dataset.up||e.target.dataset.dn
+        ||e.target.dataset.mg||e.target.dataset.srch)return;
+      sel=+c.dataset.i;
+      $('#stops').querySelectorAll('.stopcard').forEach(x=>x.classList.toggle('sel',+x.dataset.i===sel));
+      renderMarkers();
+    });
+  });
+  const on=(attr,fn)=>$('#stops').querySelectorAll(`[data-${attr}]`).forEach(el=>{
+    const i=+el.dataset[attr];
+    if(attr==='name'||attr==='date'||attr==='note')el.oninput=()=>fn(i,el.value);
+    else el.onclick=ev=>{ev.stopPropagation();fn(i,el);};
+  });
+  on('name',(i,v)=>J.stops[i].name=v);
+  on('date',(i,v)=>J.stops[i].date=v);
+  on('note',(i,v)=>J.stops[i].note=v);
+  on('del',i=>{J.stops.splice(i,1);sel=Math.min(sel,J.stops.length-1);renderStops();renderMarkers();});
+  on('up',i=>{if(i>0){[J.stops[i-1],J.stops[i]]=[J.stops[i],J.stops[i-1]];renderStops();renderMarkers();}});
+  on('dn',i=>{if(i<J.stops.length-1){[J.stops[i+1],J.stops[i]]=[J.stops[i],J.stops[i+1]];renderStops();renderMarkers();}});
+  on('mg',i=>{if(i>0){const s=J.stops.splice(i,1)[0];J.stops[i-1].media.push(...(s.media||[]));renderStops();renderMarkers();}});
+  on('srch',async i=>{
+    const q=J.stops[i].name;if(!q)return;
+    const box=$('#sr-'+i);box.hidden=false;box.innerHTML='<button disabled>検索中…</button>';
+    try{
+      const r=await api('/api/geocode',{q});
+      box.innerHTML=r.results.length?r.results.map((x,k)=>
+        `<button data-pick="${i}|${k}">${x.name}<br><small>${x.display.slice(0,70)}</small></button>`).join('')
+        :'<button disabled>見つからない — 地図クリックで配置して</button>';
+      box.querySelectorAll('[data-pick]').forEach(b=>b.onclick=()=>{
+        const[si,k]=b.dataset.pick.split('|').map(Number);const x=r.results[k];
+        J.stops[si].lat=x.lat;J.stops[si].lng=x.lng;
+        if(/^Stop \d+$/.test(J.stops[si].name))J.stops[si].name=x.name;
+        box.hidden=true;renderStops();renderMarkers(true);
+      });
+    }catch(e){box.innerHTML='<button disabled>検索失敗</button>';}
+  });
+  $('#stops').querySelectorAll('[data-drop]').forEach(b=>b.onclick=ev=>{
+    ev.stopPropagation();
+    const[si,mi]=b.dataset.drop.split('|').map(Number);
+    const m=J.stops[si].media[mi];
+    if(m.pend)m._drop=!m._drop;else J.stops[si].media.splice(mi,1);
+    renderStops();
+  });
+}
+function renderMarkers(fit){
+  mks.forEach(m=>m.remove());mks=[];
+  const b=new maplibregl.LngLatBounds();let any=false;
+  J.stops.forEach((s,i)=>{
+    if(s.lat==null)return;
+    const el=document.createElement('div');el.className='mkS'+(i===sel?' sel':'');el.textContent=i+1;
+    el.style.borderColor=J.color;if(i===sel)el.style.background=J.color;
+    el.addEventListener('click',()=>{sel=i;renderStops();renderMarkers();});
+    const mk=new maplibregl.Marker({element:el,draggable:true}).setLngLat([s.lng,s.lat]).addTo(map);
+    mk.on('dragend',()=>{const p=mk.getLngLat();s.lat=+p.lat.toFixed(6);s.lng=+p.lng.toFixed(6);renderStops();});
+    mks.push(mk);b.extend([s.lng,s.lat]);any=true;
+  });
+  if(fit&&any)map.fitBounds(b,{padding:80,maxZoom:12,duration:600});
+}
+$('#addstop').onclick=()=>{J.stops.push({name:`Stop ${J.stops.length+1}`,lat:null,lng:null,date:'',note:'',media:[]});
+  sel=J.stops.length-1;renderStops();renderMarkers();};
+/* ---- media upload into inbox ---- */
+const dz=$('#dropzone');
+dz.onclick=()=>$('#upl').click();
+dz.ondragover=e=>{e.preventDefault();dz.classList.add('over');};
+dz.ondragleave=()=>dz.classList.remove('over');
+dz.ondrop=e=>{e.preventDefault();dz.classList.remove('over');uploadFiles([...e.dataTransfer.files]);};
+$('#upl').onchange=e=>uploadFiles([...e.target.files]);
+async function uploadFiles(files){
+  if(!files.length)return;
+  const st=$('#uplstatus');let done=0;
+  for(const f of files){
+    st.textContent=`アップロード中 ${done+1}/${files.length} — ${f.name}`;
+    try{
+      const buf=new Uint8Array(await f.arrayBuffer());
+      let b64='';const CH=0x8000;
+      for(let i=0;i<buf.length;i+=CH)b64+=String.fromCharCode.apply(null,buf.subarray(i,i+CH));
+      await api('/api/upload',{name:f.name,b64:btoa(b64),mtime:f.lastModified});
+      done++;
+    }catch(err){st.textContent=`✘ ${f.name}: ${err}`;return;}
+  }
+  const state=await api('/api/state');
+  STATE.inbox=state.inbox;$('#inboxcount').textContent=state.inbox.count;
+  st.textContent=`✔ ${done} 件を inbox に保存した — 「↻ 取り込み直す」で停留点に反映`;
+}
+$('#rescan').onclick=()=>{
+  if(!confirm('inbox から停留点を作り直す？（今の編集内容は消える）'))return;
+  boot($('#jsel').value||'');
+};
+$('#kmz').addEventListener('change',async e=>{
+  const f=e.target.files[0];if(!f)return;
+  const b64=btoa(String.fromCharCode(...new Uint8Array(await f.arrayBuffer())));
+  const r=await api('/api/kmz',{b64});
+  $('#kmzlist').innerHTML=(r.placemarks||[]).map((p,i)=>
+    `<button data-pm="${i}">📍 ${p.name}</button>`).join('')
+    +(r.placemarks&&r.placemarks.length?`<button data-pmall="1" style="font-weight:600">⇒ 順番どおり全停留点へ割当</button>`:'なにも見つからない');
+  $('#kmzlist').querySelectorAll('[data-pm]').forEach(b=>b.onclick=()=>{
+    if(sel<0)return;const p=r.placemarks[+b.dataset.pm];
+    J.stops[sel].lat=p.lat;J.stops[sel].lng=p.lng;
+    if(/^Stop \d+$/.test(J.stops[sel].name))J.stops[sel].name=p.name;
+    renderStops();renderMarkers(true);});
+  const all=$('#kmzlist [data-pmall]');
+  if(all)all.onclick=()=>{
+    r.placemarks.forEach((p,i)=>{if(!J.stops[i])J.stops.push({name:'',media:[],date:'',note:''});
+      J.stops[i].lat=p.lat;J.stops[i].lng=p.lng;
+      if(!J.stops[i].name||/^Stop \d+$/.test(J.stops[i].name))J.stops[i].name=p.name;});
+    renderStops();renderMarkers(true);};
+});
+$('#save').onclick=async()=>{
+  if(!J.id||!/^[a-z0-9][a-z0-9-]*$/.test(J.id)){alert('id を入れて（小文字英数とダッシュ）');return;}
+  if(!J.title){alert('タイトルを入れて');return;}
+  const jj=JSON.parse(JSON.stringify(J));
+  jj.stops.forEach(s=>{s.media=(s.media||[]).filter(m=>!m._drop);
+    if(s.lat==null){delete s.lat;delete s.lng;}});
+  const btn=$('#save');btn.disabled=true;btn.textContent='保存中…（動画があると数分）';
+  try{
+    const r=await api('/api/save',{journey:jj});
+    $('#report').style.display='block';
+    $('#report').textContent=r.ok?('✔ 保存した\n'+r.report.join('\n')+'\n\nmoto.html を開いて確認 → git commit も忘れずに')
+      :('✘ 失敗: '+r.err);
+    if(r.ok){await boot(J.id);}
+  }catch(e){$('#report').style.display='block';$('#report').textContent='✘ '+e;}
+  btn.disabled=false;btn.textContent='保存 SAVE';
+};
+async function boot(selectId){
+  STATE=await api('/api/state');
+  $('#inboxcount').textContent=STATE.inbox.count;
+  $('#jsel').innerHTML='<option value="">＋ 新しい旅</option>'
+    +STATE.journeys.map(j=>`<option value="${j.id}" ${j.id===selectId?'selected':''}>${j.title||j.id}</option>`).join('');
+  loadJourney(selectId||'');
+}
+$('#jsel').onchange=e=>loadJourney(e.target.value);
+bindMeta();
+boot();
+</script>
+</body>
+</html>

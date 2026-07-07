@@ -1,0 +1,119 @@
+/**
+ * 真昼の月 — Wave 5: S4 Chapter.4 ラフと画材 additions (§7 S4). The intimate
+ * rough plate and the closing plate reuse plate.css's existing
+ * `.plate-block` system untouched (bloom-reveal + layout variants are
+ * already wired generically by plates.ts — see index.html's comments on
+ * both); this file adds only the one genuinely new component this chapter
+ * introduces: the materials-as-typography table (sepia/storm register,
+ * generous spacing).
+ *
+ * JP glyph note (recurring fix already applied elsewhere in this codebase
+ * — see cinema.css's `.s3-switcher [role='tab']` / `.s3-gap__rail`): IBM
+ * Plex Mono has no CJK glyphs, so the material NAME cell (Japanese) is
+ * deliberately NOT given `.catalog`/`--font-mono` — it uses Display Mincho
+ * at the catalog size/spacing instead. The number and English role cells
+ * are plain ASCII, so real `--font-mono` is safe there.
+ */
+
+/* ---------------------------------------------------------------------
+ * Intimate rough (plate_p002) — extra rhythm either side, "huge whitespace"
+ * ------------------------------------------------------------------- */
+.s4-rough {
+  margin-block: calc(var(--plate-rhythm) * 1.6);
+}
+
+/* ---------------------------------------------------------------------
+ * Materials-as-typography table
+ * ------------------------------------------------------------------- */
+.s4-materials {
+  padding-inline: var(--margin);
+  margin-block: calc(var(--plate-rhythm) * 1.3);
+}
+
+.s4-materials__kicker {
+  margin: 0 0 2.5rem;
+}
+
+.materials-table {
+  width: 100%;
+  max-width: 640px;
+  margin-inline: auto;
+  border-collapse: collapse;
+}
+
+/* Reveal-armed baseline (§5 progressive-enhancement pattern): the table
+   blooms in as one unit (src/scripts/s4.ts), matching how a plate figure
+   or a wash-title heading is armed elsewhere. */
+html.js .materials-table[data-bloom] {
+  opacity: 0;
+}
+
+.materials-table__row {
+  border-block-end: 1px solid rgba(124, 96, 70, 0.22); /* --storm at low alpha — sepia/storm register */
+}
+
+.materials-table__row:first-child {
+  border-block-start: 1px solid rgba(124, 96, 70, 0.22);
+}
+
+.materials-table td {
+  padding-block: 1.5rem;
+  vertical-align: top;
+}
+
+.materials-table__no {
+  padding-inline-end: 1.25rem;
+  color: var(--storm);
+  white-space: nowrap;
+}
+
+.materials-table__name {
+  /* JP glyph-safe "catalog" styling — see file docblock */
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  padding-inline-end: 1.25rem;
+}
+
+.materials-table__role {
+  padding-inline-end: 1.25rem;
+  white-space: nowrap;
+  color: var(--ink-soft);
+}
+
+.materials-table__note {
+  text-align: right;
+}
+
+.materials-table__note .margin-note {
+  display: inline-block;
+  max-width: 24ch;
+  text-align: left;
+}
+
+/* ---------------------------------------------------------------------
+ * Responsive (§9)
+ * ------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  .materials-table__no,
+  .materials-table__role {
+    display: none; /* the table narrows to name + note only — no. and role are supporting detail, not essential at this width */
+  }
+
+  .materials-table td {
+    padding-block: 1.1rem;
+  }
+
+  .materials-table__name {
+    font-size: 0.95rem;
+  }
+
+  .materials-table__note {
+    text-align: left;
+  }
+
+  .materials-table__note .margin-note {
+    max-width: none;
+  }
+}

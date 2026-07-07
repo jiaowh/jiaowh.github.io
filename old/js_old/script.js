@@ -1,11 +1,18 @@
 setTimeout(onLoad, 300);
 
+// The stacked-card intro animation only applies to the portrait layout;
+// landscape is laid out purely in CSS (css_old/desktop.css).
+function isPortrait() {
+    return window.innerHeight >= window.innerWidth;
+}
+
 function test(){
     alert("I'll make this page when I feel like it :p");
 }
 
 function onLoad() {
-    var a = document.getElementById("logo"); 
+    if (!isPortrait()) return;
+    var a = document.getElementById("logo");
     a.style.width = '100vw';
     a.style.height= '40vh';
     a.style.top = '0px';
@@ -21,7 +28,8 @@ function onLoad() {
 }
 
 function frame1(){
-    a = document.getElementById("craft"); 
+    if (!isPortrait()) return;
+    a = document.getElementById("craft");
     a.style.top='3vh';
     a=document.getElementById("art");
     a.style.top='60vh';
@@ -33,7 +41,8 @@ function frame1(){
 }
 
 function frame2(){
-    a = document.getElementById("craft"); 
+    if (!isPortrait()) return;
+    a = document.getElementById("craft");
     a.style.top='3vh';
     a=document.getElementById("art");
     a.style.top='20vh';
@@ -45,7 +54,8 @@ function frame2(){
 }
 
 function frame3(){
-    a = document.getElementById("craft"); 
+    if (!isPortrait()) return;
+    a = document.getElementById("craft");
     a.style.top='3vh';
     a=document.getElementById("art");
     a.style.top='20vh';
@@ -57,7 +67,8 @@ function frame3(){
 }
 
 function frame4() {
-    a = document.getElementById("craft"); 
+    if (!isPortrait()) return;
+    a = document.getElementById("craft");
     a.style.top='3vh';
     a=document.getElementById("art");
     a.style.top='20vh';

@@ -9,3 +9,14 @@ assets/developer/rheed analysis pipeline.mp4
 
 # Dependencies — never commit
 node_modules/
+__pycache__/
+
+# Developer source videos — huge originals stay local; web-ready encodes live in assets/developer/web/
+assets/developer/*.mp4
+assets/developer/*.mov
+!assets/developer/web
+
+# Moto vault (moto.html) — media sources stay local; only web derivatives are committed.
+# inbox/ is the Studio drop zone, src/ is the per-journey originals archive.
+assets/moto/inbox/
+assets/moto/src/

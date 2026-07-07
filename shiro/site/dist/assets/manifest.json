@@ -1,0 +1,1725 @@
+[
+  {
+    "id": "jacket_210623",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210623",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      719
+    ],
+    "width": 719,
+    "height": 711,
+    "aspect": 1.0113,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_210634",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210634",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      709
+    ],
+    "width": 709,
+    "height": 708,
+    "aspect": 1.0014,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_210641",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210641",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      716
+    ],
+    "width": 716,
+    "height": 714,
+    "aspect": 1.0028,
+    "role": "scene",
+    "chapter": "s3",
+    "alt": "「シャンプーの匂いがした」ジャケット — 桜の絨毯に円になって寝転ぶ少女たちの俯瞰",
+    "focus": "50% 42%",
+    "accent": "sakura",
+    "scene": "s3-1"
+  },
+  {
+    "id": "jacket_210651",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210651",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      710
+    ],
+    "width": 710,
+    "height": 712,
+    "aspect": 0.9972,
+    "role": "variant",
+    "chapter": "s3",
+    "alt": "同曲別ジャケット — 舞う花びらの中、寄り添う二人のクローズアップ",
+    "focus": "50% 35%",
+    "accent": null,
+    "variantOf": "jacket_210641",
+    "edition": "Type-B"
+  },
+  {
+    "id": "jacket_210701",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210701",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      720
+    ],
+    "width": 720,
+    "height": 715,
+    "aspect": 1.007,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_210708",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210708",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      726
+    ],
+    "width": 726,
+    "height": 674,
+    "aspect": 1.0772,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_210723",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210723",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      716
+    ],
+    "width": 716,
+    "height": 712,
+    "aspect": 1.0056,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_210730",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210730",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      715
+    ],
+    "width": 715,
+    "height": 713,
+    "aspect": 1.0028,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_210739",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210739",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      705
+    ],
+    "width": 705,
+    "height": 710,
+    "aspect": 0.993,
+    "role": "scene",
+    "chapter": "s3",
+    "alt": "「風は吹いてるか?」ジャケット — ミント色の斜めのタイポグラフィと駆け出す少女たち",
+    "focus": "50% 45%",
+    "accent": "mint",
+    "scene": "s3-2"
+  },
+  {
+    "id": "jacket_210745",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210745",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      706
+    ],
+    "width": 706,
+    "height": 708,
+    "aspect": 0.9972,
+    "role": "variant",
+    "chapter": "s3",
+    "alt": "同曲別ジャケット — 見上げる三人、ミントの格子",
+    "focus": "50% 40%",
+    "accent": null,
+    "variantOf": "jacket_210739",
+    "edition": "Type-B"
+  },
+  {
+    "id": "jacket_210752",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210752",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      703
+    ],
+    "width": 703,
+    "height": 714,
+    "aspect": 0.9846,
+    "role": "variant",
+    "chapter": "s3",
+    "alt": "同曲別ジャケット — 肩を組む五人、ミントの格子",
+    "focus": "50% 40%",
+    "accent": null,
+    "variantOf": "jacket_210739",
+    "edition": "Type-C"
+  },
+  {
+    "id": "jacket_210800",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210800",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      800
+    ],
+    "width": 1006,
+    "height": 706,
+    "aspect": 1.4249,
+    "role": "scene",
+    "chapter": "s3",
+    "alt": "「僕が持ってるものなら」ジャケット — 青空に流れる白いリボンと見上げる少女たち",
+    "focus": "50% 38%",
+    "accent": "scrawl",
+    "scene": "s3-3",
+    "note": "The handwritten ribbon-title animates on like a signature (§S3-3)."
+  },
+  {
+    "id": "jacket_210806",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210806",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      800
+    ],
+    "width": 1006,
+    "height": 711,
+    "aspect": 1.4149,
+    "role": "variant",
+    "chapter": "s3",
+    "alt": "同曲別ジャケット — 笑う少女とウーパールーパーのぬいぐるみ、青のリボン",
+    "focus": "50% 35%",
+    "accent": null,
+    "variantOf": "jacket_210800",
+    "edition": "Type-B"
+  },
+  {
+    "id": "jacket_210819",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210819",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      800
+    ],
+    "width": 809,
+    "height": 678,
+    "aspect": 1.1932,
+    "role": "variant",
+    "chapter": "s3",
+    "alt": "同曲別ジャケット — ぬいぐるみを抱えて笑う少女、流れる帯",
+    "focus": "50% 35%",
+    "accent": null,
+    "variantOf": "jacket_210800",
+    "edition": "Type-C"
+  },
+  {
+    "id": "jacket_210825",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210825",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      800
+    ],
+    "width": 981,
+    "height": 706,
+    "aspect": 1.3895,
+    "role": "scene",
+    "chapter": "s3",
+    "alt": "「覚醒」ジャケット — 嵐の海辺に立つコートの少女たち、両端に巨大な「覚」「醒」",
+    "focus": "50% 48%",
+    "accent": "storm",
+    "scene": "s3-4",
+    "note": "THE hero moment: 醒 passes behind the figures via manual clip-path silhouette. Build the silhouette from this exact crop."
+  },
+  {
+    "id": "jacket_210833",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210833",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      800
+    ],
+    "width": 984,
+    "height": 722,
+    "aspect": 1.3629,
+    "role": "variant",
+    "chapter": "s3",
+    "alt": "同曲別ジャケット — 夕光の海辺、振り向く少女たち",
+    "focus": "50% 45%",
+    "accent": null,
+    "variantOf": "jacket_210825",
+    "edition": "Type-B"
+  },
+  {
+    "id": "jacket_210841",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210841",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      800
+    ],
+    "width": 829,
+    "height": 714,
+    "aspect": 1.1611,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_210847",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210847",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      800
+    ],
+    "width": 802,
+    "height": 702,
+    "aspect": 1.1425,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_210854",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210854",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      799
+    ],
+    "width": 799,
+    "height": 705,
+    "aspect": 1.1333,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_210902",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210902",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      800
+    ],
+    "width": 822,
+    "height": 716,
+    "aspect": 1.148,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_210909",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210909",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      798
+    ],
+    "width": 798,
+    "height": 707,
+    "aspect": 1.1287,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_210917",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210917",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      798
+    ],
+    "width": 798,
+    "height": 708,
+    "aspect": 1.1271,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_210924",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210924",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      719
+    ],
+    "width": 719,
+    "height": 710,
+    "aspect": 1.0127,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_210930",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210930",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      718
+    ],
+    "width": 718,
+    "height": 710,
+    "aspect": 1.0113,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_210937",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210937",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      701
+    ],
+    "width": 701,
+    "height": 705,
+    "aspect": 0.9943,
+    "role": "reserve",
+    "chapter": null,
+    "alt": "「僕は今夜、出て行く」ジャケット — 白い装いの少女たちと三日月",
+    "focus": null,
+    "accent": null,
+    "note": "Painted crescent in the art: prime S3 moon-hiding spot if a gap needs one."
+  },
+  {
+    "id": "jacket_210945",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210945",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      721
+    ],
+    "width": 721,
+    "height": 721,
+    "aspect": 1,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_210950",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210950",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      719
+    ],
+    "width": 719,
+    "height": 707,
+    "aspect": 1.017,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_210957",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_210957",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      719
+    ],
+    "width": 719,
+    "height": 714,
+    "aspect": 1.007,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_211007",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_211007",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      800
+    ],
+    "width": 1016,
+    "height": 724,
+    "aspect": 1.4033,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_211014",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_211014",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      800
+    ],
+    "width": 1007,
+    "height": 717,
+    "aspect": 1.4045,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_211019",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_211019",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      800
+    ],
+    "width": 1002,
+    "height": 714,
+    "aspect": 1.4034,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_211026",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_211026",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      698
+    ],
+    "width": 698,
+    "height": 687,
+    "aspect": 1.016,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_211031",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_211031",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      800
+    ],
+    "width": 1061,
+    "height": 683,
+    "aspect": 1.5534,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_211036",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_211036",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      800
+    ],
+    "width": 1081,
+    "height": 709,
+    "aspect": 1.5247,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_211053",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_211053",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      800
+    ],
+    "width": 949,
+    "height": 690,
+    "aspect": 1.3754,
+    "role": "variant",
+    "chapter": "s3",
+    "alt": "同アルバム別盤 — 街角の四人、枠と筆記体",
+    "focus": "50% 40%",
+    "accent": null,
+    "variantOf": "jacket_kanzen",
+    "edition": "初回仕様限定盤"
+  },
+  {
+    "id": "jacket_211100",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_211100",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      800
+    ],
+    "width": 961,
+    "height": 707,
+    "aspect": 1.3593,
+    "role": "variant",
+    "chapter": "s3",
+    "alt": "同アルバム通常盤 — 笑い合う四人、ビル街",
+    "focus": "50% 40%",
+    "accent": null,
+    "variantOf": "jacket_kanzen",
+    "edition": "通常盤"
+  },
+  {
+    "id": "jacket_211106",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_211106",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      800
+    ],
+    "width": 955,
+    "height": 709,
+    "aspect": 1.347,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_211111",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_211111",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      800
+    ],
+    "width": 965,
+    "height": 715,
+    "aspect": 1.3497,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_211123",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_211123",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      800
+    ],
+    "width": 964,
+    "height": 707,
+    "aspect": 1.3635,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_211132",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_211132",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      800
+    ],
+    "width": 955,
+    "height": 713,
+    "aspect": 1.3394,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_211140",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_211140",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      800
+    ],
+    "width": 924,
+    "height": 706,
+    "aspect": 1.3088,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_211147",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_211147",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      800
+    ],
+    "width": 990,
+    "height": 691,
+    "aspect": 1.4327,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_211219",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_211219",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      800
+    ],
+    "width": 995,
+    "height": 705,
+    "aspect": 1.4113,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_211241",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_211241",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      800
+    ],
+    "width": 1229,
+    "height": 568,
+    "aspect": 2.1637,
+    "role": "reserve",
+    "chapter": null,
+    "alt": null,
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_kanzen",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_kanzen",
+    "formats": [
+      "avif",
+      "webp",
+      "jpeg"
+    ],
+    "widths": [
+      1600,
+      800
+    ],
+    "width": 2632,
+    "height": 1950,
+    "aspect": 1.3497,
+    "role": "scene",
+    "chapter": "s3",
+    "alt": "アルバム「11という名の永遠の素数」完全生産限定盤 — 赤い制服の五人、セージの枠と筆記体の一文",
+    "focus": "50% 40%",
+    "accent": "sage",
+    "scene": "s3-5",
+    "edition": "完全生産限定盤",
+    "note": "Hi-res source (2632px). Full catalog chrome §6.4: sage frame, SRCL catalog number, vertical title rail, 'An eternal prime number named 11.' cursive breaking the bottom frame."
+  },
+  {
+    "id": "jacket_urban_collage",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_urban_collage",
+    "formats": [
+      "avif",
+      "webp",
+      "jpeg"
+    ],
+    "widths": [
+      720
+    ],
+    "width": 720,
+    "height": 714,
+    "aspect": 1.0084,
+    "role": "reserve",
+    "chapter": null,
+    "alt": "アルバムブックレットの都市コラージュ見開き",
+    "focus": null,
+    "accent": null,
+    "note": "S3 gap support if needed."
+  },
+  {
+    "id": "jacket_white_uniforms",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_white_uniforms",
+    "formats": [
+      "avif",
+      "webp",
+      "jpeg"
+    ],
+    "widths": [
+      736
+    ],
+    "width": 736,
+    "height": 642,
+    "aspect": 1.1464,
+    "role": "reserve",
+    "chapter": null,
+    "alt": "白い制服の五人の少女たち",
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_animation_note",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_animation_note",
+    "formats": [
+      "avif",
+      "webp",
+      "jpeg"
+    ],
+    "widths": [
+      450
+    ],
+    "width": 450,
+    "height": 650,
+    "aspect": 0.6923,
+    "role": "reserve",
+    "chapter": null,
+    "alt": "本の上に座るコートの少女 — 雑誌カバーイラスト",
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "jacket_underwater_yesno",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_underwater_yesno",
+    "formats": [
+      "avif",
+      "webp",
+      "jpeg"
+    ],
+    "widths": [
+      800
+    ],
+    "width": 960,
+    "height": 677,
+    "aspect": 1.418,
+    "role": "reserve",
+    "chapter": null,
+    "alt": "「YESとNOの間に」ジャケット(高解像度)— 水中を泳ぐ制服の少女たちと黄色い手書き文字",
+    "focus": null,
+    "accent": null,
+    "note": "Strongest 6th-scene candidate (hi-res, --water accent, yellow scrawl)."
+  },
+  {
+    "id": "jacket_yurihime_snow_umbrella",
+    "kind": "jacket",
+    "srcBase": "assets/jackets/jacket_yurihime_snow_umbrella",
+    "formats": [
+      "avif",
+      "webp",
+      "jpeg"
+    ],
+    "widths": [
+      736
+    ],
+    "width": 736,
+    "height": 981,
+    "aspect": 0.7503,
+    "role": "centerpiece",
+    "chapter": "s1",
+    "alt": "『コミック百合姫』2019年2月号表紙(誌面写真)— 雪の日、黄色い傘を差す少女と赤いランドセル",
+    "focus": null,
+    "accent": "accent-red",
+    "note": "S1 centerpiece. Photo of the physical magazine — keep the paper edges visible, it grounds the archive. Plate carries red: UI accent silent.",
+    "marginNote": "傘の黄色だけが、冬を明るくする。"
+  },
+  {
+    "id": "plate_p001",
+    "kind": "plate",
+    "page": 1,
+    "srcBase": "assets/plates/plate_p001",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      1600,
+      800
+    ],
+    "width": 1648,
+    "height": 2200,
+    "aspect": 0.7491,
+    "role": "artifact",
+    "chapter": "s5",
+    "alt": "『真昼の月』表紙(題字入り)",
+    "focus": null,
+    "accent": null,
+    "note": "Tiny artifact beside the credits — the object itself."
+  },
+  {
+    "id": "plate_p002",
+    "kind": "plate",
+    "page": 2,
+    "srcBase": "assets/plates/plate_p002",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      800
+    ],
+    "width": 1595,
+    "height": 2200,
+    "aspect": 0.725,
+    "role": "rough",
+    "chapter": "s4",
+    "alt": "表紙イラストの下描き — 黄色い色鉛筆の線だけの少女と窓辺",
+    "focus": null,
+    "accent": null,
+    "note": "Intimate small plate; pairs with the materials type-table."
+  },
+  {
+    "id": "plate_p003",
+    "kind": "plate",
+    "page": 3,
+    "srcBase": "assets/plates/plate_p003",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      1600,
+      800
+    ],
+    "width": 1634,
+    "height": 2200,
+    "aspect": 0.7427,
+    "role": "prologue",
+    "chapter": "s0",
+    "alt": "『真昼の月』表紙アートワーク — 麦わら帽子の少女、自転車の標識、水たまりに映る空のコラージュ",
+    "focus": null,
+    "accent": null,
+    "note": "First image of the site: the book opens as you leave S0. Bloom-reveal, plate-solo layout."
+  },
+  {
+    "id": "plate_p004",
+    "kind": "plate",
+    "page": 4,
+    "srcBase": "assets/plates/plate_p004",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      1600,
+      800
+    ],
+    "width": 1637,
+    "height": 2200,
+    "aspect": 0.7441,
+    "role": "wash-title",
+    "chapter": "s1",
+    "alt": "Chapter.1 girl meets girl — 章扉、淡い虹色の水彩のにじみ",
+    "focus": null,
+    "accent": null,
+    "note": "Use the actual book chapter page as the wash; real heading visually-hidden for outline."
+  },
+  {
+    "id": "plate_p017",
+    "kind": "plate",
+    "page": 17,
+    "srcBase": "assets/plates/plate_p017",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      1600,
+      800
+    ],
+    "width": 1630,
+    "height": 2200,
+    "aspect": 0.7409,
+    "role": "archive-board",
+    "chapter": "s1",
+    "alt": "百合姫2019年 表紙12点とコメントの一覧ページ",
+    "focus": null,
+    "accent": null,
+    "note": "Interactive: hover/tap raises a cover slightly + reveals one margin note. BALCOLONY. credit in catalog mono nearby.",
+    "marginNote": "2019年、月にひとつの表紙。"
+  },
+  {
+    "id": "plate_p018",
+    "kind": "plate",
+    "page": 18,
+    "srcBase": "assets/plates/plate_p018",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      1600,
+      800
+    ],
+    "width": 1631,
+    "height": 2200,
+    "aspect": 0.7414,
+    "role": "wash-title",
+    "chapter": "s2",
+    "alt": "Chapter.2 Novel illustration — 章扉、青と黄の水彩のにじみ",
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "plate_p019",
+    "kind": "plate",
+    "page": 19,
+    "srcBase": "assets/plates/plate_p019",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      1600,
+      800
+    ],
+    "width": 1629,
+    "height": 2200,
+    "aspect": 0.7405,
+    "role": "pair",
+    "chapter": "s2",
+    "alt": "桜の枝に手を伸ばす少女、電線と春空 — 連作2点(季刊エス)",
+    "focus": null,
+    "accent": "sakura",
+    "marginNote": "電線の高さに、春が咲く。"
+  },
+  {
+    "id": "plate_p020",
+    "kind": "plate",
+    "page": 20,
+    "srcBase": "assets/plates/plate_p020",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      1600,
+      800
+    ],
+    "width": 1624,
+    "height": 2200,
+    "aspect": 0.7382,
+    "role": "solo",
+    "chapter": "s2",
+    "alt": "桜並木の通学路に立つ制服の少女",
+    "focus": null,
+    "accent": "sakura",
+    "marginNote": "入学式の朝のような光。"
+  },
+  {
+    "id": "plate_p033",
+    "kind": "plate",
+    "page": 33,
+    "srcBase": "assets/plates/plate_p033",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      1600,
+      800
+    ],
+    "width": 1631,
+    "height": 2200,
+    "aspect": 0.7414,
+    "role": "pair",
+    "chapter": "s2",
+    "alt": "昇降口で靴を履き替える少女と、頬を染めるセーラー服の少女(季刊エス vol.54・53)",
+    "focus": null,
+    "accent": null,
+    "marginNote": "上履きに履き替える、いちばん短い旅。"
+  },
+  {
+    "id": "plate_p034",
+    "kind": "plate",
+    "page": 34,
+    "srcBase": "assets/plates/plate_p034",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      1600,
+      800
+    ],
+    "width": 1632,
+    "height": 2200,
+    "aspect": 0.7418,
+    "role": "intimate",
+    "chapter": "s2",
+    "alt": "冬の窓辺、机の陰から顔をのぞかせる少女(季刊エス vol.52)",
+    "focus": null,
+    "accent": null,
+    "note": "Dwell-reveal teaching moment — margin note about the green bottle.",
+    "marginNote": "机の上の小瓶に、冬の光がとまる。"
+  },
+  {
+    "id": "plate_p049",
+    "kind": "plate",
+    "page": 49,
+    "srcBase": "assets/plates/plate_p049",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      1600,
+      800
+    ],
+    "width": 1631,
+    "height": 2200,
+    "aspect": 0.7414,
+    "role": "solo",
+    "chapter": "s2",
+    "alt": "青空の窓辺で鉢植えの芽を抱く少女(『ツァラトゥストラへの階段』口絵)",
+    "focus": null,
+    "accent": null,
+    "marginNote": "小さな芽と、大きな空。"
+  },
+  {
+    "id": "plate_p050",
+    "kind": "plate",
+    "page": 50,
+    "srcBase": "assets/plates/plate_p050",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      1600,
+      800
+    ],
+    "width": 1628,
+    "height": 2200,
+    "aspect": 0.74,
+    "role": "pair",
+    "chapter": "s2",
+    "alt": "『ツァラトゥストラへの階段』カバーと口絵 — 湯上がりの二人、都市の少年",
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "plate_p051",
+    "kind": "plate",
+    "page": 51,
+    "srcBase": "assets/plates/plate_p051",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      1600,
+      800
+    ],
+    "width": 1634,
+    "height": 2200,
+    "aspect": 0.7427,
+    "role": "solo",
+    "chapter": "s2",
+    "alt": "並んで膝を抱える制服の二人(『ツァラトゥストラへの階段』挿絵)",
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "plate_p052",
+    "kind": "plate",
+    "page": 52,
+    "srcBase": "assets/plates/plate_p052",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      1600,
+      800
+    ],
+    "width": 1637,
+    "height": 2200,
+    "aspect": 0.7441,
+    "role": "intimate",
+    "chapter": "s2",
+    "alt": "『ツァラトゥストラへの階段』3巻カバー — 抱きつく少女、たじろぐ少女",
+    "focus": null,
+    "accent": null,
+    "marginNote": "三巻のカバー。抱きつく側と、たじろぐ側。"
+  },
+  {
+    "id": "plate_p081",
+    "kind": "plate",
+    "page": 81,
+    "srcBase": "assets/plates/plate_p081",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      1600,
+      800
+    ],
+    "width": 1635,
+    "height": 2200,
+    "aspect": 0.7432,
+    "role": "pair",
+    "chapter": "s2",
+    "alt": "『ジャナ研の憂鬱な事件簿』カバー・口絵 — 着物の少女、教室の面々",
+    "focus": null,
+    "accent": "clover",
+    "marginNote": "放課後、事件簿はひらかれる。"
+  },
+  {
+    "id": "plate_p082",
+    "kind": "plate",
+    "page": 82,
+    "srcBase": "assets/plates/plate_p082",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      1600,
+      800
+    ],
+    "width": 1633,
+    "height": 2200,
+    "aspect": 0.7423,
+    "role": "solo",
+    "chapter": "s2",
+    "alt": "紅葉の下、オレンジのマフラーの少女と見つめる少年(『ジャナ研』)",
+    "focus": null,
+    "accent": "storm",
+    "note": "Autumn turn of the chapter.",
+    "marginNote": "紅葉の下で、目が合う。"
+  },
+  {
+    "id": "plate_p083",
+    "kind": "plate",
+    "page": 83,
+    "srcBase": "assets/plates/plate_p083",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      1600,
+      800
+    ],
+    "width": 1628,
+    "height": 2200,
+    "aspect": 0.74,
+    "role": "reserve",
+    "chapter": null,
+    "alt": "『ジャナ研』口絵 — 放課後の面々と夕暮れの二人",
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "plate_p084",
+    "kind": "plate",
+    "page": 84,
+    "srcBase": "assets/plates/plate_p084",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      1600,
+      800
+    ],
+    "width": 1630,
+    "height": 2200,
+    "aspect": 0.7409,
+    "role": "solo",
+    "chapter": "s2",
+    "alt": "桜の校門前、鍵盤ハーモニカを抱えた眼鏡の少女(『ジャナ研』)",
+    "focus": null,
+    "accent": null,
+    "marginNote": "校門の桜と、鍵盤ハーモニカ。"
+  },
+  {
+    "id": "plate_p097",
+    "kind": "plate",
+    "page": 97,
+    "srcBase": "assets/plates/plate_p097",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      1600,
+      800
+    ],
+    "width": 1627,
+    "height": 2200,
+    "aspect": 0.7395,
+    "role": "solo",
+    "chapter": "s2",
+    "alt": "冬の坂道、ガードレール越しの白髪の少女と学生服の少年",
+    "focus": null,
+    "accent": "snow",
+    "note": "Winter close of the chapter's season arc (sakura→autumn→winter).",
+    "marginNote": "章の終わりに、雪がふる。"
+  },
+  {
+    "id": "plate_p098",
+    "kind": "plate",
+    "page": 98,
+    "srcBase": "assets/plates/plate_p098",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      1600,
+      800
+    ],
+    "width": 1630,
+    "height": 2200,
+    "aspect": 0.7409,
+    "role": "reserve",
+    "chapter": null,
+    "alt": "キャラクター設定画 — 三人の少女、制服と私服",
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "plate_p113",
+    "kind": "plate",
+    "page": 113,
+    "srcBase": "assets/plates/plate_p113",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      1600,
+      800
+    ],
+    "width": 1624,
+    "height": 2200,
+    "aspect": 0.7382,
+    "role": "reserve",
+    "chapter": null,
+    "alt": "書店のポスターと、円になる仲間たち — 『涼宮ハルヒ』トリビュート",
+    "focus": null,
+    "accent": null,
+    "note": "S4 guest-moment candidate; composition echoes s3-1's overhead circle — worth a margin note cross-reference."
+  },
+  {
+    "id": "plate_p116",
+    "kind": "plate",
+    "page": 116,
+    "srcBase": "assets/plates/plate_p116",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      1600,
+      800
+    ],
+    "width": 1635,
+    "height": 2200,
+    "aspect": 0.7432,
+    "role": "reserve",
+    "chapter": null,
+    "alt": "雪の街、リンゴ飴を持つ白髪の少女 — Fate/Grand Order バレンタイン",
+    "focus": null,
+    "accent": null,
+    "note": "S4 guest-moment candidate."
+  },
+  {
+    "id": "plate_p129",
+    "kind": "plate",
+    "page": 129,
+    "srcBase": "assets/plates/plate_p129",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      1600,
+      800
+    ],
+    "width": 1621,
+    "height": 2200,
+    "aspect": 0.7368,
+    "role": "reserve",
+    "chapter": null,
+    "alt": "ちいさな冒険者たち — ゲームのちびキャラ群像",
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "plate_p130",
+    "kind": "plate",
+    "page": 130,
+    "srcBase": "assets/plates/plate_p130",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      1600,
+      800
+    ],
+    "width": 1632,
+    "height": 2200,
+    "aspect": 0.7418,
+    "role": "reserve",
+    "chapter": null,
+    "alt": "羊の雲の遊び場 — ゲームのちびキャラ群像・続",
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "plate_p131",
+    "kind": "plate",
+    "page": 131,
+    "srcBase": "assets/plates/plate_p131",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      1600,
+      800
+    ],
+    "width": 1630,
+    "height": 2200,
+    "aspect": 0.7409,
+    "role": "reserve",
+    "chapter": null,
+    "alt": "夏の浜辺、麦わら帽子の子どもたち(連作)",
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "plate_p132",
+    "kind": "plate",
+    "page": 132,
+    "srcBase": "assets/plates/plate_p132",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      1600,
+      800
+    ],
+    "width": 1634,
+    "height": 2200,
+    "aspect": 0.7427,
+    "role": "reserve",
+    "chapter": null,
+    "alt": "川遊びとスイカ、水しぶきの夏(連作)",
+    "focus": null,
+    "accent": null
+  },
+  {
+    "id": "plate_p142",
+    "kind": "plate",
+    "page": 142,
+    "srcBase": "assets/plates/plate_p142",
+    "formats": [
+      "avif",
+      "webp",
+      "png"
+    ],
+    "widths": [
+      1600,
+      800
+    ],
+    "width": 1631,
+    "height": 2200,
+    "aspect": 0.7414,
+    "role": "closing",
+    "chapter": "s4",
+    "alt": "見返しの表紙アートワークと奥付ページ",
+    "focus": null,
+    "accent": null,
+    "note": "The book closes: last plate before S5 credits."
+  }
+]

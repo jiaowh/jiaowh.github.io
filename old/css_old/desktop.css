@@ -1,0 +1,228 @@
+/* Landscape / desktop layout — an HTML recreation of the retired Spline
+   scene (spline.html) that this page used to redirect to.
+   Portrait keeps the original mobile layout from style.css untouched. */
+
+.tag3d {
+  display: none;
+}
+
+@media (orientation: landscape) {
+
+  .mobile .overlap-wrapper {
+    /* clip (not hidden): the fanned cards overflow the viewport bottom, and a
+       hidden-overflow box can still be scrolled by focus/scrollIntoView */
+    overflow: clip;
+    /* gradient pinned to the beige baked into logo-1.png (flat until the
+       floor band at the bottom of the render) so the logo melts into the page */
+    background: linear-gradient(180deg,
+      #c2af90 0%,
+      #c2af90 10%,
+      #c5b292 44%,
+      #c3b08e 58%,
+      #bca683 68%,
+      #b19d7e 77%,
+      #a8947a 100%);
+  }
+
+  .mobile .overlap {
+    height: 100vh;
+  }
+
+  .mobile .logo {
+    width: 50vw;
+    height: auto;
+    top: 10vh;
+    left: 27.5vw;
+    z-index: 1;
+    /* fade the render's edges so its baked-in backdrop melts into the page
+       (browsers without mask-composite just show a faint rectangle instead) */
+    -webkit-mask-image:
+      linear-gradient(90deg, transparent 0, #000 4%, #000 99%, transparent 100%),
+      linear-gradient(180deg, transparent 0, #000 4%, #000 99%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(90deg, transparent 0, #000 4%, #000 99%, transparent 100%),
+      linear-gradient(180deg, transparent 0, #000 4%, #000 99%, transparent 100%);
+    mask-composite: intersect;
+  }
+
+  /* ---- faux-3D tagline ------------------------------------------------ */
+
+  .tag3d {
+    display: block;
+    position: absolute;
+    z-index: 2;
+    font-family: 'Chelsea Market', 'Cooper Black', serif;
+    font-weight: 400;
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .tag-crafting,
+  .tag-into {
+    color: #7ec5f1;
+    text-shadow:
+      -0.018em 0.016em 0 #4479bd,
+      -0.036em 0.032em 0 #4479bd,
+      -0.054em 0.048em 0 #4479bd,
+      -0.072em 0.064em 0 #4479bd,
+      -0.090em 0.080em 0 #4479bd,
+      -0.108em 0.096em 0 #4479bd,
+      -0.20em 0.24em 0.3em rgba(80, 55, 30, 0.35);
+  }
+
+  .tag-2d,
+  .tag-3d {
+    color: #8d82dc;
+    text-shadow:
+      -0.018em 0.016em 0 #5a4da6,
+      -0.036em 0.032em 0 #5a4da6,
+      -0.054em 0.048em 0 #5a4da6,
+      -0.072em 0.064em 0 #5a4da6,
+      -0.090em 0.080em 0 #5a4da6,
+      -0.108em 0.096em 0 #5a4da6,
+      -0.20em 0.24em 0.3em rgba(80, 55, 30, 0.35);
+  }
+
+  .tag-crafting {
+    top: 21vh;
+    left: 2vw;
+    font-size: 11.5vh;
+    transform: rotate(-19deg);
+  }
+
+  .tag-2d {
+    top: 41.5vh;
+    left: 16.5vw;
+    font-size: 10vh;
+    transform: rotate(-9deg);
+  }
+
+  .tag-into {
+    top: 25vh;
+    left: 75vw;
+    font-size: 9.5vh;
+    transform: rotate(15deg);
+  }
+
+  .tag-3d {
+    top: 43vh;
+    left: 79.5vw;
+    font-size: 10vh;
+    transform: rotate(9deg);
+  }
+
+  /* ---- the four cards fanned along the bottom edge --------------------- */
+
+  .mobile .crafter-crad,
+  .mobile .artist-card,
+  .mobile .rider-card,
+  .mobile .developer-card1 {
+    width: 24.5vw;
+    height: 36vw;
+    transition-duration: 400ms;
+  }
+
+  .mobile .crafter-crad {
+    top: 74.5vh;
+    left: 1vw;
+    transform: rotate(-8deg);
+    z-index: 4;
+  }
+
+  .mobile .artist-card {
+    top: 73vh;
+    left: 25.4vw;
+    transform: rotate(-4deg);
+    z-index: 5;
+  }
+
+  .mobile .rider-card {
+    top: 73vh;
+    left: 50.8vw;
+    transform: rotate(4deg);
+    z-index: 6;
+  }
+
+  .mobile .developer-card1 {
+    top: 74.5vh;
+    left: 76.2vw;
+    transform: rotate(8deg);
+    z-index: 7;
+  }
+
+  /* hovering slides a card up along its own axis to reveal its links */
+  .mobile .crafter-crad:hover {
+    transform: rotate(-8deg) translateY(-16vh);
+  }
+
+  .mobile .artist-card:hover {
+    transform: rotate(-4deg) translateY(-16vh);
+  }
+
+  .mobile .rider-card:hover {
+    transform: rotate(4deg) translateY(-16vh);
+  }
+
+  .mobile .developer-card1:hover {
+    transform: rotate(8deg) translateY(-16vh);
+  }
+
+  .mobile .developer-card {
+    top: 0;
+  }
+
+  /* ---- link buttons repositioned as % of the card ---------------------- */
+
+  .mobile .works {
+    width: 30%;
+    height: auto;
+    top: 47%;
+    left: 35%;
+  }
+
+  .mobile .works_twitter {
+    width: 8%;
+    height: auto;
+    top: 48.5%;
+    left: 72%;
+  }
+
+  .mobile .works_insta {
+    width: 8%;
+    height: auto;
+    top: 48.5%;
+    left: 20%;
+  }
+
+  .mobile .illustration {
+    height: 5.5%;
+    top: 46%;
+    left: 12%;
+  }
+
+  .mobile .element-model {
+    height: 5.5%;
+    top: 55%;
+    left: 14%;
+  }
+
+  .mobile .photos {
+    height: 5.5%;
+    top: 47%;
+    left: 33%;
+  }
+
+  .mobile .video {
+    height: 5.5%;
+    top: 56%;
+    left: 33%;
+  }
+
+  .mobile .works1 {
+    height: 8%;
+    top: 45%;
+    left: 27%;
+  }
+}

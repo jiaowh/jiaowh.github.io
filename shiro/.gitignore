@@ -1,0 +1,12 @@
+node_modules/
+# site/dist is committed on purpose — GitHub Pages serves the built site from
+# shiro/site/dist/ (no CI build step on this repo). Do NOT ignore it.
+# site/public/assets is a generated intermediate (built by tools/assets.mjs from
+# the 白身魚/ source). Vite copies it verbatim into dist/assets, which IS committed,
+# so ignore the duplicate public copy to keep the repo lean.
+site/public/assets/
+*.tsbuildinfo
+# Raw source material (172MB PDF + screenshots) stays local — exceeds GitHub's
+# 100MB file limit and is not needed at runtime (derivatives live in site/public/assets).
+白身魚/
+.claude/logs/

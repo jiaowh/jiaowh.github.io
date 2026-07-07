@@ -1,0 +1,452 @@
+/**
+ * 真昼の月 — Wave 5: S5 奥付 / Finale (§7 S5, §6.1 finale payoff, §6.6
+ * postcard). Three components, in scroll order:
+ *
+ *   1. `.colophon` — credits + the plate_p001 tiny artifact. Plain paper,
+ *      no new motion beyond the one bloom (src/scripts/s5.ts).
+ *
+ *   2. `.s5-dusk` — the paper→night scroll transition + moon payoff.
+ *      Progressive-enhancement baseline (no-JS / reduced-motion): the
+ *      section is simply already `--night` with the payoff fully visible
+ *      — "dusk becomes simple, payoff still legible" (§5). Full motion
+ *      arms a paper-colored overlay (`.s5-dusk__paper`) that fades OUT
+ *      across a scrubbed ScrollTrigger tied to `.s5-dusk__sky`'s CSS
+ *      `position: sticky` (deliberately NOT a GSAP pin — §5 reserves
+ *      pinning for Ch.3 only; sticky achieves the same "stays put while
+ *      the transition plays" effect as a plain, non-hijacking scroll
+ *      behavior). Only opacity/transform are ever tweened here (§10).
+ *      Behavior: src/scripts/finale/dusk.ts.
+ *
+ *   3. `.postcard` — §6.6, back on paper immediately after (a deliberate
+ *      hard cut, not a second graduated transition — see dusk.ts's
+ *      docblock). Behavior: src/scripts/finale/postcard.ts.
+ */
+
+/* =========================================================================
+ * 1. Colophon
+ * ======================================================================= */
+.colophon {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  column-gap: var(--grid-gap);
+  align-items: center;
+  padding-inline: var(--margin);
+  margin-block: calc(var(--plate-rhythm) * 1.1);
+}
+
+.colophon__artifact {
+  grid-column: 2 / 4;
+  margin: 0;
+  max-width: 150px;
+}
+
+html.js .colophon__artifact[data-bloom] {
+  opacity: 0;
+}
+
+.colophon__artifact img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.colophon__text {
+  grid-column: 5 / 11;
+}
+
+.colophon__title {
+  margin: 0 0 0.6em;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: var(--ink);
+}
+
+.colophon__subtitle {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+  margin: 0 0 1.75rem;
+}
+
+.colophon__subtitle-jp {
+  font-family: var(--font-display);
+  color: var(--ink-soft);
+  letter-spacing: 0.02em;
+}
+
+.colophon__subtitle-en {
+  font-size: var(--type-caption);
+  color: var(--ink-soft);
+}
+
+.colophon__credit {
+  margin: 0 0 0.75rem;
+  max-width: 44ch;
+}
+
+.colophon__meta {
+  margin: 0;
+}
+
+/* =========================================================================
+ * 2. Dusk + moon payoff
+ * ======================================================================= */
+.s5-dusk {
+  position: relative;
+  min-height: 200vh;
+  min-height: 200dvh;
+}
+
+.s5-dusk__sky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  /* Resting/no-JS/reduced-motion state: already night, already legible —
+     see file docblock. */
+  background-color: var(--night);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.s5-dusk__paper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-color: var(--paper);
+  opacity: 0; /* resting: no paper layer — the sky is already night */
+  pointer-events: none;
+}
+
+/* JS confirmed present + full motion only: arm the paper overlay to start
+   fully covering the sky, so dusk.ts's scrub has somewhere to fade FROM.
+   Reduced motion keeps the plain resting state above. */
+html.js:not(.is-reduced-motion) [data-s5-sky][data-armed] .s5-dusk__paper {
+  opacity: 1;
+}
+
+.s5-payoff {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(2.5rem, 8vw, 6rem);
+  padding-inline: var(--margin);
+}
+
+html.js:not(.is-reduced-motion) [data-s5-payoff] {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.s5-payoff__moon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.s5-hero-moon {
+  overflow: visible;
+}
+
+.s5-hero-moon__ring {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.18);
+  stroke-width: 1;
+}
+
+.s5-hero-moon__disc {
+  fill: var(--moon);
+}
+
+.s5-moon-ticks {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.s5-moon-tick {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  /* Wave 6 (§8 contrast audit): 0.16 measured only 1.63:1 against --night
+     — under the 3:1 floor for a meaningful UI state indicator. Bumped to
+     clear 3:1 (0.34 measures ~3.1:1); still reads as clearly "unlit"
+     against the filled --moon dot once a phase is found. */
+  background-color: rgba(255, 255, 255, 0.36);
+  transition: background-color var(--dur-bloom) var(--ease-soak), transform var(--dur-bloom) var(--ease-soak);
+}
+
+.s5-moon-tick[data-found='true'] {
+  background-color: var(--moon);
+}
+
+.s5-moon-counter {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.s5-obi {
+  margin: 0;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.8vw, 1.9rem);
+  letter-spacing: 0.06em;
+  line-height: 2;
+  color: #fff;
+}
+
+/* Reduced motion: collapse the tall sticky-scrub scaffold into a plain,
+   short, static block — "dusk becomes simple, payoff still legible", with
+   no leftover dead scroll distance. */
+@media (prefers-reduced-motion: reduce) {
+  .s5-dusk {
+    min-height: 0;
+  }
+
+  .s5-dusk__sky {
+    position: static;
+    height: auto;
+    padding-block: clamp(3rem, 12vh, 6rem);
+  }
+}
+
+/* =========================================================================
+ * 3. Postcard (§6.6)
+ * ======================================================================= */
+.postcard-section {
+  position: relative;
+  z-index: 1;
+  /* Explicit — this sits immediately after the dusk block, which can end
+     on a fully-night frame; the postcard must read as paper again the
+     instant it starts, per §7's "back on paper." */
+  background-color: var(--paper);
+  padding-inline: var(--margin);
+  margin-block: calc(var(--plate-rhythm) * 0.8) calc(var(--plate-rhythm) * 1.6);
+}
+
+.postcard {
+  max-width: 640px;
+  margin-inline: auto;
+  padding: clamp(1.75rem, 4vw, 2.75rem);
+  background-color: var(--paper-deep);
+  border: 2px dashed var(--ink-20);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+.postcard__row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.postcard__title {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+}
+
+.postcard__title-en {
+  font-family: var(--font-mono); /* pure ASCII "POST CARD" — real mono is safe here */
+}
+
+.postcard__permit {
+  flex-shrink: 0;
+  padding: 0.6em 0.85em;
+  border: 1px dashed var(--ink-20);
+  text-align: center;
+  line-height: 1.5;
+}
+
+.postcard__field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.postcard__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.postcard__field-label {
+  font-family: var(--font-display);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
+  color: var(--ink-soft);
+}
+
+.postcard__input,
+.postcard__textarea {
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid var(--ink-20);
+  background: transparent;
+  padding-block: 0.4em;
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  color: var(--ink);
+  resize: vertical;
+  transition: border-color var(--dur-hover) var(--ease-soak);
+}
+
+.postcard__input:focus-visible,
+.postcard__textarea:focus-visible {
+  border-color: var(--ink);
+}
+
+.postcard__row--footer {
+  align-items: center;
+}
+
+.postcard__note {
+  margin: 0;
+  font-family: var(--font-hand);
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+  /* CD (Wave 5 review): `max-width: 20ch` re-hit the exact `ch`-unit trap
+     already documented on `.arrival-line` (arrival.css, F3) — `ch` measures
+     the half-width '0' glyph, so 20ch under-measured this 14-fullwidth-glyph
+     JP line and forced a wrap that broke as 「…送って / ね!」, a lone ね!
+     orphan. One line at desktop widths (≈13.5em, comfortably inside the
+     card); only the narrowest phones get a deliberate, balanced wrap (the
+     480px block below). */
+  white-space: nowrap;
+}
+
+/* §6.6: "'送る' → stamp thunks on ... then opens mailto:" — a real hyperlink
+   (see index.html/finale/postcard.ts's docblocks for why), styled as the
+   postal stamp itself: a small dashed-perforated square. */
+.postcard__send {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4.5rem;
+  min-height: 4.5rem;
+  padding: 0.5em;
+  border: 2px dashed var(--storm);
+  color: var(--storm);
+  text-decoration: none;
+  text-align: center;
+  transform-origin: center;
+}
+
+.postcard__send-label {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+}
+
+.postcard__send:hover,
+.postcard__send:focus-visible {
+  border-style: solid;
+}
+
+/* The one hard motion in the site (§6.6) lands here; the *resting* state it
+   settles into afterwards is this — solid border, ink-red, "properly
+   stamped" — a permanent visual receipt that this card has been sent
+   (--accent-red is the rarest, highest-value accent per §2, spent once,
+   here, deliberately). */
+.postcard__send.is-stamped {
+  border-style: solid;
+  border-color: var(--accent-red);
+  color: var(--accent-red);
+}
+
+@media (max-width: 480px) {
+  .postcard__row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .postcard__row--footer {
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  /* Narrow phones can't guarantee the single line — allow a wrap, but a
+     balanced one (never a single-character orphan). em-based cap, not ch
+     (see the `.postcard__note` comment above): 9em ≈ 9 fullwidth glyphs,
+     which breaks the 14-glyph line near its middle. */
+  .postcard__note {
+    white-space: normal;
+    max-width: 9em;
+    text-wrap: balance;
+  }
+}
+
+/* =========================================================================
+ * Responsive (§9) — colophon + payoff
+ * ======================================================================= */
+@media (max-width: 767px) {
+  .colophon {
+    grid-template-columns: 1fr;
+    row-gap: 1.25rem;
+  }
+
+  .colophon__artifact {
+    grid-column: 1;
+    max-width: 110px;
+  }
+
+  .colophon__text {
+    grid-column: 1;
+  }
+
+  /* Wave 6 (§9 "must fit mobile without clipping"): `.s5-dusk__sky` is a
+     100vh `overflow: hidden` box with this payoff centered inside it — on
+     a short phone (checked at 375×667) the combined moon-block + obi
+     column (~605px unconstrained) left too little headroom once the
+     mobile top rail (chapter-rail.css, ≤1079px) also claims real
+     vertical space, and the moon's own top edge measured inside the
+     rail's band. Three small, additive reductions (gap, moon size, and
+     letting the single-column obi wrap into two shorter columns — see
+     `.s5-obi` below) free enough height that centered content clears the
+     rail with room to spare, confirmed via a real headless render at
+     375×667 after these changes. */
+  .s5-payoff {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .s5-hero-moon {
+    width: 104px;
+    height: 104px;
+  }
+
+  .s5-obi {
+    font-size: 1.15rem;
+    /* Wraps the single 20-glyph vertical-rl column into two shorter ones
+       (10 + 10 in practice, no orphan) — `max-height` is the vertical-rl analogue of a
+       horizontal line's `max-width` wrap constraint. em-based (not the
+       `ch`-unit trap already documented on `.arrival-line` / `.postcard__note`
+       in this codebase — `ch` measures the half-width '0' glyph, wrong for
+       full-width JP glyphs; a CJK full-width character's own advance is
+       much closer to 1em of its font-size, which is what a height-wrap
+       here actually needs). Cuts the column's rendered height from ~382px
+       to ~210px, the bulk of the saving that clears the mobile top rail
+       (chapter-rail.css) without touching font-size further. */
+    max-height: 11em;
+  }
+}
+
+/* =========================================================================
+ * Footer (outside <main> — §7 S5's own footer credit line)
+ * ======================================================================= */
+.site-footer {
+  padding: clamp(2rem, 6vh, 3.5rem) var(--margin);
+  text-align: center;
+}
+
+.site-footer__credit {
+  margin: 0;
+}

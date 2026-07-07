@@ -1,26 +1,700 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- ═══════════════════════════════════════════════════════════════════════
+     NAHNEW — SOFTWARE · 電脳 · THE MAINFRAME
+     Dark cyber page: a fixed canvas "binary sea" of 0/1s underlies everything;
+     the cursor is a spotlight that resolves the noise into this page's own
+     source code. Click = sonar ping. Monitors power on into live iframes.
+
+     ➤ HOW TO ADD CONTENT (humans & agents): scroll to the CONTENT DATA block
+       at the top of the <script> at the bottom of this file. Websites go in
+       SITES[], non-web projects go in BUILDS[]. Full recipes are there.
+     ═══════════════════════════════════════════════════════════════════════ -->
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NAHNEW — Developer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#040807">
+<title>NAHNEW — 電脳 · The Mainframe</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
+  :root{
+    --void:#040807; --void2:#071009; --panel:rgba(7,16,11,.78);
+    --phos:#4ce98c; --phos-hi:#8dffbe; --phos-dim:#1c5c3a; --phos-ink:rgba(76,233,140,.35);
+    --cream:#e7dcbf; --cream-dim:#b9ae8f;
+    --body:#94a898; --dim:#5f7566;
+    --red:#e05740; --amber:#e8b13e; --teal:#3fa9ad;
+    --cur-star: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2222%22%20height%3D%2222%22%3E%3Cpath%20d%3D%22M11%202%20L12.6%209.4%20L20%2011%20L12.6%2012.6%20L11%2020%20L9.4%2012.6%20L2%2011%20L9.4%209.4%20Z%22%20fill%3D%22%234ce98c%22%20fill-opacity%3D%220.85%22%2F%3E%3C%2Fsvg%3E') 11 11, auto;
+    --cur-point: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2230%22%20height%3D%2230%22%3E%3Cpath%20d%3D%22M15%202%20L18%2012%20L28%2015%20L18%2018%20L15%2028%20L12%2018%20L2%2015%20L12%2012%20Z%22%20fill%3D%22%23e05740%22%20stroke%3D%22%238dffbe%22%20stroke-width%3D%221.4%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E') 15 15, pointer;
+  }
   *{box-sizing:border-box;}
-  body{margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;background:#e7dcbf;color:#160f06;font-family:'Spectral',serif;text-align:center;padding:40px;}
-  .eyebrow{font:400 12px/1 'Courier Prime',monospace;letter-spacing:.2em;text-transform:uppercase;color:#3d7a4e;}
-  h1{margin:0;font-family:'Cinzel',serif;font-weight:700;font-size:clamp(40px,8vw,76px);letter-spacing:-.005em;color:#160f06;}
-  p{margin:0;max-width:46ch;font-size:18px;font-weight:300;color:#4a3d28;}
-  a.back{display:inline-flex;align-items:center;gap:10px;margin-top:8px;padding:14px 26px;border-radius:2px;text-decoration:none;font:700 12px/1 'Courier Prime',monospace;letter-spacing:.12em;text-transform:uppercase;color:#f4ecd6;background:#160f06;box-shadow:3px 3px 0 #3d7a4e;transition:transform .25s,box-shadow .25s;}
-  a.back:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 #3d7a4e;}
+  html{scroll-behavior:smooth;}
+  html,body{margin:0;background:var(--void);}
+  body{color:var(--cream);font-family:'Spectral',serif;cursor:var(--cur-star);overflow-x:hidden;}
+  a{cursor:var(--cur-point);}
+  button{font:inherit;cursor:var(--cur-point);}
+  img,video{-webkit-user-drag:none;user-select:none;}
+  ::selection{background:rgba(76,233,140,.28);color:#eafff2;}
+
+  /* ---------- binary sea + CRT chrome ---------- */
+  #bin{position:fixed;inset:0;z-index:0;display:block;pointer-events:none;}
+  .scanlines{position:fixed;inset:0;z-index:56;pointer-events:none;opacity:.14;mix-blend-mode:overlay;
+    background:repeating-linear-gradient(to bottom, rgba(230,255,240,.09) 0 1px, transparent 1px 3px);}
+  .crt-vignette{position:fixed;inset:0;z-index:55;pointer-events:none;
+    background:radial-gradient(120% 100% at 50% 42%, transparent 55%, rgba(0,0,0,.5)),
+               radial-gradient(90% 70% at 50% 0%, rgba(76,233,140,.05), transparent 60%);}
+
+  /* ---------- boot veil ---------- */
+  #boot{position:fixed;inset:0;z-index:200;background:var(--void);display:flex;align-items:center;justify-content:center;transition:opacity .55s ease;}
+  #boot.off{opacity:0;pointer-events:none;}
+  #bootlog{font:400 13px/1.9 'Courier Prime',monospace;letter-spacing:.06em;color:var(--phos);min-width:min(560px,84vw);padding:0 20px;text-shadow:0 0 8px rgba(76,233,140,.45);}
+  #bootlog .ln{opacity:0;}
+  #bootlog .ln.on{opacity:1;}
+  #bootlog .ok{color:var(--phos-hi);}
+  #bootlog .warn{color:var(--amber);}
+  #bootlog .cur::after{content:'▮';animation:blink 1s steps(1) infinite;color:var(--phos-hi);}
+  @keyframes blink{50%{opacity:0;}}
+
+  /* ---------- nav ---------- */
+  nav.sitenav{display:flex;align-items:center;justify-content:space-between;padding:22px 40px 15px;border-bottom:1.5px solid rgba(76,233,140,.35);position:relative;z-index:70;background:rgba(4,8,7,.86);backdrop-filter:blur(6px);}
+  .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--cream);}
+  .brand .star{color:var(--phos);font-size:24px;line-height:1;text-shadow:0 0 10px rgba(76,233,140,.6);}
+  .brand b{font-family:'Cinzel',serif;font-weight:700;font-size:18px;letter-spacing:.18em;}
+  .navlinks{display:flex;align-items:center;gap:16px;font:400 12px/1 'Courier Prime',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);}
+  .navlinks a{color:inherit;text-decoration:none;}
+  .navlinks a:hover{color:var(--phos-hi);}
+  .navlinks a[aria-current]{color:var(--phos);border-bottom:1.5px dashed var(--phos);padding-bottom:2px;text-shadow:0 0 10px rgba(76,233,140,.5);}
+  .navlinks .dot{color:var(--red);font-size:9px;}
+  #hamb{display:none;flex-direction:column;align-items:center;justify-content:center;gap:4px;width:42px;height:42px;padding:0;background:#0a140e;border:1.5px solid rgba(76,233,140,.5);border-radius:2px;box-shadow:3px 3px 0 rgba(76,233,140,.22);}
+  #hamb span{display:block;width:18px;height:2px;background:var(--phos);}
+  #navmenu{display:none;position:absolute;top:calc(100% + 7px);right:18px;z-index:80;width:236px;max-height:0;opacity:0;overflow:hidden;transition:max-height .42s cubic-bezier(.2,.7,.2,1),opacity .3s ease;background:#0a140e;border:1.5px solid rgba(76,233,140,.5);border-radius:2px;box-shadow:6px 8px 0 rgba(0,0,0,.5);}
+  #navmenu .col{display:flex;flex-direction:column;padding:6px;font:400 13px/1 'Courier Prime',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);}
+  #navmenu a{display:flex;align-items:center;gap:11px;padding:12px;color:inherit;text-decoration:none;border-bottom:1px dashed rgba(76,233,140,.25);}
+  #navmenu a:last-child{border-bottom:0;}
+  #navmenu .dot{color:var(--phos);font-size:10px;}
+
+  main{position:relative;z-index:2;}
+
+  /* ---------- reveal-on-scroll ---------- */
+  .rv{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1);}
+  .rv.in{opacity:1;transform:none;}
+  .rv.d1{transition-delay:.08s;} .rv.d2{transition-delay:.16s;} .rv.d3{transition-delay:.24s;}
+
+  /* ---------- hero ---------- */
+  #hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:90px 40px 110px;text-align:center;}
+  .hero-eyebrow{display:flex;align-items:center;gap:10px;font:400 12px/1 'Courier Prime',monospace;letter-spacing:.24em;text-transform:uppercase;color:var(--phos);text-shadow:0 0 12px rgba(76,233,140,.5);}
+  .kseal{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-family:'Spectral',serif;font-size:16px;font-weight:700;color:#04120a;background:radial-gradient(circle at 34% 26%, var(--phos-hi), var(--phos) 52%, #12693e);border:2px solid #0a2416;box-shadow:0 0 0 1.5px rgba(141,255,190,.65), 0 0 18px rgba(76,233,140,.5);}
+  #hero h1{position:relative;margin:0;font-family:'Cinzel',serif;font-weight:700;font-size:clamp(46px,8.6vw,104px);line-height:1.02;letter-spacing:.01em;color:var(--cream);text-shadow:0 0 26px rgba(76,233,140,.22),2px 0 rgba(224,87,64,.25),-2px 0 rgba(63,169,173,.25);}
+  #hero h1 .gl{position:absolute;inset:0;pointer-events:none;opacity:0;}
+  #hero h1 .gl.r{color:var(--red);transform:translate(2px,-1px);}
+  #hero h1 .gl.t{color:var(--teal);transform:translate(-2px,1px);}
+  #hero h1.zap .gl{animation:glitch .34s steps(2) both;}
+  @keyframes glitch{0%{opacity:.85;clip-path:inset(8% 0 62% 0);}34%{opacity:.85;clip-path:inset(58% 0 12% 0);}67%{opacity:.85;clip-path:inset(30% 0 38% 0);}100%{opacity:0;}}
+  .hero-lede{margin:0;max-width:62ch;font-size:17.5px;line-height:1.7;font-weight:300;font-style:italic;color:var(--body);}
+  .hero-lede b{font-style:normal;font-weight:500;color:var(--phos);}
+  #herostat{font:400 12.5px/1.7 'Courier Prime',monospace;letter-spacing:.08em;color:var(--dim);padding:10px 18px;border:1px solid rgba(76,233,140,.25);border-radius:2px;background:var(--panel);}
+  #herostat .p{color:var(--phos);}
+  #herostat .c::after{content:'▮';animation:blink 1s steps(1) infinite;color:var(--phos);}
+  #hint{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;font:400 10px/1 'Courier Prime',monospace;letter-spacing:.26em;text-transform:uppercase;color:var(--dim);white-space:nowrap;}
+  @keyframes hintbob{0%,100%{transform:translateY(0);}50%{transform:translateY(4px);}}
+  #hint .v{animation:hintbob 1.8s ease-in-out infinite;color:var(--phos);}
+
+  /* ---------- section scaffolding ---------- */
+  .act{position:relative;padding:104px 40px 110px;}
+  .actwrap{max-width:1180px;margin:0 auto;}
+  .step{display:flex;align-items:center;gap:14px;font:700 11px/1 'Courier Prime',monospace;letter-spacing:.26em;text-transform:uppercase;color:var(--phos);}
+  .step .rule{flex:1;height:1px;background:currentColor;opacity:.3;}
+  .cmd{margin:26px 0 0;font:400 13px/1 'Courier Prime',monospace;letter-spacing:.08em;color:var(--dim);}
+  .cmd .p{color:var(--phos);}
+  .act h2{margin:14px 0 0;font-family:'Cinzel',serif;font-weight:700;font-size:clamp(32px,4.4vw,58px);line-height:1.05;color:var(--cream);text-shadow:0 0 22px rgba(76,233,140,.18),1.5px 0 rgba(224,87,64,.2),-1.5px 0 rgba(63,169,173,.2);}
+  .act .lead{margin:18px 0 0;max-width:64ch;font-size:16.5px;font-weight:300;font-style:italic;line-height:1.7;color:var(--body);}
+  .act .lead b{font-style:normal;font-weight:500;color:var(--phos);}
+
+  /* ---------- deployments: CRT monitors ---------- */
+  #deploygrid{display:grid;grid-template-columns:repeat(2,1fr);gap:34px;margin-top:56px;}
+  .deploy{display:flex;flex-direction:column;border:1.5px solid rgba(76,233,140,.4);border-radius:3px;background:var(--panel);backdrop-filter:blur(3px);box-shadow:0 24px 50px -28px rgba(0,0,0,.9), 0 0 0 1px rgba(0,0,0,.6), 0 0 34px -16px rgba(76,233,140,.35);transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .45s;}
+  .deploy:hover{transform:translateY(-4px);box-shadow:0 30px 56px -28px rgba(0,0,0,.95), 0 0 0 1px rgba(0,0,0,.6), 0 0 44px -12px rgba(76,233,140,.55);}
+  .tbar{display:flex;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid rgba(76,233,140,.3);font:400 11.5px/1 'Courier Prime',monospace;letter-spacing:.08em;color:var(--dim);}
+  .tbar .lights{display:flex;gap:5px;}
+  .tbar .lights i{width:9px;height:9px;border-radius:50%;border:1px solid rgba(0,0,0,.5);}
+  .tbar .lights i:nth-child(1){background:var(--red);} .tbar .lights i:nth-child(2){background:var(--amber);} .tbar .lights i:nth-child(3){background:var(--phos);}
+  .tbar .path{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--cream-dim);}
+  .tbar .led{display:flex;align-items:center;gap:6px;font-weight:700;letter-spacing:.14em;}
+  .tbar .led .b{width:7px;height:7px;border-radius:50%;}
+  .deploy[data-status="live"] .led{color:var(--phos);} .deploy[data-status="live"] .led .b{background:var(--phos);box-shadow:0 0 8px var(--phos);animation:pulse 2.2s ease-in-out infinite;}
+  .deploy[data-status="archive"] .led{color:var(--amber);} .deploy[data-status="archive"] .led .b{background:var(--amber);box-shadow:0 0 8px var(--amber);}
+  @keyframes pulse{50%{opacity:.35;}}
+  .screen{position:relative;aspect-ratio:16/10;margin:10px;border-radius:4px;overflow:hidden;background:#000;border:1px solid rgba(76,233,140,.25);box-shadow:inset 0 0 40px rgba(0,0,0,.75);}
+  .screen img.poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.85) brightness(.8);transition:opacity .5s,filter .5s;}
+  .deploy:hover .screen img.poster{filter:saturate(1) brightness(.95);}
+  .screen iframe{position:absolute;top:0;left:0;width:1280px;height:800px;border:0;transform-origin:0 0;background:#000;opacity:0;transition:opacity .45s;pointer-events:none;}
+  .screen .glass{position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg, rgba(255,255,255,.07) 0 12%, transparent 13% 100%),repeating-linear-gradient(to bottom, rgba(0,0,0,.16) 0 1px, transparent 1px 3px);mix-blend-mode:overlay;}
+  .screen .flick{position:absolute;inset:0;pointer-events:none;background:var(--phos);opacity:0;}
+  .screen.on .flick{animation:crt .5s steps(3) both;}
+  @keyframes crt{0%{opacity:.5;}40%{opacity:.06;}70%{opacity:.24;}100%{opacity:0;}}
+  .screen.on img.poster{opacity:0;}
+  .screen.on iframe{opacity:1;}
+  .pwr{position:absolute;right:10px;bottom:10px;z-index:5;display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:2px;border:1px solid rgba(141,255,190,.5);background:rgba(4,10,7,.82);color:var(--phos);font:700 10px/1 'Courier Prime',monospace;letter-spacing:.18em;text-transform:uppercase;transition:opacity .3s,background .3s;}
+  .pwr:hover{background:rgba(15,42,26,.92);}
+  .screen.on .pwr{color:var(--amber);border-color:rgba(232,177,62,.55);}
+  .dmeta{display:flex;flex-direction:column;gap:12px;padding:8px 18px 18px;}
+  .dmeta .row{display:flex;align-items:baseline;justify-content:space-between;gap:14px;}
+  .dmeta h3{margin:0;font-family:'Cinzel',serif;font-weight:700;font-size:22px;letter-spacing:.03em;color:var(--cream);}
+  .dmeta .yr{font:400 11px/1 'Courier Prime',monospace;letter-spacing:.16em;color:var(--dim);white-space:nowrap;}
+  .dmeta p{margin:0;font-size:15px;font-weight:300;line-height:1.65;color:var(--body);}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chips i{font:400 10px/1 'Courier Prime',monospace;letter-spacing:.14em;text-transform:uppercase;font-style:normal;color:#9fd8b4;padding:5px 9px;border:1px solid rgba(76,233,140,.35);border-radius:2px;background:rgba(76,233,140,.06);}
+  .launch{align-self:flex-start;display:inline-flex;align-items:center;gap:10px;margin-top:2px;padding:11px 20px;border-radius:2px;text-decoration:none;font:700 11px/1 'Courier Prime',monospace;letter-spacing:.16em;text-transform:uppercase;color:#04120a;background:var(--phos);box-shadow:3px 3px 0 rgba(76,233,140,.28);transition:transform .25s,box-shadow .25s,background .25s;}
+  .launch:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 rgba(76,233,140,.4);background:var(--phos-hi);}
+  /* ---------- machines: lab exhibits ---------- */
+  #benchlist{display:flex;flex-direction:column;gap:96px;margin-top:66px;}
+  .bench{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:56px;align-items:center;}
+  .bench.flip{grid-template-columns:minmax(0,5fr) minmax(0,7fr);}
+  .bench.flip .bmedia{order:2;}
+  .bench.flip .btext{order:1;}
+  .bmedia{position:relative;justify-self:center;width:100%;}
+  .bench[data-orient="portrait"] .bmedia{max-width:320px;}
+  .bench[data-orient="wide"] .bmedia{max-width:680px;}
+  .bench[data-orient="ultrawide"] .bmedia{max-width:720px;}
+  .vitrine{position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(76,233,140,.45);background:#000;box-shadow:0 30px 60px -30px rgba(0,0,0,.95), 0 0 44px -14px rgba(76,233,140,.4);}
+  .bench[data-orient="portrait"] .vitrine{border-radius:26px;}
+  .vitrine video{display:block;width:100%;height:auto;}
+  .vitrine .corner{position:absolute;width:22px;height:22px;pointer-events:none;border:2px solid rgba(141,255,190,.8);z-index:4;filter:drop-shadow(0 0 6px rgba(76,233,140,.6));}
+  .vitrine .corner.tl{top:10px;left:10px;border-right:0;border-bottom:0;}
+  .vitrine .corner.tr{top:10px;right:10px;border-left:0;border-bottom:0;}
+  .vitrine .corner.bl{bottom:10px;left:10px;border-right:0;border-top:0;}
+  .vitrine .corner.br{bottom:10px;right:10px;border-left:0;border-top:0;}
+  .vitrine .feed{position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:4;pointer-events:none;font:700 9px/1 'Courier Prime',monospace;letter-spacing:.22em;text-transform:uppercase;color:var(--phos-hi);background:rgba(4,10,7,.7);border:1px solid rgba(76,233,140,.4);border-radius:2px;padding:5px 9px;white-space:nowrap;}
+  .vitrine .rec{position:absolute;top:15px;right:38px;z-index:4;pointer-events:none;width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 8px var(--red);animation:pulse 1.6s steps(1) infinite;}
+  .vplay{position:absolute;inset:0;z-index:5;display:grid;place-items:center;background:rgba(3,7,5,.35);border:0;padding:0;transition:opacity .35s,visibility .35s;}
+  .vplay .ring{display:grid;place-items:center;width:74px;height:74px;border-radius:50%;border:1.5px solid rgba(141,255,190,.85);background:rgba(4,10,7,.8);color:var(--phos-hi);font-size:22px;box-shadow:0 0 26px rgba(76,233,140,.5);transition:transform .3s;}
+  .vplay:hover .ring{transform:scale(1.08);}
+  .vplay .lbl{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);font:700 10px/1 'Courier Prime',monospace;letter-spacing:.22em;text-transform:uppercase;color:var(--phos);}
+  .vplay.hide{opacity:0;visibility:hidden;}
+  .vmute{position:absolute;right:12px;bottom:12px;z-index:6;display:none;padding:8px 11px;border-radius:2px;border:1px solid rgba(141,255,190,.5);background:rgba(4,10,7,.82);color:var(--phos);font:700 10px/1 'Courier Prime',monospace;letter-spacing:.14em;}
+  .vitrine.playing .vmute{display:inline-flex;}
+  .btext .idx{display:flex;align-items:center;gap:12px;font:700 11px/1 'Courier Prime',monospace;letter-spacing:.26em;text-transform:uppercase;color:var(--phos);}
+  .btext .idx .rule{width:44px;height:1px;background:currentColor;opacity:.4;}
+  .btext h3{margin:14px 0 0;font-family:'Cinzel',serif;font-weight:700;font-size:clamp(24px,3vw,36px);color:var(--cream);text-shadow:0 0 18px rgba(76,233,140,.15);}
+  .btext p{margin:14px 0 0;font-size:15.5px;font-weight:300;line-height:1.75;color:var(--body);}
+  .btext p b{font-weight:500;color:var(--phos);}
+  .btext .chips{margin-top:18px;}
+
+  /* ---------- outro / footer ---------- */
+  #outro{padding:30px 40px 120px;text-align:center;}
+  #outro .gmsg{font:700 13px/1.9 'Courier Prime',monospace;letter-spacing:.24em;text-transform:uppercase;color:var(--phos);text-shadow:0 0 14px rgba(76,233,140,.4);}
+  #outro .gmsg::after{content:'▮';animation:blink 1s steps(1) infinite;margin-left:5px;}
+  #outro p{margin:12px 0 0;font-size:14.5px;font-style:italic;font-weight:300;color:var(--dim);}
+  footer{position:relative;z-index:2;border-top:1.5px solid rgba(76,233,140,.35);background:rgba(4,8,7,.9);padding:30px 40px 40px;}
+  .footrow{max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;}
+  .fbrand{display:flex;align-items:center;gap:10px;font-family:'Cinzel',serif;font-weight:700;letter-spacing:.18em;color:var(--cream);}
+  .fbrand .star{color:var(--phos);}
+  .flinks{display:flex;flex-wrap:wrap;gap:14px;font:400 11px/1 'Courier Prime',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);}
+  .flinks a{color:inherit;text-decoration:none;}
+  .flinks a:hover{color:var(--phos-hi);}
+  .term{display:inline-flex;align-items:center;gap:0;font:700 13px/1 'Courier Prime',monospace;letter-spacing:.06em;color:var(--phos);text-decoration:none;padding:12px 18px;border:1px solid rgba(76,233,140,.4);border-radius:2px;background:rgba(7,16,11,.8);transition:background .3s,box-shadow .3s;}
+  .term:hover{background:rgba(15,42,26,.9);box-shadow:0 0 22px -6px rgba(76,233,140,.6);}
+  .term .u{color:var(--cream-dim);font-weight:400;}
+  .term .c::after{content:'▮';animation:blink 1s steps(1) infinite;}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:960px){
+    #deploygrid{grid-template-columns:1fr;}
+    .bench,.bench.flip{grid-template-columns:1fr;gap:30px;}
+    .bench.flip .bmedia{order:1;} .bench.flip .btext{order:2;}
+    .bench[data-orient="wide"] .bmedia,.bench[data-orient="ultrawide"] .bmedia{max-width:none;}
+    .bench[data-orient="portrait"] .bmedia{max-width:min(300px,78vw);}
+  }
+  @media (max-width:640px){
+    nav.sitenav{padding:18px 18px 13px;}
+    .navlinks{display:none;}
+    #hamb{display:flex;}
+    #navmenu{display:block;}
+    #hero{padding:80px 22px 100px;}
+    .hero-lede{font-size:15.5px;}
+    #herostat{font-size:11px;}
+    .act{padding:84px 20px 90px;}
+    #deploygrid{gap:26px;margin-top:44px;}
+    .screen{margin:8px;}
+    #benchlist{gap:70px;margin-top:50px;}
+    #outro{padding:10px 20px 90px;}
+    footer{padding:26px 20px 34px;}
+    .footrow{flex-direction:column;text-align:center;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .rv{transition:none;opacity:1;transform:none;}
+    #hint .v,.tbar .led .b,.vitrine .rec{animation:none;}
+  }
 </style>
 </head>
 <body>
-  <div class="eyebrow">✦ NAHNEW · Developer</div>
-  <h1>Developer</h1>
-  <p>This page is under construction. Work for this discipline will live here soon.</p>
-  <a class="back" href="index.html">← Back to the deck</a>
+
+<canvas id="bin" aria-hidden="true"></canvas>
+<div class="scanlines" aria-hidden="true"></div>
+<div class="crt-vignette" aria-hidden="true"></div>
+
+<div id="boot" aria-hidden="true"><div id="bootlog"></div></div>
+
+<nav class="sitenav">
+  <a class="brand" href="index.html"><span class="star">✦</span><b>NAHNEW</b></a>
+  <div class="navlinks">
+    <a href="oil-painting.html">Painting</a><span class="dot">✦</span>
+    <a href="digital-art.html">Illustration</a><span class="dot">✦</span>
+    <a href="craft.html">Shadowbox</a><span class="dot">✦</span>
+    <a href="3d-models.html">3D Models</a><span class="dot">✦</span>
+    <a href="tosou.html">Sculptures</a><span class="dot">✦</span>
+    <a href="software.html" aria-current="page">Developer</a>
+  </div>
+  <button id="hamb" aria-label="Open menu"><span></span><span></span><span></span></button>
+  <div id="navmenu" data-open="0">
+    <div class="col">
+      <a href="oil-painting.html"><span class="dot">✦</span>Painting</a>
+      <a href="digital-art.html"><span class="dot">✦</span>Illustration</a>
+      <a href="craft.html"><span class="dot">✦</span>Shadowbox</a>
+      <a href="3d-models.html"><span class="dot">✦</span>3D Models</a>
+      <a href="tosou.html"><span class="dot">✦</span>Sculptures</a>
+      <a href="index.html"><span class="dot">✦</span>← The Deck</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ═══════════ HERO ═══════════ -->
+  <section id="hero">
+    <div class="hero-eyebrow rv"><span class="kseal">電</span>NAHNEW · SOFTWARE · 電脳</div>
+    <h1 class="rv d1" id="bigtitle">The Mainframe<span class="gl r" aria-hidden="true">The Mainframe</span><span class="gl t" aria-hidden="true">The Mainframe</span></h1>
+    <p class="hero-lede rv d2">Every other room in this house is paint, paper and blade. This room hums in the dark — the sites, simulators and sleights of augmented reality compiled by the same pair of hands. <b>Sweep your light across the noise</b>; the machine will show you its source. Click, and it pings back.</p>
+    <div id="herostat" class="rv d3"><span class="p">nahnew@mainframe</span>:~$ ls ./builds&nbsp;&nbsp;→&nbsp;&nbsp;<span id="statline">…</span><span class="c"></span></div>
+    <div id="hint"><span>Scroll · the sea runs deep</span><span class="v">▼</span></div>
+  </section>
+
+  <!-- ═══════════ 01 · DEPLOYMENTS ═══════════ -->
+  <section class="act" id="deploys">
+    <div class="actwrap">
+      <div class="step rv"><span class="kseal">網</span>01 · Deployments — 発信中<span class="rule"></span></div>
+      <div class="cmd rv d1"><span class="p">$</span> curl --silent https://nahnew.dev/deploys | render --crt</div>
+      <h2 class="rv d1">Live on the Wire</h2>
+      <p class="lead rv d2">Four machines answer on this frequency. <b>Rest your light on a monitor</b> and it powers on — what glows inside each glass is not a screenshot but the page itself, alive. Launch to step through.</p>
+      <div id="deploygrid"><!-- rendered from SITES[] --></div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 02 · MACHINES ═══════════ -->
+  <section class="act" id="machines">
+    <div class="actwrap">
+      <div class="step rv"><span class="kseal">機</span>02 · Machines — 実験機<span class="rule"></span></div>
+      <div class="cmd rv d1"><span class="p">$</span> ls ./machines --no-browser</div>
+      <h2 class="rv d1">Beyond the Browser</h2>
+      <p class="lead rv d2">Not everything compiles to a tab. These are field recordings — <b>light bent through glasses, highways ridden from a desk chair, paper that blooms into pixels</b> — captured straight from the hardware they ran on.</p>
+      <div id="benchlist"><!-- rendered from BUILDS[] --></div>
+    </div>
+  </section>
+
+  <!-- ═══════════ OUTRO ═══════════ -->
+  <section id="outro">
+    <div class="gmsg rv">More builds compiling</div>
+    <p class="rv d1">The queue never empties. Come back after the next push.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footrow">
+    <div class="fbrand"><span class="star">✦</span>NAHNEW · 電脳</div>
+    <div class="flinks">
+      <a href="oil-painting.html">Painting</a><a href="digital-art.html">Illustration</a><a href="craft.html">Shadowbox</a><a href="3d-models.html">3D Models</a><a href="tosou.html">Sculptures</a>
+    </div>
+    <a class="term" href="index.html"><span class="u">nahnew@mainframe:~$&nbsp;</span>cd ~/deck<span class="c"></span></a>
+  </div>
+</footer>
+
+<script>
+'use strict';
+/* ═══════════════════════════════════════════════════════════════════════════
+   CONTENT DATA — edit here to add/remove work. Nothing below needs touching.
+
+   ▸ WEBSITES → add an object to SITES[] :
+       id      unique slug
+       title   display name (Cinzel)
+       path    fake terminal path shown in the titlebar (keep the ~/deploys/ vibe)
+       status  'live' (green pulsing LED) or 'archive' (amber LED)
+       year    short year label, e.g. '2026 —'
+       href    real link opened by LAUNCH (relative to site root)
+       frame   page loaded into the live iframe preview (usually same as href;
+               use a sub-page if the entry page redirects, like the old site)
+       poster  static preview image. Recipe: screenshot the page at 1280×800,
+               save as WebP ≤100KB into assets/developer/web/preview-<id>.webp
+               (python + playwright + Pillow — see git history for shoot.py)
+       desc    one evocative sentence (Spectral, ~25 words max)
+       stack   3-ish short chips
+
+   ▸ NON-WEB PROJECTS (videos) → add an object to BUILDS[] :
+       id      unique slug
+       title   display name
+       orient  'portrait' | 'wide' | 'ultrawide'  (controls exhibit sizing)
+       src     compressed mp4 in assets/developer/web/  — encode originals with:
+               ffmpeg -i in -vf "scale=1024:-2" -c:v libx264 -crf 27 -preset slow
+                      -pix_fmt yuv420p -c:a aac -b:a 96k -movflags +faststart out.mp4
+               (portrait: scale=720:-2 · keep files ≲8MB; originals stay
+                gitignored in assets/developer/)
+       poster  first-frame WebP (ffmpeg -ss N -frames:v 1 → Pillow → .webp)
+       feed    tiny label above the video, e.g. 'LENS FEED · LIVE'
+       loop    true = autoplays muted when scrolled into view (keep ≲3MB)
+               false = click-to-play with sound toggle
+       desc    2–3 sentences; <b>…</b> allowed for green emphasis
+       chips   3-ish short chips
+     Exhibits alternate left/right automatically.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+const SITES = [
+  {
+    id:'nahnew', title:'NAHNEW', path:'~/deploys/nahnew', status:'live', year:'now',
+    href:'index.html', frame:'index.html', poster:'assets/developer/web/preview-nahnew.webp',
+    desc:'The house you are standing in. A portfolio dealt as a hand of vintage trading cards — six disciplines, six rooms, every page a single hand-built file.',
+    stack:['HTML/CSS/JS','three.js','GitHub Pages']
+  },
+  {
+    id:'old', title:'The Old Site', path:'~/deploys/legacy', status:'archive', year:'archived',
+    href:'old/index.html', frame:'old/index.html', poster:'assets/developer/web/preview-old.webp',
+    desc:'The previous incarnation — a floating deck of cards over an orange void, where the trading-card idea was first dealt. Redrawn in pure CSS and kept as a museum piece.',
+    stack:['HTML/CSS/JS','CSS 3D scene','no frameworks']
+  },
+  {
+    id:'btc', title:'BTC Cycle Lows', path:'~/deploys/btc-cycles', status:'live', year:'live feed',
+    href:'btc.html', frame:'btc.html', poster:'assets/developer/web/preview-btc.webp',
+    desc:'A cycle-low tracker reading the Binance tape in real time — daily and weekly lows, impulse MACD, and the next window, drawn on candlelight.',
+    stack:['lightweight-charts','Binance API','live data']
+  },
+  {
+    id:'gyokai', title:'GYOKAI — Acid Pop Archive', path:'~/deploys/gyokai', status:'live', year:'2026',
+    href:'gyokai/site/dist/index.html', frame:'gyokai/site/dist/index.html', poster:'assets/developer/web/preview-gyokai.webp',
+    desc:'A fan shrine to the illustrator 魚介 — acid yellow, halftone and barcode stickers, built as a Vite site and shipped static.',
+    stack:['Vite','vanilla JS','fan archive']
+  },
+  {
+    id:'shiro', title:'真昼の月 — Midday Moon', path:'~/deploys/shiro', status:'live', year:'2026',
+    href:'shiro/index.html', frame:'shiro/site/dist/index.html', poster:'assets/developer/web/preview-shiro.webp',
+    desc:'An unofficial tribute to illustrator 白身魚 — their self-selected collection staged as a warm-paper moon you scroll through, the one that hangs unseen at midday.',
+    stack:['Vite','TypeScript','tribute site']
+  },
+  {
+    id:'moto', title:'MOTO VAULT', path:'~/deploys/moto-vault', status:'live', year:'2026',
+    href:'moto.html', frame:'moto.html', poster:'assets/developer/web/preview-moto.webp',
+    desc:'走行記憶庫 — a riding time-vault where every motorcycle trip is replayed across a hand-tinted paper atlas, with a chase-camera RIDE mode and an odometer counting the years.',
+    stack:['MapLibre GL','GPS atlas','no framework']
+  }
+];
+
+const BUILDS = [
+  {
+    id:'ar-glasses', title:'AR Glasses HUD', orient:'portrait',
+    src:'assets/developer/web/ar-glasses.mp4', poster:'assets/developer/web/poster-ar-glasses.webp',
+    feed:'LENS FEED · 03.7s LOOP', loop:true,
+    desc:'Turn-by-turn navigation floated onto the street itself, filmed <b>through the lens</b> of the glasses mid-ride. The map hangs where a dashboard would be — except there is no dashboard, only road.',
+    chips:['augmented reality','wearable HUD','navigation']
+  },
+  {
+    id:'vr-sim', title:'VR Riding Simulator', orient:'wide',
+    src:'assets/developer/web/vr-riding-simulator.mp4', poster:'assets/developer/web/poster-vr-riding-simulator.webp',
+    feed:'SIM BAY · HEADSET CAPTURE', loop:false,
+    desc:'A motorcycle run through mountain expressways without leaving the desk. Floating route map, rear-view panels and a speed strip <b>pinned to the horizon</b> — the full cockpit, conjured in a headset.',
+    chips:['virtual reality','ride telemetry','immersive HUD']
+  },
+  {
+    id:'ar-card', title:'AR Business Card', orient:'ultrawide',
+    src:'assets/developer/web/ar-business-card.mp4', poster:'assets/developer/web/poster-ar-business-card.webp',
+    feed:'SCAN BAY · PHONE CAPTURE', loop:false,
+    desc:'A paper business card that <b>blooms when a camera reads it</b> — trading cards fan out, the logo pops to 3D, live links pin themselves in the air above the ink. The deck, escaping the print.',
+    chips:['WebAR','image tracking','print → pixels']
+  }
+];
+
+/* ── stat line ─────────────────────────────────────────────────────────── */
+document.getElementById('statline').textContent =
+  SITES.length + ' deployments · ' + BUILDS.length + ' machines · ∞ compiling';
+
+/* ═══ BINARY SEA — spotlight engine ═════════════════════════════════════ */
+(function(){
+  const cv = document.getElementById('bin'), ctx = cv.getContext('2d');
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const FINE = matchMedia('(hover:hover) and (pointer:fine)').matches;
+  const DPR = Math.min(devicePixelRatio || 1, FINE ? 1.75 : 1.5);
+  const FONT_PX = 12, CW = 8, CH = 16;
+  const DIM = 'rgba(112,220,160,', HOT = ['#123a26','#1d5c3a','#2f8f58','#4ce98c','#a5ffd0','#eafff2'];
+  let W=0,H=0,COLS=0,ROWS=0,heat=null,off=null,offctx=null;
+  let sx=-999,sy=-999,tx=0,ty=0,lastMove=0,t0=performance.now();
+  let RADIUS = FINE ? 200 : 130;
+  const rings = [];
+
+  /* the code revealed under the light = this page's own source */
+  let SRC = ['const sea = new BinarySea(you);','sea.reveal(source, spotlight);','// move your light. read the machine.'];
+  fetch('software.html').then(r=>r.text()).then(t=>{
+    SRC = t.split('\n').map(l=>l.replace(/\t/g,'  ')).filter(l=>l.trim().length>2);
+  }).catch(()=>{});
+
+  function build(){
+    W = innerWidth; H = innerHeight;
+    cv.width = W*DPR; cv.height = H*DPR;
+    cv.style.width = W+'px'; cv.style.height = H+'px';
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    COLS = Math.ceil(W/CW); ROWS = Math.ceil(H/CH);
+    heat = new Float32Array(COLS*ROWS);
+    off = document.createElement('canvas');
+    off.width = W*DPR; off.height = H*DPR;
+    offctx = off.getContext('2d');
+    offctx.setTransform(DPR,0,0,DPR,0,0);
+    offctx.font = FONT_PX+'px "Courier Prime","Courier New",monospace';
+    offctx.textBaseline = 'top';
+    offctx.fillStyle = '#040807';
+    offctx.fillRect(0,0,W,H);
+    for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++) seed(c,r);
+    ctx.font = offctx.font; ctx.textBaseline = 'top';
+    tx = W*0.62; ty = H*0.38;
+    if(sx<-100){sx=tx;sy=ty;}
+  }
+  function seed(c,r){
+    const x=c*CW, y=r*CH;
+    offctx.fillStyle = '#040807';
+    offctx.fillRect(x,y,CW,CH);
+    if(Math.random()<0.26) return;                     // gaps keep the sea airy
+    const a = 0.05 + Math.random()*0.16;
+    offctx.fillStyle = DIM + a + ')';
+    offctx.fillText(Math.random()<0.5?'0':'1', x, y+2);
+  }
+  function codeChar(c,r){
+    const scroll = Math.round(scrollY/CH);
+    const line = SRC[(r+scroll) % SRC.length] || '';
+    return c<line.length ? line[c] : ' ';
+  }
+  addEventListener('resize', build, {passive:true});
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(()=>build());
+  build();
+
+  addEventListener('pointermove', e=>{ tx=e.clientX; ty=e.clientY; lastMove=performance.now(); }, {passive:true});
+  addEventListener('pointerdown', e=>{
+    if(e.target.closest('a,button,iframe,video')) return;
+    rings.push({x:e.clientX, y:e.clientY, r:10});
+  }, {passive:true});
+
+  let frame=0, running=true;
+  document.addEventListener('visibilitychange', ()=>{ running=!document.hidden; if(running) requestAnimationFrame(tick); });
+
+  function tick(now){
+    if(!running) return;
+    frame++;
+    /* ambient mutation — a few droplets flip each frame */
+    if(!RM && frame%2===0){ for(let i=0;i<26;i++) seed((Math.random()*COLS)|0,(Math.random()*ROWS)|0); }
+    /* idle drift: the beacon wanders so the mechanic shows itself */
+    if(!RM && now-lastMove > 3500){
+      const t=(now-t0);
+      tx = W*0.5 + W*0.34*Math.sin(t*0.00021);
+      ty = H*0.44 + H*0.30*Math.sin(t*0.00034+1.7);
+    }
+    sx += (tx-sx)*0.12; sy += (ty-sy)*0.12;
+
+    ctx.clearRect(0,0,W,H);
+    ctx.drawImage(off,0,0,W,H);
+
+    /* soft lamp glow */
+    const g = ctx.createRadialGradient(sx,sy,0,sx,sy,RADIUS*1.25);
+    g.addColorStop(0,'rgba(76,233,140,.10)');
+    g.addColorStop(1,'rgba(76,233,140,0)');
+    ctx.fillStyle=g; ctx.fillRect(sx-RADIUS*1.3,sy-RADIUS*1.3,RADIUS*2.6,RADIUS*2.6);
+
+    /* inject heat under the lamp */
+    const c0=Math.max(0,((sx-RADIUS)/CW)|0), c1=Math.min(COLS-1,((sx+RADIUS)/CW)|0);
+    const r0=Math.max(0,((sy-RADIUS)/CH)|0), r1=Math.min(ROWS-1,((sy+RADIUS)/CH)|0);
+    for(let r=r0;r<=r1;r++)for(let c=c0;c<=c1;c++){
+      const dx=c*CW+CW/2-sx, dy=r*CH+CH/2-sy, d=Math.sqrt(dx*dx+dy*dy);
+      if(d<RADIUS){ const f=Math.pow(1-d/RADIUS,1.4); const i=r*COLS+c; if(f>heat[i])heat[i]=f; }
+    }
+    /* sonar rings inject heat along their wavefront */
+    for(let k=rings.length-1;k>=0;k--){
+      const ring=rings[k]; ring.r+=13;
+      const steps=Math.max(40,(ring.r*0.6)|0);
+      for(let s=0;s<steps;s++){
+        const a=s/steps*6.2832, x=ring.x+Math.cos(a)*ring.r, y=ring.y+Math.sin(a)*ring.r;
+        if(x<0||y<0||x>=W||y>=H) continue;
+        const i=((y/CH)|0)*COLS+((x/CW)|0);
+        if(0.75>heat[i]) heat[i]=0.75;
+      }
+      if(ring.r>Math.max(W,H)*0.85) rings.splice(k,1);
+    }
+    /* draw hot cells: binary resolves into source */
+    for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
+      const i=r*COLS+c, h=heat[i];
+      if(h<=0.035){ if(h>0)heat[i]=0; continue; }
+      heat[i]=h*0.93;
+      const x=c*CW, y=r*CH;
+      const ch=codeChar(c,r);
+      if(ch!==' '){
+        ctx.fillStyle='rgba(4,8,7,.92)'; ctx.fillRect(x,y,CW,CH);
+        ctx.fillStyle=HOT[Math.min(HOT.length-1,(h*(HOT.length-0.01))|0)];
+        ctx.fillText(ch,x,y+2);
+      }else if(h>0.4){ ctx.fillStyle='rgba(4,8,7,.6)'; ctx.fillRect(x,y,CW,CH); }
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+
+/* ═══ BOOT VEIL ═════════════════════════════════════════════════════════ */
+(function(){
+  const veil=document.getElementById('boot'), log=document.getElementById('bootlog');
+  const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(RM || sessionStorage.getItem('nn-dev-booted')){ veil.remove(); return; }
+  const LINES=[
+    ['NAHNEW BIOS v7.0 — 電脳 field',''],
+    ['> mount /dev/craft',' ok'],
+    ['> flooding binary sea',' ok'],
+    ['> spotlight driver',' ok'],
+    ['> found '+SITES.length+' deployments · '+BUILDS.length+' machines',''],
+    ['> renderer: parchment → phosphor','','warn'],
+    ['READY','','cur']
+  ];
+  log.innerHTML=LINES.map(l=>'<div class="ln'+(l[2]?' '+l[2]:'')+'">'+l[0]+(l[1]?'<span class="ok"> ……'+l[1]+'</span>':'')+'</div>').join('');
+  const els=log.querySelectorAll('.ln');
+  els.forEach((el,i)=>setTimeout(()=>el.classList.add('on'), 90+i*150));
+  const close=()=>{ veil.classList.add('off'); sessionStorage.setItem('nn-dev-booted','1'); setTimeout(()=>veil.remove(),700); };
+  setTimeout(close, 90+LINES.length*150+520);
+  veil.addEventListener('pointerdown', close);
+})();
+
+/* ═══ DEPLOYMENT MONITORS ═══════════════════════════════════════════════ */
+(function(){
+  const grid=document.getElementById('deploygrid');
+  const FINE=matchMedia('(hover:hover) and (pointer:fine)').matches;
+  const html=SITES.map((s,i)=>`
+    <article class="deploy rv ${i%2?'d1':''}" data-status="${s.status}" data-id="${s.id}">
+      <div class="tbar"><span class="lights"><i></i><i></i><i></i></span><span class="path">${s.path}</span>
+        <span class="led"><span class="b"></span>${s.status==='live'?'LIVE':'ARCHIVE'}</span></div>
+      <div class="screen" data-frame="${s.frame}">
+        <img class="poster" src="${s.poster}" alt="Preview of ${s.title}" loading="lazy">
+        <div class="glass"></div><div class="flick"></div>
+        <button class="pwr" aria-label="Power preview on or off">⏻ <span>power</span></button>
+      </div>
+      <div class="dmeta">
+        <div class="row"><h3>${s.title}</h3><span class="yr">${s.year}</span></div>
+        <p>${s.desc}</p>
+        <div class="chips">${s.stack.map(c=>'<i>'+c+'</i>').join('')}</div>
+        <a class="launch" href="${s.href}">Launch ↗</a>
+      </div>
+    </article>`).join('');
+  grid.innerHTML=html;
+
+  grid.querySelectorAll('.screen[data-frame]').forEach(scr=>{
+    let booted=false;
+    function power(on){
+      if(on && !booted){
+        booted=true;
+        const f=document.createElement('iframe');
+        f.src=scr.dataset.frame; f.title='Live preview'; f.tabIndex=-1;
+        f.setAttribute('aria-hidden','true'); f.loading='lazy';
+        scr.insertBefore(f, scr.querySelector('.glass'));
+        fit(); autoscroll(scr,f);
+      }
+      scr.classList.toggle('on', on);
+    }
+    function fit(){
+      const f=scr.querySelector('iframe'); if(!f) return;
+      f.style.transform='scale('+(scr.clientWidth/1280)+')';
+    }
+    addEventListener('resize', fit, {passive:true});
+    if(FINE){
+      scr.closest('.deploy').addEventListener('pointerenter',()=>power(true));
+      scr.closest('.deploy').addEventListener('pointerleave',()=>power(false));
+    }
+    scr.querySelector('.pwr').addEventListener('click',e=>{
+      e.stopPropagation(); power(!scr.classList.contains('on'));
+    });
+  });
+  /* powered previews slowly tour their own page */
+  function autoscroll(scr,f){
+    let y=0;
+    setInterval(()=>{
+      if(!scr.classList.contains('on')) return;
+      try{
+        const d=f.contentDocument; if(!d) return;
+        const max=Math.max(0,(d.documentElement.scrollHeight||0)-800);
+        y = max<=0 ? 0 : (y+430>max ? 0 : y+430);
+        f.contentWindow.scrollTo({top:y,behavior:'smooth'});
+      }catch(err){}
+    }, 3400);
+  }
+})();
+
+/* ═══ MACHINE EXHIBITS ══════════════════════════════════════════════════ */
+(function(){
+  const list=document.getElementById('benchlist');
+  list.innerHTML=BUILDS.map((b,i)=>`
+    <div class="bench rv ${i%2?'flip':''}" data-orient="${b.orient}" data-id="${b.id}">
+      <div class="bmedia">
+        <div class="vitrine">
+          <video src="${b.src}" poster="${b.poster}" preload="${b.loop?'metadata':'none'}"
+                 ${b.loop?'muted loop':''} playsinline aria-label="${b.title} demo video"></video>
+          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+          <span class="feed">${b.feed}</span><span class="rec"></span>
+          ${b.loop?'':`<button class="vplay" aria-label="Play ${b.title} video"><span class="ring">▶</span><span class="lbl">run capture</span></button>
+          <button class="vmute" aria-label="Toggle sound">🔇 sound</button>`}
+        </div>
+      </div>
+      <div class="btext">
+        <div class="idx"><span class="rule"></span>BUILD ${String(i+1).padStart(2,'0')}</div>
+        <h3>${b.title}</h3>
+        <p>${b.desc}</p>
+        <div class="chips">${b.chips.map(c=>'<i>'+c+'</i>').join('')}</div>
+      </div>
+    </div>`).join('');
+
+  /* looping exhibits autoplay only while on screen */
+  const vids=[...list.querySelectorAll('video[muted]')];
+  if(vids.length){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{
+      if(e.isIntersecting) e.target.play().catch(()=>{}); else e.target.pause();
+    }),{threshold:.45});
+    vids.forEach(v=>io.observe(v));
+  }
+  /* click-to-play bays */
+  list.querySelectorAll('.vplay').forEach(btn=>{
+    const box=btn.closest('.vitrine'), v=box.querySelector('video'), m=box.querySelector('.vmute');
+    btn.addEventListener('click',()=>{
+      btn.classList.add('hide'); box.classList.add('playing');
+      v.muted=true; v.play().catch(()=>{});
+    });
+    v.addEventListener('click',()=>{ if(v.paused)v.play(); else v.pause(); });
+    v.addEventListener('ended',()=>{ btn.classList.remove('hide'); box.classList.remove('playing'); });
+    m.addEventListener('click',()=>{ v.muted=!v.muted; m.textContent=(v.muted?'🔇':'🔊')+' sound'; });
+  });
+})();
+
+/* ═══ CHROME: reveals · glitch · hamburger ══════════════════════════════ */
+(function(){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  }),{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+  const h1=document.getElementById('bigtitle');
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+    setInterval(()=>{ h1.classList.remove('zap'); void h1.offsetWidth; h1.classList.add('zap'); }, 6200);
+  }
+
+  const hamb=document.getElementById('hamb'), menu=document.getElementById('navmenu');
+  hamb.addEventListener('click',()=>{
+    const open=menu.dataset.open==='1';
+    menu.dataset.open=open?'0':'1';
+    menu.style.maxHeight=open?'0':'340px';
+    menu.style.opacity=open?'0':'1';
+  });
+  document.addEventListener('click',e=>{
+    if(menu.dataset.open==='1' && !menu.contains(e.target) && e.target!==hamb && !hamb.contains(e.target)){
+      menu.dataset.open='0'; menu.style.maxHeight='0'; menu.style.opacity='0';
+    }
+  });
+})();
+</script>
 </body>
 </html>

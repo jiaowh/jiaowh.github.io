@@ -1,0 +1,465 @@
+/**
+ * 真昼の月 — Wave 3: the plate component system (§4 layouts, §6.2 margin
+ * notes, §6.3 wash-title art). Source of truth: design-system.md §4 (grid/
+ * rhythm), §5 (bloom), §6.2 (margin notes), §7 (S0 prologue, S1, S2).
+ *
+ * Structure per plate (see index.html S0/S1/S2 markup):
+ *
+ *   <div class="plate-block plate-block--<variant>">
+ *     <figure class="plate-block__figure cols-plate-*" data-bloom>
+ *       <picture>...</picture>
+ *       <figcaption class="plate-caption plate-caption--*">...</figcaption>  (optional — only plates with a source citation in `alt`)
+ *     </figure>
+ *     <p class="plate-block__note margin-note margin-note--<ink>" data-dwell>
+ *       <span class="margin-note__text" style="--rot: -1.4deg">...</span>
+ *     </p>
+ *   </div>
+ *
+ * `.plate-block` is a 12-col grid (reusing the §4 grid tokens from
+ * base.css); `.plate-block__figure` occupies the image's column span
+ * (`.cols-plate-solo` etc. from base.css, plus the flip variants added
+ * below); the caption is nested INSIDE the figure and reads "below-right"/
+ * "below-left" per §4's own alternative to a separate caption column —
+ * simpler markup, still figure/figcaption-correct, and spec-sanctioned
+ * ("caption in col 10–11 rotated OR below-right"). The margin note is a
+ * grid SIBLING of the figure, placed in the true margin columns beside it
+ * (§6.2 "positioned in the true margins beside plates") — kept out of the
+ * figure so it can occupy a column the image doesn't touch.
+ *
+ * Reveals: figures get bloom-reveal (mask sweep, wired in plates.ts);
+ * margin notes get dwell-reveal (opacity armed generically by the existing
+ * `html.js [data-dwell]` rule in motion.css — no new CSS needed for that
+ * part, only the ink-color/rotation/position styling below).
+ */
+
+/* ---------------------------------------------------------------------
+ * Grid wrapper + rhythm
+ * ------------------------------------------------------------------- */
+.plate-block {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  column-gap: var(--grid-gap);
+  align-items: start;
+  padding-inline: var(--margin);
+  margin-block: var(--plate-rhythm);
+}
+
+/* ---------------------------------------------------------------------
+ * Figure (image + optional caption)
+ * ------------------------------------------------------------------- */
+.plate-block__figure {
+  grid-row: 1;
+  margin: 0;
+}
+
+.plate-block__figure picture {
+  display: block;
+}
+
+.plate-block__figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Reveal-armed baseline (§5 progressive enhancement pattern, matches
+   motion.css's wash-title rule). */
+html.js .plate-block__figure[data-bloom] {
+  opacity: 0;
+}
+
+/* Extra column spans beyond base.css's solo/pair-a/pair-b/intimate utilities
+   — the mirrored "flip" variants used to break up runs of the same role
+   (§4 "alternate, never the same layout twice in a row") when the CD-fixed
+   plate order repeats a role several times consecutively. */
+.cols-plate-solo-flip { grid-column: 4 / 10; }
+
+.plate-block--intimate .plate-block__figure {
+  max-width: 420px;
+  width: 100%;
+  justify-self: center;
+}
+
+/* ---------------------------------------------------------------------
+ * Caption (§3: "always letter-spaced, always small, always asymmetric —
+ * never centered under the plate"). Nested in the figure, below the image.
+ * ------------------------------------------------------------------- */
+.plate-caption {
+  margin: 0.75em 0 0;
+  /* F5: every plate caption in the current build is a JP source citation
+     (季刊エス, 『ジャナ研』...) — EB Garamond is Latin-only and rendered
+     these as tofu boxes. Shippori Mincho (Display voice) is JP-safe; if a
+     genuinely Latin caption is introduced later, give it its own
+     `.plate-caption--latin` modifier rather than reverting this default. */
+  font-family: var(--font-display);
+  font-style: normal;
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
+  color: var(--ink-soft);
+}
+
+.plate-caption--latin {
+  font-family: var(--font-caption);
+  font-style: italic;
+}
+
+.plate-caption--right { text-align: right; }
+.plate-caption--left { text-align: left; }
+
+/* ---------------------------------------------------------------------
+ * Margin note (§6.2): Hand voice, rotating ink, dwell-revealed, positioned
+ * in the true margin column beside the plate.
+ * ------------------------------------------------------------------- */
+.plate-block__note {
+  grid-row: 1;
+  margin: 0;
+  max-width: 20ch;
+}
+
+.margin-note {
+  font-family: var(--font-hand);
+  font-size: 0.9375rem;
+  line-height: 1.65;
+}
+
+/* The rotation lives on an inner span, not the note element itself —
+   dwell-reveal.ts drives the outer element's `transform` via GSAP
+   (translateY), which would otherwise overwrite a CSS transform set on the
+   same node. Nesting keeps the two transforms independent. */
+.margin-note__text {
+  display: inline-block;
+  transform: rotate(var(--rot, 0deg));
+}
+
+.margin-note--green .margin-note__text { color: var(--note-green); }
+.margin-note--red .margin-note__text { color: var(--note-red); }
+.margin-note--blue .margin-note__text { color: var(--note-blue); }
+
+/* ---------------------------------------------------------------------
+ * Solo (§4: image cols 3–9)
+ * ------------------------------------------------------------------- */
+.plate-block--solo .plate-block__figure { grid-column: 3 / 9; }
+.plate-block--solo .plate-block__note {
+  grid-column: 10 / 13;
+  align-self: end;
+}
+
+.plate-block--solo-flip .plate-block__figure { grid-column: 4 / 10; }
+.plate-block--solo-flip .plate-block__note {
+  grid-column: 1 / 3;
+  align-self: end;
+}
+
+/* ---------------------------------------------------------------------
+ * Pair (§4: images cols 2–6 / 7–11 with vertical offset ≥ 20vh). Each
+ * "pair"-role manifest entry here is a single scanned page whose content
+ * already depicts two panels (季刊エス's "連作2点" etc.) rather than two
+ * separate image assets — see plates.ts / index.html comments. The single
+ * image takes one of the two column slots; its note carries the ≥20vh
+ * vertical-offset signature that would otherwise belong to a second image.
+ * ------------------------------------------------------------------- */
+.plate-block--pair-a .plate-block__figure { grid-column: 2 / 6; }
+.plate-block--pair-a .plate-block__note {
+  grid-column: 7 / 13;
+  align-self: start;
+  margin-block-start: 20vh;
+}
+
+.plate-block--pair-b .plate-block__figure { grid-column: 7 / 11; }
+.plate-block--pair-b .plate-block__note {
+  grid-column: 2 / 7;
+  align-self: start;
+  margin-block-start: 20vh;
+  text-align: right;
+}
+
+/* ---------------------------------------------------------------------
+ * Intimate (§4: small image ≤ 420px, col 5–8, huge whitespace)
+ * ------------------------------------------------------------------- */
+.plate-block--intimate {
+  margin-block: calc(var(--plate-rhythm) * 1.4);
+}
+
+.plate-block--intimate .plate-block__note {
+  grid-column: 9 / 13;
+  align-self: center;
+}
+
+.plate-block--intimate .plate-caption {
+  text-align: left;
+}
+
+/* ---------------------------------------------------------------------
+ * Closing plate — plate_p142 (§7 S4): "the book closes before the
+ * finale." A solo plate with extra lead-in AND lead-out rhythm, mirroring
+ * `.s0-prologue`'s treatment of the site's first plate at the opposite
+ * end of the book.
+ * ------------------------------------------------------------------- */
+.plate-block--closing {
+  margin-block-start: calc(var(--plate-rhythm) * 1.2);
+  margin-block-end: calc(var(--plate-rhythm) * 1.8);
+}
+
+/* ---------------------------------------------------------------------
+ * S1 centerpiece — jacket_yurihime_snow_umbrella (§7 S1): a photograph of
+ * the physical magazine. "Keep its paper edges visible" → no cropping, no
+ * object-fit:cover; instead it sits in a --paper-deep "plate well" (§2:
+ * "recessed areas, plate wells") so the photographed paper reads clearly
+ * against a slightly deeper field, like a print laid into an album. It
+ * carries --accent-red intrinsically, so no additional UI accent color is
+ * introduced near it (§2 "if a plate already carries its accent, the UI
+ * accent goes silent").
+ * ------------------------------------------------------------------- */
+.plate-block--centerpiece .plate-block__figure {
+  grid-column: 4 / 9;
+  background: var(--paper-deep);
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+.plate-block--centerpiece .plate-block__note {
+  grid-column: 10 / 13;
+  align-self: end;
+}
+
+/* ---------------------------------------------------------------------
+ * S1 archive board — plate_p017 (§7 S1): the whole 2019 cover-grid page,
+ * shown at near-full content width. Interactive: hover/focus/tap raises it
+ * slightly and reveals its margin note (NOT the dwell mechanic — that is
+ * taught in Ch.2; here the reveal is a direct interaction, matching "hover
+ * (and tap) raises the board ... and reveals its margin note"). No drop
+ * shadow (hard ban) — the "lift" is transform-only.
+ * ------------------------------------------------------------------- */
+.plate-block--archive .plate-block__figure { grid-column: 2 / 12; }
+
+.archive-board__trigger {
+  display: block;
+  width: 100%;
+  transition: transform var(--dur-hover) var(--ease-soak);
+}
+
+/* The bloom target here is the nested <picture>, not the button (see the
+   index.html comment on the archive board trigger) — armed-hidden state
+   needs its own rule since it doesn't carry .plate-block__figure. */
+html.js .archive-board__trigger picture[data-bloom] {
+  opacity: 0;
+}
+
+.archive-board__trigger:hover,
+.archive-board__trigger:focus-visible,
+.archive-board__trigger[aria-expanded='true'] {
+  transform: translateY(-6px);
+}
+
+.plate-block--archive .plate-block__note {
+  grid-row: 2;
+  grid-column: 2 / 7;
+  margin-block-start: 1.25rem;
+  align-self: start;
+}
+
+.plate-block--archive .plate-block__credit {
+  grid-row: 2;
+  grid-column: 7 / 12;
+  margin-block-start: 1.25rem;
+  text-align: right;
+}
+
+/* Archive note: hover/tap reveal, not dwell — independent hidden/shown
+   states from the generic [data-dwell] contract. */
+html.js .archive-board [data-archive-note] {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.archive-board [data-archive-note] {
+  transition: opacity var(--dur-caption) var(--ease-soak), transform var(--dur-caption) var(--ease-soak);
+}
+
+html.js .archive-board__trigger:hover ~ [data-archive-note],
+html.js .archive-board__trigger:focus-visible ~ [data-archive-note],
+html.js .archive-board__trigger[aria-expanded='true'] ~ [data-archive-note] {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------------------------------------------------------------------
+ * S0 prologue — plate_p003 (§7 S0): "the book opens as you leave the title
+ * page." Reuses the solo layout; extra lead-in rhythm marks the transition
+ * out of the arrival viewport into the book proper.
+ * ------------------------------------------------------------------- */
+.s0-prologue {
+  margin-block-start: clamp(4rem, 16vh, 9rem);
+}
+
+/* ---------------------------------------------------------------------
+ * Wash-title art (§6.3 + §7 S1/S2): the actual book chapter page used as
+ * the wash, in place of the CSS-only wash-blob gradient. Reuses the SAME
+ * pre-made ragged-silhouette mask classes (.wash-blob--a/b/c) as the
+ * decorative swatches — apply e.g. `class="wash-title__art wash-blob
+ * wash-blob--b"` — so both photographed and gradient washes share one
+ * organic-edge library. `.wash-blob`'s own `background-image` (radial
+ * gradients) is harmless here: the <img>'s bitmap paints over it.
+ * ------------------------------------------------------------------- */
+/* .wash-title__art sits on the <picture> wrapper (position/size/opacity/
+   mask — picture is a plain block box, not a replaced element, so it takes
+   these normally); the fit/crop lives on the inner <img> below, since
+   `object-fit` only has an effect on an actual replaced element. */
+.wash-title__art {
+  position: absolute;
+  inset-block-start: clamp(0.5rem, 3vh, 2rem);
+  inset-inline-start: calc(var(--margin) * 0.55);
+  width: min(64vw, 720px);
+  height: clamp(220px, 34vh, 420px);
+  /* Single source of truth for the resting opacity, read back by
+     wash-title.ts's bloomReveal() call — real page content must read
+     clearly since the <h2> is visually hidden for S1/S2. */
+  --art-opacity: 0.92;
+  opacity: var(--art-opacity);
+  pointer-events: none;
+  z-index: 0;
+  transform-origin: 42% 40%;
+}
+
+.wash-title__art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+html.js .wash-title__art[data-bloom] {
+  opacity: 0;
+}
+
+/* ---------------------------------------------------------------------
+ * S2 interlude (§7 S2): "a near-empty viewport, one Hand-voice line, huge
+ * whitespace." The one deliberate exception to "never centered" — a poem
+ * fragment alone on a blank page reads correctly centered, per the book.
+ * ------------------------------------------------------------------- */
+.s2-interlude {
+  min-height: 62vh;
+  min-height: 62dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: var(--margin);
+  margin-block: var(--plate-rhythm);
+}
+
+.s2-interlude__line {
+  margin: 0;
+  max-width: 22ch;
+  font-family: var(--font-hand);
+  font-size: clamp(1.05rem, 2.2vw, 1.4rem);
+  line-height: 1.9;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+/* ---------------------------------------------------------------------
+ * Responsive (§9): plate layouts collapse to a single column but KEEP
+ * asymmetry — alternating which side of the sacred margin each figure
+ * sits flush to (mirroring desktop's alternating grid-column offsets),
+ * paired with the note's own alternating text-align.
+ *
+ * F-mobile-1 fix: this block previously targeted figures with a bare
+ * `.plate-block__figure` selector (specificity 0,1,0) hoping to override
+ * each variant's desktop column rule (e.g. `.plate-block--solo
+ * .plate-block__figure`, specificity 0,2,0). Lower specificity never wins
+ * regardless of source order, so only the three variants ALSO listed with
+ * a matching two-class selector here (intimate/centerpiece/archive)
+ * actually collapsed — solo/solo-flip/pair-a/pair-b kept rendering at
+ * their desktop grid-column widths (confirmed via getBoundingClientRect:
+ * solo figures were 160px wide starting at x=86 on a 390px viewport, not
+ * full-width). Every variant now gets its own matching-specificity
+ * selector below. The SAME bug independently affected the note reset
+ * further down (solo/solo-flip notes weren't listed there either, and
+ * were confirmed rendering at 43-72px wide in a desktop corner position)
+ * — fixed the same way.
+ * ------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  .plate-block {
+    row-gap: 1.25rem;
+  }
+
+  /* Left-biased: flush to the start margin, gap opens on the end side. */
+  .plate-block--solo .plate-block__figure,
+  .plate-block--pair-a .plate-block__figure,
+  .plate-block--centerpiece .plate-block__figure {
+    grid-column: 1 / 11;
+  }
+
+  /* Right-biased: flush to the end margin, gap opens on the start side. */
+  .plate-block--solo-flip .plate-block__figure,
+  .plate-block--pair-b .plate-block__figure {
+    grid-column: 3 / 13;
+  }
+
+  /* Archive (the full 2019 cover-grid scan) needs no override: its own
+     desktop rule (`grid-column: 2 / 12`) is already symmetric and reads
+     as a deliberate one-off, exactly like the desktop composition. */
+
+  /* Intimate stays deliberately small and centered even at mobile — by
+     design it is the grid's one held-breath, dead-centered moment
+     (desktop's own `col 5–8` straddles the 12-col grid's exact center),
+     paired with `.plate-block--intimate`'s already-larger margin-block
+     rhythm ("huge whitespace"). A previous version of this block stretched
+     it edge-to-edge at mobile, quietly erasing that "small image, huge
+     whitespace" contrast. Desktop's own `max-width: 420px` / `justify-self:
+     center` (not redeclared here) still apply and no longer bind at this
+     narrower span anyway. */
+  .plate-block--intimate .plate-block__figure {
+    grid-column: 3 / 11;
+  }
+
+  .plate-block--solo .plate-block__note,
+  .plate-block--solo-flip .plate-block__note,
+  .plate-block--pair-a .plate-block__note,
+  .plate-block--pair-b .plate-block__note,
+  .plate-block--intimate .plate-block__note,
+  .plate-block--centerpiece .plate-block__note,
+  .plate-block--archive .plate-block__note {
+    grid-row: 2;
+    grid-column: 1 / -1;
+    align-self: start;
+    margin-block-start: 1rem;
+    max-width: 28ch;
+  }
+
+  /* F-mobile-2 fix: the credit shared row 2 / column 1/-1 with the note
+     above (desktop keeps them apart with a column split — note 2/7, credit
+     7/12 — that this rule's own `grid-column: 1 / -1` alone doesn't
+     replicate at a single-column width), so they rendered stacked directly
+     on top of each other, illegible. Own row, below the note. */
+  .plate-block--archive .plate-block__credit {
+    grid-row: 3;
+    grid-column: 1 / -1;
+    margin-block-start: 0.5rem;
+    text-align: left;
+  }
+
+  /* Alternating text bias — same direction as each variant's figure bias
+     above, so image + note read as one leaning unit down the page. */
+  .plate-block--solo .plate-block__note,
+  .plate-block--pair-a .plate-block__note,
+  .plate-block--centerpiece .plate-block__note {
+    margin-inline-start: 0;
+    text-align: left;
+  }
+
+  .plate-block--solo-flip .plate-block__note,
+  .plate-block--pair-b .plate-block__note {
+    margin-inline-start: auto;
+    text-align: right;
+  }
+
+  .wash-title__art {
+    width: min(80vw, 480px);
+  }
+
+  .s2-interlude {
+    min-height: 46vh;
+    min-height: 46dvh;
+  }
+}

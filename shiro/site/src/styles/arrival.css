@@ -1,0 +1,194 @@
+/**
+ * 真昼の月 — S0 Arrival (§7 S0). Pure paper + grain, the title drawing
+ * itself on, caption, single bloom, Hand-voice line at 2.5s. No scroll hint.
+ *
+ * Composition (per CD direction + §3 "captions ... always asymmetric
+ * placement, never centered"): the title lockup sits optically centered,
+ * but nothing else is symmetric — the wash blob hangs behind the title's
+ * left half and bleeds below it, the caption pair hangs off the title's
+ * RIGHT end, and the Hand-voice arrival line lives alone in the lower-left
+ * region of the viewport, outside the wash entirely. No boxed hero card.
+ */
+
+.s0-arrival {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: var(--margin);
+  overflow: hidden;
+}
+
+.arrival-lockup {
+  position: relative;
+  width: min(78vw, 880px);
+  max-width: 100%;
+}
+
+/* The single watercolor bloom: a wash-blob (organic mask + tonal gradient
+   fill — see motion.css) offset left-of-center behind the title, spilling
+   below it. Positioned without transforms: GSAP owns `transform` for the
+   spread animation (scale), so layout position must not live there. */
+.arrival-wash {
+  position: absolute;
+  z-index: 0;
+  left: -12%;
+  top: 50%;
+  width: min(58vw, 620px);
+  height: min(54vh, 470px);
+  margin-top: calc(-1 * min(27vh, 235px));
+  opacity: 0.2; /* resting value — bloomReveal's opacityTo matches (§6.3's 20%) */
+  pointer-events: none;
+  transform-origin: 44% 38%; /* pigment spreads from where the brush first touched */
+}
+
+/* F4: S0's wash carries the section accent per §6.3 ("the wash carries the
+   section accent") — S0's accent is --title-green (set via the inline
+   --wash-color custom property in index.html, consumed by .wash-blob's
+   background-image in motion.css). .wash-blob alone renders as a flat
+   tint; here we add two more layers *from the same --wash-color* — a
+   large, gentle halo (raises the whole silhouette's presence a touch,
+   very low contrast) and a small, tighter pool at the brush-touch point
+   (44%/38%, matching the transform-origin above) — so overlap with the
+   inherited three-layer base creates real tonal bands: a deeper pool
+   where the "brush" first touched, thinning to a soft halo at the ragged
+   edges. Reads as pigment settling into wet paper rather than a flat
+   silhouette. Selector doubles the class so it wins over .wash-blob's
+   own background-image regardless of stylesheet import order. */
+.arrival-wash.wash-blob {
+  background-image:
+    radial-gradient(72% 66% at 45% 42%, var(--wash-color, var(--sage)) 0%, transparent 66%),
+    radial-gradient(52% 46% at 40% 40%, var(--wash-color, var(--sage)) 0%, transparent 74%),
+    radial-gradient(44% 46% at 64% 60%, var(--wash-color, var(--sage)) 0%, transparent 76%),
+    radial-gradient(120% 115% at 50% 50%, var(--wash-color, var(--sage)) 14%, transparent 92%),
+    radial-gradient(24% 22% at 44% 38%, var(--wash-color, var(--sage)) 0%, transparent 85%);
+}
+
+/* JS confirmed present: arm invisible, bloomReveal(..., {trigger:'immediate'}) plays on load. */
+html.js .arrival-wash {
+  opacity: 0;
+}
+
+.arrival-title__heading {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  line-height: 0; /* the SVG is the only content; kill line-box slack */
+  color: var(--title-green);
+}
+
+/* R5: the title always scales to its container — never wider than the
+   lockup (which is itself capped at 78vw/100%), so it cannot clip on any
+   viewport ≥ 320px. aspect-ratio guarantees the height even in engines
+   that don't derive an SVG's intrinsic ratio from its viewBox. */
+.arrival-title__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4096 / 1028; /* = TITLE_VIEWBOX */
+  overflow: visible;
+}
+
+.arrival-title__svg .glyph-path {
+  fill: currentColor;
+  fill-opacity: 1;
+  stroke: currentColor;
+  stroke-opacity: 0;
+  stroke-width: 11;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* JS confirmed present: hide the (currently solid-filled) title, arm the
+   stroke-draw, then reveal — avoids a flash of the static fallback state. */
+html.js .arrival-title__svg {
+  opacity: 0;
+}
+
+/* Caption pair hangs below-RIGHT of the title's end — asymmetric, per §3.
+   F4 fix: this was `align-items: flex-end`, which in a column flex
+   container sizes each child to its own max-content width regardless of
+   the container's available cross-axis space — on narrow viewports the
+   JP/EN lines could render wider than the lockup and overflow past the
+   viewport edge, clipped by `.s0-arrival`'s `overflow: hidden` (read:
+   "captions clip at the right edge"). `align-items: stretch` (the flex
+   default) makes each line a full-width box instead; `text-align: right`
+   still hangs the glyphs off the right edge, same asymmetric look, but
+   now bounded by the lockup's own width so it can never escape it. */
+.arrival-caption {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.45em;
+  max-width: 100%;
+  margin: clamp(1rem, 3vh, 1.75rem) 1.5% 0 0;
+  text-align: right;
+}
+
+.arrival-caption__jp {
+  /* §3: JP set in the Mincho voice; caption-scaled and letter-spaced since
+     this line plays a byline role under the hand-drawn title. Color is
+     --ink-soft — S0's one accent is --title-green (title + wash only). */
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
+  color: var(--ink-soft);
+}
+
+.arrival-caption__en {
+  /* §3 Caption serif: "Latin captions, letter-spaced small caps" */
+  margin: 0;
+  font-family: var(--font-caption);
+  font-style: italic;
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
+  font-variant: small-caps;
+  color: var(--ink-soft);
+}
+
+/* The Hand-voice line: alone, small, lower-left of the viewport, outside
+   the wash (§6.2 margin-note scale: 0.9375rem).
+   F3 fix: `max-width: 24ch` assumed 1ch ≈ 1 full-width JP glyph, but `ch`
+   is defined off the '0' glyph — in a JP font this is typically a
+   half-width digit, so 24ch under-measured the line and forced an
+   unwanted wrap, which happened to break right before the closing
+   「る。」, leaving a two-character orphan. Desktop/tablet: `nowrap` keeps
+   it a single line (the line easily fits the viewport at this scale —
+   this was a sizing-unit bug, not a real space constraint). Only the
+   narrowest phones get a deliberate, balanced two-line wrap instead. */
+.arrival-line {
+  position: absolute;
+  z-index: 1;
+  left: var(--margin);
+  bottom: 13vh;
+  margin: 0;
+  max-width: 26em;
+  white-space: nowrap;
+  font-family: var(--font-hand);
+  font-size: 0.9375rem;
+  line-height: 2;
+  color: var(--ink-soft);
+  text-align: left;
+}
+
+@media (min-width: 1080px) {
+  /* Clear the chapter rail when it is present. (At very wide viewports
+     --margin exceeds the rail width anyway; max() covers the 1080–1200
+     band where they'd otherwise collide.) */
+  .arrival-line {
+    left: max(var(--margin), calc(var(--rail-width) + 1.5rem));
+  }
+}
+
+@media (max-width: 480px) {
+  .arrival-line {
+    white-space: normal;
+    max-width: 13em;
+    text-wrap: balance; /* never a single-character orphan */
+  }
+}

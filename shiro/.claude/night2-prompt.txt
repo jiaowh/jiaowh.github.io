@@ -1,0 +1,9 @@
+Resume as Creative Director / orchestrator for the 真昼の月 site (you are continuing the existing orchestration conversation; if for any reason you lack context, /home/jiaowh/shiro/.claude/HANDOFF.md reconstructs everything).
+
+Current position: Waves 1–3 done (assets+curation, shell/S0 with revision round, S1+S2 paper chapters); Wave 4 (S3 cinema chapter) is partially built — the previous session died mid-wave on a usage limit. The CD screenshot sweep of Waves 2-revision and 3 was interrupted and has not happened yet.
+
+Tonight:
+1. Verify the working tree visually first (screenshot recipe and port gotchas in HANDOFF.md — fresh port, confirm the <title> is 真昼の月 before judging).
+2. Audit the partial cinema modules, then finish Wave 4; then Wave 5 (S4 + S5 finale/postcard/moon payoff) and Wave 6 (responsive/a11y/perf); CD review after each wave against design-system.md — it is the single source of truth, including the copy deck (margin notes and extensions live in the curated manifest).
+3. Delegate implementation to Sonnet agents but run them SYNCHRONOUSLY (run_in_background: false) — backgrounded agents get killed when a headless turn ends.
+4. Iterate until the experience would realistically compete on Awwwards. Finish with a verified production build and a full visual pass (desktop + 390px mobile + reduced-motion + deep links), and leave HANDOFF.md updated.

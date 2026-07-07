@@ -1,0 +1,122 @@
+/**
+ * 真昼の月 — design tokens
+ * Source of truth: /home/jiaowh/shiro/design-system.md §2 (Color), §3 (Typography),
+ * §4 (Space/grid/layout), §5 (Motion)
+ * Do not hand-tune values here without updating the design system doc first.
+ *
+ * Tokens are grouped in two tiers:
+ *   1. Design-system tokens — names and values copied verbatim from the doc.
+ *   2. Implementation tokens — sizes/z-indices the doc leaves to engineering
+ *      discretion (rail width, moon size, focus ring...). Called out below so
+ *      the Creative Director can tell at a glance what is "spec" vs "our call".
+ */
+
+:root {
+  /* ---------------------------------------------------------------------
+   * §2 Color — Foundation
+   * ------------------------------------------------------------------- */
+  --paper: #F5F1E6;       /* global background (yellowish Sirius paper) */
+  --paper-deep: #ECE6D6;  /* recessed areas, plate wells, postcard */
+  --ink: #38342E;         /* primary text (warm G-pen near-black) */
+  --ink-soft: #6B655B;    /* captions, secondary */
+  --sage: #A9B2A4;        /* editorial frames, rules, catalog chrome (Ch.3) */
+  --title-green: #8FAE9B; /* handwritten title ink (matches cover lettering) */
+  --night: #151B27;       /* finale sky only */
+  --moon: #E9E4D8;        /* the moon on paper (~3% contrast vs --paper) */
+
+  /* §4 — S4's paper gets 2% warmer ("you're touching the raw sheet") */
+  --paper-warm: #F6F0E2;
+
+  /* Wave 4 — S3 cinema dark register. --night (§2) is reserved "finale sky
+     only"; S3's gaps/scene fallback need their own dark tone so the two
+     never get visually confused as the same place. Close in value to
+     --night (both are the site's only two dark tones) but kept distinct. */
+  --cinema-dim: #1A1F2B;   /* --night-dimmed gap interstitials, scene bg fallback */
+  --cinema-scrim: rgba(21, 27, 39, 0.25); /* §8: "25% ink gradient at text position" over Ch.3 imagery */
+
+  /* §2 Color — Seasonal accents (ONE per section, never two) */
+  --sakura: #E5ADBB;      /* cherry blossom plates */
+  --mint: #BCDCD2;        /* 風は吹いてるか? sky */
+  --scrawl: #EFC337;      /* handwritten yellow title scrawl */
+  --accent-red: #BF2E2A;  /* red umbrella / randoseru — rarest, highest-value accent */
+  --snow: #B9CDDC;        /* snow + umbrella covers */
+  --storm: #7C6046;       /* 覚醒 storm beach */
+  --water: #6FA8A4;       /* underwater / standing-in-water plates */
+  --clover: #6E9A54;      /* clover field / margin-note green ink */
+
+  /* §2 Color — Margin-note ink colors (rotate per note) */
+  --note-green: #4E8A62;
+  --note-red: #C05043;
+  --note-blue: #4A6FA5;
+
+  /* Pre-mixed alpha variants of --ink used by hairline chrome (rail thread,
+     rules). Precomputed rather than color-mix() for broad browser support. */
+  --ink-20: rgba(56, 52, 46, 0.2);   /* chapter-rail progress thread, §4 */
+  --ink-10: rgba(56, 52, 46, 0.1);   /* faint rules */
+  --night-12: rgba(21, 27, 39, 0.12); /* S5 wash-title foreshadow tint */
+
+  /* ---------------------------------------------------------------------
+   * §3 Typography
+   * ------------------------------------------------------------------- */
+  --font-display: 'Shippori Mincho B1', serif;  /* giant kanji, chapter numerals, jacket titles */
+  --font-hand: 'Klee One', cursive;             /* wash-titles, margin annotations, moon microcopy */
+  --font-caption: 'EB Garamond', serif;         /* Latin captions, small caps, English cursive lines */
+  --font-mono: 'IBM Plex Mono', monospace;      /* catalog numbers, dates, plate numbers, progress */
+
+  /* §3 Typography — fluid scale */
+  --type-display: clamp(4.5rem, 16vw, 15rem);   /* woven kanji */
+  --type-chapter: clamp(2.2rem, 6vw, 4.2rem);   /* wash titles */
+  --type-body: 1.0625rem;
+  --type-body-line-height: 1.95;
+  --type-caption: 0.8125rem;
+  --type-caption-tracking: 0.14em;
+  --type-catalog: 0.6875rem;
+  --type-catalog-tracking: 0.08em;
+
+  /* ---------------------------------------------------------------------
+   * §4 Space, grid, layout
+   * ------------------------------------------------------------------- */
+  --margin: clamp(1.5rem, 7vw, 7rem);      /* the sacred paper margin */
+  --grid-columns: 12;
+  --grid-gap: clamp(1rem, 2vw, 2rem);
+  --plate-rhythm: 35vh;                     /* min whitespace between plates */
+
+  /* ---------------------------------------------------------------------
+   * §5 Motion system — watercolor physics (fast attack, very long settle)
+   * ------------------------------------------------------------------- */
+  --ease-soak: cubic-bezier(0.16, 1, 0.3, 1);   /* default: reveals, blooms */
+  --ease-ink: cubic-bezier(0.65, 0, 0.35, 1);   /* cinema moves, pinned scenes */
+  --dur-hover: 250ms;
+  --dur-caption: 500ms;
+  --dur-bloom: 900ms;
+  --dur-scene: 1200ms;
+  --stagger: 70ms;
+  --dur-switch: 600ms; /* §6.5 variant switcher crossfade + kanji re-choreograph */
+
+  /* =======================================================================
+   * Implementation tokens — sizing/chrome not numerically specified in
+   * design-system.md. Wave 2 engineering calls; flag for CD review if any
+   * read wrong once real content lands.
+   * ===================================================================== */
+  --rail-width: clamp(2.75rem, 5vw, 4.5rem);   /* §4 chapter rail, desktop only */
+  --moon-size: 26px;                            /* §6.1 "a small crescent (~26px SVG)" */
+  /* §8 "2px --accent-red offset ring". A red lifted in luminance from
+     --accent-red (#BF2E2A, same hue): the spec'd red scores only 2.99:1 on
+     --night — a hundredth under WCAG 1.4.11's 3:1 for focus indicators, and
+     the ring lands on --night at the S3 cinema variant tabs and S5 night
+     ticks. This value clears 3:1 on both registers (~3.6:1 on --night,
+     ~4.2:1 on --paper). Its own token so the umbrella/randoseru --accent-red
+     stays exactly as sampled; drawn as an outline (not box-shadow) so the
+     cinema's overflow:hidden pins can never clip it. */
+  --focus-ring-color: #D6342F;
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+
+  /* z-index scale, low → high */
+  --z-content: 1;
+  --z-cinema-burn: 20; /* §1 register handoff mask — above section content, below rail/moon chrome */
+  --z-rail: 40;
+  --z-moon: 50;
+  --z-moon-toast: 60;
+  --z-skip-link: 100;
+}

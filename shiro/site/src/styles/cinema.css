@@ -1,0 +1,520 @@
+/**
+ * 真昼の月 — Wave 4: S3 CINEMA register (Register B). Source of truth:
+ * design-system.md §1 (the two registers + handoff), §2 (accents), §3
+ * (Display Mincho / vertical type), §5 (kanji depth, pin rules), §6.4
+ * (catalog chrome), §6.5 (variant switcher), §7 S3 (the five scenes).
+ *
+ * Structure per scene (see index.html for the real markup):
+ *   <article class="s3-scene s3-scene--s3-N" id="s3-N-frame" data-s3-scene="s3-N" data-pin="true" style="--scene-accent: var(--accent);">
+ *     <picture class="s3-scene__media is-active" data-variant="...">...</picture>  (one per edition, crossfaded)
+ *     <div class="s3-scene__scrim" aria-hidden="true"></div>                       (§8 25% ink gradient)
+ *     <h3 class="s3-scene__title" aria-label="..." lang="ja">
+ *       <span class="s3-kanji" data-s3-kanji aria-hidden="true"> ... glyph spans ... </span>
+ *     </h3>
+ *     <div class="s3-switcher" role="tablist"> ... role="tab" buttons ... </div>
+ *   </article>
+ *
+ * Behavior (pin/scrub/parallax/clip-path animation, switcher wiring) lives
+ * in src/scripts/cinema/{scenes,switcher,burn}.ts — this file is purely the
+ * resting/armed visual states both the full-motion and reduced-motion paths
+ * share. Per §5's progressive-enhancement rule, EVERY resting state below
+ * is fully visible/readable with no JS at all — cinema/scenes.ts only ever
+ * moves things that start already visible in plain CSS (fromTo, not a
+ * hidden→shown reveal), so there is no `html.js`-gated arm-hidden rule
+ * anywhere in this file (unlike bloom-reveal's plates) — see scenes.ts's
+ * docblock for why that pattern doesn't fit a scrub-synced timeline.
+ */
+
+/* ---------------------------------------------------------------------
+ * Chapter shell
+ * ------------------------------------------------------------------- */
+#s3.chapter-section--cinema {
+  background-color: var(--cinema-dim);
+  color: #fff;
+}
+
+.s3-cinema {
+  position: relative;
+}
+
+/* ---------------------------------------------------------------------
+ * §1 Register handoff — the paper burn mask overlay (behavior: cinema/burn.ts)
+ * ------------------------------------------------------------------- */
+.s3-burn {
+  display: none; /* burn.ts toggles this on/off for its two brief windows only */
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-cinema-burn);
+  background-color: var(--paper);
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------
+ * Scene — full-bleed stage
+ * ------------------------------------------------------------------- */
+.s3-scene {
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background-color: var(--cinema-dim);
+}
+
+.s3-scene__media {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--dur-switch) var(--ease-ink);
+}
+
+.s3-scene__media.is-active {
+  opacity: 1;
+}
+
+.s3-scene__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--focus, 50% 50%);
+}
+
+/* §8: "white text in Ch.3 always over a 25% ink scrim gradient at text
+   position." A generic top+bottom band covers every scene's title
+   placement (edges/upper/lower thirds) without per-scene tuning. */
+.s3-scene__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, var(--cinema-scrim) 0%, transparent 32%, transparent 68%, var(--cinema-scrim) 100%);
+}
+
+.s3-scene__title {
+  margin: 0;
+  z-index: 2;
+}
+
+/* ---------------------------------------------------------------------
+ * Kanji depth system (§5): Display Mincho, white, soft-light, tight tracking.
+ * ------------------------------------------------------------------- */
+.s3-kanji {
+  position: absolute;
+  display: flex;
+  pointer-events: none;
+}
+
+.s3-kanji__glyph {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: var(--type-display);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #fff;
+  opacity: 0.92; /* within the spec's 85–100% */
+  mix-blend-mode: soft-light;
+  will-change: transform, opacity;
+}
+
+/* ---------------------------------------------------------------------
+ * s3-1 — シャンプーの匂いがした: kanji "drifts across" the overhead sakura
+ * circle — one long horizontal line, deliberately wider than the viewport
+ * (a real jacket-title band, not a contained heading) so the entrance +
+ * continuous drift (scenes.ts addDriftFlavor) both have somewhere to go.
+ * ------------------------------------------------------------------- */
+.s3-scene--s3-1 .s3-kanji {
+  top: 9%;
+  left: 50%;
+  transform: translateX(-50%);
+  gap: 0.02em;
+  white-space: nowrap;
+}
+
+.s3-scene--s3-1 .s3-kanji__glyph {
+  font-size: clamp(2.75rem, 7.5vw, 6.5rem);
+}
+
+/* ---------------------------------------------------------------------
+ * s3-2 — 風は吹いてるか?: "glyphs slide on the diagonal" — the whole line
+ * sits pre-rotated; scenes.ts adds a diagonal (x+y) entrance vector on top.
+ * ------------------------------------------------------------------- */
+.s3-scene--s3-2 .s3-kanji {
+  top: 22%;
+  left: 6%;
+  gap: 0.02em;
+  white-space: nowrap;
+  transform: rotate(-9deg);
+  transform-origin: left center;
+}
+
+.s3-scene--s3-2 .s3-kanji__glyph {
+  font-size: clamp(2.5rem, 6.5vw, 5.5rem);
+}
+
+/* ---------------------------------------------------------------------
+ * s3-3 — 僕が持ってるものなら: NOT the Display Mincho system. A Hand-voice
+ * ribbon title in --scrawl, "animates on like a handwritten signature"
+ * (behavior: scenes.ts animateSignature — a left-to-right clip-path ink
+ * sweep; see that function's docblock for why this isn't a true
+ * stroke-dasharray draw). Normal blend (not soft-light) — §1's "handwritten
+ * yellow/white scrawl as emotional COUNTERPOINT" to the Mincho kanji, so it
+ * must read as its own saturated ink, not blended into the photograph.
+ * ------------------------------------------------------------------- */
+.s3-scene--s3-3 [data-s3-signature] {
+  position: absolute;
+  left: 8%;
+  bottom: 16%;
+  z-index: 2;
+  max-width: 74%;
+  margin: 0;
+  font-family: var(--font-hand);
+  font-weight: 600;
+  font-size: clamp(2.1rem, 6vw, 4.5rem);
+  line-height: 1.15;
+  color: var(--scrawl);
+  transform: rotate(-2deg);
+  transform-origin: left bottom;
+  clip-path: inset(0 0 0 0);
+}
+
+/* ---------------------------------------------------------------------
+ * s3-4 — 覚醒 hero moment: 覚 / 醒 at opposite edges, both at full
+ * --type-display size. 醒's manual clip-path silhouette (traced from
+ * jacket_210825's figure group, calibrated for the ~1600×1000 reference
+ * viewport per the burn/scenes docblocks) lets it pass visibly behind the
+ * two rightmost figures — pure CSS, holds under reduced motion too.
+ * ------------------------------------------------------------------- */
+.s3-hero-glyph {
+  position: absolute;
+  top: 5%;
+}
+
+.s3-hero-glyph--left {
+  left: 3%;
+}
+
+.s3-hero-glyph--right {
+  right: 3%;
+}
+
+/* Spans the full scene box — objectBoundingBox coordinates in the clipPath
+   (index.html, #s3-4-clip) are fractions of THIS element's border box, so
+   it must be sized to the whole stage, not just the glyph's own footprint. */
+.s3-hero-clip {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  clip-path: url(#s3-4-clip);
+}
+
+@media (max-width: 900px) {
+  /* The silhouette is calibrated for a wide desktop crop; a portrait mobile
+     crop crops the SIDES instead of top/bottom (see burn.ts/scenes.ts
+     docblocks), which would misalign the hole badly. Graceful fallback:
+     plain soft-light glyph, no hole — still fully legible, just without
+     the hero "behind the figures" trick at this one breakpoint band. */
+  .s3-hero-clip {
+    clip-path: none;
+  }
+}
+
+/* ---------------------------------------------------------------------
+ * s3-5 — 11という名の永遠の素数 (album): full catalog chrome (§6.4).
+ * Unpinned — flows as the chapter's resolution (scenes.ts animateAlbumScene).
+ * ------------------------------------------------------------------- */
+.s3-scene--s3-5::before {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  z-index: 2;
+  border: 1px solid var(--sage);
+  pointer-events: none;
+}
+
+.s3-vertical-rail {
+  position: absolute;
+  z-index: 2;
+  top: calc(12px + 1.5rem);
+  right: calc(12px + 1.25rem);
+  bottom: calc(12px + 1.5rem);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+/* jacket_kanzen (this scene's hi-res source photo) is itself a photographed
+   album insert that already carries its own printed title/catalog/credits
+   graphic — real chrome the manifest chose deliberately for authenticity
+   (see its `alt` text). Our own recreated title rail sits at the same
+   right edge §6.4 calls for, which can land close enough to that baked-in
+   credits column to compete for legibility. A soft localized scrim behind
+   just the rail (not the whole scene — the rest of the photo stays clean)
+   keeps our white title reading clearly regardless of what the photo
+   underneath happens to show at any given viewport. */
+.s3-vertical-rail::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset-block: -1.25rem;
+  inset-inline: -3rem -0.5rem;
+  background: linear-gradient(90deg, transparent 0%, rgba(10, 12, 16, 0.62) 60%, rgba(10, 12, 16, 0.62) 100%);
+  pointer-events: none;
+}
+
+.s3-scene--s3-5 .s3-kanji {
+  position: static;
+  display: block;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+.s3-scene--s3-5 .s3-kanji__glyph {
+  font-size: clamp(1.5rem, 3vw, 2.75rem);
+}
+
+.s3-catalog-number {
+  position: absolute;
+  z-index: 2;
+  left: calc(12px + 1.25rem);
+  bottom: calc(12px + 1rem);
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* §6.4: "English cursive line breaking the bottom frame line." Anchored at
+   the frame's bottom edge (12px inset) so it visually crosses the border. */
+.s3-cursive {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  bottom: 12px;
+  transform: translate(-50%, 50%);
+  margin: 0;
+  padding-inline: 0.75em;
+  background-color: var(--cinema-dim);
+  font-size: clamp(0.95rem, 1.6vw, 1.25rem);
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------------
+ * §6.5 Variant switcher — catalog-label tabs
+ * ------------------------------------------------------------------- */
+.s3-switcher {
+  position: absolute;
+  z-index: 3;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.s3-scene--s3-5 .s3-switcher {
+  top: calc(12px + 1.25rem);
+  right: auto;
+  left: calc(12px + 1.25rem);
+}
+
+/* Wave 4 review carry-over fix: the default top-right switcher position
+   (above) sits directly over 醒's top-right hero glyph (`.s3-hero-glyph--right`,
+   `top: 5%; right: 3%` — cinema.css above) for this scene only. Neither
+   giant glyph occupies the bottom-right corner (覚 is top-left, 醒 is
+   top-right, both anchored at `top: 5%`), so moving just this scene's tabs
+   there clears both without touching any other scene's switcher. */
+.s3-scene--s3-4 .s3-switcher {
+  top: auto;
+  right: 1.5rem;
+  bottom: 1.5rem;
+}
+
+.s3-switcher [role='tab'] {
+  /* F5: tab labels mix JP edition names (通常盤, 完全生産限定盤...) with Latin
+     ones (Type-B, Type-C) — IBM Plex Mono has no CJK glyphs and rendered
+     the JP labels as tofu. Shippori Mincho B1 covers both scripts, so one
+     stack serves the whole tablist without a per-label font switch. */
+  font-family: var(--font-display);
+  font-size: var(--type-catalog);
+  letter-spacing: var(--type-catalog-tracking);
+  color: rgba(255, 255, 255, 0.68);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  padding: 0.4em 0.85em;
+  transition: color var(--dur-hover) var(--ease-soak), border-color var(--dur-hover) var(--ease-soak);
+}
+
+.s3-switcher [role='tab']:hover {
+  color: #fff;
+}
+
+.s3-switcher [role='tab'][aria-selected='true'] {
+  color: #fff;
+  border-color: var(--scene-accent, var(--sage));
+}
+
+/* ---------------------------------------------------------------------
+ * Gaps — brief --cinema-dim interstitials, single vertical rail (benched
+ * singles' titles, tools/curation.json's _meta — the discography quietly
+ * present between the five chosen scenes).
+ * ------------------------------------------------------------------- */
+.s3-gap {
+  position: relative;
+  min-height: 32vh;
+  min-height: 32dvh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-inline-end: clamp(2rem, 6vw, 5rem);
+  background-color: var(--cinema-dim);
+  overflow: hidden;
+}
+
+.s3-gap__rail {
+  margin: 0;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  /* F5: these are JP benched-single titles — IBM Plex Mono has no CJK
+     glyphs and rendered them as tofu. Display Mincho per the wave brief
+     ("text only, Display Mincho, quiet"). */
+  font-family: var(--font-display);
+  font-size: var(--type-catalog);
+  letter-spacing: var(--type-catalog-tracking);
+  /* Wave 6 (§8 contrast audit): 0.42 measured 4.00:1 against --cinema-dim,
+     just under the 4.5:1 body-text minimum (computed via the standard
+     WCAG relative-luminance formula). Bumped to the nearest value that
+     clears it with a small margin (4.7:1) — still visibly the quietest
+     text in the chapter, well below the switcher/catalog-number/rail
+     opacities (0.68–1.0). */
+  color: rgba(255, 255, 255, 0.48);
+}
+
+/* ---------------------------------------------------------------------
+ * Chapter rail — cinema contrast mode (task item 6: "keeps working over
+ * dark scenes... may need a mode/contrast treatment"). Toggled by
+ * chapter-rail.ts via data-rail-mode when the active section is s3.
+ *
+ * F1 fix: this previously painted a flat rgba rectangle exactly
+ * `--rail-width` wide — its right edge landed squarely on the full-bleed
+ * scene as a razor-straight seam, reading as a rendering glitch rather
+ * than a deliberate treatment. Scenes stay full-bleed (no gutter carved
+ * out of them); legibility instead comes from a soft scrim that fades to
+ * nothing well before its own box edge, sized wider than the rail so the
+ * fade — not the box boundary — is what the eye actually meets.
+ * ------------------------------------------------------------------- */
+.chapter-rail[data-rail-mode='cinema']::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  z-index: -1;
+  width: calc(100% + 4rem);
+  background: linear-gradient(
+    90deg,
+    rgba(10, 12, 16, 0.5) 0%,
+    rgba(10, 12, 16, 0.34) 55%,
+    rgba(10, 12, 16, 0) 100%
+  );
+  pointer-events: none;
+}
+
+.chapter-rail[data-rail-mode='cinema'] .chapter-rail__link {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.chapter-rail[data-rail-mode='cinema'] .chapter-rail__link:hover {
+  color: #fff;
+}
+
+.chapter-rail[data-rail-mode='cinema'] .chapter-rail__link[aria-current='true'] .chapter-rail__index {
+  color: var(--scrawl);
+}
+
+.chapter-rail[data-rail-mode='cinema'] .chapter-rail__name {
+  color: #fff;
+}
+
+.chapter-rail[data-rail-mode='cinema'] .chapter-rail__thread {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.chapter-rail[data-rail-mode='cinema'] .chapter-rail__progress {
+  background: var(--scrawl);
+}
+
+/* Mobile/tablet top-bar variant (chapter-rail.css, <1080px): the desktop
+   cinema scrim above is a left-edge horizontal gradient sized to the
+   narrow vertical rail — wrong axis and wrong geometry for the full-width
+   top bar the rail becomes at this width. Only the tint needs to change;
+   the bar's own geometry (chapter-rail.css's ::before position/size) is
+   left alone since it's identical for both modes. */
+@media (max-width: 1079px) {
+  .chapter-rail[data-rail-mode='cinema']::before {
+    background: linear-gradient(
+      to bottom,
+      rgba(10, 12, 16, 0.6) 0%,
+      rgba(10, 12, 16, 0.32) 60%,
+      rgba(10, 12, 16, 0) 100%
+    );
+  }
+}
+
+/* ---------------------------------------------------------------------
+ * Responsive (§9)
+ * ------------------------------------------------------------------- */
+/* Wave 6: below 1080px the chapter rail becomes a top bar (chapter-rail.css,
+   its own breakpoint) whose current-chapter mark can run to two lines for a
+   long name like S3's own "Chapter.3 ナナブンノニジュウニ" (measured ~105px
+   tall at 390px, since that name specifically is long enough to wrap) —
+   pushed down with real breathing room below that measured worst case,
+   confirmed via a real headless render (a first pass at 7rem/112px cleared
+   it by only 7px, visually read as touching).
+   F-mobile-3 fix: this lived in the `max-width: 767px` block below at
+   first — but the rail itself switches to the top-bar layout at
+   `max-width: 1079px`, a WIDER threshold, so 768–1079px viewports got the
+   top-bar rail with none of this clearance, and a real render at 768px
+   confirmed the switcher's default `top: 1.5rem` sitting inside the rail's
+   own band there too. Own media query, matched to the rail's actual
+   breakpoint, so the two can never drift out of sync again. */
+@media (max-width: 1079px) {
+  .s3-switcher {
+    top: 8rem;
+    right: 1rem;
+  }
+
+  .s3-scene--s3-5 .s3-switcher {
+    top: calc(12px + 8rem);
+    left: calc(12px + 0.75rem);
+  }
+}
+
+@media (max-width: 767px) {
+  .s3-scene--s3-1 .s3-kanji__glyph,
+  .s3-scene--s3-2 .s3-kanji__glyph {
+    font-size: clamp(2rem, 11vw, 3.5rem);
+  }
+
+  .s3-hero-glyph .s3-kanji__glyph {
+    font-size: clamp(3.5rem, 22vw, 6rem);
+  }
+
+  .s3-scene--s3-4 .s3-switcher {
+    top: auto;
+    right: 1rem;
+    bottom: 1rem;
+  }
+
+  .s3-vertical-rail {
+    top: calc(12px + 3.25rem);
+  }
+
+  .s3-cursive {
+    white-space: normal;
+    max-width: 80vw;
+    text-align: center;
+  }
+
+  .s3-gap {
+    min-height: 22vh;
+    min-height: 22dvh;
+  }
+}

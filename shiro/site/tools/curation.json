@@ -1,0 +1,304 @@
+{
+  "_meta": {
+    "doc": "Creative Director's curatorial layer, merged into manifest.json by tools/curate.mjs (run after every `npm run assets`). Fields: chapter s0–s5 | role | alt (JP) | accent (plate's intrinsic accent token — if set, UI accent goes silent per design-system §2) | focus (object-position for full-bleed) | scene (s3-N ordering) | variantOf / edition (S3 switcher) | note (implementation guidance). Unlisted manifest ids get role=reserve. Bench highlights: YESとNOの間に family (211007/14/19/26 + jacket_underwater_yesno hi-res) is the strongest 6th-scene candidate; jacket_210937 hides a painted crescent moon (moon-hunt spot); S3 gap rails may name the benched singles as text-only vertical rails (曇り空の向こうは晴れている / 神様だって決められない / ムズイ / 何もしてあげられない / 僕は存在していなかった / 後でわかること / ロックは死なない / 僕は今夜、出て行く / YESとNOの間に). p113 (ハルヒ・トリビュート) and p116 (FGO) are the S4 guest-moment candidates if that section feels thin.",
+    "copy-extensions": {
+      "s2-interlude": "よく見ると、どのページにも空がある。",
+      "s2-interlude-en": "Look closely — there is sky on every page.",
+      "note": "CD-authored copy beyond design-system §12. Margin notes are curator voice, never first-person-as-artist. Implementation rotates note ink colors green→red→blue in document order."
+    }
+  },
+  "plate_p003": {
+    "chapter": "s0",
+    "role": "prologue",
+    "alt": "『真昼の月』表紙アートワーク — 麦わら帽子の少女、自転車の標識、水たまりに映る空のコラージュ",
+    "accent": null,
+    "note": "First image of the site: the book opens as you leave S0. Bloom-reveal, plate-solo layout."
+  },
+  "plate_p004": {
+    "chapter": "s1",
+    "role": "wash-title",
+    "alt": "Chapter.1 girl meets girl — 章扉、淡い虹色の水彩のにじみ",
+    "note": "Use the actual book chapter page as the wash; real heading visually-hidden for outline."
+  },
+  "jacket_yurihime_snow_umbrella": {
+    "chapter": "s1",
+    "role": "centerpiece",
+    "alt": "『コミック百合姫』2019年2月号表紙(誌面写真)— 雪の日、黄色い傘を差す少女と赤いランドセル",
+    "accent": "accent-red",
+    "note": "S1 centerpiece. Photo of the physical magazine — keep the paper edges visible, it grounds the archive. Plate carries red: UI accent silent.",
+    "marginNote": "傘の黄色だけが、冬を明るくする。"
+  },
+  "plate_p017": {
+    "chapter": "s1",
+    "role": "archive-board",
+    "alt": "百合姫2019年 表紙12点とコメントの一覧ページ",
+    "note": "Interactive: hover/tap raises a cover slightly + reveals one margin note. BALCOLONY. credit in catalog mono nearby.",
+    "marginNote": "2019年、月にひとつの表紙。"
+  },
+  "plate_p018": {
+    "chapter": "s2",
+    "role": "wash-title",
+    "alt": "Chapter.2 Novel illustration — 章扉、青と黄の水彩のにじみ"
+  },
+  "plate_p019": {
+    "chapter": "s2",
+    "role": "pair",
+    "alt": "桜の枝に手を伸ばす少女、電線と春空 — 連作2点(季刊エス)",
+    "accent": "sakura",
+    "marginNote": "電線の高さに、春が咲く。"
+  },
+  "plate_p020": {
+    "chapter": "s2",
+    "role": "solo",
+    "alt": "桜並木の通学路に立つ制服の少女",
+    "accent": "sakura",
+    "marginNote": "入学式の朝のような光。"
+  },
+  "plate_p033": {
+    "chapter": "s2",
+    "role": "pair",
+    "alt": "昇降口で靴を履き替える少女と、頬を染めるセーラー服の少女(季刊エス vol.54・53)",
+    "marginNote": "上履きに履き替える、いちばん短い旅。"
+  },
+  "plate_p034": {
+    "chapter": "s2",
+    "role": "intimate",
+    "alt": "冬の窓辺、机の陰から顔をのぞかせる少女(季刊エス vol.52)",
+    "note": "Dwell-reveal teaching moment — margin note about the green bottle.",
+    "marginNote": "机の上の小瓶に、冬の光がとまる。"
+  },
+  "plate_p049": {
+    "chapter": "s2",
+    "role": "solo",
+    "alt": "青空の窓辺で鉢植えの芽を抱く少女(『ツァラトゥストラへの階段』口絵)",
+    "marginNote": "小さな芽と、大きな空。"
+  },
+  "plate_p050": {
+    "chapter": "s2",
+    "role": "pair",
+    "alt": "『ツァラトゥストラへの階段』カバーと口絵 — 湯上がりの二人、都市の少年"
+  },
+  "plate_p051": {
+    "chapter": "s2",
+    "role": "solo",
+    "alt": "並んで膝を抱える制服の二人(『ツァラトゥストラへの階段』挿絵)"
+  },
+  "plate_p052": {
+    "chapter": "s2",
+    "role": "intimate",
+    "alt": "『ツァラトゥストラへの階段』3巻カバー — 抱きつく少女、たじろぐ少女",
+    "marginNote": "三巻のカバー。抱きつく側と、たじろぐ側。"
+  },
+  "plate_p081": {
+    "chapter": "s2",
+    "role": "pair",
+    "alt": "『ジャナ研の憂鬱な事件簿』カバー・口絵 — 着物の少女、教室の面々",
+    "accent": "clover",
+    "marginNote": "放課後、事件簿はひらかれる。"
+  },
+  "plate_p082": {
+    "chapter": "s2",
+    "role": "solo",
+    "alt": "紅葉の下、オレンジのマフラーの少女と見つめる少年(『ジャナ研』)",
+    "accent": "storm",
+    "note": "Autumn turn of the chapter.",
+    "marginNote": "紅葉の下で、目が合う。"
+  },
+  "plate_p084": {
+    "chapter": "s2",
+    "role": "solo",
+    "alt": "桜の校門前、鍵盤ハーモニカを抱えた眼鏡の少女(『ジャナ研』)",
+    "marginNote": "校門の桜と、鍵盤ハーモニカ。"
+  },
+  "plate_p097": {
+    "chapter": "s2",
+    "role": "solo",
+    "alt": "冬の坂道、ガードレール越しの白髪の少女と学生服の少年",
+    "accent": "snow",
+    "note": "Winter close of the chapter's season arc (sakura→autumn→winter).",
+    "marginNote": "章の終わりに、雪がふる。"
+  },
+  "jacket_210641": {
+    "chapter": "s3",
+    "role": "scene",
+    "scene": "s3-1",
+    "alt": "「シャンプーの匂いがした」ジャケット — 桜の絨毯に円になって寝転ぶ少女たちの俯瞰",
+    "accent": "sakura",
+    "focus": "50% 42%"
+  },
+  "jacket_210651": {
+    "chapter": "s3",
+    "role": "variant",
+    "variantOf": "jacket_210641",
+    "edition": "Type-B",
+    "alt": "同曲別ジャケット — 舞う花びらの中、寄り添う二人のクローズアップ",
+    "focus": "50% 35%"
+  },
+  "jacket_210739": {
+    "chapter": "s3",
+    "role": "scene",
+    "scene": "s3-2",
+    "alt": "「風は吹いてるか?」ジャケット — ミント色の斜めのタイポグラフィと駆け出す少女たち",
+    "accent": "mint",
+    "focus": "50% 45%"
+  },
+  "jacket_210745": {
+    "chapter": "s3",
+    "role": "variant",
+    "variantOf": "jacket_210739",
+    "edition": "Type-B",
+    "alt": "同曲別ジャケット — 見上げる三人、ミントの格子",
+    "focus": "50% 40%"
+  },
+  "jacket_210752": {
+    "chapter": "s3",
+    "role": "variant",
+    "variantOf": "jacket_210739",
+    "edition": "Type-C",
+    "alt": "同曲別ジャケット — 肩を組む五人、ミントの格子",
+    "focus": "50% 40%"
+  },
+  "jacket_210800": {
+    "chapter": "s3",
+    "role": "scene",
+    "scene": "s3-3",
+    "alt": "「僕が持ってるものなら」ジャケット — 青空に流れる白いリボンと見上げる少女たち",
+    "accent": "scrawl",
+    "focus": "50% 38%",
+    "note": "The handwritten ribbon-title animates on like a signature (§S3-3)."
+  },
+  "jacket_210806": {
+    "chapter": "s3",
+    "role": "variant",
+    "variantOf": "jacket_210800",
+    "edition": "Type-B",
+    "alt": "同曲別ジャケット — 笑う少女とウーパールーパーのぬいぐるみ、青のリボン",
+    "focus": "50% 35%"
+  },
+  "jacket_210819": {
+    "chapter": "s3",
+    "role": "variant",
+    "variantOf": "jacket_210800",
+    "edition": "Type-C",
+    "alt": "同曲別ジャケット — ぬいぐるみを抱えて笑う少女、流れる帯",
+    "focus": "50% 35%"
+  },
+  "jacket_210825": {
+    "chapter": "s3",
+    "role": "scene",
+    "scene": "s3-4",
+    "alt": "「覚醒」ジャケット — 嵐の海辺に立つコートの少女たち、両端に巨大な「覚」「醒」",
+    "accent": "storm",
+    "focus": "50% 48%",
+    "note": "THE hero moment: 醒 passes behind the figures via manual clip-path silhouette. Build the silhouette from this exact crop."
+  },
+  "jacket_210833": {
+    "chapter": "s3",
+    "role": "variant",
+    "variantOf": "jacket_210825",
+    "edition": "Type-B",
+    "alt": "同曲別ジャケット — 夕光の海辺、振り向く少女たち",
+    "focus": "50% 45%"
+  },
+  "jacket_kanzen": {
+    "chapter": "s3",
+    "role": "scene",
+    "scene": "s3-5",
+    "edition": "完全生産限定盤",
+    "alt": "アルバム「11という名の永遠の素数」完全生産限定盤 — 赤い制服の五人、セージの枠と筆記体の一文",
+    "accent": "sage",
+    "focus": "50% 40%",
+    "note": "Hi-res source (2632px). Full catalog chrome §6.4: sage frame, SRCL catalog number, vertical title rail, 'An eternal prime number named 11.' cursive breaking the bottom frame."
+  },
+  "jacket_211053": {
+    "chapter": "s3",
+    "role": "variant",
+    "variantOf": "jacket_kanzen",
+    "edition": "初回仕様限定盤",
+    "alt": "同アルバム別盤 — 街角の四人、枠と筆記体",
+    "focus": "50% 40%"
+  },
+  "jacket_211100": {
+    "chapter": "s3",
+    "role": "variant",
+    "variantOf": "jacket_kanzen",
+    "edition": "通常盤",
+    "alt": "同アルバム通常盤 — 笑い合う四人、ビル街",
+    "focus": "50% 40%"
+  },
+  "plate_p002": {
+    "chapter": "s4",
+    "role": "rough",
+    "alt": "表紙イラストの下描き — 黄色い色鉛筆の線だけの少女と窓辺",
+    "note": "Intimate small plate; pairs with the materials type-table."
+  },
+  "plate_p142": {
+    "chapter": "s4",
+    "role": "closing",
+    "alt": "見返しの表紙アートワークと奥付ページ",
+    "note": "The book closes: last plate before S5 credits."
+  },
+  "plate_p001": {
+    "chapter": "s5",
+    "role": "artifact",
+    "alt": "『真昼の月』表紙(題字入り)",
+    "note": "Tiny artifact beside the credits — the object itself."
+  },
+  "plate_p083": {
+    "role": "reserve",
+    "alt": "『ジャナ研』口絵 — 放課後の面々と夕暮れの二人"
+  },
+  "plate_p098": {
+    "role": "reserve",
+    "alt": "キャラクター設定画 — 三人の少女、制服と私服"
+  },
+  "plate_p113": {
+    "role": "reserve",
+    "alt": "書店のポスターと、円になる仲間たち — 『涼宮ハルヒ』トリビュート",
+    "note": "S4 guest-moment candidate; composition echoes s3-1's overhead circle — worth a margin note cross-reference."
+  },
+  "plate_p116": {
+    "role": "reserve",
+    "alt": "雪の街、リンゴ飴を持つ白髪の少女 — Fate/Grand Order バレンタイン",
+    "note": "S4 guest-moment candidate."
+  },
+  "plate_p129": {
+    "role": "reserve",
+    "alt": "ちいさな冒険者たち — ゲームのちびキャラ群像"
+  },
+  "plate_p130": {
+    "role": "reserve",
+    "alt": "羊の雲の遊び場 — ゲームのちびキャラ群像・続"
+  },
+  "plate_p131": {
+    "role": "reserve",
+    "alt": "夏の浜辺、麦わら帽子の子どもたち(連作)"
+  },
+  "plate_p132": {
+    "role": "reserve",
+    "alt": "川遊びとスイカ、水しぶきの夏(連作)"
+  },
+  "jacket_210937": {
+    "role": "reserve",
+    "alt": "「僕は今夜、出て行く」ジャケット — 白い装いの少女たちと三日月",
+    "note": "Painted crescent in the art: prime S3 moon-hiding spot if a gap needs one."
+  },
+  "jacket_underwater_yesno": {
+    "role": "reserve",
+    "alt": "「YESとNOの間に」ジャケット(高解像度)— 水中を泳ぐ制服の少女たちと黄色い手書き文字",
+    "note": "Strongest 6th-scene candidate (hi-res, --water accent, yellow scrawl)."
+  },
+  "jacket_urban_collage": {
+    "role": "reserve",
+    "alt": "アルバムブックレットの都市コラージュ見開き",
+    "note": "S3 gap support if needed."
+  },
+  "jacket_white_uniforms": {
+    "role": "reserve",
+    "alt": "白い制服の五人の少女たち"
+  },
+  "jacket_animation_note": {
+    "role": "reserve",
+    "alt": "本の上に座るコートの少女 — 雑誌カバーイラスト"
+  }
+}
