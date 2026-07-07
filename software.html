@@ -45,15 +45,6 @@
     background:radial-gradient(120% 100% at 50% 42%, transparent 55%, rgba(0,0,0,.5)),
                radial-gradient(90% 70% at 50% 0%, rgba(76,233,140,.05), transparent 60%);}
 
-  /* ---------- boot veil ---------- */
-  #boot{position:fixed;inset:0;z-index:200;background:var(--void);display:flex;align-items:center;justify-content:center;transition:opacity .55s ease;}
-  #boot.off{opacity:0;pointer-events:none;}
-  #bootlog{font:400 13px/1.9 'Courier Prime',monospace;letter-spacing:.06em;color:var(--phos);min-width:min(560px,84vw);padding:0 20px;text-shadow:0 0 8px rgba(76,233,140,.45);}
-  #bootlog .ln{opacity:0;}
-  #bootlog .ln.on{opacity:1;}
-  #bootlog .ok{color:var(--phos-hi);}
-  #bootlog .warn{color:var(--amber);}
-  #bootlog .cur::after{content:'▮';animation:blink 1s steps(1) infinite;color:var(--phos-hi);}
   @keyframes blink{50%{opacity:0;}}
 
   /* ---------- nav ---------- */
@@ -234,8 +225,6 @@
 <canvas id="bin" aria-hidden="true"></canvas>
 <div class="scanlines" aria-hidden="true"></div>
 <div class="crt-vignette" aria-hidden="true"></div>
-
-<div id="boot" aria-hidden="true"><div id="bootlog"></div></div>
 
 <nav class="sitenav">
   <a class="brand" href="index.html"><span class="star">✦</span><b>NAHNEW</b></a>
@@ -539,28 +528,6 @@ document.getElementById('statline').textContent =
     requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
-})();
-
-/* ═══ BOOT VEIL ═════════════════════════════════════════════════════════ */
-(function(){
-  const veil=document.getElementById('boot'), log=document.getElementById('bootlog');
-  const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(RM || sessionStorage.getItem('nn-dev-booted')){ veil.remove(); return; }
-  const LINES=[
-    ['NAHNEW BIOS v7.0 — 電脳 field',''],
-    ['> mount /dev/craft',' ok'],
-    ['> flooding binary sea',' ok'],
-    ['> spotlight driver',' ok'],
-    ['> found '+SITES.length+' deployments · '+BUILDS.length+' machines',''],
-    ['> renderer: parchment → phosphor','','warn'],
-    ['READY','','cur']
-  ];
-  log.innerHTML=LINES.map(l=>'<div class="ln'+(l[2]?' '+l[2]:'')+'">'+l[0]+(l[1]?'<span class="ok"> ……'+l[1]+'</span>':'')+'</div>').join('');
-  const els=log.querySelectorAll('.ln');
-  els.forEach((el,i)=>setTimeout(()=>el.classList.add('on'), 90+i*150));
-  const close=()=>{ veil.classList.add('off'); sessionStorage.setItem('nn-dev-booted','1'); setTimeout(()=>veil.remove(),700); };
-  setTimeout(close, 90+LINES.length*150+520);
-  veil.addEventListener('pointerdown', close);
 })();
 
 /* ═══ DEPLOYMENT MONITORS ═══════════════════════════════════════════════ */
