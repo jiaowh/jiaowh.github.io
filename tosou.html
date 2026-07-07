@@ -235,8 +235,10 @@
     .fitfoot{flex-direction:column;align-items:flex-start;gap:8px;}
     .fittag{font-size:8.5px;padding:5px 8px;letter-spacing:.12em;}
     .fittag.tr{top:auto;bottom:14px;}
-    .spraylab{grid-template-columns:1fr;gap:40px;}
+    .spraylab{grid-template-columns:1fr;gap:32px;}
     .labmeta{position:static;order:2;}
+    .labmeta .mt,.labmeta h3,.labmeta .jp,.spec,.chips,.labnote{display:none;}
+    .labbtns{margin-top:0;}
     .spraywrap{order:1;cursor:none;}
     #faceup .fgrid{grid-template-columns:1fr;gap:40px;}
     .lo-tag.a{top:0;} .lo-tag.b{bottom:4%;}
@@ -283,7 +285,7 @@
   <canvas id="mist" aria-hidden="true"></canvas>
   <div class="freckles" aria-hidden="true"></div>
   <div id="ghostkanji" aria-hidden="true">塗装工程</div>
-  <div class="hero-eyebrow rv in"><span>✦</span> NAHNEW · Sculptures — 塗装 <span>✦</span></div>
+  <div class="hero-eyebrow rv in"><span>✦</span> Sculptures <span>✦</span></div>
   <h1>The Paint Booth</h1>
   <div id="scrollhint"><span>scroll — the colour comes later</span><span class="v">✦</span></div>
 </header>
@@ -311,7 +313,7 @@
         <div class="co flip" style="left:57%;top:33%;"><span class="pin"></span><span class="lbl"><b>rose sprigs</b>×9 · fragile</span></div>
         <div class="co flip" style="left:84%;top:50%;"><span class="pin"></span><span class="lbl"><b>base · stockings</b>pinned for the booth</span></div>
 
-        <div class="fittag tl">exploded <span class="o">·</span> 62 parts</div>
+        <div class="fittag tl" id="tag-parts">exploded <span class="o">·</span> 62 parts</div>
         <div class="fittag tr" id="tag-built" style="opacity:.35;">test fit <span class="o">·</span> no glue yet</div>
         <div class="fithandle" id="fithandle"><span class="knob">⇆</span></div>
         <input id="fitrange" type="range" min="0" max="100" value="88" step="0.1" aria-label="Assembly slider — drag left to see the kit dry-fitted">
@@ -526,6 +528,7 @@ addEventListener('load', () => setTimeout(() => document.body.classList.add('pai
   const built = document.getElementById('img-built');
   const handle = document.getElementById('fithandle');
   const tagBuilt = document.getElementById('tag-built');
+  const tagParts = document.getElementById('tag-parts');
   const cos = document.querySelectorAll('#fitbox .co');
   function apply(){
     const v = +range.value;           // seam position; built fills v%..100% (right side)
@@ -534,7 +537,8 @@ addEventListener('load', () => setTimeout(() => document.body.classList.add('pai
     const built_pct = 100 - v;
     const fade = Math.max(0, 1 - built_pct/45);
     cos.forEach(c => c.style.opacity = fade);
-    tagBuilt.style.opacity = .35 + .65 * Math.min(1, built_pct/60);
+    tagBuilt.style.opacity = .35 + .65 * Math.min(1, built_pct/60);   // brightens as she assembles
+    tagParts.style.opacity = .35 + .65 * Math.min(1, v/60);           // dims as she assembles
   }
   range.addEventListener('input', apply);
   apply();

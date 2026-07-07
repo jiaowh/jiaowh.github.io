@@ -50,7 +50,7 @@ body.nomap{background:var(--paper2)}
 /* ---------- HUD gauge cluster ---------- */
 #hud{position:fixed;left:14px;bottom:14px;z-index:16;display:flex;gap:10px;align-items:flex-end;
   transition:opacity .5s,transform .5s}
-body.panelup #hud,body.panelup #dial,body.injourney #hud,body.injourney #dial{opacity:0;pointer-events:none;transform:translateY(16px)}
+body.panelup #hud,body.injourney #hud{opacity:0;pointer-events:none;transform:translateY(16px)}
 .gauge{background:linear-gradient(170deg,#2b2620,#151310);border:2px solid #4a4136;border-radius:9px;
   padding:9px 13px 7px;color:#e8d9a8;box-shadow:0 4px 14px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.08);
   text-align:center;min-width:86px}
@@ -61,15 +61,6 @@ body.panelup #hud,body.panelup #dial,body.injourney #hud,body.injourney #dial{op
   color:#f3e3ae;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
 .odo .reel:last-child .strip{color:#e88f4a}
 .gauge .big{font:600 19px/22px 'Courier New',monospace;color:#f3e3ae}
-
-/* ---------- time dial ---------- */
-#dial{position:fixed;right:14px;bottom:14px;z-index:16;background:linear-gradient(170deg,#2b2620,#151310);
-  border:2px solid #4a4136;border-radius:11px;padding:10px 14px 9px;color:#e8d9a8;text-align:center;
-  box-shadow:0 4px 14px rgba(0,0,0,.4);transition:opacity .5s,transform .5s}
-#dial .lab{font-size:9px;letter-spacing:.24em;color:#9b8c68;margin-bottom:5px}
-#dial .year{font:600 17px/20px 'Courier New',monospace;color:#f3e3ae;margin-bottom:5px;min-width:64px}
-#dial input{writing-mode:horizontal-tb;width:120px;accent-color:#c9a24a;cursor:pointer}
-#dial .ticks{display:flex;justify-content:space-between;font-size:8px;color:#9b8c68;margin-top:2px}
 
 /* ---------- scroll structure ---------- */
 #scroller{position:relative;z-index:8;pointer-events:none} /* let the map receive mouse events */
@@ -122,8 +113,10 @@ body.panelup #hud,body.panelup #dial,body.injourney #hud,body.injourney #dial{op
 .stop{position:relative;padding:12px 0 34px 86px;min-height:110px}
 .stop .snum{position:absolute;left:8px;top:14px;width:44px;height:44px;border-radius:50%;
   background:#fffdf4;border:2.5px solid var(--ink);display:flex;align-items:center;justify-content:center;
-  font:600 18px var(--serif);box-shadow:0 3px 8px rgba(60,40,10,.2);z-index:1}
-.stop.nogeo .snum{border-style:dashed;color:var(--dim)}
+  box-shadow:0 3px 8px rgba(60,40,10,.2);z-index:1}
+.stop .snum::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--ink)}
+.stop.nogeo .snum{border-style:dashed}
+.stop.nogeo .snum::after{background:var(--dim)}
 .stop h3{font-size:21px;font-weight:600;display:inline-block;margin-right:14px}
 .stop .sdate{font-family:var(--hand);font-size:16px;color:var(--dim)}
 .stop .snote{max-width:620px;line-height:1.95;font-size:14px;margin-top:6px}
@@ -237,7 +230,6 @@ body.panelup #hud,body.panelup #dial,body.injourney #hud,body.injourney #dial{op
 @media (min-width:900px){
   #map{right:33.4vw}
   #topbar{right:33.4vw}
-  #dial{right:calc(33.4vw + 14px)}
   #ride{right:33.4vw}
   #scroller{position:fixed;right:0;top:0;bottom:0;width:33.4vw;overflow-y:auto;
     overscroll-behavior:contain;pointer-events:auto;z-index:12;scroll-behavior:smooth}
@@ -273,9 +265,6 @@ body.panelup #hud,body.panelup #dial,body.injourney #hud,body.injourney #dial{op
   .mapwindow{height:52vh}
   #hud{left:8px;bottom:8px;gap:6px}
   .gauge{min-width:0;padding:7px 9px 5px}
-  #g-days,#g-stops{display:none}
-  #dial{right:8px;bottom:8px;padding:8px 10px 7px}
-  #dial input{width:84px}
   #topbar{padding:8px 10px}
   .polaroid img{width:150px;height:112px}
   .vidframe video{width:240px;height:144px}
@@ -305,16 +294,6 @@ body.panelup #hud,body.panelup #dial,body.injourney #hud,body.injourney #dial{op
 
 <div id="hud">
   <div class="gauge"><span class="odo" id="odo-main"></span><div class="lab">ODO · KM</div></div>
-  <div class="gauge" id="g-trips"><div class="big">0</div><div class="lab">旅 TRIPS</div></div>
-  <div class="gauge" id="g-stops"><div class="big">0</div><div class="lab">立寄 STOPS</div></div>
-  <div class="gauge" id="g-days"><div class="big">0</div><div class="lab">日 DAYS</div></div>
-</div>
-
-<div id="dial">
-  <div class="lab">TIME DIAL · 時の目盛</div>
-  <div class="year" id="dialyear">今</div>
-  <input type="range" id="dialrange" min="0" max="1" value="1" step="1">
-  <div class="ticks" id="dialticks"></div>
 </div>
 
 <main id="scroller">
@@ -431,7 +410,7 @@ function mkOdo(el,digits=6){
       s.style.transform=`translateY(${-19*(+str[i])}px)`;});
   }};
 }
-const odoMain=mkOdo($('#odo-main'));
+const odoMain=mkOdo($('#odo-main'),5);
 
 /* ---------------- audio ---------------- */
 const Snd={ctx:null,master:null,eng:null,muted:store.get('mute')==='1',
@@ -506,8 +485,7 @@ function stampSVG(name,date,num,color){
     <circle r="84" fill="none" stroke="${color}" stroke-width="5"/>
     <circle r="72" fill="none" stroke="${color}" stroke-width="1.6"/>
     <g>${arc}</g>
-    <text x="0" y="14" text-anchor="middle" font-size="40" font-weight="700" fill="${color}">${num}</text>
-    <text x="0" y="42" text-anchor="middle" font-size="12" fill="${color}">${date||'・・・'}</text>
+    <text x="0" y="22" text-anchor="middle" font-size="12" fill="${color}">${date||'・・・'}</text>
     <text x="0" y="62" text-anchor="middle" font-size="9" letter-spacing="2" fill="${color}">MOTO VAULT</text>
   </g></svg>`;
 }
@@ -689,7 +667,7 @@ function addMarkers(){
     j.geoStops.forEach((s,i)=>{
       const el=document.createElement('div');el.className='mk-w'; // MapLibre positions this
       el.style.setProperty('--mkc',j.color);el.title=s.name;
-      const dot=document.createElement('div');dot.className='mk';dot.textContent=i+1;
+      const dot=document.createElement('div');dot.className='mk';
       el.appendChild(dot);
       el.addEventListener('click',ev=>{ev.stopPropagation();
         if(isSplit)showStopPanel(j,i);else showStopPopup(j,i);});
@@ -828,26 +806,10 @@ function mapJourney(j){
 
 /* ---------------- HUD ---------------- */
 function updateHUD(animate=true){
-  const vis=visibleJourneys();
-  odoMain.set(totKM(),animate);
-  $('#g-trips .big').textContent=vis.filter(j=>j.geoStops.length||j.stops.length).length;
-  $('#g-stops .big').textContent=vis.reduce((a,j)=>a+j.geoStops.length,0);
-  $('#g-days .big').textContent=vis.reduce((a,j)=>a+j.days,0);
+  odoMain.set(35000,animate);
 }
 
-/* ---------------- time dial ---------------- */
-function initDial(){
-  const r=$('#dialrange');
-  if(!years.length){$('#dial').style.display='none';return;}
-  r.min=0;r.max=years.length;r.value=years.length;
-  $('#dialticks').innerHTML=years.map(y=>`<span>'${String(y).slice(2)}</span>`).join('')+'<span>今</span>';
-  r.addEventListener('input',()=>{
-    const v=+r.value;
-    dialCut=v>=years.length?Infinity:years[v];
-    $('#dialyear').textContent=dialCut===Infinity?'今':dialCut;
-    applyDial(true);
-  });
-}
+/* ---------------- time dial (UI removed; dialCut stays Infinity = show all) ---------------- */
 function applyDial(animate){
   if(state.j)return; // dial acts on atlas
   renderShelf();updateHUD(animate);mapAtlas(animate);
@@ -923,7 +885,7 @@ function renderJourney(j){
         <span class="vtag">▶ VIDEO</span><figcaption class="cap">${m.cap||''}</figcaption></figure>`;
       return'';}).join('');
     return`<section class="stop ${geo?'':'nogeo'}" data-stop="${j.id}-${geo?gi-1:'x'}" ${geo?`data-lat="${s.lat}" data-lng="${s.lng}"`:''}>
-      <div class="snum">${num}</div>
+      <div class="snum"></div>
       <div class="sstamp">${stampSVG(s.name,s.date?s.date.slice(5).replace('-','.'):'',typeof num==='number'?num:'✦',j.color)}</div>
       <h3>${s.name}</h3>${s.date?`<span class="sdate">${s.date}</span>`:''}
       ${s.note?`<p class="snote">${s.note}</p>`:''}
@@ -1157,7 +1119,7 @@ window.addEventListener('wheel',()=>{if(Ride.on)endRide(false);},{passive:true})
 window.addEventListener('touchmove',()=>{if(Ride.on)endRide(false);},{passive:true});
 
 /* ---------------- boot ---------------- */
-renderShelf();initDial();updateHUD(false);
+renderShelf();updateHUD(false);
 onThisDay();
 if(typeof maplibregl!=='undefined')initMap();else document.body.classList.add('nomap');
 route();

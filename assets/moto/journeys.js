@@ -417,8 +417,7 @@ const JOURNEYS =
    {"name": "沖縄美ら海水族館", "lat": 26.694348, "lng": 127.878008, "date": "", "note": "", "media": [{"img": "fuji-0435"}, {"img": "fuji-0436"}, {"img": "fuji-0437"}, {"img": "fuji-0438"}, {"img": "fuji-0439"}, {"img": "fuji-0440"}, {"img": "fuji-0441"}, {"img": "fuji-0442"}]},
    {"name": "万座毛", "lat": 26.504965, "lng": 127.849624, "date": "", "note": "", "media": [{"img": "fuji-0443"}]},
    {"name": "ポケセン　沖縄", "lat": 26.318582, "lng": 127.795331, "date": "", "note": "", "media": [{"img": "fuji-0444"}, {"img": "fuji-0445"}, {"img": "fuji-0446"}, {"img": "fuji-0447"}]},
-   {"name": "American Village", "lat": 26.316646, "lng": 127.757102, "date": "", "note": "", "media": [{"img": "fuji-0448"}, {"img": "fuji-0449"}, {"img": "fuji-0450"}, {"img": "fuji-0451"}, {"img": "fuji-0452"}, {"img": "fuji-0453"}, {"img": "fuji-0454"}, {"img": "fuji-0455"}, {"img": "fuji-0456"}, {"img": "fuji-0457"}]},
-   {"name": "test", "lat": 20.092079, "lng": 123.045664, "date": "", "note": "", "media": []}
+   {"name": "American Village", "lat": 26.316646, "lng": 127.757102, "date": "", "note": "", "media": [{"img": "fuji-0448"}, {"img": "fuji-0449"}, {"img": "fuji-0450"}, {"img": "fuji-0451"}, {"img": "fuji-0452"}, {"img": "fuji-0453"}, {"img": "fuji-0454"}, {"img": "fuji-0455"}, {"img": "fuji-0456"}, {"img": "fuji-0457"}]}
   ]
  },
  {

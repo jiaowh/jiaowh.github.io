@@ -1,6 +1,7 @@
 """MOTO VAULT Studio — local curator tool (never published).
 
     python assets/moto/studio.py          then open  http://127.0.0.1:8787
+                                          (also prints a LAN URL for your phone on the same Wi-Fi)
 
 Workflow:
   1. Drop a trip's photos/videos into  assets/moto/inbox/
@@ -12,7 +13,7 @@ Workflow:
 
 Saving a journey with videos can take minutes (H.264 encode) — watch this console.
 """
-import base64, io, json, mimetypes, re, shutil, sys, threading, time, urllib.request, zipfile
+import base64, io, json, mimetypes, re, shutil, socket, sys, threading, time, urllib.request, zipfile
 import xml.etree.ElementTree as ET
 from datetime import datetime
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -279,7 +280,24 @@ if __name__ == "__main__":
     except Exception:
         pass
     INBOX.mkdir(exist_ok=True)
+
+    # Bind to all interfaces so a phone on the same Wi-Fi can reach it; find the LAN IP to print.
+    def _lan_ip():
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        try:
+            s.connect(("8.8.8.8", 80))   # no packets sent; just picks the outbound interface
+            return s.getsockname()[0]
+        except Exception:
+            return "127.0.0.1"
+        finally:
+            s.close()
+
+    lan = _lan_ip()
     print(__doc__)
     print(f"inbox: {INBOX}  ({scan_inbox()['count']} files)")
-    print(f"serving  http://127.0.0.1:{PORT}   (Ctrl+C to stop)")
-    ThreadingHTTPServer(("127.0.0.1", PORT), H).serve_forever()
+    print(f"serving  http://127.0.0.1:{PORT}      (this PC)")
+    if lan != "127.0.0.1":
+        print(f"         http://{lan}:{PORT}   (phone / other device on the same Wi-Fi)")
+        print("         ^ if the phone can't connect, allow Python through Windows Firewall on Private networks.")
+    print("   (Ctrl+C to stop)   NOTE: anyone on this Wi-Fi can reach Studio — use only on your home network.")
+    ThreadingHTTPServer(("0.0.0.0", PORT), H).serve_forever()

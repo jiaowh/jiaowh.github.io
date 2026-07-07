@@ -94,6 +94,15 @@ textarea{resize:vertical;min-height:40px}
   </div>
   <div class="sec"><h2>KMZ 取り込み (Google My Maps)</h2>
     <div class="row"><input type="file" id="kmz" accept=".kmz,.kml" style="flex:1"></div>
+    <div class="row" id="kmzsnaprow" style="display:none;align-items:center;gap:8px;margin-top:6px">
+      <label style="font-size:11px;white-space:nowrap">近接 <b id="kmzradlab">300</b> m</label>
+      <input type="range" id="kmzrad" min="50" max="3000" step="50" value="300" style="flex:1">
+    </div>
+    <div id="kmztally" style="font-size:11px;color:var(--dim);margin:5px 0 4px;line-height:1.5"></div>
+    <div id="kmzactions" style="display:none;gap:6px;margin-bottom:6px">
+      <button class="primary" id="kmzsnap" style="font-size:11px;flex:1">⇒ 写真を近くのピンへまとめる</button>
+      <button id="kmzorder" style="font-size:11px" title="GPSがない時のみ：ピンを停留点へ順番どおり割当">順番</button>
+    </div>
     <div id="kmzlist"></div>
   </div>
   <div class="sec"><h2>結果 REPORT</h2><div id="report"></div></div>
@@ -261,25 +270,91 @@ $('#rescan').onclick=()=>{
   if(!confirm('inbox から停留点を作り直す？（今の編集内容は消える）'))return;
   boot($('#jsel').value||'');
 };
+/* ---- KMZ import: snap photos to nearby named pins, time-cluster the rest ---- */
+let KMZ=[];                       // parsed placemarks {name,lat,lng}
+const CLUSTER_GAP_MIN=45;         // mirrors studio.py
+function havM(la1,lo1,la2,lo2){   // haversine metres
+  const R=6371000,r=Math.PI/180,dLa=(la2-la1)*r,dLo=(lo2-lo1)*r;
+  const a=Math.sin(dLa/2)**2+Math.cos(la1*r)*Math.cos(la2*r)*Math.sin(dLo/2)**2;
+  return 2*R*Math.asin(Math.sqrt(a));
+}
+const tms=t=>new Date(t.replace(' ','T')).getTime();
+function timeClusterJS(files){    // [{name,ts,gps,kind}] -> [{files}] by 45-min gaps
+  const gap=CLUSTER_GAP_MIN*6e4,out=[];let cur=null;
+  [...files].sort((a,b)=>a.ts<b.ts?-1:1).forEach(f=>{
+    const t=tms(f.ts);
+    if(cur&&t-cur._end<=gap){cur.files.push(f);cur._end=t;}
+    else{cur={files:[f],_end:t};out.push(cur);}});
+  return out;
+}
+const gpsCentroid=fs=>{const g=fs.filter(f=>f.gps).map(f=>f.gps);
+  return g.length?[+(g.reduce((s,x)=>s+x[0],0)/g.length).toFixed(6),
+                   +(g.reduce((s,x)=>s+x[1],0)/g.length).toFixed(6)]:null;};
+function kmzGroup(R,apply){
+  const photos=STATE.inbox.clusters.flatMap(c=>c.files);
+  const buckets=KMZ.map(p=>({p,files:[]})),leftover=[];let noGps=0;
+  for(const f of photos){
+    if(f.gps){                    // snap to nearest pin within R metres
+      let bi=-1,bd=Infinity;
+      buckets.forEach((b,i)=>{const d=havM(f.gps[0],f.gps[1],b.p.lat,b.p.lng);if(d<bd){bd=d;bi=i;}});
+      if(bi>=0&&bd<=R){buckets[bi].files.push(f);continue;}
+    }else noGps++;
+    leftover.push(f);
+  }
+  const lc=timeClusterJS(leftover),named=buckets.filter(b=>b.files.length);
+  if(apply){
+    const stops=[];
+    named.forEach(b=>{const fs=[...b.files].sort((a,c)=>a.ts<c.ts?-1:1);
+      stops.push({name:b.p.name,lat:+b.p.lat.toFixed(6),lng:+b.p.lng.toFixed(6),
+        date:fs[0].ts.slice(0,10),note:'',media:fs.map(f=>({pend:f.name,kind:f.kind})),_t:fs[0].ts});});
+    lc.forEach(c=>{const g=gpsCentroid(c.files);
+      stops.push({name:'',lat:g?g[0]:null,lng:g?g[1]:null,
+        date:c.files[0].ts.slice(0,10),note:'',media:c.files.map(f=>({pend:f.name,kind:f.kind})),_t:c.files[0].ts});});
+    stops.sort((a,b)=>a._t<b._t?-1:1);                 // chronological across all stops
+    stops.forEach((s,i)=>{if(!s.name)s.name=`Stop ${i+1}`;delete s._t;});
+    J.stops=stops;sel=stops.length?0:-1;
+    const ds=stops.map(s=>s.date).filter(Boolean).sort();
+    if(ds.length){J.start=ds[0];J.end=ds[ds.length-1];$('#f-start').value=J.start;$('#f-end').value=J.end;}
+    renderStops();renderMarkers(true);
+  }
+  return{snapped:photos.length-leftover.length,total:photos.length,named:named.length,leftover:lc.length,noGps};
+}
+function kmzTally(){
+  const R=+$('#kmzrad').value;$('#kmzradlab').textContent=R;
+  if(!KMZ.length){$('#kmztally').textContent='';return;}
+  const s=kmzGroup(R,false);
+  $('#kmztally').textContent=KMZ.length+'個のピン · '
+    +`${s.snapped}/${s.total}枚が近くのピンへ → ${s.named}個の名前つき停留点 · 残り${s.leftover}停留点(時刻でまとめ、あとで命名)`
+    +(s.noGps?` · GPSなし${s.noGps}枚`:'');
+}
 $('#kmz').addEventListener('change',async e=>{
   const f=e.target.files[0];if(!f)return;
   const b64=btoa(String.fromCharCode(...new Uint8Array(await f.arrayBuffer())));
   const r=await api('/api/kmz',{b64});
-  $('#kmzlist').innerHTML=(r.placemarks||[]).map((p,i)=>
-    `<button data-pm="${i}">📍 ${p.name}</button>`).join('')
-    +(r.placemarks&&r.placemarks.length?`<button data-pmall="1" style="font-weight:600">⇒ 順番どおり全停留点へ割当</button>`:'なにも見つからない');
-  $('#kmzlist').querySelectorAll('[data-pm]').forEach(b=>b.onclick=()=>{
-    if(sel<0)return;const p=r.placemarks[+b.dataset.pm];
+  KMZ=r.placemarks||[];
+  const has=KMZ.length>0;
+  $('#kmzsnaprow').style.display=has?'flex':'none';
+  $('#kmzactions').style.display=has?'flex':'none';
+  $('#kmzlist').innerHTML=has?KMZ.map((p,i)=>`<button data-pm="${i}">📍 ${p.name}</button>`).join(''):'なにも見つからない';
+  $('#kmzlist').querySelectorAll('[data-pm]').forEach(b=>b.onclick=()=>{   // click a pin -> place selected stop
+    if(sel<0)return;const p=KMZ[+b.dataset.pm];
     J.stops[sel].lat=p.lat;J.stops[sel].lng=p.lng;
     if(/^Stop \d+$/.test(J.stops[sel].name))J.stops[sel].name=p.name;
     renderStops();renderMarkers(true);});
-  const all=$('#kmzlist [data-pmall]');
-  if(all)all.onclick=()=>{
-    r.placemarks.forEach((p,i)=>{if(!J.stops[i])J.stops.push({name:'',media:[],date:'',note:''});
-      J.stops[i].lat=p.lat;J.stops[i].lng=p.lng;
-      if(!J.stops[i].name||/^Stop \d+$/.test(J.stops[i].name))J.stops[i].name=p.name;});
-    renderStops();renderMarkers(true);};
+  kmzTally();
 });
+$('#kmzrad').oninput=kmzTally;
+$('#kmzsnap').onclick=()=>{
+  if(!KMZ.length)return;
+  if(!confirm('写真をGPSで近くのピンへまとめ、残りは時刻でまとめ直す。\n今の停留点は作り直すけどいい？'))return;
+  const s=kmzGroup(+$('#kmzrad').value,true);
+  $('#kmztally').textContent=`✔ ${s.named}個の名前つき + ${s.leftover}個の停留点にまとめた（時系列順）`;
+};
+$('#kmzorder').onclick=()=>{   // fallback for no-GPS trips: assign pins to stops in order
+  KMZ.forEach((p,i)=>{if(!J.stops[i])J.stops.push({name:'',media:[],date:'',note:''});
+    J.stops[i].lat=p.lat;J.stops[i].lng=p.lng;
+    if(!J.stops[i].name||/^Stop \d+$/.test(J.stops[i].name))J.stops[i].name=p.name;});
+  renderStops();renderMarkers(true);};
 $('#save').onclick=async()=>{
   if(!J.id||!/^[a-z0-9][a-z0-9-]*$/.test(J.id)){alert('id を入れて（小文字英数とダッシュ）');return;}
   if(!J.title){alert('タイトルを入れて');return;}
