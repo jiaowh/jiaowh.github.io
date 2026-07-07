@@ -1,0 +1,20 @@
+NAHNEW — PROJECT IDEAS / BACKLOG
+================================
+
+[SAVED 2026-07-07] Generalize the moto "Studio" into ONE ingestion tool
+-----------------------------------------------------------------------
+You already built a great local ingestion Studio for moto.html (drop photos/video
+in an inbox -> EXIF clustering, place on map, derivative encoding, writes journeys.js).
+Generalize it so ONE local app can publish to ANY world on the site (oil / tosou /
+illustration / craft / photography), with the per-page derivative recipes you've
+already tuned baked in (Pillow webp presets, ffmpeg video recipe, perspective-crop
+QUADS for oil, EXIF transpose, LQIP data-URIs, etc.).
+
+Goal: remove the friction of adding new work anywhere on the site. Drop files ->
+pick target page/section -> it derives assets + patches the page's data array
+(WORKS[]/PROCS[]/SITES[]/BUILDS[]/journeys.js) with valid JSON round-trips.
+
+Notes:
+- Reuse the existing studio.py + data_io.py regex-JSON round-trip approach.
+- One config table mapping page -> {data-array name, derivative recipe, asset dir}.
+- Keep it LAN-accessible (phone drop-in) like the moto Studio already is.
