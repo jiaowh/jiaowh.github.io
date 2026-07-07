@@ -555,13 +555,28 @@ function routeSketch(j){ // tiny route drawing used as card cover fallback
 }
 
 /* ---------------- map ---------------- */
-let map=null,mapReady=false,markers=[]; // markers: {el,marker,j,stopIdx}
+let map=null,mapReady=false,markers=[],offlineMode=false; // markers: {el,marker,j,stopIdx}
 const DEM_URL='https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png';
 const FALLBACK_STYLE={version:8,sources:{carto:{type:'raster',
   tiles:['https://a.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png',
          'https://b.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png'],
   tileSize:256,attribution:'© OpenStreetMap contributors © CARTO'}},
   layers:[{id:'carto',type:'raster',source:'carto'}]};
+/* Default basemap: one local GeoJSON of the world (country outlines everywhere +
+   prefecture/province borders for countries ridden). No tiles, no fonts, no external
+   requests — instant + offline. Rebuild with assets/moto/build_basemap.py. */
+const MAP_SEA='#d7e0e2', MAP_LAND='#efe6cf', MAP_PROV='#c7b088', MAP_CTRY='#ad966a';
+function OFFLINE_STYLE(){return{version:8,
+  sources:{world:{type:'geojson',data:'assets/moto/basemap.json',
+    attribution:'Borders: Natural Earth'}},
+  layers:[
+    {id:'sea',type:'background',paint:{'background-color':MAP_SEA}},
+    {id:'land',type:'fill',source:'world',paint:{'fill-color':MAP_LAND}},
+    {id:'prov',type:'line',source:'world',filter:['==',['get','t'],1],
+      paint:{'line-color':MAP_PROV,'line-width':['interpolate',['linear'],['zoom'],3,0.4,8,1],'line-opacity':0.75}},
+    {id:'ctry',type:'line',source:'world',filter:['==',['get','t'],0],
+      paint:{'line-color':MAP_CTRY,'line-width':['interpolate',['linear'],['zoom'],2,0.5,8,1.3]}}
+  ]};}
 
 const _cctx=document.createElement('canvas').getContext('2d',{willReadFrequently:true});
 function cssToRGB(str){ // normalize any css color via canvas
@@ -633,10 +648,11 @@ function ensureDem(){ // lazy: terrain tiles are heavy, keep them off the initia
 function addHillshade(){ // used only in RIDE (DEM already fetched for terrain there)
   if(isMobile||reduced||map.getLayer('hills')||!ensureDem())return;
   try{
-    const firstSym=(map.getStyle().layers.find(l=>l.type==='symbol')||{}).id;
+    const ls=map.getStyle().layers; // sit above land fill, below borders/roads/routes
+    const before=(ls.find(l=>l.type==='line'||l.type==='symbol')||{}).id;
     map.addLayer({id:'hills',type:'hillshade',source:'dem',
       paint:{'hillshade-exaggeration':.28,'hillshade-shadow-color':'#c4b28b',
-             'hillshade-highlight-color':'#fffbe9','hillshade-accent-color':'#b09a6a'}},firstSym);
+             'hillshade-highlight-color':'#fffbe9','hillshade-accent-color':'#b09a6a'}},before);
   }catch(e){console.warn('hillshade skipped',e);}
 }
 function tryAddLayers(){
@@ -651,17 +667,15 @@ function tryAddLayers(){
 }
 async function initMap(){
   try{
+    const bm=new URLSearchParams(location.search).get('basemap');
     let style;
-    if(/basemap=raster/.test(location.search)){style=FALLBACK_STYLE;triedFallbackStyle=true;}
-    else try{ // local copy of the style: no cross-origin fetch on the critical path
-      const r=await fetch('assets/moto/style.json');
-      style=paperizeStyle(await r.json());
-    }catch(e){
-      try{
-        const r=await fetch('https://tiles.openfreemap.org/styles/liberty',{mode:'cors'});
-        style=paperizeStyle(await r.json());
-      }catch(e2){console.warn('style unavailable, raster fallback',e2);style=FALLBACK_STYLE;triedFallbackStyle=true;}
-    }
+    if(bm==='raster'){style=FALLBACK_STYLE;triedFallbackStyle=true;}
+    else if(bm==='vector'){ // opt-in: detailed OpenFreeMap streets (online)
+      try{const r=await fetch('assets/moto/style.json');style=paperizeStyle(await r.json());}
+      catch(e){try{const r=await fetch('https://tiles.openfreemap.org/styles/liberty',{mode:'cors'});
+        style=paperizeStyle(await r.json());}
+      catch(e2){console.warn('vector style unavailable',e2);style=FALLBACK_STYLE;triedFallbackStyle=true;}}
+    }else{style=OFFLINE_STYLE();offlineMode=true;} // default: local world basemap, offline
     map=new maplibregl.Map({container:'map',style,center:[139.5,38.2],zoom:4.6,
       attributionControl:false,pitchWithRotate:!isMobile,maxPitch:70,fadeDuration:0});
     map.addControl(new maplibregl.AttributionControl({compact:true}));
@@ -669,7 +683,7 @@ async function initMap(){
     map.on('load',tryAddLayers);
     map.on('styledata',tryAddLayers);
     const poll=setInterval(()=>{if(layersAdded)clearInterval(poll);else tryAddLayers();},700);
-    setTimeout(()=>{ // vector style stuck (offline glyph/sprite hosts) -> raster fallback
+    if(bm==='vector')setTimeout(()=>{ // only the online vector style can stall on glyph/sprite hosts
       if(!layersAdded&&!triedFallbackStyle){
         console.warn('style stuck; switching to raster fallback');
         triedFallbackStyle=true;map.setStyle(FALLBACK_STYLE);
