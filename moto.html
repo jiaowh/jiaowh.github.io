@@ -168,29 +168,6 @@ body.panelup #hud,body.panelup #dial,body.injourney #hud,body.injourney #dial{op
 #lb .x{top:6px;right:10px}#lb .pv{left:4px;top:50%}#lb .nx{right:4px;top:50%}
 #lb button:hover{color:#fff}
 
-/* ---------- ignition ---------- */
-#ignition{position:fixed;inset:0;z-index:100;background:radial-gradient(ellipse at 50% 62%,#241e15 0%,#0d0a06 70%);
-  display:flex;align-items:center;justify-content:center;flex-direction:column;color:#cbb783;transition:opacity 1s}
-#ignition.off{opacity:0;pointer-events:none}
-#keywrap{position:relative;width:150px;height:150px;display:flex;align-items:center;justify-content:center;cursor:pointer;
-  -webkit-tap-highlight-color:transparent;user-select:none;touch-action:none}
-#keyring{position:absolute;inset:0}
-#keyring circle{fill:none;stroke:#4a4030;stroke-width:3}
-#keyring .prog{stroke:#e0b64f;stroke-dasharray:439.8;stroke-dashoffset:439.8;transform:rotate(-90deg);transform-origin:center}
-#keysvg{width:64px;height:64px;transition:transform .5s cubic-bezier(.3,1.6,.4,1)}
-#keywrap.turning #keysvg{transform:rotate(78deg)}
-#ignhint{margin-top:26px;font-size:13px;letter-spacing:.34em;color:#8d7c56}
-#igngauge{margin-top:34px;width:200px;height:104px;opacity:.9}
-#ignodo{margin-top:10px;opacity:0;transition:opacity .6s}
-#ignodo.show{opacity:1}
-#ignskip{position:absolute;bottom:24px;right:28px;background:none;border:1px solid #4a4030;color:#8d7c56;
-  font-size:11px;letter-spacing:.26em;padding:7px 16px;border-radius:3px}
-#ignskip:hover{color:#e0b64f;border-color:#e0b64f}
-#headlight{position:fixed;inset:0;z-index:99;pointer-events:none;opacity:0;
-  background:radial-gradient(circle at 50% 58%,rgba(255,248,214,.95) 0%,rgba(255,248,214,0) 42%)}
-@keyframes beam{0%{opacity:0;transform:scale(.2)}45%{opacity:1}100%{opacity:0;transform:scale(3.4)}}
-#headlight.go{animation:beam 1.4s ease-out forwards}
-
 /* ---------- RIDE overlay ---------- */
 #ride{position:fixed;inset:0;z-index:40;display:none;pointer-events:none}
 #ride.on{display:block}
@@ -213,13 +190,20 @@ body.panelup #hud,body.panelup #dial,body.injourney #hud,body.injourney #dial{op
 @keyframes pfan{from{opacity:0;transform:translateY(60px) rotate(8deg)}to{opacity:1}}
 
 /* ---------- markers ---------- */
+/* .mk-w is the element MapLibre positions (its transform is set every frame) —
+   it must carry NO css transform/transition of its own or the pin lags and
+   drifts while panning/zooming. state classes go on .mk-w; the visual .mk dot
+   lives inside and owns the hover/active scaling. */
+.mk-w{cursor:pointer}
+.mk-w.active{z-index:5}
+.mk-w.ghost,.mk-w.hidden{pointer-events:none}
 .mk{width:26px;height:26px;border-radius:50%;background:#fffdf4;border:2.5px solid var(--mkc,#b0413e);
   color:var(--mkc,#b0413e);display:flex;align-items:center;justify-content:center;font:600 12px var(--serif);
-  box-shadow:0 2px 6px rgba(40,25,5,.35);cursor:pointer;transition:transform .25s,opacity .4s}
-.mk:hover{transform:scale(1.25)}
-.mk.active{transform:scale(1.45);background:var(--mkc);color:#fffdf4;z-index:5}
-.mk.ghost{opacity:.25;pointer-events:none}
-.mk.hidden{opacity:0;pointer-events:none}
+  box-shadow:0 2px 6px rgba(40,25,5,.35);transition:transform .25s,opacity .4s}
+.mk-w:hover .mk{transform:scale(1.25)}
+.mk-w.active .mk{transform:scale(1.45);background:var(--mkc);color:#fffdf4}
+.mk-w.ghost .mk{opacity:.25}
+.mk-w.hidden .mk{opacity:0}
 .rider{width:18px;height:18px;border-radius:50%;background:#ffd977;box-shadow:0 0 14px 5px rgba(255,214,110,.85),0 0 40px 14px rgba(255,214,110,.35);border:2px solid #7a5c14}
 
 /* ---------- pin popup ---------- */
@@ -308,29 +292,6 @@ body.panelup #hud,body.panelup #dial,body.injourney #hud,body.injourney #dial{op
 </head>
 <body>
 
-<div id="ignition">
-  <div id="keywrap" title="hold">
-    <svg id="keyring" viewBox="0 0 150 150">
-      <circle cx="75" cy="75" r="70"/>
-      <circle class="prog" cx="75" cy="75" r="70"/>
-    </svg>
-    <svg id="keysvg" viewBox="0 0 64 64" fill="none" stroke="#e0b64f" stroke-width="3" stroke-linecap="round">
-      <circle cx="32" cy="18" r="11"/>
-      <circle cx="32" cy="18" r="4.5"/>
-      <path d="M32 29 V56 M32 44 h9 M32 51 h7"/>
-    </svg>
-  </div>
-  <div id="ignhint">押し続けて始動 — HOLD TO START</div>
-  <svg id="igngauge" viewBox="0 0 200 104">
-    <path d="M14 96 A86 86 0 0 1 186 96" fill="none" stroke="#4a4030" stroke-width="3"/>
-    <g id="gticks" stroke="#8d7c56" stroke-width="2"></g>
-    <line id="needle" x1="100" y1="96" x2="24" y2="86" stroke="#e0503c" stroke-width="3" stroke-linecap="round"/>
-    <circle cx="100" cy="96" r="6" fill="#8d7c56"/>
-  </svg>
-  <div id="ignodo"><span class="odo" id="odo-ign"></span></div>
-  <button id="ignskip">SKIP →</button>
-</div>
-<div id="headlight"></div>
 
 <div id="map"></div>
 <div class="grain"></div>
@@ -426,13 +387,23 @@ function bezierArc(a,b,side){ // fallback leg when no road geometry
 }
 JOURNEYS.forEach(j=>{
   j.geoStops=j.stops.filter(s=>s.lat!=null&&s.lng!=null);
-  // ensure a leg exists between each consecutive geo stop
-  const legs=j.legs||[]; j.rlegs=[];
-  for(let i=0;i<j.geoStops.length-1;i++){
-    j.rlegs.push(legs[i] && legs[i].pts ? legs[i] :
-      bezierArc([j.geoStops[i].lat,j.geoStops[i].lng],[j.geoStops[i+1].lat,j.geoStops[i+1].lng], i%2?1:-1));
+  if(j.route&&j.route.length>1){
+    // a hand-drawn trip path: one leg = the whole loop (pins are places
+    // along the way, not stop-to-stop road legs — so we don't arc between them)
+    let m=0;for(let i=1;i<j.route.length;i++)m+=hav(j.route[i-1],j.route[i]);
+    j.rlegs=[{km:+(m/1000).toFixed(1),pts:j.route}];
+    j.km=j.rlegs[0].km;
+  }else if(j.legs&&j.legs.length){
+    // seed style: a real road leg (or dashed arc) between each consecutive stop
+    const legs=j.legs; j.rlegs=[];
+    for(let i=0;i<j.geoStops.length-1;i++){
+      j.rlegs.push(legs[i] && legs[i].pts ? legs[i] :
+        bezierArc([j.geoStops[i].lat,j.geoStops[i].lng],[j.geoStops[i+1].lat,j.geoStops[i+1].lng], i%2?1:-1));
+    }
+    j.km=j.rlegs.reduce((a,l)=>a+(l.km||0),0);
+  }else{
+    j.rlegs=[]; j.km=0;   // scattered pins with no drawn route (an album / day-trip)
   }
-  j.km=j.rlegs.reduce((a,l)=>a+(l.km||0),0);
   j.year=j.start?+j.start.slice(0,4):null;
   j.days=j.start?(j.end?Math.round((new Date(j.end)-new Date(j.start))/864e5)+1:1):0;
 });
@@ -460,7 +431,7 @@ function mkOdo(el,digits=6){
       s.style.transform=`translateY(${-19*(+str[i])}px)`;});
   }};
 }
-const odoMain=mkOdo($('#odo-main')), odoIgn=mkOdo($('#odo-ign'));
+const odoMain=mkOdo($('#odo-main'));
 
 /* ---------------- audio ---------------- */
 const Snd={ctx:null,master:null,eng:null,muted:store.get('mute')==='1',
@@ -716,8 +687,10 @@ function addJourneyLayers(){
 function addMarkers(){
   JOURNEYS.forEach(j=>{
     j.geoStops.forEach((s,i)=>{
-      const el=document.createElement('div');el.className='mk';el.textContent=i+1;
+      const el=document.createElement('div');el.className='mk-w'; // MapLibre positions this
       el.style.setProperty('--mkc',j.color);el.title=s.name;
+      const dot=document.createElement('div');dot.className='mk';dot.textContent=i+1;
+      el.appendChild(dot);
       el.addEventListener('click',ev=>{ev.stopPropagation();
         if(isSplit)showStopPanel(j,i);else showStopPopup(j,i);});
       const marker=new maplibregl.Marker({element:el}).setLngLat([s.lng,s.lat]).addTo(map);
@@ -1042,12 +1015,13 @@ function onThisDay(){
 /* ---------------- RIDE mode ---------------- */
 const Ride={on:false,raf:0,path:null,cum:null,total:0,stopsAt:null,pausedUntil:0,dist:0,j:null,rider:null};
 function buildPath(j){
-  const pts=[],stopsAt=[0];
-  j.rlegs.forEach(l=>{l.pts.forEach(p=>pts.push(p));stopsAt.push(-1);});
-  // rebuild with cumulative distance; mark stop distances at leg ends
+  const pts=[];
+  j.rlegs.forEach(l=>{l.pts.forEach(p=>pts.push(p));});
   const cum=[0];for(let i=1;i<pts.length;i++)cum.push(cum[i-1]+hav(pts[i-1],pts[i]));
-  const legEnds=[];let n=0;
-  j.rlegs.forEach(l=>{n+=l.pts.length;legEnds.push(cum[Math.min(n-1,cum.length-1)]);});
+  // stop-to-stop legs fan each stop's photos at its leg end; a single hand-drawn
+  // route (j.route) has no per-stop legs, so it just rides the whole loop.
+  const legEnds=[];
+  if(!j.route){let n=0;j.rlegs.forEach(l=>{n+=l.pts.length;legEnds.push(cum[Math.min(n-1,cum.length-1)]);});}
   return{pts,cum,total:cum[cum.length-1],legEnds};
 }
 function pointAt(P,d){
@@ -1143,70 +1117,6 @@ function endRide(finished){
 }
 $('#rideexit').addEventListener('click',()=>endRide(false));
 
-/* ---------------- ignition ---------------- */
-function buildIgnition(){
-  // gauge ticks
-  const g=$('#gticks');let t='';
-  for(let i=0;i<=10;i++){const a=Math.PI*(1+i/10);
-    const x1=100+86*Math.cos(a),y1=96+86*Math.sin(a),x2=100+(i%5?78:72)*Math.cos(a),y2=96+(i%5?78:72)*Math.sin(a);
-    t+=`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"/>`;}
-  g.innerHTML=t;
-  odoIgn.set(0,false);
-}
-function needleTo(frac,dur){
-  const n=$('#needle'),a=Math.PI*(1+Math.max(0,Math.min(1,frac)));
-  n.style.transition=`all ${dur}s cubic-bezier(.3,1.4,.4,1)`;
-  n.setAttribute('x2',(100+72*Math.cos(a)).toFixed(1));
-  n.setAttribute('y2',(96+72*Math.sin(a)).toFixed(1));
-}
-function igniteSequence(){
-  const kw=$('#keywrap');kw.classList.add('turning');
-  Snd.init();if(Snd.ctx&&Snd.ctx.state==='suspended')Snd.ctx.resume();
-  Snd.engineStart();
-  $('#ignhint').textContent='……点火 — IGNITION';
-  needleTo(.9,.7);setTimeout(()=>needleTo(.18,1.1),750);
-  $('#ignodo').classList.add('show');
-  setTimeout(()=>odoIgn.set(totKM()),350);
-  setTimeout(()=>{
-    $('#headlight').classList.add('go');
-    setTimeout(()=>{dismissIgnition();},520);
-  },1900);
-}
-function dismissIgnition(){
-  $('#ignition').classList.add('off');
-  store.set('visited','1');
-  setTimeout(()=>{$('#ignition').remove();$('#headlight').remove();},1100);
-  odoMain.set(totKM());
-  onThisDay();
-}
-function initIgnition(){
-  if(store.get('visited')&&!location.search.includes('ignition')){ // returning: quick wipe
-    $('#ignition').style.transition='none';$('#ignition').classList.add('off');
-    setTimeout(()=>{$('#ignition').remove();$('#headlight').classList.add('go');
-      setTimeout(()=>$('#headlight').remove(),1500);},60);
-    setTimeout(()=>{odoMain.set(totKM());onThisDay();},600);
-    return;
-  }
-  buildIgnition();
-  const kw=$('#keywrap'),prog=$('#keyring .prog');
-  let holdT=0,fired=false;
-  const HOLD=900;
-  function down(e){e.preventDefault();if(fired)return;
-    holdT=performance.now();
-    prog.style.transition=`stroke-dashoffset ${HOLD}ms linear`;prog.style.strokeDashoffset='0';
-    kw.setPointerCapture&&e.pointerId!=null&&kw.setPointerCapture(e.pointerId);}
-  function up(){if(fired)return;
-    if(performance.now()-holdT>=HOLD-40&&holdT){fired=true;igniteSequence();}
-    else{prog.style.transition='stroke-dashoffset .3s';prog.style.strokeDashoffset='439.8';}
-    holdT=0;}
-  kw.addEventListener('pointerdown',down);
-  kw.addEventListener('pointerup',up);kw.addEventListener('pointercancel',up);kw.addEventListener('pointerleave',up);
-  // fallback: after HOLD ms of continuous hold, fire even without pointerup
-  setInterval(()=>{if(!fired&&holdT&&performance.now()-holdT>=HOLD){fired=true;igniteSequence();}},120);
-  $('#ignskip').addEventListener('click',()=>{fired=true;dismissIgnition();});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#ignition')&&!fired){fired=true;dismissIgnition();}});
-}
-
 /* ---------------- routing ---------------- */
 const state={j:null};
 function route(){
@@ -1248,7 +1158,7 @@ window.addEventListener('touchmove',()=>{if(Ride.on)endRide(false);},{passive:tr
 
 /* ---------------- boot ---------------- */
 renderShelf();initDial();updateHUD(false);
-initIgnition();
+onThisDay();
 if(typeof maplibregl!=='undefined')initMap();else document.body.classList.add('nomap');
 route();
 </script>

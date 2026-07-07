@@ -14,14 +14,15 @@
    Titles below were guessed from the filenames — rename freely.
    Keep the body valid JSON (double quotes, no trailing commas).
 
-   PENDING: kita / monochro / 夢旅人 are trip films with no trip yet.
-   Build those trips in the Studio, then set their "journey" id here.
+   The four films summarise the two big tours: 北海道 + 北 screen atop the
+   北 (kita) journey, モノクロ + 夢旅人 (the older two) atop the 南 (minami)
+   journey. Change "journey" to re-assign; set null to make one dormant.
    ================================================================ */
 const FILMS =
 [
- {"video": "hokkaido", "title": "北海道", "journey": "hokkaido", "date": ""},
- {"video": "kita", "title": "北", "journey": null, "date": ""},
- {"video": "monochro", "title": "モノクロ", "journey": null, "date": ""},
- {"video": "yumetabibito", "title": "夢旅人", "journey": null, "date": ""}
+ {"video": "hokkaido", "title": "北海道", "journey": "kita", "date": ""},
+ {"video": "kita", "title": "北", "journey": "kita", "date": ""},
+ {"video": "monochro", "title": "モノクロ", "journey": "minami", "date": ""},
+ {"video": "yumetabibito", "title": "夢旅人", "journey": "minami", "date": ""}
 ]
 ;
