@@ -23,3 +23,8 @@ assets/moto/src/
 # import intermediates: manifest holds volatile Google hostedimage URLs; log is regenerable
 assets/moto/manifest.json
 assets/moto/manifest_photos.log
+
+# Repo hygiene (2026-07): originals kept in local backup outside the repo, not tracked.
+mucha/
+*.mov
+*.MOV
