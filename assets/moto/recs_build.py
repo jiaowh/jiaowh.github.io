@@ -49,7 +49,10 @@ _CONT = {
   Isle of Man;Gibraltar;Faroe Islands;Jersey;Guernsey;Greenland""",
  "Africa": """Morocco;Egypt;Tunisia;Algeria;Libya;Ethiopia;Kenya;Tanzania;Uganda;Rwanda;Burundi;
   South Africa;Namibia;Botswana;Zimbabwe;Zambia;Mozambique;Malawi;Madagascar;Mauritius;Seychelles;
-  Ghana;Senegal;Nigeria;Ivory Coast;Cote d'Ivoire;Mali;Sudan;Eswatini;Lesotho;Cameroon;Gabon;Benin""",
+  Ghana;Senegal;Nigeria;Ivory Coast;Cote d'Ivoire;Mali;Sudan;Eswatini;Lesotho;Cameroon;Gabon;Benin;
+  Angola;Djibouti;Democratic Republic of the Congo;DR Congo;Republic of the Congo;Congo;Chad;Niger;
+  Mauritania;Somalia;Somaliland;South Sudan;Eritrea;Guinea;Guinea-Bissau;Burkina Faso;Togo;Sierra Leone;
+  Liberia;Gambia;The Gambia;Cape Verde;Cabo Verde;Comoros;Equatorial Guinea;Central African Republic;Reunion""",
  "North America": """United States;USA;United States of America;Canada;Mexico;
   Guatemala;Belize;Honduras;El Salvador;Nicaragua;Costa Rica;Panama;
   Cuba;Jamaica;Dominican Republic;Haiti;Bahamas;Puerto Rico;Trinidad and Tobago;Barbados;

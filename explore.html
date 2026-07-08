@@ -65,7 +65,10 @@ button{font-family:inherit;cursor:pointer}
 
 /* ---------- country chips ---------- */
 #countries{position:fixed;top:100px;left:0;right:0;z-index:18;display:flex;gap:6px;
-  padding:2px 14px 4px;pointer-events:none;overflow-x:auto;white-space:nowrap;scrollbar-width:thin}
+  padding:2px 14px 4px;pointer-events:auto;overflow-x:auto;white-space:nowrap;scrollbar-width:thin;
+  cursor:grab;overscroll-behavior-x:contain;touch-action:pan-x}
+#countries.drag{cursor:grabbing}
+#countries.drag button{pointer-events:none}
 #countries::-webkit-scrollbar{height:6px}#countries::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
 #countries button{pointer-events:auto;flex:0 0 auto;background:var(--paper);border:1px solid var(--line);
   border-radius:20px;color:var(--ink);font-size:11.5px;padding:4px 11px;opacity:.9;box-shadow:0 1px 5px rgba(60,40,10,.1)}
@@ -341,8 +344,7 @@ function openDetail(r){
   $('#dcoord').textContent=`${r.lat.toFixed(3)}, ${r.lng.toFixed(3)}`;
   document.body.classList.add('open');
   markers.forEach(m=>m.el.classList.toggle('active',m.r===r));
-  if(mapReady)map.flyTo({center:[r.lng,r.lat],zoom:Math.max(map.getZoom(),6),
-    padding:isMobile?{}:{right:380},duration:reduced?0:900});
+  /* no auto pan/zoom on pin click (found disorienting) — the map stays put; the pin just highlights */
 }
 function contJa(c){const f=CONTS.find(x=>x[0]===c);return f?f[1]:c;}
 function closeDetail(){document.body.classList.remove('open');
@@ -355,6 +357,16 @@ $('#minebtn').onclick=()=>{state.mineOnly=!state.mineOnly;
   $('#minebtn').classList.toggle('on',state.mineOnly);refresh();};
 let sT;$('#search').addEventListener('input',e=>{clearTimeout(sT);
   sT=setTimeout(()=>{state.q=e.target.value.trim().toLowerCase();refresh(false);},200);});
+/* grab-to-scroll the country row (and suppress the accidental chip-click after a drag) */
+(function(){const el=$('#countries');let down=false,moved=false,sx=0,sl=0;
+  el.addEventListener('pointerdown',e=>{down=true;moved=false;sx=e.clientX;sl=el.scrollLeft;});
+  addEventListener('pointermove',e=>{if(!down)return;const dx=e.clientX-sx;
+    if(Math.abs(dx)>5)moved=true;
+    if(moved){el.classList.add('drag');el.scrollLeft=sl-dx;}});
+  addEventListener('pointerup',()=>{if(down&&moved)
+      el.addEventListener('click',ev=>{ev.stopPropagation();ev.preventDefault();},{capture:true,once:true});
+    down=false;el.classList.remove('drag');});
+})();
 $('#catstoggle').onclick=()=>{$('#cats').classList.toggle('min');
   $('#catstoggle').textContent=$('#cats').classList.contains('min')?'凡例 ▲':'凡例 ▼';};
 if(isMobile){$('#cats').classList.add('min');$('#catstoggle').textContent='凡例 ▲';}
