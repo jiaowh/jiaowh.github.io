@@ -43,6 +43,8 @@ button{font-family:inherit;cursor:pointer}
 #count{font-size:11px;color:var(--dim);letter-spacing:.06em;background:var(--paper);
   border:1px solid var(--line);border-radius:3px;padding:5px 10px}
 #count b{color:var(--ink)}
+#count .minec{color:#c08800;margin-left:8px;font-weight:600}
+#minebtn.on{background:#d4a017;color:#3a2c1a;border-color:#c08800}
 .spacerflex{flex:1}
 .tbtn{background:var(--paper);border:1px solid var(--line);border-radius:3px;color:var(--ink);
   font-size:12px;padding:5px 11px;text-decoration:none;box-shadow:0 2px 8px rgba(60,40,10,.12)}
@@ -92,11 +94,15 @@ button{font-family:inherit;cursor:pointer}
 .mk-w{cursor:pointer}
 .mk-w.active{z-index:6}
 .mk-w.hidden{display:none}
-.mk{width:24px;height:24px;border-radius:50%;background:#fffdf4;border:2.5px solid var(--mkc,#b0413e);
+.mk{position:relative;width:24px;height:24px;border-radius:50%;background:#fffdf4;border:2.5px solid var(--mkc,#b0413e);
   display:flex;align-items:center;justify-content:center;font-size:12px;line-height:1;
   box-shadow:0 2px 6px rgba(40,25,5,.35);transition:transform .18s}
 .mk-w:hover .mk{transform:scale(1.3)}
 .mk-w.active .mk{transform:scale(1.5);box-shadow:0 3px 10px rgba(40,25,5,.5)}
+.mk-w.mine .mk{width:27px;height:27px;box-shadow:0 0 0 2px #f7efd8,0 0 0 4px #d4a017,0 2px 7px rgba(40,25,5,.4)}
+.mk-w.mine .mk::after{content:"★";position:absolute;top:-9px;right:-9px;font-size:11px;color:#c08800;
+  text-shadow:0 1px 2px rgba(255,255,255,.95),0 0 2px #fff}
+.mk-w.mine{z-index:4}
 
 /* ---------- detail panel ---------- */
 #detail{position:fixed;top:0;right:0;bottom:0;width:380px;max-width:92vw;z-index:30;
@@ -149,6 +155,7 @@ body.open #detail{transform:none}
 <div id="topbar">
   <a id="brand" href="#">EXPLORE<small>行きたい場所 · WORLD</small></a>
   <span id="count">…</span>
+  <button id="minebtn" class="tbtn" title="自分の保存リストだけ表示 · show only my saved list">★ マイリスト</button>
   <span class="spacerflex"></span>
   <input id="search" type="search" placeholder="検索 · search a place…" autocomplete="off">
   <a class="tbtn" href="moto.html">← VAULT</a>
@@ -173,6 +180,7 @@ body.open #detail{transform:none}
 </aside>
 
 <script src="assets/moto/recs.js"></script>
+<script src="assets/moto/wishlist.js"></script>
 <script>
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const CATS={
@@ -189,12 +197,16 @@ const CATORDER=['geek','nature','vista','temple','road','museum','park','onsen']
 const CONTS=[['all','すべて','All'],['Asia','アジア','Asia'],['Europe','ヨーロッパ','Europe'],
   ['North America','北米','N. America'],['South America','南米','S. America'],
   ['Africa','アフリカ','Africa'],['Oceania','オセアニア','Oceania']];
-const RX=(typeof RECS!=='undefined')?RECS:[];
+function normName(s){return (s||'').toLowerCase().replace(/[\s·・,，、.。!！?？'"“”()（）：:\-—_/]/g,'');}
+const _ai=(typeof RECS!=='undefined')?RECS.map(r=>({...r,src:r.src||'ai'})):[];
+const _mine=(typeof WISHLIST!=='undefined')?WISHLIST.map(r=>({...r,src:'mine'})):[];
+const _mineN=new Set(_mine.map(r=>normName(r.n)));
+const RX=_mine.concat(_ai.filter(r=>!_mineN.has(normName(r.n)))); // my saved picks first; drop AI dupes of them
 const reduced=matchMedia('(prefers-reduced-motion:reduce)').matches;
 const isMobile=matchMedia('(max-width:900px)').matches;
 
 let map=null,mapReady=false,markers=[];
-const state={cont:'all',country:null,cats:new Set(CATORDER),q:''};
+const state={cont:'all',country:null,cats:new Set(CATORDER),q:'',mineOnly:false};
 
 /* ---------------- offline paper world basemap (shared with moto.html) ---------------- */
 const MAP_SEA='#d7e0e2',MAP_LAND='#efe6cf',MAP_PROV='#c7b088',MAP_CTRY='#ad966a';
@@ -218,7 +230,7 @@ function initMap(){
 
 function addMarkers(){
   RX.forEach(r=>{
-    const el=document.createElement('div');el.className='mk-w';
+    const el=document.createElement('div');el.className='mk-w'+(r.src==='mine'?' mine':'');
     el.style.setProperty('--mkc',(CATS[r.k]||{}).c||'#b0413e');
     const dot=document.createElement('div');dot.className='mk';dot.textContent=(CATS[r.k]||{}).e||'•';
     el.appendChild(dot);
@@ -231,17 +243,18 @@ function addMarkers(){
 
 /* ---------------- filtering ---------------- */
 function visibleRec(r){
+  if(state.mineOnly&&r.src!=='mine')return false;
   if(state.cont!=='all'&&r.cont!==state.cont)return false;
   if(state.country&&r.c!==state.country)return false;
   if(!state.cats.has(r.k))return false;
-  if(state.q){const q=state.q;const hay=(r.n+' '+r.c+' '+(r.why||'')).toLowerCase();
+  if(state.q){const q=state.q;const hay=(r.n+' '+r.c+' '+(r.why||'')+' '+(r.addr||'')).toLowerCase();
     if(!hay.includes(q))return false;}
   return true;
 }
 function refresh(fit=true){
   let n=0,vis=[];
   markers.forEach(m=>{const v=visibleRec(m.r);m.el.classList.toggle('hidden',!v);if(v){n++;vis.push(m.r);}});
-  $('#count').innerHTML=`<b>${n}</b> / ${RX.length} 箇所`;
+  $('#count').innerHTML=`<b>${n}</b> / ${RX.length} 箇所`+(_mine.length?`<span class="minec">★${_mine.length} yours</span>`:'');
   if(fit&&mapReady&&vis.length)fitTo(vis);
 }
 function fitTo(recs){
@@ -313,9 +326,18 @@ function openDetail(r){
   $('#dcat').textContent=`${cat.e||''} ${cat.ja||r.k}`;$('#dcat').style.background=cat.c||'#b0413e';
   $('#dname').textContent=r.n;
   $('#dloc').textContent=`${r.c} · ${contJa(r.cont)}`;
-  $('#dwhy').textContent=r.why||'';$('#dwhy').style.display=r.why?'block':'none';
-  $('#ddesc').textContent=r.desc||'';
-  const w=$('#dwiki');if(r.wiki){w.href=r.wiki;w.style.display='';}else{w.style.display='none';}
+  if(r.src==='mine'){
+    $('#dwhy').textContent='あなたの「行きたい場所」リストより · from your saved list';$('#dwhy').style.display='block';
+    $('#ddesc').textContent=r.desc||r.addr||'';
+  }else{
+    $('#dwhy').textContent=r.why||'';$('#dwhy').style.display=r.why?'block':'none';
+    $('#ddesc').textContent=r.desc||'';
+  }
+  const w=$('#dwiki');
+  if(r.src==='mine'){w.href=`https://www.google.com/maps/search/?api=1&query=${r.lat},${r.lng}`;
+    w.textContent='Google Mapsで開く →';w.style.display='';}
+  else if(r.wiki){w.href=r.wiki;w.textContent='Wikipediaで読む →';w.style.display='';}
+  else{w.style.display='none';}
   $('#dcoord').textContent=`${r.lat.toFixed(3)}, ${r.lng.toFixed(3)}`;
   document.body.classList.add('open');
   markers.forEach(m=>m.el.classList.toggle('active',m.r===r));
@@ -329,6 +351,8 @@ $('#dclose').onclick=closeDetail;
 addEventListener('keydown',e=>{if(e.key==='Escape')closeDetail();});
 
 /* ---------------- search + mobile legend ---------------- */
+$('#minebtn').onclick=()=>{state.mineOnly=!state.mineOnly;
+  $('#minebtn').classList.toggle('on',state.mineOnly);refresh();};
 let sT;$('#search').addEventListener('input',e=>{clearTimeout(sT);
   sT=setTimeout(()=>{state.q=e.target.value.trim().toLowerCase();refresh(false);},200);});
 $('#catstoggle').onclick=()=>{$('#cats').classList.toggle('min');

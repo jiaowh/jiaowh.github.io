@@ -18,3 +18,5 @@ Notes:
 - Reuse the existing studio.py + data_io.py regex-JSON round-trip approach.
 - One config table mapping page -> {data-array name, derivative recipe, asset dir}.
 - Keep it LAN-accessible (phone drop-in) like the moto Studio already is.
+
+
