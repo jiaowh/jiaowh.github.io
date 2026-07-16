@@ -66,6 +66,7 @@
   .imacd-legend .ln{width:16px;border-top:2px solid;display:inline-block}
   .imacd-legend .thr{font-family:"IBM Plex Mono",monospace;color:var(--text)}
   .imacdbox{height:210px;border:1px solid var(--grid);border-radius:4px;background:var(--panel2)}
+  .rsibox{height:160px;border:1px solid var(--grid);border-radius:4px;background:var(--panel2)}
   /* backtest */
   #bt{max-width:1320px;margin:0 auto;padding:0 22px 10px}
   #bt .bt-head{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--text);margin-bottom:10px}
@@ -126,6 +127,15 @@
       </span>
     </div>
     <div id="imacd_d" class="imacdbox"></div>
+    <div class="imacd-head">
+      <span class="h">RSI · 14</span>
+      <span class="sub">Wilder's smoothing · overbought 70 / oversold 30</span>
+      <span class="imacd-legend">
+        <span class="item"><span class="ln" style="border-top-color:#a78bfa"></span>RSI</span>
+        <span class="item">now <span class="thr" id="rsiv_d" style="color:#a78bfa">—</span></span>
+      </span>
+    </div>
+    <div id="rsi_d" class="rsibox"></div>
     <div class="cards">
       <div class="card fast"><h2><span class="sw" style="background:var(--amber);width:11px;height:11px;border-radius:2px"></span>Daily cycle · ~60 days</h2><div class="kv" id="fastKV_d"></div></div>
       <div class="card slow"><h2><span class="sw" style="background:var(--cyan);width:11px;height:11px;border-radius:2px"></span>Weekly cycle · ~22 weeks</h2><div class="kv" id="slowKV_d"></div></div>
@@ -155,6 +165,15 @@
       </span>
     </div>
     <div id="imacd_h" class="imacdbox"></div>
+    <div class="imacd-head">
+      <span class="h">RSI · 14 · 4H</span>
+      <span class="sub">Wilder's smoothing · overbought 70 / oversold 30</span>
+      <span class="imacd-legend">
+        <span class="item"><span class="ln" style="border-top-color:#a78bfa"></span>RSI</span>
+        <span class="item">now <span class="thr" id="rsiv_h" style="color:#a78bfa">—</span></span>
+      </span>
+    </div>
+    <div id="rsi_h" class="rsibox"></div>
     <div class="cards">
       <div class="card fast"><h2><span class="sw" style="background:var(--amber);width:11px;height:11px;border-radius:2px"></span>4H cycle · ~8 days</h2><div class="kv" id="fastKV_h"></div></div>
       <div class="card slow"><h2><span class="sw" style="background:var(--cyan);width:11px;height:11px;border-radius:2px"></span>Daily cycle · ~60 days</h2><div class="kv" id="slowKV_h"></div></div>
@@ -184,6 +203,15 @@
       </span>
     </div>
     <div id="imacd_1h" class="imacdbox"></div>
+    <div class="imacd-head">
+      <span class="h">RSI · 14 · 1H</span>
+      <span class="sub">Wilder's smoothing · overbought 70 / oversold 30</span>
+      <span class="imacd-legend">
+        <span class="item"><span class="ln" style="border-top-color:#a78bfa"></span>RSI</span>
+        <span class="item">now <span class="thr" id="rsiv_1h" style="color:#a78bfa">—</span></span>
+      </span>
+    </div>
+    <div id="rsi_1h" class="rsibox"></div>
     <div class="cards">
       <div class="card fast"><h2><span class="sw" style="background:var(--amber);width:11px;height:11px;border-radius:2px"></span>1H cycle · ~2 days</h2><div class="kv" id="fastKV_1h"></div></div>
       <div class="card slow"><h2><span class="sw" style="background:var(--cyan);width:11px;height:11px;border-radius:2px"></span>4H cycle · ~8 days</h2><div class="kv" id="slowKV_1h"></div></div>
@@ -213,6 +241,15 @@
       </span>
     </div>
     <div id="imacd_5m" class="imacdbox"></div>
+    <div class="imacd-head">
+      <span class="h">RSI · 14 · 5M</span>
+      <span class="sub">Wilder's smoothing · overbought 70 / oversold 30</span>
+      <span class="imacd-legend">
+        <span class="item"><span class="ln" style="border-top-color:#a78bfa"></span>RSI</span>
+        <span class="item">now <span class="thr" id="rsiv_5m" style="color:#a78bfa">—</span></span>
+      </span>
+    </div>
+    <div id="rsi_5m" class="rsibox"></div>
     <div class="cards">
       <div class="card fast"><h2><span class="sw" style="background:var(--amber);width:11px;height:11px;border-radius:2px"></span>5M cycle · ~3 hours</h2><div class="kv" id="fastKV_5m"></div></div>
       <div class="card slow"><h2><span class="sw" style="background:var(--cyan);width:11px;height:11px;border-radius:2px"></span>Half-day cycle · ~12 hours</h2><div class="kv" id="slowKV_5m"></div></div>
@@ -235,6 +272,7 @@
 <footer>
   <div><b>Four timeframes, one engine.</b> <b>Daily</b>: ~60-day cycle (40–75d) with the ~22-week weekly nested on top. <b>4-Hour</b>: ~8-day cycle (36–72 bars) under the daily cycle. <b>1-Hour</b>: ~2-day cycle (30–72 bars) under the ~8-day 4H cycle. <b>5-Min</b>: ~3-hour cycle (24–60 bars) under a ~12-hour half-day cycle. Cycles are counted low-to-low; from each confirmed low a timing window opens and the lowest price inside it becomes the next low, with smoothing to ignore single-bar noise and a "chase" that follows a still-falling low past its window. The lower timeframes hold far less history (1h ≈ 42 days, 5m ≈ 3.5 days) and the cycle lengths are starting estimates — tune them in each <span class="mono">CFG</span> block.</div>
   <div><b>iMACD.</b> Each tab's impulse pane (LazyBear 34/9) is computed on that tab's candles. Threshold = the 55th-percentile crossover size (the major/minor split); dots mark impulse turns (green up, red down), zigzag-filtered to ignore noise. The amber band projects the next cycle-low timing window.</div>
+  <div><b>RSI.</b> Each tab's RSI pane is a 14-period Wilder's Relative Strength Index on that tab's closes, bounded 0–100. The red line at 70 marks overbought and the green line at 30 oversold, with a 50 midline; the live reading is shown in the pane header. All three panes (price · iMACD · RSI) share one time axis — scroll or zoom any of them and the others follow.</div>
   <div class="note"><b>Read it as structure, not prophecy.</b> Timing windows are wide and the most recent low stays provisional until price turns up, so the right edge can revise. This is a discretionary orientation and risk frame (a broken cycle low is a natural invalidation), not a forecast. Not investment advice.</div>
 </footer>
 
@@ -381,6 +419,22 @@ function turningPoints(md,minSwing){
   return out;
 }
 
+// ---------- RSI (Wilder's smoothing) ----------
+function rsi(close,period=14){
+  const n=close.length,out=new Array(n).fill(NaN);
+  if(n<period+1)return out;
+  let avgG=0,avgL=0;
+  for(let i=1;i<=period;i++){const d=close[i]-close[i-1];if(d>=0)avgG+=d;else avgL-=d;}
+  avgG/=period;avgL/=period;
+  out[period]=avgL===0?100:100-100/(1+avgG/avgL);
+  for(let i=period+1;i<n;i++){
+    const d=close[i]-close[i-1],g=d>0?d:0,l=d<0?-d:0;
+    avgG=(avgG*(period-1)+g)/period;avgL=(avgL*(period-1)+l)/period;
+    out[i]=avgL===0?100:100-100/(1+avgG/avgL);
+  }
+  return out;
+}
+
 // =================================================================
 //  VIEW FACTORY — one instance per timeframe (daily, 4h). All chart
 //  state and rendering live in the closure; the math above is shared.
@@ -389,6 +443,7 @@ function makeView(cfg){
   const E=cfg.el;
   let chart,candles,fastSine,slowSine,winD;
   let imChart,imD,imS,imThr=[];
+  let rsiChart,rsiL;
   let C=null,FAST=[],SLOW=[],TRANS=[],CHASE=true,SRC="";
 
   function initCharts(){
@@ -419,10 +474,27 @@ function makeView(cfg){
     imS=imChart.addLineSeries({color:"#6f9fcf",lineWidth:1,priceScaleId:"right",
       priceLineVisible:false,crosshairMarkerVisible:true,title:"signal"});
 
-    let lock=false;
-    const link=(a,b)=>a.timeScale().subscribeVisibleLogicalRangeChange(r=>{
-      if(lock||!r)return;lock=true;b.timeScale().setVisibleLogicalRange(r);lock=false;});
-    link(chart,imChart);link(imChart,chart);
+    rsiChart=LightweightCharts.createChart($(E.rsi),{
+      autoSize:true,
+      layout:{background:{color:"#0d1217"},textColor:"#6b7882",fontFamily:"IBM Plex Mono"},
+      grid:{vertLines:{color:"#1e262e"},horzLines:{color:"#1e262e"}},
+      rightPriceScale:{borderColor:"#1e262e",minimumWidth:72},
+      leftPriceScale:{visible:false},
+      timeScale:{borderColor:"#1e262e"},crosshair:{mode:0}
+    });
+    rsiL=rsiChart.addLineSeries({color:"#a78bfa",lineWidth:2,priceScaleId:"right",
+      priceLineVisible:false,crosshairMarkerVisible:true,title:"RSI"});
+    rsiL.applyOptions({autoscaleInfoProvider:()=>({priceRange:{minValue:0,maxValue:100}})});
+    rsiL.createPriceLine({price:70,color:"#f85149",lineWidth:1,lineStyle:2,axisLabelVisible:true,title:"70"});
+    rsiL.createPriceLine({price:50,color:"#33404a",lineWidth:1,lineStyle:2,axisLabelVisible:false,title:""});
+    rsiL.createPriceLine({price:30,color:"#3fb950",lineWidth:1,lineStyle:2,axisLabelVisible:true,title:"30"});
+
+    // keep the price / iMACD / RSI panes scrolling and zooming together
+    let lock=false;const panes=[chart,imChart,rsiChart];
+    panes.forEach(src=>src.timeScale().subscribeVisibleLogicalRangeChange(r=>{
+      if(lock||!r)return;lock=true;
+      panes.forEach(dst=>{if(dst!==src)dst.timeScale().setVisibleLogicalRange(r);});
+      lock=false;}));
   }
 
   function buildMarkers(){
@@ -539,6 +611,17 @@ function makeView(cfg){
     $(E.thr).textContent=isNaN(thrD)?"—":"±"+thrD.toFixed(2);
   }
 
+  function renderRSI(fws){
+    const r=rsi(C.map(c=>c.close),14);
+    // whitespace at warmup + future so the pane shares bar indices with the price chart
+    const data=C.map((c,i)=>isNaN(r[i])?{time:c.time}:{time:c.time,value:r[i]});
+    rsiL.setData((fws&&fws.length)?data.concat(fws):data);
+    let cur=NaN;for(let i=r.length-1;i>=0;i--){if(!isNaN(r[i])){cur=r[i];break;}}
+    const el=$(E.rsiv);
+    if(el){el.textContent=isNaN(cur)?"—":cur.toFixed(1);
+      el.style.color=isNaN(cur)?"#a78bfa":(cur>=70?"#f85149":cur<=30?"#3fb950":"#a78bfa");}
+  }
+
   function renderAll(){
     const showWin=$(E.tWin)?$(E.tWin).checked:true;
     const win=showWin?nextWindow():null;
@@ -552,6 +635,7 @@ function makeView(cfg){
     renderCard(E.slowKV,SLOW,cfg.slow,strans);
     integrityCheck();
     renderIMACD(fws);
+    renderRSI(fws);
     renderWindows(win,fws);
     chart.timeScale().fitContent();
   }
@@ -644,28 +728,28 @@ const CFG_D={
   interval:"1d", gran:86400, limit:1000, barSecs:DAY, barsPerDay:1,
   fast:{min:40,max:75,ideal:60,amp:1.6,tag:"DCL",unit:"d"},
   slow:{min:120,max:190,ideal:154,amp:2.4,tag:"WCL",unit:"w"},
-  el:{chart:"chart_d",imacd:"imacd_d",integrity:"integrity_d",fastKV:"fastKV_d",slowKV:"slowKV_d",thr:"thr_d",
+  el:{chart:"chart_d",imacd:"imacd_d",rsi:"rsi_d",rsiv:"rsiv_d",integrity:"integrity_d",fastKV:"fastKV_d",slowKV:"slowKV_d",thr:"thr_d",
       tFast:"tFast_d",tSlow:"tSlow_d",tFsine:"tFsine_d",tSsine:"tSsine_d",tChase:"tChase_d",tWin:"tWin_d"}
 };
 const CFG_H={
   interval:"4h", gran:14400, limit:1000, barSecs:14400, barsPerDay:6,
   fast:{min:36,max:72,ideal:48,amp:1.6,tag:"4HCL",unit:"d"},
   slow:{min:240,max:450,ideal:360,amp:2.4,tag:"DCL",unit:"d"},
-  el:{chart:"chart_h",imacd:"imacd_h",integrity:"integrity_h",fastKV:"fastKV_h",slowKV:"slowKV_h",thr:"thr_h",
+  el:{chart:"chart_h",imacd:"imacd_h",rsi:"rsi_h",rsiv:"rsiv_h",integrity:"integrity_h",fastKV:"fastKV_h",slowKV:"slowKV_h",thr:"thr_h",
       tFast:"tFast_h",tSlow:"tSlow_h",tFsine:"tFsine_h",tSsine:"tSsine_h",tChase:"tChase_h",tWin:"tWin_h"}
 };
 const CFG_1H={
   interval:"1h", gran:3600, limit:1000, barSecs:3600, barsPerDay:24,
   fast:{min:30,max:72,ideal:48,amp:1.6,tag:"1HCL",unit:"d"},
   slow:{min:144,max:288,ideal:192,amp:2.4,tag:"4HCL",unit:"d"},
-  el:{chart:"chart_1h",imacd:"imacd_1h",integrity:"integrity_1h",fastKV:"fastKV_1h",slowKV:"slowKV_1h",thr:"thr_1h",
+  el:{chart:"chart_1h",imacd:"imacd_1h",rsi:"rsi_1h",rsiv:"rsiv_1h",integrity:"integrity_1h",fastKV:"fastKV_1h",slowKV:"slowKV_1h",thr:"thr_1h",
       tFast:"tFast_1h",tSlow:"tSlow_1h",tFsine:"tFsine_1h",tSsine:"tSsine_1h",tChase:"tChase_1h",tWin:"tWin_1h"}
 };
 const CFG_5M={
   interval:"5m", gran:300, limit:1000, barSecs:300, barsPerDay:288,
   fast:{min:24,max:60,ideal:36,amp:1.6,tag:"5MCL",unit:"h"},
   slow:{min:96,max:216,ideal:144,amp:2.4,tag:"HCL",unit:"h"},
-  el:{chart:"chart_5m",imacd:"imacd_5m",integrity:"integrity_5m",fastKV:"fastKV_5m",slowKV:"slowKV_5m",thr:"thr_5m",
+  el:{chart:"chart_5m",imacd:"imacd_5m",rsi:"rsi_5m",rsiv:"rsiv_5m",integrity:"integrity_5m",fastKV:"fastKV_5m",slowKV:"slowKV_5m",thr:"thr_5m",
       tFast:"tFast_5m",tSlow:"tSlow_5m",tFsine:"tFsine_5m",tSsine:"tSsine_5m",tChase:"tChase_5m",tWin:"tWin_5m"}
 };
 
