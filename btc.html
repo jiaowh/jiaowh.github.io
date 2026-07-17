@@ -54,6 +54,22 @@
   .kv{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:13px}
   .kv .k{color:var(--muted)} .kv .v{font-family:"IBM Plex Mono",monospace;text-align:right}
   .v.r{color:var(--up)} .v.l{color:var(--down)} .v.due{color:var(--amber)}
+
+  .sig{border:1px solid var(--grid);border-radius:4px;background:var(--panel);padding:16px 18px}
+  .sig h2{margin:0 0 14px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;display:flex;align-items:center;gap:8px;color:var(--amber)}
+  .sig .sig-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin-bottom:10px}
+  .sig .sig-status{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+  .sig .sig-status.early{color:var(--muted)} .sig .sig-status.window{color:var(--amber)}
+  .sig .sig-status.overdue{color:var(--down)} .sig .sig-status.fire{color:var(--up)}
+  .sig .sig-sub{font-size:11px;color:var(--muted)}
+  .sig .kv{margin-bottom:12px;max-width:440px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .chip{font-family:"IBM Plex Mono",monospace;font-size:11px;padding:4px 9px;border-radius:12px;
+    border:1px solid var(--grid);color:var(--muted);cursor:default;user-select:none;white-space:nowrap}
+  .chip.on{border-color:var(--amber);color:var(--amber);background:rgba(255,176,0,0.08)}
+  .chip.na{border-style:dashed;opacity:.6}
+  .sig-score{margin-left:auto;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--text)}
+  .sig-score b{color:var(--amber)}
   footer{max-width:1320px;margin:0 auto;padding:0 22px 40px;color:var(--muted);font-size:12px;line-height:1.55}
   footer b{color:var(--text);font-weight:500}
   .note{border-left:2px solid var(--amber);padding:8px 0 8px 14px;margin-top:8px}
@@ -73,6 +89,8 @@
   #bt .bt-head span{text-transform:none;letter-spacing:0;color:var(--muted);font-weight:400;font-size:11px}
   #bt .bt-controls{display:flex;flex-wrap:wrap;gap:14px;align-items:center;font-size:12px;color:var(--muted);margin-bottom:12px}
   #bt .bt-controls input{width:64px;background:var(--panel2);border:1px solid var(--grid);color:var(--text);font-family:"IBM Plex Mono",monospace;font-size:12px;padding:5px 7px;border-radius:4px;margin-left:6px}
+  #bt .bt-controls select{background:var(--panel2);border:1px solid var(--grid);color:var(--text);font-family:"IBM Plex Mono",monospace;font-size:12px;padding:5px 7px;border-radius:4px;margin-left:6px}
+  #bt .bt-controls input:disabled{opacity:.35}
   #bt .bt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--grid);border:1px solid var(--grid);border-radius:4px;overflow:hidden}
   #bt .bt-grid>div{background:var(--panel);padding:11px 13px}
   #bt .bt-grid .k{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
@@ -86,12 +104,28 @@
   #bt .bt-table th{text-align:right;color:var(--muted);font-weight:500;font-size:10px;text-transform:uppercase;letter-spacing:.06em;padding:5px 10px;border-bottom:1px solid var(--grid)}
   #bt .bt-table td{text-align:right;padding:5px 10px;border-bottom:1px solid var(--grid)}
   #bt .bt-table th:first-child,#bt .bt-table td:first-child{text-align:left}
+  #btOut{overflow-x:auto}
+  #jrnlOut{overflow-x:auto}
+
+  /* signal journal */
+  #journal{max-width:1320px;margin:0 auto;padding:0 22px 10px}
+  #journal .jrnl-head{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--text);margin-bottom:10px}
+  #journal .jrnl-head span{text-transform:none;letter-spacing:0;color:var(--muted);font-weight:400;font-size:11px}
+  #journal .jrnl-controls{display:flex;flex-wrap:wrap;gap:14px;align-items:center;font-size:12px;color:var(--muted);margin-bottom:12px}
+  #journal .jrnl-count{font-family:"IBM Plex Mono",monospace}
+  #journal .jrnl-table{width:100%;border-collapse:collapse;font-family:"IBM Plex Mono",monospace;font-size:12px;margin-bottom:4px}
+  #journal .jrnl-table th{text-align:right;color:var(--muted);font-weight:500;font-size:10px;text-transform:uppercase;letter-spacing:.06em;padding:5px 10px;border-bottom:1px solid var(--grid)}
+  #journal .jrnl-table td{text-align:right;padding:5px 10px;border-bottom:1px solid var(--grid)}
+  #journal .jrnl-table th:first-child,#journal .jrnl-table td:first-child{text-align:left}
+  #journal .jrnl-table td.r{color:var(--up)}
 </style>
 </head>
 <body>
 <header>
   <div class="title"><b>BTC/USD</b> · Cycle Lows</div>
   <div class="price mono" id="price">—<small id="src"></small></div>
+
+  <span class="chip" id="funding" title="BTC perp funding rate — loading">funding —</span>
   <div class="status" id="status"><span class="dot"></span><span id="statusText">connecting</span></div>
   <button id="refresh">Refresh</button>
 </header>
@@ -129,7 +163,7 @@
     <div id="imacd_d" class="imacdbox"></div>
     <div class="imacd-head">
       <span class="h">RSI · 14</span>
-      <span class="sub">Wilder's smoothing · overbought 70 / oversold 30</span>
+      <span class="sub">Wilder's smoothing · 70/30 bands · arrows = confirmed price-vs-RSI divergences</span>
       <span class="imacd-legend">
         <span class="item"><span class="ln" style="border-top-color:#a78bfa"></span>RSI</span>
         <span class="item">now <span class="thr" id="rsiv_d" style="color:#a78bfa">—</span></span>
@@ -140,6 +174,7 @@
       <div class="card fast"><h2><span class="sw" style="background:var(--amber);width:11px;height:11px;border-radius:2px"></span>Daily cycle · ~60 days</h2><div class="kv" id="fastKV_d"></div></div>
       <div class="card slow"><h2><span class="sw" style="background:var(--cyan);width:11px;height:11px;border-radius:2px"></span>Weekly cycle · ~22 weeks</h2><div class="kv" id="slowKV_d"></div></div>
     </div>
+    <div class="sig" id="signal_d"></div>
   </section>
 
   <!-- ================= 4-HOUR ================= -->
@@ -167,7 +202,7 @@
     <div id="imacd_h" class="imacdbox"></div>
     <div class="imacd-head">
       <span class="h">RSI · 14 · 4H</span>
-      <span class="sub">Wilder's smoothing · overbought 70 / oversold 30</span>
+      <span class="sub">Wilder's smoothing · 70/30 bands · arrows = confirmed price-vs-RSI divergences</span>
       <span class="imacd-legend">
         <span class="item"><span class="ln" style="border-top-color:#a78bfa"></span>RSI</span>
         <span class="item">now <span class="thr" id="rsiv_h" style="color:#a78bfa">—</span></span>
@@ -178,6 +213,7 @@
       <div class="card fast"><h2><span class="sw" style="background:var(--amber);width:11px;height:11px;border-radius:2px"></span>4H cycle · ~8 days</h2><div class="kv" id="fastKV_h"></div></div>
       <div class="card slow"><h2><span class="sw" style="background:var(--cyan);width:11px;height:11px;border-radius:2px"></span>Daily cycle · ~60 days</h2><div class="kv" id="slowKV_h"></div></div>
     </div>
+    <div class="sig" id="signal_h"></div>
   </section>
 
   <!-- ================= 1-HOUR ================= -->
@@ -205,7 +241,7 @@
     <div id="imacd_1h" class="imacdbox"></div>
     <div class="imacd-head">
       <span class="h">RSI · 14 · 1H</span>
-      <span class="sub">Wilder's smoothing · overbought 70 / oversold 30</span>
+      <span class="sub">Wilder's smoothing · 70/30 bands · arrows = confirmed price-vs-RSI divergences</span>
       <span class="imacd-legend">
         <span class="item"><span class="ln" style="border-top-color:#a78bfa"></span>RSI</span>
         <span class="item">now <span class="thr" id="rsiv_1h" style="color:#a78bfa">—</span></span>
@@ -216,6 +252,7 @@
       <div class="card fast"><h2><span class="sw" style="background:var(--amber);width:11px;height:11px;border-radius:2px"></span>1H cycle · ~2 days</h2><div class="kv" id="fastKV_1h"></div></div>
       <div class="card slow"><h2><span class="sw" style="background:var(--cyan);width:11px;height:11px;border-radius:2px"></span>4H cycle · ~8 days</h2><div class="kv" id="slowKV_1h"></div></div>
     </div>
+    <div class="sig" id="signal_1h"></div>
   </section>
 
   <!-- ================= 5-MIN ================= -->
@@ -243,7 +280,7 @@
     <div id="imacd_5m" class="imacdbox"></div>
     <div class="imacd-head">
       <span class="h">RSI · 14 · 5M</span>
-      <span class="sub">Wilder's smoothing · overbought 70 / oversold 30</span>
+      <span class="sub">Wilder's smoothing · 70/30 bands · arrows = confirmed price-vs-RSI divergences</span>
       <span class="imacd-legend">
         <span class="item"><span class="ln" style="border-top-color:#a78bfa"></span>RSI</span>
         <span class="item">now <span class="thr" id="rsiv_5m" style="color:#a78bfa">—</span></span>
@@ -254,26 +291,44 @@
       <div class="card fast"><h2><span class="sw" style="background:var(--amber);width:11px;height:11px;border-radius:2px"></span>5M cycle · ~3 hours</h2><div class="kv" id="fastKV_5m"></div></div>
       <div class="card slow"><h2><span class="sw" style="background:var(--cyan);width:11px;height:11px;border-radius:2px"></span>Half-day cycle · ~12 hours</h2><div class="kv" id="slowKV_5m"></div></div>
     </div>
+    <div class="sig" id="signal_5m"></div>
   </section>
 </main>
 
 <section id="bt">
-  <div class="bt-head">Strategy backtest <span>— buy on an impulse crossover below the oversold threshold, sell at the target</span></div>
+  <div class="bt-head">Strategy backtest <span>— net of fees, causal thresholds only (no look-ahead); optimizer is walk-forward: fit on the first 70%, judged on the last 30%</span></div>
   <div class="bt-controls">
+    <label>Strategy<select id="btStrat">
+      <option value="classic">iMACD cross</option>
+      <option value="conf">Cycle confluence</option>
+    </select></label>
     <label>Target %<input id="btTarget" type="number" value="1" step="0.1" min="0.1"></label>
     <label>Stop % (0 = none)<input id="btStop" type="number" value="0" step="0.1" min="0"></label>
+    <label title="Round-trip trading cost: taker fee both sides + slippage. ~0.24% is typical spot reality.">Fees % RT<input id="btFee" type="number" value="0.24" step="0.01" min="0"></label>
     <button id="btRun">Run on active tab</button>
-    <button id="btOpt">Optimize TP/SL</button>
-    <button id="btOpt">Auto-optimize TP/SL</button>
+    <button id="btOpt">Optimize TP/SL (walk-forward)</button>
   </div>
   <div id="btOut"><span style="color:#6b7882;font-size:12px">Pick a tab, then Run.</span></div>
 </section>
 
+<section id="journal">
+  <div class="jrnl-head">Signal journal <span>— captured on load, Refresh, and an automatic 5-minute recheck while the page is open — entries never repaint (5-min-tab triggers can slip between checks)</span></div>
+  <div class="jrnl-controls">
+    <span class="jrnl-count" id="jrnlCount">0 entries</span>
+    <button id="jrnlCopy">Copy JSON</button>
+    <button id="jrnlClear">Clear</button>
+  </div>
+  <div id="jrnlOut"></div>
+</section>
+
 <footer>
-  <div><b>Four timeframes, one engine.</b> <b>Daily</b>: ~60-day cycle (40–75d) with the ~22-week weekly nested on top. <b>4-Hour</b>: ~8-day cycle (36–72 bars) under the daily cycle. <b>1-Hour</b>: ~2-day cycle (30–72 bars) under the ~8-day 4H cycle. <b>5-Min</b>: ~3-hour cycle (24–60 bars) under a ~12-hour half-day cycle. Cycles are counted low-to-low; from each confirmed low a timing window opens and the lowest price inside it becomes the next low, with smoothing to ignore single-bar noise and a "chase" that follows a still-falling low past its window. The lower timeframes hold far less history (1h ≈ 42 days, 5m ≈ 3.5 days) and the cycle lengths are starting estimates — tune them in each <span class="mono">CFG</span> block.</div>
+  <div><b>Four timeframes, one engine.</b> <b>Daily</b>: ~60-day cycle (40–75d) with the ~22-week weekly nested on top. <b>4-Hour</b>: ~8-day cycle (36–72 bars) under the daily cycle. <b>1-Hour</b>: ~2-day cycle (30–72 bars) under the ~8-day 4H cycle. <b>5-Min</b>: ~3-hour cycle (24–60 bars) under a ~12-hour half-day cycle. Cycles are counted low-to-low; from each confirmed low a timing window opens and the lowest price inside it becomes the next low, with smoothing to ignore single-bar noise and a "chase" that follows a still-falling low past its window. History: Daily pages back to the 2017 listing (~9 years), 4-Hour ≈ 500 days, 1-Hour ≈ 42 days, 5-Min ≈ 3.5 days; cycle lengths are starting estimates — tune them in each <span class="mono">CFG</span> block. <b>The cycle-low markers are hindsight labels</b> (the smoother sees ±2 bars, chased lows confirm ~8 bars late, and the newest low stays provisional) — good for measuring cycles, never for entering on. The tradable layer is the causal Cycle-confluence strategy in the backtester.</div>
   <div><b>iMACD.</b> Each tab's impulse pane (LazyBear 34/9) is computed on that tab's candles. Threshold = the 55th-percentile crossover size (the major/minor split); dots mark impulse turns (green up, red down), zigzag-filtered to ignore noise. The amber band projects the next cycle-low timing window.</div>
-  <div><b>RSI.</b> Each tab's RSI pane is a 14-period Wilder's Relative Strength Index on that tab's closes, bounded 0–100. The red line at 70 marks overbought and the green line at 30 oversold, with a 50 midline; the live reading is shown in the pane header. All three panes (price · iMACD · RSI) share one time axis — scroll or zoom any of them and the others follow.</div>
-  <div class="note"><b>Read it as structure, not prophecy.</b> Timing windows are wide and the most recent low stays provisional until price turns up, so the right edge can revise. This is a discretionary orientation and risk frame (a broken cycle low is a natural invalidation), not a forecast. Not investment advice.</div>
+  <div><b>RSI &amp; divergences.</b> Each tab's RSI pane is a 14-period Wilder's Relative Strength Index on that tab's closes, bounded 0–100 (70 overbought, 30 oversold, 50 midline; live reading in the header). Arrows mark <b>confirmed divergences</b> between consecutive price pivots (±3-bar extremes, so each is only known 3 bars after the pivot — a fixed, disclosed lag, no repainting): green up = price lower low with RSI higher low from an oversold first pivot ("DIV" = RSI still &lt;40 at the second, the stronger class); red down = the bearish mirror. The iMACD pane carries the same detector against the impulse line. All three panes share one time axis.</div>
+  <div><b>Backtester.</b> Two strategies: <b>iMACD cross</b> (crossover below the oversold threshold, fixed TP/SL) and <b>Cycle confluence</b> (window-gated, divergence-scored entries with structural stops at the candidate low, +1.5R scale-out, pivot trailing, and translation/age exits). Both are fully causal — thresholds are expanding percentiles, pivots respect their confirmation lag — and net of the fee input. The optimizer is walk-forward: fitted on the first 70% of history, judged on the untouched last 30%; only the test columns mean anything. <b>Signal journal</b> below appends a row when a capture pass (page load, Refresh, or the automatic 5-minute recheck) finds the causal confluence trigger fired on the newest closed bar — a forward record written in localStorage that never repaints, though fast-tab triggers can slip between rechecks and captures only happen while the page is open.</div>
+
+  <div><b>Funding gauge.</b> The header chip reads the BTC/USDT perpetual funding rate (Binance, falling back to Bybit) and its percentile against its own trailing history — deeply negative funding at a low (p≤10, shown in green) means short-heavy perps are paying longs, a forced-seller capitulation tell; crowded-long euphoria (p≥90, red) is the mirror. This is a <b>live-only</b> read: funding history only reaches back ~333 days on the primary source, far short of the price history used elsewhere, so the score card's funding component is scored on the current bar only and is <b>excluded from all backtests and the walk-forward optimizer</b> to avoid silently truncating the sample to a cherry-picked recent window.</div>
+  <div class="note"><b>Read it as structure, not prophecy.</b> Timing windows are wide and the most recent low stays provisional until price turns up, so the right edge can revise. This is a discretionary orientation and risk frame (a broken cycle low is a natural invalidation), not a forecast. A 2026-07 instrumented audit (score-gate sweeps, exit ablations, forward returns of every confirmed low vs an unconditional control, walk-forward tests) found <b>no demonstrated net edge at the default score&ge;2 gate</b> on Daily or 4-Hour — samples are tiny, two score components ran inverse to forward returns, and every optimizer pick decayed out-of-sample. Treat the signal card as decision support and let the journal accumulate forward evidence before trusting any configuration. Not investment advice.</div>
 </footer>
 
 <script>
@@ -282,13 +337,25 @@ const $=id=>document.getElementById(id);
 const $$=s=>document.querySelectorAll(s);
 const DAY=86400;
 const setStatus=(s,t)=>{$("status").className="status "+(s||"");$("statusText").textContent=t;};
+// fee input, honoring an explicit 0 (|| would silently coerce 0 back to the default)
+function feeInput(){const el=$("btFee");if(!el)return 0.24;const v=parseFloat(el.value);return isNaN(v)?0.24:v;}
 function dstr(ts){return new Date(ts*1000).toISOString().slice(0,10);}
 
 // ---------- data (multi-exchange fallback; supports 1d and 4h) ----------
 async function fetchBinance(interval,limit){
-  const u=`https://api.binance.com/api/v3/klines?symbol=${SYMBOL}&interval=${interval}&limit=${limit}`;
-  const r=await fetch(u); if(!r.ok)throw new Error("binance "+r.status);
-  return (await r.json()).map(k=>({time:Math.floor(k[0]/1000),open:+k[1],high:+k[2],low:+k[3],close:+k[4]}));
+  // pages backwards via endTime, 1000 bars/request, until `limit` or history start
+  let out=[],end=Date.now();
+  while(out.length<limit){
+    const take=Math.min(1000,limit-out.length);
+    const u=`https://api.binance.com/api/v3/klines?symbol=${SYMBOL}&interval=${interval}&limit=${take}&endTime=${end}`;
+    const r=await fetch(u); if(!r.ok)throw new Error("binance "+r.status);
+    const j=await r.json(); if(!j.length)break;
+    out=j.map(k=>({time:Math.floor(k[0]/1000),open:+k[1],high:+k[2],low:+k[3],close:+k[4]})).concat(out);
+    if(j.length<take)break;
+    end=j[0][0]-1;
+  }
+  if(!out.length)throw new Error("binance empty");
+  return out;
 }
 async function fetchBybit(interval,limit){
   const map={"1d":"D","4h":"240","1h":"60","5m":"5"};
@@ -311,6 +378,54 @@ async function getCandles(interval,gran,limit){
 async function getPrice(){
   try{const r=await fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${SYMBOL}`);return +(await r.json()).price;}
   catch(e){const r=await fetch("https://api.coinbase.com/v2/prices/BTC-USD/spot");return +(await r.json()).data.amount;}
+}
+
+// ---------- funding rate (perp) — orthogonal capitulation signal ----------
+// window.FUNDING is the live contract other modules read: {ready,rate,pctile,src,hist}.
+// pctile = fraction of the trailing history <= current rate — CAUSAL: the current
+// reading is ranked only against its own past readings, never future ones.
+window.FUNDING={ready:false,rate:NaN,pctile:NaN,src:"",hist:[]};
+function fundingCapitulation(){
+  if(!window.FUNDING.ready)return null;
+  return window.FUNDING.pctile<=0.10;
+}
+async function fetchFundingBinance(){
+  const u="https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000";
+  const r=await fetch(u); if(!r.ok)throw new Error("binance funding "+r.status);
+  const j=await r.json(); if(!j.length)throw new Error("binance funding empty");
+  // ascending (oldest..newest) already; fundingTime/fundingRate are strings
+  return {hist:j.map(x=>+x.fundingRate),src:"Binance"};
+}
+async function fetchFundingBybit(){
+  const u="https://api.bybit.com/v5/market/funding/history?category=linear&symbol=BTCUSDT&limit=200";
+  const r=await fetch(u); if(!r.ok)throw new Error("bybit funding "+r.status);
+  const j=await r.json(); const list=j.result&&j.result.list;
+  if(!list||!list.length)throw new Error("bybit funding empty");
+  // Bybit returns newest-first; normalize to ascending to match Binance ordering
+  return {hist:list.map(x=>+x.fundingRate).reverse(),src:"Bybit"};
+}
+async function fetchFunding(){
+  let res;
+  try{res=await fetchFundingBinance();}
+  catch(e){try{res=await fetchFundingBybit();}catch(e2){renderFundingChip();return;}}
+  const hist=res.hist; if(!hist.length){renderFundingChip();return;}
+  const rate=hist[hist.length-1];
+  const pctile=hist.filter(v=>v<=rate).length/hist.length;
+  window.FUNDING={ready:true,rate,pctile,src:res.src,hist};
+  renderFundingChip();
+  // keep the per-tab Signal-now cards in sync with the fresh funding reading
+  if(typeof VIEWS!=="undefined")Object.values(VIEWS).forEach(v=>{try{v.refreshSignal&&v.refreshSignal();}catch(e){}});
+}
+function renderFundingChip(){
+  const el=$("funding"); if(!el)return;
+  const F=window.FUNDING;
+  if(!F.ready){el.textContent="funding n/a";el.style.color="var(--muted)";
+    el.title="Perp funding rate unavailable (Binance + Bybit both failed).";return;}
+  const pct=(F.rate*100).toFixed(4)+"%/8h";
+  const p=Math.round(F.pctile*100);
+  el.textContent=`funding ${F.rate>=0?"+":""}${pct} · p${p}`;
+  el.style.color=F.pctile<=0.10?"var(--up)":F.pctile>=0.90?"var(--down)":"var(--muted)";
+  el.title=`BTC/USDT perp funding rate (${F.src}), paid every 8h. Percentile ranks this reading against its own trailing history (${F.hist.length} readings, causal — no future data). p<=10 = deeply negative funding, a forced-seller capitulation tell often seen near cycle lows (bullish). p>=90 = crowded-long euphoria (bearish tell).`;
 }
 
 // ---------- detection (mirrors verified Python) ----------
@@ -359,7 +474,9 @@ function nestWeekly(dcls,low,minW,maxW){
   const wcls=[dcls[0]];
   while(true){
     const last=wcls[wcls.length-1];
-    const cand=dcls.filter(i=>i>=last+minW&&i<=last+maxW);
+    let cand=dcls.filter(i=>i>=last+minW&&i<=last+maxW);
+    // gentle chase: one stretched slow cycle shouldn't silently end all nesting
+    if(!cand.length)cand=dcls.filter(i=>i>=last+minW&&i<=last+Math.floor(maxW*1.5));
     if(!cand.length)break;
     let nxt=cand[0];for(const i of cand)if(low[i]<low[nxt])nxt=i;
     if(nxt<=last)break;
@@ -435,6 +552,109 @@ function rsi(close,period=14){
   return out;
 }
 
+// ---------- causal signal helpers (no look-ahead; fixed, disclosed lags) ----------
+// oversold/overbought threshold at bar i = 55th-pct crossover size seen SO FAR;
+// NaN until minCross crossings exist, so early bars can't trade on future stats.
+function expandingThr(md,sb,minCross=12,p=0.55){
+  const n=md.length,out=new Array(n).fill(NaN),mags=[];let last=NaN;
+  for(let i=1;i<n;i++){
+    if(!isNaN(md[i])&&!isNaN(sb[i])&&!isNaN(md[i-1])&&!isNaN(sb[i-1])&&
+       ((md[i]>sb[i]&&md[i-1]<=sb[i-1])||(md[i]<sb[i]&&md[i-1]>=sb[i-1]))){
+      mags.push(Math.abs(md[i]));
+      if(mags.length>=minCross)last=pctile(mags,p);
+    }
+    out[i]=last;
+  }
+  return out;
+}
+// pivot extremes: bar i is a pivot low/high if it is the extreme of ±d bars.
+// A pivot is only knowable d bars later — callers must respect i+d as confirm time.
+function pivotIdx(arr,d,isLow){
+  const out=[];
+  for(let i=d;i<arr.length-d;i++){
+    let ok=true;
+    for(let j=i-d;j<=i+d&&ok;j++){if(j!==i&&(isLow?arr[j]<arr[i]:arr[j]>arr[i]))ok=false;}
+    if(ok)out.push(i);
+  }
+  return out;
+}
+// divergences between consecutive price pivots and an oscillator. Bullish: price
+// lower low, oscillator higher low, oscillator stretched (< zoneLo) at the first
+// pivot. classA = still stretched at the second. confirmAt = pivot + d bars.
+function findDivergences(lows,highs,osc,opt){
+  const {d=3,minGap=5,maxGap=60,zoneLo=40,zoneHi=60,eps=0}=opt||{};
+  const res=[];
+  const pl=pivotIdx(lows,d,true);
+  for(let k=1;k<pl.length;k++){
+    const p1=pl[k-1],p2=pl[k];
+    if(p2-p1<minGap||p2-p1>maxGap||isNaN(osc[p1])||isNaN(osc[p2]))continue;
+    if(lows[p2]<lows[p1]&&osc[p2]>osc[p1]+eps&&osc[p1]<zoneLo)
+      res.push({i:p2,confirmAt:p2+d,type:"bull",classA:osc[p2]<zoneLo});
+  }
+  const ph=pivotIdx(highs,d,false);
+  for(let k=1;k<ph.length;k++){
+    const p1=ph[k-1],p2=ph[k];
+    if(p2-p1<minGap||p2-p1>maxGap||isNaN(osc[p1])||isNaN(osc[p2]))continue;
+    if(highs[p2]>highs[p1]&&osc[p2]<osc[p1]-eps&&osc[p1]>zoneHi)
+      res.push({i:p2,confirmAt:p2+d,type:"bear",classA:osc[p2]>zoneHi});
+  }
+  return res.sort((a,b)=>a.i-b.i);
+}
+
+// ---------- signal journal (forward record; localStorage-backed, append-only) ----------
+// entries are appended only when the causal confluence trigger fires on the newest
+// closed bar while the page is open — never on redraw/repaint, so this log is the
+// only fully honest forward test: nothing in it could have been written in hindsight.
+const JRNL_KEY="btc_journal_v1";
+const JRNL=(function(){
+  let mem=null; // in-memory fallback once localStorage throws (private mode, quota, etc.)
+  function read(){
+    if(mem)return mem;
+    try{const raw=localStorage.getItem(JRNL_KEY);return raw?JSON.parse(raw):[];}
+    catch(e){mem=[];return mem;}
+  }
+  function write(list){
+    if(mem){mem=list;return;}
+    try{localStorage.setItem(JRNL_KEY,JSON.stringify(list));}
+    catch(e){mem=list;}
+  }
+  function add(entry){
+    const list=read();
+    if(list.some(e=>e.id===entry.id))return false; // idempotent by tab|barT
+    list.push(entry);write(list);return true;
+  }
+  function list(){return read().slice().sort((a,b)=>b.barT-a.barT);}
+  function clear(){write([]);}
+  function toJSON(){return JSON.stringify(read(),null,2);}
+  return {add,list,clear,toJSON};
+})();
+
+
+// ---------- bootstrap confidence intervals on a closed-trade net-return list ----------
+function mulberry32(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=seed;
+  t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296;};}
+// resample the closed-trade net list WITH replacement (n draws, each drawing nets.length
+// samples), compound each resample sequentially in draw order and track its running-peak
+// drawdown, then report the 5th/50th/95th percentiles of total return and max DD. Seeded ->
+// identical output every click. iid resampling assumes trades are exchangeable; it ignores
+// regime clustering (autocorrelated win/lose streaks), so real uncertainty is wider than this.
+function bootstrapCI(nets,n,seed){
+  n=n||1000;seed=(seed==null)?42:seed;
+  const m=nets.length; if(!m)return null;
+  const rnd=mulberry32(seed),tots=[],dds=[];
+  for(let k=0;k<n;k++){
+    let eq=1,peak=1,dd=0;
+    for(let j=0;j<m;j++){
+      const net=nets[Math.floor(rnd()*m)];
+      eq*=(1+net);if(eq>peak)peak=eq;const d=1-eq/peak;if(d>dd)dd=d;
+    }
+    tots.push(eq-1);dds.push(dd);
+  }
+  tots.sort((a,b)=>a-b);dds.sort((a,b)=>a-b);
+  const q=(a,p)=>a[Math.min(a.length-1,Math.floor(a.length*p))];
+  return {tot5:q(tots,0.05),tot50:q(tots,0.50),tot95:q(tots,0.95),
+    dd5:q(dds,0.05),dd50:q(dds,0.50),dd95:q(dds,0.95)};
+}
 // =================================================================
 //  VIEW FACTORY — one instance per timeframe (daily, 4h). All chart
 //  state and rendering live in the closure; the math above is shared.
@@ -559,12 +779,17 @@ function makeView(cfg){
     let localOk=true;
     for(let k=1;k<FAST.length-1;k++){const i=FAST[k],a=Math.max(0,i-5),b=Math.min(low.length-1,i+5);
       if(low[i]>low[argmin(low,a,b)])localOk=false;}
-    const nest=SLOW.every(w=>FAST.includes(w));
+    // falsifiable: each slow low must be the lowest low within ±half a fast cycle
+    // (the old "nested" check was a tautology — SLOW is built from FAST indices)
+    const h=Math.max(2,Math.floor(cfg.fast.min/2));
+    let wclOk=true;
+    for(const w of SLOW){const a=Math.max(0,w-h),b=Math.min(low.length-1,w+h);
+      if(low[w]>low[argmin(low,a,b)])wclOk=false;}
     const mark=ok=>ok?'<b>&#10003;</b>':'<span class="bad">&#10007;</span>';
     const ls=longest*cfg.barSecs;
     const longestStr=ls<2*DAY?Math.round(ls/3600)+"h":Math.round(ls/DAY)+"d";
     $(E.integrity).innerHTML=
-      `${FAST.length} ${cfg.fast.tag} · ${SLOW.length} ${cfg.slow.tag} &nbsp;|&nbsp; gaps ${mark(gapsOk)} &nbsp; minima ${mark(localOk)} &nbsp; nested ${mark(nest)} &nbsp; longest ${longestStr}${SRC?" · "+SRC:""}`;
+      `${FAST.length} ${cfg.fast.tag} · ${SLOW.length} ${cfg.slow.tag} &nbsp;|&nbsp; gaps ${mark(gapsOk)} &nbsp; minima ${mark(localOk)} &nbsp; wcl-min ${mark(wclOk)} &nbsp; longest ${longestStr}${SRC?" · "+SRC:""}`;
   }
 
   function nextWindow(){
@@ -606,8 +831,15 @@ function makeView(cfg){
     add(0,"#33404a","");
     const minSwing=(thrD||half*0.15)*0.8;
     const turns=turningPoints(d.md,minSwing);
-    imD.setMarkers(turns.map(t=>({time:C[t.i].time,position:"inBar",shape:"circle",size:0.5,
-      color:t.type==="min"?"rgba(63,185,80,0.9)":"rgba(248,81,73,0.9)"})));
+    const turnM=turns.map(t=>({time:C[t.i].time,position:"inBar",shape:"circle",size:0.5,
+      color:t.type==="min"?"rgba(63,185,80,0.9)":"rgba(248,81,73,0.9)"}));
+    // price-vs-impulse divergences (zone gate: impulse on the wrong side of zero)
+    const lowA=C.map(c=>c.low),highA=C.map(c=>c.high);
+    const dvM=findDivergences(lowA,highA,d.md,{d:3,minGap:5,maxGap:60,zoneLo:0,zoneHi:0,eps:0})
+      .map(v=>({time:C[v.i].time,position:v.type==="bull"?"belowBar":"aboveBar",
+        shape:v.type==="bull"?"arrowUp":"arrowDown",size:1,
+        color:v.type==="bull"?"#3fb950":"#f85149",text:"div"}));
+    imD.setMarkers(turnM.concat(dvM).sort((a,b)=>a.time-b.time));
     $(E.thr).textContent=isNaN(thrD)?"—":"±"+thrD.toFixed(2);
   }
 
@@ -616,11 +848,55 @@ function makeView(cfg){
     // whitespace at warmup + future so the pane shares bar indices with the price chart
     const data=C.map((c,i)=>isNaN(r[i])?{time:c.time}:{time:c.time,value:r[i]});
     rsiL.setData((fws&&fws.length)?data.concat(fws):data);
+    // price-vs-RSI divergences; DIV = class A (RSI still stretched at the 2nd pivot)
+    const divs=findDivergences(C.map(c=>c.low),C.map(c=>c.high),r,
+      {d:3,minGap:5,maxGap:60,zoneLo:40,zoneHi:60,eps:2});
+    rsiL.setMarkers(divs.map(v=>({time:C[v.i].time,
+      position:v.type==="bull"?"belowBar":"aboveBar",
+      shape:v.type==="bull"?"arrowUp":"arrowDown",size:1,
+      color:v.type==="bull"?"#3fb950":"#f85149",text:v.classA?"DIV":"div"})));
     let cur=NaN;for(let i=r.length-1;i>=0;i--){if(!isNaN(r[i])){cur=r[i];break;}}
     const el=$(E.rsiv);
     if(el){el.textContent=isNaN(cur)?"—":cur.toFixed(1);
       el.style.color=isNaN(cur)?"#a78bfa":(cur>=70?"#f85149":cur<=30?"#3fb950":"#a78bfa");}
   }
+
+  function renderSignal(){
+    const el=$(E.signal); if(!el)return;
+    const r=simulateConf(feeInput());
+    if(!r||!r.state){el.innerHTML="";return;}
+    const st=r.state,price=C[C.length-1].close;
+    const chip=(on,label,title)=>`<span class="chip ${on===null?"na":on?"on":""}" title="${title}">${label}${on===null?" n/a":""}</span>`;
+    let headClass="early",headText="EARLY";
+    if(st.entrySignal){headClass="fire";headText="ENTRY SIGNAL";}
+    else if(st.trigFiredOnLastBar){headClass="fire";headText="TRIGGER FIRED";}
+    else if(st.phase==="window"){headClass="window";headText="IN WINDOW"+(st.armed?" (armed)":"");}
+    else if(st.phase==="overdue"){headClass="overdue";headText="OVERDUE";}
+    const distPct=x=>x==null?null:((x-price)/price*100);
+    const candTxt=st.candT?`${fmtT(st.candT)} · ${st.candLowPx.toFixed(2)}`:"—";
+    const trigTxt=st.trigPx?`${st.trigPx.toFixed(2)} (${fSign(distPct(st.trigPx))}%)`:"—";
+    const stopTxt=st.stopPx?`${st.stopPx.toFixed(2)} (${fSign(distPct(st.stopPx))}%)`:"—";
+    el.innerHTML=`
+      <h2><span class="sw" style="background:var(--amber);width:11px;height:11px;border-radius:2px"></span>Signal now</h2>
+      <div class="sig-head">
+        <span class="sig-status ${headClass}">${headText}</span>
+        <span class="sig-sub">${st.phase} · cycle age ${ageStr(st.ageBars,cfg.fast.unit)} since ${fmtT(st.lastLowT)}${st.inPosition?" · position open in backtest":""}</span>
+      </div>
+      <div class="kv">
+        <div class="k">Candidate low</div><div class="v">${candTxt}</div>
+        <div class="k">Trigger (close &gt;)</div><div class="v">${trigTxt}</div>
+        <div class="k">Stop if entered</div><div class="v">${stopTxt}</div>
+      </div>
+      <div class="chips">
+        ${chip(st.comps.rsi,"RSI&lt;35 +1","RSI(14) was below 35 at the candidate low")}
+        ${chip(st.comps.div,"Bull div +2","Confirmed bullish RSI divergence within 6 bars of the candidate")}
+        ${chip(st.comps.imacd,"iMACD OS +1","Oversold impulse-MACD cross-up, below the causal threshold, between the candidate and now")}
+        ${chip(st.comps.trans,"Right transl +1","The prior cycle's high printed in its second half — right-translated, bullish")}
+        ${chip(st.comps.funding,"Funding +1",st.comps.funding===null?"Funding data not ready yet":st.comps.funding?"Funding rate sits in its bottom decile (capitulation) — advisory, live-only: never counted toward ENTRY classification or backtests":"Funding rate is not currently in its bottom decile — advisory, live-only")}
+        <span class="sig-score" title="ENTRY classification uses the funding-free core score (${st.coreScore}) vs the backtest gate; the funding +1 is live-only advisory.">score <b>${st.score}</b> / need &ge;${st.minScore}</span>
+      </div>`;
+  }
+
 
   function renderAll(){
     const showWin=$(E.tWin)?$(E.tWin).checked:true;
@@ -637,6 +913,7 @@ function makeView(cfg){
     renderIMACD(fws);
     renderRSI(fws);
     renderWindows(win,fws);
+    renderSignal();
     chart.timeScale().fitContent();
   }
 
@@ -666,90 +943,239 @@ function makeView(cfg){
     const ch=$(E.tChase);if(ch)ch.onchange=()=>{CHASE=ch.checked;recompute();};
     const w=$(E.tWin);if(w)w.onchange=()=>{if(C)renderAll();};
   }
-  // core sim: entries = impulse crossover below the oversold threshold; one position
-  // at a time; exit at +tp% or -sl% (sl=0 -> no stop); open trade marked to market.
-  function simulate(md,sb,thr,tpPct,slPct){
-    let pos=null,eq=1,wins=0,closed=0,sumBars=0,sumMAE=0,worstMAE=0;
-    for(let i=1;i<C.length;i++){
+  // core sim: entries = impulse crossover below the CAUSAL oversold threshold
+  // (expanding percentile — a bar only sees crossings before it); one position at
+  // a time; exit at +tp% or -sl% (sl=0 -> no stop); fees charged per round trip;
+  // open trade marked to market. Bars [from,to) only, so walk-forward can slice.
+  function simulate(md,sb,thrE,tpPct,slPct,feePct,from,to){
+    const fee=feePct/100;
+    let pos=null,eq=1,peakEq=1,maxDD=0,wins=0,closed=0,sumBars=0,sumMAE=0,worstMAE=0,sumNet=0,trades=[];
+    const bank=net=>{eq*=(1+net);if(eq>peakEq)peakEq=eq;const dd=1-eq/peakEq;if(dd>maxDD)maxDD=dd;};
+    for(let i=Math.max(1,from);i<to;i++){
       if(pos){
         const lo=C[i].low,hi=C[i].high,dd=(lo-pos.entry)/pos.entry;if(dd<pos.mae)pos.mae=dd;
         const tp=pos.entry*(1+tpPct/100),sl=slPct>0?pos.entry*(1-slPct/100):null;
         let ret=null;
         if(sl!==null&&lo<=sl)ret=-slPct/100;
-        else if(hi>=tp){ret=tpPct/100;wins++;}
-        if(ret!==null){eq*=(1+ret);closed++;sumBars+=i-pos.i;sumMAE+=pos.mae;worstMAE=Math.min(worstMAE,pos.mae);pos=null;}
+        else if(hi>=tp)ret=tpPct/100;
+        if(ret!==null){const net=ret-fee;if(net>0)wins++;bank(net);sumNet+=net;
+          closed++;sumBars+=i-pos.i;sumMAE+=pos.mae;worstMAE=Math.min(worstMAE,pos.mae);trades.push({net});pos=null;}
       }
       if(!pos){
-        const up=!isNaN(md[i])&&!isNaN(sb[i])&&!isNaN(md[i-1])&&!isNaN(sb[i-1])&&md[i]>sb[i]&&md[i-1]<=sb[i-1];
-        if(up&&md[i]<-thr)pos={i,entry:C[i].close,mae:0};
+        const t=thrE[i];
+        const up=!isNaN(t)&&!isNaN(md[i])&&!isNaN(sb[i])&&!isNaN(md[i-1])&&!isNaN(sb[i-1])&&md[i]>sb[i]&&md[i-1]<=sb[i-1];
+        if(up&&md[i]<-t)pos={i,entry:C[i].close,mae:0};
       }
     }
     let open=0,openRet=0;
-    if(pos){open=1;openRet=(C[C.length-1].close-pos.entry)/pos.entry;eq*=(1+openRet);sumMAE+=pos.mae;worstMAE=Math.min(worstMAE,pos.mae);}
+    if(pos){open=1;openRet=(C[to-1].close-pos.entry)/pos.entry-fee;bank(openRet);
+      sumMAE+=pos.mae;worstMAE=Math.min(worstMAE,pos.mae);}
     const n=closed+open;
     return {totalRet:eq-1,closed,open,wins,entries:n,winRate:closed?wins/closed:0,
-      avgBars:closed?sumBars/closed:0,avgMAE:n?sumMAE/n:0,worstMAE,openRet};
+      expNet:closed?sumNet/closed:0,maxDD,
+      avgBars:closed?sumBars/closed:0,avgMAE:n?sumMAE/n:0,worstMAE,openRet,trades};
   }
-  function backtest(targetPct,stopPct){
+  function backtest(targetPct,stopPct,feePct){
     if(!C)return null;
-    const d=impulseMACD(C),thr=pctile(crossMags(d.md,d.sb),0.55);
-    const r=simulate(d.md,d.sb,thr,targetPct,stopPct);
-    return {barSecs:cfg.barSecs,entries:r.entries,resolved:r.closed,wins:r.wins,losses:r.closed-r.wins,
-      open:r.open,winRate:r.winRate,avgBars:r.avgBars,avgMAE:r.avgMAE,worstMAE:r.worstMAE,
-      openUnreal:r.openRet,totalRet:r.totalRet};
-  }
-  // grid search for the tp/sl that maximised PAST total return (in-sample; curve-fit)
-  function optimize(){
-    if(!C)return null;
-    const d=impulseMACD(C),thr=pctile(crossMags(d.md,d.sb),0.55);
-    const grid=[0.25,0.5,0.75,1,1.25,1.5,2,2.5,3];
-    const cells={};let best=null,positive=0;
-    for(const tp of grid)for(const sl of grid){
-      const r=simulate(d.md,d.sb,thr,tp,sl);
-      cells[tp+"|"+sl]=r.totalRet;
-      if(r.totalRet>0)positive++;
-      if(!best||r.totalRet>best.totalRet)best={tp,sl,...r};
-    }
-    // neighbourhood stability: mean total return of the best cell's grid neighbours
-    let nb=[],bi=grid.indexOf(best.tp),bj=grid.indexOf(best.sl);
-    for(let a=bi-1;a<=bi+1;a++)for(let b=bj-1;b<=bj+1;b++){
-      if(a<0||b<0||a>=grid.length||b>=grid.length||(a===bi&&b===bj))continue;
-      nb.push(cells[grid[a]+"|"+grid[b]]);}
-    const nbAvg=nb.length?nb.reduce((s,x)=>s+x,0)/nb.length:best.totalRet;
-    return {best,barSecs:cfg.barSecs,nGrid:grid.length*grid.length,positive,nbAvg};
+    const d=impulseMACD(C),thrE=expandingThr(d.md,d.sb);
+    const r=simulate(d.md,d.sb,thrE,targetPct,stopPct,feePct||0,1,C.length);
+    return {barSecs:cfg.barSecs,bars:C.length,entries:r.entries,resolved:r.closed,
+      wins:r.wins,losses:r.closed-r.wins,open:r.open,winRate:r.winRate,expNet:r.expNet,
+      maxDD:r.maxDD,avgBars:r.avgBars,avgMAE:r.avgMAE,worstMAE:r.worstMAE,
+      openUnreal:r.openRet,totalRet:r.totalRet,trades:r.trades};
   }
 
+  // -------- cycle-confluence strategy (fully causal; nothing repaints) --------
+  // Context: from the last CONFIRMED low, arm once cycle age >= fast.min and track
+  // the lowest low since arming (the candidate). Trigger = close back above the
+  // candidate bar's high (price proof of the turn); that same close confirms the
+  // cycle low and resets the count. Entry additionally needs >=2 setup points:
+  //   +1 RSI(14) < 35 at the candidate     +2 confirmed bullish RSI divergence
+  //   +1 iMACD cross-up below causal thr   +1 prior cycle right-translated
+  // Risk: stop = candidate low (a broken cycle low is the invalidation). Half off
+  // at +1.5R; the rest trails under each newly confirmed higher pivot low. Also
+  // exits on: overbought iMACD cross-down · confirmed bearish divergence with
+  // RSI>65 · cycle age past fast.max · left-translated cycle fading below EMA10.
+  // opts (all optional, defaults preserve live behavior): minScore (entry gate),
+  // exits {dn,bearDiv,age,leftFade} (ablation toggles), trig "cand"|"prev" (trigger
+  // = close above candidate-bar high vs previous-bar high). lowsLog records every
+  // confirmed low's score components for offline edge audits.
+  function simulateConf(feePct,opts){
+    opts=opts||{};
+    const minScore=opts.minScore==null?2:opts.minScore;
+    const ex=Object.assign({dn:true,bearDiv:true,age:true,leftFade:true},opts.exits||{});
+    const trigPrev=opts.trig==="prev";
+    const n=C.length,fee=feePct/100;
+    if(!C||n<cfg.fast.max+cfg.fast.min+10)return null;
+    const low=C.map(c=>c.low),high=C.map(c=>c.high),close=C.map(c=>c.close);
+    const r14=rsi(close,14),d=impulseMACD(C),thrE=expandingThr(d.md,d.sb),e10=ema(close,10);
+    const divs=findDivergences(low,high,r14,{d:3,minGap:5,maxGap:60,zoneLo:40,zoneHi:60,eps:2});
+    const bulls=divs.filter(v=>v.type==="bull"),bears=divs.filter(v=>v.type==="bear");
+    const pivSet=new Set(pivotIdx(low,3,true));
+    // shared entry-setup scorer (RSI<35 +1 / bull div +2 / oversold iMACD cross-up +1 /
+    // right-translated prior cycle +1) so the live trigger check and the "signal now"
+    // state readout can never drift apart.
+    function coreComps(lastLowIdx,candIdx,atIdx){
+      if(candIdx<0)return {rsi:false,div:false,imacd:false,trans:false,score:0};
+      const rsiOk=!isNaN(r14[candIdx])&&r14[candIdx]<35;
+      const divOk=bulls.some(v=>Math.abs(v.i-candIdx)<=6&&v.confirmAt<=atIdx);
+      let imacdOk=false;
+      for(let j=Math.max(1,candIdx);j<=atIdx;j++){const tj=thrE[j];
+        if(!isNaN(tj)&&!isNaN(d.md[j])&&!isNaN(d.sb[j])&&!isNaN(d.md[j-1])&&!isNaN(d.sb[j-1])&&
+           d.md[j]>d.sb[j]&&d.md[j-1]<=d.sb[j-1]&&d.md[j]<-tj){imacdOk=true;break;}}
+      const transOk=lastLowIdx>=0&&candIdx>lastLowIdx&&
+        (argmax(high,lastLowIdx,candIdx)-lastLowIdx)/(candIdx-lastLowIdx)>0.5;
+      return {rsi:rsiOk,div:divOk,imacd:imacdOk,trans:transOk,
+        score:(rsiOk?1:0)+(divOk?2:0)+(imacdOk?1:0)+(transOk?1:0)};
+    }
+    let lastLow=argmin(low,0,Math.min(cfg.fast.max,n-1)),cand=-1;
+    let trigFiredLast=false,trigCandLast=-1,trigLastLowLast=-1,trigLvlLast=NaN;
+    let pos=null,eq=1,peakEq=1,maxDD=0;
+    let closed=0,wins=0,sumR=0,sumNet=0,sumBars=0,sumMAE=0,worstMAE=0,open=0,openRet=0;
+    let trades=[];const lowsLog=[];
+    const bank=net=>{eq*=(1+net);if(eq>peakEq)peakEq=eq;const dd=1-eq/peakEq;if(dd>maxDD)maxDD=dd;};
+    const closeTrade=(i,exitPx)=>{
+      const retRem=(exitPx-pos.entry)/pos.entry;
+      const gross=pos.scaled?0.5*pos.ret1+0.5*retRem:retRem;
+      const net=gross-fee;
+      const R=gross*pos.entry/(pos.entry-pos.stop0);
+      sumR+=R;
+      if(net>0)wins++;closed++;sumNet+=net;sumBars+=i-pos.i;
+      sumMAE+=pos.mae;worstMAE=Math.min(worstMAE,pos.mae);
+      trades.push({i,t:C[i].time,net,R});
+      bank(net);pos=null;
+    };
+    for(let i=Math.min(cfg.fast.max,n-1)+1;i<n;i++){
+      // ---- manage the open position: stop intrabar, everything else at close ----
+      if(pos){
+        const dd=(low[i]-pos.entry)/pos.entry;if(dd<pos.mae)pos.mae=dd;
+        if(high[i]>pos.peakH){pos.peakH=high[i];pos.peakI=i;}
+        if(low[i]<=pos.stop)closeTrade(i,pos.stop);
+        else{
+          if(!pos.scaled){
+            const t15=pos.entry+1.5*(pos.entry-pos.stop0);
+            if(high[i]>=t15){pos.ret1=(t15-pos.entry)/pos.entry;pos.scaled=true;}
+          }
+          if(pivSet.has(i-3)&&i-3>pos.cycleLow&&low[i-3]>pos.stop)pos.stop=low[i-3];
+          const t=thrE[i];
+          const dn=!isNaN(t)&&!isNaN(d.md[i])&&!isNaN(d.sb[i])&&!isNaN(d.md[i-1])&&!isNaN(d.sb[i-1])&&
+            d.md[i]<d.sb[i]&&d.md[i-1]>=d.sb[i-1]&&d.md[i]>t;
+          const bearNow=!isNaN(r14[i])&&r14[i]>65&&bears.some(v=>v.confirmAt===i);
+          const tooOld=(i-pos.cycleLow)>=cfg.fast.max;
+          const leftFade=(i-pos.cycleLow)>=cfg.fast.ideal*0.5&&
+            (pos.peakI-pos.cycleLow)<cfg.fast.ideal*0.5&&
+            close[i]<e10[i]&&close[i-1]<e10[i-1];
+          if((ex.dn&&dn)||(ex.bearDiv&&bearNow)||(ex.age&&tooOld)||(ex.leftFade&&leftFade))closeTrade(i,close[i]);
+        }
+      }
+      // ---- cycle state machine: candidate tracking + confirmation trigger ----
+      const age=i-lastLow;
+      if(age>=cfg.fast.min){
+        if(cand<0||low[i]<low[cand])cand=i;
+        if(cand<i&&close[i]>(trigPrev?high[i-1]:high[cand])){
+          if(i===n-1){trigFiredLast=true;trigCandLast=cand;trigLastLowLast=lastLow;
+            trigLvlLast=trigPrev?high[i-1]:high[cand];}
+          const cc=coreComps(lastLow,cand,i);
+          lowsLog.push({i:cand,t:C[cand].time,trigI:i,trigT:C[i].time,score:cc.score,
+            comps:{rsi:cc.rsi,div:cc.div,imacd:cc.imacd,trans:cc.trans},entered:false});
+          if(!pos&&cc.score>=minScore){
+            const pk0=argmax(high,cand,i);
+            pos={i,entry:close[i],stop0:low[cand],stop:low[cand],cycleLow:cand,
+                 peakH:high[pk0],peakI:pk0,scaled:false,ret1:0,mae:0};
+            lowsLog[lowsLog.length-1].entered=true;
+          }
+          lastLow=cand;cand=-1;
+        }
+      }
+    }
+    if(pos){open=1;const retRem=(close[n-1]-pos.entry)/pos.entry;
+      openRet=(pos.scaled?0.5*pos.ret1+0.5*retRem:retRem)-fee;
+      bank(openRet);sumMAE+=pos.mae;worstMAE=Math.min(worstMAE,pos.mae);}
+    const tot=closed+open;
+    // ---- "signal now": either the still-forming candidate, or (if the trigger fired
+    // on this very last bar) the setup that just fired, so the headline and its
+    // component chips always describe the same candidate ----
+    const lastI=n-1;
+    const stLastLow=trigFiredLast?trigLastLowLast:lastLow, stCand=trigFiredLast?trigCandLast:cand;
+    const cc=coreComps(stLastLow,stCand,lastI);
+    const fc=(typeof fundingCapitulation==="function")?fundingCapitulation():null;
+    const sigScore=cc.score+(fc===true?1:0);
+    const ageBarsSt=lastI-stLastLow;
+    const phase=ageBarsSt<cfg.fast.min?"early":(ageBarsSt<=cfg.fast.max?"window":"overdue");
+    // entrySignal mirrors the ACTUAL backtest entry gate (funding-free coreScore vs
+    // minScore) — the live funding +1 is advisory display only, never classification.
+    const state={barT:C[lastI].time,lastLowT:C[stLastLow].time,lastLowPx:low[stLastLow],
+      ageBars:ageBarsSt,phase,armed:ageBarsSt>=cfg.fast.min,
+      candT:stCand>=0?C[stCand].time:null,candLowPx:stCand>=0?low[stCand]:null,
+      trigPx:trigFiredLast?(isNaN(trigLvlLast)?null:trigLvlLast)
+        :(stCand>=0?(trigPrev?high[lastI]:high[stCand]):null),
+      comps:{rsi:cc.rsi,div:cc.div,imacd:cc.imacd,trans:cc.trans,funding:fc},
+      score:sigScore,coreScore:cc.score,minScore,
+      stopPx:pos?pos.stop:(stCand>=0?low[stCand]:null),
+      trigFiredOnLastBar:trigFiredLast,entrySignal:trigFiredLast&&cc.score>=minScore,inPosition:!!pos};
+    return {barSecs:cfg.barSecs,bars:n,entries:tot,resolved:closed,open,wins,losses:closed-wins,
+      winRate:closed?wins/closed:0,avgR:closed?sumR/closed:0,expNet:closed?sumNet/closed:0,
+      totalRet:eq-1,maxDD,avgBars:closed?sumBars/closed:0,avgMAE:tot?sumMAE/tot:0,worstMAE,openRet,
+      state,trades,lowsLog};
+  }
+  function backtestConf(feePct,opts){if(!C)return null;return simulateConf(feePct||0,opts);}
+
+  // walk-forward: fit the TP/SL grid on the first 70% (ranked by net expectancy),
+  // then judge each candidate on the untouched last 30%. Test column is the truth.
+  function optimizeWF(feePct){
+    if(!C||C.length<300)return null;
+    const d=impulseMACD(C),thrE=expandingThr(d.md,d.sb);
+    const split=Math.floor(C.length*0.7);
+    const TPS=[0.5,0.75,1,1.5,2,2.5,3,4,5],SLS=[0.5,0.75,1,1.5,2,3,4,5];
+    const rows=[];
+    for(const tp of TPS)for(const sl of SLS){
+      const tr=simulate(d.md,d.sb,thrE,tp,sl,feePct,1,split);
+      if(tr.closed<8)continue;
+      const te=simulate(d.md,d.sb,thrE,tp,sl,feePct,split,C.length);
+      rows.push({tp,sl,tr,te});
+    }
+    rows.sort((a,b)=>b.tr.expNet-a.tr.expNet);
+    return {rows,split,bars:C.length,barSecs:cfg.barSecs,
+      t0:C[0].time,t1:C[split].time,t2:C[C.length-1].time};
+  }
+
+  function getState(){
+    const r=simulateConf(feeInput());
+    if(!r||!C)return null;
+    return {state:r.state,price:C[C.length-1].close,fastTag:cfg.fast.tag,slowTag:cfg.slow.tag,interval:cfg.interval};
+  }
   initCharts();wire();
-  return {load,onShow,backtest,optimize};
+  return {load,onShow,backtest,backtestConf,optimizeWF,getState,
+    refreshSignal:()=>{if(C)renderSignal();}};
 }
 
 // ---------- view configs ----------
 const CFG_D={
-  interval:"1d", gran:86400, limit:1000, barSecs:DAY, barsPerDay:1,
+  interval:"1d", gran:86400, limit:4000, barSecs:DAY, barsPerDay:1,
   fast:{min:40,max:75,ideal:60,amp:1.6,tag:"DCL",unit:"d"},
   slow:{min:120,max:190,ideal:154,amp:2.4,tag:"WCL",unit:"w"},
-  el:{chart:"chart_d",imacd:"imacd_d",rsi:"rsi_d",rsiv:"rsiv_d",integrity:"integrity_d",fastKV:"fastKV_d",slowKV:"slowKV_d",thr:"thr_d",
+  el:{chart:"chart_d",imacd:"imacd_d",rsi:"rsi_d",rsiv:"rsiv_d",integrity:"integrity_d",fastKV:"fastKV_d",slowKV:"slowKV_d",thr:"thr_d",signal:"signal_d",
       tFast:"tFast_d",tSlow:"tSlow_d",tFsine:"tFsine_d",tSsine:"tSsine_d",tChase:"tChase_d",tWin:"tWin_d"}
 };
 const CFG_H={
-  interval:"4h", gran:14400, limit:1000, barSecs:14400, barsPerDay:6,
+  interval:"4h", gran:14400, limit:3000, barSecs:14400, barsPerDay:6,
   fast:{min:36,max:72,ideal:48,amp:1.6,tag:"4HCL",unit:"d"},
   slow:{min:240,max:450,ideal:360,amp:2.4,tag:"DCL",unit:"d"},
-  el:{chart:"chart_h",imacd:"imacd_h",rsi:"rsi_h",rsiv:"rsiv_h",integrity:"integrity_h",fastKV:"fastKV_h",slowKV:"slowKV_h",thr:"thr_h",
+  el:{chart:"chart_h",imacd:"imacd_h",rsi:"rsi_h",rsiv:"rsiv_h",integrity:"integrity_h",fastKV:"fastKV_h",slowKV:"slowKV_h",thr:"thr_h",signal:"signal_h",
       tFast:"tFast_h",tSlow:"tSlow_h",tFsine:"tFsine_h",tSsine:"tSsine_h",tChase:"tChase_h",tWin:"tWin_h"}
 };
 const CFG_1H={
   interval:"1h", gran:3600, limit:1000, barSecs:3600, barsPerDay:24,
   fast:{min:30,max:72,ideal:48,amp:1.6,tag:"1HCL",unit:"d"},
   slow:{min:144,max:288,ideal:192,amp:2.4,tag:"4HCL",unit:"d"},
-  el:{chart:"chart_1h",imacd:"imacd_1h",rsi:"rsi_1h",rsiv:"rsiv_1h",integrity:"integrity_1h",fastKV:"fastKV_1h",slowKV:"slowKV_1h",thr:"thr_1h",
+  el:{chart:"chart_1h",imacd:"imacd_1h",rsi:"rsi_1h",rsiv:"rsiv_1h",integrity:"integrity_1h",fastKV:"fastKV_1h",slowKV:"slowKV_1h",thr:"thr_1h",signal:"signal_1h",
       tFast:"tFast_1h",tSlow:"tSlow_1h",tFsine:"tFsine_1h",tSsine:"tSsine_1h",tChase:"tChase_1h",tWin:"tWin_1h"}
 };
 const CFG_5M={
   interval:"5m", gran:300, limit:1000, barSecs:300, barsPerDay:288,
   fast:{min:24,max:60,ideal:36,amp:1.6,tag:"5MCL",unit:"h"},
   slow:{min:96,max:216,ideal:144,amp:2.4,tag:"HCL",unit:"h"},
-  el:{chart:"chart_5m",imacd:"imacd_5m",rsi:"rsi_5m",rsiv:"rsiv_5m",integrity:"integrity_5m",fastKV:"fastKV_5m",slowKV:"slowKV_5m",thr:"thr_5m",
+  el:{chart:"chart_5m",imacd:"imacd_5m",rsi:"rsi_5m",rsiv:"rsiv_5m",integrity:"integrity_5m",fastKV:"fastKV_5m",slowKV:"slowKV_5m",thr:"thr_5m",signal:"signal_5m",
       tFast:"tFast_5m",tSlow:"tSlow_5m",tFsine:"tFsine_5m",tSsine:"tSsine_5m",tChase:"tChase_5m",tWin:"tWin_5m"}
 };
 
@@ -767,6 +1193,7 @@ async function loadAll(){
   const res=await Promise.allSettled(Object.values(VIEWS).map(v=>v.load()));
   const ok=res.some(r=>r.status==="fulfilled"&&r.value);
   setStatus(ok?"ok":"err",ok?"live":"data unreachable");
+  captureSignals();
 }
 
 // ---------- chart-library loader (multi-CDN fallback) ----------
@@ -785,90 +1212,173 @@ loadChartLib().then(()=>{
   VIEWS["5m"]=makeView(CFG_5M);
   $$(".tab").forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
   loadAll();
+  fetchFunding();
 }).catch(()=>{setStatus("err","chart library blocked");
   ["chart_d","chart_h","chart_1h","chart_5m"].forEach(id=>{const e=$(id);if(e)e.innerHTML='<div style="padding:22px;color:#6b7882;font-size:13px;line-height:1.5">Couldn\'t load the charting library from jsDelivr or unpkg — likely a network block. Download <span class="mono">lightweight-charts.standalone.production.js</span> and reference it locally.</div>';});});
 $("refresh").onclick=()=>{if(window.LightweightCharts&&VIEWS.d)loadAll();};
+// auto-refresh every 5 minutes so the journal's capture loop actually runs near bar
+// closes while the page sits open (5m-tab triggers can still slip between checks)
+setInterval(()=>{if(window.LightweightCharts&&VIEWS.d)loadAll();},300000);
+
+// invoked after every loadAll() (initial load + refresh); walks all tabs' current
+// causal state and appends a journal entry only when the trigger fired on the bar
+// that just closed. JRNL.add() is idempotent by tab|barT, so this can never double-log
+// the same bar even if loadAll() re-runs before the next bar closes.
+function captureSignals(){
+  for(const tab in VIEWS){
+    const view=VIEWS[tab];
+    if(!view||typeof view.getState!=="function")continue;
+    let g;
+    try{g=view.getState();}catch(e){continue;}
+    if(!g||!g.state||!g.state.trigFiredOnLastBar)continue;
+    const st=g.state,comps=st.comps||{};
+    const compStr=["rsi","div","imacd","trans","funding"].filter(k=>comps[k]).join("+");
+    JRNL.add({
+      id:tab+"|"+st.barT, tab, capturedAt:new Date().toISOString(), barT:st.barT,
+      price:g.price, event:st.entrySignal?"ENTRY":"TRIGGER", score:st.score,
+      comps:compStr, stopPx:st.stopPx, trigPx:st.trigPx,
+      fundingPct:(window.FUNDING&&window.FUNDING.ready)?window.FUNDING.pctile:null
+    });
+  }
+  renderJournal();
+}
+
 
 const TABNAME={d:"Daily",h:"4-Hour","1h":"1-Hour","5m":"5-Min"};
-function fmtDur(s){return s<3600?Math.round(s/60)+" min":s<86400?(s/3600).toFixed(1)+" h":(s/86400).toFixed(1)+" d";}
+function fmtDur(s){return s<3600?Math.round(s/60)+" min":s<86400?(s/3600).toFixed(1)+" h"
+  :s<2*365*86400?(s/86400).toFixed(1)+" d":(s/31536000).toFixed(1)+" y";}
+const fSign=x=>(x>=0?"+":"")+x.toFixed(2);
 function renderBt(){
   const v=VIEWS[activeTab];
-  const target=+$("btTarget").value, stop=+$("btStop").value;
   if(!v){$("btOut").innerHTML='<span class="integrity bad">Charts still loading — try again in a moment.</span>';return;}
-  const r=v.backtest(target,stop);
+  const fee=+$("btFee").value||0;
+  if($("btStrat").value==="conf"){
+    const r=v.backtestConf(fee);
+    if(!r){$("btOut").innerHTML='<span class="integrity bad">No (or too little) data on the '+TABNAME[activeTab]+' tab yet — open it and let it load.</span>';return;}
+    const ci=r.resolved>=10?bootstrapCI((r.trades||[]).map(t=>t.net)):null;
+    $("btOut").innerHTML=`
+      <div class="bt-grid">
+        <div><div class="k">Tab</div><div class="v">${TABNAME[activeTab]}</div></div>
+        <div><div class="k">Entries</div><div class="v">${r.entries}</div></div>
+        <div><div class="k">Win rate (net)</div><div class="v">${r.resolved?(r.winRate*100).toFixed(1)+"%":"—"}</div></div>
+        <div><div class="k">Avg R / trade</div><div class="v ${r.avgR<0?"neg":""}">${fSign(r.avgR)}R</div></div>
+        <div><div class="k">Expectancy / trade</div><div class="v ${r.expNet<0?"neg":""}">${fSign(r.expNet*100)}%</div></div>
+        <div><div class="k">Total return</div><div class="v ${r.totalRet<0?"neg":""}">${(r.totalRet*100).toFixed(1)}%</div></div>
+        <div><div class="k">Max equity DD</div><div class="v neg">−${(r.maxDD*100).toFixed(1)}%</div></div>
+        <div><div class="k">Resolved / open</div><div class="v">${r.resolved} / ${r.open}</div></div>
+        <div><div class="k">Avg hold</div><div class="v">${r.resolved?fmtDur(r.avgBars*r.barSecs):"—"}</div></div>
+        <div><div class="k">Worst drawdown in trade</div><div class="v neg">${(r.worstMAE*100).toFixed(2)}%</div></div>
+        ${ci?`<div><div class="k">Total 90% CI</div><div class="v" style="font-size:13px">${fSign(ci.tot5*100)}% … ${fSign(ci.tot95*100)}%</div></div>
+        <div><div class="k">Max DD 90% CI</div><div class="v neg" style="font-size:13px">−${(ci.dd5*100).toFixed(1)}% … −${(ci.dd95*100).toFixed(1)}%</div></div>`:``}
+        ${r.open?`<div><div class="k">Open trade now</div><div class="v ${r.openRet<0?"neg":""}">${(r.openRet*100).toFixed(2)}%</div></div>`:""}
+      </div>
+      <div class="bt-note"><b>Cycle confluence</b> — fully causal, nothing repaints: arm inside the timing window, candidate = lowest low since arming, trigger = close back above the candidate bar's high, and entry needs ≥2 setup points (RSI&lt;35 +1 · confirmed bullish RSI divergence +2 · oversold iMACD cross-up +1 · prior cycle right-translated +1). Stop sits at the candidate low (broken low = invalidation), half scales out at +1.5R, the rest trails confirmed higher pivot lows, with overbought/bearish-divergence, cycle-age and left-translation exits. Fees of ${fee}% per round trip included. Sample: ${r.entries} entries over ${fmtDur(r.bars*r.barSecs)} — ${r.entries<30?"<b>small; read the R stats as indicative, not proven</b>":"decent, but still one asset and one regime set"}. ${ci?`Bootstrap 90% CI (1000 resamples of the ${r.resolved} closed trades, seeded): total return ${fSign(ci.tot5*100)}% … ${fSign(ci.tot95*100)}%, max DD −${(ci.dd5*100).toFixed(1)}% … −${(ci.dd95*100).toFixed(1)}% — <b>iid resampling ignores regime clustering, so real uncertainty is wider than shown</b>.`:"Too few closed trades for a bootstrap CI (need ≥10)."}</div>`;
+    return;
+  }
+  const target=+$("btTarget").value, stop=+$("btStop").value;
+  const r=v.backtest(target,stop,fee);
   if(!r){$("btOut").innerHTML='<span class="integrity bad">No data on the '+TABNAME[activeTab]+' tab yet — open it and let it load.</span>';return;}
   const wr=r.resolved?(r.winRate*100).toFixed(1)+"%":"—";
   const noStop=stop<=0;
+  const ci=r.resolved>=10?bootstrapCI((r.trades||[]).map(t=>t.net)):null;
   $("btOut").innerHTML=`
     <div class="bt-grid">
       <div><div class="k">Tab</div><div class="v">${TABNAME[activeTab]}</div></div>
       <div><div class="k">Entries</div><div class="v">${r.entries}</div></div>
-      <div><div class="k">Win rate</div><div class="v">${wr}</div></div>
+      <div><div class="k">Win rate (net)</div><div class="v">${wr}</div></div>
+      <div><div class="k">Expectancy / trade</div><div class="v ${r.expNet<0?"neg":""}">${fSign(r.expNet*100)}%</div></div>
       <div><div class="k">Total return</div><div class="v ${r.totalRet<0?"neg":""}">${(r.totalRet*100).toFixed(1)}%</div></div>
+      <div><div class="k">Max equity DD</div><div class="v neg">−${(r.maxDD*100).toFixed(1)}%</div></div>
       <div><div class="k">Resolved / open</div><div class="v">${r.resolved} / ${r.open}</div></div>
       <div><div class="k">Avg time to target</div><div class="v">${r.resolved?fmtDur(r.avgBars*r.barSecs):"—"}</div></div>
       <div><div class="k">Avg drawdown in trade</div><div class="v neg">${(r.avgMAE*100).toFixed(2)}%</div></div>
       <div><div class="k">Worst drawdown</div><div class="v neg">${(r.worstMAE*100).toFixed(2)}%</div></div>
+      ${ci?`<div><div class="k">Total 90% CI</div><div class="v" style="font-size:13px">${fSign(ci.tot5*100)}% … ${fSign(ci.tot95*100)}%</div></div>
+      <div><div class="k">Max DD 90% CI</div><div class="v neg" style="font-size:13px">−${(ci.dd5*100).toFixed(1)}% … −${(ci.dd95*100).toFixed(1)}%</div></div>`:``}
       ${r.open?`<div><div class="k">Open trade now</div><div class="v ${r.openUnreal<0?"neg":""}">${(r.openUnreal*100).toFixed(2)}%</div></div>`:""}
     </div>
-    <div class="bt-note">${noStop
+    <div class="bt-note">Threshold is <b>causal</b> (expanding percentile — needs 12 crossings to arm, so early bars don't trade) and results are <b>net of ${fee}% round-trip fees</b>. ${noStop
       ?`No stop, so the only exit is hitting +${target}% — <b>win rate is ~100% by construction and not a real edge metric</b>. Total return marks the open trade(s) to market, so it does reflect the hidden risk. What matters: the <b>${r.open} open trade(s)</b> that never reached target and the drawdowns — a "win" may have sat <b>${(r.worstMAE*100).toFixed(1)}%</b> underwater first. Set a stop % for a real win/loss split.`
-      :`With a ${stop}% stop, win rate = trades that reached +${target}% before the stop. Sample: ${r.entries} entries${activeTab==="5m"?" over only ~3.5 days of 5m data — too few to trust":activeTab==="1h"?" over ~42 days":""}.`}</div>`;
+      :`With a ${stop}% stop, win rate = trades that reached +${target}% before the stop, net of fees.`} Sample: ${r.entries} entries over ${fmtDur(r.bars*r.barSecs)}${activeTab==="5m"?" — essentially noise at 5m":activeTab==="1h"?" — thin":""}. ${ci?`Bootstrap 90% CI (1000 resamples of the ${r.resolved} closed trades, seeded): total return ${fSign(ci.tot5*100)}% … ${fSign(ci.tot95*100)}%, max DD −${(ci.dd5*100).toFixed(1)}% … −${(ci.dd95*100).toFixed(1)}% — <b>iid resampling ignores regime clustering, so real uncertainty is wider than shown</b>.`:"Too few closed trades for a bootstrap CI (need ≥10)."}</div>`;
 }
 $("btRun").onclick=renderBt;
 
-function optimizeBt(){
+function renderOptWF(){
   const v=VIEWS[activeTab];
   if(!v){$("btOut").innerHTML='<span class="integrity bad">Charts still loading — try again in a moment.</span>';return;}
-  if(!v.backtest(1,1)){$("btOut").innerHTML='<span class="integrity bad">No data on the '+TABNAME[activeTab]+' tab yet — open it and let it load.</span>';return;}
-  const TPS=[0.5,0.75,1,1.5,2,2.5,3,4,5],SLS=[0.5,0.75,1,1.5,2,3,4,5];
-  const rows=[];
-  for(const tp of TPS)for(const sl of SLS){
-    const r=v.backtest(tp,sl);
-    if(r.resolved<5)continue;
-    const tot=r.wins*tp-r.losses*sl;
-    rows.push({tp,sl,tot,exp:tot/r.resolved,resolved:r.resolved,open:r.open,wr:r.winRate});
-  }
-  if(!rows.length){$("btOut").innerHTML='<span class="integrity bad">Too few trades on the '+TABNAME[activeTab]+' tab to optimize (need ≥5 resolved).</span>';return;}
-  rows.sort((a,b)=>b.tot-a.tot);
-  const best=rows[0];
-  $("btTarget").value=best.tp;$("btStop").value=best.sl;
-  const f=x=>(x>=0?"+":"")+x.toFixed(2);
-  const top=rows.slice(0,6).map((r,k)=>`<tr style="${k===0?"color:var(--amber)":""}">
-    <td>+${r.tp}%</td><td>−${r.sl}%</td><td>${r.resolved}${r.open?" (+"+r.open+")":""}</td>
-    <td>${(r.wr*100).toFixed(0)}%</td><td>${f(r.tot)}%</td><td>${f(r.exp)}%</td></tr>`).join("");
-  $("btOut").innerHTML=`
-    <div class="bt-best">Best on ${TABNAME[activeTab]}: <b>TP +${best.tp}% / SL −${best.sl}%</b> → total <b>${f(best.tot)}%</b>
-      over ${best.resolved} trades · ${(best.wr*100).toFixed(0)}% win · ${f(best.exp)}%/trade${best.open?" · "+best.open+" still open":""}</div>
-    <table class="bt-table"><thead><tr><th>TP</th><th>SL</th><th>Trades</th><th>Win</th><th>Total</th><th>Per-trade</th></tr></thead><tbody>${top}</tbody></table>
-    <div class="bt-note"><b>This is curve-fitting — treat it with suspicion.</b> It picked the levels that best fit <i>this exact slice</i> of past data; searching more combinations just fits more noise. Sample here: ${best.resolved} trades${activeTab==="5m"?" over ~3.5 days — essentially meaningless":activeTab==="1h"?" over ~42 days — thin":activeTab==="h"?" over ~166 days":""}. Only trust it if the top rows cluster around similar TP/SL (a stable surface); an isolated spike at the top is noise. Inputs are pre-filled with the winner — hit <b>Run</b> to see its full risk profile including drawdowns.</div>`;
-}
-$("btOpt").onclick=optimizeBt;
-
-function renderOpt(){
-  const v=VIEWS[activeTab];
-  if(!v){$("btOut").innerHTML='<span class="integrity bad">Charts still loading — try again in a moment.</span>';return;}
-  const o=v.optimize();
+  if($("btStrat").value==="conf"){
+    $("btOut").innerHTML='<span class="integrity">Cycle confluence uses structural stops and exits — there is no TP/SL grid to optimize. Hit <b>Run</b> for its R-multiple stats.</span>';return;}
+  const fee=+$("btFee").value||0;
+  const o=v.optimizeWF(fee);
   if(!o){$("btOut").innerHTML='<span class="integrity bad">No data on the '+TABNAME[activeTab]+' tab yet.</span>';return;}
-  const b=o.best;
-  // push the winners into the inputs and show the full detail underneath
-  $("btTarget").value=b.tp;$("btStop").value=b.sl;
-  const sharp=o.nbAvg<b.totalRet*0.5; // best dwarfs its neighbours -> spiky, fragile
+  if(!o.rows.length){$("btOut").innerHTML='<span class="integrity bad">Too few resolved trades on the '+TABNAME[activeTab]+' tab to fit (need ≥8 on the train split).</span>';return;}
+  const best=o.rows[0];
+  $("btTarget").value=best.tp;$("btStop").value=best.sl;
+  const top=o.rows.slice(0,6).map((r,k)=>`<tr style="${k===0?"color:var(--amber)":""}">
+    <td>+${r.tp}%</td><td>−${r.sl}%</td>
+    <td>${r.tr.closed}</td><td>${(r.tr.winRate*100).toFixed(0)}%</td><td>${fSign(r.tr.expNet*100)}%</td><td>${fSign(r.tr.totalRet*100)}%</td>
+    <td>${r.te.closed}</td><td>${r.te.closed?(r.te.winRate*100).toFixed(0)+"%":"—"}</td>
+    <td class="${r.te.expNet<0?"neg":""}">${r.te.closed?fSign(r.te.expNet*100)+"%":"—"}</td>
+    <td class="${r.te.totalRet<0?"neg":""}">${fSign(r.te.totalRet*100)}%</td></tr>`).join("");
+  const survivors=o.rows.slice(0,6).filter(r=>r.te.closed&&r.te.expNet>0).length;
   $("btOut").innerHTML=`
-    <div class="bt-grid">
-      <div><div class="k">Tab</div><div class="v">${TABNAME[activeTab]}</div></div>
-      <div><div class="k">Best TP</div><div class="v">${b.tp}%</div></div>
-      <div><div class="k">Best SL</div><div class="v">${b.sl}%</div></div>
-      <div><div class="k">Total return</div><div class="v ${b.totalRet<0?"neg":""}">${(b.totalRet*100).toFixed(1)}%</div></div>
-      <div><div class="k">Win rate</div><div class="v">${(b.winRate*100).toFixed(1)}%</div></div>
-      <div><div class="k">Trades</div><div class="v">${b.entries}</div></div>
-      <div><div class="k">Worst drawdown</div><div class="v neg">${(b.worstMAE*100).toFixed(2)}%</div></div>
-      <div><div class="k">Grid profitable</div><div class="v">${o.positive}/${o.nGrid}</div></div>
-    </div>
-    <div class="bt-note"><b>This is curve-fitting.</b> It picks the TP/SL that maximised return on <b>this exact past window</b>, so the number is optimistic and partly fits noise — it is <b>not</b> what you'll get forward. Robustness check: ${o.positive} of ${o.nGrid} grid combos were profitable, and the best cell's neighbours averaged <b>${(o.nbAvg*100).toFixed(1)}%</b> vs the peak's ${(b.totalRet*100).toFixed(1)}%. ${sharp?'The peak <b>towers over its neighbours — a fragile, overfit spike</b>; distrust it.':'The peak sits on a <b>plateau</b> of similar results, which is the less-bad case — but still in-sample.'} ${activeTab==="5m"?'On ~3.5 days of 5m data with '+b.entries+' trades, treat this as noise, not a setting.':''} The inputs above are now set to the best combo — hit Run to see its full breakdown. To trust any of this, test it forward / out-of-sample.</div>`;
+    <div class="bt-best">Walk-forward on ${TABNAME[activeTab]}: fit on <b>${dstr(o.t0)} → ${dstr(o.t1)}</b> (70%), judged on <b>${dstr(o.t1)} → ${dstr(o.t2)}</b> (30%), net of ${fee}% fees.
+      Best by train expectancy: <b>TP +${best.tp}% / SL −${best.sl}%</b> → test: <b>${best.te.closed?fSign(best.te.expNet*100)+"%/trade over "+best.te.closed+" trades":"no resolved test trades"}</b></div>
+    <table class="bt-table"><thead><tr><th>TP</th><th>SL</th>
+      <th>Train n</th><th>Win</th><th>Exp</th><th>Total</th>
+      <th>Test n</th><th>Win</th><th>Exp</th><th>Total</th></tr></thead><tbody>${top}</tbody></table>
+    <div class="bt-note"><b>Judge only the test columns</b> — the train side is curve-fit by construction. ${survivors>=4?"Most top rows stayed positive out-of-sample — the edge <b>may</b> generalize.":survivors>=2?"Only some top rows survived out-of-sample — treat as fragile.":"<b>The fitted edge did not survive out-of-sample — assume it is noise.</b>"} Also check that the top rows cluster around similar TP/SL (a plateau); an isolated spike is noise even if its test column looks good, because you'd never have picked it in advance. Inputs are pre-filled with the train winner — hit <b>Run</b> to see its full-history risk profile.</div>`;
 }
-$("btOpt").onclick=renderOpt;
+$("btOpt").onclick=renderOptWF;
+$("btStrat").onchange=()=>{const conf=$("btStrat").value==="conf";
+  $("btTarget").disabled=conf;$("btStop").disabled=conf;};
 setInterval(async()=>{try{const p=await getPrice();$("price").firstChild.nodeValue=p.toLocaleString("en-US",{style:"currency",currency:"USD"});}catch(e){}},60000);
+
+// ---------- signal journal UI ----------
+function renderJournal(){
+  const rows=JRNL.list();
+  const cEl=$("jrnlCount");
+  if(cEl)cEl.textContent=rows.length+(rows.length===1?" entry":" entries");
+  const out=$("jrnlOut");
+  if(!out)return;
+  if(!rows.length){
+    out.innerHTML='<span style="color:#6b7882;font-size:12px">No signals captured yet — an entry appends when the 5-minute recheck (or a load/Refresh) finds the confluence trigger fired on the newest closed bar.</span>';
+    return;
+  }
+  const tr=rows.map(e=>`<tr>
+    <td>${e.capturedAt.slice(0,16).replace("T"," ")}</td>
+    <td>${TABNAME[e.tab]||e.tab}</td>
+    <td class="${e.event==="ENTRY"?"r":""}">${e.event}</td>
+    <td>${e.price!=null?e.price.toLocaleString("en-US",{style:"currency",currency:"USD"}):"—"}</td>
+    <td>${e.score}</td>
+    <td>${e.comps?e.comps.split("+").join(" + "):"—"}</td>
+    <td>${e.stopPx!=null?e.stopPx.toFixed(2):"—"}</td>
+  </tr>`).join("");
+  out.innerHTML=`<table class="jrnl-table"><thead><tr>
+    <th>Captured</th><th>Tab</th><th>Event</th><th>Price</th><th>Score</th><th>Confluence</th><th>Stop</th>
+  </tr></thead><tbody>${tr}</tbody></table>`;
+}
+function jrnlFallbackCopy(text){
+  const ta=document.createElement("textarea");
+  ta.value=text;ta.style.position="fixed";ta.style.opacity="0";
+  document.body.appendChild(ta);ta.focus();ta.select();
+  try{document.execCommand("copy");}catch(e){}
+  document.body.removeChild(ta);
+}
+const jrnlCopyBtn=$("jrnlCopy");
+if(jrnlCopyBtn)jrnlCopyBtn.onclick=()=>{
+  const text=JRNL.toJSON();
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text).catch(()=>jrnlFallbackCopy(text));
+  else jrnlFallbackCopy(text);
+};
+const jrnlClearBtn=$("jrnlClear");
+if(jrnlClearBtn)jrnlClearBtn.onclick=()=>{
+  if(!confirm("Clear the signal journal? This cannot be undone."))return;
+  JRNL.clear();renderJournal();
+};
+renderJournal();
+
+setInterval(fetchFunding,3600000);
 </script>
 </body>
 </html>
