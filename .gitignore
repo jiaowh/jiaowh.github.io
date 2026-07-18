@@ -20,6 +20,9 @@ assets/developer/*.mov
 # inbox/ is the Studio drop zone, src/ is the per-journey originals archive.
 assets/moto/inbox/
 assets/moto/src/
+# touring/ = bulk trip originals (HD). Read only at build time by import_touring.py;
+# the published page needs only assets/moto/web + video + journeys.js. Never commit these.
+touring/
 # import intermediates: manifest holds volatile Google hostedimage URLs; log is regenerable
 assets/moto/manifest.json
 assets/moto/manifest_photos.log
