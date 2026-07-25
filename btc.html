@@ -81,30 +81,16 @@
   .imacd-legend .item{display:inline-flex;align-items:center;gap:7px}
   .imacd-legend .ln{width:16px;border-top:2px solid;display:inline-block}
   .imacd-legend .thr{font-family:"IBM Plex Mono",monospace;color:var(--text)}
+  /* causal-signal legend strip under each price chart */
+  .siglegend{display:flex;flex-wrap:wrap;gap:4px 16px;align-items:center;margin:-8px 0 -6px;
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;line-height:1.6;color:var(--muted)}
+  .siglegend .lg{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+  .siglegend b{color:var(--text);font-weight:600}
+  .siglegend .ln2{width:14px;border-top:2px solid;display:inline-block}
+  .siglegend .dsh{width:14px;border-top:2px dashed;display:inline-block}
+  .siglegend .gl{font-size:9px}
   .imacdbox{height:210px;border:1px solid var(--grid);border-radius:4px;background:var(--panel2)}
   .rsibox{height:160px;border:1px solid var(--grid);border-radius:4px;background:var(--panel2)}
-  /* backtest */
-  #bt{max-width:1320px;margin:0 auto;padding:0 22px 10px}
-  #bt .bt-head{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--text);margin-bottom:10px}
-  #bt .bt-head span{text-transform:none;letter-spacing:0;color:var(--muted);font-weight:400;font-size:11px}
-  #bt .bt-controls{display:flex;flex-wrap:wrap;gap:14px;align-items:center;font-size:12px;color:var(--muted);margin-bottom:12px}
-  #bt .bt-controls input{width:64px;background:var(--panel2);border:1px solid var(--grid);color:var(--text);font-family:"IBM Plex Mono",monospace;font-size:12px;padding:5px 7px;border-radius:4px;margin-left:6px}
-  #bt .bt-controls select{background:var(--panel2);border:1px solid var(--grid);color:var(--text);font-family:"IBM Plex Mono",monospace;font-size:12px;padding:5px 7px;border-radius:4px;margin-left:6px}
-  #bt .bt-controls input:disabled{opacity:.35}
-  #bt .bt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--grid);border:1px solid var(--grid);border-radius:4px;overflow:hidden}
-  #bt .bt-grid>div{background:var(--panel);padding:11px 13px}
-  #bt .bt-grid .k{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
-  #bt .bt-grid .v{font-family:"IBM Plex Mono",monospace;font-size:17px;font-weight:600}
-  #bt .bt-grid .v.neg{color:var(--down)}
-  #bt .bt-note{font-size:11px;color:var(--muted);line-height:1.5;margin-top:10px;border-left:2px solid var(--amber);padding-left:12px}
-  #bt .bt-note b{color:var(--text)}
-  #bt .bt-best{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--text);margin-bottom:10px;line-height:1.5}
-  #bt .bt-best b{color:var(--amber)}
-  #bt .bt-table{width:100%;border-collapse:collapse;font-family:"IBM Plex Mono",monospace;font-size:12px;margin-bottom:4px}
-  #bt .bt-table th{text-align:right;color:var(--muted);font-weight:500;font-size:10px;text-transform:uppercase;letter-spacing:.06em;padding:5px 10px;border-bottom:1px solid var(--grid)}
-  #bt .bt-table td{text-align:right;padding:5px 10px;border-bottom:1px solid var(--grid)}
-  #bt .bt-table th:first-child,#bt .bt-table td:first-child{text-align:left}
-  #btOut{overflow-x:auto}
   #jrnlOut{overflow-x:auto}
 
   /* signal journal */
@@ -147,9 +133,20 @@
       <label><input type="checkbox" id="tSsine_d"><span class="sw" style="background:var(--cyan);opacity:.5"></span>Weekly cycle wave</label>
       <label title="When a cycle runs past its window and price is still dropping, keep searching to the true low and start the next count there."><input type="checkbox" id="tChase_d" checked>Chase stretched lows</label>
       <label title="Shaded band projects the next expected daily cycle-low timing window."><input type="checkbox" id="tWin_d" checked><span class="sw" style="background:var(--amber)"></span>Next DCL window</label>
+      <label title="200-bar SMA regime: the line runs green while price closes above it, red below, and the chart takes a faint red tint underneath. The 2026-07 audit's single strongest filter — triggers taken below it lost money."><input type="checkbox" id="tSMA_d" checked><span class="sw" style="background:var(--up)"></span>SMA200 regime</label>
+      <label title="Turtle exit rails: the Donchian-20 lower channel from the last confirmed cycle low forward (trailing exit) plus the 2N initial stop, close - 2xATR(20), of the newest trigger bar. Exit on a close below whichever is higher."><input type="checkbox" id="tRail_d" checked><span class="sw" style="background:rgba(255,176,0,0.55)"></span>Exit rails · D20 / 2N</label>
+      <label title="Bollinger reversion sleeve (off by default): BB(20,2) mid + lower band, with a cyan dot wherever price closes below the lower band while still above SMA200 — a separate quick trade that targets the mid band."><input type="checkbox" id="tBB_d"><span class="sw" style="background:var(--cyan)"></span>BB reversion sleeve</label>
       <span class="integrity" id="integrity_d" style="margin-left:auto"></span>
     </div>
     <div id="chart_d" class="chartbox"></div>
+    <div class="siglegend">
+      <span class="lg"><span class="gl" style="color:#3fb950">&#9650;</span><b style="color:#3fb950">ENT</b> / <span class="gl" style="color:rgba(63,185,80,0.5)">&#9650;</span>trg &mdash; causal trigger bars, never repaint</span>
+      <span class="lg"><span class="gl" style="color:rgba(255,176,0,0.55)">&#9679;</span>DCL <span class="gl" style="color:rgba(56,189,248,0.5)">&#9650;</span>WCL &mdash; hindsight labels, they repaint</span>
+      <span class="lg"><span class="dsh" style="border-top-color:var(--amber)"></span>TRIG <span class="dsh" style="border-top-color:var(--down)"></span>INVAL</span>
+      <span class="lg"><span class="ln2" style="border-top-color:#3fb950"></span><span class="ln2" style="border-top-color:#f85149"></span>SMA200 regime &middot; red tint = below</span>
+      <span class="lg"><span class="ln2" style="border-top-color:rgba(255,176,0,0.55)"></span>D20 rail <span class="dsh" style="border-top-color:rgba(255,176,0,0.45)"></span>2N stop</span>
+      <span class="lg"><span class="gl" style="color:var(--cyan)">&#9679;</span>BB reversion &mdash; opt-in sleeve</span>
+    </div>
     <div class="imacd-head">
       <span class="h">Impulse MACD · 34 / 9</span>
       <span class="sub">thresholds = the major/minor crossover split (55th pct)</span>
@@ -186,9 +183,20 @@
       <label><input type="checkbox" id="tSsine_h"><span class="sw" style="background:var(--cyan);opacity:.5"></span>Daily cycle wave</label>
       <label title="When a cycle runs past its window and price is still dropping, keep searching to the true low and start the next count there."><input type="checkbox" id="tChase_h" checked>Chase stretched lows</label>
       <label title="Shaded band projects the next expected 4H cycle-low timing window."><input type="checkbox" id="tWin_h" checked><span class="sw" style="background:var(--amber)"></span>Next 4H window</label>
+      <label title="200-bar SMA regime: the line runs green while price closes above it, red below, and the chart takes a faint red tint underneath. The 2026-07 audit's single strongest filter — triggers taken below it lost money."><input type="checkbox" id="tSMA_h" checked><span class="sw" style="background:var(--up)"></span>SMA200 regime</label>
+      <label title="Turtle exit rails: the Donchian-20 lower channel from the last confirmed cycle low forward (trailing exit) plus the 2N initial stop, close - 2xATR(20), of the newest trigger bar. Exit on a close below whichever is higher."><input type="checkbox" id="tRail_h" checked><span class="sw" style="background:rgba(255,176,0,0.55)"></span>Exit rails · D20 / 2N</label>
+      <label title="Bollinger reversion sleeve (off by default): BB(20,2) mid + lower band, with a cyan dot wherever price closes below the lower band while still above SMA200 — a separate quick trade that targets the mid band."><input type="checkbox" id="tBB_h"><span class="sw" style="background:var(--cyan)"></span>BB reversion sleeve</label>
       <span class="integrity" id="integrity_h" style="margin-left:auto"></span>
     </div>
     <div id="chart_h" class="chartbox"></div>
+    <div class="siglegend">
+      <span class="lg"><span class="gl" style="color:#3fb950">&#9650;</span><b style="color:#3fb950">ENT</b> / <span class="gl" style="color:rgba(63,185,80,0.5)">&#9650;</span>trg &mdash; causal trigger bars, never repaint</span>
+      <span class="lg"><span class="gl" style="color:rgba(255,176,0,0.55)">&#9679;</span>DCL <span class="gl" style="color:rgba(56,189,248,0.5)">&#9650;</span>WCL &mdash; hindsight labels, they repaint</span>
+      <span class="lg"><span class="dsh" style="border-top-color:var(--amber)"></span>TRIG <span class="dsh" style="border-top-color:var(--down)"></span>INVAL</span>
+      <span class="lg"><span class="ln2" style="border-top-color:#3fb950"></span><span class="ln2" style="border-top-color:#f85149"></span>SMA200 regime &middot; red tint = below</span>
+      <span class="lg"><span class="ln2" style="border-top-color:rgba(255,176,0,0.55)"></span>D20 rail <span class="dsh" style="border-top-color:rgba(255,176,0,0.45)"></span>2N stop</span>
+      <span class="lg"><span class="gl" style="color:var(--cyan)">&#9679;</span>BB reversion &mdash; opt-in sleeve</span>
+    </div>
     <div class="imacd-head">
       <span class="h">Impulse MACD · 34 / 9 · 4H</span>
       <span class="sub">thresholds = the major/minor crossover split (55th pct)</span>
@@ -225,9 +233,20 @@
       <label><input type="checkbox" id="tSsine_1h"><span class="sw" style="background:var(--cyan);opacity:.5"></span>4H cycle wave</label>
       <label title="When a cycle runs past its window and price is still dropping, keep searching to the true low and start the next count there."><input type="checkbox" id="tChase_1h" checked>Chase stretched lows</label>
       <label title="Shaded band projects the next expected 1H cycle-low timing window."><input type="checkbox" id="tWin_1h" checked><span class="sw" style="background:var(--amber)"></span>Next 1H window</label>
+      <label title="200-bar SMA regime: the line runs green while price closes above it, red below, and the chart takes a faint red tint underneath. The 2026-07 audit's single strongest filter — triggers taken below it lost money."><input type="checkbox" id="tSMA_1h" checked><span class="sw" style="background:var(--up)"></span>SMA200 regime</label>
+      <label title="Turtle exit rails: the Donchian-20 lower channel from the last confirmed cycle low forward (trailing exit) plus the 2N initial stop, close - 2xATR(20), of the newest trigger bar. Exit on a close below whichever is higher."><input type="checkbox" id="tRail_1h" checked><span class="sw" style="background:rgba(255,176,0,0.55)"></span>Exit rails · D20 / 2N</label>
+      <label title="Bollinger reversion sleeve (off by default): BB(20,2) mid + lower band, with a cyan dot wherever price closes below the lower band while still above SMA200 — a separate quick trade that targets the mid band."><input type="checkbox" id="tBB_1h"><span class="sw" style="background:var(--cyan)"></span>BB reversion sleeve</label>
       <span class="integrity" id="integrity_1h" style="margin-left:auto"></span>
     </div>
     <div id="chart_1h" class="chartbox"></div>
+    <div class="siglegend">
+      <span class="lg"><span class="gl" style="color:#3fb950">&#9650;</span><b style="color:#3fb950">ENT</b> / <span class="gl" style="color:rgba(63,185,80,0.5)">&#9650;</span>trg &mdash; causal trigger bars, never repaint</span>
+      <span class="lg"><span class="gl" style="color:rgba(255,176,0,0.55)">&#9679;</span>DCL <span class="gl" style="color:rgba(56,189,248,0.5)">&#9650;</span>WCL &mdash; hindsight labels, they repaint</span>
+      <span class="lg"><span class="dsh" style="border-top-color:var(--amber)"></span>TRIG <span class="dsh" style="border-top-color:var(--down)"></span>INVAL</span>
+      <span class="lg"><span class="ln2" style="border-top-color:#3fb950"></span><span class="ln2" style="border-top-color:#f85149"></span>SMA200 regime &middot; red tint = below</span>
+      <span class="lg"><span class="ln2" style="border-top-color:rgba(255,176,0,0.55)"></span>D20 rail <span class="dsh" style="border-top-color:rgba(255,176,0,0.45)"></span>2N stop</span>
+      <span class="lg"><span class="gl" style="color:var(--cyan)">&#9679;</span>BB reversion &mdash; opt-in sleeve</span>
+    </div>
     <div class="imacd-head">
       <span class="h">Impulse MACD · 34 / 9 · 1H</span>
       <span class="sub">thresholds = the major/minor crossover split (55th pct)</span>
@@ -264,9 +283,20 @@
       <label><input type="checkbox" id="tSsine_5m"><span class="sw" style="background:var(--cyan);opacity:.5"></span>Half-day cycle wave</label>
       <label title="When a cycle runs past its window and price is still dropping, keep searching to the true low and start the next count there."><input type="checkbox" id="tChase_5m" checked>Chase stretched lows</label>
       <label title="Shaded band projects the next expected 5M cycle-low timing window."><input type="checkbox" id="tWin_5m" checked><span class="sw" style="background:var(--amber)"></span>Next 5M window</label>
+      <label title="200-bar SMA regime: the line runs green while price closes above it, red below, and the chart takes a faint red tint underneath. The 2026-07 audit's single strongest filter — triggers taken below it lost money."><input type="checkbox" id="tSMA_5m" checked><span class="sw" style="background:var(--up)"></span>SMA200 regime</label>
+      <label title="Turtle exit rails: the Donchian-20 lower channel from the last confirmed cycle low forward (trailing exit) plus the 2N initial stop, close - 2xATR(20), of the newest trigger bar. Exit on a close below whichever is higher."><input type="checkbox" id="tRail_5m" checked><span class="sw" style="background:rgba(255,176,0,0.55)"></span>Exit rails · D20 / 2N</label>
+      <label title="Bollinger reversion sleeve (off by default): BB(20,2) mid + lower band, with a cyan dot wherever price closes below the lower band while still above SMA200 — a separate quick trade that targets the mid band."><input type="checkbox" id="tBB_5m"><span class="sw" style="background:var(--cyan)"></span>BB reversion sleeve</label>
       <span class="integrity" id="integrity_5m" style="margin-left:auto"></span>
     </div>
     <div id="chart_5m" class="chartbox"></div>
+    <div class="siglegend">
+      <span class="lg"><span class="gl" style="color:#3fb950">&#9650;</span><b style="color:#3fb950">ENT</b> / <span class="gl" style="color:rgba(63,185,80,0.5)">&#9650;</span>trg &mdash; causal trigger bars, never repaint</span>
+      <span class="lg"><span class="gl" style="color:rgba(255,176,0,0.55)">&#9679;</span>DCL <span class="gl" style="color:rgba(56,189,248,0.5)">&#9650;</span>WCL &mdash; hindsight labels, they repaint</span>
+      <span class="lg"><span class="dsh" style="border-top-color:var(--amber)"></span>TRIG <span class="dsh" style="border-top-color:var(--down)"></span>INVAL</span>
+      <span class="lg"><span class="ln2" style="border-top-color:#3fb950"></span><span class="ln2" style="border-top-color:#f85149"></span>SMA200 regime &middot; red tint = below</span>
+      <span class="lg"><span class="ln2" style="border-top-color:rgba(255,176,0,0.55)"></span>D20 rail <span class="dsh" style="border-top-color:rgba(255,176,0,0.45)"></span>2N stop</span>
+      <span class="lg"><span class="gl" style="color:var(--cyan)">&#9679;</span>BB reversion &mdash; opt-in sleeve</span>
+    </div>
     <div class="imacd-head">
       <span class="h">Impulse MACD · 34 / 9 · 5M</span>
       <span class="sub">thresholds = the major/minor crossover split (55th pct)</span>
@@ -295,21 +325,6 @@
   </section>
 </main>
 
-<section id="bt">
-  <div class="bt-head">Strategy backtest <span>— net of fees, causal thresholds only (no look-ahead); optimizer is walk-forward: fit on the first 70%, judged on the last 30%</span></div>
-  <div class="bt-controls">
-    <label>Strategy<select id="btStrat">
-      <option value="classic">iMACD cross</option>
-      <option value="conf">Cycle confluence</option>
-    </select></label>
-    <label>Target %<input id="btTarget" type="number" value="1" step="0.1" min="0.1"></label>
-    <label>Stop % (0 = none)<input id="btStop" type="number" value="0" step="0.1" min="0"></label>
-    <label title="Round-trip trading cost: taker fee both sides + slippage. ~0.24% is typical spot reality.">Fees % RT<input id="btFee" type="number" value="0.24" step="0.01" min="0"></label>
-    <button id="btRun">Run on active tab</button>
-    <button id="btOpt">Optimize TP/SL (walk-forward)</button>
-  </div>
-  <div id="btOut"><span style="color:#6b7882;font-size:12px">Pick a tab, then Run.</span></div>
-</section>
 
 <section id="journal">
   <div class="jrnl-head">Signal journal <span>— captured on load, Refresh, and an automatic 5-minute recheck while the page is open — entries never repaint (5-min-tab triggers can slip between checks)</span></div>
@@ -322,11 +337,11 @@
 </section>
 
 <footer>
-  <div><b>Four timeframes, one engine.</b> <b>Daily</b>: ~60-day cycle (40–75d) with the ~22-week weekly nested on top. <b>4-Hour</b>: ~8-day cycle (36–72 bars) under the daily cycle. <b>1-Hour</b>: ~2-day cycle (30–72 bars) under the ~8-day 4H cycle. <b>5-Min</b>: ~3-hour cycle (24–60 bars) under a ~12-hour half-day cycle. Cycles are counted low-to-low; from each confirmed low a timing window opens and the lowest price inside it becomes the next low, with smoothing to ignore single-bar noise and a "chase" that follows a still-falling low past its window. History: Daily pages back to the 2017 listing (~9 years), 4-Hour ≈ 500 days, 1-Hour ≈ 42 days, 5-Min ≈ 3.5 days; cycle lengths are starting estimates — tune them in each <span class="mono">CFG</span> block. <b>The cycle-low markers are hindsight labels</b> (the smoother sees ±2 bars, chased lows confirm ~8 bars late, and the newest low stays provisional) — good for measuring cycles, never for entering on. The tradable layer is the causal Cycle-confluence strategy in the backtester.</div>
+  <div><b>Four timeframes, one engine.</b> <b>Daily</b>: ~60-day cycle (40–75d) with the ~22-week weekly nested on top. <b>4-Hour</b>: ~8-day cycle (36–72 bars) under the daily cycle. <b>1-Hour</b>: ~2-day cycle (30–72 bars) under the ~8-day 4H cycle. <b>5-Min</b>: ~3-hour cycle (24–60 bars) under a ~12-hour half-day cycle. Cycles are counted low-to-low; from each confirmed low a timing window opens and the lowest price inside it becomes the next low, with smoothing to ignore single-bar noise and a "chase" that follows a still-falling low past its window. History: Daily pages back to the 2017 listing (~9 years), 4-Hour ≈ 500 days, 1-Hour ≈ 42 days, 5-Min ≈ 3.5 days; cycle lengths are starting estimates — tune them in each <span class="mono">CFG</span> block. <b>The cycle-low markers are hindsight labels</b> (the smoother sees ±2 bars, chased lows confirm ~8 bars late, and the newest low stays provisional) — good for measuring cycles, never for entering on. The tradable layer is the causal signal geometry drawn on the charts.</div>
   <div><b>iMACD.</b> Each tab's impulse pane (LazyBear 34/9) is computed on that tab's candles. Threshold = the 55th-percentile crossover size (the major/minor split); dots mark impulse turns (green up, red down), zigzag-filtered to ignore noise. The amber band projects the next cycle-low timing window.</div>
   <div><b>RSI &amp; divergences.</b> Each tab's RSI pane is a 14-period Wilder's Relative Strength Index on that tab's closes, bounded 0–100 (70 overbought, 30 oversold, 50 midline; live reading in the header). Arrows mark <b>confirmed divergences</b> between consecutive price pivots (±3-bar extremes, so each is only known 3 bars after the pivot — a fixed, disclosed lag, no repainting): green up = price lower low with RSI higher low from an oversold first pivot ("DIV" = RSI still &lt;40 at the second, the stronger class); red down = the bearish mirror. The iMACD pane carries the same detector against the impulse line. All three panes share one time axis.</div>
-  <div><b>Backtester.</b> Two strategies: <b>iMACD cross</b> (crossover below the oversold threshold, fixed TP/SL) and <b>Cycle confluence</b> (window-gated, divergence-scored entries with structural stops at the candidate low, +1.5R scale-out, pivot trailing, and translation/age exits). Both are fully causal — thresholds are expanding percentiles, pivots respect their confirmation lag — and net of the fee input. The optimizer is walk-forward: fitted on the first 70% of history, judged on the untouched last 30%; only the test columns mean anything. <b>Signal journal</b> below appends a row when a capture pass (page load, Refresh, or the automatic 5-minute recheck) finds the causal confluence trigger fired on the newest closed bar — a forward record written in localStorage that never repaints, though fast-tab triggers can slip between rechecks and captures only happen while the page is open.</div>
 
+  <div><b>How to read.</b> <b>Entries.</b> Price above its green SMA200 (no red tint), cycle age inside the amber window, then a bar closing above the amber <span class="mono">TRIG</span> line prints a solid green <b>ENT</b> arrow on that bar — the trigger bar is fixed at its close and never moves. Dim <span class="mono">trg</span> arrows are confirmed cycle lows whose confluence score missed the gate. <b>Exits.</b> The red <span class="mono">INVAL</span> line is the hard stop, the broken cycle low; above it the dimmed <span class="mono">2N</span> level (close &minus; 2&times;ATR20 at the trigger bar) and the amber Donchian-20 rail form the trailing exit — read whichever sits higher and leave on a close below it. There is no time exit: the exit ablations measured ~49-bar holds once the rail was allowed to run. <b>BB dots</b> are a separate sleeve, not a cycle trade — a close under the lower Bollinger band while still above SMA200, covered at the mid band. <b>Arrows printed under the red tint</b> (price below SMA200) are knife-catches; that is the one bucket the audit showed losing money, so the regime shading is the filter to respect.</div>
   <div><b>Funding gauge.</b> The header chip reads the BTC/USDT perpetual funding rate (Binance, falling back to Bybit) and its percentile against its own trailing history — deeply negative funding at a low (p≤10, shown in green) means short-heavy perps are paying longs, a forced-seller capitulation tell; crowded-long euphoria (p≥90, red) is the mirror. This is a <b>live-only</b> read: funding history only reaches back ~333 days on the primary source, far short of the price history used elsewhere, so the score card's funding component is scored on the current bar only and is <b>excluded from all backtests and the walk-forward optimizer</b> to avoid silently truncating the sample to a cherry-picked recent window.</div>
   <div class="note"><b>Read it as structure, not prophecy.</b> Timing windows are wide and the most recent low stays provisional until price turns up, so the right edge can revise. This is a discretionary orientation and risk frame (a broken cycle low is a natural invalidation), not a forecast. A 2026-07 instrumented audit (score-gate sweeps, exit ablations, forward returns of every confirmed low vs an unconditional control, walk-forward tests) found <b>no demonstrated net edge at the default score&ge;2 gate</b> on Daily or 4-Hour — samples are tiny, two score components ran inverse to forward returns, and every optimizer pick decayed out-of-sample. Treat the signal card as decision support and let the journal accumulate forward evidence before trusting any configuration. Not investment advice.</div>
 </footer>
@@ -343,13 +358,20 @@ function dstr(ts){return new Date(ts*1000).toISOString().slice(0,10);}
 
 // ---------- data (multi-exchange fallback; supports 1d and 4h) ----------
 async function fetchBinance(interval,limit){
-  // pages backwards via endTime, 1000 bars/request, until `limit` or history start
+  // pages backwards via endTime, 1000 bars/request, until `limit` or history start.
+  // Each page gets one retry; a failed OLDER page no longer kills the whole fetch —
+  // we keep the newer bars already collected (partial history beats "unreachable").
   let out=[],end=Date.now();
   while(out.length<limit){
     const take=Math.min(1000,limit-out.length);
     const u=`https://api.binance.com/api/v3/klines?symbol=${SYMBOL}&interval=${interval}&limit=${take}&endTime=${end}`;
-    const r=await fetch(u); if(!r.ok)throw new Error("binance "+r.status);
-    const j=await r.json(); if(!j.length)break;
+    let j=null,err=null;
+    for(let a=0;a<2&&!j;a++){
+      try{const r=await fetch(u);if(!r.ok)throw new Error("binance "+r.status);j=await r.json();}
+      catch(e){err=e;if(!a)await new Promise(z=>setTimeout(z,500));}
+    }
+    if(!j){if(!out.length)throw err;break;}
+    if(!j.length)break;
     out=j.map(k=>({time:Math.floor(k[0]/1000),open:+k[1],high:+k[2],low:+k[3],close:+k[4]})).concat(out);
     if(j.length<take)break;
     end=j[0][0]-1;
@@ -369,10 +391,23 @@ async function fetchCoinbase(gran){
   const r=await fetch(u); if(!r.ok)throw new Error("coinbase "+r.status);
   return (await r.json()).map(k=>({time:k[0],open:k[3],high:k[2],low:k[1],close:k[4]})).sort((a,b)=>a.time-b.time);
 }
+// Coinbase has no 4h granularity — synthesize 4h bars from its 1h candles so the
+// 4-Hour tab has a last-resort source like every other tab
+function agg4h(c1h){
+  const o=[];let cur=null;
+  for(const c of c1h){
+    const b=Math.floor(c.time/14400)*14400;
+    if(!cur||cur.time!==b){if(cur)o.push(cur);cur={time:b,open:c.open,high:c.high,low:c.low,close:c.close};}
+    else{cur.high=Math.max(cur.high,c.high);cur.low=Math.min(cur.low,c.low);cur.close=c.close;}
+  }
+  if(cur)o.push(cur);
+  return o;
+}
 async function getCandles(interval,gran,limit){
   try{return {data:await fetchBinance(interval,limit),src:"Binance"};}catch(e){}
   try{return {data:await fetchBybit(interval,limit),src:"Bybit"};}catch(e){}
   if(gran===86400||gran===3600||gran===300){try{return {data:await fetchCoinbase(gran),src:"Coinbase"};}catch(e){}}
+  if(gran===14400){try{return {data:agg4h(await fetchCoinbase(3600)),src:"Coinbase 1h→4h"};}catch(e){}}
   throw new Error("all candle sources failed");
 }
 async function getPrice(){
@@ -495,6 +530,23 @@ function translations(dcls,high){
 }
 function ema(x,span){const a=2/(span+1),o=[];let p=x[0];for(let i=0;i<x.length;i++){p=i?a*x[i]+(1-a)*p:x[i];o.push(p);}return o;}
 function smaArr(x,w){const o=[];let s=0;for(let i=0;i<x.length;i++){s+=x[i];if(i>=w)s-=x[i-w];o.push(s/Math.min(i+1,w));}return o;}
+// ---------- regime / volatility / channel helpers (all causal: bar i uses bars <= i) ----------
+// smaN = NaN-padded SMA (smaArr backfills partial windows; the regime line must stay
+// blank until it owns a full lookback). bollinger uses population sigma.
+function smaN(x,w){const o=new Array(x.length).fill(NaN);let s=0;
+  for(let i=0;i<x.length;i++){s+=x[i];if(i>=w)s-=x[i-w];if(i>=w-1)o[i]=s/w;}return o;}
+function atrWilder(high,low,close,p){const n=high.length,tr=new Array(n).fill(NaN),o=new Array(n).fill(NaN);
+  if(n<=p)return o;
+  for(let i=1;i<n;i++)tr[i]=Math.max(high[i]-low[i],Math.abs(high[i]-close[i-1]),Math.abs(low[i]-close[i-1]));
+  let s=0;for(let i=1;i<=p;i++)s+=tr[i];let a=s/p;o[p]=a;
+  for(let i=p+1;i<n;i++){a=(a*(p-1)+tr[i])/p;o[i]=a;}return o;}
+function bollinger(x,w,k){const n=x.length,mid=smaN(x,w),lo=new Array(n).fill(NaN),up=new Array(n).fill(NaN);
+  for(let i=w-1;i<n;i++){let s=0;for(let j=i-w+1;j<=i;j++){const dv=x[j]-mid[i];s+=dv*dv;}
+    const sd=Math.sqrt(s/w);lo[i]=mid[i]-k*sd;up[i]=mid[i]+k*sd;}return {mid,lo,up};}
+// lower Donchian channel over the PRIOR w bars (bar i excluded) — a close-below is the
+// trailing exit, so bar i must not be part of its own rail.
+function donchianLo(low,w){const n=low.length,o=new Array(n).fill(NaN);
+  for(let i=w;i<n;i++){let m=Infinity;for(let j=i-w;j<i;j++)if(low[j]<m)m=low[j];o[i]=m;}return o;}
 
 // ---------- Impulse MACD (LazyBear) ----------
 function iEMA(src,len){const k=2/(len+1),o=new Array(src.length).fill(NaN);let p;
@@ -630,31 +682,6 @@ const JRNL=(function(){
 })();
 
 
-// ---------- bootstrap confidence intervals on a closed-trade net-return list ----------
-function mulberry32(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=seed;
-  t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296;};}
-// resample the closed-trade net list WITH replacement (n draws, each drawing nets.length
-// samples), compound each resample sequentially in draw order and track its running-peak
-// drawdown, then report the 5th/50th/95th percentiles of total return and max DD. Seeded ->
-// identical output every click. iid resampling assumes trades are exchangeable; it ignores
-// regime clustering (autocorrelated win/lose streaks), so real uncertainty is wider than this.
-function bootstrapCI(nets,n,seed){
-  n=n||1000;seed=(seed==null)?42:seed;
-  const m=nets.length; if(!m)return null;
-  const rnd=mulberry32(seed),tots=[],dds=[];
-  for(let k=0;k<n;k++){
-    let eq=1,peak=1,dd=0;
-    for(let j=0;j<m;j++){
-      const net=nets[Math.floor(rnd()*m)];
-      eq*=(1+net);if(eq>peak)peak=eq;const d=1-eq/peak;if(d>dd)dd=d;
-    }
-    tots.push(eq-1);dds.push(dd);
-  }
-  tots.sort((a,b)=>a-b);dds.sort((a,b)=>a-b);
-  const q=(a,p)=>a[Math.min(a.length-1,Math.floor(a.length*p))];
-  return {tot5:q(tots,0.05),tot50:q(tots,0.50),tot95:q(tots,0.95),
-    dd5:q(dds,0.05),dd50:q(dds,0.50),dd95:q(dds,0.95)};
-}
 // =================================================================
 //  VIEW FACTORY — one instance per timeframe (daily, 4h). All chart
 //  state and rendering live in the closure; the math above is shared.
@@ -662,6 +689,11 @@ function bootstrapCI(nets,n,seed){
 function makeView(cfg){
   const E=cfg.el;
   let chart,candles,fastSine,slowSine,winD;
+  let smaUp,smaDn,regTint,railL,bbMidS,bbLoS;
+  let sigLines=[],railLines=[];
+  // ONE simulateConf() result + ONE indicator pass per renderAll; every overlay
+  // (markers, TRIG/INVAL lines, regime, rails, window band, signal card) reads these.
+  let CONF=null,IND=null;
   let imChart,imD,imS,imThr=[];
   let rsiChart,rsiL;
   let C=null,FAST=[],SLOW=[],TRANS=[],CHASE=true,SRC="";
@@ -674,11 +706,30 @@ function makeView(cfg){
       rightPriceScale:{borderColor:"#1e262e",minimumWidth:72},
       timeScale:{borderColor:"#1e262e"},crosshair:{mode:0}
     });
+    // full-height "no-dip-buying" tint for bars closing below SMA200 — created first
+    // so it paints behind the candles; own 0..1 scale, like the window band.
+    regTint=chart.addAreaSeries({priceScaleId:"reg",lineColor:"rgba(248,81,73,0)",lineWidth:1,
+      topColor:"rgba(248,81,73,0.05)",bottomColor:"rgba(248,81,73,0.05)",
+      priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false,visible:false});
+    regTint.applyOptions({autoscaleInfoProvider:()=>({priceRange:{minValue:0,maxValue:1}})});
+    chart.priceScale("reg").applyOptions({scaleMargins:{top:0,bottom:0}});
     candles=chart.addCandlestickSeries({upColor:"#3fb950",downColor:"#f85149",
       borderUpColor:"#3fb950",borderDownColor:"#f85149",wickUpColor:"#3fb950",wickDownColor:"#f85149"});
     fastSine=chart.addLineSeries({color:"rgba(255,176,0,0.55)",lineWidth:2,priceLineVisible:false,
       lastValueVisible:false,crosshairMarkerVisible:false,visible:false});
     slowSine=chart.addLineSeries({color:"rgba(56,189,248,0.55)",lineWidth:2,priceLineVisible:false,
+      lastValueVisible:false,crosshairMarkerVisible:false,visible:false});
+    // SMA200 as two whitespace-separated legs (green above / red below), the stepped
+    // Donchian-20 exit rail, and the BB(20,2) mid + lower sleeve.
+    smaUp=chart.addLineSeries({color:"rgba(63,185,80,0.8)",lineWidth:1,priceLineVisible:false,
+      lastValueVisible:false,crosshairMarkerVisible:false,visible:false});
+    smaDn=chart.addLineSeries({color:"rgba(248,81,73,0.8)",lineWidth:1,priceLineVisible:false,
+      lastValueVisible:false,crosshairMarkerVisible:false,visible:false});
+    railL=chart.addLineSeries({color:"rgba(255,176,0,0.5)",lineWidth:1,lineType:1,priceLineVisible:false,
+      lastValueVisible:false,crosshairMarkerVisible:false,visible:false});
+    bbMidS=chart.addLineSeries({color:"rgba(56,189,248,0.4)",lineWidth:1,lineStyle:2,priceLineVisible:false,
+      lastValueVisible:false,crosshairMarkerVisible:false,visible:false});
+    bbLoS=chart.addLineSeries({color:"rgba(56,189,248,0.6)",lineWidth:1,priceLineVisible:false,
       lastValueVisible:false,crosshairMarkerVisible:false,visible:false});
 
     imChart=LightweightCharts.createChart($(E.imacd),{
@@ -722,11 +773,33 @@ function makeView(cfg){
     if($(E.tFast).checked){
       FAST.forEach((i,k)=>{ if(sset.has(i)&&$(E.tSlow).checked)return;
         const last=k===FAST.length-1;
-        m.push({time:C[i].time,position:"belowBar",color:"#ffb000",shape:"circle",
+        // hindsight LABEL, not a signal: the smoother sees +/-2 bars, chased lows
+        // confirm late and the newest low stays provisional — dimmed on purpose.
+        m.push({time:C[i].time,position:"belowBar",shape:"circle",
+          color:last?"rgba(255,176,0,0.55)":"rgba(255,176,0,0.4)",
           size:last?2:1,text:last?cfg.fast.tag:""});});
     }
     if($(E.tSlow).checked){
-      SLOW.forEach(i=>m.push({time:C[i].time,position:"belowBar",color:"#38bdf8",shape:"arrowUp",text:cfg.slow.tag}));
+      SLOW.forEach(i=>m.push({time:C[i].time,position:"belowBar",color:"rgba(56,189,248,0.45)",
+        shape:"arrowUp",size:1,text:cfg.slow.tag}));
+    }
+    // CAUSAL, NON-REPAINTING: one arrow per confirmed-low TRIGGER bar (the close that
+    // proved the turn). Solid ENT = confluence gate passed, dim trg = it missed.
+    if(CONF&&CONF.lowsLog){
+      for(const L of CONF.lowsLog){
+        if(L.trigI==null||!C[L.trigI])continue;
+        m.push({time:C[L.trigI].time,position:"belowBar",shape:"arrowUp",
+          color:L.entered?"#3fb950":"rgba(63,185,80,0.45)",size:L.entered?2:1,
+          text:L.entered?"ENT":"trg"});
+      }
+    }
+    // Bollinger reversion sleeve: close under the lower band while above SMA200
+    if(IND&&$(E.tBB)&&$(E.tBB).checked){
+      for(let i=0;i<C.length;i++){
+        if(isNaN(IND.sma200[i])||isNaN(IND.bbLo[i]))continue;
+        if(IND.close[i]>IND.sma200[i]&&IND.close[i]<IND.bbLo[i])
+          m.push({time:C[i].time,position:"belowBar",shape:"circle",size:1,color:"#38bdf8",text:"BB"});
+      }
     }
     m.sort((a,b)=>a.time-b.time);candles.setMarkers(m);
   }
@@ -792,6 +865,80 @@ function makeView(cfg){
       `${FAST.length} ${cfg.fast.tag} · ${SLOW.length} ${cfg.slow.tag} &nbsp;|&nbsp; gaps ${mark(gapsOk)} &nbsp; minima ${mark(localOk)} &nbsp; wcl-min ${mark(wclOk)} &nbsp; longest ${longestStr}${SRC?" · "+SRC:""}`;
   }
 
+  // ---------- one indicator pass per render (all causal: bar i uses bars <= i) ----------
+  function computeInd(){
+    const close=C.map(c=>c.close),high=C.map(c=>c.high),low=C.map(c=>c.low);
+    const bb=bollinger(close,20,2);
+    return {close,high,low,sma200:smaN(close,200),atr20:atrWilder(high,low,close,20),
+      donLo:donchianLo(low,20),bbMid:bb.mid,bbLo:bb.lo};
+  }
+
+  // SMA200 regime: one line split into a green leg (close >= SMA200) and a red leg
+  // (close < SMA200) via whitespace, plus the faint red full-height tint below it.
+  function renderRegime(fws){
+    const on=$(E.tSMA)?$(E.tSMA).checked:true;
+    if(!on||!IND){[smaUp,smaDn,regTint].forEach(s=>s.applyOptions({visible:false}));return;}
+    const up=[],dn=[],tint=[];
+    for(let i=0;i<C.length;i++){
+      const t=C[i].time,v=IND.sma200[i];
+      if(isNaN(v)){up.push({time:t});dn.push({time:t});tint.push({time:t});continue;}
+      const pOk=i>0&&!isNaN(IND.sma200[i-1]);
+      const g=IND.close[i]>=v,gp=pOk&&IND.close[i-1]>=IND.sma200[i-1],bp=pOk&&IND.close[i-1]<IND.sma200[i-1];
+      // the transition bar joins both legs, so the split line never breaks visually
+      up.push((g||gp)?{time:t,value:v}:{time:t});
+      dn.push((!g||bp)?{time:t,value:v}:{time:t});
+      tint.push(g?{time:t}:{time:t,value:1});
+    }
+    const tail=a=>(fws&&fws.length)?a.concat(fws):a;
+    smaUp.setData(tail(up));smaDn.setData(tail(dn));regTint.setData(tail(tint));
+    [smaUp,smaDn,regTint].forEach(s=>s.applyOptions({visible:true}));
+  }
+
+  // Turtle exit rails: the Donchian-20 lower channel drawn from the last CONFIRMED
+  // cycle low forward (the trailing exit) plus the 2N initial stop of the newest
+  // trigger bar. Live exit = a close under whichever of the two sits higher.
+  function renderRail(fws){
+    railLines.forEach(({s,l})=>{try{s.removePriceLine(l)}catch(e){}});railLines=[];
+    const on=$(E.tRail)?$(E.tRail).checked:true;
+    if(!on||!IND||!CONF||!CONF.state){railL.applyOptions({visible:false});return;}
+    const from=CONF.state.lastLowT;
+    const dat=C.map((c,i)=>(c.time>=from&&!isNaN(IND.donLo[i]))?{time:c.time,value:IND.donLo[i]}:{time:c.time});
+    railL.setData((fws&&fws.length)?dat.concat(fws):dat);
+    railL.applyOptions({visible:true});
+    const lg=CONF.lowsLog;
+    if(lg&&lg.length){
+      const ti=lg[lg.length-1].trigI;
+      if(ti!=null&&!isNaN(IND.atr20[ti]))
+        railLines.push({s:candles,l:candles.createPriceLine({price:IND.close[ti]-2*IND.atr20[ti],
+          color:"rgba(255,176,0,0.45)",lineWidth:1,lineStyle:3,axisLabelVisible:true,title:"2N"})});
+    }
+  }
+
+  // Bollinger reversion sleeve (opt-in): BB(20,2) mid + lower band. Its entry dots live
+  // in buildMarkers so they merge into the candle series' single marker set.
+  function renderBB(fws){
+    const on=$(E.tBB)?$(E.tBB).checked:false;
+    if(!on||!IND){bbMidS.applyOptions({visible:false});bbLoS.applyOptions({visible:false});return;}
+    const tail=a=>(fws&&fws.length)?a.concat(fws):a;
+    bbMidS.setData(tail(C.map((c,i)=>isNaN(IND.bbMid[i])?{time:c.time}:{time:c.time,value:IND.bbMid[i]})));
+    bbLoS.setData(tail(C.map((c,i)=>isNaN(IND.bbLo[i])?{time:c.time}:{time:c.time,value:IND.bbLo[i]})));
+    bbMidS.applyOptions({visible:true});bbLoS.applyOptions({visible:true});
+  }
+
+  // live signal geometry on the candle series, handled like imThr: amber TRIG (the
+  // close that would confirm the low) and red INVAL (the count's invalidation).
+  function renderSigLines(st){
+    sigLines.forEach(({s,l})=>{try{s.removePriceLine(l)}catch(e){}});sigLines=[];
+    if(!st)return;
+    const add=(price,color,title)=>sigLines.push({s:candles,l:candles.createPriceLine(
+      {price,color,lineWidth:1,lineStyle:2,axisLabelVisible:true,title})});
+    if(st.armed&&st.trigPx!=null&&!st.trigFiredOnLastBar)add(st.trigPx,"#ffb000","TRIG");
+    // early phase has no candidate/position, but the count's invalidation is still
+    // the last confirmed low — keep INVAL on screen at all times
+    const inv=st.stopPx!=null?st.stopPx:st.lastLowPx;
+    if(inv!=null)add(inv,"#f85149","INVAL");
+  }
+
   function nextWindow(){
     if(!FAST.length)return null;
     const lastF=C[FAST[FAST.length-1]].time;
@@ -805,6 +952,15 @@ function makeView(cfg){
       winD.applyOptions({autoscaleInfoProvider:()=>({priceRange:{minValue:0,maxValue:1}})});
       chart.priceScale("win").applyOptions({scaleMargins:{top:0,bottom:0}});
     }
+    // the band reads the causal state: brighter amber once a candidate is live inside
+    // the window, green on the bar the trigger actually fired
+    let bc="rgba(255,176,0,0.15)";
+    const wst=CONF&&CONF.state;
+    if(wst){
+      if(wst.trigFiredOnLastBar)bc="rgba(63,185,80,0.20)";
+      else if(wst.phase==="window"&&wst.candT)bc="rgba(255,176,0,0.22)";
+    }
+    winD.applyOptions({topColor:bc,bottomColor:bc});
     if(!win){winD.setData([]);return;}
     const times=C.map(c=>c.time).concat(fws.map(f=>f.time));
     // value 1 inside the window, blank (whitespace) elsewhere -> clean vertical band
@@ -863,8 +1019,9 @@ function makeView(cfg){
 
   function renderSignal(){
     const el=$(E.signal); if(!el)return;
-    const r=simulateConf(feeInput());
-    if(!r||!r.state){el.innerHTML="";return;}
+    const r=CONF; // set once per renderAll (and by refreshSignal) — never recomputed here
+    if(!r||!r.state){el.innerHTML="";renderSigLines(null);return;}
+    renderSigLines(r.state);
     const st=r.state,price=C[C.length-1].close;
     const chip=(on,label,title)=>`<span class="chip ${on===null?"na":on?"on":""}" title="${title}">${label}${on===null?" n/a":""}</span>`;
     let headClass="early",headText="EARLY";
@@ -905,7 +1062,11 @@ function makeView(cfg){
     const fws=[];
     if(win){for(let t=lastT+cfg.barSecs;t<=win.hi+cfg.barSecs;t+=cfg.barSecs)fws.push({time:t});}
     candles.setData(fws.length?C.concat(fws):C);
+    // ONE causal simulation + ONE indicator pass per pass; every overlay below reads them
+    CONF=simulateConf(feeInput());
+    IND=computeInd();
     buildMarkers();buildSines();
+    renderRegime(fws);renderRail(fws);renderBB(fws);
     renderCard(E.fastKV,FAST,cfg.fast,TRANS);
     const strans=translations(SLOW,C.map(c=>c.high));
     renderCard(E.slowKV,SLOW,cfg.slow,strans);
@@ -942,47 +1103,7 @@ function makeView(cfg){
     [E.tFast,E.tSlow,E.tFsine,E.tSsine].forEach(id=>{const el=$(id);if(el)el.onchange=()=>{if(C){buildMarkers();buildSines();}};});
     const ch=$(E.tChase);if(ch)ch.onchange=()=>{CHASE=ch.checked;recompute();};
     const w=$(E.tWin);if(w)w.onchange=()=>{if(C)renderAll();};
-  }
-  // core sim: entries = impulse crossover below the CAUSAL oversold threshold
-  // (expanding percentile — a bar only sees crossings before it); one position at
-  // a time; exit at +tp% or -sl% (sl=0 -> no stop); fees charged per round trip;
-  // open trade marked to market. Bars [from,to) only, so walk-forward can slice.
-  function simulate(md,sb,thrE,tpPct,slPct,feePct,from,to){
-    const fee=feePct/100;
-    let pos=null,eq=1,peakEq=1,maxDD=0,wins=0,closed=0,sumBars=0,sumMAE=0,worstMAE=0,sumNet=0,trades=[];
-    const bank=net=>{eq*=(1+net);if(eq>peakEq)peakEq=eq;const dd=1-eq/peakEq;if(dd>maxDD)maxDD=dd;};
-    for(let i=Math.max(1,from);i<to;i++){
-      if(pos){
-        const lo=C[i].low,hi=C[i].high,dd=(lo-pos.entry)/pos.entry;if(dd<pos.mae)pos.mae=dd;
-        const tp=pos.entry*(1+tpPct/100),sl=slPct>0?pos.entry*(1-slPct/100):null;
-        let ret=null;
-        if(sl!==null&&lo<=sl)ret=-slPct/100;
-        else if(hi>=tp)ret=tpPct/100;
-        if(ret!==null){const net=ret-fee;if(net>0)wins++;bank(net);sumNet+=net;
-          closed++;sumBars+=i-pos.i;sumMAE+=pos.mae;worstMAE=Math.min(worstMAE,pos.mae);trades.push({net});pos=null;}
-      }
-      if(!pos){
-        const t=thrE[i];
-        const up=!isNaN(t)&&!isNaN(md[i])&&!isNaN(sb[i])&&!isNaN(md[i-1])&&!isNaN(sb[i-1])&&md[i]>sb[i]&&md[i-1]<=sb[i-1];
-        if(up&&md[i]<-t)pos={i,entry:C[i].close,mae:0};
-      }
-    }
-    let open=0,openRet=0;
-    if(pos){open=1;openRet=(C[to-1].close-pos.entry)/pos.entry-fee;bank(openRet);
-      sumMAE+=pos.mae;worstMAE=Math.min(worstMAE,pos.mae);}
-    const n=closed+open;
-    return {totalRet:eq-1,closed,open,wins,entries:n,winRate:closed?wins/closed:0,
-      expNet:closed?sumNet/closed:0,maxDD,
-      avgBars:closed?sumBars/closed:0,avgMAE:n?sumMAE/n:0,worstMAE,openRet,trades};
-  }
-  function backtest(targetPct,stopPct,feePct){
-    if(!C)return null;
-    const d=impulseMACD(C),thrE=expandingThr(d.md,d.sb);
-    const r=simulate(d.md,d.sb,thrE,targetPct,stopPct,feePct||0,1,C.length);
-    return {barSecs:cfg.barSecs,bars:C.length,entries:r.entries,resolved:r.closed,
-      wins:r.wins,losses:r.closed-r.wins,open:r.open,winRate:r.winRate,expNet:r.expNet,
-      maxDD:r.maxDD,avgBars:r.avgBars,avgMAE:r.avgMAE,worstMAE:r.worstMAE,
-      openUnreal:r.openRet,totalRet:r.totalRet,trades:r.trades};
+    [E.tSMA,E.tRail,E.tBB].forEach(id=>{const el=$(id);if(el)el.onchange=()=>{if(C)renderAll();};});
   }
 
   // -------- cycle-confluence strategy (fully causal; nothing repaints) --------
@@ -1120,33 +1241,17 @@ function makeView(cfg){
   }
   function backtestConf(feePct,opts){if(!C)return null;return simulateConf(feePct||0,opts);}
 
-  // walk-forward: fit the TP/SL grid on the first 70% (ranked by net expectancy),
-  // then judge each candidate on the untouched last 30%. Test column is the truth.
-  function optimizeWF(feePct){
-    if(!C||C.length<300)return null;
-    const d=impulseMACD(C),thrE=expandingThr(d.md,d.sb);
-    const split=Math.floor(C.length*0.7);
-    const TPS=[0.5,0.75,1,1.5,2,2.5,3,4,5],SLS=[0.5,0.75,1,1.5,2,3,4,5];
-    const rows=[];
-    for(const tp of TPS)for(const sl of SLS){
-      const tr=simulate(d.md,d.sb,thrE,tp,sl,feePct,1,split);
-      if(tr.closed<8)continue;
-      const te=simulate(d.md,d.sb,thrE,tp,sl,feePct,split,C.length);
-      rows.push({tp,sl,tr,te});
-    }
-    rows.sort((a,b)=>b.tr.expNet-a.tr.expNet);
-    return {rows,split,bars:C.length,barSecs:cfg.barSecs,
-      t0:C[0].time,t1:C[split].time,t2:C[C.length-1].time};
-  }
 
   function getState(){
-    const r=simulateConf(feeInput());
+    if(!C)return null; // a tab whose fetch failed must not reach simulateConf
+    const r=CONF||simulateConf(feeInput()); // renderAll already banked this pass's result
     if(!r||!C)return null;
     return {state:r.state,price:C[C.length-1].close,fastTag:cfg.fast.tag,slowTag:cfg.slow.tag,interval:cfg.interval};
   }
   initCharts();wire();
-  return {load,onShow,backtest,backtestConf,optimizeWF,getState,
-    refreshSignal:()=>{if(C)renderSignal();}};
+  return {load,onShow,backtestConf,getState,
+    // funding lands async and feeds the score card, so recompute CONF exactly once here
+    refreshSignal:()=>{if(C){CONF=simulateConf(feeInput());renderSignal();}}};
 }
 
 // ---------- view configs ----------
@@ -1155,28 +1260,32 @@ const CFG_D={
   fast:{min:40,max:75,ideal:60,amp:1.6,tag:"DCL",unit:"d"},
   slow:{min:120,max:190,ideal:154,amp:2.4,tag:"WCL",unit:"w"},
   el:{chart:"chart_d",imacd:"imacd_d",rsi:"rsi_d",rsiv:"rsiv_d",integrity:"integrity_d",fastKV:"fastKV_d",slowKV:"slowKV_d",thr:"thr_d",signal:"signal_d",
-      tFast:"tFast_d",tSlow:"tSlow_d",tFsine:"tFsine_d",tSsine:"tSsine_d",tChase:"tChase_d",tWin:"tWin_d"}
+      tFast:"tFast_d",tSlow:"tSlow_d",tFsine:"tFsine_d",tSsine:"tSsine_d",tChase:"tChase_d",tWin:"tWin_d",
+      tSMA:"tSMA_d",tRail:"tRail_d",tBB:"tBB_d"}
 };
 const CFG_H={
   interval:"4h", gran:14400, limit:3000, barSecs:14400, barsPerDay:6,
   fast:{min:36,max:72,ideal:48,amp:1.6,tag:"4HCL",unit:"d"},
   slow:{min:240,max:450,ideal:360,amp:2.4,tag:"DCL",unit:"d"},
   el:{chart:"chart_h",imacd:"imacd_h",rsi:"rsi_h",rsiv:"rsiv_h",integrity:"integrity_h",fastKV:"fastKV_h",slowKV:"slowKV_h",thr:"thr_h",signal:"signal_h",
-      tFast:"tFast_h",tSlow:"tSlow_h",tFsine:"tFsine_h",tSsine:"tSsine_h",tChase:"tChase_h",tWin:"tWin_h"}
+      tFast:"tFast_h",tSlow:"tSlow_h",tFsine:"tFsine_h",tSsine:"tSsine_h",tChase:"tChase_h",tWin:"tWin_h",
+      tSMA:"tSMA_h",tRail:"tRail_h",tBB:"tBB_h"}
 };
 const CFG_1H={
   interval:"1h", gran:3600, limit:1000, barSecs:3600, barsPerDay:24,
   fast:{min:30,max:72,ideal:48,amp:1.6,tag:"1HCL",unit:"d"},
   slow:{min:144,max:288,ideal:192,amp:2.4,tag:"4HCL",unit:"d"},
   el:{chart:"chart_1h",imacd:"imacd_1h",rsi:"rsi_1h",rsiv:"rsiv_1h",integrity:"integrity_1h",fastKV:"fastKV_1h",slowKV:"slowKV_1h",thr:"thr_1h",signal:"signal_1h",
-      tFast:"tFast_1h",tSlow:"tSlow_1h",tFsine:"tFsine_1h",tSsine:"tSsine_1h",tChase:"tChase_1h",tWin:"tWin_1h"}
+      tFast:"tFast_1h",tSlow:"tSlow_1h",tFsine:"tFsine_1h",tSsine:"tSsine_1h",tChase:"tChase_1h",tWin:"tWin_1h",
+      tSMA:"tSMA_1h",tRail:"tRail_1h",tBB:"tBB_1h"}
 };
 const CFG_5M={
   interval:"5m", gran:300, limit:1000, barSecs:300, barsPerDay:288,
   fast:{min:24,max:60,ideal:36,amp:1.6,tag:"5MCL",unit:"h"},
   slow:{min:96,max:216,ideal:144,amp:2.4,tag:"HCL",unit:"h"},
   el:{chart:"chart_5m",imacd:"imacd_5m",rsi:"rsi_5m",rsiv:"rsiv_5m",integrity:"integrity_5m",fastKV:"fastKV_5m",slowKV:"slowKV_5m",thr:"thr_5m",signal:"signal_5m",
-      tFast:"tFast_5m",tSlow:"tSlow_5m",tFsine:"tFsine_5m",tSsine:"tSsine_5m",tChase:"tChase_5m",tWin:"tWin_5m"}
+      tFast:"tFast_5m",tSlow:"tSlow_5m",tFsine:"tFsine_5m",tSsine:"tSsine_5m",tChase:"tChase_5m",tWin:"tWin_5m",
+      tSMA:"tSMA_5m",tRail:"tRail_5m",tBB:"tBB_5m"}
 };
 
 const VIEWS={};
@@ -1248,90 +1357,7 @@ const TABNAME={d:"Daily",h:"4-Hour","1h":"1-Hour","5m":"5-Min"};
 function fmtDur(s){return s<3600?Math.round(s/60)+" min":s<86400?(s/3600).toFixed(1)+" h"
   :s<2*365*86400?(s/86400).toFixed(1)+" d":(s/31536000).toFixed(1)+" y";}
 const fSign=x=>(x>=0?"+":"")+x.toFixed(2);
-function renderBt(){
-  const v=VIEWS[activeTab];
-  if(!v){$("btOut").innerHTML='<span class="integrity bad">Charts still loading — try again in a moment.</span>';return;}
-  const fee=+$("btFee").value||0;
-  if($("btStrat").value==="conf"){
-    const r=v.backtestConf(fee);
-    if(!r){$("btOut").innerHTML='<span class="integrity bad">No (or too little) data on the '+TABNAME[activeTab]+' tab yet — open it and let it load.</span>';return;}
-    const ci=r.resolved>=10?bootstrapCI((r.trades||[]).map(t=>t.net)):null;
-    $("btOut").innerHTML=`
-      <div class="bt-grid">
-        <div><div class="k">Tab</div><div class="v">${TABNAME[activeTab]}</div></div>
-        <div><div class="k">Entries</div><div class="v">${r.entries}</div></div>
-        <div><div class="k">Win rate (net)</div><div class="v">${r.resolved?(r.winRate*100).toFixed(1)+"%":"—"}</div></div>
-        <div><div class="k">Avg R / trade</div><div class="v ${r.avgR<0?"neg":""}">${fSign(r.avgR)}R</div></div>
-        <div><div class="k">Expectancy / trade</div><div class="v ${r.expNet<0?"neg":""}">${fSign(r.expNet*100)}%</div></div>
-        <div><div class="k">Total return</div><div class="v ${r.totalRet<0?"neg":""}">${(r.totalRet*100).toFixed(1)}%</div></div>
-        <div><div class="k">Max equity DD</div><div class="v neg">−${(r.maxDD*100).toFixed(1)}%</div></div>
-        <div><div class="k">Resolved / open</div><div class="v">${r.resolved} / ${r.open}</div></div>
-        <div><div class="k">Avg hold</div><div class="v">${r.resolved?fmtDur(r.avgBars*r.barSecs):"—"}</div></div>
-        <div><div class="k">Worst drawdown in trade</div><div class="v neg">${(r.worstMAE*100).toFixed(2)}%</div></div>
-        ${ci?`<div><div class="k">Total 90% CI</div><div class="v" style="font-size:13px">${fSign(ci.tot5*100)}% … ${fSign(ci.tot95*100)}%</div></div>
-        <div><div class="k">Max DD 90% CI</div><div class="v neg" style="font-size:13px">−${(ci.dd5*100).toFixed(1)}% … −${(ci.dd95*100).toFixed(1)}%</div></div>`:``}
-        ${r.open?`<div><div class="k">Open trade now</div><div class="v ${r.openRet<0?"neg":""}">${(r.openRet*100).toFixed(2)}%</div></div>`:""}
-      </div>
-      <div class="bt-note"><b>Cycle confluence</b> — fully causal, nothing repaints: arm inside the timing window, candidate = lowest low since arming, trigger = close back above the candidate bar's high, and entry needs ≥2 setup points (RSI&lt;35 +1 · confirmed bullish RSI divergence +2 · oversold iMACD cross-up +1 · prior cycle right-translated +1). Stop sits at the candidate low (broken low = invalidation), half scales out at +1.5R, the rest trails confirmed higher pivot lows, with overbought/bearish-divergence, cycle-age and left-translation exits. Fees of ${fee}% per round trip included. Sample: ${r.entries} entries over ${fmtDur(r.bars*r.barSecs)} — ${r.entries<30?"<b>small; read the R stats as indicative, not proven</b>":"decent, but still one asset and one regime set"}. ${ci?`Bootstrap 90% CI (1000 resamples of the ${r.resolved} closed trades, seeded): total return ${fSign(ci.tot5*100)}% … ${fSign(ci.tot95*100)}%, max DD −${(ci.dd5*100).toFixed(1)}% … −${(ci.dd95*100).toFixed(1)}% — <b>iid resampling ignores regime clustering, so real uncertainty is wider than shown</b>.`:"Too few closed trades for a bootstrap CI (need ≥10)."}</div>`;
-    return;
-  }
-  const target=+$("btTarget").value, stop=+$("btStop").value;
-  const r=v.backtest(target,stop,fee);
-  if(!r){$("btOut").innerHTML='<span class="integrity bad">No data on the '+TABNAME[activeTab]+' tab yet — open it and let it load.</span>';return;}
-  const wr=r.resolved?(r.winRate*100).toFixed(1)+"%":"—";
-  const noStop=stop<=0;
-  const ci=r.resolved>=10?bootstrapCI((r.trades||[]).map(t=>t.net)):null;
-  $("btOut").innerHTML=`
-    <div class="bt-grid">
-      <div><div class="k">Tab</div><div class="v">${TABNAME[activeTab]}</div></div>
-      <div><div class="k">Entries</div><div class="v">${r.entries}</div></div>
-      <div><div class="k">Win rate (net)</div><div class="v">${wr}</div></div>
-      <div><div class="k">Expectancy / trade</div><div class="v ${r.expNet<0?"neg":""}">${fSign(r.expNet*100)}%</div></div>
-      <div><div class="k">Total return</div><div class="v ${r.totalRet<0?"neg":""}">${(r.totalRet*100).toFixed(1)}%</div></div>
-      <div><div class="k">Max equity DD</div><div class="v neg">−${(r.maxDD*100).toFixed(1)}%</div></div>
-      <div><div class="k">Resolved / open</div><div class="v">${r.resolved} / ${r.open}</div></div>
-      <div><div class="k">Avg time to target</div><div class="v">${r.resolved?fmtDur(r.avgBars*r.barSecs):"—"}</div></div>
-      <div><div class="k">Avg drawdown in trade</div><div class="v neg">${(r.avgMAE*100).toFixed(2)}%</div></div>
-      <div><div class="k">Worst drawdown</div><div class="v neg">${(r.worstMAE*100).toFixed(2)}%</div></div>
-      ${ci?`<div><div class="k">Total 90% CI</div><div class="v" style="font-size:13px">${fSign(ci.tot5*100)}% … ${fSign(ci.tot95*100)}%</div></div>
-      <div><div class="k">Max DD 90% CI</div><div class="v neg" style="font-size:13px">−${(ci.dd5*100).toFixed(1)}% … −${(ci.dd95*100).toFixed(1)}%</div></div>`:``}
-      ${r.open?`<div><div class="k">Open trade now</div><div class="v ${r.openUnreal<0?"neg":""}">${(r.openUnreal*100).toFixed(2)}%</div></div>`:""}
-    </div>
-    <div class="bt-note">Threshold is <b>causal</b> (expanding percentile — needs 12 crossings to arm, so early bars don't trade) and results are <b>net of ${fee}% round-trip fees</b>. ${noStop
-      ?`No stop, so the only exit is hitting +${target}% — <b>win rate is ~100% by construction and not a real edge metric</b>. Total return marks the open trade(s) to market, so it does reflect the hidden risk. What matters: the <b>${r.open} open trade(s)</b> that never reached target and the drawdowns — a "win" may have sat <b>${(r.worstMAE*100).toFixed(1)}%</b> underwater first. Set a stop % for a real win/loss split.`
-      :`With a ${stop}% stop, win rate = trades that reached +${target}% before the stop, net of fees.`} Sample: ${r.entries} entries over ${fmtDur(r.bars*r.barSecs)}${activeTab==="5m"?" — essentially noise at 5m":activeTab==="1h"?" — thin":""}. ${ci?`Bootstrap 90% CI (1000 resamples of the ${r.resolved} closed trades, seeded): total return ${fSign(ci.tot5*100)}% … ${fSign(ci.tot95*100)}%, max DD −${(ci.dd5*100).toFixed(1)}% … −${(ci.dd95*100).toFixed(1)}% — <b>iid resampling ignores regime clustering, so real uncertainty is wider than shown</b>.`:"Too few closed trades for a bootstrap CI (need ≥10)."}</div>`;
-}
-$("btRun").onclick=renderBt;
 
-function renderOptWF(){
-  const v=VIEWS[activeTab];
-  if(!v){$("btOut").innerHTML='<span class="integrity bad">Charts still loading — try again in a moment.</span>';return;}
-  if($("btStrat").value==="conf"){
-    $("btOut").innerHTML='<span class="integrity">Cycle confluence uses structural stops and exits — there is no TP/SL grid to optimize. Hit <b>Run</b> for its R-multiple stats.</span>';return;}
-  const fee=+$("btFee").value||0;
-  const o=v.optimizeWF(fee);
-  if(!o){$("btOut").innerHTML='<span class="integrity bad">No data on the '+TABNAME[activeTab]+' tab yet.</span>';return;}
-  if(!o.rows.length){$("btOut").innerHTML='<span class="integrity bad">Too few resolved trades on the '+TABNAME[activeTab]+' tab to fit (need ≥8 on the train split).</span>';return;}
-  const best=o.rows[0];
-  $("btTarget").value=best.tp;$("btStop").value=best.sl;
-  const top=o.rows.slice(0,6).map((r,k)=>`<tr style="${k===0?"color:var(--amber)":""}">
-    <td>+${r.tp}%</td><td>−${r.sl}%</td>
-    <td>${r.tr.closed}</td><td>${(r.tr.winRate*100).toFixed(0)}%</td><td>${fSign(r.tr.expNet*100)}%</td><td>${fSign(r.tr.totalRet*100)}%</td>
-    <td>${r.te.closed}</td><td>${r.te.closed?(r.te.winRate*100).toFixed(0)+"%":"—"}</td>
-    <td class="${r.te.expNet<0?"neg":""}">${r.te.closed?fSign(r.te.expNet*100)+"%":"—"}</td>
-    <td class="${r.te.totalRet<0?"neg":""}">${fSign(r.te.totalRet*100)}%</td></tr>`).join("");
-  const survivors=o.rows.slice(0,6).filter(r=>r.te.closed&&r.te.expNet>0).length;
-  $("btOut").innerHTML=`
-    <div class="bt-best">Walk-forward on ${TABNAME[activeTab]}: fit on <b>${dstr(o.t0)} → ${dstr(o.t1)}</b> (70%), judged on <b>${dstr(o.t1)} → ${dstr(o.t2)}</b> (30%), net of ${fee}% fees.
-      Best by train expectancy: <b>TP +${best.tp}% / SL −${best.sl}%</b> → test: <b>${best.te.closed?fSign(best.te.expNet*100)+"%/trade over "+best.te.closed+" trades":"no resolved test trades"}</b></div>
-    <table class="bt-table"><thead><tr><th>TP</th><th>SL</th>
-      <th>Train n</th><th>Win</th><th>Exp</th><th>Total</th>
-      <th>Test n</th><th>Win</th><th>Exp</th><th>Total</th></tr></thead><tbody>${top}</tbody></table>
-    <div class="bt-note"><b>Judge only the test columns</b> — the train side is curve-fit by construction. ${survivors>=4?"Most top rows stayed positive out-of-sample — the edge <b>may</b> generalize.":survivors>=2?"Only some top rows survived out-of-sample — treat as fragile.":"<b>The fitted edge did not survive out-of-sample — assume it is noise.</b>"} Also check that the top rows cluster around similar TP/SL (a plateau); an isolated spike is noise even if its test column looks good, because you'd never have picked it in advance. Inputs are pre-filled with the train winner — hit <b>Run</b> to see its full-history risk profile.</div>`;
-}
-$("btOpt").onclick=renderOptWF;
-$("btStrat").onchange=()=>{const conf=$("btStrat").value==="conf";
-  $("btTarget").disabled=conf;$("btStop").disabled=conf;};
 setInterval(async()=>{try{const p=await getPrice();$("price").firstChild.nodeValue=p.toLocaleString("en-US",{style:"currency",currency:"USD"});}catch(e){}},60000);
 
 // ---------- signal journal UI ----------
