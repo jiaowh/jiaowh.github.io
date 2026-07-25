@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BTC/USD · Cycle Lows</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- charting library loaded defensively in the script below (multi-CDN fallback) -->
+<style>
+  :root{
+    --bg:#0a0e12; --panel:#11161c; --panel2:#0d1217; --grid:#1e262e;
+    --text:#c7d0d9; --muted:#6b7882; --amber:#ffb000; --cyan:#38bdf8;
+    --up:#3fb950; --down:#f85149;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--text);
+    font-family:"IBM Plex Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .mono{font-family:"IBM Plex Mono",monospace}
+  header{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 20px;
+    padding:18px 22px;border-bottom:1px solid var(--grid)}
+  header .title{font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:13px}
+  header .title b{color:var(--amber)}
+  .price{font-family:"IBM Plex Mono",monospace;font-size:22px;font-weight:600}
+  .price small{font-size:12px;color:var(--muted);font-weight:400;margin-left:6px}
+  .status{margin-left:auto;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+  .status .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--muted);margin-right:6px;vertical-align:middle}
+  .status.ok .dot{background:var(--up)} .status.err .dot{background:var(--down)}
+  button{font-family:inherit;background:transparent;color:var(--text);border:1px solid var(--grid);padding:5px 12px;border-radius:3px;cursor:pointer;font-size:12px}
+  button:hover{border-color:var(--amber);color:var(--amber)}
+  /* tabs */
+  .tabs{display:flex;gap:4px;max-width:1320px;margin:0 auto;padding:16px 22px 0}
+  .tab{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+    padding:9px 18px;border:1px solid var(--grid);border-bottom:none;border-radius:5px 5px 0 0;
+    background:var(--panel2);color:var(--muted);cursor:pointer}
+  .tab.active{background:var(--panel);color:var(--amber)}
+  .tab:hover{color:var(--amber)}
+  main{padding:14px 22px 22px;max-width:1320px;margin:0 auto}
+  .panel{display:grid;gap:18px;border:1px solid var(--grid);border-radius:0 4px 4px 4px;padding:18px;background:rgba(255,255,255,0.012)}
+  .panel[hidden]{display:none}
+  .toolbar{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:12px;color:var(--muted)}
+  .toolbar label{display:inline-flex;align-items:center;gap:7px;cursor:pointer;user-select:none}
+  .toolbar input{accent-color:var(--amber)}
+  .toolbar .sw{width:11px;height:11px;border-radius:2px;display:inline-block}
+  .chartbox{height:420px;border:1px solid var(--grid);border-radius:4px;background:var(--panel2)}
+  .integrity{font-size:11px;color:var(--muted);font-family:"IBM Plex Mono",monospace}
+  .integrity b{color:var(--up)} .integrity .bad{color:var(--down)}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:760px){.cards{grid-template-columns:1fr}}
+  .card{border:1px solid var(--grid);border-radius:4px;background:var(--panel);padding:16px 18px}
+  .card h2{margin:0 0 14px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;display:flex;align-items:center;gap:8px}
+  .card.fast h2{color:var(--amber)} .card.slow h2{color:var(--cyan)}
+  .kv{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:13px}
+  .kv .k{color:var(--muted)} .kv .v{font-family:"IBM Plex Mono",monospace;text-align:right}
+  .v.r{color:var(--up)} .v.l{color:var(--down)} .v.due{color:var(--amber)}
+
+  .sig{border:1px solid var(--grid);border-radius:4px;background:var(--panel);padding:16px 18px}
+  .sig h2{margin:0 0 14px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;display:flex;align-items:center;gap:8px;color:var(--amber)}
+  .sig .sig-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin-bottom:10px}
+  .sig .sig-status{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+  .sig .sig-status.early{color:var(--muted)} .sig .sig-status.window{color:var(--amber)}
+  .sig .sig-status.overdue{color:var(--down)} .sig .sig-status.fire{color:var(--up)}
+  .sig .sig-sub{font-size:11px;color:var(--muted)}
+  .sig .kv{margin-bottom:12px;max-width:440px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .chip{font-family:"IBM Plex Mono",monospace;font-size:11px;padding:4px 9px;border-radius:12px;
+    border:1px solid var(--grid);color:var(--muted);cursor:default;user-select:none;white-space:nowrap}
+  .chip.on{border-color:var(--amber);color:var(--amber);background:rgba(255,176,0,0.08)}
+  .chip.na{border-style:dashed;opacity:.6}
+  .sig-score{margin-left:auto;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--text)}
+  .sig-score b{color:var(--amber)}
+  footer{max-width:1320px;margin:0 auto;padding:0 22px 40px;color:var(--muted);font-size:12px;line-height:1.55}
+  footer b{color:var(--text);font-weight:500}
+  .note{border-left:2px solid var(--amber);padding:8px 0 8px 14px;margin-top:8px}
+  /* iMACD pane */
+  .imacd-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;margin-bottom:-8px}
+  .imacd-head .h{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--text)}
+  .imacd-head .sub{font-size:11px;color:var(--muted)}
+  .imacd-legend{display:flex;flex-wrap:wrap;gap:6px 20px;align-items:center;font-size:12px;color:var(--muted);margin-left:auto}
+  .imacd-legend .item{display:inline-flex;align-items:center;gap:7px}
+  .imacd-legend .ln{width:16px;border-top:2px solid;display:inline-block}
+  .imacd-legend .thr{font-family:"IBM Plex Mono",monospace;color:var(--text)}
+  .imacdbox{height:210px;border:1px solid var(--grid);border-radius:4px;background:var(--panel2)}
+  .rsibox{height:160px;border:1px solid var(--grid);border-radius:4px;background:var(--panel2)}
+  #jrnlOut{overflow-x:auto}
+
+  /* signal journal */
+  #journal{max-width:1320px;margin:0 auto;padding:0 22px 10px}
+  #journal .jrnl-head{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--text);margin-bottom:10px}
+  #journal .jrnl-head span{text-transform:none;letter-spacing:0;color:var(--muted);font-weight:400;font-size:11px}
+  #journal .jrnl-controls{display:flex;flex-wrap:wrap;gap:14px;align-items:center;font-size:12px;color:var(--muted);margin-bottom:12px}
+  #journal .jrnl-count{font-family:"IBM Plex Mono",monospace}
+  #journal .jrnl-table{width:100%;border-collapse:collapse;font-family:"IBM Plex Mono",monospace;font-size:12px;margin-bottom:4px}
+  #journal .jrnl-table th{text-align:right;color:var(--muted);font-weight:500;font-size:10px;text-transform:uppercase;letter-spacing:.06em;padding:5px 10px;border-bottom:1px solid var(--grid)}
+  #journal .jrnl-table td{text-align:right;padding:5px 10px;border-bottom:1px solid var(--grid)}
+  #journal .jrnl-table th:first-child,#journal .jrnl-table td:first-child{text-align:left}
+  #journal .jrnl-table td.r{color:var(--up)}
+</style>
+</head>
+<body>
+<header>
+  <div class="title"><b>BTC/USD</b> · Cycle Lows</div>
+  <div class="price mono" id="price">—<small id="src"></small></div>
+
+  <span class="chip" id="funding" title="BTC perp funding rate — loading">funding —</span>
+  <div class="status" id="status"><span class="dot"></span><span id="statusText">connecting</span></div>
+  <button id="refresh">Refresh</button>
+</header>
+
+<nav class="tabs">
+  <button class="tab active" data-tab="d">Daily</button>
+  <button class="tab" data-tab="h">4-Hour</button>
+  <button class="tab" data-tab="1h">1-Hour</button>
+  <button class="tab" data-tab="5m">5-Min</button>
+</nav>
+
+<main>
+  <!-- ================= DAILY ================= -->
+  <section class="panel" id="panel_d">
+    <div class="toolbar">
+      <label><input type="checkbox" id="tFast_d" checked><span class="sw" style="background:var(--amber)"></span>Daily lows (DCL)</label>
+      <label><input type="checkbox" id="tSlow_d" checked><span class="sw" style="background:var(--cyan)"></span>Weekly lows (WCL)</label>
+      <label><input type="checkbox" id="tFsine_d"><span class="sw" style="background:var(--amber);opacity:.5"></span>Daily cycle wave</label>
+      <label><input type="checkbox" id="tSsine_d"><span class="sw" style="background:var(--cyan);opacity:.5"></span>Weekly cycle wave</label>
+      <label title="When a cycle runs past its window and price is still dropping, keep searching to the true low and start the next count there."><input type="checkbox" id="tChase_d" checked>Chase stretched lows</label>
+      <label title="Shaded band projects the next expected daily cycle-low timing window."><input type="checkbox" id="tWin_d" checked><span class="sw" style="background:var(--amber)"></span>Next DCL window</label>
+      <span class="integrity" id="integrity_d" style="margin-left:auto"></span>
+    </div>
+    <div id="chart_d" class="chartbox"></div>
+    <div class="imacd-head">
+      <span class="h">Impulse MACD · 34 / 9</span>
+      <span class="sub">thresholds = the major/minor crossover split (55th pct)</span>
+      <span class="imacd-legend">
+        <span class="item"><span class="ln" style="border-top-color:var(--amber)"></span>Impulse</span>
+        <span class="item"><span class="ln" style="border-top-color:#6f9fcf"></span>Signal (9)</span>
+        <span class="item"><span style="color:#3fb950;font-size:9px">&#9679;</span><span style="color:#f85149;font-size:9px">&#9679;</span> turns</span>
+        <span class="item">threshold <span class="thr" id="thr_d" style="color:var(--amber)">—</span></span>
+      </span>
+    </div>
+    <div id="imacd_d" class="imacdbox"></div>
+    <div class="imacd-head">
+      <span class="h">RSI · 14</span>
+      <span class="sub">Wilder's smoothing · 70/30 bands · arrows = confirmed price-vs-RSI divergences</span>
+      <span class="imacd-legend">
+        <span class="item"><span class="ln" style="border-top-color:#a78bfa"></span>RSI</span>
+        <span class="item">now <span class="thr" id="rsiv_d" style="color:#a78bfa">—</span></span>
+      </span>
+    </div>
+    <div id="rsi_d" class="rsibox"></div>
+    <div class="cards">
+      <div class="card fast"><h2><span class="sw" style="background:var(--amber);width:11px;height:11px;border-radius:2px"></span>Daily cycle · ~60 days</h2><div class="kv" id="fastKV_d"></div></div>
+      <div class="card slow"><h2><span class="sw" style="background:var(--cyan);width:11px;height:11px;border-radius:2px"></span>Weekly cycle · ~22 weeks</h2><div class="kv" id="slowKV_d"></div></div>
+    </div>
+    <div class="sig" id="signal_d"></div>
+  </section>
+
+  <!-- ================= 4-HOUR ================= -->
+  <section class="panel" id="panel_h" hidden>
+    <div class="toolbar">
+      <label><input type="checkbox" id="tFast_h" checked><span class="sw" style="background:var(--amber)"></span>4H lows</label>
+      <label><input type="checkbox" id="tSlow_h" checked><span class="sw" style="background:var(--cyan)"></span>Daily lows</label>
+      <label><input type="checkbox" id="tFsine_h"><span class="sw" style="background:var(--amber);opacity:.5"></span>4H cycle wave</label>
+      <label><input type="checkbox" id="tSsine_h"><span class="sw" style="background:var(--cyan);opacity:.5"></span>Daily cycle wave</label>
+      <label title="When a cycle runs past its window and price is still dropping, keep searching to the true low and start the next count there."><input type="checkbox" id="tChase_h" checked>Chase stretched lows</label>
+      <label title="Shaded band projects the next expected 4H cycle-low timing window."><input type="checkbox" id="tWin_h" checked><span class="sw" style="background:var(--amber)"></span>Next 4H window</label>
+      <span class="integrity" id="integrity_h" style="margin-left:auto"></span>
+    </div>
+    <div id="chart_h" class="chartbox"></div>
+    <div class="imacd-head">
+      <span class="h">Impulse MACD · 34 / 9 · 4H</span>
+      <span class="sub">thresholds = the major/minor crossover split (55th pct)</span>
+      <span class="imacd-legend">
+        <span class="item"><span class="ln" style="border-top-color:var(--amber)"></span>Impulse</span>
+        <span class="item"><span class="ln" style="border-top-color:#6f9fcf"></span>Signal (9)</span>
+        <span class="item"><span style="color:#3fb950;font-size:9px">&#9679;</span><span style="color:#f85149;font-size:9px">&#9679;</span> turns</span>
+        <span class="item">threshold <span class="thr" id="thr_h" style="color:var(--amber)">—</span></span>
+      </span>
+    </div>
+    <div id="imacd_h" class="imacdbox"></div>
+    <div class="imacd-head">
+      <span class="h">RSI · 14 · 4H</span>
+      <span class="sub">Wilder's smoothing · 70/30 bands · arrows = confirmed price-vs-RSI divergences</span>
+      <span class="imacd-legend">
+        <span class="item"><span class="ln" style="border-top-color:#a78bfa"></span>RSI</span>
+        <span class="item">now <span class="thr" id="rsiv_h" style="color:#a78bfa">—</span></span>
+      </span>
+    </div>
+    <div id="rsi_h" class="rsibox"></div>
+    <div class="cards">
+      <div class="card fast"><h2><span class="sw" style="background:var(--amber);width:11px;height:11px;border-radius:2px"></span>4H cycle · ~8 days</h2><div class="kv" id="fastKV_h"></div></div>
+      <div class="card slow"><h2><span class="sw" style="background:var(--cyan);width:11px;height:11px;border-radius:2px"></span>Daily cycle · ~60 days</h2><div class="kv" id="slowKV_h"></div></div>
+    </div>
+    <div class="sig" id="signal_h"></div>
+  </section>
+
+  <!-- ================= 1-HOUR ================= -->
+  <section class="panel" id="panel_1h" hidden>
+    <div class="toolbar">
+      <label><input type="checkbox" id="tFast_1h" checked><span class="sw" style="background:var(--amber)"></span>1H lows</label>
+      <label><input type="checkbox" id="tSlow_1h" checked><span class="sw" style="background:var(--cyan)"></span>4H lows</label>
+      <label><input type="checkbox" id="tFsine_1h"><span class="sw" style="background:var(--amber);opacity:.5"></span>1H cycle wave</label>
+      <label><input type="checkbox" id="tSsine_1h"><span class="sw" style="background:var(--cyan);opacity:.5"></span>4H cycle wave</label>
+      <label title="When a cycle runs past its window and price is still dropping, keep searching to the true low and start the next count there."><input type="checkbox" id="tChase_1h" checked>Chase stretched lows</label>
+      <label title="Shaded band projects the next expected 1H cycle-low timing window."><input type="checkbox" id="tWin_1h" checked><span class="sw" style="background:var(--amber)"></span>Next 1H window</label>
+      <span class="integrity" id="integrity_1h" style="margin-left:auto"></span>
+    </div>
+    <div id="chart_1h" class="chartbox"></div>
+    <div class="imacd-head">
+      <span class="h">Impulse MACD · 34 / 9 · 1H</span>
+      <span class="sub">thresholds = the major/minor crossover split (55th pct)</span>
+      <span class="imacd-legend">
+        <span class="item"><span class="ln" style="border-top-color:var(--amber)"></span>Impulse</span>
+        <span class="item"><span class="ln" style="border-top-color:#6f9fcf"></span>Signal (9)</span>
+        <span class="item"><span style="color:#3fb950;font-size:9px">&#9679;</span><span style="color:#f85149;font-size:9px">&#9679;</span> turns</span>
+        <span class="item">threshold <span class="thr" id="thr_1h" style="color:var(--amber)">—</span></span>
+      </span>
+    </div>
+    <div id="imacd_1h" class="imacdbox"></div>
+    <div class="imacd-head">
+      <span class="h">RSI · 14 · 1H</span>
+      <span class="sub">Wilder's smoothing · 70/30 bands · arrows = confirmed price-vs-RSI divergences</span>
+      <span class="imacd-legend">
+        <span class="item"><span class="ln" style="border-top-color:#a78bfa"></span>RSI</span>
+        <span class="item">now <span class="thr" id="rsiv_1h" style="color:#a78bfa">—</span></span>
+      </span>
+    </div>
+    <div id="rsi_1h" class="rsibox"></div>
+    <div class="cards">
+      <div class="card fast"><h2><span class="sw" style="background:var(--amber);width:11px;height:11px;border-radius:2px"></span>1H cycle · ~2 days</h2><div class="kv" id="fastKV_1h"></div></div>
+      <div class="card slow"><h2><span class="sw" style="background:var(--cyan);width:11px;height:11px;border-radius:2px"></span>4H cycle · ~8 days</h2><div class="kv" id="slowKV_1h"></div></div>
+    </div>
+    <div class="sig" id="signal_1h"></div>
+  </section>
+
+  <!-- ================= 5-MIN ================= -->
+  <section class="panel" id="panel_5m" hidden>
+    <div class="toolbar">
+      <label><input type="checkbox" id="tFast_5m" checked><span class="sw" style="background:var(--amber)"></span>5M lows</label>
+      <label><input type="checkbox" id="tSlow_5m" checked><span class="sw" style="background:var(--cyan)"></span>Half-day lows</label>
+      <label><input type="checkbox" id="tFsine_5m"><span class="sw" style="background:var(--amber);opacity:.5"></span>5M cycle wave</label>
+      <label><input type="checkbox" id="tSsine_5m"><span class="sw" style="background:var(--cyan);opacity:.5"></span>Half-day cycle wave</label>
+      <label title="When a cycle runs past its window and price is still dropping, keep searching to the true low and start the next count there."><input type="checkbox" id="tChase_5m" checked>Chase stretched lows</label>
+      <label title="Shaded band projects the next expected 5M cycle-low timing window."><input type="checkbox" id="tWin_5m" checked><span class="sw" style="background:var(--amber)"></span>Next 5M window</label>
+      <span class="integrity" id="integrity_5m" style="margin-left:auto"></span>
+    </div>
+    <div id="chart_5m" class="chartbox"></div>
+    <div class="imacd-head">
+      <span class="h">Impulse MACD · 34 / 9 · 5M</span>
+      <span class="sub">thresholds = the major/minor crossover split (55th pct)</span>
+      <span class="imacd-legend">
+        <span class="item"><span class="ln" style="border-top-color:var(--amber)"></span>Impulse</span>
+        <span class="item"><span class="ln" style="border-top-color:#6f9fcf"></span>Signal (9)</span>
+        <span class="item"><span style="color:#3fb950;font-size:9px">&#9679;</span><span style="color:#f85149;font-size:9px">&#9679;</span> turns</span>
+        <span class="item">threshold <span class="thr" id="thr_5m" style="color:var(--amber)">—</span></span>
+      </span>
+    </div>
+    <div id="imacd_5m" class="imacdbox"></div>
+    <div class="imacd-head">
+      <span class="h">RSI · 14 · 5M</span>
+      <span class="sub">Wilder's smoothing · 70/30 bands · arrows = confirmed price-vs-RSI divergences</span>
+      <span class="imacd-legend">
+        <span class="item"><span class="ln" style="border-top-color:#a78bfa"></span>RSI</span>
+        <span class="item">now <span class="thr" id="rsiv_5m" style="color:#a78bfa">—</span></span>
+      </span>
+    </div>
+    <div id="rsi_5m" class="rsibox"></div>
+    <div class="cards">
+      <div class="card fast"><h2><span class="sw" style="background:var(--amber);width:11px;height:11px;border-radius:2px"></span>5M cycle · ~3 hours</h2><div class="kv" id="fastKV_5m"></div></div>
+      <div class="card slow"><h2><span class="sw" style="background:var(--cyan);width:11px;height:11px;border-radius:2px"></span>Half-day cycle · ~12 hours</h2><div class="kv" id="slowKV_5m"></div></div>
+    </div>
+    <div class="sig" id="signal_5m"></div>
+  </section>
+</main>
+
+
+<section id="journal">
+  <div class="jrnl-head">Signal journal <span>— captured on load, Refresh, and an automatic 5-minute recheck while the page is open — entries never repaint (5-min-tab triggers can slip between checks)</span></div>
+  <div class="jrnl-controls">
+    <span class="jrnl-count" id="jrnlCount">0 entries</span>
+    <button id="jrnlCopy">Copy JSON</button>
+    <button id="jrnlClear">Clear</button>
+  </div>
+  <div id="jrnlOut"></div>
+</section>
+
+<footer>
+  <div><b>Four timeframes, one engine.</b> <b>Daily</b>: ~60-day cycle (40–75d) with the ~22-week weekly nested on top. <b>4-Hour</b>: ~8-day cycle (36–72 bars) under the daily cycle. <b>1-Hour</b>: ~2-day cycle (30–72 bars) under the ~8-day 4H cycle. <b>5-Min</b>: ~3-hour cycle (24–60 bars) under a ~12-hour half-day cycle. Cycles are counted low-to-low; from each confirmed low a timing window opens and the lowest price inside it becomes the next low, with smoothing to ignore single-bar noise and a "chase" that follows a still-falling low past its window. History: Daily pages back to the 2017 listing (~9 years), 4-Hour ≈ 500 days, 1-Hour ≈ 42 days, 5-Min ≈ 3.5 days; cycle lengths are starting estimates — tune them in each <span class="mono">CFG</span> block. <b>The cycle-low markers are hindsight labels</b> (the smoother sees ±2 bars, chased lows confirm ~8 bars late, and the newest low stays provisional) — good for measuring cycles, never for entering on. The tradable layer is the causal signal geometry drawn on the charts.</div>
+  <div><b>iMACD.</b> Each tab's impulse pane (LazyBear 34/9) is computed on that tab's candles. Threshold = the 55th-percentile crossover size (the major/minor split); dots mark impulse turns (green up, red down), zigzag-filtered to ignore noise. The amber band projects the next cycle-low timing window.</div>
+  <div><b>RSI &amp; divergences.</b> Each tab's RSI pane is a 14-period Wilder's Relative Strength Index on that tab's closes, bounded 0–100 (70 overbought, 30 oversold, 50 midline; live reading in the header). Arrows mark <b>confirmed divergences</b> between consecutive price pivots (±3-bar extremes, so each is only known 3 bars after the pivot — a fixed, disclosed lag, no repainting): green up = price lower low with RSI higher low from an oversold first pivot ("DIV" = RSI still &lt;40 at the second, the stronger class); red down = the bearish mirror. The iMACD pane carries the same detector against the impulse line. All three panes share one time axis.</div>
+
+  <div><b>Funding gauge.</b> The header chip reads the BTC/USDT perpetual funding rate (Binance, falling back to Bybit) and its percentile against its own trailing history — deeply negative funding at a low (p≤10, shown in green) means short-heavy perps are paying longs, a forced-seller capitulation tell; crowded-long euphoria (p≥90, red) is the mirror. This is a <b>live-only</b> read: funding history only reaches back ~333 days on the primary source, far short of the price history used elsewhere, so the score card's funding component is scored on the current bar only and is <b>excluded from all backtests and the walk-forward optimizer</b> to avoid silently truncating the sample to a cherry-picked recent window.</div>
+  <div class="note"><b>Read it as structure, not prophecy.</b> Timing windows are wide and the most recent low stays provisional until price turns up, so the right edge can revise. This is a discretionary orientation and risk frame (a broken cycle low is a natural invalidation), not a forecast. A 2026-07 instrumented audit (score-gate sweeps, exit ablations, forward returns of every confirmed low vs an unconditional control, walk-forward tests) found <b>no demonstrated net edge at the default score&ge;2 gate</b> on Daily or 4-Hour — samples are tiny, two score components ran inverse to forward returns, and every optimizer pick decayed out-of-sample. Treat the signal card as decision support and let the journal accumulate forward evidence before trusting any configuration. Not investment advice.</div>
+</footer>
+
+<script>
+const SYMBOL="BTCUSDT";
+const $=id=>document.getElementById(id);
+const $$=s=>document.querySelectorAll(s);
+const DAY=86400;
+const setStatus=(s,t)=>{$("status").className="status "+(s||"");$("statusText").textContent=t;};
+// fee input, honoring an explicit 0 (|| would silently coerce 0 back to the default)
+function feeInput(){const el=$("btFee");if(!el)return 0.24;const v=parseFloat(el.value);return isNaN(v)?0.24:v;}
+function dstr(ts){return new Date(ts*1000).toISOString().slice(0,10);}
+
+// ---------- data (multi-exchange fallback; supports 1d and 4h) ----------
+async function fetchBinance(interval,limit){
+  // pages backwards via endTime, 1000 bars/request, until `limit` or history start
+  let out=[],end=Date.now();
+  while(out.length<limit){
+    const take=Math.min(1000,limit-out.length);
+    const u=`https://api.binance.com/api/v3/klines?symbol=${SYMBOL}&interval=${interval}&limit=${take}&endTime=${end}`;
+    const r=await fetch(u); if(!r.ok)throw new Error("binance "+r.status);
+    const j=await r.json(); if(!j.length)break;
+    out=j.map(k=>({time:Math.floor(k[0]/1000),open:+k[1],high:+k[2],low:+k[3],close:+k[4]})).concat(out);
+    if(j.length<take)break;
+    end=j[0][0]-1;
+  }
+  if(!out.length)throw new Error("binance empty");
+  return out;
+}
+async function fetchBybit(interval,limit){
+  const map={"1d":"D","4h":"240","1h":"60","5m":"5"};
+  const u=`https://api.bybit.com/v5/market/kline?category=spot&symbol=${SYMBOL}&interval=${map[interval]}&limit=${Math.min(limit,1000)}`;
+  const r=await fetch(u); if(!r.ok)throw new Error("bybit "+r.status);
+  const j=await r.json();
+  return j.result.list.map(k=>({time:Math.floor(+k[0]/1000),open:+k[1],high:+k[2],low:+k[3],close:+k[4]})).reverse();
+}
+async function fetchCoinbase(gran){
+  const u=`https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=${gran}`;
+  const r=await fetch(u); if(!r.ok)throw new Error("coinbase "+r.status);
+  return (await r.json()).map(k=>({time:k[0],open:k[3],high:k[2],low:k[1],close:k[4]})).sort((a,b)=>a.time-b.time);
+}
+async function getCandles(interval,gran,limit){
+  try{return {data:await fetchBinance(interval,limit),src:"Binance"};}catch(e){}
+  try{return {data:await fetchBybit(interval,limit),src:"Bybit"};}catch(e){}
+  if(gran===86400||gran===3600||gran===300){try{return {data:await fetchCoinbase(gran),src:"Coinbase"};}catch(e){}}
+  throw new Error("all candle sources failed");
+}
+async function getPrice(){
+  try{const r=await fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${SYMBOL}`);return +(await r.json()).price;}
+  catch(e){const r=await fetch("https://api.coinbase.com/v2/prices/BTC-USD/spot");return +(await r.json()).data.amount;}
+}
+
+// ---------- funding rate (perp) — orthogonal capitulation signal ----------
+// window.FUNDING is the live contract other modules read: {ready,rate,pctile,src,hist}.
+// pctile = fraction of the trailing history <= current rate — CAUSAL: the current
+// reading is ranked only against its own past readings, never future ones.
+window.FUNDING={ready:false,rate:NaN,pctile:NaN,src:"",hist:[]};
+function fundingCapitulation(){
+  if(!window.FUNDING.ready)return null;
+  return window.FUNDING.pctile<=0.10;
+}
+async function fetchFundingBinance(){
+  const u="https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000";
+  const r=await fetch(u); if(!r.ok)throw new Error("binance funding "+r.status);
+  const j=await r.json(); if(!j.length)throw new Error("binance funding empty");
+  // ascending (oldest..newest) already; fundingTime/fundingRate are strings
+  return {hist:j.map(x=>+x.fundingRate),src:"Binance"};
+}
+async function fetchFundingBybit(){
+  const u="https://api.bybit.com/v5/market/funding/history?category=linear&symbol=BTCUSDT&limit=200";
+  const r=await fetch(u); if(!r.ok)throw new Error("bybit funding "+r.status);
+  const j=await r.json(); const list=j.result&&j.result.list;
+  if(!list||!list.length)throw new Error("bybit funding empty");
+  // Bybit returns newest-first; normalize to ascending to match Binance ordering
+  return {hist:list.map(x=>+x.fundingRate).reverse(),src:"Bybit"};
+}
+async function fetchFunding(){
+  let res;
+  try{res=await fetchFundingBinance();}
+  catch(e){try{res=await fetchFundingBybit();}catch(e2){renderFundingChip();return;}}
+  const hist=res.hist; if(!hist.length){renderFundingChip();return;}
+  const rate=hist[hist.length-1];
+  const pctile=hist.filter(v=>v<=rate).length/hist.length;
+  window.FUNDING={ready:true,rate,pctile,src:res.src,hist};
+  renderFundingChip();
+  // keep the per-tab Signal-now cards in sync with the fresh funding reading
+  if(typeof VIEWS!=="undefined")Object.values(VIEWS).forEach(v=>{try{v.refreshSignal&&v.refreshSignal();}catch(e){}});
+}
+function renderFundingChip(){
+  const el=$("funding"); if(!el)return;
+  const F=window.FUNDING;
+  if(!F.ready){el.textContent="funding n/a";el.style.color="var(--muted)";
+    el.title="Perp funding rate unavailable (Binance + Bybit both failed).";return;}
+  const pct=(F.rate*100).toFixed(4)+"%/8h";
+  const p=Math.round(F.pctile*100);
+  el.textContent=`funding ${F.rate>=0?"+":""}${pct} · p${p}`;
+  el.style.color=F.pctile<=0.10?"var(--up)":F.pctile>=0.90?"var(--down)":"var(--muted)";
+  el.title=`BTC/USDT perp funding rate (${F.src}), paid every 8h. Percentile ranks this reading against its own trailing history (${F.hist.length} readings, causal — no future data). p<=10 = deeply negative funding, a forced-seller capitulation tell often seen near cycle lows (bullish). p>=90 = crowded-long euphoria (bearish tell).`;
+}
+
+// ---------- detection (mirrors verified Python) ----------
+function smooth(x,k){ if(k<=1)return x.slice(); const o=new Array(x.length),h=k>>1;
+  for(let i=0;i<x.length;i++){let s=0,c=0;for(let j=i-h;j<=i+h;j++)if(j>=0&&j<x.length){s+=x[j];c++;}o[i]=s/c;}return o;}
+function argmin(a,lo,hi){let bi=lo,bv=Infinity;for(let i=lo;i<=hi;i++)if(a[i]<bv){bv=a[i];bi=i;}return bi;}
+function argmax(a,lo,hi){let bi=lo,bv=-Infinity;for(let i=lo;i<=hi;i++)if(a[i]>bv){bv=a[i];bi=i;}return bi;}
+
+function detectCycleLows(low,minGap,maxGap,k=5,confirm=8,chase=true){
+  const n=low.length; if(!n)return[];
+  const s=smooth(low,k);
+  let anchor=argmin(s,0,Math.min(maxGap,n)-1);
+  anchor=argmin(low,Math.max(0,anchor-4),Math.min(n-1,anchor+4));
+  const dcls=[anchor];
+  while(true){
+    const last=dcls[dcls.length-1];
+    const lo=last+minGap;
+    if(lo>n-1)break;
+    let hi=Math.min(last+maxGap,n-1);
+    let idx=argmin(s,lo,hi);
+    let chased=false;
+    // CHASE: a smoothed low pinned to the window's right edge means price is still
+    // falling at the cutoff. Keep walking forward, tracking the running low,
+    // until it holds for `confirm` bars without a new low — i.e. price has turned.
+    if(chase && idx>=hi-2 && hi<n-1){
+      let lowIdx=idx, lowVal=s[idx], since=0;
+      for(let i=hi+1;i<n;i++){
+        if(s[i]<lowVal){ lowVal=s[i]; lowIdx=i; since=0; }
+        else if(++since>=confirm) break;
+      }
+      idx=lowIdx; chased=true;
+    }
+    const hiRef=chased?Math.min(idx+4,n-1):hi;
+    const a=Math.max(lo,idx-4), b=Math.min(hiRef,idx+4);
+    idx=argmin(low,a,b);
+    if(!chased) idx=Math.max(lo,Math.min(idx,hi));
+    if(idx<=last)break;
+    dcls.push(idx);
+    if(idx>=n-1)break;
+    if(!chased && hi>=n-1)break;
+  }
+  return dcls;
+}
+function nestWeekly(dcls,low,minW,maxW){
+  if(!dcls.length)return[];
+  const wcls=[dcls[0]];
+  while(true){
+    const last=wcls[wcls.length-1];
+    let cand=dcls.filter(i=>i>=last+minW&&i<=last+maxW);
+    // gentle chase: one stretched slow cycle shouldn't silently end all nesting
+    if(!cand.length)cand=dcls.filter(i=>i>=last+minW&&i<=last+Math.floor(maxW*1.5));
+    if(!cand.length)break;
+    let nxt=cand[0];for(const i of cand)if(low[i]<low[nxt])nxt=i;
+    if(nxt<=last)break;
+    wcls.push(nxt);
+  }
+  return wcls;
+}
+function translations(dcls,high){
+  const out=[];
+  for(let i=0;i<dcls.length-1;i++){
+    const a=dcls[i],b=dcls[i+1];
+    const pk=argmax(high,a,b);
+    out.push({frac:(pk-a)/(b-a),side:(pk-a)/(b-a)>0.5?"R":"L"});
+  }
+  return out;
+}
+function ema(x,span){const a=2/(span+1),o=[];let p=x[0];for(let i=0;i<x.length;i++){p=i?a*x[i]+(1-a)*p:x[i];o.push(p);}return o;}
+function smaArr(x,w){const o=[];let s=0;for(let i=0;i<x.length;i++){s+=x[i];if(i>=w)s-=x[i-w];o.push(s/Math.min(i+1,w));}return o;}
+
+// ---------- Impulse MACD (LazyBear) ----------
+function iEMA(src,len){const k=2/(len+1),o=new Array(src.length).fill(NaN);let p;
+  for(let i=0;i<src.length;i++){const v=src[i];if(v==null||isNaN(v)){o[i]=NaN;continue;}
+    p=(p===undefined)?v:v*k+p*(1-k);o[i]=p;}return o;}
+function iSMMA(src,len){const o=new Array(src.length).fill(NaN);let p;
+  for(let i=0;i<src.length;i++){if(i<len-1)continue;
+    if(p===undefined){let s=0;for(let j=i-len+1;j<=i;j++)s+=src[j];p=s/len;}
+    else p=(p*(len-1)+src[i])/len;o[i]=p;}return o;}
+function iZLEMA(src,len){const e1=iEMA(src,len),e2=iEMA(e1,len);
+  return src.map((_,i)=>(isNaN(e1[i])||isNaN(e2[i]))?NaN:e1[i]+(e1[i]-e2[i]));}
+function iSMAv(src,len){const o=new Array(src.length).fill(NaN);
+  for(let i=len-1;i<src.length;i++){let s=0,ok=true;
+    for(let j=i-len+1;j<=i;j++){if(isNaN(src[j])){ok=false;break;}s+=src[j];}if(ok)o[i]=s/len;}return o;}
+function impulseMACD(bars,lenMA=34,lenSig=9){
+  const hi=iSMMA(bars.map(b=>b.high),lenMA),lo=iSMMA(bars.map(b=>b.low),lenMA),
+        mi=iZLEMA(bars.map(b=>(b.high+b.low+b.close)/3),lenMA);
+  const md=bars.map((b,i)=>(isNaN(hi[i])||isNaN(lo[i])||isNaN(mi[i]))?NaN
+    :(mi[i]>hi[i]?mi[i]-hi[i]:mi[i]<lo[i]?mi[i]-lo[i]:0));
+  return {md,sb:iSMAv(md,lenSig)};
+}
+function crossMags(md,sb){const m=[];for(let i=1;i<md.length;i++){
+  if(isNaN(md[i])||isNaN(sb[i])||isNaN(md[i-1])||isNaN(sb[i-1]))continue;
+  if((md[i]>sb[i]&&md[i-1]<=sb[i-1])||(md[i]<sb[i]&&md[i-1]>=sb[i-1]))m.push(Math.abs(md[i]));}
+  return m;}
+function pctile(a,p){if(!a.length)return NaN;const s=a.slice().sort((x,y)=>x-y);
+  return s[Math.min(s.length-1,Math.floor(s.length*p))];}
+// impulse-line turning points via a zigzag: a reversal only counts once the line
+// has moved `minSwing` against the prior extreme, so micro-wiggles are ignored.
+function turningPoints(md,minSwing){
+  const out=[],n=md.length;
+  let i0=0;while(i0<n&&isNaN(md[i0]))i0++;if(i0>=n)return out;
+  let extIdx=i0,extVal=md[i0],dir=0;
+  for(let i=i0+1;i<n;i++){const v=md[i];if(isNaN(v))continue;
+    if(dir>=0&&v>=extVal){extVal=v;extIdx=i;if(dir===0)dir=1;}
+    else if(dir<=0&&v<=extVal){extVal=v;extIdx=i;if(dir===0)dir=-1;}
+    else if(dir>0&&v<=extVal-minSwing){out.push({i:extIdx,type:"max"});dir=-1;extVal=v;extIdx=i;}
+    else if(dir<0&&v>=extVal+minSwing){out.push({i:extIdx,type:"min"});dir=1;extVal=v;extIdx=i;}}
+  return out;
+}
+
+// ---------- RSI (Wilder's smoothing) ----------
+function rsi(close,period=14){
+  const n=close.length,out=new Array(n).fill(NaN);
+  if(n<period+1)return out;
+  let avgG=0,avgL=0;
+  for(let i=1;i<=period;i++){const d=close[i]-close[i-1];if(d>=0)avgG+=d;else avgL-=d;}
+  avgG/=period;avgL/=period;
+  out[period]=avgL===0?100:100-100/(1+avgG/avgL);
+  for(let i=period+1;i<n;i++){
+    const d=close[i]-close[i-1],g=d>0?d:0,l=d<0?-d:0;
+    avgG=(avgG*(period-1)+g)/period;avgL=(avgL*(period-1)+l)/period;
+    out[i]=avgL===0?100:100-100/(1+avgG/avgL);
+  }
+  return out;
+}
+
+// ---------- causal signal helpers (no look-ahead; fixed, disclosed lags) ----------
+// oversold/overbought threshold at bar i = 55th-pct crossover size seen SO FAR;
+// NaN until minCross crossings exist, so early bars can't trade on future stats.
+function expandingThr(md,sb,minCross=12,p=0.55){
+  const n=md.length,out=new Array(n).fill(NaN),mags=[];let last=NaN;
+  for(let i=1;i<n;i++){
+    if(!isNaN(md[i])&&!isNaN(sb[i])&&!isNaN(md[i-1])&&!isNaN(sb[i-1])&&
+       ((md[i]>sb[i]&&md[i-1]<=sb[i-1])||(md[i]<sb[i]&&md[i-1]>=sb[i-1]))){
+      mags.push(Math.abs(md[i]));
+      if(mags.length>=minCross)last=pctile(mags,p);
+    }
+    out[i]=last;
+  }
+  return out;
+}
+// pivot extremes: bar i is a pivot low/high if it is the extreme of ±d bars.
+// A pivot is only knowable d bars later — callers must respect i+d as confirm time.
+function pivotIdx(arr,d,isLow){
+  const out=[];
+  for(let i=d;i<arr.length-d;i++){
+    let ok=true;
+    for(let j=i-d;j<=i+d&&ok;j++){if(j!==i&&(isLow?arr[j]<arr[i]:arr[j]>arr[i]))ok=false;}
+    if(ok)out.push(i);
+  }
+  return out;
+}
+// divergences between consecutive price pivots and an oscillator. Bullish: price
+// lower low, oscillator higher low, oscillator stretched (< zoneLo) at the first
+// pivot. classA = still stretched at the second. confirmAt = pivot + d bars.
+function findDivergences(lows,highs,osc,opt){
+  const {d=3,minGap=5,maxGap=60,zoneLo=40,zoneHi=60,eps=0}=opt||{};
+  const res=[];
+  const pl=pivotIdx(lows,d,true);
+  for(let k=1;k<pl.length;k++){
+    const p1=pl[k-1],p2=pl[k];
+    if(p2-p1<minGap||p2-p1>maxGap||isNaN(osc[p1])||isNaN(osc[p2]))continue;
+    if(lows[p2]<lows[p1]&&osc[p2]>osc[p1]+eps&&osc[p1]<zoneLo)
+      res.push({i:p2,confirmAt:p2+d,type:"bull",classA:osc[p2]<zoneLo});
+  }
+  const ph=pivotIdx(highs,d,false);
+  for(let k=1;k<ph.length;k++){
+    const p1=ph[k-1],p2=ph[k];
+    if(p2-p1<minGap||p2-p1>maxGap||isNaN(osc[p1])||isNaN(osc[p2]))continue;
+    if(highs[p2]>highs[p1]&&osc[p2]<osc[p1]-eps&&osc[p1]>zoneHi)
+      res.push({i:p2,confirmAt:p2+d,type:"bear",classA:osc[p2]>zoneHi});
+  }
+  return res.sort((a,b)=>a.i-b.i);
+}
+
+// ---------- signal journal (forward record; localStorage-backed, append-only) ----------
+// entries are appended only when the causal confluence trigger fires on the newest
+// closed bar while the page is open — never on redraw/repaint, so this log is the
+// only fully honest forward test: nothing in it could have been written in hindsight.
+const JRNL_KEY="btc_journal_v1";
+const JRNL=(function(){
+  let mem=null; // in-memory fallback once localStorage throws (private mode, quota, etc.)
+  function read(){
+    if(mem)return mem;
+    try{const raw=localStorage.getItem(JRNL_KEY);return raw?JSON.parse(raw):[];}
+    catch(e){mem=[];return mem;}
+  }
+  function write(list){
+    if(mem){mem=list;return;}
+    try{localStorage.setItem(JRNL_KEY,JSON.stringify(list));}
+    catch(e){mem=list;}
+  }
+  function add(entry){
+    const list=read();
+    if(list.some(e=>e.id===entry.id))return false; // idempotent by tab|barT
+    list.push(entry);write(list);return true;
+  }
+  function list(){return read().slice().sort((a,b)=>b.barT-a.barT);}
+  function clear(){write([]);}
+  function toJSON(){return JSON.stringify(read(),null,2);}
+  return {add,list,clear,toJSON};
+})();
+
+
+// =================================================================
+//  VIEW FACTORY — one instance per timeframe (daily, 4h). All chart
+//  state and rendering live in the closure; the math above is shared.
+// =================================================================
+function makeView(cfg){
+  const E=cfg.el;
+  let chart,candles,fastSine,slowSine,winD;
+  let imChart,imD,imS,imThr=[];
+  let rsiChart,rsiL;
+  let C=null,FAST=[],SLOW=[],TRANS=[],CHASE=true,SRC="";
+
+  function initCharts(){
+    chart=LightweightCharts.createChart($(E.chart),{
+      autoSize:true,
+      layout:{background:{color:"#0d1217"},textColor:"#6b7882",fontFamily:"IBM Plex Mono"},
+      grid:{vertLines:{color:"#1e262e"},horzLines:{color:"#1e262e"}},
+      rightPriceScale:{borderColor:"#1e262e",minimumWidth:72},
+      timeScale:{borderColor:"#1e262e"},crosshair:{mode:0}
+    });
+    candles=chart.addCandlestickSeries({upColor:"#3fb950",downColor:"#f85149",
+      borderUpColor:"#3fb950",borderDownColor:"#f85149",wickUpColor:"#3fb950",wickDownColor:"#f85149"});
+    fastSine=chart.addLineSeries({color:"rgba(255,176,0,0.55)",lineWidth:2,priceLineVisible:false,
+      lastValueVisible:false,crosshairMarkerVisible:false,visible:false});
+    slowSine=chart.addLineSeries({color:"rgba(56,189,248,0.55)",lineWidth:2,priceLineVisible:false,
+      lastValueVisible:false,crosshairMarkerVisible:false,visible:false});
+
+    imChart=LightweightCharts.createChart($(E.imacd),{
+      autoSize:true,
+      layout:{background:{color:"#0d1217"},textColor:"#6b7882",fontFamily:"IBM Plex Mono"},
+      grid:{vertLines:{color:"#1e262e"},horzLines:{color:"#1e262e"}},
+      rightPriceScale:{borderColor:"#1e262e",minimumWidth:72},
+      leftPriceScale:{visible:false},
+      timeScale:{borderColor:"#1e262e"},crosshair:{mode:0}
+    });
+    imD=imChart.addLineSeries({color:"#ffb000",lineWidth:2,priceScaleId:"right",
+      priceLineVisible:false,crosshairMarkerVisible:true,title:"iMACD"});
+    imS=imChart.addLineSeries({color:"#6f9fcf",lineWidth:1,priceScaleId:"right",
+      priceLineVisible:false,crosshairMarkerVisible:true,title:"signal"});
+
+    rsiChart=LightweightCharts.createChart($(E.rsi),{
+      autoSize:true,
+      layout:{background:{color:"#0d1217"},textColor:"#6b7882",fontFamily:"IBM Plex Mono"},
+      grid:{vertLines:{color:"#1e262e"},horzLines:{color:"#1e262e"}},
+      rightPriceScale:{borderColor:"#1e262e",minimumWidth:72},
+      leftPriceScale:{visible:false},
+      timeScale:{borderColor:"#1e262e"},crosshair:{mode:0}
+    });
+    rsiL=rsiChart.addLineSeries({color:"#a78bfa",lineWidth:2,priceScaleId:"right",
+      priceLineVisible:false,crosshairMarkerVisible:true,title:"RSI"});
+    rsiL.applyOptions({autoscaleInfoProvider:()=>({priceRange:{minValue:0,maxValue:100}})});
+    rsiL.createPriceLine({price:70,color:"#f85149",lineWidth:1,lineStyle:2,axisLabelVisible:true,title:"70"});
+    rsiL.createPriceLine({price:50,color:"#33404a",lineWidth:1,lineStyle:2,axisLabelVisible:false,title:""});
+    rsiL.createPriceLine({price:30,color:"#3fb950",lineWidth:1,lineStyle:2,axisLabelVisible:true,title:"30"});
+
+    // keep the price / iMACD / RSI panes scrolling and zooming together
+    let lock=false;const panes=[chart,imChart,rsiChart];
+    panes.forEach(src=>src.timeScale().subscribeVisibleLogicalRangeChange(r=>{
+      if(lock||!r)return;lock=true;
+      panes.forEach(dst=>{if(dst!==src)dst.timeScale().setVisibleLogicalRange(r);});
+      lock=false;}));
+  }
+
+  function buildMarkers(){
+    const sset=new Set(SLOW);const m=[];
+    if($(E.tFast).checked){
+      FAST.forEach((i,k)=>{ if(sset.has(i)&&$(E.tSlow).checked)return;
+        const last=k===FAST.length-1;
+        m.push({time:C[i].time,position:"belowBar",color:"#ffb000",shape:"circle",
+          size:last?2:1,text:last?cfg.fast.tag:""});});
+    }
+    if($(E.tSlow).checked){
+      SLOW.forEach(i=>m.push({time:C[i].time,position:"belowBar",color:"#38bdf8",shape:"arrowUp",text:cfg.slow.tag}));
+    }
+    m.sort((a,b)=>a.time-b.time);candles.setMarkers(m);
+  }
+
+  function buildSines(){
+    const close=C.map(c=>c.close),high=C.map(c=>c.high),low=C.map(c=>c.low);
+    const amp=smaArr(high.map((h,i)=>h-low[i]),20);
+    if($(E.tFsine).checked&&FAST.length){
+      const base=ema(close,cfg.fast.ideal),anc=FAST[FAST.length-1];
+      fastSine.setData(C.map((c,i)=>({time:c.time,value:base[i]-cfg.fast.amp*amp[i]*Math.cos(2*Math.PI*(i-anc)/cfg.fast.ideal)})));
+      fastSine.applyOptions({visible:true});
+    } else fastSine.applyOptions({visible:false});
+    if($(E.tSsine).checked&&SLOW.length){
+      const base=ema(close,cfg.slow.ideal),anc=SLOW[SLOW.length-1];
+      slowSine.setData(C.map((c,i)=>({time:c.time,value:base[i]-cfg.slow.amp*amp[i]*Math.cos(2*Math.PI*(i-anc)/cfg.slow.ideal)})));
+      slowSine.applyOptions({visible:true});
+    } else slowSine.applyOptions({visible:false});
+  }
+
+  // format a timestamp: date only for >=1h-scale, date+time for intraday tabs
+  const fmtT=ts=>{if(cfg.barSecs<=3600){return new Date(ts*1000).toISOString().slice(5,16).replace("T"," ");}return dstr(ts);};
+  const ageStr=(ageBars,unit)=>{const s=ageBars*cfg.barSecs;
+    if(unit==="h")return Math.round(s/3600)+" h";
+    if(unit==="w")return Math.round(s/DAY/7)+" wk";
+    return Math.round(s/DAY)+" d";};
+  function renderCard(elId,idxs,cyc,trans){
+    if(!idxs.length){$(elId).innerHTML="";return;}
+    const n=C.length,last=idxs[idxs.length-1],ageBars=(n-1)-last;
+    const winLo=C[last].time+cyc.min*cfg.barSecs,winHi=C[last].time+cyc.max*cfg.barSecs;
+    let phase,cls="";
+    if(ageBars<cyc.min)phase="too early";
+    else if(ageBars<=cyc.max){phase="in timing window";cls="due";}
+    else {phase="overdue";cls="due";}
+    const t=trans[trans.length-1];
+    const transTxt=t?(t.side==="R"?"Right · bullish":"Left · weak"):"—";
+    const transCls=t?(t.side==="R"?"r":"l"):"";
+    $(elId).innerHTML=`
+      <div class="k">Last low</div><div class="v">${fmtT(C[last].time)}</div>
+      <div class="k">Cycle age</div><div class="v ${cls}">${ageStr(ageBars,cyc.unit)} · ${phase}</div>
+      <div class="k">Next low window</div><div class="v">${fmtT(winLo)} → ${fmtT(winHi)}</div>
+      <div class="k">Last translation</div><div class="v ${transCls}">${transTxt}</div>
+      <div class="k">Lows found</div><div class="v">${idxs.length}</div>`;
+  }
+
+  function integrityCheck(){
+    const low=C.map(c=>c.low);
+    const gaps=[];for(let i=1;i<FAST.length;i++)gaps.push(FAST[i]-FAST[i-1]);
+    const longest=gaps.length?Math.max(...gaps):0;
+    const gapsOk=gaps.every(g=>g>=cfg.fast.min&&(CHASE||g<=cfg.fast.max));
+    let localOk=true;
+    for(let k=1;k<FAST.length-1;k++){const i=FAST[k],a=Math.max(0,i-5),b=Math.min(low.length-1,i+5);
+      if(low[i]>low[argmin(low,a,b)])localOk=false;}
+    // falsifiable: each slow low must be the lowest low within ±half a fast cycle
+    // (the old "nested" check was a tautology — SLOW is built from FAST indices)
+    const h=Math.max(2,Math.floor(cfg.fast.min/2));
+    let wclOk=true;
+    for(const w of SLOW){const a=Math.max(0,w-h),b=Math.min(low.length-1,w+h);
+      if(low[w]>low[argmin(low,a,b)])wclOk=false;}
+    const mark=ok=>ok?'<b>&#10003;</b>':'<span class="bad">&#10007;</span>';
+    const ls=longest*cfg.barSecs;
+    const longestStr=ls<2*DAY?Math.round(ls/3600)+"h":Math.round(ls/DAY)+"d";
+    $(E.integrity).innerHTML=
+      `${FAST.length} ${cfg.fast.tag} · ${SLOW.length} ${cfg.slow.tag} &nbsp;|&nbsp; gaps ${mark(gapsOk)} &nbsp; minima ${mark(localOk)} &nbsp; wcl-min ${mark(wclOk)} &nbsp; longest ${longestStr}${SRC?" · "+SRC:""}`;
+  }
+
+  function nextWindow(){
+    if(!FAST.length)return null;
+    const lastF=C[FAST[FAST.length-1]].time;
+    return {lo:lastF+cfg.fast.min*cfg.barSecs,hi:lastF+cfg.fast.max*cfg.barSecs};
+  }
+  function renderWindows(win,fws){
+    if(!winD){
+      winD=chart.addAreaSeries({priceScaleId:"win",lineColor:"rgba(255,176,0,0)",lineWidth:1,
+        topColor:"rgba(255,176,0,0.15)",bottomColor:"rgba(255,176,0,0.15)",
+        priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
+      winD.applyOptions({autoscaleInfoProvider:()=>({priceRange:{minValue:0,maxValue:1}})});
+      chart.priceScale("win").applyOptions({scaleMargins:{top:0,bottom:0}});
+    }
+    if(!win){winD.setData([]);return;}
+    const times=C.map(c=>c.time).concat(fws.map(f=>f.time));
+    // value 1 inside the window, blank (whitespace) elsewhere -> clean vertical band
+    winD.setData(times.map(t=>(t>=win.lo&&t<=win.hi)?{time:t,value:1}:{time:t}));
+  }
+
+  function renderIMACD(fws){
+    const d=impulseMACD(C);
+    // whitespace at warmup + future so the pane shares bar indices with the price chart
+    const dData=C.map((c,i)=>isNaN(d.md[i])?{time:c.time}:{time:c.time,value:d.md[i]});
+    const sData=C.map((c,i)=>isNaN(d.sb[i])?{time:c.time}:{time:c.time,value:d.sb[i]});
+    imD.setData((fws&&fws.length)?dData.concat(fws):dData);
+    imS.setData((fws&&fws.length)?sData.concat(fws):sData);
+    const thrD=pctile(crossMags(d.md,d.sb),0.55);
+    const absVals=[];
+    for(const v of d.md) if(!isNaN(v)) absVals.push(Math.abs(v));
+    for(const v of d.sb) if(!isNaN(v)) absVals.push(Math.abs(v));
+    const half=(Math.max(thrD||0,pctile(absVals,0.95))||1)*1.05;
+    imD.applyOptions({autoscaleInfoProvider:()=>({priceRange:{minValue:-half,maxValue:half}})});
+    imThr.forEach(({s,l})=>{try{s.removePriceLine(l)}catch(e){}});imThr=[];
+    const add=(price,color,title)=>imThr.push({s:imD,l:imD.createPriceLine(
+      {price,color,lineWidth:1,lineStyle:2,axisLabelVisible:true,title})});
+    if(!isNaN(thrD)){add(thrD,"#ffb000","OB");add(-thrD,"#ffb000","OS");}
+    add(0,"#33404a","");
+    const minSwing=(thrD||half*0.15)*0.8;
+    const turns=turningPoints(d.md,minSwing);
+    const turnM=turns.map(t=>({time:C[t.i].time,position:"inBar",shape:"circle",size:0.5,
+      color:t.type==="min"?"rgba(63,185,80,0.9)":"rgba(248,81,73,0.9)"}));
+    // price-vs-impulse divergences (zone gate: impulse on the wrong side of zero)
+    const lowA=C.map(c=>c.low),highA=C.map(c=>c.high);
+    const dvM=findDivergences(lowA,highA,d.md,{d:3,minGap:5,maxGap:60,zoneLo:0,zoneHi:0,eps:0})
+      .map(v=>({time:C[v.i].time,position:v.type==="bull"?"belowBar":"aboveBar",
+        shape:v.type==="bull"?"arrowUp":"arrowDown",size:1,
+        color:v.type==="bull"?"#3fb950":"#f85149",text:"div"}));
+    imD.setMarkers(turnM.concat(dvM).sort((a,b)=>a.time-b.time));
+    $(E.thr).textContent=isNaN(thrD)?"—":"±"+thrD.toFixed(2);
+  }
+
+  function renderRSI(fws){
+    const r=rsi(C.map(c=>c.close),14);
+    // whitespace at warmup + future so the pane shares bar indices with the price chart
+    const data=C.map((c,i)=>isNaN(r[i])?{time:c.time}:{time:c.time,value:r[i]});
+    rsiL.setData((fws&&fws.length)?data.concat(fws):data);
+    // price-vs-RSI divergences; DIV = class A (RSI still stretched at the 2nd pivot)
+    const divs=findDivergences(C.map(c=>c.low),C.map(c=>c.high),r,
+      {d:3,minGap:5,maxGap:60,zoneLo:40,zoneHi:60,eps:2});
+    rsiL.setMarkers(divs.map(v=>({time:C[v.i].time,
+      position:v.type==="bull"?"belowBar":"aboveBar",
+      shape:v.type==="bull"?"arrowUp":"arrowDown",size:1,
+      color:v.type==="bull"?"#3fb950":"#f85149",text:v.classA?"DIV":"div"})));
+    let cur=NaN;for(let i=r.length-1;i>=0;i--){if(!isNaN(r[i])){cur=r[i];break;}}
+    const el=$(E.rsiv);
+    if(el){el.textContent=isNaN(cur)?"—":cur.toFixed(1);
+      el.style.color=isNaN(cur)?"#a78bfa":(cur>=70?"#f85149":cur<=30?"#3fb950":"#a78bfa");}
+  }
+
+  function renderSignal(){
+    const el=$(E.signal); if(!el)return;
+    const r=simulateConf(feeInput());
+    if(!r||!r.state){el.innerHTML="";return;}
+    const st=r.state,price=C[C.length-1].close;
+    const chip=(on,label,title)=>`<span class="chip ${on===null?"na":on?"on":""}" title="${title}">${label}${on===null?" n/a":""}</span>`;
+    let headClass="early",headText="EARLY";
+    if(st.entrySignal){headClass="fire";headText="ENTRY SIGNAL";}
+    else if(st.trigFiredOnLastBar){headClass="fire";headText="TRIGGER FIRED";}
+    else if(st.phase==="window"){headClass="window";headText="IN WINDOW"+(st.armed?" (armed)":"");}
+    else if(st.phase==="overdue"){headClass="overdue";headText="OVERDUE";}
+    const distPct=x=>x==null?null:((x-price)/price*100);
+    const candTxt=st.candT?`${fmtT(st.candT)} · ${st.candLowPx.toFixed(2)}`:"—";
+    const trigTxt=st.trigPx?`${st.trigPx.toFixed(2)} (${fSign(distPct(st.trigPx))}%)`:"—";
+    const stopTxt=st.stopPx?`${st.stopPx.toFixed(2)} (${fSign(distPct(st.stopPx))}%)`:"—";
+    el.innerHTML=`
+      <h2><span class="sw" style="background:var(--amber);width:11px;height:11px;border-radius:2px"></span>Signal now</h2>
+      <div class="sig-head">
+        <span class="sig-status ${headClass}">${headText}</span>
+        <span class="sig-sub">${st.phase} · cycle age ${ageStr(st.ageBars,cfg.fast.unit)} since ${fmtT(st.lastLowT)}${st.inPosition?" · position open in backtest":""}</span>
+      </div>
+      <div class="kv">
+        <div class="k">Candidate low</div><div class="v">${candTxt}</div>
+        <div class="k">Trigger (close &gt;)</div><div class="v">${trigTxt}</div>
+        <div class="k">Stop if entered</div><div class="v">${stopTxt}</div>
+      </div>
+      <div class="chips">
+        ${chip(st.comps.rsi,"RSI&lt;35 +1","RSI(14) was below 35 at the candidate low")}
+        ${chip(st.comps.div,"Bull div +2","Confirmed bullish RSI divergence within 6 bars of the candidate")}
+        ${chip(st.comps.imacd,"iMACD OS +1","Oversold impulse-MACD cross-up, below the causal threshold, between the candidate and now")}
+        ${chip(st.comps.trans,"Right transl +1","The prior cycle's high printed in its second half — right-translated, bullish")}
+        ${chip(st.comps.funding,"Funding +1",st.comps.funding===null?"Funding data not ready yet":st.comps.funding?"Funding rate sits in its bottom decile (capitulation) — advisory, live-only: never counted toward ENTRY classification or backtests":"Funding rate is not currently in its bottom decile — advisory, live-only")}
+        <span class="sig-score" title="ENTRY classification uses the funding-free core score (${st.coreScore}) vs the backtest gate; the funding +1 is live-only advisory.">score <b>${st.score}</b> / need &ge;${st.minScore}</span>
+      </div>`;
+  }
+
+
+  function renderAll(){
+    const showWin=$(E.tWin)?$(E.tWin).checked:true;
+    const win=showWin?nextWindow():null;
+    const lastT=C[C.length-1].time;
+    const fws=[];
+    if(win){for(let t=lastT+cfg.barSecs;t<=win.hi+cfg.barSecs;t+=cfg.barSecs)fws.push({time:t});}
+    candles.setData(fws.length?C.concat(fws):C);
+    buildMarkers();buildSines();
+    renderCard(E.fastKV,FAST,cfg.fast,TRANS);
+    const strans=translations(SLOW,C.map(c=>c.high));
+    renderCard(E.slowKV,SLOW,cfg.slow,strans);
+    integrityCheck();
+    renderIMACD(fws);
+    renderRSI(fws);
+    renderWindows(win,fws);
+    renderSignal();
+    chart.timeScale().fitContent();
+  }
+
+  function recompute(){
+    if(!C)return;
+    const low=C.map(c=>c.low),high=C.map(c=>c.high);
+    FAST=detectCycleLows(low,cfg.fast.min,cfg.fast.max,5,8,CHASE);
+    SLOW=nestWeekly(FAST,low,cfg.slow.min,cfg.slow.max);
+    TRANS=translations(FAST,high);
+    renderAll();
+  }
+
+  async function load(){
+    try{
+      const {data,src}=await getCandles(cfg.interval,cfg.gran,cfg.limit);
+      C=data;SRC=src;recompute();return true;
+    }catch(e){console.error(e);
+      $(E.integrity).innerHTML='<span class="bad">data unreachable — host the file or check the network</span>';
+      return false;}
+  }
+  function onShow(){
+    if(!chart)return;
+    requestAnimationFrame(()=>chart.timeScale().fitContent());
+  }
+  function wire(){
+    [E.tFast,E.tSlow,E.tFsine,E.tSsine].forEach(id=>{const el=$(id);if(el)el.onchange=()=>{if(C){buildMarkers();buildSines();}};});
+    const ch=$(E.tChase);if(ch)ch.onchange=()=>{CHASE=ch.checked;recompute();};
+    const w=$(E.tWin);if(w)w.onchange=()=>{if(C)renderAll();};
+  }
+
+  // -------- cycle-confluence strategy (fully causal; nothing repaints) --------
+  // Context: from the last CONFIRMED low, arm once cycle age >= fast.min and track
+  // the lowest low since arming (the candidate). Trigger = close back above the
+  // candidate bar's high (price proof of the turn); that same close confirms the
+  // cycle low and resets the count. Entry additionally needs >=2 setup points:
+  //   +1 RSI(14) < 35 at the candidate     +2 confirmed bullish RSI divergence
+  //   +1 iMACD cross-up below causal thr   +1 prior cycle right-translated
+  // Risk: stop = candidate low (a broken cycle low is the invalidation). Half off
+  // at +1.5R; the rest trails under each newly confirmed higher pivot low. Also
+  // exits on: overbought iMACD cross-down · confirmed bearish divergence with
+  // RSI>65 · cycle age past fast.max · left-translated cycle fading below EMA10.
+  // opts (all optional, defaults preserve live behavior): minScore (entry gate),
+  // exits {dn,bearDiv,age,leftFade} (ablation toggles), trig "cand"|"prev" (trigger
+  // = close above candidate-bar high vs previous-bar high). lowsLog records every
+  // confirmed low's score components for offline edge audits.
+  function simulateConf(feePct,opts){
+    opts=opts||{};
+    const minScore=opts.minScore==null?2:opts.minScore;
+    const ex=Object.assign({dn:true,bearDiv:true,age:true,leftFade:true},opts.exits||{});
+    const trigPrev=opts.trig==="prev";
+    const n=C.length,fee=feePct/100;
+    if(!C||n<cfg.fast.max+cfg.fast.min+10)return null;
+    const low=C.map(c=>c.low),high=C.map(c=>c.high),close=C.map(c=>c.close);
+    const r14=rsi(close,14),d=impulseMACD(C),thrE=expandingThr(d.md,d.sb),e10=ema(close,10);
+    const divs=findDivergences(low,high,r14,{d:3,minGap:5,maxGap:60,zoneLo:40,zoneHi:60,eps:2});
+    const bulls=divs.filter(v=>v.type==="bull"),bears=divs.filter(v=>v.type==="bear");
+    const pivSet=new Set(pivotIdx(low,3,true));
+    // shared entry-setup scorer (RSI<35 +1 / bull div +2 / oversold iMACD cross-up +1 /
+    // right-translated prior cycle +1) so the live trigger check and the "signal now"
+    // state readout can never drift apart.
+    function coreComps(lastLowIdx,candIdx,atIdx){
+      if(candIdx<0)return {rsi:false,div:false,imacd:false,trans:false,score:0};
+      const rsiOk=!isNaN(r14[candIdx])&&r14[candIdx]<35;
+      const divOk=bulls.some(v=>Math.abs(v.i-candIdx)<=6&&v.confirmAt<=atIdx);
+      let imacdOk=false;
+      for(let j=Math.max(1,candIdx);j<=atIdx;j++){const tj=thrE[j];
+        if(!isNaN(tj)&&!isNaN(d.md[j])&&!isNaN(d.sb[j])&&!isNaN(d.md[j-1])&&!isNaN(d.sb[j-1])&&
+           d.md[j]>d.sb[j]&&d.md[j-1]<=d.sb[j-1]&&d.md[j]<-tj){imacdOk=true;break;}}
+      const transOk=lastLowIdx>=0&&candIdx>lastLowIdx&&
+        (argmax(high,lastLowIdx,candIdx)-lastLowIdx)/(candIdx-lastLowIdx)>0.5;
+      return {rsi:rsiOk,div:divOk,imacd:imacdOk,trans:transOk,
+        score:(rsiOk?1:0)+(divOk?2:0)+(imacdOk?1:0)+(transOk?1:0)};
+    }
+    let lastLow=argmin(low,0,Math.min(cfg.fast.max,n-1)),cand=-1;
+    let trigFiredLast=false,trigCandLast=-1,trigLastLowLast=-1,trigLvlLast=NaN;
+    let pos=null,eq=1,peakEq=1,maxDD=0;
+    let closed=0,wins=0,sumR=0,sumNet=0,sumBars=0,sumMAE=0,worstMAE=0,open=0,openRet=0;
+    let trades=[];const lowsLog=[];
+    const bank=net=>{eq*=(1+net);if(eq>peakEq)peakEq=eq;const dd=1-eq/peakEq;if(dd>maxDD)maxDD=dd;};
+    const closeTrade=(i,exitPx)=>{
+      const retRem=(exitPx-pos.entry)/pos.entry;
+      const gross=pos.scaled?0.5*pos.ret1+0.5*retRem:retRem;
+      const net=gross-fee;
+      const R=gross*pos.entry/(pos.entry-pos.stop0);
+      sumR+=R;
+      if(net>0)wins++;closed++;sumNet+=net;sumBars+=i-pos.i;
+      sumMAE+=pos.mae;worstMAE=Math.min(worstMAE,pos.mae);
+      trades.push({i,t:C[i].time,net,R});
+      bank(net);pos=null;
+    };
+    for(let i=Math.min(cfg.fast.max,n-1)+1;i<n;i++){
+      // ---- manage the open position: stop intrabar, everything else at close ----
+      if(pos){
+        const dd=(low[i]-pos.entry)/pos.entry;if(dd<pos.mae)pos.mae=dd;
+        if(high[i]>pos.peakH){pos.peakH=high[i];pos.peakI=i;}
+        if(low[i]<=pos.stop)closeTrade(i,pos.stop);
+        else{
+          if(!pos.scaled){
+            const t15=pos.entry+1.5*(pos.entry-pos.stop0);
+            if(high[i]>=t15){pos.ret1=(t15-pos.entry)/pos.entry;pos.scaled=true;}
+          }
+          if(pivSet.has(i-3)&&i-3>pos.cycleLow&&low[i-3]>pos.stop)pos.stop=low[i-3];
+          const t=thrE[i];
+          const dn=!isNaN(t)&&!isNaN(d.md[i])&&!isNaN(d.sb[i])&&!isNaN(d.md[i-1])&&!isNaN(d.sb[i-1])&&
+            d.md[i]<d.sb[i]&&d.md[i-1]>=d.sb[i-1]&&d.md[i]>t;
+          const bearNow=!isNaN(r14[i])&&r14[i]>65&&bears.some(v=>v.confirmAt===i);
+          const tooOld=(i-pos.cycleLow)>=cfg.fast.max;
+          const leftFade=(i-pos.cycleLow)>=cfg.fast.ideal*0.5&&
+            (pos.peakI-pos.cycleLow)<cfg.fast.ideal*0.5&&
+            close[i]<e10[i]&&close[i-1]<e10[i-1];
+          if((ex.dn&&dn)||(ex.bearDiv&&bearNow)||(ex.age&&tooOld)||(ex.leftFade&&leftFade))closeTrade(i,close[i]);
+        }
+      }
+      // ---- cycle state machine: candidate tracking + confirmation trigger ----
+      const age=i-lastLow;
+      if(age>=cfg.fast.min){
+        if(cand<0||low[i]<low[cand])cand=i;
+        if(cand<i&&close[i]>(trigPrev?high[i-1]:high[cand])){
+          if(i===n-1){trigFiredLast=true;trigCandLast=cand;trigLastLowLast=lastLow;
+            trigLvlLast=trigPrev?high[i-1]:high[cand];}
+          const cc=coreComps(lastLow,cand,i);
+          lowsLog.push({i:cand,t:C[cand].time,trigI:i,trigT:C[i].time,score:cc.score,
+            comps:{rsi:cc.rsi,div:cc.div,imacd:cc.imacd,trans:cc.trans},entered:false});
+          if(!pos&&cc.score>=minScore){
+            const pk0=argmax(high,cand,i);
+            pos={i,entry:close[i],stop0:low[cand],stop:low[cand],cycleLow:cand,
+                 peakH:high[pk0],peakI:pk0,scaled:false,ret1:0,mae:0};
+            lowsLog[lowsLog.length-1].entered=true;
+          }
+          lastLow=cand;cand=-1;
+        }
+      }
+    }
+    if(pos){open=1;const retRem=(close[n-1]-pos.entry)/pos.entry;
+      openRet=(pos.scaled?0.5*pos.ret1+0.5*retRem:retRem)-fee;
+      bank(openRet);sumMAE+=pos.mae;worstMAE=Math.min(worstMAE,pos.mae);}
+    const tot=closed+open;
+    // ---- "signal now": either the still-forming candidate, or (if the trigger fired
+    // on this very last bar) the setup that just fired, so the headline and its
+    // component chips always describe the same candidate ----
+    const lastI=n-1;
+    const stLastLow=trigFiredLast?trigLastLowLast:lastLow, stCand=trigFiredLast?trigCandLast:cand;
+    const cc=coreComps(stLastLow,stCand,lastI);
+    const fc=(typeof fundingCapitulation==="function")?fundingCapitulation():null;
+    const sigScore=cc.score+(fc===true?1:0);
+    const ageBarsSt=lastI-stLastLow;
+    const phase=ageBarsSt<cfg.fast.min?"early":(ageBarsSt<=cfg.fast.max?"window":"overdue");
+    // entrySignal mirrors the ACTUAL backtest entry gate (funding-free coreScore vs
+    // minScore) — the live funding +1 is advisory display only, never classification.
+    const state={barT:C[lastI].time,lastLowT:C[stLastLow].time,lastLowPx:low[stLastLow],
+      ageBars:ageBarsSt,phase,armed:ageBarsSt>=cfg.fast.min,
+      candT:stCand>=0?C[stCand].time:null,candLowPx:stCand>=0?low[stCand]:null,
+      trigPx:trigFiredLast?(isNaN(trigLvlLast)?null:trigLvlLast)
+        :(stCand>=0?(trigPrev?high[lastI]:high[stCand]):null),
+      comps:{rsi:cc.rsi,div:cc.div,imacd:cc.imacd,trans:cc.trans,funding:fc},
+      score:sigScore,coreScore:cc.score,minScore,
+      stopPx:pos?pos.stop:(stCand>=0?low[stCand]:null),
+      trigFiredOnLastBar:trigFiredLast,entrySignal:trigFiredLast&&cc.score>=minScore,inPosition:!!pos};
+    return {barSecs:cfg.barSecs,bars:n,entries:tot,resolved:closed,open,wins,losses:closed-wins,
+      winRate:closed?wins/closed:0,avgR:closed?sumR/closed:0,expNet:closed?sumNet/closed:0,
+      totalRet:eq-1,maxDD,avgBars:closed?sumBars/closed:0,avgMAE:tot?sumMAE/tot:0,worstMAE,openRet,
+      state,trades,lowsLog};
+  }
+  function backtestConf(feePct,opts){if(!C)return null;return simulateConf(feePct||0,opts);}
+
+
+  function getState(){
+    const r=simulateConf(feeInput());
+    if(!r||!C)return null;
+    return {state:r.state,price:C[C.length-1].close,fastTag:cfg.fast.tag,slowTag:cfg.slow.tag,interval:cfg.interval};
+  }
+  initCharts();wire();
+  return {load,onShow,backtestConf,getState,
+    refreshSignal:()=>{if(C)renderSignal();}};
+}
+
+// ---------- view configs ----------
+const CFG_D={
+  interval:"1d", gran:86400, limit:4000, barSecs:DAY, barsPerDay:1,
+  fast:{min:40,max:75,ideal:60,amp:1.6,tag:"DCL",unit:"d"},
+  slow:{min:120,max:190,ideal:154,amp:2.4,tag:"WCL",unit:"w"},
+  el:{chart:"chart_d",imacd:"imacd_d",rsi:"rsi_d",rsiv:"rsiv_d",integrity:"integrity_d",fastKV:"fastKV_d",slowKV:"slowKV_d",thr:"thr_d",signal:"signal_d",
+      tFast:"tFast_d",tSlow:"tSlow_d",tFsine:"tFsine_d",tSsine:"tSsine_d",tChase:"tChase_d",tWin:"tWin_d"}
+};
+const CFG_H={
+  interval:"4h", gran:14400, limit:3000, barSecs:14400, barsPerDay:6,
+  fast:{min:36,max:72,ideal:48,amp:1.6,tag:"4HCL",unit:"d"},
+  slow:{min:240,max:450,ideal:360,amp:2.4,tag:"DCL",unit:"d"},
+  el:{chart:"chart_h",imacd:"imacd_h",rsi:"rsi_h",rsiv:"rsiv_h",integrity:"integrity_h",fastKV:"fastKV_h",slowKV:"slowKV_h",thr:"thr_h",signal:"signal_h",
+      tFast:"tFast_h",tSlow:"tSlow_h",tFsine:"tFsine_h",tSsine:"tSsine_h",tChase:"tChase_h",tWin:"tWin_h"}
+};
+const CFG_1H={
+  interval:"1h", gran:3600, limit:1000, barSecs:3600, barsPerDay:24,
+  fast:{min:30,max:72,ideal:48,amp:1.6,tag:"1HCL",unit:"d"},
+  slow:{min:144,max:288,ideal:192,amp:2.4,tag:"4HCL",unit:"d"},
+  el:{chart:"chart_1h",imacd:"imacd_1h",rsi:"rsi_1h",rsiv:"rsiv_1h",integrity:"integrity_1h",fastKV:"fastKV_1h",slowKV:"slowKV_1h",thr:"thr_1h",signal:"signal_1h",
+      tFast:"tFast_1h",tSlow:"tSlow_1h",tFsine:"tFsine_1h",tSsine:"tSsine_1h",tChase:"tChase_1h",tWin:"tWin_1h"}
+};
+const CFG_5M={
+  interval:"5m", gran:300, limit:1000, barSecs:300, barsPerDay:288,
+  fast:{min:24,max:60,ideal:36,amp:1.6,tag:"5MCL",unit:"h"},
+  slow:{min:96,max:216,ideal:144,amp:2.4,tag:"HCL",unit:"h"},
+  el:{chart:"chart_5m",imacd:"imacd_5m",rsi:"rsi_5m",rsiv:"rsiv_5m",integrity:"integrity_5m",fastKV:"fastKV_5m",slowKV:"slowKV_5m",thr:"thr_5m",signal:"signal_5m",
+      tFast:"tFast_5m",tSlow:"tSlow_5m",tFsine:"tFsine_5m",tSsine:"tSsine_5m",tChase:"tChase_5m",tWin:"tWin_5m"}
+};
+
+const VIEWS={};
+let activeTab="d";
+function showTab(tab){
+  activeTab=tab;
+  $$(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));
+  ["d","h","1h","5m"].forEach(k=>$("panel_"+k).hidden=(k!==tab));
+  VIEWS[tab].onShow();
+}
+async function loadAll(){
+  setStatus("","loading");
+  try{const p=await getPrice();$("price").firstChild.nodeValue=p.toLocaleString("en-US",{style:"currency",currency:"USD"});}catch(e){}
+  const res=await Promise.allSettled(Object.values(VIEWS).map(v=>v.load()));
+  const ok=res.some(r=>r.status==="fulfilled"&&r.value);
+  setStatus(ok?"ok":"err",ok?"live":"data unreachable");
+  captureSignals();
+}
+
+// ---------- chart-library loader (multi-CDN fallback) ----------
+function loadChartLib(){
+  if(window.LightweightCharts)return Promise.resolve();
+  const cdns=["https://cdn.jsdelivr.net/npm/lightweight-charts@4/dist/lightweight-charts.standalone.production.js",
+              "https://unpkg.com/lightweight-charts@4/dist/lightweight-charts.standalone.production.js"];
+  return new Promise((res,rej)=>{let i=0;const go=()=>{if(i>=cdns.length){rej();return;}
+    const s=document.createElement("script");s.src=cdns[i++];
+    s.onload=()=>window.LightweightCharts?res():go();s.onerror=go;document.head.appendChild(s);};go();});
+}
+loadChartLib().then(()=>{
+  VIEWS.d=makeView(CFG_D);
+  VIEWS.h=makeView(CFG_H);
+  VIEWS["1h"]=makeView(CFG_1H);
+  VIEWS["5m"]=makeView(CFG_5M);
+  $$(".tab").forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
+  loadAll();
+  fetchFunding();
+}).catch(()=>{setStatus("err","chart library blocked");
+  ["chart_d","chart_h","chart_1h","chart_5m"].forEach(id=>{const e=$(id);if(e)e.innerHTML='<div style="padding:22px;color:#6b7882;font-size:13px;line-height:1.5">Couldn\'t load the charting library from jsDelivr or unpkg — likely a network block. Download <span class="mono">lightweight-charts.standalone.production.js</span> and reference it locally.</div>';});});
+$("refresh").onclick=()=>{if(window.LightweightCharts&&VIEWS.d)loadAll();};
+// auto-refresh every 5 minutes so the journal's capture loop actually runs near bar
+// closes while the page sits open (5m-tab triggers can still slip between checks)
+setInterval(()=>{if(window.LightweightCharts&&VIEWS.d)loadAll();},300000);
+
+// invoked after every loadAll() (initial load + refresh); walks all tabs' current
+// causal state and appends a journal entry only when the trigger fired on the bar
+// that just closed. JRNL.add() is idempotent by tab|barT, so this can never double-log
+// the same bar even if loadAll() re-runs before the next bar closes.
+function captureSignals(){
+  for(const tab in VIEWS){
+    const view=VIEWS[tab];
+    if(!view||typeof view.getState!=="function")continue;
+    let g;
+    try{g=view.getState();}catch(e){continue;}
+    if(!g||!g.state||!g.state.trigFiredOnLastBar)continue;
+    const st=g.state,comps=st.comps||{};
+    const compStr=["rsi","div","imacd","trans","funding"].filter(k=>comps[k]).join("+");
+    JRNL.add({
+      id:tab+"|"+st.barT, tab, capturedAt:new Date().toISOString(), barT:st.barT,
+      price:g.price, event:st.entrySignal?"ENTRY":"TRIGGER", score:st.score,
+      comps:compStr, stopPx:st.stopPx, trigPx:st.trigPx,
+      fundingPct:(window.FUNDING&&window.FUNDING.ready)?window.FUNDING.pctile:null
+    });
+  }
+  renderJournal();
+}
+
+
+const TABNAME={d:"Daily",h:"4-Hour","1h":"1-Hour","5m":"5-Min"};
+function fmtDur(s){return s<3600?Math.round(s/60)+" min":s<86400?(s/3600).toFixed(1)+" h"
+  :s<2*365*86400?(s/86400).toFixed(1)+" d":(s/31536000).toFixed(1)+" y";}
+const fSign=x=>(x>=0?"+":"")+x.toFixed(2);
+
+setInterval(async()=>{try{const p=await getPrice();$("price").firstChild.nodeValue=p.toLocaleString("en-US",{style:"currency",currency:"USD"});}catch(e){}},60000);
+
+// ---------- signal journal UI ----------
+function renderJournal(){
+  const rows=JRNL.list();
+  const cEl=$("jrnlCount");
+  if(cEl)cEl.textContent=rows.length+(rows.length===1?" entry":" entries");
+  const out=$("jrnlOut");
+  if(!out)return;
+  if(!rows.length){
+    out.innerHTML='<span style="color:#6b7882;font-size:12px">No signals captured yet — an entry appends when the 5-minute recheck (or a load/Refresh) finds the confluence trigger fired on the newest closed bar.</span>';
+    return;
+  }
+  const tr=rows.map(e=>`<tr>
+    <td>${e.capturedAt.slice(0,16).replace("T"," ")}</td>
+    <td>${TABNAME[e.tab]||e.tab}</td>
+    <td class="${e.event==="ENTRY"?"r":""}">${e.event}</td>
+    <td>${e.price!=null?e.price.toLocaleString("en-US",{style:"currency",currency:"USD"}):"—"}</td>
+    <td>${e.score}</td>
+    <td>${e.comps?e.comps.split("+").join(" + "):"—"}</td>
+    <td>${e.stopPx!=null?e.stopPx.toFixed(2):"—"}</td>
+  </tr>`).join("");
+  out.innerHTML=`<table class="jrnl-table"><thead><tr>
+    <th>Captured</th><th>Tab</th><th>Event</th><th>Price</th><th>Score</th><th>Confluence</th><th>Stop</th>
+  </tr></thead><tbody>${tr}</tbody></table>`;
+}
+function jrnlFallbackCopy(text){
+  const ta=document.createElement("textarea");
+  ta.value=text;ta.style.position="fixed";ta.style.opacity="0";
+  document.body.appendChild(ta);ta.focus();ta.select();
+  try{document.execCommand("copy");}catch(e){}
+  document.body.removeChild(ta);
+}
+const jrnlCopyBtn=$("jrnlCopy");
+if(jrnlCopyBtn)jrnlCopyBtn.onclick=()=>{
+  const text=JRNL.toJSON();
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text).catch(()=>jrnlFallbackCopy(text));
+  else jrnlFallbackCopy(text);
+};
+const jrnlClearBtn=$("jrnlClear");
+if(jrnlClearBtn)jrnlClearBtn.onclick=()=>{
+  if(!confirm("Clear the signal journal? This cannot be undone."))return;
+  JRNL.clear();renderJournal();
+};
+renderJournal();
+
+setInterval(fetchFunding,3600000);
+</script>
+</body>
+</html>
