@@ -223,6 +223,8 @@ const WISHLIST =
 {"id": "my-ctf-finance-centre", "n": "CTF Finance Centre", "c": "China", "cont": "Asia", "k": "vista", "lat": 32.364189, "lng": 120.549666, "addr": "China, Guangdong Province, Guangzhou, Tianhe District, Huacheng Blvd, 花城大道南侧 邮政编码: 510623", "src": "mine"},
 {"id": "my-art-museum-of-beijing-fine-art-academy", "n": "Art Museum of Beijing Fine Art Academy", "c": "China", "cont": "Asia", "k": "museum", "lat": 39.932474, "lng": 116.467567, "addr": "12 Chaoyanggongyuan S Rd, Chaoyang, Beijing, China, 100123", "src": "mine"},
 {"id": "my-the-central-academy-of-fine-arts", "n": "The Central Academy of Fine Arts", "c": "China", "cont": "Asia", "k": "museum", "lat": 39.92045, "lng": 116.436911, "addr": "8 Huajiadi S St, Chaoyang, Beijing, China, 100028", "src": "mine"},
-{"id": "my-parque-nacional-dos-lencois-maranhenses", "n": "Parque Nacional dos Lençóis Maranhenses", "c": "Brazil", "cont": "South America", "k": "nature", "lat": -5.20855, "lng": -45.393026, "addr": "MA, Brazil", "src": "mine"}
+{"id": "my-parque-nacional-dos-lencois-maranhenses", "n": "Parque Nacional dos Lençóis Maranhenses", "c": "Brazil", "cont": "South America", "k": "nature", "lat": -5.20855, "lng": -45.393026, "addr": "MA, Brazil", "src": "mine"},
+{"id": "my-padar-island", "n": "Padar Island", "c": "Indonesia", "cont": "Asia", "k": "nature", "lat": -8.6627, "lng": 119.555738, "addr": "Padar Island, Komodo, West Manggarai Regency, East Nusa Tenggara, Indonesia", "src": "mine"},
+{"id": "my-ch-iyar-quta", "n": "Ch'iyar Quta", "c": "Bolivia", "cont": "South America", "k": "nature", "lat": -16.195, "lng": -68.243889, "addr": "Cordillera Real, Pucarani, Los Andes Province, La Paz Department, Bolivia", "src": "mine"}
 ]
 ;

@@ -199,16 +199,21 @@ const CATS={
 const CATORDER=['geek','nature','vista','temple','road','museum','park','onsen'];
 const CONTS=[['all','すべて','All'],['Asia','アジア','Asia'],['Europe','ヨーロッパ','Europe'],
   ['North America','北米','N. America'],['South America','南米','S. America'],
-  ['Africa','アフリカ','Africa'],['Oceania','オセアニア','Oceania']];
+  ['Africa','アフリカ','Africa'],['Oceania','オセアニア','Oceania'],
+  ['Antarctica','南極','Antarctica']];
 function normName(s){return (s||'').toLowerCase().replace(/[\s·・,，、.。!！?？'"“”()（）：:\-—_/]/g,'');}
 const _ai=(typeof RECS!=='undefined')?RECS.map(r=>({...r,src:r.src||'ai'})):[];
 const _mine=(typeof WISHLIST!=='undefined')?WISHLIST.map(r=>({...r,src:'mine'})):[];
 const _mineN=new Set(_mine.map(r=>normName(r.n)));
-const RX=_mine.concat(_ai.filter(r=>!_mineN.has(normName(r.n)))); // my saved picks first; drop AI dupes of them
 const reduced=matchMedia('(prefers-reduced-motion:reduce)').matches;
 const isMobile=matchMedia('(max-width:900px)').matches;
 
-let map=null,mapReady=false,markers=[];
+/* Your ★ list stays as DOM markers (a couple of hundred, keeps the star treatment).
+   Everything else lives in a GPU symbol layer — places.json alone is ~46k points and
+   one <div> each would lock the page up. WORLD is the merged pool behind that layer. */
+let WORLD=_ai.filter(r=>!_mineN.has(normName(r.n)));  // curated recs + wikidata sweep, minus your list
+const byId=new Map();          // id -> record, for click lookups on the layer
+let map=null,mapReady=false,markers=[],worldReady=false;
 const state={cont:'all',country:null,cats:new Set(CATORDER),q:'',mineOnly:false};
 
 /* ---------------- offline paper world basemap (shared with moto.html) ---------------- */
@@ -228,12 +233,15 @@ function initMap(){
   map=new maplibregl.Map({container:'map',style:OFFLINE_STYLE(),center:[12,26],zoom:1.5,
     minZoom:1,maxZoom:14,attributionControl:{compact:true},dragRotate:false,renderWorldCopies:true});
   map.addControl(new maplibregl.NavigationControl({showCompass:false}),'bottom-right');
-  map.on('load',()=>{mapReady=true;$('#hint').remove();addMarkers();refresh(false);});
+  map.on('load',()=>{mapReady=true;const h=$('#hint');if(h)h.remove();
+    addWorldLayer();addMarkers();refresh(false);loadWorld();});
 }
 
+/* ---- your saved list: real DOM markers, unchanged look ---- */
 function addMarkers(){
-  RX.forEach(r=>{
-    const el=document.createElement('div');el.className='mk-w'+(r.src==='mine'?' mine':'');
+  if(markers.length)return;                 // `load` may fire more than once
+  _mine.forEach(r=>{
+    const el=document.createElement('div');el.className='mk-w mine';
     el.style.setProperty('--mkc',(CATS[r.k]||{}).c||'#b0413e');
     const dot=document.createElement('div');dot.className='mk';dot.textContent=(CATS[r.k]||{}).e||'•';
     el.appendChild(dot);
@@ -244,20 +252,118 @@ function addMarkers(){
   });
 }
 
+/* ---- everything else: one symbol layer ----
+   The basemap style ships no `glyphs` URL, so map-rendered text is unavailable. Icons are
+   therefore painted to a canvas and registered with addImage — which also means the pins
+   look identical to the DOM ones above. Decluttering is MapLibre's own collision pass:
+   icon-allow-overlap stays false and symbol-sort-key ranks by Wikipedia language count, so
+   at world zoom the famous places win the space and the obscure ones surface as you zoom in.
+   That is the mechanism that would have surfaced Ch'iyar Quta. */
+function pinImage(cat){
+  const R=2, s=28*R, c=document.createElement('canvas');c.width=c.height=s;
+  const x=c.getContext('2d'), col=(CATS[cat]||{}).c||'#b0413e', cx=s/2, r=11*R;
+  x.beginPath();x.arc(cx,cx,r,0,Math.PI*2);
+  x.fillStyle='#fffdf4';x.fill();
+  x.lineWidth=2.5*R;x.strokeStyle=col;x.stroke();
+  x.font=`${12*R}px "Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif`;
+  x.textAlign='center';x.textBaseline='middle';
+  x.fillText((CATS[cat]||{}).e||'•',cx,cx+R);
+  return {data:x.getImageData(0,0,s,s),pixelRatio:R};
+}
+/* Collision rank. Wikidata places use their Wikipedia language count; the curated recs
+   carry no such score, so they get a floor high enough to outrank the long tail and keep
+   their hand-written "why" visible, while the genuine giants (Andes ~189) still win. */
+const CURATED_RANK=140;
+function worldGeoJSON(){
+  return {type:'FeatureCollection',features:WORLD.map(r=>({
+    type:'Feature',
+    geometry:{type:'Point',coordinates:[r.lng,r.lat]},
+    properties:{id:r._id,k:r.k,c:r.c,cont:r.cont,
+                sl:r.src==='wd'?(r.sl||1):CURATED_RANK,
+                blob:(r.n+' '+r.c+' '+(r.why||'')+' '+(r.desc||'')).toLowerCase()}
+  }))};
+}
+/* NB the source is 'places', not 'world': the basemap style above already owns a source
+   called 'world' (basemap.json). Naming this one 'world' made addSource throw, which
+   aborted the rest of the load handler and silently dropped the ★ markers — and worse,
+   made setData overwrite the basemap's borders with point features.
+   Still written to be idempotent, since `load` can fire again after a WebGL context loss. */
+let worldBound=false;
+function addWorldLayer(){
+  CATORDER.forEach(k=>{const p=pinImage(k);
+    if(!map.hasImage('pin-'+k))map.addImage('pin-'+k,p.data,{pixelRatio:p.pixelRatio});});
+  if(map.getSource('places'))map.getSource('places').setData(worldGeoJSON());
+  else map.addSource('places',{type:'geojson',data:worldGeoJSON()});
+  if(!map.getLayer('places'))
+    map.addLayer({id:'places',type:'symbol',source:'places',
+      layout:{'icon-image':['concat','pin-',['get','k']],
+              'icon-size':['interpolate',['linear'],['zoom'],1,.55,5,.8,9,1],
+              'icon-allow-overlap':false,'icon-ignore-placement':false,
+              'symbol-sort-key':['-',0,['get','sl']]}});
+  if(!worldBound){                                    // bind handlers exactly once
+    worldBound=true;
+    map.on('click','places',e=>{const f=e.features&&e.features[0];
+      if(f){const r=byId.get(f.properties.id);if(r){e.originalEvent.stopPropagation();openDetail(r);}}});
+    map.on('mouseenter','places',()=>{map.getCanvas().style.cursor='pointer';});
+    map.on('mouseleave','places',()=>{map.getCanvas().style.cursor='';});
+  }
+  worldReady=true;
+}
+const worldLive=()=>worldReady&&map&&map.getLayer&&map.getLayer('places');
+
+/* Merge the wikidata sweep in once it has downloaded, dropping anything already covered
+   by your list or by the curated recs (which carry a hand-written "why"). */
+function mergeWorld(d){
+  const ix={};(d.fields||[]).forEach((f,i)=>ix[f]=i);
+  const cats=d.cats||[],ctry=d.countries||[];
+  /* Dedupe ONLY against the curated recs and your ★ list, so a famous place doesn't get
+     two pins. Deliberately not against the sweep itself: place names repeat constantly at
+     this scale ("Town Hall", "St Peter's Church", dozens of "Black Lake"s), and folding
+     them together by name would silently delete thousands of genuinely distinct places. */
+  const have=new Set(WORLD.map(r=>normName(r.n)));
+  let added=0;
+  for(const row of (d.places||[])){
+    const n=row[ix.n];if(!n)continue;
+    if(have.has(normName(n)))continue;
+    const c=ctry[row[ix.ci]]||['',''];
+    WORLD.push({_id:'W'+row[ix.id],n,lat:row[ix.lat],lng:row[ix.lng],
+                k:cats[row[ix.k]]||'nature',c:c[0],cont:c[1],
+                w:row[ix.w]||n,sl:row[ix.sl],src:'wd'});
+    added++;
+  }
+  return added;
+}
+
 /* ---------------- filtering ---------------- */
 function visibleRec(r){
   if(state.mineOnly&&r.src!=='mine')return false;
   if(state.cont!=='all'&&r.cont!==state.cont)return false;
   if(state.country&&r.c!==state.country)return false;
   if(!state.cats.has(r.k))return false;
-  if(state.q){const q=state.q;const hay=(r.n+' '+r.c+' '+(r.why||'')+' '+(r.addr||'')).toLowerCase();
+  if(state.q){const q=state.q;const hay=(r.n+' '+r.c+' '+(r.why||'')+' '+(r.desc||'')+' '+(r.addr||'')).toLowerCase();
     if(!hay.includes(q))return false;}
   return true;
+}
+/* same predicate, expressed for the GPU layer */
+function worldFilter(){
+  if(state.mineOnly)return ['==',['literal',1],['literal',0]];   // hide the layer entirely
+  const f=['all',['in',['get','k'],['literal',[...state.cats]]]];
+  if(state.cont!=='all')f.push(['==',['get','cont'],state.cont]);
+  if(state.country)f.push(['==',['get','c'],state.country]);
+  if(state.q)f.push(['in',state.q,['get','blob']]);
+  return f;
 }
 function refresh(fit=true){
   let n=0,vis=[];
   markers.forEach(m=>{const v=visibleRec(m.r);m.el.classList.toggle('hidden',!v);if(v){n++;vis.push(m.r);}});
-  $('#count').innerHTML=`<b>${n}</b> / ${RX.length} 箇所`+(_mine.length?`<span class="minec">★${_mine.length} yours</span>`:'');
+  if(worldLive())map.setFilter('places',worldFilter());
+  if(!state.mineOnly){
+    for(let i=0;i<WORLD.length;i++){const r=WORLD[i];
+      if(visibleRec(r)){n++;if(vis.length<3000)vis.push(r);}}
+  }
+  const tot=WORLD.length+_mine.length;
+  $('#count').innerHTML=`<b>${n.toLocaleString()}</b> / ${tot.toLocaleString()} 箇所`
+    +(_mine.length?`<span class="minec">★${_mine.length} yours</span>`:'');
   if(fit&&mapReady&&vis.length)fitTo(vis);
 }
 function fitTo(recs){
@@ -269,14 +375,20 @@ function fitTo(recs){
 }
 
 /* ---------------- continent tabs ---------------- */
+/* counts come from the whole pool (your list + curated + wikidata), recomputed after the
+   sweep lands so the tabs/chips/legend reflect what is actually on the map */
+/* memoised: this is ~165k entries and the tabs/chips/legend each ask for it */
+let _pool=null;
+function pool(){return _pool||(_pool=_mine.concat(WORLD));}
+function poolChanged(){_pool=null;}
 function buildConts(){
-  const wrap=$('#conts');wrap.innerHTML='';
+  const P=pool(),wrap=$('#conts');wrap.innerHTML='';
   CONTS.forEach(([code,ja,en])=>{
-    const cnt=code==='all'?RX.length:RX.filter(r=>r.cont===code).length;
+    const cnt=code==='all'?P.length:P.filter(r=>r.cont===code).length;
     if(code!=='all'&&!cnt)return;
     const b=document.createElement('button');
     b.className=code===state.cont?'on':'';
-    b.innerHTML=`${ja}<span class="c">${en} ${cnt}</span>`;
+    b.innerHTML=`${ja}<span class="c">${en} ${cnt.toLocaleString()}</span>`;
     b.onclick=()=>{state.cont=code;state.country=null;$$('#conts button').forEach(x=>x.classList.remove('on'));
       b.classList.add('on');buildCountries();refresh();};
     wrap.appendChild(b);
@@ -286,10 +398,10 @@ function buildCountries(){
   const box=$('#countries');
   if(state.cont==='all'){box.classList.add('hide');box.innerHTML='';return;}
   box.classList.remove('hide');box.innerHTML='';
-  const counts={};RX.filter(r=>r.cont===state.cont).forEach(r=>counts[r.c]=(counts[r.c]||0)+1);
+  const counts={};pool().forEach(r=>{if(r.cont===state.cont)counts[r.c]=(counts[r.c]||0)+1;});
   Object.entries(counts).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])).forEach(([c,n])=>{
     const b=document.createElement('button');b.className=c===state.country?'on':'';
-    b.innerHTML=`${c}<span class="c">${n}</span>`;
+    b.innerHTML=`${c}<span class="c">${n.toLocaleString()}</span>`;
     b.onclick=()=>{state.country=(state.country===c?null:c);buildCountries();refresh();};
     box.appendChild(b);
   });
@@ -297,12 +409,14 @@ function buildCountries(){
 
 /* ---------------- category legend/filter ---------------- */
 function buildCats(){
-  const box=$('#cats');box.innerHTML='<div class="hd">CATEGORY · カテゴリ</div>';
+  const P=pool(),box=$('#cats');box.innerHTML='<div class="hd">CATEGORY · カテゴリ</div>';
+  const kc={};P.forEach(r=>kc[r.k]=(kc[r.k]||0)+1);
   CATORDER.forEach(k=>{
-    const cnt=RX.filter(r=>r.k===k).length;if(!cnt)return;
+    const cnt=kc[k]||0;if(!cnt)return;
     const b=document.createElement('button');b.dataset.k=k;
+    b.classList.toggle('off',!state.cats.has(k));
     b.innerHTML=`<span class="sw" style="background:${CATS[k].c}"></span>`+
-      `<span class="n">${CATS[k].e} ${CATS[k].ja}</span><span class="ct">${cnt}</span>`;
+      `<span class="n">${CATS[k].e} ${CATS[k].ja}</span><span class="ct">${cnt.toLocaleString()}</span>`;
     b.onclick=()=>{state.cats.has(k)?state.cats.delete(k):state.cats.add(k);
       b.classList.toggle('off',!state.cats.has(k));refresh(false);};
     box.appendChild(b);
@@ -317,21 +431,58 @@ function buildCats(){
 }
 
 /* ---------------- detail panel ---------------- */
-let activeEl=null;
-function openDetail(r){
-  const cat=CATS[r.k]||{};
+let activeEl=null,detailSeq=0;
+const enwiki=t=>'https://en.wikipedia.org/wiki/'+encodeURIComponent(t.replace(/ /g,'_'));
+
+/* Wikidata places carry no text or photo in places.json — both come from this one call
+   when a place is actually opened, which is what keeps ~100k rows down to a few MB.
+   Cached on the record, so reopening is instant. */
+/* `fallback` matters: asking Commons for a width larger than the source file 400s, so the
+   upscaled URL is only an attempt — on failure we drop back to the thumbnail the API gave
+   us, and only then to the emoji placeholder. */
+function setPhoto(url,emoji,fallback){
   const ph=$('#dph');
-  ph.setAttribute('data-e',cat.e||'📍');
-  ph.querySelectorAll('img').forEach(i=>i.remove());ph.classList.remove('noimg');
-  if(r.img){const im=new Image();im.loading='lazy';im.alt=r.n;
-    im.onerror=()=>{im.remove();ph.classList.add('noimg');};im.src=r.img;ph.appendChild(im);}
-  else{ph.classList.add('noimg');}
+  ph.setAttribute('data-e',emoji||'📍');
+  ph.querySelectorAll('img').forEach(i=>i.remove());
+  if(!url){ph.classList.add('noimg');return;}
+  ph.classList.remove('noimg');
+  const im=new Image();im.loading='lazy';im.alt='';
+  im.onerror=()=>{
+    if(fallback&&im.src!==fallback){im.src=fallback;return;}
+    im.remove();ph.classList.add('noimg');
+  };
+  im.src=url;ph.appendChild(im);
+}
+async function hydrate(r,seq){
+  if(r.src!=='wd'||r._done||!r.w)return;
+  try{
+    const res=await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/'
+      +encodeURIComponent(r.w.replace(/ /g,'_')));
+    if(!res.ok)return;
+    const j=await res.json();
+    r._done=1;
+    r._full=(j.extract||'').trim();
+    const t=j.thumbnail&&j.thumbnail.source;
+    r._thumb=t||'';
+    r._img=t?t.replace(/\/\d+px-/,'/600px-'):'';
+    if(seq!==detailSeq)return;                       // user already opened another place
+    if(r._full)$('#ddesc').textContent=r._full;
+    if(r._img)setPhoto(r._img,(CATS[r.k]||{}).e,r._thumb);
+  }catch(e){}
+}
+function openDetail(r){
+  const seq=++detailSeq, cat=CATS[r.k]||{};
+  setPhoto(r.src==='wd'?(r._img||''):r.img, cat.e, r._thumb);
   $('#dcat').textContent=`${cat.e||''} ${cat.ja||r.k}`;$('#dcat').style.background=cat.c||'#b0413e';
   $('#dname').textContent=r.n;
   $('#dloc').textContent=`${r.c} · ${contJa(r.cont)}`;
   if(r.src==='mine'){
     $('#dwhy').textContent='あなたの「行きたい場所」リストより · from your saved list';$('#dwhy').style.display='block';
     $('#ddesc').textContent=r.desc||r.addr||'';
+  }else if(r.src==='wd'){
+    $('#dwhy').style.display='none';
+    $('#ddesc').textContent=r._full||r.desc||'';
+    hydrate(r,seq);
   }else{
     $('#dwhy').textContent=r.why||'';$('#dwhy').style.display=r.why?'block':'none';
     $('#ddesc').textContent=r.desc||'';
@@ -339,7 +490,7 @@ function openDetail(r){
   const w=$('#dwiki');
   if(r.src==='mine'){w.href=`https://www.google.com/maps/search/?api=1&query=${r.lat},${r.lng}`;
     w.textContent='Google Mapsで開く →';w.style.display='';}
-  else if(r.wiki){w.href=r.wiki;w.textContent='Wikipediaで読む →';w.style.display='';}
+  else if(r.wiki||r.w){w.href=r.wiki||enwiki(r.w);w.textContent='Wikipediaで読む →';w.style.display='';}
   else{w.style.display='none';}
   $('#dcoord').textContent=`${r.lat.toFixed(3)}, ${r.lng.toFixed(3)}`;
   document.body.classList.add('open');
@@ -372,8 +523,28 @@ $('#catstoggle').onclick=()=>{$('#cats').classList.toggle('min');
 if(isMobile){$('#cats').classList.add('min');$('#catstoggle').textContent='凡例 ▲';}
 
 /* ---------------- boot ---------------- */
+/* The wikidata sweep is fetched rather than <script>-tagged: the page is usable with your
+   list + the curated recs immediately, and the long tail slots in when it arrives. */
+function reindex(){WORLD.forEach((r,i)=>{if(!r._id)r._id='R'+i;byId.set(r._id,r);});}
+async function loadWorld(){
+  try{
+    const res=await fetch('assets/moto/places.json',{cache:'force-cache'});
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const d=await res.json();
+    const added=mergeWorld(d);
+    if(!added)return;
+    reindex();poolChanged();
+    if(worldLive())map.getSource('places').setData(worldGeoJSON());
+    buildConts();buildCountries();buildCats();refresh(false);
+  }catch(e){console.warn('places.json unavailable — showing curated set only:',e.message);}
+}
+reindex();
 buildConts();buildCountries();buildCats();
-if(RX.length){$('#count').innerHTML=`<b>${RX.length}</b> / ${RX.length} 箇所`;initMap();}
+if(WORLD.length||_mine.length){
+  const tot=WORLD.length+_mine.length;
+  $('#count').innerHTML=`<b>${tot.toLocaleString()}</b> / ${tot.toLocaleString()} 箇所`;
+  initMap();
+}
 else{$('#hint').textContent='recs.js が空です — enrich スクリプトを実行してください';}
 </script>
 </body>

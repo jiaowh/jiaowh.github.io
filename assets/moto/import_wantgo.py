@@ -221,7 +221,16 @@ def geocode_name(name, addr, country, cache):
 
 
 # hand-placed coords for the rare entry Nominatim can't resolve at all
-OVERRIDES = {"cheung chau": [22.208806, 114.028611]}
+OVERRIDES = {"cheung chau": [22.208806, 114.028611],
+             # Aymara "black lake"; three lakes share the name, this is the La Paz /
+             # Cordillera Real one. Unknown to Nominatim -> coords from Wikipedia.
+             "ch'iyar quta": [-16.195, -68.243889]}
+
+# Picks added by hand that are NOT in the Google Maps list. Appended after the CSV
+# rows so a rebuild keeps them instead of silently dropping them. (name, addr, country)
+EXTRA = [("Ch'iyar Quta",
+          "Cordillera Real, Pucarani, Los Andes Province, La Paz Department, Bolivia",
+          "Bolivia")]
 
 
 def place(name, addr, country, cache):
@@ -271,6 +280,18 @@ def main():
             continue
         out.append({"n": name, "c": country, "cont": rb.continent_of(country), "k": cat,
                     "lat": coord[0], "lng": coord[1], "addr": addr, "src": "mine"})
+
+    for name, addr, country in EXTRA:  # hand-added picks, not in the Google list
+        if wnorm(name) in seen:
+            continue
+        seen.add(wnorm(name))
+        coord = place(name, addr, country, cache)
+        if not coord:
+            misses.append(f"{name}  |  {addr}")
+            continue
+        out.append({"n": name, "c": country, "cont": rb.continent_of(country),
+                    "k": classify(name), "lat": coord[0], "lng": coord[1],
+                    "addr": addr, "src": "mine"})
     CACHE.write_text(json.dumps(cache, ensure_ascii=False), encoding="utf-8")
 
     # stable ids
