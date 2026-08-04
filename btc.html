@@ -134,17 +134,17 @@
       <label title="When a cycle runs past its window and price is still dropping, keep searching to the true low and start the next count there."><input type="checkbox" id="tChase_d" checked>Chase stretched lows</label>
       <label title="Shaded band projects the next expected daily cycle-low timing window."><input type="checkbox" id="tWin_d" checked><span class="sw" style="background:var(--amber)"></span>Next DCL window</label>
       <label title="200-bar SMA regime: the line runs green while price closes above it, red below, and the chart takes a faint red tint underneath. The 2026-07 audit's single strongest filter — triggers taken below it lost money."><input type="checkbox" id="tSMA_d" checked><span class="sw" style="background:var(--up)"></span>SMA200 regime</label>
-      <label title="Turtle exit rails: the Donchian-20 lower channel from the last confirmed cycle low forward (trailing exit) plus the 2N initial stop, close - 2xATR(20), of the newest trigger bar. Exit on a close below whichever is higher."><input type="checkbox" id="tRail_d" checked><span class="sw" style="background:rgba(255,176,0,0.55)"></span>Exit rails · D20 / 2N</label>
+      <label title="Turtle exit rail: the Donchian-20 lower channel from the last confirmed cycle low forward. Exit on a close below the rail; it ratchets up as the trade advances and never falls."><input type="checkbox" id="tRail_d" checked><span class="sw" style="background:rgba(255,176,0,0.55)"></span>Exit rail · D20</label>
       <label title="Bollinger reversion sleeve (off by default): BB(20,2) mid + lower band, with a cyan dot wherever price closes below the lower band while still above SMA200 — a separate quick trade that targets the mid band."><input type="checkbox" id="tBB_d"><span class="sw" style="background:var(--cyan)"></span>BB reversion sleeve</label>
       <span class="integrity" id="integrity_d" style="margin-left:auto"></span>
     </div>
     <div id="chart_d" class="chartbox"></div>
     <div class="siglegend">
-      <span class="lg"><span class="gl" style="color:#3fb950">&#9650;</span><b style="color:#3fb950">ENT</b> / <span class="gl" style="color:rgba(63,185,80,0.5)">&#9650;</span>trg &mdash; causal trigger bars, never repaint</span>
+      <span class="lg"><span class="gl" style="color:rgba(63,185,80,0.5)">&#9679;</span>low &rarr; <span class="gl" style="color:#3fb950">&#9650;</span><b style="color:#3fb950">trg</b> &mdash; the low and the close that confirmed it, causal, never repaints</span>
       <span class="lg"><span class="gl" style="color:rgba(255,176,0,0.55)">&#9679;</span>DCL <span class="gl" style="color:rgba(56,189,248,0.5)">&#9650;</span>WCL &mdash; hindsight labels, they repaint</span>
-      <span class="lg"><span class="dsh" style="border-top-color:var(--amber)"></span>TRIG <span class="dsh" style="border-top-color:var(--down)"></span>INVAL</span>
+      <span class="lg"><span class="dsh" style="border-top-color:var(--amber)"></span>TRIG &mdash; the close that confirms the low</span>
       <span class="lg"><span class="ln2" style="border-top-color:#3fb950"></span><span class="ln2" style="border-top-color:#f85149"></span>SMA200 regime &middot; red tint = below</span>
-      <span class="lg"><span class="ln2" style="border-top-color:rgba(255,176,0,0.55)"></span>D20 rail <span class="dsh" style="border-top-color:rgba(255,176,0,0.45)"></span>2N stop</span>
+      <span class="lg"><span class="ln2" style="border-top-color:rgba(255,176,0,0.55)"></span>D20 rail &mdash; trailing exit</span>
       <span class="lg"><span class="gl" style="color:var(--cyan)">&#9679;</span>BB reversion &mdash; opt-in sleeve</span>
     </div>
     <div class="imacd-head">
@@ -184,17 +184,17 @@
       <label title="When a cycle runs past its window and price is still dropping, keep searching to the true low and start the next count there."><input type="checkbox" id="tChase_h" checked>Chase stretched lows</label>
       <label title="Shaded band projects the next expected 4H cycle-low timing window."><input type="checkbox" id="tWin_h" checked><span class="sw" style="background:var(--amber)"></span>Next 4H window</label>
       <label title="200-bar SMA regime: the line runs green while price closes above it, red below, and the chart takes a faint red tint underneath. The 2026-07 audit's single strongest filter — triggers taken below it lost money."><input type="checkbox" id="tSMA_h" checked><span class="sw" style="background:var(--up)"></span>SMA200 regime</label>
-      <label title="Turtle exit rails: the Donchian-20 lower channel from the last confirmed cycle low forward (trailing exit) plus the 2N initial stop, close - 2xATR(20), of the newest trigger bar. Exit on a close below whichever is higher."><input type="checkbox" id="tRail_h" checked><span class="sw" style="background:rgba(255,176,0,0.55)"></span>Exit rails · D20 / 2N</label>
+      <label title="Turtle exit rail: the Donchian-20 lower channel from the last confirmed cycle low forward. Exit on a close below the rail; it ratchets up as the trade advances and never falls."><input type="checkbox" id="tRail_h" checked><span class="sw" style="background:rgba(255,176,0,0.55)"></span>Exit rail · D20</label>
       <label title="Bollinger reversion sleeve (off by default): BB(20,2) mid + lower band, with a cyan dot wherever price closes below the lower band while still above SMA200 — a separate quick trade that targets the mid band."><input type="checkbox" id="tBB_h"><span class="sw" style="background:var(--cyan)"></span>BB reversion sleeve</label>
       <span class="integrity" id="integrity_h" style="margin-left:auto"></span>
     </div>
     <div id="chart_h" class="chartbox"></div>
     <div class="siglegend">
-      <span class="lg"><span class="gl" style="color:#3fb950">&#9650;</span><b style="color:#3fb950">ENT</b> / <span class="gl" style="color:rgba(63,185,80,0.5)">&#9650;</span>trg &mdash; causal trigger bars, never repaint</span>
+      <span class="lg"><span class="gl" style="color:rgba(63,185,80,0.5)">&#9679;</span>low &rarr; <span class="gl" style="color:#3fb950">&#9650;</span><b style="color:#3fb950">trg</b> &mdash; the low and the close that confirmed it, causal, never repaints</span>
       <span class="lg"><span class="gl" style="color:rgba(255,176,0,0.55)">&#9679;</span>DCL <span class="gl" style="color:rgba(56,189,248,0.5)">&#9650;</span>WCL &mdash; hindsight labels, they repaint</span>
-      <span class="lg"><span class="dsh" style="border-top-color:var(--amber)"></span>TRIG <span class="dsh" style="border-top-color:var(--down)"></span>INVAL</span>
+      <span class="lg"><span class="dsh" style="border-top-color:var(--amber)"></span>TRIG &mdash; the close that confirms the low</span>
       <span class="lg"><span class="ln2" style="border-top-color:#3fb950"></span><span class="ln2" style="border-top-color:#f85149"></span>SMA200 regime &middot; red tint = below</span>
-      <span class="lg"><span class="ln2" style="border-top-color:rgba(255,176,0,0.55)"></span>D20 rail <span class="dsh" style="border-top-color:rgba(255,176,0,0.45)"></span>2N stop</span>
+      <span class="lg"><span class="ln2" style="border-top-color:rgba(255,176,0,0.55)"></span>D20 rail &mdash; trailing exit</span>
       <span class="lg"><span class="gl" style="color:var(--cyan)">&#9679;</span>BB reversion &mdash; opt-in sleeve</span>
     </div>
     <div class="imacd-head">
@@ -234,17 +234,17 @@
       <label title="When a cycle runs past its window and price is still dropping, keep searching to the true low and start the next count there."><input type="checkbox" id="tChase_1h" checked>Chase stretched lows</label>
       <label title="Shaded band projects the next expected 1H cycle-low timing window."><input type="checkbox" id="tWin_1h" checked><span class="sw" style="background:var(--amber)"></span>Next 1H window</label>
       <label title="200-bar SMA regime: the line runs green while price closes above it, red below, and the chart takes a faint red tint underneath. The 2026-07 audit's single strongest filter — triggers taken below it lost money."><input type="checkbox" id="tSMA_1h" checked><span class="sw" style="background:var(--up)"></span>SMA200 regime</label>
-      <label title="Turtle exit rails: the Donchian-20 lower channel from the last confirmed cycle low forward (trailing exit) plus the 2N initial stop, close - 2xATR(20), of the newest trigger bar. Exit on a close below whichever is higher."><input type="checkbox" id="tRail_1h" checked><span class="sw" style="background:rgba(255,176,0,0.55)"></span>Exit rails · D20 / 2N</label>
+      <label title="Turtle exit rail: the Donchian-20 lower channel from the last confirmed cycle low forward. Exit on a close below the rail; it ratchets up as the trade advances and never falls."><input type="checkbox" id="tRail_1h" checked><span class="sw" style="background:rgba(255,176,0,0.55)"></span>Exit rail · D20</label>
       <label title="Bollinger reversion sleeve (off by default): BB(20,2) mid + lower band, with a cyan dot wherever price closes below the lower band while still above SMA200 — a separate quick trade that targets the mid band."><input type="checkbox" id="tBB_1h"><span class="sw" style="background:var(--cyan)"></span>BB reversion sleeve</label>
       <span class="integrity" id="integrity_1h" style="margin-left:auto"></span>
     </div>
     <div id="chart_1h" class="chartbox"></div>
     <div class="siglegend">
-      <span class="lg"><span class="gl" style="color:#3fb950">&#9650;</span><b style="color:#3fb950">ENT</b> / <span class="gl" style="color:rgba(63,185,80,0.5)">&#9650;</span>trg &mdash; causal trigger bars, never repaint</span>
+      <span class="lg"><span class="gl" style="color:rgba(63,185,80,0.5)">&#9679;</span>low &rarr; <span class="gl" style="color:#3fb950">&#9650;</span><b style="color:#3fb950">trg</b> &mdash; the low and the close that confirmed it, causal, never repaints</span>
       <span class="lg"><span class="gl" style="color:rgba(255,176,0,0.55)">&#9679;</span>DCL <span class="gl" style="color:rgba(56,189,248,0.5)">&#9650;</span>WCL &mdash; hindsight labels, they repaint</span>
-      <span class="lg"><span class="dsh" style="border-top-color:var(--amber)"></span>TRIG <span class="dsh" style="border-top-color:var(--down)"></span>INVAL</span>
+      <span class="lg"><span class="dsh" style="border-top-color:var(--amber)"></span>TRIG &mdash; the close that confirms the low</span>
       <span class="lg"><span class="ln2" style="border-top-color:#3fb950"></span><span class="ln2" style="border-top-color:#f85149"></span>SMA200 regime &middot; red tint = below</span>
-      <span class="lg"><span class="ln2" style="border-top-color:rgba(255,176,0,0.55)"></span>D20 rail <span class="dsh" style="border-top-color:rgba(255,176,0,0.45)"></span>2N stop</span>
+      <span class="lg"><span class="ln2" style="border-top-color:rgba(255,176,0,0.55)"></span>D20 rail &mdash; trailing exit</span>
       <span class="lg"><span class="gl" style="color:var(--cyan)">&#9679;</span>BB reversion &mdash; opt-in sleeve</span>
     </div>
     <div class="imacd-head">
@@ -284,17 +284,17 @@
       <label title="When a cycle runs past its window and price is still dropping, keep searching to the true low and start the next count there."><input type="checkbox" id="tChase_5m" checked>Chase stretched lows</label>
       <label title="Shaded band projects the next expected 5M cycle-low timing window."><input type="checkbox" id="tWin_5m" checked><span class="sw" style="background:var(--amber)"></span>Next 5M window</label>
       <label title="200-bar SMA regime: the line runs green while price closes above it, red below, and the chart takes a faint red tint underneath. The 2026-07 audit's single strongest filter — triggers taken below it lost money."><input type="checkbox" id="tSMA_5m" checked><span class="sw" style="background:var(--up)"></span>SMA200 regime</label>
-      <label title="Turtle exit rails: the Donchian-20 lower channel from the last confirmed cycle low forward (trailing exit) plus the 2N initial stop, close - 2xATR(20), of the newest trigger bar. Exit on a close below whichever is higher."><input type="checkbox" id="tRail_5m" checked><span class="sw" style="background:rgba(255,176,0,0.55)"></span>Exit rails · D20 / 2N</label>
+      <label title="Turtle exit rail: the Donchian-20 lower channel from the last confirmed cycle low forward. Exit on a close below the rail; it ratchets up as the trade advances and never falls."><input type="checkbox" id="tRail_5m" checked><span class="sw" style="background:rgba(255,176,0,0.55)"></span>Exit rail · D20</label>
       <label title="Bollinger reversion sleeve (off by default): BB(20,2) mid + lower band, with a cyan dot wherever price closes below the lower band while still above SMA200 — a separate quick trade that targets the mid band."><input type="checkbox" id="tBB_5m"><span class="sw" style="background:var(--cyan)"></span>BB reversion sleeve</label>
       <span class="integrity" id="integrity_5m" style="margin-left:auto"></span>
     </div>
     <div id="chart_5m" class="chartbox"></div>
     <div class="siglegend">
-      <span class="lg"><span class="gl" style="color:#3fb950">&#9650;</span><b style="color:#3fb950">ENT</b> / <span class="gl" style="color:rgba(63,185,80,0.5)">&#9650;</span>trg &mdash; causal trigger bars, never repaint</span>
+      <span class="lg"><span class="gl" style="color:rgba(63,185,80,0.5)">&#9679;</span>low &rarr; <span class="gl" style="color:#3fb950">&#9650;</span><b style="color:#3fb950">trg</b> &mdash; the low and the close that confirmed it, causal, never repaints</span>
       <span class="lg"><span class="gl" style="color:rgba(255,176,0,0.55)">&#9679;</span>DCL <span class="gl" style="color:rgba(56,189,248,0.5)">&#9650;</span>WCL &mdash; hindsight labels, they repaint</span>
-      <span class="lg"><span class="dsh" style="border-top-color:var(--amber)"></span>TRIG <span class="dsh" style="border-top-color:var(--down)"></span>INVAL</span>
+      <span class="lg"><span class="dsh" style="border-top-color:var(--amber)"></span>TRIG &mdash; the close that confirms the low</span>
       <span class="lg"><span class="ln2" style="border-top-color:#3fb950"></span><span class="ln2" style="border-top-color:#f85149"></span>SMA200 regime &middot; red tint = below</span>
-      <span class="lg"><span class="ln2" style="border-top-color:rgba(255,176,0,0.55)"></span>D20 rail <span class="dsh" style="border-top-color:rgba(255,176,0,0.45)"></span>2N stop</span>
+      <span class="lg"><span class="ln2" style="border-top-color:rgba(255,176,0,0.55)"></span>D20 rail &mdash; trailing exit</span>
       <span class="lg"><span class="gl" style="color:var(--cyan)">&#9679;</span>BB reversion &mdash; opt-in sleeve</span>
     </div>
     <div class="imacd-head">
@@ -341,7 +341,7 @@
   <div><b>iMACD.</b> Each tab's impulse pane (LazyBear 34/9) is computed on that tab's candles. Threshold = the 55th-percentile crossover size (the major/minor split); dots mark impulse turns (green up, red down), zigzag-filtered to ignore noise. The amber band projects the next cycle-low timing window.</div>
   <div><b>RSI &amp; divergences.</b> Each tab's RSI pane is a 14-period Wilder's Relative Strength Index on that tab's closes, bounded 0–100 (70 overbought, 30 oversold, 50 midline; live reading in the header). Arrows mark <b>confirmed divergences</b> between consecutive price pivots (±3-bar extremes, so each is only known 3 bars after the pivot — a fixed, disclosed lag, no repainting): green up = price lower low with RSI higher low from an oversold first pivot ("DIV" = RSI still &lt;40 at the second, the stronger class); red down = the bearish mirror. The iMACD pane carries the same detector against the impulse line. All three panes share one time axis.</div>
 
-  <div><b>How to read.</b> <b>Entries.</b> Price above its green SMA200 (no red tint), cycle age inside the amber window, then a bar closing above the amber <span class="mono">TRIG</span> line prints a solid green <b>ENT</b> arrow on that bar — the trigger bar is fixed at its close and never moves. Dim <span class="mono">trg</span> arrows are confirmed cycle lows whose confluence score missed the gate. <b>Exits.</b> The red <span class="mono">INVAL</span> line is the hard stop, the broken cycle low; above it the dimmed <span class="mono">2N</span> level (close &minus; 2&times;ATR20 at the trigger bar) and the amber Donchian-20 rail form the trailing exit — read whichever sits higher and leave on a close below it. There is no time exit: the exit ablations measured ~49-bar holds once the rail was allowed to run. <b>BB dots</b> are a separate sleeve, not a cycle trade — a close under the lower Bollinger band while still above SMA200, covered at the mid band. <b>Arrows printed under the red tint</b> (price below SMA200) are knife-catches; that is the one bucket the audit showed losing money, so the regime shading is the filter to respect.</div>
+  <div><b>How to read.</b> <b>Entries.</b> Price above its green SMA200 (no red tint), cycle age inside the amber window, then a bar closing above the amber <span class="mono">TRIG</span> line prints a green <b>trg</b> arrow on that bar, with a dim green dot back at the low it confirmed — the pair shows the confirmation lag, and neither mark ever moves. Every confirmed low gets the same arrow: the forward audit found the confluence score did not rank lows, so the regime tint, not the marker, decides whether a trigger is worth taking. If price undercuts a confirmed low before the next timing window opens, the count re-anchors to the new low rather than holding a level price has already broken — so the arrows track the live count, unlike the dimmed <span class="mono">DCL</span> labels, which quietly relocate once the whole window is in hindsight. <b>Exits.</b> The amber Donchian-20 rail is the trailing exit: leave on a close below it. It starts at the last confirmed low and ratchets up as the trade advances, never falling. There is no time exit — the exit ablations measured ~49-bar holds once the rail was allowed to run. <b>BB dots</b> are a separate sleeve, not a cycle trade — a close under the lower Bollinger band while still above SMA200, covered at the mid band. <b>Arrows printed under the red tint</b> (price below SMA200) are knife-catches; that is the one bucket the audit showed losing money, so the regime shading is the filter to respect.</div>
   <div><b>Funding gauge.</b> The header chip reads the BTC/USDT perpetual funding rate (Binance, falling back to Bybit) and its percentile against its own trailing history — deeply negative funding at a low (p≤10, shown in green) means short-heavy perps are paying longs, a forced-seller capitulation tell; crowded-long euphoria (p≥90, red) is the mirror. This is a <b>live-only</b> read: funding history only reaches back ~333 days on the primary source, far short of the price history used elsewhere, so the score card's funding component is scored on the current bar only and is <b>excluded from all backtests and the walk-forward optimizer</b> to avoid silently truncating the sample to a cherry-picked recent window.</div>
   <div class="note"><b>Read it as structure, not prophecy.</b> Timing windows are wide and the most recent low stays provisional until price turns up, so the right edge can revise. This is a discretionary orientation and risk frame (a broken cycle low is a natural invalidation), not a forecast. A 2026-07 instrumented audit (score-gate sweeps, exit ablations, forward returns of every confirmed low vs an unconditional control, walk-forward tests) found <b>no demonstrated net edge at the default score&ge;2 gate</b> on Daily or 4-Hour — samples are tiny, two score components ran inverse to forward returns, and every optimizer pick decayed out-of-sample. Treat the signal card as decision support and let the journal accumulate forward evidence before trusting any configuration. Not investment advice.</div>
 </footer>
@@ -535,11 +535,6 @@ function smaArr(x,w){const o=[];let s=0;for(let i=0;i<x.length;i++){s+=x[i];if(i
 // blank until it owns a full lookback). bollinger uses population sigma.
 function smaN(x,w){const o=new Array(x.length).fill(NaN);let s=0;
   for(let i=0;i<x.length;i++){s+=x[i];if(i>=w)s-=x[i-w];if(i>=w-1)o[i]=s/w;}return o;}
-function atrWilder(high,low,close,p){const n=high.length,tr=new Array(n).fill(NaN),o=new Array(n).fill(NaN);
-  if(n<=p)return o;
-  for(let i=1;i<n;i++)tr[i]=Math.max(high[i]-low[i],Math.abs(high[i]-close[i-1]),Math.abs(low[i]-close[i-1]));
-  let s=0;for(let i=1;i<=p;i++)s+=tr[i];let a=s/p;o[p]=a;
-  for(let i=p+1;i<n;i++){a=(a*(p-1)+tr[i])/p;o[i]=a;}return o;}
 function bollinger(x,w,k){const n=x.length,mid=smaN(x,w),lo=new Array(n).fill(NaN),up=new Array(n).fill(NaN);
   for(let i=w-1;i<n;i++){let s=0;for(let j=i-w+1;j<=i;j++){const dv=x[j]-mid[i];s+=dv*dv;}
     const sd=Math.sqrt(s/w);lo[i]=mid[i]-k*sd;up[i]=mid[i]+k*sd;}return {mid,lo,up};}
@@ -690,9 +685,9 @@ function makeView(cfg){
   const E=cfg.el;
   let chart,candles,fastSine,slowSine,winD;
   let smaUp,smaDn,regTint,railL,bbMidS,bbLoS;
-  let sigLines=[],railLines=[];
+  let sigLines=[];
   // ONE simulateConf() result + ONE indicator pass per renderAll; every overlay
-  // (markers, TRIG/INVAL lines, regime, rails, window band, signal card) reads these.
+  // (markers, TRIG line, regime, rail, window band, signal card) reads these.
   let CONF=null,IND=null;
   let imChart,imD,imS,imThr=[];
   let rsiChart,rsiL;
@@ -783,14 +778,20 @@ function makeView(cfg){
       SLOW.forEach(i=>m.push({time:C[i].time,position:"belowBar",color:"rgba(56,189,248,0.45)",
         shape:"arrowUp",size:1,text:cfg.slow.tag}));
     }
-    // CAUSAL, NON-REPAINTING: one arrow per confirmed-low TRIGGER bar (the close that
-    // proved the turn). Solid ENT = confluence gate passed, dim trg = it missed.
+    // CAUSAL, NON-REPAINTING: one arrow per confirmed-low TRIGGER bar — the close
+    // that proved the turn. Deliberately NOT split by confluence score: the forward
+    // audit found the score did not rank lows, so a two-tier marker would imply a
+    // confidence the data doesn't support. The regime tint is the real filter.
     if(CONF&&CONF.lowsLog){
       for(const L of CONF.lowsLog){
         if(L.trigI==null||!C[L.trigI])continue;
+        // the low the trigger confirmed — pairs each arrow with its own low, so the
+        // confirmation lag is visible instead of leaving the arrow floating to the right
+        if(L.i!=null&&C[L.i]&&L.i!==L.trigI)
+          m.push({time:C[L.i].time,position:"belowBar",shape:"circle",size:1,
+            color:"rgba(63,185,80,0.5)"});
         m.push({time:C[L.trigI].time,position:"belowBar",shape:"arrowUp",
-          color:L.entered?"#3fb950":"rgba(63,185,80,0.45)",size:L.entered?2:1,
-          text:L.entered?"ENT":"trg"});
+          color:"#3fb950",size:1,text:"trg"});
       }
     }
     // Bollinger reversion sleeve: close under the lower band while above SMA200
@@ -869,7 +870,7 @@ function makeView(cfg){
   function computeInd(){
     const close=C.map(c=>c.close),high=C.map(c=>c.high),low=C.map(c=>c.low);
     const bb=bollinger(close,20,2);
-    return {close,high,low,sma200:smaN(close,200),atr20:atrWilder(high,low,close,20),
+    return {close,high,low,sma200:smaN(close,200),
       donLo:donchianLo(low,20),bbMid:bb.mid,bbLo:bb.lo};
   }
 
@@ -894,24 +895,15 @@ function makeView(cfg){
     [smaUp,smaDn,regTint].forEach(s=>s.applyOptions({visible:true}));
   }
 
-  // Turtle exit rails: the Donchian-20 lower channel drawn from the last CONFIRMED
-  // cycle low forward (the trailing exit) plus the 2N initial stop of the newest
-  // trigger bar. Live exit = a close under whichever of the two sits higher.
+  // Turtle exit rail: the Donchian-20 lower channel drawn from the last CONFIRMED
+  // cycle low forward — the trailing exit. Live exit = a close under the rail.
   function renderRail(fws){
-    railLines.forEach(({s,l})=>{try{s.removePriceLine(l)}catch(e){}});railLines=[];
     const on=$(E.tRail)?$(E.tRail).checked:true;
     if(!on||!IND||!CONF||!CONF.state){railL.applyOptions({visible:false});return;}
     const from=CONF.state.lastLowT;
     const dat=C.map((c,i)=>(c.time>=from&&!isNaN(IND.donLo[i]))?{time:c.time,value:IND.donLo[i]}:{time:c.time});
     railL.setData((fws&&fws.length)?dat.concat(fws):dat);
     railL.applyOptions({visible:true});
-    const lg=CONF.lowsLog;
-    if(lg&&lg.length){
-      const ti=lg[lg.length-1].trigI;
-      if(ti!=null&&!isNaN(IND.atr20[ti]))
-        railLines.push({s:candles,l:candles.createPriceLine({price:IND.close[ti]-2*IND.atr20[ti],
-          color:"rgba(255,176,0,0.45)",lineWidth:1,lineStyle:3,axisLabelVisible:true,title:"2N"})});
-    }
   }
 
   // Bollinger reversion sleeve (opt-in): BB(20,2) mid + lower band. Its entry dots live
@@ -925,18 +917,14 @@ function makeView(cfg){
     bbMidS.applyOptions({visible:true});bbLoS.applyOptions({visible:true});
   }
 
-  // live signal geometry on the candle series, handled like imThr: amber TRIG (the
-  // close that would confirm the low) and red INVAL (the count's invalidation).
+  // live signal geometry on the candle series, handled like imThr: amber TRIG — the
+  // close that would confirm the candidate low.
   function renderSigLines(st){
     sigLines.forEach(({s,l})=>{try{s.removePriceLine(l)}catch(e){}});sigLines=[];
     if(!st)return;
     const add=(price,color,title)=>sigLines.push({s:candles,l:candles.createPriceLine(
       {price,color,lineWidth:1,lineStyle:2,axisLabelVisible:true,title})});
     if(st.armed&&st.trigPx!=null&&!st.trigFiredOnLastBar)add(st.trigPx,"#ffb000","TRIG");
-    // early phase has no candidate/position, but the count's invalidation is still
-    // the last confirmed low — keep INVAL on screen at all times
-    const inv=st.stopPx!=null?st.stopPx:st.lastLowPx;
-    if(inv!=null)add(inv,"#f85149","INVAL");
   }
 
   function nextWindow(){
@@ -1025,8 +1013,9 @@ function makeView(cfg){
     const st=r.state,price=C[C.length-1].close;
     const chip=(on,label,title)=>`<span class="chip ${on===null?"na":on?"on":""}" title="${title}">${label}${on===null?" n/a":""}</span>`;
     let headClass="early",headText="EARLY";
-    if(st.entrySignal){headClass="fire";headText="ENTRY SIGNAL";}
-    else if(st.trigFiredOnLastBar){headClass="fire";headText="TRIGGER FIRED";}
+    // one headline for any fired trigger — the score is shown as chips below for
+    // context, but it never earned the right to grade the signal
+    if(st.trigFiredOnLastBar){headClass="fire";headText="TRIGGER FIRED";}
     else if(st.phase==="window"){headClass="window";headText="IN WINDOW"+(st.armed?" (armed)":"");}
     else if(st.phase==="overdue"){headClass="overdue";headText="OVERDUE";}
     const distPct=x=>x==null?null:((x-price)/price*100);
@@ -1124,6 +1113,7 @@ function makeView(cfg){
   function simulateConf(feePct,opts){
     opts=opts||{};
     const minScore=opts.minScore==null?2:opts.minScore;
+    const doReset=opts.reset!==false; // invalidation reset (see the state machine below)
     const ex=Object.assign({dn:true,bearDiv:true,age:true,leftFade:true},opts.exits||{});
     const trigPrev=opts.trig==="prev";
     const n=C.length,fee=feePct/100;
@@ -1149,7 +1139,7 @@ function makeView(cfg){
       return {rsi:rsiOk,div:divOk,imacd:imacdOk,trans:transOk,
         score:(rsiOk?1:0)+(divOk?2:0)+(imacdOk?1:0)+(transOk?1:0)};
     }
-    let lastLow=argmin(low,0,Math.min(cfg.fast.max,n-1)),cand=-1;
+    let lastLow=argmin(low,0,Math.min(cfg.fast.max,n-1)),cand=-1,resets=0;
     let trigFiredLast=false,trigCandLast=-1,trigLastLowLast=-1,trigLvlLast=NaN;
     let pos=null,eq=1,peakEq=1,maxDD=0;
     let closed=0,wins=0,sumR=0,sumNet=0,sumBars=0,sumMAE=0,worstMAE=0,open=0,openRet=0;
@@ -1191,6 +1181,11 @@ function makeView(cfg){
       }
       // ---- cycle state machine: candidate tracking + confirmation trigger ----
       const age=i-lastLow;
+      // INVALIDATION RESET: a low under the confirmed low breaks the count. Before the
+      // window opens there is no candidate to absorb it, so the count would otherwise
+      // sit on a low price has already traded through — re-anchor here and restart the
+      // age clock. Once armed the candidate mechanism handles new lows on its own.
+      if(doReset&&age<cfg.fast.min&&low[i]<low[lastLow]){lastLow=i;resets++;continue;}
       if(age>=cfg.fast.min){
         if(cand<0||low[i]<low[cand])cand=i;
         if(cand<i&&close[i]>(trigPrev?high[i-1]:high[cand])){
@@ -1237,7 +1232,7 @@ function makeView(cfg){
     return {barSecs:cfg.barSecs,bars:n,entries:tot,resolved:closed,open,wins,losses:closed-wins,
       winRate:closed?wins/closed:0,avgR:closed?sumR/closed:0,expNet:closed?sumNet/closed:0,
       totalRet:eq-1,maxDD,avgBars:closed?sumBars/closed:0,avgMAE:tot?sumMAE/tot:0,worstMAE,openRet,
-      state,trades,lowsLog};
+      state,trades,lowsLog,resets};
   }
   function backtestConf(feePct,opts){if(!C)return null;return simulateConf(feePct||0,opts);}
 
@@ -1344,7 +1339,9 @@ function captureSignals(){
     const compStr=["rsi","div","imacd","trans","funding"].filter(k=>comps[k]).join("+");
     JRNL.add({
       id:tab+"|"+st.barT, tab, capturedAt:new Date().toISOString(), barT:st.barT,
-      price:g.price, event:st.entrySignal?"ENTRY":"TRIGGER", score:st.score,
+      // every fired trigger logs the same event; `score` keeps the confluence detail
+      // as data so the forward record can test whether it ever predicted anything
+      price:g.price, event:"TRIGGER", score:st.score,
       comps:compStr, stopPx:st.stopPx, trigPx:st.trigPx,
       fundingPct:(window.FUNDING&&window.FUNDING.ready)?window.FUNDING.pctile:null
     });
