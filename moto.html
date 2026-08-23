@@ -38,14 +38,34 @@ body.nomap{background:var(--paper2)}
 #topbar{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;gap:14px;
   padding:10px 16px;pointer-events:none}
 #topbar>*{pointer-events:auto}
-#brand{font-weight:600;letter-spacing:.16em;font-size:15px;color:var(--ink);text-decoration:none;
-  background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:5px 12px;
-  box-shadow:0 2px 8px rgba(60,40,10,.15)}
-#brand small{color:var(--dim);letter-spacing:.28em;margin-left:8px;font-size:10px}
 #topbar .spacerflex{flex:1}
 .tbtn{background:var(--paper);border:1px solid var(--line);border-radius:3px;color:var(--ink);
   font-size:12px;padding:5px 11px;box-shadow:0 2px 8px rgba(60,40,10,.12)}
 .tbtn:hover{background:#fff8e7}
+html,body{overflow-x:hidden}
+
+/* ---------- shelf toggle tab ---------- */
+#shelftab{position:fixed;z-index:19;background:var(--paper);border:1px solid var(--line);color:var(--ink);
+  cursor:pointer;box-shadow:0 3px 12px rgba(60,40,10,.22);font-family:var(--serif);font-weight:600;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  transition:right .45s cubic-bezier(.4,0,.2,1),bottom .45s cubic-bezier(.4,0,.2,1),background .2s}
+#shelftab:hover{background:#fff8e7}
+#shelftab .cv{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;
+  border-bottom:6px solid currentColor;transition:transform .3s}
+@media (min-width:900px){
+  #shelftab{right:0;top:50%;transform:translateY(-50%);flex-direction:column;
+    writing-mode:vertical-rl;text-orientation:upright;letter-spacing:.22em;font-size:14px;
+    padding:18px 8px;border-right:none;border-radius:8px 0 0 8px}
+  body.shelf-open #shelftab{right:33.4vw}
+  #shelftab .cv{transform:rotate(-90deg)}
+  body.shelf-open #shelftab .cv{transform:rotate(90deg)}
+}
+@media (max-width:899px){
+  #shelftab{left:50%;transform:translateX(-50%);bottom:0;
+    padding:9px 26px;letter-spacing:.22em;font-size:13px;border-bottom:none;border-radius:11px 11px 0 0}
+  body.shelf-open #shelftab{bottom:86vh}
+  body.shelf-open #shelftab .cv{transform:rotate(180deg)}
+}
 
 /* ---------- HUD gauge cluster ---------- */
 #hud{position:fixed;left:14px;bottom:14px;z-index:16;display:flex;gap:10px;align-items:flex-end;
@@ -62,18 +82,16 @@ body.panelup #hud,body.injourney #hud{opacity:0;pointer-events:none;transform:tr
 .odo .reel:last-child .strip{color:#e88f4a}
 .gauge .big{font:600 19px/22px 'Courier New',monospace;color:#f3e3ae}
 
-/* ---------- scroll structure ---------- */
-#scroller{position:relative;z-index:8;pointer-events:none} /* let the map receive mouse events */
-.mapwindow{height:72vh}
+/* ---------- shelf drawer (slide-out; closed by default) ---------- */
+#scroller{position:fixed;z-index:12;pointer-events:auto;overflow-y:auto;overscroll-behavior:contain;
+  background:var(--paper);scroll-behavior:smooth;transition:transform .45s cubic-bezier(.4,0,.2,1)}
+.mapwindow{display:none}
 #panel{pointer-events:auto;position:relative;background:var(--paper);border-top:2px solid var(--line);
   box-shadow:0 -14px 40px rgba(60,40,10,.3);min-height:60vh;padding:0 0 90px}
 #panel::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.6;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .42 0 0 0 0 .28 0 0 0 .04 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E")}
 .inner{position:relative;max-width:1060px;margin:0 auto;padding:0 22px}
-.ph{display:flex;align-items:baseline;gap:14px;padding:38px 0 6px;border-bottom:2px dashed var(--line);margin-bottom:26px}
-.ph h2{font-size:24px;letter-spacing:.1em;font-weight:600}
-.ph .en{font-size:11px;letter-spacing:.3em;color:var(--dim)}
-.pull{width:56px;height:5px;border-radius:3px;background:var(--line);margin:14px auto 0}
+.pull{width:56px;height:5px;border-radius:3px;background:var(--line);margin:12px auto 2px;cursor:pointer}
 
 /* ---------- shelf cards ---------- */
 #shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:26px;padding:8px 0 20px}
@@ -228,20 +246,24 @@ body.panelup #hud,body.injourney #hud{opacity:0;pointer-events:none;transform:tr
 #toast.show{transform:none}
 #toast .tt{font-family:var(--hand);color:var(--dim);font-size:14px}
 
-/* ---------- desktop split view: map left 2/3, panel right 1/3 ---------- */
+/* ---------- desktop: map is full-screen; shelf slides in from the right ---------- */
 @media (min-width:900px){
-  #map{right:33.4vw}
-  #topbar{right:33.4vw}
-  #ride{right:33.4vw}
-  #scroller{position:fixed;right:0;top:0;bottom:0;width:33.4vw;overflow-y:auto;
-    overscroll-behavior:contain;pointer-events:auto;z-index:12;scroll-behavior:smooth}
-  .mapwindow,.pull{display:none}
-  #panel{min-height:100%;border-top:none;border-left:2px solid var(--line);
-    box-shadow:-12px 0 36px rgba(60,40,10,.25);padding-bottom:60px}
-  .inner{padding:0 20px}
-  .ph{padding-top:24px}
+  #scroller{top:0;bottom:0;right:0;width:33.4vw;transform:translateX(100%);
+    border-left:2px solid var(--line);box-shadow:-16px 0 42px rgba(60,40,10,.28)}
+  body.shelf-open #scroller{transform:translateX(0)}
+  .pull{display:none}
+  #panel{min-height:100%;border-top:none;box-shadow:none;padding-bottom:60px}
+  .inner{padding:54px 20px 0}
   #shelf{grid-template-columns:1fr}
-  body.panelup #scroller{opacity:.15;pointer-events:none;transition:opacity .5s}
+  body.panelup #scroller{opacity:.15;pointer-events:none}
+}
+/* ---------- phone/tablet: shelf slides up as a bottom sheet ---------- */
+@media (max-width:899px){
+  #scroller{left:0;right:0;bottom:0;top:auto;height:86vh;transform:translateY(100%);
+    border-radius:16px 16px 0 0;box-shadow:0 -16px 44px rgba(60,40,10,.4)}
+  body.shelf-open #scroller{transform:translateY(0)}
+  body.shelf-open #hud{opacity:0;pointer-events:none;transform:translateY(16px)}
+  #panel{min-height:100%;border-top:none;box-shadow:none}
 }
 /* stop detail panel (desktop pin click) */
 #view-stop .back{background:none;border:none;color:var(--dim);font-size:13px;letter-spacing:.12em;padding:22px 0 4px}
@@ -264,7 +286,6 @@ body.panelup #hud,body.injourney #hud{opacity:0;pointer-events:none;transform:tr
 
 /* ---------- mobile ---------- */
 @media (max-width:820px){
-  .mapwindow{height:52vh}
   #hud{left:8px;bottom:8px;gap:6px}
   .gauge{min-width:0;padding:7px 9px 5px}
   #topbar{padding:8px 10px}
@@ -289,10 +310,11 @@ body.panelup #hud,body.injourney #hud{opacity:0;pointer-events:none;transform:tr
 <div class="vignette"></div>
 
 <header id="topbar">
-  <a id="brand" href="#" title="atlas">MOTO VAULT<small>走行記憶庫</small></a>
   <span class="spacerflex"></span>
   <button class="tbtn" id="mutebtn">♪</button>
 </header>
+
+<button id="shelftab" aria-label="旅の棚" aria-expanded="false"><span class="cv"></span><span class="lb">旅の棚</span></button>
 
 <div id="hud">
   <div class="gauge"><span class="odo" id="odo-main"></span><div class="lab">ODO · KM</div></div>
@@ -305,7 +327,6 @@ body.panelup #hud,body.injourney #hud{opacity:0;pointer-events:none;transform:tr
     <div class="inner">
 
       <div id="view-atlas">
-        <div class="ph"><h2>旅の棚</h2><span class="en">THE SHELF — EVERY RIDE SO FAR</span></div>
         <div id="shelf"></div>
       </div>
 
@@ -347,7 +368,14 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const isMobile=matchMedia('(max-width:820px), (pointer:coarse)').matches;
 const isSplit=matchMedia('(min-width:900px)').matches; // desktop split view: map left, panel right
 const reduced=matchMedia('(prefers-reduced-motion:reduce)').matches;
-const toTop=()=>{if(isSplit)$('#scroller').scrollTo({top:0});else window.scrollTo({top:0});};
+const toTop=()=>{$('#scroller').scrollTo({top:0});};
+/* shelf drawer open/close */
+function setShelf(open){document.body.classList.toggle('shelf-open',open);
+  const t=$('#shelftab');if(t)t.setAttribute('aria-expanded',open?'true':'false');}
+const shelfOpen=()=>document.body.classList.contains('shelf-open');
+/* extra fit padding so the drawer never hides the route/pins when it's open */
+const drawerRightPad=()=>shelfOpen()&&isSplit?Math.round(innerWidth*0.334):0;
+const drawerBottomPad=()=>shelfOpen()&&!isSplit?Math.round(innerHeight*0.86):0;
 const store={get:k=>{try{return localStorage.getItem('motovault-'+k)}catch(e){return null}},
              set:(k,v)=>{try{localStorage.setItem('motovault-'+k,v)}catch(e){}}};
 
@@ -696,6 +724,7 @@ function closeStopPanel(){
 function showStopPanel(j,gi){
   const s=j.geoStops[gi],si=j.stops.indexOf(s);
   const inJ=state.j===j.id;
+  setShelf(true);
   markers.forEach(m=>m.el.classList.toggle('active',m.j===j&&m.stopIdx===gi));
   map.easeTo({center:[s.lng,s.lat],zoom:Math.max(map.getZoom(),9.5),duration:800});
   const media=(s.media||[]).map((m,k)=>{
@@ -797,8 +826,7 @@ function mapAtlas(animate=true){
   markers.forEach(m=>{m.el.classList.remove('ghost','active');
     m.el.classList.toggle('hidden',!ids.has(m.j.id));});
   const b=boundsOf(vis.length?vis:JOURNEYS);
-  const pad=isSplit?{top:90,bottom:110,left:70,right:70}
-                   :{top:90,bottom:window.innerHeight*(isMobile?.5:.3)+70,left:70,right:70};
+  const pad={top:90,bottom:110+drawerBottomPad(),left:70,right:70+drawerRightPad()};
   if(b)map.fitBounds(b,{padding:pad,duration:animate&&!reduced?1400:0,pitch:0,bearing:0});
 }
 function mapJourney(j){
@@ -808,8 +836,7 @@ function mapJourney(j){
   markers.forEach(m=>{m.el.classList.remove('hidden','active');
     m.el.classList.toggle('ghost',m.j.id!==j.id);});
   const b=boundsOf([j]);
-  const pad=isSplit?{top:100,bottom:120,left:90,right:90}
-                   :{top:90,bottom:window.innerHeight*(isMobile?.55:.3)+80,left:90,right:90};
+  const pad={top:100,bottom:120+drawerBottomPad(),left:90,right:90+drawerRightPad()};
   if(b)map.fitBounds(b,{padding:pad,duration:reduced?0:1600,pitch:0,bearing:0});
 }
 
@@ -931,7 +958,7 @@ function hookStoryScroll(j){
         map.easeTo({center:[+el.dataset.lng,+el.dataset.lat],
           zoom:Math.max(map.getZoom(),9.5),duration:900});
     });
-  },{root:isSplit?$('#scroller'):null,rootMargin:'-42% 0px -42% 0px'});
+  },{root:$('#scroller'),rootMargin:'-42% 0px -42% 0px'});
   $$('#story .stop').forEach(s=>storyIO.observe(s));
 }
 
@@ -1099,6 +1126,7 @@ function route(){
   if(m&&byId(m[1])){
     const j=byId(m[1]);state.j=j.id;
     document.body.classList.add('injourney');
+    setShelf(true);                       // opening a ride pulls the shelf out to show its story
     $('#view-atlas').hidden=true;$('#view-journey').hidden=false;
     renderJourney(j);mapJourney(j);
     toTop();
@@ -1111,13 +1139,10 @@ function route(){
   }
 }
 window.addEventListener('hashchange',route);
-$('#brand').addEventListener('click',e=>{e.preventDefault();location.hash='';});
 
-/* fade HUD when panel scrolled up (stacked layout only) */
-if(!isSplit)window.addEventListener('scroll',()=>{
-  const up=window.scrollY>window.innerHeight*.45;
-  document.body.classList.toggle('panelup',up&&!Ride.on);
-},{passive:true});
+/* shelf drawer: tap the tab (or the grip) to open/close */
+$('#shelftab').addEventListener('click',()=>setShelf(!shelfOpen()));
+document.addEventListener('click',e=>{if(e.target.classList.contains('pull'))setShelf(false);});
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){if(Ride.on)endRide(false);else if($('#lb').classList.contains('show'))closeLB();}
   if($('#lb').classList.contains('show')){

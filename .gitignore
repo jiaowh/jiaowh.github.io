@@ -31,3 +31,7 @@ assets/moto/manifest_photos.log
 mucha/
 *.mov
 *.MOV
+
+# Trading strategy work (moomoo Algo ports + the vendored Algo Manual) — private,
+# not part of the published site. Nothing here is referenced by any page.
+quant/
