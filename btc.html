@@ -95,7 +95,7 @@
 
   /* liquidation heatmap */
   #liqbox{position:relative;height:520px;border:1px solid var(--grid);border-radius:4px;background:var(--panel2);overflow:hidden}
-  #liqbox canvas{position:absolute;inset:0}
+  #liqbox canvas{position:absolute;inset:0;width:100%;height:100%}
   #liqOverlay{cursor:crosshair}
   #liqTip{position:absolute;pointer-events:none;background:rgba(13,18,23,0.92);border:1px solid var(--grid);
     border-radius:3px;padding:5px 8px;font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--text);
@@ -1572,7 +1572,11 @@ const LIQ=(()=>{
     const base=$("liqCanvas"),over=$("liqOverlay");
     const W=box.clientWidth,H=box.clientHeight;if(!W||!H)return;
     dpr=window.devicePixelRatio||1;
-    [base,over].forEach(cv=>{cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);});
+    // backing store at device resolution, CSS size pinned to the box — without the
+    // explicit CSS size a dpr>1 canvas lays out at its intrinsic (device) size and
+    // overflow:hidden crops the right/bottom of the drawing (line + fresh bands)
+    [base,over].forEach(cv=>{cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
+      cv.style.width=W+"px";cv.style.height=H+"px";});
     const g=base.getContext("2d");g.setTransform(dpr,0,0,dpr,0,0);
     const pw=W-M.l-M.r,ph=H-M.t-M.b,n=grid.length;
     g.fillStyle="#0d1217";g.fillRect(0,0,W,H);
