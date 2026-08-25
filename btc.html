@@ -102,7 +102,7 @@
     white-space:nowrap;z-index:3}
   .liq-foot{display:flex;flex-wrap:wrap;gap:8px 22px;align-items:center;font-size:11px;color:var(--muted);margin-top:-6px}
   .liq-grad{display:inline-block;width:140px;height:8px;border-radius:2px;vertical-align:middle;margin:0 6px;
-    background:linear-gradient(90deg,#0d1217,#0e2a45,#155e9e,#38bdf8,#ffb000,#ff6a3d,#ffe9c2)}
+    background:linear-gradient(90deg,#0a0e12,#0d2b66,#1f77d4,#2fd3f0,#7ce34a,#ffe94a)}
   .liq-mag b{color:var(--amber);font-weight:600}
   .rng{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.05em;padding:4px 10px}
   .rng.on{border-color:var(--amber);color:var(--amber);background:rgba(255,176,0,0.08)}
@@ -390,7 +390,7 @@
 
   <div><b>How to read.</b> <b>Entries.</b> Price above its green SMA200 (no red tint), cycle age inside the amber window, then a bar closing above the amber <span class="mono">TRIG</span> line prints a green <b>trg</b> arrow on that bar, with a dim green dot back at the low it confirmed — the pair shows the confirmation lag, and neither mark ever moves. Every confirmed low gets the same arrow: the forward audit found the confluence score did not rank lows, so the regime tint, not the marker, decides whether a trigger is worth taking. If price undercuts a confirmed low before the next timing window opens, the count re-anchors to the new low rather than holding a level price has already broken — so the arrows track the live count, unlike the dimmed <span class="mono">DCL</span> labels, which quietly relocate once the whole window is in hindsight. <b>Exits.</b> The amber Donchian-20 rail is the trailing exit: leave on a close below it. It starts at the last confirmed low and ratchets up as the trade advances, never falling. There is no time exit — the exit ablations measured ~49-bar holds once the rail was allowed to run. <b>BB dots</b> are a separate sleeve, not a cycle trade — a close under the lower Bollinger band while still above SMA200, covered at the mid band. <b>Arrows printed under the red tint</b> (price below SMA200) are knife-catches; that is the one bucket the audit showed losing money, so the regime shading is the filter to respect.</div>
   <div><b>Funding gauge.</b> The header chip reads the BTC/USDT perpetual funding rate (Binance, falling back to Bybit) and its percentile against its own trailing history — deeply negative funding at a low (p≤10, shown in green) means short-heavy perps are paying longs, a forced-seller capitulation tell; crowded-long euphoria (p≥90, red) is the mirror. This is a <b>live-only</b> read: funding history only reaches back ~333 days on the primary source, far short of the price history used elsewhere, so the score card's funding component is scored on the current bar only and is <b>excluded from all backtests and the walk-forward optimizer</b> to avoid silently truncating the sample to a cherry-picked recent window.</div>
-  <div><b>Liq Map.</b> The liquidation heatmap is an <b>estimate, not exchange data</b>. Each perpetual-futures candle's taker buy volume is modeled as new longs and taker sell volume as new shorts, projected to the prices where 10&times;, 25&times;, 50&times; and 100&times; positions would be force-closed — long liquidations stack below price, shorts above. Levels accumulate, fade slowly, and are consumed the first time price trades through them, so the surviving bright bands mark dense, still-untouched stop pools that tend to act as magnets and as fuel for wicks. Colors run dark &rarr; blue &rarr; cyan &rarr; amber &rarr; hot as modeled density grows (log-scaled); the readout under the map names the largest un-swept cluster on each side of price, and hovering reads any cell. Real liquidation engines see actual position data — this model cannot — so treat the map as crowd-positioning context to pair with the funding chip, not as levels anyone is guaranteed to defend.</div>
+  <div><b>Liq Map.</b> The liquidation heatmap is an <b>estimate, not exchange data</b>. Each perpetual-futures candle's taker buy volume is modeled as new longs and taker sell volume as new shorts, projected to the prices where 10&times;, 25&times;, 50&times; and 100&times; positions would be force-closed — long liquidations stack below price, shorts above. Levels accumulate, fade slowly, and are consumed the first time price trades through them, so the surviving bright bands mark dense, still-untouched stop pools that tend to act as magnets and as fuel for wicks. Colors run dark &rarr; blue &rarr; cyan &rarr; green &rarr; yellow as modeled density grows (log-scaled and top-weighted, so yellow marks only the very densest pools); the readout under the map names the largest un-swept cluster on each side of price, and hovering reads any cell. Real liquidation engines see actual position data — this model cannot — so treat the map as crowd-positioning context to pair with the funding chip, not as levels anyone is guaranteed to defend.</div>
   <div class="note"><b>Read it as structure, not prophecy.</b> Timing windows are wide and the most recent low stays provisional until price turns up, so the right edge can revise. This is a discretionary orientation and risk frame (a broken cycle low is a natural invalidation), not a forecast. A 2026-07 instrumented audit (score-gate sweeps, exit ablations, forward returns of every confirmed low vs an unconditional control, walk-forward tests) found <b>no demonstrated net edge at the default score&ge;2 gate</b> on Daily or 4-Hour — samples are tiny, two score components ran inverse to forward returns, and every optimizer pick decayed out-of-sample. Treat the signal card as decision support and let the journal accumulate forward evidence before trusting any configuration. Not investment advice.</div>
 </footer>
 
@@ -1462,7 +1462,7 @@ setInterval(fetchFunding,3600000);
 const LIQ=(()=>{
   const RANGES={ "7d":{interval:"15m",limit:672}, "1mo":{interval:"1h",limit:720}, "3mo":{interval:"4h",limit:540} };
   const TIERS=[{L:10,w:0.40,id:"lv10"},{L:25,w:0.30,id:"lv25"},{L:50,w:0.20,id:"lv50"},{L:100,w:0.10,id:"lv100"}];
-  const BINS=240, DECAY=0.999, M={l:8,r:64,t:8,b:22};
+  const BINS=420, DECAY=0.999, M={l:8,r:64,t:8,b:22}; // ~1px bins → thin crisp bands
   let range="1mo",rangeShown="1mo",C=null,SRC="",grid=null,pLo=0,pHi=1,lmin=0,lmax=1,dpr=1,loaded=false,gen=0;
 
   // candles with taker buy/sell split — perp first (that's where liquidations live)
@@ -1496,7 +1496,7 @@ const LIQ=(()=>{
   const activeTiers=()=>TIERS.filter(t=>{const el=$(t.id);return !el||el.checked;});
   const binOf=p=>Math.max(0,Math.min(BINS-1,Math.floor((p-pLo)/(pHi-pLo)*BINS)));
   const binPx=b=>pLo+(b+0.5)/BINS*(pHi-pLo);
-  function addSpread(a,b,v){a[b]+=v*0.5;if(b>0)a[b-1]+=v*0.25;if(b<BINS-1)a[b+1]+=v*0.25;}
+  function addSpread(a,b,v){a[b]+=v;} // single-bin: levels stay thin lines, not slabs
 
   function buildGrid(){
     const n=C.length,tiers=activeTiers(),book=new Float32Array(BINS);
@@ -1523,8 +1523,11 @@ const LIQ=(()=>{
     for(const col of grid)for(let b=0;b<BINS;b++)if(col[b]>0)vals.push(col[b]);
     vals.sort((a,b)=>a-b);
     const q=f=>Math.log1p(vals[Math.max(0,Math.min(vals.length-1,Math.floor(vals.length*f)))]);
-    lmin=vals.length?q(0.05):0;
-    lmax=vals.length?q(0.995):1;
+    // top-weighted scale: floor at the median so the weaker half of cells sits near
+    // black and only real clusters glow (the Coinglass look) — the gamma in heatT
+    // pushes mid densities down further
+    lmin=vals.length?q(0.50):0;
+    lmax=vals.length?q(0.999):1;
     if(!(lmax>lmin))lmax=lmin+1;
     return vals;
   }
@@ -1551,16 +1554,17 @@ const LIQ=(()=>{
       }
     }
   }
-  const heatT=v=>v>0?Math.max(0,Math.min(1,(Math.log1p(v)-lmin)/(lmax-lmin))):0;
+  const heatT=v=>v>0?Math.pow(Math.max(0,Math.min(1,(Math.log1p(v)-lmin)/(lmax-lmin))),1.6):0;
 
-  // dark → deep blue → cyan → amber → hot, so the site's own accents carry the ramp
-  const STOPS=[[0,13,18,23],[0.15,14,42,69],[0.35,21,94,158],[0.55,56,189,248],[0.72,255,176,0],[0.88,255,106,61],[1,255,233,194]];
+  // dark → deep blue → cyan → green → yellow: the classic liquidation-heatmap ramp,
+  // where yellow is reserved for the very densest clusters
+  const STOPS=[[0,10,14,18],[0.30,13,43,102],[0.55,31,119,212],[0.72,47,211,240],[0.86,124,227,74],[1,255,233,74]];
   function palette(t){
     for(let i=1;i<STOPS.length;i++)if(t<=STOPS[i][0]){
       const a=STOPS[i-1],b=STOPS[i],f=(t-a[0])/((b[0]-a[0])||1);
       return [a[1]+(b[1]-a[1])*f,a[2]+(b[2]-a[2])*f,a[3]+(b[3]-a[3])*f];
     }
-    return [255,233,194];
+    return [255,233,74];
   }
   const fmtK=p=>"$"+(p>=1000?(p/1000).toFixed(1)+"k":p.toFixed(0));
   const fmtFull=p=>p.toLocaleString("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0});
