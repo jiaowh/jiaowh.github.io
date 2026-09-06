@@ -70,6 +70,14 @@
   .chip.na{border-style:dashed;opacity:.6}
   .sig-score{margin-left:auto;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--text)}
   .sig-score b{color:var(--amber)}
+  .sig.scalp h2{color:var(--up)}
+  .sig .sig-status.long{color:var(--up)} .sig .sig-status.short{color:var(--down)} .sig .sig-status.flat{color:var(--muted)}
+  .sig .tt{width:100%;border-collapse:collapse;font-family:"IBM Plex Mono",monospace;font-size:12px;margin:10px 0 6px}
+  .sig .tt th{text-align:right;color:var(--muted);font-weight:500;font-size:10px;text-transform:uppercase;letter-spacing:.06em;padding:4px 8px;border-bottom:1px solid var(--grid)}
+  .sig .tt td{text-align:right;padding:4px 8px;border-bottom:1px solid var(--grid);white-space:nowrap}
+  .sig .tt th:first-child,.sig .tt td:first-child{text-align:left}
+  .sig .tt td.up{color:var(--up)} .sig .tt td.dn{color:var(--down)} .sig .tt td.mid{color:var(--muted)} .sig .tt td.amb{color:var(--amber)}
+  .sig .tt tr.open td{background:rgba(255,176,0,0.05)}
   footer{max-width:1320px;margin:0 auto;padding:0 22px 40px;color:var(--muted);font-size:12px;line-height:1.55}
   footer b{color:var(--text);font-weight:500}
   .note{border-left:2px solid var(--amber);padding:8px 0 8px 14px;margin-top:8px}
@@ -306,6 +314,7 @@
       <label title="200-bar SMA regime: the line runs green while price closes above it, red below, and the chart takes a faint red tint underneath. The 2026-07 audit's single strongest filter — triggers taken below it lost money."><input type="checkbox" id="tSMA_5m" checked><span class="sw" style="background:var(--up)"></span>SMA200 regime</label>
       <label title="Turtle exit rail: the Donchian-20 lower channel from the last confirmed cycle low forward. Exit on a close below the rail; it ratchets up as the trade advances and never falls."><input type="checkbox" id="tRail_5m" checked><span class="sw" style="background:rgba(255,176,0,0.55)"></span>Exit rail · D20</label>
       <label title="Bollinger reversion sleeve (off by default): BB(20,2) mid + lower band, with a cyan dot wherever price closes below the lower band while still above SMA200 — a separate quick trade that targets the mid band."><input type="checkbox" id="tBB_5m"><span class="sw" style="background:var(--cyan)"></span>BB reversion sleeve</label>
+      <label title="The alert bot's executable-trade rule, drawn exactly as the bot evaluates it: LONG = 5m green dot below −thr + bull divergence (RSI or iMACD) + close under the lower Bollinger band, all within ±12 bars, while the last confirmed 1h dot is an oversold green dot; SHORT = mirror without the BB piece. Entry at the confirming close, stop beyond the leg that made the dot + 0.3 ATR, target 1.5R, time stop 8h."><input type="checkbox" id="tScalp_5m" checked><span class="sw" style="background:var(--up)"></span>Scalp trades · bot rule</label>
       <span class="integrity" id="integrity_5m" style="margin-left:auto"></span>
     </div>
     <div id="chart_5m" class="chartbox"></div>
@@ -316,6 +325,8 @@
       <span class="lg"><span class="ln2" style="border-top-color:#3fb950"></span><span class="ln2" style="border-top-color:#f85149"></span>SMA200 regime &middot; red tint = below</span>
       <span class="lg"><span class="ln2" style="border-top-color:rgba(255,176,0,0.55)"></span>D20 rail &mdash; trailing exit</span>
       <span class="lg"><span class="gl" style="color:var(--cyan)">&#9679;</span>BB reversion &mdash; opt-in sleeve</span>
+      <span class="lg"><span class="gl" style="color:#3fb950">&#9650;</span><b style="color:#3fb950">LONG</b> <span class="gl" style="color:#f85149">&#9660;</span><b style="color:#f85149">SHORT</b> &mdash; bot alert at that close; solid line = entry, dashed = target / stop</span>
+      <span class="lg"><span class="gl" style="color:#3fb950">&#9632;</span>TP <span class="gl" style="color:#f85149">&#9632;</span>SL <span class="gl" style="color:#8b949e">&#9632;</span>TIME &mdash; where the trade ended</span>
     </div>
     <div class="imacd-head">
       <span class="h">Impulse MACD · 34 / 9 · 5M</span>
@@ -342,6 +353,7 @@
       <div class="card slow"><h2><span class="sw" style="background:var(--cyan);width:11px;height:11px;border-radius:2px"></span>Half-day cycle · ~12 hours</h2><div class="kv" id="slowKV_5m"></div></div>
     </div>
     <div class="sig" id="signal_5m"></div>
+    <div class="sig scalp" id="scalp_5m"></div>
   </section>
 
   <!-- ================= LIQUIDATION HEATMAP ================= -->
@@ -399,6 +411,7 @@
   <div><b>RSI &amp; divergences.</b> Each tab's RSI pane is a 14-period Wilder's Relative Strength Index on that tab's closes, bounded 0–100 (70 overbought, 30 oversold, 50 midline; live reading in the header). Arrows mark <b>confirmed divergences</b> between consecutive price pivots (±3-bar extremes, so each is only known 3 bars after the pivot — a fixed, disclosed lag, no repainting): green up = price lower low with RSI higher low from an oversold first pivot ("DIV" = RSI still &lt;40 at the second, the stronger class); red down = the bearish mirror. The iMACD pane carries the same detector against the impulse line. All three panes share one time axis.</div>
 
   <div><b>How to read.</b> <b>Entries.</b> Price above its green SMA200 (no red tint), cycle age inside the amber window, then a bar closing above the amber <span class="mono">TRIG</span> line prints a green <b>trg</b> arrow on that bar, with a dim green dot back at the low it confirmed — the pair shows the confirmation lag, and neither mark ever moves. Every confirmed low gets the same arrow: the forward audit found the confluence score did not rank lows, so the regime tint, not the marker, decides whether a trigger is worth taking. If price undercuts a confirmed low before the next timing window opens, the count re-anchors to the new low rather than holding a level price has already broken — so the arrows track the live count, unlike the dimmed <span class="mono">DCL</span> labels, which quietly relocate once the whole window is in hindsight. <b>Exits.</b> The amber Donchian-20 rail is the trailing exit: leave on a close below it. It starts at the last confirmed low and ratchets up as the trade advances, never falling. There is no time exit — the exit ablations measured ~49-bar holds once the rail was allowed to run. <b>BB dots</b> are a separate sleeve, not a cycle trade — a close under the lower Bollinger band while still above SMA200, covered at the mid band. <b>Arrows printed under the red tint</b> (price below SMA200) are knife-catches; that is the one bucket the audit showed losing money, so the regime shading is the filter to respect.</div>
+  <div><b>Scalp trades (5-Min tab).</b> The green/red <b>LONG</b>/<b>SHORT</b> arrows are the alert bot's executable-trade rule computed on the same candles the bot reads, at the same bar it would have messaged: a 5m impulse dot beyond its causal threshold, a confirmed divergence on RSI or iMACD within ±12 bars, for longs a close under the lower Bollinger band, and the last confirmed 1h dot pointing the same way from beyond its own threshold. Each alert carries the bot's levels — solid line at the entry, dashed green target at 1.5R, dashed red stop beyond the leg that made the dot plus 0.3 ATR — and the square marks where it ended (<b>TP</b>, <b>SL</b>, or <b>TIME</b> at 8 h); an open trade shows its levels on the price axis and its live P&amp;L in the card. What this layer is <b>not</b>: an edge claim. The 2-year replay of this exact rule nets about −0.2%/trade long and ≈0 short after fees, and the harness search recorded in <span class="mono">quant/scalplab</span> is the standing evidence; the layer exists so that every alert can be seen, judged and journaled against its own levels.</div>
   <div><b>Funding gauge.</b> The header chip reads the BTC/USDT perpetual funding rate (Binance, falling back to Bybit) and its percentile against its own trailing history — deeply negative funding at a low (p≤10, shown in green) means short-heavy perps are paying longs, a forced-seller capitulation tell; crowded-long euphoria (p≥90, red) is the mirror. This is a <b>live-only</b> read: funding history only reaches back ~333 days on the primary source, far short of the price history used elsewhere, so the score card's funding component is scored on the current bar only and is <b>excluded from all backtests and the walk-forward optimizer</b> to avoid silently truncating the sample to a cherry-picked recent window.</div>
   <div><b>Liq Map.</b> The liquidation heatmap is an <b>estimate, not exchange data</b>. Each perpetual-futures candle's taker buy volume is modeled as new longs and taker sell volume as new shorts, projected to the prices where 10&times;, 25&times;, 50&times; and 100&times; positions would be force-closed — long liquidations stack below price, shorts above. Levels accumulate, fade slowly, and are consumed the first time price trades through them, so the surviving bright bands mark dense, still-untouched stop pools that tend to act as magnets and as fuel for wicks. Colors run dark &rarr; blue &rarr; cyan &rarr; green &rarr; yellow as modeled density grows (log-scaled and top-weighted, so yellow marks only the very densest pools); the profile on the right shows the current un-swept book per price level (short liquidations green above price, long liquidations orange below) with a cumulative curve running outward from price and each side&rsquo;s dollar total at the top and bottom; the readout under the map names the largest un-swept cluster on each side, and hovering reads any cell or profile level in dollars. Dollar figures assume ~5&percnt; of taker volume opens fresh leveraged positions &mdash; an order-of-magnitude calibration, not a measurement. Real liquidation engines see actual position data — this model cannot — so treat the map as crowd-positioning context to pair with the funding chip, not as levels anyone is guaranteed to defend.</div>
   <div class="note"><b>Read it as structure, not prophecy.</b> Timing windows are wide and the most recent low stays provisional until price turns up, so the right edge can revise. This is a discretionary orientation and risk frame (a broken cycle low is a natural invalidation), not a forecast. A 2026-07 instrumented audit (score-gate sweeps, exit ablations, forward returns of every confirmed low vs an unconditional control, walk-forward tests) found <b>no demonstrated net edge at the default score&ge;2 gate</b> on Daily or 4-Hour — samples are tiny, two score components ran inverse to forward returns, and every optimizer pick decayed out-of-sample. Treat the signal card as decision support and let the journal accumulate forward evidence before trusting any configuration. Not investment advice.</div>
@@ -706,6 +719,174 @@ function findDivergences(lows,highs,osc,opt){
   return res.sort((a,b)=>a.i-b.i);
 }
 
+// ---------- scalp layer: the alert bot's rule, ported line-for-line ----------
+// quant/alertbot/{indicators,signals,levels}.py is the reference. Everything here is
+// causal with explicit confirm indices, so what the chart marks is exactly what the
+// bot would have sent (verified against the bot's --export on the same candles).
+const SCALP_RULE={window_bars:12,max_age_bars:24,require_classA:false,h1_max_age_hours:0,
+  long_needs_bb:true,short_needs_bb:false,bb_require_sma200:false};
+const SCALP_PARAMS={tp_r:1.5,sl_pad_atr:0.3,time_stop:96};   // = alertbot params.json
+const SCALP_FEE_RT=0.12;   // % round trip (5 bp + 1 bp slippage per leg, Coinbase INTX taker)
+
+function atrWilder(high,low,close,period=14){
+  const n=close.length,out=new Array(n).fill(NaN);
+  if(n<period+1)return out;
+  const trs=[];
+  for(let i=1;i<n;i++)trs.push(Math.max(high[i]-low[i],Math.abs(high[i]-close[i-1]),Math.abs(low[i]-close[i-1])));
+  let a=0;for(let k=0;k<period;k++)a+=trs[k];a/=period;
+  out[period]=a;
+  for(let i=period+1;i<n;i++){a=(a*(period-1)+trs[i-1])/period;out[i]=a;}
+  return out;
+}
+// causal per-bar threshold: 55th pct of crossover sizes in the trailing `window` bars
+function rollingThr(md,sb,window=1000,minCross=12,p=0.55){
+  const n=md.length,out=new Array(n).fill(NaN),xs=[];let head=0,last=NaN;
+  for(let i=1;i<n;i++){
+    if(!(isNaN(md[i])||isNaN(sb[i])||isNaN(md[i-1])||isNaN(sb[i-1]))){
+      if((md[i]>sb[i]&&md[i-1]<=sb[i-1])||(md[i]<sb[i]&&md[i-1]>=sb[i-1])){
+        xs.push([i,Math.abs(md[i])]);
+        while(head<xs.length&&xs[head][0]<=i-window)head++;
+        if(xs.length-head>=minCross)last=pctile(xs.slice(head).map(x=>x[1]),p);
+      }
+    }
+    out[i]=last;
+  }
+  return out;
+}
+// zigzag turns with a per-bar swing array and the bar each turn became knowable
+function turningPointsV(md,sw){
+  const out=[],n=md.length;
+  let i0=0;while(i0<n&&isNaN(md[i0]))i0++;if(i0>=n)return out;
+  let extIdx=i0,extVal=md[i0],d=0;
+  for(let i=i0+1;i<n;i++){const v=md[i];if(isNaN(v))continue;
+    if(d>=0&&v>=extVal){extVal=v;extIdx=i;if(d===0)d=1;}
+    else if(d<=0&&v<=extVal){extVal=v;extIdx=i;if(d===0)d=-1;}
+    else if(isNaN(sw[i]))continue;
+    else if(d>0&&v<=extVal-sw[i]){out.push({i:extIdx,type:"max",confirm:i,val:md[extIdx]});d=-1;extVal=v;extIdx=i;}
+    else if(d<0&&v>=extVal+sw[i]){out.push({i:extIdx,type:"min",confirm:i,val:md[extIdx]});d=1;extVal=v;extIdx=i;}}
+  return out;
+}
+// = alertbot indicators.Frame(candles, bar_secs, rolling=1000)
+function scalpFrame(C,barSecs){
+  const n=C.length,t=C.map(c=>c.time),o=C.map(c=>c.open),h=C.map(c=>c.high),l=C.map(c=>c.low),cl=C.map(c=>c.close);
+  const sma200=smaN(cl,200),bb=bollinger(cl,20,2);
+  const bbDots=[],bbBelow=[];
+  for(let i=0;i<n;i++){
+    if(!isNaN(bb.lo[i])&&cl[i]<bb.lo[i]){bbBelow.push(i);if(!isNaN(sma200[i])&&cl[i]>sma200[i])bbDots.push(i);}
+  }
+  const {md,sb}=impulseMACD(C);
+  const atr=atrWilder(h,l,cl,14);
+  const thrArr=rollingThr(md,sb,1000);
+  const thr=n?thrArr[n-1]:NaN;
+  const turns=turningPointsV(md,thrArr.map(v=>isNaN(v)?NaN:v*0.8));
+  for(const tn of turns)tn.thr=thrArr[tn.confirm];
+  const mapDiv=d=>({i:d.i,confirm:d.confirmAt,type:d.type,classA:d.classA});
+  const divIm=findDivergences(l,h,md,{d:3,minGap:5,maxGap:60,zoneLo:0,zoneHi:0,eps:0}).map(mapDiv);
+  const r=rsi(cl,14);
+  const divRsi=findDivergences(l,h,r,{d:3,minGap:5,maxGap:60,zoneLo:40,zoneHi:60,eps:2}).map(mapDiv);
+  return {n,barSecs,t,o,h,l,cl,sma200,bbMid:bb.mid,bbLo:bb.lo,bbUp:bb.up,bbDots,bbBelow,md,sb,atr,thrArr,thr,turns,divIm,divRsi,rsi:r,
+    closeTime:i=>t[i]+barSecs,
+    idxAtOrBefore:ts=>{let lo=0,hi=n-1;if(!n||t[0]>ts)return -1;while(lo<hi){const m=(lo+hi+1)>>1;if(t[m]<=ts)lo=m;else hi=m-1;}return lo;}};
+}
+function scalpDivs(f,dir,requireClassA){
+  const want=dir==="long"?"bull":"bear",out=[];
+  for(const [src,lst] of [["RSI",f.divRsi],["iMACD",f.divIm]])
+    for(const dv of lst){if(dv.type!==want)continue;if(requireClassA&&!dv.classA)continue;out.push(Object.assign({},dv,{src}));}
+  return out;
+}
+function scalpH1DotFor(f1h,dir,confirmTs,cfg){
+  const want=dir==="long"?"min":"max";let last=null;
+  for(const tn of f1h.turns){if(f1h.closeTime(tn.confirm)<=confirmTs)last=tn;else break;}
+  if(!last)return [null,false,"no 1h dot yet"];
+  if(last.type!==want)return [last,false,"1h last dot is "+(last.type==="max"?"red":"green")+" (trend against)"];
+  const thr=last.thr!=null?last.thr:f1h.thr;
+  if(isNaN(thr))return [last,false,"1h threshold unavailable"];
+  const beyond=dir==="long"?last.val<-thr:last.val>thr;
+  if(!beyond)return [last,false,"1h dot not beyond threshold"];
+  if(cfg.h1_max_age_hours){const ageH=(confirmTs-f1h.t[last.i])/3600;if(ageH>cfg.h1_max_age_hours)return [last,false,"1h dot too old"];}
+  return [last,true,"ok"];
+}
+// = alertbot signals.scan(): every confirmed executable trade in the loaded history
+function scalpScan(f5,f1h,cfgIn){
+  const cfg=Object.assign({},SCALP_RULE,cfgIn||{});
+  const W=cfg.window_bars,MAXAGE=cfg.max_age_bars,out=[];
+  for(const dir of ["long","short"]){
+    const want=dir==="long"?"min":"max";
+    const divs=scalpDivs(f5,dir,cfg.require_classA);
+    const needsBB=dir==="long"?cfg.long_needs_bb:cfg.short_needs_bb;
+    for(const tn of f5.turns){
+      if(tn.type!==want)continue;
+      const di=tn.i,thr=tn.thr!=null?tn.thr:f5.thr;
+      if(isNaN(thr))continue;
+      const beyond=dir==="long"?tn.val<-thr:tn.val>thr;
+      if(!beyond)continue;
+      const cand=divs.filter(d=>Math.abs(d.i-di)<=W);
+      if(!cand.length)continue;
+      let dv=cand[0];for(const d of cand)if(d.confirm<dv.confirm)dv=d;
+      let confI=Math.max(tn.confirm,dv.confirm),bbI=null;
+      if(needsBB){
+        const pool=cfg.bb_require_sma200?f5.bbDots:f5.bbBelow;
+        const bbs=pool.filter(b=>Math.abs(b-di)<=W);
+        if(!bbs.length)continue;
+        bbI=Math.min.apply(null,bbs);confI=Math.max(confI,bbI);
+      }
+      if(confI>=f5.n)continue;
+      let confTs=f5.closeTime(confI);
+      let [h1,ok]=scalpH1DotFor(f1h,dir,confTs,cfg);
+      if(!ok){
+        let nxt=null;
+        for(const t1 of f1h.turns){if(f1h.closeTime(t1.confirm)>confTs){nxt=t1;break;}}
+        if(!nxt)continue;
+        const confTs2=f1h.closeTime(nxt.confirm);
+        const [h1b,ok2]=scalpH1DotFor(f1h,dir,confTs2,cfg);
+        if(!ok2||h1b!==nxt)continue;
+        h1=h1b;confTs=confTs2;
+        confI=f5.idxAtOrBefore(confTs-f5.barSecs);
+        if(confI<0)continue;
+      }
+      if(confI-di>MAXAGE)continue;
+      out.push({dir,key:dir+"@"+f5.t[di],dotI:di,dotT:f5.t[di],dotVal:tn.val,confirmI:confI,confirmTs:confTs,
+        div:dv,bbI,h1,price:f5.cl[confI],thr5:thr,thr1h:(h1.thr!=null?h1.thr:f1h.thr)});
+    }
+  }
+  out.sort((a,b)=>a.confirmTs-b.confirmTs);
+  return out;
+}
+// = alertbot levels.struct_stop + levels.compute (v0 rules, no confidence model)
+function scalpLevels(f5,sig){
+  const P=SCALP_PARAMS,long=sig.dir==="long",ei=sig.confirmI,entry=f5.cl[ei];
+  let sstop=long?Infinity:-Infinity;
+  for(let k=sig.dotI;k<=ei;k++)sstop=long?Math.min(sstop,f5.l[k]):Math.max(sstop,f5.h[k]);
+  const a=f5.atr[ei],av=isNaN(a)?0:a;
+  const pad=P.sl_pad_atr*av;
+  let sl=long?sstop-pad:sstop+pad,risk=Math.abs(entry-sl);
+  if(risk<=0){risk=av;sl=long?entry-risk:entry+risk;}
+  const tp=long?entry+P.tp_r*risk:entry-P.tp_r*risk;
+  return {entry,sl,tp,risk,slPct:100*risk/entry,timeStop:P.time_stop};
+}
+// forward-walk each alert on CLOSED bars: stop first (conservative on a double touch),
+// then target, else the close of the time-stop bar. Open = still inside the window.
+function scalpTrades(f5,f1h,cfg){
+  const sigs=scalpScan(f5,f1h,cfg),out=[];
+  for(const s of sigs){
+    const lv=scalpLevels(f5,s),long=s.dir==="long",ei=s.confirmI;
+    const last=Math.min(f5.n-1,ei+lv.timeStop);
+    let exitI=null,exitPx=null,why="open";
+    for(let j=ei+1;j<=last;j++){
+      const hitSl=long?f5.l[j]<=lv.sl:f5.h[j]>=lv.sl;
+      const hitTp=long?f5.h[j]>=lv.tp:f5.l[j]<=lv.tp;
+      if(hitSl){exitI=j;exitPx=lv.sl;why="sl";break;}
+      if(hitTp){exitI=j;exitPx=lv.tp;why="tp";break;}
+      if(j===ei+lv.timeStop){exitI=j;exitPx=f5.cl[j];why="time";break;}
+    }
+    const gross=exitPx==null?null:(long?1:-1)*(exitPx/lv.entry-1)*100;
+    out.push(Object.assign({},s,lv,{exitI,exitPx,why,gross,net:gross==null?null:gross-SCALP_FEE_RT,
+      r:gross==null?null:(long?1:-1)*(exitPx-lv.entry)/lv.risk,
+      deadlineT:f5.t[ei]+lv.timeStop*f5.barSecs}));
+  }
+  return out;
+}
+
 // ---------- signal journal (forward record; localStorage-backed, append-only) ----------
 // entries are appended only when the causal confluence trigger fires on the newest
 // closed bar while the page is open — never on redraw/repaint, so this log is the
@@ -750,6 +931,8 @@ function makeView(cfg){
   let imChart,imD,imS,imThr=[];
   let rsiChart,rsiL;
   let C=null,FAST=[],SLOW=[],TRANS=[],CHASE=true,SRC="";
+  let SCALP=null,AUX1H=null,scalpSeries=[],scalpLines=[];
+  const scalpOn=()=>{const el=E.tScalp&&$(E.tScalp);return !!(el&&el.checked);};
 
   function initCharts(){
     chart=LightweightCharts.createChart($(E.chart),{
@@ -858,6 +1041,17 @@ function makeView(cfg){
         if(isNaN(IND.sma200[i])||isNaN(IND.bbLo[i]))continue;
         if(IND.close[i]>IND.sma200[i]&&IND.close[i]<IND.bbLo[i])
           m.push({time:C[i].time,position:"belowBar",shape:"circle",size:1,color:"#38bdf8",text:"BB"});
+      }
+    }
+    // scalp layer: the bot's alerts (entry at the confirming close) and where each ended
+    if(SCALP&&scalpOn()){
+      for(const tr of SCALP.trades){
+        const long=tr.dir==="long";
+        m.push({time:C[tr.confirmI].time,position:long?"belowBar":"aboveBar",shape:long?"arrowUp":"arrowDown",
+          color:long?"#3fb950":"#f85149",size:2,text:long?"LONG":"SHORT"});
+        if(tr.exitI!=null)
+          m.push({time:C[tr.exitI].time,position:long?"aboveBar":"belowBar",shape:"square",size:1,
+            color:tr.why==="tp"?"#3fb950":tr.why==="sl"?"#f85149":"#8b949e",text:tr.why==="tp"?"TP":tr.why==="sl"?"SL":"TIME"});
       }
     }
     m.sort((a,b)=>a.time-b.time);candles.setMarkers(m);
@@ -1102,6 +1296,79 @@ function makeView(cfg){
   }
 
 
+  // ---------- scalp layer (5m tab): the alert bot's rule on the loaded candles ----------
+  function computeScalp(){
+    if(!AUX1H||!C||!C.length)return null;
+    const now=Date.now()/1000;
+    // the bot evaluates CLOSED bars only; the forming bar is the last one in C
+    const c5=C.filter(c=>c.time+cfg.barSecs<=now),c1=AUX1H.filter(c=>c.time+3600<=now);
+    if(c5.length<300||c1.length<300)return null;
+    const f5=scalpFrame(c5,cfg.barSecs),f1h=scalpFrame(c1,3600);
+    const trades=scalpTrades(f5,f1h);
+    return {f5,f1h,trades,open:trades.filter(t=>t.why==="open")};
+  }
+  function renderScalp(fws){
+    scalpSeries.forEach(sr=>{try{chart.removeSeries(sr)}catch(e){}});scalpSeries=[];
+    scalpLines.forEach(l=>{try{candles.removePriceLine(l)}catch(e){}});scalpLines=[];
+    const el=E.scalp&&$(E.scalp);
+    if(!el)return;
+    if(!scalpOn()){el.innerHTML="";return;}
+    if(!SCALP){el.innerHTML='<h2><span class="sw" style="background:var(--up);width:11px;height:11px;border-radius:2px"></span>Scalp trades · bot rule</h2><div class="sig-sub">waiting for the 1-hour feed (the 1h dot is the trend gate)…</div>';return;}
+    const {f5,f1h,trades}=SCALP,lastClosedT=f5.t[f5.n-1];
+    const seg=(t0,t1,v,color,style,width)=>{
+      const sr=chart.addLineSeries({color,lineWidth:width||1,lineStyle:style||0,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
+      sr.setData([{time:t0,value:v},{time:t1,value:v}]);scalpSeries.push(sr);};
+    for(const tr of trades){
+      const long=tr.dir==="long",t0=f5.t[tr.confirmI],t1=tr.exitI!=null?f5.t[tr.exitI]:lastClosedT;
+      if(t1<=t0)continue;
+      const col=tr.why==="open"?"#ffb000":tr.why==="tp"?"#3fb950":tr.why==="sl"?"#f85149":"#8b949e";
+      seg(t0,t1,tr.entry,long?"rgba(63,185,80,0.9)":"rgba(248,81,73,0.9)",0,2);
+      seg(t0,t1,tr.tp,"rgba(63,185,80,0.7)",2,1);
+      seg(t0,t1,tr.sl,"rgba(248,81,73,0.7)",2,1);
+      if(tr.why==="open"){
+        const add=(price,color,title)=>scalpLines.push(candles.createPriceLine({price,color,lineWidth:1,lineStyle:2,axisLabelVisible:true,title}));
+        add(tr.entry,col,"ENTRY");add(tr.tp,"#3fb950","TP");add(tr.sl,"#f85149","SL");
+      }
+    }
+    // ---- card
+    const px=C[C.length-1].close,fmt=v=>v.toLocaleString("en-US",{maximumFractionDigits:0});
+    const open=trades.filter(t=>t.why==="open");
+    const h1last=f1h.turns.length?f1h.turns[f1h.turns.length-1]:null;
+    let gate="none yet";
+    if(h1last){const thr=h1last.thr!=null?h1last.thr:f1h.thr;
+      const beyond=h1last.type==="min"?h1last.val<-thr:h1last.val>thr;
+      gate=(h1last.type==="min"?"green":"red")+" dot "+fmtT(f1h.t[h1last.i])+(beyond?(h1last.type==="min"?" · LONGS allowed":" · SHORTS allowed"):" · not beyond thr, no trades");}
+    const d5=f5.turns.length?f5.turns[f5.turns.length-1]:null;
+    let head,headCls,sub;
+    if(open.length){
+      const tr=open[open.length-1],long=tr.dir==="long",pnl=(long?1:-1)*(px/tr.entry-1)*100;
+      const left=Math.max(0,tr.deadlineT+cfg.barSecs-Date.now()/1000);
+      head=(long?"OPEN LONG":"OPEN SHORT")+" · "+fSign(pnl)+"%";headCls=long?"long":"short";
+      sub="alerted "+fmtT(tr.confirmTs-cfg.barSecs)+" · time stop in "+fmtDur(left)+(open.length>1?" · "+open.length+" open":"");
+    } else {head="FLAT";headCls="flat";sub=trades.length?"last alert "+fmtT(trades[trades.length-1].confirmTs-cfg.barSecs)+" · "+trades[trades.length-1].why.toUpperCase():"no bot alert in the loaded "+Math.round(f5.n*cfg.barSecs/3600)+" h";}
+    const cur=open.length?open[open.length-1]:(trades.length?trades[trades.length-1]:null);
+    const kv=cur?`<div class="kv">
+        <div class="k">Entry</div><div class="v">${fmt(cur.entry)}</div>
+        <div class="k">Target · 1.5R</div><div class="v r">${fmt(cur.tp)} (${fSign((cur.tp/cur.entry-1)*100)}%)</div>
+        <div class="k">Stop</div><div class="v l">${fmt(cur.sl)} (${fSign((cur.sl/cur.entry-1)*100)}%)</div>
+        <div class="k">Risk per unit</div><div class="v">${cur.slPct.toFixed(2)}%</div>
+        <div class="k">Time stop</div><div class="v">${fmtT(cur.deadlineT+cfg.barSecs)} (8 h)</div>
+        <div class="k">1h gate now</div><div class="v">${gate}</div>
+        <div class="k">Last 5m dot</div><div class="v">${d5?((d5.type==="min"?"green":"red")+" "+fmtT(f5.t[d5.i])+(Math.abs(d5.val)>(d5.thr||f5.thr)?" · beyond thr":"")):"—"}</div>
+      </div>`:`<div class="kv"><div class="k">1h gate now</div><div class="v">${gate}</div>
+        <div class="k">Last 5m dot</div><div class="v">${d5?((d5.type==="min"?"green":"red")+" "+fmtT(f5.t[d5.i])+(Math.abs(d5.val)>(d5.thr||f5.thr)?" · beyond thr":"")):"—"}</div></div>`;
+    const closed=trades.filter(t=>t.net!=null);
+    const wins=closed.filter(t=>t.net>0).length,sum=closed.reduce((a,t)=>a+t.net,0);
+    const rows=trades.slice().reverse().slice(0,12).map(t=>{
+      const long=t.dir==="long",cls=t.why==="open"?"amb":t.why==="tp"?"up":t.why==="sl"?"dn":"mid";
+      return `<tr class="${t.why==="open"?"open":""}"><td>${fmtT(t.confirmTs-cfg.barSecs)}</td><td class="${long?"up":"dn"}">${long?"LONG":"SHORT"}</td><td>${fmt(t.entry)}</td><td>${fmt(t.sl)}</td><td>${fmt(t.tp)}</td><td class="${cls}">${t.why==="open"?"open":t.why.toUpperCase()+(t.exitI!=null?" "+fmtT(f5.t[t.exitI]).slice(6):"")}</td><td class="${t.net==null?"amb":t.net>0?"up":"dn"}">${t.net==null?fSign((long?1:-1)*(px/t.entry-1)*100)+"% live":fSign(t.net)+"%"}</td></tr>`;}).join("");
+    el.innerHTML=`<h2><span class="sw" style="background:var(--up);width:11px;height:11px;border-radius:2px"></span>Scalp trades · bot rule</h2>
+      <div class="sig-head"><span class="sig-status ${headCls}">${head}</span><span class="sig-sub">${sub}</span></div>
+      ${kv}
+      ${trades.length?`<table class="tt"><thead><tr><th>Alert (UTC)</th><th>Side</th><th>Entry</th><th>Stop</th><th>Target</th><th>Exit</th><th>Net</th></tr></thead><tbody>${rows}</tbody></table>`:""}
+      <div class="sig-sub">${trades.length} alert${trades.length===1?"":"s"} in the loaded ${Math.round(f5.n*cfg.barSecs/3600)} h · ${closed.length} closed, ${wins} won, net ${fSign(sum)}% after ${SCALP_FEE_RT}% round-trip fees · thr 5m ±${f5.thr.toFixed(2)} · 1h ±${f1h.thr.toFixed(2)} · same rule, levels and exits as the Telegram alerts.</div>`;
+  }
+
   function renderAll(){
     const showWin=$(E.tWin)?$(E.tWin).checked:true;
     const win=showWin?nextWindow():null;
@@ -1122,6 +1389,8 @@ function makeView(cfg){
     renderRSI(fws);
     renderWindows(win,fws);
     renderSignal();
+    SCALP=(E.scalp&&scalpOn())?computeScalp():null;
+    if(E.scalp){buildMarkers();renderScalp(fws);}
     chart.timeScale().fitContent();
   }
 
@@ -1150,7 +1419,7 @@ function makeView(cfg){
     [E.tFast,E.tSlow,E.tFsine,E.tSsine].forEach(id=>{const el=$(id);if(el)el.onchange=()=>{if(C){buildMarkers();buildSines();}};});
     const ch=$(E.tChase);if(ch)ch.onchange=()=>{CHASE=ch.checked;recompute();};
     const w=$(E.tWin);if(w)w.onchange=()=>{if(C)renderAll();};
-    [E.tSMA,E.tRail,E.tBB].forEach(id=>{const el=$(id);if(el)el.onchange=()=>{if(C)renderAll();};});
+    [E.tSMA,E.tRail,E.tBB,E.tScalp].forEach(id=>{const el=id&&$(id);if(el)el.onchange=()=>{if(C)renderAll();};});
   }
 
   // -------- cycle-confluence strategy (fully causal; nothing repaints) --------
@@ -1302,7 +1571,9 @@ function makeView(cfg){
     return {state:r.state,price:C[C.length-1].close,fastTag:cfg.fast.tag,slowTag:cfg.slow.tag,interval:cfg.interval};
   }
   initCharts();wire();
-  return {load,onShow,backtestConf,getState,
+  return {load,onShow,backtestConf,getState,getCandles:()=>C,getScalp:()=>SCALP,
+    setVisibleRange:(a,b)=>{try{chart.timeScale().setVisibleRange({from:a,to:b});}catch(e){}},
+    setAux1h:(c)=>{AUX1H=c;if(C&&E.scalp)renderAll();},
     // funding lands async and feeds the score card, so recompute CONF exactly once here
     refreshSignal:()=>{if(C){CONF=simulateConf(feeInput());renderSignal();}}};
 }
@@ -1338,7 +1609,7 @@ const CFG_5M={
   slow:{min:96,max:216,ideal:144,amp:2.4,tag:"HCL",unit:"h"},
   el:{chart:"chart_5m",imacd:"imacd_5m",rsi:"rsi_5m",rsiv:"rsiv_5m",integrity:"integrity_5m",fastKV:"fastKV_5m",slowKV:"slowKV_5m",thr:"thr_5m",signal:"signal_5m",
       tFast:"tFast_5m",tSlow:"tSlow_5m",tFsine:"tFsine_5m",tSsine:"tSsine_5m",tChase:"tChase_5m",tWin:"tWin_5m",
-      tSMA:"tSMA_5m",tRail:"tRail_5m",tBB:"tBB_5m"}
+      tSMA:"tSMA_5m",tRail:"tRail_5m",tBB:"tBB_5m",tScalp:"tScalp_5m",scalp:"scalp_5m"}
 };
 
 const VIEWS={};
@@ -1354,6 +1625,8 @@ async function loadAll(){
   setStatus("","loading");
   try{const p=await getPrice();$("price").firstChild.nodeValue=p.toLocaleString("en-US",{style:"currency",currency:"USD"});}catch(e){}
   const res=await Promise.allSettled(Object.values(VIEWS).map(v=>v.load()));
+  // the 5m scalp layer needs the 1h candles (trend gate) — hand them over once both landed
+  if(VIEWS["5m"]&&VIEWS["1h"]&&VIEWS["1h"].getCandles())VIEWS["5m"].setAux1h(VIEWS["1h"].getCandles());
   const ok=res.some(r=>r.status==="fulfilled"&&r.value);
   setStatus(ok?"ok":"err",ok?"live":"data unreachable");
   captureSignals();
