@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d1424">
+<meta name="color-scheme" content="dark">
+<title>Сессия ноль — Session Zero with Аня</title>
+<meta name="description" content="Session Zero: a small voiced visual novel that teaches the first three contrast letters of the Russian alphabet. Аня, a neighbour in Saint Petersburg, does the teaching.">
+<meta name="robots" content="noindex">
+<script>
+window.__LOG=[];
+window.__log=function(){window.__LOG.push(Array.prototype.slice.call(arguments).join(' '));};
+window.addEventListener('error',function(e){__log('!! WINDOW-ERROR:', e.message, '@', e.filename+':'+e.lineno+':'+e.colno, (e.error&&e.error.stack)||'');},true);
+window.addEventListener('unhandledrejection',function(e){__log('!! UNHANDLED-REJECTION:', (e.reason&&(e.reason.stack||e.reason.message))||String(e.reason));});
+(function(){var ce=console.error;console.error=function(){__log('console.error:', Array.prototype.slice.call(arguments).map(String).join(' '));ce.apply(console,arguments);};
+var cw=console.warn;console.warn=function(){__log('console.warn:', Array.prototype.slice.call(arguments).map(String).join(' '));cw.apply(console,arguments);};})();
+</script>
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- Persistent, non-dismissable storage-error banner. It lives in the static
+       markup (not built by ui.js) so that a save failure raised BEFORE the UI
+       mounts still has somewhere to render. RU.ui.showError() writes here. -->
+  <div id="errbar" role="alert" aria-live="assertive" hidden></div>
+
+  <header id="topbar">
+    <a class="brand" href="../index.html" title="back to the site">
+      <span class="star" aria-hidden="true">✦</span>
+      <b lang="ru">СЕССИЯ&nbsp;НОЛЬ</b>
+      <span class="brand-en">session zero</span>
+    </a>
+    <div class="topbar-right">
+      <span id="micchip" class="chip mic" hidden>
+        <span class="dot" aria-hidden="true"></span><span id="micchip-label">mic</span>
+        <button type="button" id="btn-micstop" class="chip-x" title="stop the microphone">stop</button>
+      </span>
+      <span id="savedot" class="chip save" title="progress is written after every step" aria-live="polite">
+        <span class="dot" aria-hidden="true"></span><span class="chip-t">saved</span>
+      </span>
+      <button type="button" id="btn-help" class="tbtn">Keys<kbd>?</kbd></button>
+      <button type="button" id="btn-settings" class="tbtn">Settings</button>
+    </div>
+  </header>
+
+  <main id="stage">
+    <!-- Placeholder art, deliberately authored rather than a grey box:
+         a Petersburg evening built out of stacked CSS gradients and clip-paths.
+         data-bg on #bg selects the treatment (see css/app.css). -->
+    <div id="bg" data-bg="canal" aria-hidden="true">
+      <div class="sky"></div>
+      <div class="stars"></div>
+      <div class="dusk"></div>
+      <div class="far"></div>
+      <div class="dome"></div>
+      <div class="spire"></div>
+      <div class="near"></div>
+      <div class="wins"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="canal"><span class="refl a"></span><span class="refl b"></span><span class="ripple"></span></div>
+      <div class="parapet"></div>
+      <div class="lamp"><span class="pole"></span><span class="head"></span><span class="halo"></span></div>
+      <div class="sash"><span class="v"></span><span class="h"></span></div>
+      <div class="warmth"></div>
+      <div class="vignette"></div>
+      <div class="grain"></div>
+    </div>
+
+    <figure id="cast" data-expr="neutral">
+      <!-- The default src is an inline data-URI silhouette. ui.js reads this
+           attribute once at mount and keeps it as the fallback, so dropping a
+           real file in (art/anya/*.webp, wired through RU.ART) is a src swap. -->
+      <img id="sprite" alt="Аня — placeholder silhouette, final art not yet drawn" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20340%20560'%20width='340'%20height='560'%20role='img'%20aria-label='Anya%2C%20placeholder%20silhouette'%3E%3Cdefs%3E%3ClinearGradient%20id='bd'%20x1='0'%20y1='0'%20x2='0.4'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%2331415f'/%3E%3Cstop%20offset='1'%20stop-color='%23151d30'/%3E%3C/linearGradient%3E%3ClinearGradient%20id='hr'%20x1='0.15'%20y1='0'%20x2='0.85'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%231f2942'/%3E%3Cstop%20offset='1'%20stop-color='%230d1322'/%3E%3C/linearGradient%3E%3ClinearGradient%20id='rim'%20x1='0'%20y1='0.1'%20x2='1'%20y2='0.6'%3E%3Cstop%20offset='0'%20stop-color='%23ffdcaa'%20stop-opacity='0.95'/%3E%3Cstop%20offset='0.5'%20stop-color='%23f2ab5e'%20stop-opacity='0.42'/%3E%3Cstop%20offset='1'%20stop-color='%23f2ab5e'%20stop-opacity='0'/%3E%3C/linearGradient%3E%3CradialGradient%20id='glo'%20cx='0.36'%20cy='0.28'%20r='0.72'%3E%3Cstop%20offset='0'%20stop-color='%23f4b365'%20stop-opacity='0.30'/%3E%3Cstop%20offset='1'%20stop-color='%23f4b365'%20stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Cellipse%20cx='152'%20cy='196'%20rx='170'%20ry='200'%20fill='url%28%23glo%29'/%3E%3Cpath%20d='M%2092%20316%20C%2074%20214%20108%20100%20176%20100%20C%20244%20100%20278%20214%20260%20316%20C%20252%20372%20258%20420%20266%20452%20C%20232%20438%20206%20430%20176%20430%20C%20146%20430%20118%20438%2086%20452%20C%2094%20420%20100%20372%2092%20316%20Z'%20fill='url%28%23hr%29'/%3E%3Cpath%20d='M%2026%20560%20C%2030%20470%2060%20424%20122%20402%20C%20142%20395%20150%20384%20150%20360%20C%20116%20348%20102%20306%20102%20254%20C%20102%20168%20132%20124%20176%20124%20C%20220%20124%20250%20168%20250%20254%20C%20250%20306%20236%20348%20202%20360%20C%20202%20384%20210%20395%20230%20402%20C%20292%20424%20322%20470%20326%20560%20Z'%20fill='url%28%23bd%29'/%3E%3Cpath%20d='M%20106%20240%20C%20104%20162%20134%20116%20176%20116%20C%20220%20116%20250%20160%20248%20242%20C%20236%20198%20212%20172%20184%20178%20C%20166%20182%20155%20200%20149%20224%20C%20139%20200%20122%20192%20106%20240%20Z'%20fill='url%28%23hr%29'/%3E%3Cpath%20d='M%20150%20402%20C%20174%20416%20200%20414%20216%20403'%20fill='none'%20stroke='%23f4c489'%20stroke-opacity='0.20'%20stroke-width='2.4'%20stroke-linecap='round'/%3E%3Cpath%20d='M%2026%20560%20C%2030%20470%2060%20424%20122%20402'%20fill='none'%20stroke='url%28%23rim%29'%20stroke-width='4'%20stroke-linecap='round'/%3E%3Cpath%20d='M%20122%20402%20C%20142%20395%20150%20384%20150%20360%20C%20116%20348%20102%20306%20102%20254%20C%20102%20176%20128%20128%20170%20122'%20fill='none'%20stroke='url%28%23rim%29'%20stroke-width='6'%20stroke-linecap='round'/%3E%3Ccircle%20cx='205'%20cy='332'%20r='3.2'%20fill='%23f5c380'%20fill-opacity='0.72'/%3E%3C/svg%3E">
+      <figcaption class="artnote"><span>art</span> placeholder</figcaption>
+    </figure>
+
+    <!-- Node-driven full-stage panels: letters, web lab, mic consent, ability report. -->
+    <section id="panel" class="overlay" tabindex="-1" hidden></section>
+  </main>
+
+  <section id="tbox">
+    <div id="nameplate"><span id="speaker" lang="ru">Аня</span></div>
+
+    <div id="lines">
+      <p id="line-ru" class="l-ru" lang="ru"></p>
+      <p id="line-tr" class="l-tr"></p>
+      <p id="line-en" class="l-en" lang="en"></p>
+      <p id="line-note" class="l-note" hidden></p>
+    </div>
+
+    <!-- Choices, text input, mic button, feedback: built by ui.js per node. -->
+    <div id="answer"></div>
+
+    <div id="tbar">
+      <button type="button" id="btn-replay" class="tool">Replay<kbd>R</kbd></button>
+      <button type="button" id="btn-slow" class="tool">Slow<kbd>S</kbd></button>
+      <span class="tsep" aria-hidden="true"></span>
+      <button type="button" id="btn-stress" class="tool tgl" aria-pressed="true">Stress ма́рки</button>
+      <button type="button" id="btn-translit" class="tool tgl" aria-pressed="true">Translit<kbd>T</kbd></button>
+      <button type="button" id="btn-en" class="tool tgl" aria-pressed="true">English</button>
+      <button type="button" id="btn-auto" class="tool tgl" aria-pressed="false">Auto-advance</button>
+      <span class="tspacer"></span>
+      <button type="button" id="btn-next" class="next">Continue<kbd>␣</kbd></button>
+    </div>
+  </section>
+
+  <!-- Settings / keyboard help. ui.js fills and shows it. -->
+  <div id="modal" class="overlay modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1" hidden></div>
+
+  <!-- Title card. Doubles as the user gesture browsers require before audio. -->
+  <div id="titlescreen" class="overlay title" tabindex="-1">
+    <div class="tcard">
+      <p class="teyebrow">Saint Petersburg · an evening in the building</p>
+      <h1 lang="ru">Сессия ноль</h1>
+      <p class="tsub">Session Zero — three letters, one neighbour, ten minutes.</p>
+      <p class="tbody">Аня lives one floor down. She has agreed to a language exchange:
+        she gets your English at the weekend, you get her Russian the rest of the time.
+        Tonight she only wants to teach you three letters.</p>
+      <div class="tbtns">
+        <button type="button" id="btn-start" class="big">Begin</button>
+        <button type="button" id="btn-restart" class="big ghost" hidden>Start over</button>
+      </div>
+      <p class="thint"><kbd>Space</kbd> advances · <kbd>1</kbd>–<kbd>9</kbd> choose · <kbd>R</kbd> replay · <kbd>S</kbd> slow · <kbd>T</kbd> transliteration</p>
+      <p class="tfoot" id="title-status">loading…</p>
+    </div>
+  </div>
+
+  <noscript>
+    <div class="noscript">Session Zero is a small JavaScript game. It needs scripting turned on for this page.</div>
+  </noscript>
+</div>
+
+<!-- Fixed load order (CONTRACT §0). Each file attaches one global to window.RU. -->
+<script src="js/srs.js"></script>
+<script src="js/save.js"></script>
+<script src="js/grade.js"></script>
+<script src="js/speech.js"></script>
+<script src="data/lexicon.js"></script>
+<script src="data/session0.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/main.js"></script>
+
+<pre id="__out" style="position:fixed;left:-99999px"></pre>
+<script>
+(function(){
+  var last='', same=0, i=0;
+  function vis(el){return el && !el.hidden;}
+  function nodeId(){ try{ var c=RU.app&&RU.app.engine&&RU.app.engine.current(); return c?c.id+'/'+c.type:'(none)'; }catch(e){return '(err '+e.message+')';} }
+  function exOf(n){ if(!n) return null; if(n.type==='exercise') return n; if(n.type==='weblab'&&n.task&&n.task.question) return n.task.question; return null; }
+  function finish(msg){
+    __log('=== END: '+msg+' ===');
+    __log('errbar: '+(document.getElementById('errbar').hidden?'(hidden)':document.getElementById('errbar').textContent));
+    document.getElementById('__out').textContent = window.__LOG.join('
+');
+    document.title='DONE';
+  }
+  function step(){
+    i++;
+    if(i>500){finish('step cap');return;}
+    var sig = nodeId()+'|'+(document.getElementById('titlescreen').hidden?'':'TITLE')+'|'+(document.getElementById('answer').innerHTML.length);
+    if(sig===last){same++;}else{same=0;__log('step '+i+' node='+nodeId());}
+    document.getElementById('__out').textContent=window.__LOG.join('
+');
+    last=sig;
+    if(same>8){ finish('STUCK at '+nodeId()+' :: next.disabled='+document.getElementById('btn-next').disabled+' answerHTML='+document.getElementById('answer').innerHTML.slice(0,400)+' panelHidden='+document.getElementById('panel').hidden); return; }
+
+    var title=document.getElementById('titlescreen');
+    if(vis(title)){ __log('  clicking Begin; status='+document.getElementById('title-status').textContent); document.getElementById('btn-start').click(); return setTimeout(step,80); }
+
+    var panel=document.getElementById('panel');
+    if(vis(panel)){
+      var pick=panel.querySelector('.equal .pick');
+      if(pick){ __log('  consent: clicking option one'); pick.click(); return setTimeout(step,80); }
+    }
+    var ans=document.getElementById('answer');
+    var host=ans;
+    // weblab question lives in the panel
+    var labq = panel && panel.querySelector('.labq');
+    if(labq && labq.querySelector('.choice')) host=labq;
+    var sel=host.querySelector('.selfrate .abtn');
+    if(sel){ __log('  open self-rate'); sel.click(); return setTimeout(step,80); }
+    var choices=host.querySelectorAll('.choice');
+    if(choices.length && !choices[0].disabled){
+      var n=RU.app.engine.current(); var ex=exOf(n); var idx=0;
+      if(ex&&ex.choices){ for(var k=0;k<ex.choices.length;k++){ if(ex.choices[k].correct){idx=k;break;} } }
+      __log('  choosing '+(idx+1)+' of '+choices.length+' via keyboard');
+      document.dispatchEvent(new KeyboardEvent('keydown',{key:String(idx+1),code:'Digit'+(idx+1),bubbles:true}));
+      return setTimeout(step,80);
+    }
+    var input=host.querySelector('input.ansin');
+    if(input && !input.disabled){
+      var n2=RU.app.engine.current(); var ex2=exOf(n2);
+      input.value=(ex2&&ex2.accept&&ex2.accept[0])||'кот';
+      __log('  typing "'+input.value+'"');
+      var btn=host.querySelector('.inrow .abtn'); btn.click();
+      return setTimeout(step,80);
+    }
+    var ta=host.querySelector('textarea.ansin');
+    if(ta){ ta.value='метро'; __log('  open answer typed'); host.querySelectorAll('.abtn')[0].click(); return setTimeout(step,80); }
+    var pbtn = panel && !panel.hidden ? panel.querySelector('.pbtn.warm') : null;
+    var next=document.getElementById('btn-next');
+    if(!next.disabled){ document.dispatchEvent(new KeyboardEvent('keydown',{key:' ',code:'Space',bubbles:true})); return setTimeout(step,80); }
+    if(pbtn){ __log('  panel button: '+pbtn.textContent); pbtn.click(); return setTimeout(step,80); }
+    return setTimeout(step,80);
+  }
+  __log('driver parsed');document.getElementById('__out').textContent=window.__LOG.join('
+');
+  window.addEventListener('load',function(){ __log('load fired'); setTimeout(step,200); });
+  document.addEventListener('DOMContentLoaded',function(){ __log('dcl fired'); });
+}());
+</script>
+</body>
+</html>

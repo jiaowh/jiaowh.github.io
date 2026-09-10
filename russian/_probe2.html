@@ -1,0 +1,17 @@
+<!DOCTYPE html><html><body><pre id="o">start</pre>
+<script>
+var o=document.getElementById('o');
+var log=[];
+function done(){ o.textContent=log.join(' | '); document.title=log.join(' | '); }
+var pending=2;
+function fin(){ if(--pending===0) done(); }
+try{
+ fetch('audio/s0/manifest.json').then(function(r){ log.push('fetch status='+r.status); return r.text(); }).then(function(t){ log.push('fetch len='+t.length); fin(); }, function(e){ log.push('fetch ERR='+e.message); fin(); });
+}catch(e){ log.push('fetch THROW='+e.message); fin(); }
+try{
+ var x=new XMLHttpRequest(); x.open('GET','audio/s0/manifest.json',true);
+ x.onload=function(){ log.push('xhr status='+x.status+' len='+(x.responseText||'').length); fin(); };
+ x.onerror=function(){ log.push('xhr ERR'); fin(); };
+ x.send();
+}catch(e){ log.push('xhr THROW='+e.message); fin(); }
+</script></body></html>

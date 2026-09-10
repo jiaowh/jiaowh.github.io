@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TESTS: not run</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    margin: 0; padding: 24px 28px 64px;
+    font: 14px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    background: #f7f7f5; color: #17181a;
+  }
+  h1 { font-size: 22px; margin: 0 0 4px; letter-spacing: 0.01em; }
+  h1.ok { color: #126c37; }
+  h1.bad { color: #a3121a; }
+  h2 { font-size: 15px; margin: 24px 0 6px; }
+  h3 { font-size: 13px; margin: 0 0 6px; font-weight: 600; }
+  p.meta { margin: 0 0 20px; color: #666; }
+  section { border: 1px solid #dcdcd6; border-radius: 6px; padding: 10px 12px; margin: 0 0 10px; background: #fff; }
+  section.suite-bad { border-color: #e2a3a3; background: #fffafa; }
+  ul { list-style: none; margin: 0; padding: 0; }
+  li { padding: 1px 0; }
+  li.ok { color: #35603f; }
+  li.bad { color: #a3121a; font-weight: 600; }
+  .err { color: #7a1017; font-weight: 400; white-space: pre-wrap; margin: 2px 0 6px 16px; padding-left: 8px; border-left: 2px solid #e2a3a3; }
+  ul.failures li { margin-bottom: 8px; }
+  .suite { color: #666; }
+  pre.plain { position: absolute; left: -99999px; top: 0; }  /* text mirror for --dump-dom greps */
+  @media (prefers-color-scheme: dark) {
+    body { background: #141416; color: #e6e6e4; }
+    section { background: #1c1c1f; border-color: #33333a; }
+    section.suite-bad { background: #241a1b; border-color: #5c3033; }
+    h1.ok { color: #6ed08c; } h1.bad { color: #ff8b8b; }
+    li.ok { color: #93b79c; } li.bad, .err { color: #ff9a9a; }
+    p.meta, .suite { color: #9a9a97; }
+  }
+</style>
+
+<!--
+  Harness setup. Everything below runs BEFORE the modules under test, so that
+  save.js never sees the real localStorage and any load-time script error is
+  captured rather than lost.
+-->
+<script>
+(function () {
+  window.RU = window.RU || {};
+  window.RUTEST = window.RUTEST || {};
+
+  /* ---- capture module load errors so tests.js can report them -------- */
+  window.RUTEST.loadErrors = [];    // scripts that parsed but threw
+  window.RUTEST.loadFailures = [];  // scripts that never loaded at all (404 etc.)
+  window.addEventListener('error', function (ev) {
+    var t = ev.target;
+    if (t && t !== window && t.tagName) {  // a resource error, not an exception
+      window.RUTEST.loadFailures.push((t.getAttribute && t.getAttribute('src')) || String(t.tagName));
+      return;
+    }
+    var where = ev.filename ? (String(ev.filename).split('/').pop() + ':' + ev.lineno) : 'unknown';
+    window.RUTEST.loadErrors.push(where + ' — ' + (ev.message || 'error'));
+  }, true);
+
+  /* ---- fake localStorage ---------------------------------------------
+     A complete Storage implementation that can be told to throw, so the
+     save-failure path is genuinely exercised instead of assumed:
+
+       RUTEST.fakeStorage.throwMode = 'quota'    -> setItem throws QuotaExceededError
+       RUTEST.fakeStorage.throwMode = 'security' -> every access throws SecurityError
+       RUTEST.fakeStorage.__reset()              -> empty, throwMode off
+  --------------------------------------------------------------------- */
+  function makeError(name, message) {
+    try { return new DOMException(message || name, name); }
+    catch (e) {
+      var err = new Error(message || name);
+      err.name = name;
+      err.code = (name === 'QuotaExceededError') ? 22 : 18; // legacy DOMException codes
+      return err;
+    }
+  }
+
+  var fake = {
+    _data: {},
+    throwMode: null,
+    get length() { return Object.keys(this._data).length; },
+    key: function (i) {
+      var ks = Object.keys(this._data);
+      i = Number(i);
+      return (i >= 0 && i < ks.length) ? ks[i] : null;
+    },
+    getItem: function (k) {
+      if (this.throwMode === 'security') throw makeError('SecurityError', 'access to site data is blocked');
+      k = String(k);
+      return Object.prototype.hasOwnProperty.call(this._data, k) ? this._data[k] : null;
+    },
+    setItem: function (k, v) {
+      if (this.throwMode === 'security') throw makeError('SecurityError', 'access to site data is blocked');
+      if (this.throwMode === 'quota') throw makeError('QuotaExceededError', 'the quota has been exceeded');
+      this._data[String(k)] = String(v);
+    },
+    removeItem: function (k) {
+      if (this.throwMode === 'security') throw makeError('SecurityError', 'access to site data is blocked');
+      delete this._data[String(k)];
+    },
+    clear: function () {
+      if (this.throwMode === 'security') throw makeError('SecurityError', 'access to site data is blocked');
+      this._data = {};
+    },
+    __reset: function () { this._data = {}; this.throwMode = null; },
+    __makeError: makeError
+  };
+  window.RUTEST.fakeStorage = fake;
+
+  // localStorage is an accessor on Window.prototype, so an own property on
+  // `window` shadows it for every unqualified `localStorage` reference too.
+  try {
+    Object.defineProperty(window, 'localStorage', { configurable: true, get: function () { return fake; } });
+  } catch (e1) {
+    try {
+      Object.defineProperty(Window.prototype, 'localStorage', { configurable: true, get: function () { return fake; } });
+    } catch (e2) {
+      window.RUTEST.storageInstallError = String((e1 && e1.message) || e1) + ' / ' + String((e2 && e2.message) || e2);
+    }
+  }
+  if (window.localStorage !== fake && !window.RUTEST.storageInstallError) {
+    window.RUTEST.storageInstallError = 'window.localStorage is still the real Storage after defineProperty';
+  }
+
+  // sessionStorage too, in case a module reaches for it as a fallback.
+  try {
+    Object.defineProperty(window, 'sessionStorage', { configurable: true, get: function () { return fake; } });
+  } catch (e3) { /* not fatal */ }
+
+  /* ---- keep the modules off the network -------------------------------
+     Nothing under test is allowed to fetch at runtime. If something tries,
+     it fails loudly in RUTEST.networkCalls rather than hanging the page on
+     a file:// XHR.
+  --------------------------------------------------------------------- */
+  window.RUTEST.networkCalls = [];
+  if (typeof window.fetch === 'function') {
+    window.fetch = function (url) {
+      window.RUTEST.networkCalls.push(String(url));
+      return Promise.reject(new Error('test harness: network access is disabled (' + url + ')'));
+    };
+  }
+}());
+</script>
+
+<!--
+  The modules under test, in the contract's load order:
+    srs.js -> save.js -> grade.js -> speech.js -> data/lexicon.js
+    -> data/session0.js -> engine.js -> ui.js -> main.js
+
+  ui.js and main.js are deliberately NOT loaded: they render and boot the app
+  shell against an index.html DOM that does not exist on this page, and neither
+  is under test here. Everything the suite touches ends at engine.js.
+-->
+<script src="../js/srs.js"></script>
+<script src="../js/save.js"></script>
+<script src="../js/grade.js"></script>
+<script src="../js/speech.js"></script>
+<script src="../data/lexicon.js"></script>
+<script src="../data/session0.js"></script>
+<script src="../js/engine.js"></script>
+</head>
+<body>
+<div id="tests-root">
+  <h1 id="tests-summary">TESTS: not run</h1>
+  <p class="meta">If this line never changes, tests.js itself failed to parse — check the browser console.</p>
+</div>
+
+<!-- Runs synchronously on parse, so --dump-dom always captures the final result. -->
+<script src="tests.js"></script>
+</body>
+</html>

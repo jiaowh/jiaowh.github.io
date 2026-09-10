@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d1424">
+<meta name="color-scheme" content="dark">
+<title>Session Zero — A little Russian with Anya</title>
+<meta name="description" content="An illustrated Russian-learning adventure for complete beginners. Learn letters and words with Anya, with English guidance, pronunciation, and gentle practice.">
+<meta name="robots" content="noindex">
+<link rel="preload" href="art/canal.png" as="image">
+<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/adventure.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- Persistent, non-dismissable storage-error banner. It lives in the static
+       markup (not built by ui.js) so that a save failure raised BEFORE the UI
+       mounts still has somewhere to render. RU.ui.showError() writes here. -->
+  <div id="errbar" role="alert" aria-live="assertive" hidden></div>
+
+  <header id="topbar">
+    <a class="brand" href="../index.html" title="back to the site">
+      <span class="star" aria-hidden="true">✦</span>
+      <b>SESSION ZERO</b>
+      <span class="brand-en">a little Russian</span>
+    </a>
+    <div class="topbar-right">
+      <span id="micchip" class="chip mic" hidden>
+        <span class="dot" aria-hidden="true"></span><span id="micchip-label">mic</span>
+        <button type="button" id="btn-micstop" class="chip-x" title="stop the microphone">stop</button>
+      </span>
+      <span id="savedot" class="chip save" title="progress is written after every step" aria-live="polite">
+        <span class="dot" aria-hidden="true"></span><span class="chip-t">saved</span>
+      </span>
+      <button type="button" id="btn-notebook" class="tbtn">Notebook</button>
+      <button type="button" id="btn-help" class="tbtn">Keys<kbd>?</kbd></button>
+      <button type="button" id="btn-settings" class="tbtn">Settings</button>
+    </div>
+  </header>
+
+  <main id="stage">
+    <div id="bg" data-bg="canal" aria-hidden="true"><div class="scene-shade"></div><div class="scene-sparkles"></div></div>
+    <div class="journey-hud"><div class="chapter-label">CHAPTER 01 <span>·</span> THE FIRST EVENING</div><div id="journey-label">Meet your neighbour</div><div class="journey-track" role="progressbar" aria-label="Lesson progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="journey-fill"></span></div></div>
+    <figure id="cast" data-expr="neutral"><img id="sprite" alt="Anya, your friendly neighbour, holding her notebook" src="art/anya.png"><figcaption class="character-caption">ANYA <span>Your neighbour & language guide</span></figcaption></figure>
+    <div class="scene-location">ST. PETERSBURG <span>21:30 · a warm welcome</span></div>
+
+    <!-- Node-driven full-stage panels: letters, web lab, mic consent, ability report. -->
+    <section id="panel" class="overlay" tabindex="-1" hidden></section>
+  </main>
+
+  <section id="tbox">
+    <div id="nameplate"><span id="speaker">Anya</span></div>
+
+    <div id="lines">
+      <p id="line-en" class="l-en" lang="en"></p>
+      <button id="btn-russian" class="russian-reveal" type="button" aria-expanded="false" aria-controls="line-ru line-tr" hidden>Explore the Russian</button>
+      <p id="line-ru" class="l-ru" lang="ru"></p>
+      <p id="line-tr" class="l-tr"></p>
+      <p id="line-note" class="l-note" hidden></p>
+    </div>
+
+    <!-- Choices, text input, mic button, feedback: built by ui.js per node. -->
+    <div id="answer"></div>
+
+    <div id="tbar">
+      <button type="button" id="btn-replay" class="tool">Listen<kbd>R</kbd></button>
+      <button type="button" id="btn-slow" class="tool">Slow<kbd>S</kbd></button>
+      <span class="tsep" aria-hidden="true"></span>
+      <button type="button" id="btn-stress" class="tool tgl" aria-pressed="true">Stress marks</button>
+      <button type="button" id="btn-translit" class="tool tgl" aria-pressed="true">Pronunciation<kbd>T</kbd></button>
+      <button type="button" id="btn-en" class="tool tgl" aria-pressed="true">English</button>
+      <button type="button" id="btn-auto" class="tool tgl" aria-pressed="false">Auto-advance</button>
+      <span class="tspacer"></span>
+      <button type="button" id="btn-next" class="next">Continue<kbd>␣</kbd></button>
+    </div>
+  </section>
+
+  <!-- Settings / keyboard help. ui.js fills and shows it. -->
+  <div id="modal" class="overlay modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1" hidden></div>
+
+  <!-- Title card. Doubles as the user gesture browsers require before audio. -->
+  <div id="titlescreen" class="overlay title" tabindex="-1">
+    <div class="tcard">
+      <p class="teyebrow">A LANGUAGE ADVENTURE · CHAPTER ONE</p>
+      <h1>A little<br>Russian.<br><em>A new friend.</em></h1>
+      <p class="tsub">Your first evening in Saint Petersburg.</p>
+      <p class="tbody">Meet Anya, your neighbour and patient guide. Start with English. Learn a few sounds. Read your first Russian words together.</p>
+      <div class="lesson-route"><span><b>01</b> Learn the sounds</span><span><b>02</b> Try a few words</span><span><b>03</b> Explore a café</span></div>
+      <div class="tbtns"><button type="button" id="btn-start" class="big">Meet Anya →</button><button type="button" id="btn-restart" class="big ghost" hidden>Start over</button></div>
+      <p class="thint">No Russian needed · 15–20 minutes · Saved as you go</p>
+      <p class="tfoot" id="title-status">Preparing Anya’s voice…</p>
+    </div>
+    <div class="title-character"><img src="art/anya.png" alt="Anya welcomes you with a smile"><span class="title-greeting">“We’ll take it one word at a time.”<small>ANYA · YOUR NEIGHBOUR</small></span></div>
+  </div>
+
+  <noscript>
+    <div class="noscript">Session Zero is a small JavaScript game. It needs scripting turned on for this page.</div>
+  </noscript>
+</div>
+
+<!-- Fixed load order (CONTRACT §0). Each file attaches one global to window.RU. -->
+<script src="js/srs.js"></script>
+<script src="js/save.js"></script>
+<script src="js/grade.js"></script>
+<script src="js/speech.js"></script>
+<script src="data/lexicon.js"></script>
+<script src="data/session0.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

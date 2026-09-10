@@ -1,0 +1,6 @@
+<!DOCTYPE html><html><body><pre id="o">start</pre>
+<script>
+var n=0;
+function t(){ n++; document.getElementById('o').textContent='ticks='+n; if(n<50) setTimeout(t,80); }
+window.addEventListener('load',function(){ setTimeout(t,200); });
+</script></body></html>

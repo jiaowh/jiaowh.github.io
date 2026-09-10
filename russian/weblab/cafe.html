@@ -1,0 +1,340 @@
+<!doctype html>
+<!--
+  Session Zero · Browser Lab page 1 — counter menu board of the café «КОМЕТА», St Petersburg.
+  Used by the weblab node in CONTRACT.md §3 beat 5. Static, self-contained, no scripts,
+  no external requests. Designed to be embedded in an iframe at ~600x400 and to stay
+  readable down to 380px wide.
+
+  LETTER BUDGET AT THIS BEAT: А К М О Т Е Р С Н  (free: А К М О Т Е; taught: Р С Н)
+
+  DECODABLE — every Russian string below uses only the nine letters above, so any of
+  them may be the target of the weblab question:
+      КОМЕТА       café name, and the name of the house cake
+      МОРС         berry drink            150 Р
+      СОК: ТОМАТ   tomato juice           140 Р   (a colon listing: bare "СОК ТОМАТ" is not
+                              grammatical Russian, and the correct томатный сок needs Ы and Й)
+      ТОРТ         cake                   260 Р
+      СМЕТАНА      sour cream              60 Р
+      КАССА        the till
+      КОТ ТОМ      the café cat's name card
+      Р            roubles (the abbreviation on every price)
+  Digits (150, 140, 260, 50, 60, 1961) are language-neutral.
+
+  DELIBERATE NOISE — one item only, present so the learner practises skipping what they
+  cannot yet read. It is never needed to answer the question and is not styled to draw
+  the eye. Marked in the markup with data-ru-noise="true" so tools/lint.py can exempt it
+  from the letter-budget check:
+      «Кофе с собой»   contains ф, б, й — none of them taught yet
+
+  AUTHORING NOTE: the СМЕТАНА row carries a realistic price correction (50 struck
+  through, 60 written beside it). If the weblab question asks for a price, prefer
+  МОРС / СОК / ТОРТ so there is exactly one number in play.
+-->
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>КОМЕТА</title>
+<style>
+  /* ---- palette -------------------------------------------------------- */
+  :root{
+    --wall-1:#cbbfae;          /* painted café wall behind the board        */
+    --wall-2:#b7a892;
+    --frame-1:#7d5a39;         /* pine frame, lit from the upper left       */
+    --frame-2:#5a3d25;
+    --slate:#22302a;           /* the board itself                          */
+    --chalk:#f4f1e6;
+    --chalk-soft:#d8dcd0;
+    --chalk-faint:#9fae9f;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{ height:100%; }
+
+  body{
+    margin:0;
+    padding:16px 14px 22px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    /* The wall is painted, not flat: a warm ground plus a slow vignette and a
+       faint horizontal trowel grain, so the board reads as hanging on something. */
+    background-color:var(--wall-1);
+    background-image:
+      radial-gradient(140% 100% at 50% -20%, rgba(255,255,255,.34), transparent 62%),
+      radial-gradient(120% 120% at 50% 120%, rgba(60,42,28,.30), transparent 65%),
+      repeating-linear-gradient(94deg, rgba(0,0,0,.028) 0 2px, transparent 2px 7px);
+    color:var(--chalk);
+    font-family:"Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* .stage exists only so the taped card can be right-aligned to the board's
+     own width instead of the viewport's. */
+  .stage{
+    width:100%;
+    max-width:560px;
+    display:flex;
+    flex-direction:column;
+  }
+
+  /* ---- the board ------------------------------------------------------ */
+  .board{
+    position:relative;
+    padding:13px;                                  /* the wooden frame       */
+    border-radius:5px;
+    background:
+      linear-gradient(150deg, var(--frame-1), var(--frame-2) 55%, #4a3120);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.22) inset,
+      0 10px 22px -10px rgba(40,26,14,.75),
+      0 2px 3px rgba(40,26,14,.35);
+  }
+  /* Wood grain, kept faint so it never competes with the chalk. */
+  .board::before{
+    content:"";
+    position:absolute; inset:0;
+    border-radius:5px;
+    background-image:repeating-linear-gradient(88deg,
+      rgba(255,255,255,.05) 0 1px, transparent 1px 6px,
+      rgba(0,0,0,.06) 6px 7px, transparent 7px 13px);
+    pointer-events:none;
+  }
+
+  .slate{
+    position:relative;
+    overflow:hidden;
+    padding:20px 22px 16px;
+    border-radius:2px;
+    background-color:var(--slate);
+    background-image:
+      radial-gradient(120% 80% at 18% -10%, rgba(255,255,255,.075), transparent 58%),
+      radial-gradient(100% 80% at 88% 112%, rgba(255,255,255,.05), transparent 60%),
+      repeating-linear-gradient(114deg, rgba(255,255,255,.022) 0 2px, transparent 2px 6px),
+      repeating-linear-gradient(24deg, rgba(0,0,0,.055) 0 3px, transparent 3px 9px);
+    box-shadow:
+      0 0 0 1px rgba(0,0,0,.45),
+      0 8px 18px -8px rgba(0,0,0,.6) inset,
+      0 -18px 26px -18px rgba(255,255,255,.30) inset;  /* chalk dust at the foot */
+  }
+  /* An old eraser sweep across the upper right — the wear that makes a board
+     look used rather than printed. */
+  .slate::after{
+    content:"";
+    position:absolute;
+    right:-14%; top:-30%;
+    width:75%; height:120%;
+    transform:rotate(-16deg);
+    background:radial-gradient(closest-side ellipse at 50% 50%,
+      rgba(255,255,255,.10), rgba(255,255,255,.045) 55%, transparent 78%);
+    pointer-events:none;
+  }
+
+  /* Everything readable sits above the smudge layer. */
+  .slate > *{ position:relative; z-index:1; }
+
+  /* ---- header --------------------------------------------------------- */
+  h1{
+    margin:0;
+    text-align:center;
+    font-family:Georgia, "Times New Roman", "Bookman Old Style", serif;
+    font-size:clamp(27px, 7.2vw, 42px);
+    font-weight:700;
+    letter-spacing:.20em;
+    text-indent:.20em;                 /* cancels the trailing letter-space  */
+    line-height:1.06;
+    color:var(--chalk);
+    text-shadow:0 0 1px rgba(255,255,255,.5), 0 1px 0 rgba(0,0,0,.35);
+  }
+
+  /* The one piece of untaught Russian on the page. Ordinary board decoration:
+     same chalk, no emphasis, no marker of any kind. */
+  .slogan{
+    margin:5px 0 0;
+    text-align:center;
+    font-family:"Segoe Script", "Bradley Hand", "Comic Sans MS", cursive;
+    font-size:clamp(13px, 3.2vw, 17px);
+    color:var(--chalk-soft);
+    opacity:.82;
+  }
+
+  .rule{
+    height:2px;
+    margin:13px 0 14px;
+    border:0;
+    background:linear-gradient(90deg,
+      transparent, rgba(244,241,230,.55) 9%, rgba(244,241,230,.62) 50%,
+      rgba(244,241,230,.5) 91%, transparent);
+    opacity:.7;
+  }
+
+  /* ---- the four priced lines ------------------------------------------ */
+  .menu{
+    margin:0;
+    padding:0;
+    list-style:none;
+  }
+  .menu li{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+    padding:5px 0;
+    font-size:clamp(15px, 3.7vw, 20px);
+    letter-spacing:.09em;
+    line-height:1.3;
+  }
+  /* Hand-written boards are never perfectly even. */
+  .menu li:nth-child(2){ opacity:.97; margin-left:2px; }
+  .menu li:nth-child(3){ margin-left:-1px; }
+  .menu li:nth-child(4){ opacity:.95; margin-left:1px; }
+
+  .name{
+    min-width:0;                       /* allows the name to wrap, not spill */
+    text-shadow:0 0 1px rgba(255,255,255,.35);
+  }
+  .dots{
+    flex:1 1 auto;
+    min-width:14px;
+    height:0;
+    transform:translateY(-4px);
+    border-bottom:2px dotted rgba(244,241,230,.34);
+  }
+  .price{
+    flex:0 0 auto;
+    white-space:nowrap;
+    font-variant-numeric:tabular-nums;
+    text-shadow:0 0 1px rgba(255,255,255,.35);
+  }
+  /* Yesterday's price, crossed out and rewritten. */
+  .was{
+    margin-right:5px;
+    color:var(--chalk-faint);
+    text-decoration:line-through;
+    text-decoration-thickness:2px;
+    font-size:.85em;
+  }
+
+  /* ---- footer band ---------------------------------------------------- */
+  .foot{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:12px;
+    margin-top:14px;
+    padding-top:10px;
+    border-top:1px solid rgba(244,241,230,.20);
+    font-size:clamp(11px, 2.8vw, 14px);
+    letter-spacing:.16em;
+    color:var(--chalk-soft);
+    opacity:.85;
+  }
+  .foot .arrow{ letter-spacing:0; }
+
+  /* ---- the taped card hanging off the frame --------------------------- */
+  .note{
+    position:relative;
+    align-self:flex-end;
+    margin:-16px 14px 0 0;
+    padding:11px 15px 9px;
+    background:linear-gradient(178deg, #f6efdd, #e9dfc7);
+    color:#4a3c28;
+    font-family:"Segoe Script", "Bradley Hand", "Comic Sans MS", cursive;
+    font-size:14px;
+    letter-spacing:.05em;
+    transform:rotate(-3.2deg);
+    box-shadow:0 6px 12px -6px rgba(45,30,16,.65), 0 1px 0 rgba(255,255,255,.6) inset;
+  }
+  .note::before{                                   /* a strip of matte tape  */
+    content:"";
+    position:absolute;
+    top:-8px; left:50%;
+    width:46px; height:17px;
+    margin-left:-23px;
+    transform:rotate(2.5deg);
+    background:rgba(238,236,222,.62);
+    box-shadow:0 1px 2px rgba(45,30,16,.28);
+  }
+  .note::after{                                    /* the cat, in two strokes */
+    content:"";
+    position:absolute;
+    right:9px; bottom:7px;
+    width:13px; height:13px;
+    border-radius:50% 50% 45% 45%;
+    border:1.5px solid rgba(74,60,40,.5);
+    border-top-color:transparent;
+    transform:rotate(-12deg);
+  }
+
+  /* ---- narrow phones -------------------------------------------------- */
+  @media (max-width:420px){
+    body{ padding:12px 10px 18px; }
+    .board{ padding:10px; }
+    .slate{ padding:16px 15px 13px; }
+    h1{ letter-spacing:.14em; text-indent:.14em; }
+    .menu li{ letter-spacing:.05em; gap:6px; }
+    .foot{ letter-spacing:.10em; }
+    .note{ margin:-14px 8px 0 0; font-size:13px; padding:9px 12px 8px; }
+  }
+
+  /* Very short embeds (a 600x400 iframe is fine; this is the safety net). */
+  @media (max-height:340px){
+    body{ padding:8px; align-items:flex-start; }
+    .slate{ padding:13px 16px 11px; }
+    .rule{ margin:9px 0 9px; }
+    .menu li{ padding:3px 0; }
+    .note{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <div class="board">
+    <div class="slate">
+
+      <h1>КОМЕТА</h1>
+      <!-- Untaught letters (ф, б, й). Decoration only; nothing on this page
+           depends on reading it. See the note at the top of the file. -->
+      <p class="slogan" data-ru-noise="true">Кофе с собой</p>
+
+      <hr class="rule">
+
+      <ul class="menu">
+        <li>
+          <span class="name">МОРС</span>
+          <span class="dots" aria-hidden="true"></span>
+          <span class="price">150 Р</span>
+        </li>
+        <li>
+          <span class="name">СОК: ТОМАТ</span>
+          <span class="dots" aria-hidden="true"></span>
+          <span class="price">140 Р</span>
+        </li>
+        <li>
+          <span class="name">ТОРТ «КОМЕТА»</span>
+          <span class="dots" aria-hidden="true"></span>
+          <span class="price">260 Р</span>
+        </li>
+        <li>
+          <span class="name">СМЕТАНА</span>
+          <span class="dots" aria-hidden="true"></span>
+          <span class="price"><span class="was">50</span>60 Р</span>
+        </li>
+      </ul>
+
+      <p class="foot">
+        <span>КАССА <span class="arrow">→</span></span>
+        <span>С 1961</span>
+      </p>
+
+    </div>
+  </div>
+
+  <p class="note">КОТ ТОМ</p>
+
+</div>
+
+</body>
+</html>
