@@ -357,17 +357,17 @@
       <label><input type="checkbox" id="avgFam_sma" checked><span class="sw" style="background:#38bdf8"></span>SMA 5</label>
       <label><input type="checkbox" id="avgFam_mom" checked><span class="sw" style="background:#a78bfa"></span>Momentum 5</label>
       <label><input type="checkbox" id="avgFam_donch" checked><span class="sw" style="background:#f472b6"></span>Donchian 4</label>
-      <label title="An arrow on each bar whose close moved the traded position; big arrows = in from flat / out to flat."><input type="checkbox" id="avgMarks" checked>Position changes</label>
+      <label title="IN / OUT arrows where the member vote crossed 60% / 40%; small arrows = vol-target resizes while in."><input type="checkbox" id="avgMarks" checked>IN / OUT signals</label>
       <span class="integrity" id="avg_src" style="margin-left:auto"></span>
     </div>
     <div id="chart_avg" class="chartbox"></div>
     <div class="siglegend">
-      <span class="lg"><span class="gl" style="color:#3fb950">&#9650;</span><span class="gl" style="color:#f85149">&#9660;</span> position raised / cut at that bar's close &mdash; large = in from flat / out to flat</span>
+      <span class="lg"><span class="gl" style="color:#3fb950">&#9650;</span><span class="gl" style="color:#f85149">&#9660;</span> <b>IN</b> when more than 60% of members are long / <b>OUT</b> below 40%, at that bar's close &mdash; small arrows = vol-target resizes</span>
       <span class="lg mono" id="avgRead"></span>
     </div>
     <div class="imacd-head">
       <span class="h">Average · 50 members · 4H</span>
-      <span class="sub">white = share of all members long · green step = position to hold · thin = family averages</span>
+      <span class="sub">white = share of members long, dashed in 60% / out 40% · green step = position to hold · thin = family averages</span>
     </div>
     <div id="avgline" class="imacdbox"></div>
     <div class="imacd-head">
@@ -872,11 +872,12 @@ function scalpTrades(f5,f1h,cfg){
 // as the research harness): 36 iMACD = {impulse > 0, impulse > signal} × TF
 // {4,8,12,24,48,72}h × MA length {21,34,55}; on daily bars 5 SMA (close > SMA n),
 // 5 momentum (close > close n days ago), 4 Donchian (close > prior n-day high enters,
-// close < prior n/2-day low exits). E = share of members long. Position = E × min(cap,
-// target/σ), σ = EW realised vol of 4h returns (half-life 20 d) re-read at each UTC daily
-// close; traded only when the target moves > ENS_BAND (or goes to 0). A decision at a
+// close < prior n/2-day low exits). E = share of members long. IN when E > ENS_IN, OUT
+// when E < ENS_OUT (hysteresis). Position while IN = 1 (spot) or min(cap, target/σ),
+// σ = EW realised vol of 4h returns (half-life 20 d) re-read at each UTC daily close;
+// resized only when the size moves > ENS_BAND (exits always trade). A decision at a
 // bar's close applies from the next bar. Research: quant/reports/iMACD ensemble.md.
-const ENS_TF=[4,8,12,24,48,72],ENS_N=[21,34,55],ENS_MODES=["zero","state"],ENS_BAND=0.25;
+const ENS_TF=[4,8,12,24,48,72],ENS_N=[21,34,55],ENS_MODES=["zero","state"],ENS_BAND=0.25,ENS_IN=0.60,ENS_OUT=0.40;
 const ENS_SMA=[20,50,100,150,200],ENS_MOM=[14,28,56,84,168],ENS_DON=[10,20,50,100];
 const ENS_FAM={imacd:{label:"iMACD",color:"#ffb000"},sma:{label:"SMA",color:"#38bdf8"},
   mom:{label:"Momentum",color:"#a78bfa"},donch:{label:"Donchian",color:"#f472b6"}};
@@ -884,13 +885,13 @@ const ENS_SIZING={
   spot:{label:"Spot · no leverage",tgt:null,cap:1},
   vt60:{label:"Vol-target 60% · ≤2×",tgt:0.6,cap:2},
   vt80:{label:"Vol-target 80% · ≤2×",tgt:0.8,cap:2}};
-// Backtest of this exact logic, band 0.25 (quant/research_notes/imacd_ensemble/port55.py, bands.py):
+// Backtest of this exact logic: IN >60% / OUT <40%, band 0.25 (quant/research_notes/imacd_ensemble/hyst_card.py):
 // 2019-01 → 2026-09, Binance, 10 bp/side, funding charged on the >1× part.
 const ENS_BT=[
   {k:"bh",  label:"Buy & hold",           c19:50,d19:-77,s19:0.65,c23:54,d23:-53},
-  {k:"spot",label:"Spot · no leverage",   c19:45,d19:-45,s19:1.08,c23:33,d23:-26},
-  {k:"vt60",label:"Vol-target 60% · ≤2×", c19:59,d19:-48,s19:1.22,c23:59,d23:-34},
-  {k:"vt80",label:"Vol-target 80% · ≤2×", c19:74,d19:-55,s19:1.12,c23:70,d23:-38}];
+  {k:"spot",label:"Spot · no leverage",   c19:64,d19:-39,s19:1.18,c23:47,d23:-25},
+  {k:"vt60",label:"Vol-target 60% · ≤2×", c19:78,d19:-40,s19:1.28,c23:69,d23:-40},
+  {k:"vt80",label:"Vol-target 80% · ≤2×", c19:96,d19:-43,s19:1.16,c23:82,d23:-43}];
 let ENS_MODE="vt60";
 try{const m=localStorage.getItem("btc_ens_mode");if(m&&ENS_SIZING[m])ENS_MODE=m;}catch(e){}
 // group closed 4h bars into epoch-aligned `span`-second bars; ends[k] = 4h index that closes bar k
@@ -942,14 +943,19 @@ function computeEnsemble(c4){
     if(i>0){const r=B[i].close/B[i-1].close-1;v=lam*v+(1-lam)*r*r;}
     if((B[i].time+14400)%DAY===0)held=Math.sqrt(v*2190);
     vol[i]=held;}
+  // IN/OUT with hysteresis: go long when more than ENS_IN of members are long, stay long
+  // until fewer than ENS_OUT are (the gap stops flip-flopping around 50%)
+  const inn=new Array(n).fill(NaN);let st=0;
+  for(let i=0;i<n;i++){if(isNaN(E[i]))continue;
+    if(st===0&&E[i]>ENS_IN)st=1;else if(st===1&&E[i]<ENS_OUT)st=0;inn[i]=st;}
   const pos={},banded={};
   for(const k in ENS_SIZING){const z=ENS_SIZING[k];
-    pos[k]=E.map((e,i)=>isNaN(e)?NaN:(z.tgt?e*Math.min(z.cap,z.tgt/vol[i]):e));
+    pos[k]=inn.map((s,i)=>isNaN(s)?NaN:(z.tgt?s*Math.min(z.cap,z.tgt/vol[i]):s));
     let c=NaN;banded[k]=pos[k].map(p=>{if(isNaN(p))return NaN;
       if(isNaN(c)||Math.abs(p-c)>ENS_BAND||(p===0&&c!==0))c=p;return c;});}
   for(const q of members){q.now=q.st[n-1];q.since=-1;       // last flip = bar whose close changed it
     for(let i=n-1;i>0;i--)if(!isNaN(q.st[i-1])&&q.st[i]!==q.st[i-1]){q.since=i;break;}}
-  return {t:B.map(b=>b.time),E,fam,vol,pos,banded,members};
+  return {t:B.map(b=>b.time),E,inn,fam,vol,pos,banded,members};
 }
 
 function makeView(cfg){
@@ -1599,6 +1605,8 @@ const AVG=(()=>{
     eL=lineChart.addLineSeries({color:"#e6edf3",lineWidth:2,priceLineVisible:false,title:"average"});
     pL=lineChart.addLineSeries({color:"#3fb950",lineWidth:2,lineType:1,priceLineVisible:false,title:"position"});
     pL.createPriceLine({price:1,color:"#33404a",lineWidth:1,lineStyle:2,axisLabelVisible:false,title:""});
+    eL.createPriceLine({price:ENS_IN,color:"#3fb950",lineWidth:1,lineStyle:2,axisLabelVisible:true,title:"in"});
+    eL.createPriceLine({price:ENS_OUT,color:"#f85149",lineWidth:1,lineStyle:2,axisLabelVisible:true,title:"out"});
     let lock=false;const panes=[chart,lineChart];
     panes.forEach(src=>src.timeScale().subscribeVisibleLogicalRangeChange(r=>{
       if(lock||!r)return;lock=true;
@@ -1641,13 +1649,16 @@ const AVG=(()=>{
     for(const f of FAMS){famL[f].applyOptions({visible:$("avgFam_"+f).checked});famL[f].setData(series(R.fam[f]));}
     [eL,pL].forEach(s=>s.applyOptions({autoscaleInfoProvider:()=>({priceRange:{minValue:0,maxValue:cap}})}));
     // markers on the bar whose close changed the traded position (filled at the next bar's open)
-    const mk=[];
+    // IN / OUT = the vote crossing its thresholds; small arrows = vol-target resizes while IN
+    const mk=[],I=R.inn;
     if($("avgMarks").checked)for(let i=1;i<P.length;i++){
-      if(isNaN(P[i])||P[i]===P[i-1])continue;
-      if(isNaN(P[i-1])){mk.push({time:C4[i].time,position:"belowBar",shape:"circle",color:"#6b7882",size:1,text:"start "+fx(P[i])});continue;}
-      const up=P[i]>P[i-1],edge=P[i]===0||P[i-1]===0;
-      mk.push({time:C4[i].time,position:up?"belowBar":"aboveBar",shape:up?"arrowUp":"arrowDown",
-        color:up?"#3fb950":"#f85149",size:edge?1.6:1,text:P[i]===0?"flat":P[i-1]===0?fx(P[i]):""});}
+      if(isNaN(I[i])||isNaN(I[i-1]))continue;
+      if(I[i]!==I[i-1]){const up=I[i]===1;
+        mk.push({time:C4[i].time,position:up?"belowBar":"aboveBar",shape:up?"arrowUp":"arrowDown",
+          color:up?"#3fb950":"#f85149",size:1.8,text:up?"IN "+fx(P[i]):"OUT"});continue;}
+      if(I[i]===1&&P[i]!==P[i-1]){const up=P[i]>P[i-1];
+        mk.push({time:C4[i].time,position:up?"belowBar":"aboveBar",shape:up?"arrowUp":"arrowDown",
+          color:up?"rgba(63,185,80,0.6)":"rgba(248,81,73,0.6)",size:0.6,text:""});}}
     candles.setMarkers(mk);
     if(fit){const n=C4.length,go=()=>chart.timeScale().setVisibleLogicalRange({from:n-6*365,to:n+5});
       go();requestAnimationFrame(()=>setTimeout(go,60));}
@@ -1659,7 +1670,7 @@ const AVG=(()=>{
     let i=R.t.length-1;
     if(t!=null){let lo=0,hi=R.t.length-1;while(lo<hi){const m=(lo+hi+1)>>1;if(R.t[m]<=t)lo=m;else hi=m-1;}i=lo;}
     if(isNaN(R.E[i])){el.textContent=tstr(R.t[i])+" UTC · warming up";return;}
-    el.innerHTML=`${tstr(R.t[i])} UTC · position <b style="color:#3fb950">${fx(R.banded[ENS_MODE][i])}</b> · average ${(R.E[i]*100).toFixed(0)}% · `+
+    el.innerHTML=`${tstr(R.t[i])} UTC · <b style="color:${R.inn[i]===1?"#3fb950":"#6b7882"}">${R.inn[i]===1?"IN":"OUT"}</b> · position <b style="color:#3fb950">${fx(R.banded[ENS_MODE][i])}</b> · average ${(R.E[i]*100).toFixed(0)}% · `+
       FAMS.map(f=>`<span style="color:${ENS_FAM[f].color}">${ENS_FAM[f].label} ${(R.fam[f][i]*100).toFixed(0)}%</span>`).join(" · ");
   }
   // heatmap rows in family order, with a gap between families
@@ -1705,9 +1716,14 @@ const AVG=(()=>{
   function card(mode){
     const n=R.t.length-1,e=R.E[n],P=R.banded[mode],p=P[n];
     if(isNaN(e))return '<h2>Average · position</h2><div class="sig-sub">not enough 4h history for every member to warm up (needs ~1,200 bars; the fallback source serves 1,000).</div>';
-    let j=n;while(j>0&&P[j-1]===p)j--;
-    const since=j>0?`changed ${tstr(R.t[j]+14400)} UTC from ${fx(P[j-1])}`:"no change in loaded history";
-    const cls=p>=0.75?"long":p<=0.05?"flat":"window";
+    const I=R.inn,on=I[n]===1,M=R.members.length,nl=Math.round(e*M);
+    let j=n;while(j>0&&I[j-1]===I[n])j--;
+    const since=j>0?`${on?"IN":"OUT"} since ${tstr(R.t[j]+14400)} UTC`:`${on?"IN":"OUT"} for all loaded history`;
+    // members that must flip to change state: OUT needs > ENS_IN·M long, IN exits below ENS_OUT·M
+    const need=on?nl-Math.ceil(ENS_OUT*M)+1:Math.floor(ENS_IN*M)+1-nl;
+    const nextTxt=on?`exit if ${need} more member${need===1?"":"s"} turn flat (below ${Math.round(ENS_OUT*100)}%)`
+      :`enter if ${need} more member${need===1?"":"s"} turn long (above ${Math.round(ENS_IN*100)}%)`;
+    const cls=on?"long":"flat";
     const famTxt=FAMS.map(f=>{const ms=R.members.filter(q=>q.fam===f);
       return `<span style="color:${ENS_FAM[f].color}">${ENS_FAM[f].label} ${ms.filter(q=>q.now===1).length}/${ms.length}</span>`;}).join(" · ");
     const flip=q=>q.since>0?tstr(R.t[q.since]+14400).slice(0,10):"—";
@@ -1719,8 +1735,9 @@ const AVG=(()=>{
       .map(q=>`<tr><td>${tstr(R.t[q.since]+14400)}</td><td style="color:${ENS_FAM[q.fam].color};text-align:left">${q.label}</td><td class="${q.now===1?"up":"dn"}">${q.now===1?"→ long":"→ flat"}</td></tr>`).join("");
     const bt=ENS_BT.map(r=>`<tr${r.k===mode?' class="open"':""}><td>${r.label}</td><td>${r.c19}%</td><td class="dn">${r.d19}%</td><td>${r.s19.toFixed(2)}</td><td>${r.c23}%</td><td class="dn">${r.d23}%</td></tr>`).join("");
     return `<h2>Average · position</h2>
-      <div class="sig-head"><span class="sig-status ${cls}">${p<=0.05?"FLAT":fx(p)+" LONG"}</span>
-        <span class="sig-sub">${ENS_SIZING[mode].label} · ${Math.round(e*R.members.length)}/${R.members.length} long (${(e*100).toFixed(0)}%) · 20d vol ${(R.vol[n]*100).toFixed(0)}% · untraded target ${fx(R.pos[mode][n])} · ${since}</span></div>
+      <div class="sig-head"><span class="sig-status ${cls}">${on?"IN · "+fx(p)+" LONG":"OUT · FLAT"}</span>
+        <span class="sig-sub">${since} · ${nl}/${M} members long (${(e*100).toFixed(0)}%) · ${nextTxt}</span></div>
+      <div class="sig-sub" style="margin-bottom:4px">${ENS_SIZING[mode].label}${ENS_SIZING[mode].tgt?` · 20d vol ${(R.vol[n]*100).toFixed(0)}% · untraded size ${fx(R.pos[mode][n])}`:""}</div>
       <div class="sig-sub" style="margin-bottom:6px">${famTxt}</div>
       <div class="avg-cols">
         <div><table class="tt ens-grid"><tr><th>iMACD</th>${ENS_N.map(l=>`<th>&gt;0 · ${l}</th>`).join("")}${ENS_N.map(l=>`<th>&gt;sig · ${l}</th>`).join("")}</tr>${grid}</table></div>
@@ -1728,7 +1745,7 @@ const AVG=(()=>{
       </div>
       <table class="tt"><tr><th>Latest member flips (bar close, UTC)</th><th style="text-align:left">member</th><th></th></tr>${recent}</table>
       <table class="tt"><tr><th>Backtest 2019→now</th><th>CAGR</th><th>max DD</th><th>Sharpe</th><th>2023+ CAGR</th><th>2023+ DD</th></tr>${bt}</table>
-      <div class="sig-sub">Trade the green step line. It moves only when the target shifts by more than ${ENS_BAND.toFixed(2)}, and each arrow on the price chart is one of those changes (filled at the next bar's open). Levered sizings hold perps above 1×, and the backtest charges funding on that part. Sharpe beats buy &amp; hold robustly (bootstrap p≈0.01). Beating buy &amp; hold on return does not (p≈0.4 at vol-target 60%, ≈0.1 at 80%). Unlevered, the gain comes from sitting out bear markets. Research: quant/reports/iMACD ensemble.md.</div>`;
+      <div class="sig-sub">Go IN when more than ${Math.round(ENS_IN*100)}% of the ${M} members are long. Stay in until fewer than ${Math.round(ENS_OUT*100)}% are. Trades fill at the next bar's open. Vol-target sizings also resize while IN, but only when the size moves by more than ${ENS_BAND.toFixed(2)} (the small arrows). Levered sizings hold perps above 1×, and the backtest charges funding on that part. The backtest beats buy &amp; hold on Sharpe and drawdown. The return edge is not proven: majority-vote p≈0.24 unlevered, and IN/OUT at 60%/40% was chosen from a sweep. Research: quant/reports/iMACD ensemble.md.</div>`;
   }
   function onShow(){
     if(!window.LightweightCharts){$("avgCard").innerHTML='<div class="sig-sub">chart library blocked.</div>';return;}
