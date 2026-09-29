@@ -376,6 +376,13 @@
     </div>
     <div id="avgheat" class="heatbox"><canvas id="avgheatCv"></canvas><div id="avgTip" hidden></div></div>
     <div class="sig" id="avgCard"></div>
+    <div class="imacd-head">
+      <span class="h">MSTR · same signal</span>
+      <span class="sub">daily MSTR (CNBC, split-adjusted) · green step = the BTC position above, read at the 16:00 UTC 4h close and traded at that day's US close</span>
+    </div>
+    <div id="chart_mstr" class="chartbox" style="height:340px"></div>
+    <div class="siglegend"><span class="lg mono" id="mstrRead"></span></div>
+    <div class="sig" id="mstrCard"></div>
   </section>
 
   <section class="panel" id="panel_liq" hidden>
@@ -933,6 +940,25 @@ const ENS_BT=[
   {k:"spot",label:"Full size · spot",          c19:65,d19:-23,s19:1.50,c23:47,d23:-21},
   {k:"vt60",label:"Vol-target 60% · spot ≤1×", c19:59,d19:-22,s19:1.51,c23:47,d23:-21},
   {k:"vt80",label:"Vol-target 80% · spot ≤1×", c19:61,d19:-21,s19:1.48,c23:47,d23:-21}];
+// MSTR overlay: hold MSTR at the BTC position of the 4h bar that closes at 16:00 UTC, filled at that
+// day's US close (MSTR ≈ 1.3× BTC moves since it began buying BTC in 2020-08). Backtest of exactly
+// this mapping, Yahoo adjusted daily, 5 bp/side, idle cash 0: 2020-08-11 → 2026-09 and 2023+.
+const MSTR_HOUR=16;
+const MSTR_BT=[
+  {k:"bh",  label:"MSTR buy & hold",           c20:54,d20:-89,s20:0.47,c23:95, d23:-83},
+  {k:"spot",label:"Full size · spot",          c20:78,d20:-54,s20:1.11,c23:107,d23:-47},
+  {k:"vt60",label:"Vol-target 60% · spot ≤1×", c20:77,d20:-47,s20:1.17,c23:107,d23:-47},
+  {k:"vt80",label:"Vol-target 80% · spot ≤1×", c20:77,d20:-47,s20:1.15,c23:107,d23:-47}];
+async function fetchMSTR(fromSec){
+  const f=s=>new Date(s*1000).toISOString().slice(0,10).replace(/-/g,"")+"000000";
+  const r=await fetch(`https://ts-api.cnbc.com/harmony/app/bars/MSTR/1D/${f(fromSec)}/${f(Date.now()/1000+DAY)}/adjusted/EST5EDT.json`);
+  if(!r.ok)throw new Error("CNBC "+r.status);
+  const b=(await r.json()).barData.priceBars;
+  if(!b||!b.length)throw new Error("CNBC empty");
+  // one bar per US trading date, stamped 00:00 UTC of that date
+  return b.map(x=>{const t=x.tradeTime;return {time:Date.UTC(+t.slice(0,4),+t.slice(4,6)-1,+t.slice(6,8))/1000,
+    open:+x.open,high:+x.high,low:+x.low,close:+x.close};}).filter(c=>c.close>0);
+}
 let ENS_MODE="vt60";
 try{const m=localStorage.getItem("btc_ens_mode");if(m&&ENS_SIZING[m])ENS_MODE=m;}catch(e){}
 // group closed 4h bars into epoch-aligned `span`-second bars; ends[k] = 4h index that closes bar k
@@ -1630,8 +1656,8 @@ setInterval(fetchFunding,3600000);
 // Price (4h), the all-member average + per-family averages + the position step line, and a
 // member heatmap (one row per member, drawn against the price chart's own time scale).
 const AVG=(()=>{
-  let inited=false,loaded=false,busy=false,C4=null,R=null,FUND=null;
-  let chart,candles,lineChart,eL,pL,famL={},heat,tip;
+  let inited=false,loaded=false,busy=false,C4=null,R=null,FUND=null,MS=null,MSERR=null;
+  let chart,candles,lineChart,eL,pL,famL={},heat,tip,mChart,mCandles,mPos;
   const HEAT_ROW=4,HEAT_GAP=7,FAMS=Object.keys(ENS_FAM);
   const fx=x=>x.toFixed(2)+"×";
   const tstr=ts=>new Date(ts*1000).toISOString().slice(0,16).replace("T"," ");
@@ -1661,6 +1687,14 @@ const AVG=(()=>{
       lock=false;drawHeat();}));
     chart.subscribeCrosshairMove(p=>readout(p&&p.time));
     lineChart.subscribeCrosshairMove(p=>readout(p&&p.time));
+    mChart=LightweightCharts.createChart($("chart_mstr"),{...lwOpts(),timeScale:{borderColor:"#1e262e",timeVisible:false}});
+    mCandles=mChart.addCandlestickSeries({upColor:"#3fb950",downColor:"#f85149",
+      borderUpColor:"#3fb950",borderDownColor:"#f85149",wickUpColor:"#3fb950",wickDownColor:"#f85149"});
+    mPos=mChart.addLineSeries({color:"#3fb950",lineWidth:2,lineType:1,priceScaleId:"pos",priceLineVisible:false,
+      lastValueVisible:false,crosshairMarkerVisible:false,autoscaleInfoProvider:()=>({priceRange:{minValue:0,maxValue:1}})});
+    mCandles.priceScale().applyOptions({scaleMargins:{top:0.06,bottom:0.26}});
+    mChart.priceScale("pos").applyOptions({scaleMargins:{top:0.8,bottom:0.02},visible:false});
+    mChart.subscribeCrosshairMove(p=>mReadout(p&&p.time));
     heat=$("avgheatCv");tip=$("avgTip");
     new ResizeObserver(()=>drawHeat()).observe($("avgheat"));
     $("avgheat").addEventListener("mousemove",heatHover);
@@ -1679,8 +1713,10 @@ const AVG=(()=>{
       // funding stamps in parallel (full window + 15 d of lead-in once, then only the newest ones)
       const now=Math.floor(Date.now()/1000);
       const fFrom=FUND?FUND.stamps[FUND.stamps.length-1][0]-DAY:now-1020*DAY;
-      const [{data,src},fr]=await Promise.all([getCandles("4h",14400,C4?1000:6000),
-        fetchFundingHistory(fFrom).catch(e=>{console.warn("avg funding",e);return null;})]);
+      const [{data,src},fr,ms]=await Promise.all([getCandles("4h",14400,C4?1000:6000),
+        fetchFundingHistory(fFrom).catch(e=>{console.warn("avg funding",e);return null;}),
+        fetchMSTR(now-1100*DAY).catch(e=>{console.warn("avg mstr",e);MSERR=String(e.message||e);return null;})]);
+      if(ms){MS=ms;MSERR=null;}
       if(C4){const m=new Map(C4.map(c=>[c.time,c]));data.forEach(c=>m.set(c.time,c));
         C4=[...m.values()].sort((a,b)=>a.time-b.time);}
       else C4=data;
@@ -1719,7 +1755,59 @@ const AVG=(()=>{
     if(fit){const n=C4.length,go=()=>chart.timeScale().setVisibleLogicalRange({from:n-6*365,to:n+5});
       go();requestAnimationFrame(()=>setTimeout(go,60));}
     $("avgCard").innerHTML=card(mode);
-    readout(null);drawHeat();
+    readout(null);drawHeat();renderMstr(mode,fit);
+  }
+  // MSTR target per trading date = this tab's traded BTC position after the 4h bar closing at 16:00 UTC
+  // (NaN while the BTC average warms up); `live` marks a date whose 16:00 UTC read hasn't happened yet
+  function mstrPos(mode){
+    const P=R.banded[mode],now=Date.now()/1000,o=[];let i=-1;
+    for(const c of MS){const T=c.time+MSTR_HOUR*3600;
+      while(i+1<R.t.length&&R.t[i+1]+14400<=T)i++;
+      o.push({time:c.time,p:i>=0?P[i]:NaN,live:T>now});}
+    return o;
+  }
+  let MP=null;
+  function renderMstr(mode,fit){
+    const el=$("mstrCard");
+    if(!MS){mCandles.setData([]);mPos.setData([]);MP=null;
+      el.innerHTML=`<h2>MSTR · same signal</h2><div class="sig-sub"><span class="bad">MSTR data unreachable</span>${MSERR?" ("+MSERR+")":""} — the BTC position above still applies.</div>`;
+      $("mstrRead").textContent="";return;}
+    MP=mstrPos(mode);
+    mCandles.setData(MS);
+    mPos.setData(MP.map(z=>isNaN(z.p)?{time:z.time}:{time:z.time,value:z.p}));
+    // marker on the date whose close the order fills at
+    const mk=[];
+    if($("avgMarks").checked)for(let k=1;k<MP.length;k++){const a=MP[k-1].p,b=MP[k].p;
+      if(isNaN(a)||isNaN(b)||a===b)continue;const up=b>a;
+      mk.push({time:MP[k].time,position:up?"belowBar":"aboveBar",shape:up?"arrowUp":"arrowDown",
+        color:a===0||b===0?(up?"#3fb950":"#f85149"):(up?"rgba(63,185,80,0.6)":"rgba(210,153,34,0.7)"),
+        size:a===0||b===0?1.8:0.7,text:a===0?"IN "+fx(b):b===0?"OUT":""});}
+    mCandles.setMarkers(mk);
+    if(fit){const n=MS.length,go=()=>mChart.timeScale().setVisibleLogicalRange({from:n-420,to:n+3});
+      go();requestAnimationFrame(()=>setTimeout(go,60));}
+    mReadout(null);
+    const n=MP.length-1,last=MS[n],nowS=Date.now()/1000;
+    // between today's 16:00 UTC read and the US close (≤21:00 UTC) the order is locked; otherwise the
+    // current BTC position is only the provisional target for the next close
+    const locked=!MP[n].live&&nowS<last.time+21*3600,tgt=locked?MP[n].p:R.banded[mode][R.t.length-1];
+    let k=n;while(k>0&&MP[k-1].p===MP[n].p)k--;
+    const d=t=>new Date(t*1000).toISOString().slice(0,10);
+    const lastTrade=k>0&&!isNaN(MP[k-1].p)?`last change ${d(MP[k].time)} close: ${fx(MP[k-1].p)} → ${fx(MP[k].p)}`:"no change in loaded history";
+    const on=tgt>0,cls=on?"long":"flat";
+    const bt=MSTR_BT.map(r=>`<tr${r.k===mode?' class="open"':""}><td>${r.label}</td><td>${r.c20}%</td><td class="dn">${r.d20}%</td><td>${r.s20.toFixed(2)}</td><td>${r.c23}%</td><td class="dn">${r.d23}%</td></tr>`).join("");
+    const lock=locked?`locked at today's ${MSTR_HOUR}:00 UTC read — fill at today's US close`
+      :`provisional for the next US close — locks at that day's ${MSTR_HOUR}:00 UTC 4h close`;
+    el.innerHTML=`<h2>MSTR · same signal</h2>
+      <div class="sig-head"><span class="sig-status ${cls}">${on?"HOLD "+fx(tgt)+" MSTR":"OUT · FLAT"}</span>
+        <span class="sig-sub">${lock} · ${lastTrade} · MSTR ${last.close.toFixed(2)} (${d(last.time)})</span></div>
+      <table class="tt"><tr><th>Backtest 2020-08-11→now</th><th>CAGR</th><th>max DD</th><th>Sharpe</th><th>2023+ CAGR</th><th>2023+ DD</th></tr>${bt}</table>
+      <div class="sig-sub">Same position as the BTC card (${ENS_SIZING[mode].label}), applied to MSTR: at each US trading day, take the traded BTC position after the 4h bar that closes at ${MSTR_HOUR}:00 UTC and hold that fraction of the MSTR allocation from that day's close. Since MSTR started buying BTC (2020-08) its weekly returns correlate 0.75–0.79 with BTC at a beta of ~1.3 and ~1.7× BTC's volatility, so the vol-target sizings are keyed to <i>BTC's</i> vol, not MSTR's; for BTC-like risk hold ≈0.6× the shown size. Almost all of the gain over buy &amp; hold is sidestepping MSTR's bear legs (2022: −35% vs −74%, 2025: −16% vs −48%); in strong years it gives up upside (2024: +192% vs +359%). Drawdowns stay ~2× the BTC strategy's (−54% vs −22%), because MSTR also falls on its own while BTC's trend holds (premium to its BTC, dilution, equity selloffs). Timing matters: using the stale 00:00 UTC read instead of 16:00 cut the CAGR from 78% to 62%. ~23 changes a year; at 60 bp per side the full-size CAGR drops to 68%. Only ~6 years and 27 entries, no significance test — treat the edge as unproven. MSTR's own 50-member average did worse (40% CAGR, −83% DD) than following BTC's.</div>`;
+  }
+  function mReadout(t){
+    const el=$("mstrRead");if(!el||!MP)return;
+    let k=MP.length-1;if(t!=null){const j=MP.findIndex(z=>z.time===t);if(j>=0)k=j;}
+    const z=MP[k];
+    el.innerHTML=`${new Date(z.time*1000).toISOString().slice(0,10)} · MSTR ${MS[k].close.toFixed(2)} · position from this close <b style="color:#3fb950">${isNaN(z.p)?"warming up":fx(z.p)}</b>${z.live?" (provisional)":""}`;
   }
   function readout(t){
     const el=$("avgRead");if(!el||!R)return;
@@ -1821,7 +1909,7 @@ const AVG=(()=>{
     if(!loaded)load();else requestAnimationFrame(drawHeat);
   }
   function refresh(){if(loaded)load();}
-  return {onShow,refresh,_state:()=>({C4,R})};
+  return {onShow,refresh,_state:()=>({C4,R,MS,MP})};
 })();
 
 // ---------- estimated liquidation heatmap (Liq Map tab) ----------
