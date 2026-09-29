@@ -90,9 +90,6 @@
   .siglegend .dsh{width:14px;border-top:2px dashed;display:inline-block}
   .siglegend .gl{font-size:9px}
   .imacdbox{height:210px;border:1px solid var(--grid);border-radius:4px;background:var(--panel2)}
-  .heatbox{position:relative;height:250px;border:1px solid var(--grid);border-radius:4px;background:var(--panel2);overflow:hidden}
-  .heatbox canvas{position:absolute;left:0;top:0}
-  #avgTip{position:absolute;pointer-events:none;background:#0a0e12;border:1px solid var(--grid);border-radius:3px;padding:5px 8px;font:11px "IBM Plex Mono",monospace;color:var(--text);white-space:nowrap;z-index:2}
   .avg-cols{display:grid;grid-template-columns:auto auto;gap:0 28px;justify-content:start;align-items:start}
   @media(max-width:760px){.avg-cols{grid-template-columns:1fr}}
   .ens-mode{font-family:"IBM Plex Mono",monospace;font-size:11px;background:var(--panel2);color:var(--text);border:1px solid var(--grid);border-radius:3px;padding:2px 6px}
@@ -352,11 +349,6 @@
     <div class="toolbar">
       <span style="color:var(--text);font-weight:500">Sizing</span>
       <select id="avgMode" class="ens-mode"></select>
-      <span style="width:1px;height:16px;background:var(--grid)"></span>
-      <label><input type="checkbox" id="avgFam_imacd" checked><span class="sw" style="background:#ffb000"></span>iMACD 36</label>
-      <label><input type="checkbox" id="avgFam_sma" checked><span class="sw" style="background:#38bdf8"></span>SMA 5</label>
-      <label><input type="checkbox" id="avgFam_mom" checked><span class="sw" style="background:#a78bfa"></span>Momentum 5</label>
-      <label><input type="checkbox" id="avgFam_donch" checked><span class="sw" style="background:#f472b6"></span>Donchian 4</label>
       <label title="IN / OUT arrows where the member vote crossed 60% / 40%; labelled arrows = exit steps (full / ⅔ / ⅓) or the funding trim switching (crowded = 14-day funding above 15%/yr → ⅔ size); small arrows = vol-target resizes while in."><input type="checkbox" id="avgMarks" checked>IN / OUT signals</label>
       <span class="integrity" id="avg_src" style="margin-left:auto"></span>
     </div>
@@ -366,15 +358,10 @@
       <span class="lg mono" id="avgRead"></span>
     </div>
     <div class="imacd-head">
-      <span class="h">Average · 50 members · 4H</span>
-      <span class="sub">white = share of members long, dashed in 60% / step 50% / out 40% · green step = position to hold · thin = family averages</span>
+      <span class="h">Position · 4H</span>
+      <span class="sub">green step = position to hold (share of your allocation)</span>
     </div>
     <div id="avgline" class="imacdbox"></div>
-    <div class="imacd-head">
-      <span class="h">Members</span>
-      <span class="sub">one row per member, green = long · hover for name and date</span>
-    </div>
-    <div id="avgheat" class="heatbox"><canvas id="avgheatCv"></canvas><div id="avgTip" hidden></div></div>
     <div class="sig" id="avgCard"></div>
     <div class="imacd-head">
       <span class="h">MSTR · same signal</span>
@@ -1657,8 +1644,8 @@ setInterval(fetchFunding,3600000);
 // member heatmap (one row per member, drawn against the price chart's own time scale).
 const AVG=(()=>{
   let inited=false,loaded=false,busy=false,C4=null,R=null,FUND=null,MS=null,MSERR=null;
-  let chart,candles,lineChart,eL,pL,famL={},heat,tip,mChart,mCandles,mPos;
-  const HEAT_ROW=4,HEAT_GAP=7,FAMS=Object.keys(ENS_FAM);
+  let chart,candles,lineChart,pL,mChart,mCandles,mPos;
+  const FAMS=Object.keys(ENS_FAM);
   const fx=x=>x.toFixed(2)+"×";
   const tstr=ts=>new Date(ts*1000).toISOString().slice(0,16).replace("T"," ");
   const lwOpts=()=>({autoSize:true,
@@ -1672,19 +1659,13 @@ const AVG=(()=>{
     candles=chart.addCandlestickSeries({upColor:"#3fb950",downColor:"#f85149",
       borderUpColor:"#3fb950",borderDownColor:"#f85149",wickUpColor:"#3fb950",wickDownColor:"#f85149"});
     lineChart=LightweightCharts.createChart($("avgline"),lwOpts());
-    for(const f of FAMS)famL[f]=lineChart.addLineSeries({color:ENS_FAM[f].color,lineWidth:1,
-      priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
-    eL=lineChart.addLineSeries({color:"#e6edf3",lineWidth:2,priceLineVisible:false,title:"average"});
     pL=lineChart.addLineSeries({color:"#3fb950",lineWidth:2,lineType:1,priceLineVisible:false,title:"position"});
     pL.createPriceLine({price:1,color:"#33404a",lineWidth:1,lineStyle:2,axisLabelVisible:false,title:""});
-    eL.createPriceLine({price:ENS_IN,color:"#3fb950",lineWidth:1,lineStyle:2,axisLabelVisible:true,title:"in"});
-    eL.createPriceLine({price:ENS_STEPS[1][0],color:"#d29922",lineWidth:1,lineStyle:2,axisLabelVisible:true,title:"step"});
-    eL.createPriceLine({price:ENS_OUT,color:"#f85149",lineWidth:1,lineStyle:2,axisLabelVisible:true,title:"out"});
     let lock=false;const panes=[chart,lineChart];
     panes.forEach(src=>src.timeScale().subscribeVisibleLogicalRangeChange(r=>{
       if(lock||!r)return;lock=true;
       panes.forEach(dst=>{if(dst!==src)dst.timeScale().setVisibleLogicalRange(r);});
-      lock=false;drawHeat();}));
+      lock=false;}));
     chart.subscribeCrosshairMove(p=>readout(p&&p.time));
     lineChart.subscribeCrosshairMove(p=>readout(p&&p.time));
     mChart=LightweightCharts.createChart($("chart_mstr"),{...lwOpts(),timeScale:{borderColor:"#1e262e",timeVisible:false}});
@@ -1695,15 +1676,10 @@ const AVG=(()=>{
     mCandles.priceScale().applyOptions({scaleMargins:{top:0.06,bottom:0.26}});
     mChart.priceScale("pos").applyOptions({scaleMargins:{top:0.8,bottom:0.02},visible:false});
     mChart.subscribeCrosshairMove(p=>mReadout(p&&p.time));
-    heat=$("avgheatCv");tip=$("avgTip");
-    new ResizeObserver(()=>drawHeat()).observe($("avgheat"));
-    $("avgheat").addEventListener("mousemove",heatHover);
-    $("avgheat").addEventListener("mouseleave",()=>{tip.hidden=true;});
     const sel=$("avgMode");
     sel.innerHTML=Object.entries(ENS_SIZING).map(([k,z])=>`<option value="${k}">${z.label}</option>`).join("");
     sel.value=ENS_MODE;
     sel.onchange=()=>{ENS_MODE=sel.value;try{localStorage.setItem("btc_ens_mode",ENS_MODE);}catch(e){}render(false);};
-    FAMS.forEach(f=>{$("avgFam_"+f).onchange=()=>render(false);});
     $("avgMarks").onchange=()=>render(false);
   }
   async function load(){
@@ -1735,9 +1711,8 @@ const AVG=(()=>{
     candles.setData(C4);
     if(!R){$("avgCard").innerHTML='<h2>Average · position</h2><div class="sig-sub">not enough 4h history.</div>';return;}
     const mode=ENS_MODE,P=R.banded[mode],cap=ENS_SIZING[mode].cap;
-    eL.setData(series(R.E));pL.setData(series(P));
-    for(const f of FAMS){famL[f].applyOptions({visible:$("avgFam_"+f).checked});famL[f].setData(series(R.fam[f]));}
-    [eL,pL].forEach(s=>s.applyOptions({autoscaleInfoProvider:()=>({priceRange:{minValue:0,maxValue:cap}})}));
+    pL.setData(series(P));
+    pL.applyOptions({autoscaleInfoProvider:()=>({priceRange:{minValue:0,maxValue:cap}})});
     // markers on the bar whose close changed the traded position (filled at the next bar's open)
     // IN / OUT = the vote crossing its thresholds; labelled mid arrows = exit steps (full/⅔/⅓) or the
     // funding trim switching ("crowded" / "uncrowded"); small arrows = vol-target resizes while IN
@@ -1755,7 +1730,7 @@ const AVG=(()=>{
     if(fit){const n=C4.length,go=()=>chart.timeScale().setVisibleLogicalRange({from:n-6*365,to:n+5});
       go();requestAnimationFrame(()=>setTimeout(go,60));}
     $("avgCard").innerHTML=card(mode);
-    readout(null);drawHeat();renderMstr(mode,fit);
+    readout(null);renderMstr(mode,fit);
   }
   // MSTR target per trading date = this tab's traded BTC position after the 4h bar closing at 16:00 UTC
   // (NaN while the BTC average warms up); `live` marks a date whose 16:00 UTC read hasn't happened yet
@@ -1817,46 +1792,6 @@ const AVG=(()=>{
     el.innerHTML=`${tstr(R.t[i])} UTC · <b style="color:${R.inn[i]===1?"#3fb950":"#6b7882"}">${R.inn[i]===1?"IN "+ENS_STEP_TXT(R.lvl[i])+(R.trim[i]<1?" · crowded ⅔":""):"OUT"}</b> · funding 14d ${isNaN(R.f14[i])?"—":(R.f14[i]*100).toFixed(0)+"%/yr"} · position <b style="color:#3fb950">${fx(R.banded[ENS_MODE][i])}</b> · average ${(R.E[i]*100).toFixed(0)}% · `+
       FAMS.map(f=>`<span style="color:${ENS_FAM[f].color}">${ENS_FAM[f].label} ${(R.fam[f][i]*100).toFixed(0)}%</span>`).join(" · ");
   }
-  // heatmap rows in family order, with a gap between families
-  function rows(){const o=[];let y=4;
-    for(const f of FAMS){for(const q of R.members.filter(q=>q.fam===f)){o.push({q,y});y+=HEAT_ROW;}y+=HEAT_GAP;}
-    return {o,h:y-HEAT_GAP+4};}
-  function drawHeat(){
-    if(!R||!heat)return;
-    const box=$("avgheat"),{o,h}=rows(),W=box.clientWidth,dpr=window.devicePixelRatio||1;
-    if(!W)return;                                   // tab hidden
-    box.style.height=h+"px";
-    heat.width=Math.round(W*dpr);heat.height=Math.round(h*dpr);
-    heat.style.width=W+"px";heat.style.height=h+"px";
-    const g=heat.getContext("2d");g.setTransform(dpr,0,0,dpr,0,0);g.clearRect(0,0,W,h);
-    const ts=chart.timeScale(),vr=ts.getVisibleLogicalRange();if(!vr)return;
-    const plotW=W-chart.priceScale("right").width(),n=R.t.length,bs=ts.options().barSpacing;
-    const a=Math.max(0,Math.floor(vr.from)-1),b=Math.min(n-1,Math.ceil(vr.to)+1);
-    const X=i=>ts.logicalToCoordinate(i);
-    g.save();g.beginPath();g.rect(0,0,plotW,h);g.clip();
-    for(const {q,y} of o){
-      let i=a;
-      while(i<=b){const v=q.st[i];let j=i;while(j+1<=b&&q.st[j+1]===v)j++;
-        if(!isNaN(v)){const x0=X(i)-bs/2,x1=X(j)+bs/2;
-          g.fillStyle=v===1?"rgba(63,185,80,0.85)":"#161e26";g.fillRect(x0,y,Math.max(1,x1-x0),HEAT_ROW-1);}
-        i=j+1;}}
-    g.restore();
-    // family labels in the price-axis gutter
-    g.font="10px 'IBM Plex Mono',monospace";g.textBaseline="middle";
-    for(const f of FAMS){const r=o.filter(z=>z.q.fam===f);if(!r.length)continue;
-      const y0=r[0].y,y1=r[r.length-1].y+HEAT_ROW;
-      g.fillStyle=ENS_FAM[f].color;g.fillRect(plotW+4,y0,2,y1-y0);
-      g.fillText(`${ENS_FAM[f].label} ${r.length}`,plotW+10,(y0+y1)/2);}
-  }
-  function heatHover(ev){
-    if(!R)return;const rc=$("avgheat").getBoundingClientRect(),x=ev.clientX-rc.left,y=ev.clientY-rc.top;
-    const row=rows().o.find(z=>y>=z.y&&y<z.y+HEAT_ROW);
-    const li=Math.round(chart.timeScale().coordinateToLogical(x));
-    if(!row||!(li>=0&&li<R.t.length)){tip.hidden=true;return;}
-    const v=row.q.st[li];
-    tip.hidden=false;tip.style.left=Math.min(x+12,rc.width-240)+"px";tip.style.top=(y+10)+"px";
-    tip.innerHTML=`${row.q.label}<br>${tstr(R.t[li])} UTC · <b style="color:${v===1?"#3fb950":"#6b7882"}">${isNaN(v)?"warming up":v===1?"long":"flat"}</b>`;
-  }
   function card(mode){
     const n=R.t.length-1,e=R.E[n],P=R.banded[mode],p=P[n];
     if(isNaN(e))return '<h2>Average · position</h2><div class="sig-sub">not enough 4h history for every member to warm up (needs ~1,200 bars; the fallback source serves 1,000).</div>';
@@ -1906,7 +1841,7 @@ const AVG=(()=>{
   function onShow(){
     if(!window.LightweightCharts){$("avgCard").innerHTML='<div class="sig-sub">chart library blocked.</div>';return;}
     if(!inited)init();
-    if(!loaded)load();else requestAnimationFrame(drawHeat);
+    if(!loaded)load();
   }
   function refresh(){if(loaded)load();}
   return {onShow,refresh,_state:()=>({C4,R,MS,MP})};
