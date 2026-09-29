@@ -837,6 +837,51 @@ window.RU = window.RU || {};
     return node;
   };
 
+  /* Step one node backwards. Retrieval containers stay transparent: stepping
+   * back into one lands on the last node of its recorded variant (never a
+   * re-pick, so the learner sees the same exchange they just played), and
+   * stepping back out of a variant's first node lands on the node before the
+   * container. Like goTo(), nothing already recorded is undone. */
+  Engine.prototype.canGoBack = function () {
+    return !!(this.frame && this.frame.i > 0) || this.top > 0;
+  };
+
+  Engine.prototype.back = function () {
+    if (this.frame && this.frame.i > 0) {
+      this.frame.i--;
+    } else {
+      var t = this.top - 1, found = false;
+      while (t >= 0 && !found) {
+        var n = this.nodes[t];
+        if (!isObj(n)) { t--; continue; }
+        if (n.type !== "retrieval") {
+          this.top = t;
+          this.frame = null;
+          found = true;
+          break;
+        }
+        var variant = this.pickVariant(n);
+        var usable = [];
+        var inner = variant ? arr(variant.nodes) : [];
+        for (var i = 0; i < inner.length; i++) {
+          if (isObj(inner[i]) && inner[i].type !== "retrieval") usable.push(inner[i]);
+        }
+        if (usable.length) {
+          this.top = t;
+          this.frame = { retrievalId: n.id, variantId: variant.id, nodes: usable, i: usable.length - 1 };
+          found = true;
+          break;
+        }
+        t--;
+      }
+      if (!found) return null;
+    }
+    var node = this.current();
+    this._commitPosition(node, "back");
+    if (node) this._enterNode(node, false);
+    return node;
+  };
+
   Engine.prototype._commitPosition = function (node, reason) {
     if (!isObj(this.state.position)) {
       this.state.position = { nodeId: null, variantPicks: {} };

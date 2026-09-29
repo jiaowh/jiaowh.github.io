@@ -1581,6 +1581,54 @@ window.RUTEST = window.RUTEST || {};
       expect(!!n).toBe(true);
       expect(n.id).toBe(nodes[0].id);
     });
+
+    it('back() steps to the previous node, saves it, and stops at the first node', function () {
+      resetStorage();
+      var state = RU.save.fresh();
+      var eng = startEngine(buildSession(LEX), state);
+      expect(eng.canGoBack()).toBe(false);
+      expect(eng.back()).toBe(null);
+      expect(eng.current().id).toBe('s0.t1');
+      eng.advance();
+      expect(eng.current().id).toBe('s0.t2');
+      expect(eng.canGoBack()).toBe(true);
+      var n = eng.back();
+      expect(n && n.id).toBe('s0.t1');
+      expect(state.position.nodeId).toBe('s0.t1');
+    });
+
+    it('back() re-enters the recorded retrieval variant from its last node, then leaves it', function () {
+      resetStorage();
+      function ln(id) { return { type: 'line', id: id, who: 'anya', ru: 'Да.', stressed: 'Да.', en: 'Yes.', translit: 'Da.', audio: null, sprite: 'neutral', bg: 'flat', teaches: [], stop: false }; }
+      var rv = {
+        type: 'retrieval', id: 's0.bk', reviews: [],
+        variants: [
+          { id: 's0.bk.v1', covers: ['lex:x'], nodes: [ln('s0.bk.v1.a'), ln('s0.bk.v1.b')] },
+          { id: 's0.bk.v2', covers: ['lex:y'], nodes: [ln('s0.bk.v2.a'), ln('s0.bk.v2.b')] }
+        ]
+      };
+      var nodes = [ln('s0.bk.before'), rv, ln('s0.bk.after')];
+      var state = RU.save.fresh();
+      var eng = startEngine(nodes, state);
+      eng.advance();
+      var picked = state.position.variantPicks['s0.bk'];
+      if (picked !== 's0.bk.v1' && picked !== 's0.bk.v2') fail('no variant recorded: ' + show(picked));
+      eng.advance(); eng.advance();
+      expect(eng.current().id).toBe('s0.bk.after');
+      expect(eng.back().id).toBe(picked + '.b');
+      expect(eng.back().id).toBe(picked + '.a');
+      expect(eng.back().id).toBe('s0.bk.before');
+      expect(state.position.variantPicks['s0.bk']).toBe(picked);
+    });
+
+    it('back() from the end of the session returns to the last node', function () {
+      resetStorage();
+      var state = RU.save.fresh();
+      var eng = startEngine(buildSession(LEX), state);
+      eng.advance(); eng.advance(); eng.advance(); eng.advance();
+      expect(eng.done()).toBe(true);
+      expect(eng.back().id).toBe('s0.t4');
+    });
   });
 
   /* ==========================================================================

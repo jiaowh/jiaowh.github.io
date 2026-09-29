@@ -235,13 +235,14 @@ window.RU = window.RU || {};
     applySettings();
   }
 
+  /* The Russian is always on screen: it is the input the game exists to give.
+     Only the helpers under it (pronunciation, English) are optional. The
+     English stays regardless on non-line nodes, where it is the instruction. */
   function syncLineVisibility() {
     var hasRussian = !!(V.tokens && V.tokens.length);
-    var visible = !setting('guided') || !!V.russianOpen;
-    if (E.lineRu) { E.lineRu.hidden = !hasRussian || !visible; }
-    if (E.lineTr) { E.lineTr.hidden = !hasRussian || !visible || !setting('translit'); E.lineTr.style.display = ''; }
-    if (E.lineEn) { E.lineEn.style.display = (setting('guided') || !hasRussian || (V.node && V.node.type !== 'line') || setting('english')) ? '' : 'none'; }
-    if (E.btnRussian) { E.btnRussian.hidden = !hasRussian || !setting('guided'); E.btnRussian.textContent = visible ? 'Hide Russian' : 'Explore the Russian'; E.btnRussian.setAttribute('aria-expanded', visible ? 'true' : 'false'); }
+    if (E.lineRu) { E.lineRu.hidden = !hasRussian; }
+    if (E.lineTr) { E.lineTr.hidden = !hasRussian || !setting('translit'); E.lineTr.style.display = ''; }
+    if (E.lineEn) { E.lineEn.style.display = (!hasRussian || (V.node && V.node.type !== 'line') || setting('english')) ? '' : 'none'; }
   }
 
   function applySettings() {
@@ -320,7 +321,7 @@ window.RU = window.RU || {};
     E.btnStart = byId('btn-start');
     E.btnRestart = byId('btn-restart');
     E.titleStatus = byId('title-status');
-    E.btnRussian = byId('btn-russian');
+    E.btnBack = byId('btn-back');
     E.btnNotebook = byId('btn-notebook');
     E.btnHelp = byId('btn-help');
     E.btnSettings = byId('btn-settings');
@@ -341,7 +342,7 @@ window.RU = window.RU || {};
   }
 
   function wireChrome() {
-    if (E.btnRussian) { E.btnRussian.addEventListener('click', function () { V.russianOpen = !V.russianOpen; syncLineVisibility(); if (V.russianOpen && setting('autoplay')) { replay(false); } }); }
+    if (E.btnBack) { E.btnBack.addEventListener('click', function () { goBack(); }); }
     if (E.btnNotebook) { E.btnNotebook.addEventListener('click', openNotebook); }
     if (E.btnReplay) { E.btnReplay.addEventListener('click', function () { replay(false); }); }
     if (E.btnSlow) { E.btnSlow.addEventListener('click', function () { replay(true); }); }
@@ -503,6 +504,7 @@ window.RU = window.RU || {};
     V.retrievalHops = (node && node.type === 'retrieval') ? hops : 0;
     V.node = node || null;
     updateJourney(node);
+    syncBack();
 
     clearFeedbackArea();
     if (E.lineNote) { E.lineNote.hidden = true; E.lineNote.textContent = ''; }
@@ -802,10 +804,19 @@ window.RU = window.RU || {};
     if (!setting('autoAdvance')) { return; }
     if (!V.node) { return; }
     if (V.node.type === 'exercise' && !V.answered) { return; }
-    if (setting('guided')) { return; }
+    /* Without her voice there is no "finished speaking" moment to wait for,
+       and a 1.2 s timer on silent text would skip lines before they are read. */
+    if (!setting('autoplay')) { return; }
     if (V.node.type === 'consent') { return; }         /* never auto-past a consent choice */
     if (V.node.type === 'checkpoint') { return; }
-    queueAuto(V.node.stop ? 2600 : 1200);
+    if (V.node.lesson) { return; }                     /* a teaching slide is read at the learner's pace */
+    var ms = V.node.stop ? 2600 : 1200;
+    if (!V.clip) {
+      /* a silent narrator line: give roughly a slow reading pace for its English */
+      var words = str(V.node.en).split(/\s+/).length;
+      ms = Math.max(ms, 2000 + words * 280);
+    }
+    queueAuto(ms);
   }
 
   function queueAuto(ms) {
@@ -834,6 +845,52 @@ window.RU = window.RU || {};
   }
   ui.advance = advance;
 
+  /* One step back. The engine re-emits "node", which re-renders; nothing the
+     learner already answered is undone (see answeredBefore). */
+  function goBack() {
+    var before;
+    if (!isFn(ctx.engine, 'back')) { return; }
+    if (isFn(ctx.engine, 'canGoBack') && !ctx.engine.canGoBack()) { return; }
+    if (modalOpen) { closeModal(); }
+    cancelAuto();
+    stopAudio();
+    stopListening(false);
+    before = V.renderSeq;
+    try { ctx.engine.back(); }
+    catch (e) {
+      banner('engine', 'Could not go back: ' + (e && e.message ? e.message : str(e)));
+      return;
+    }
+    if (V.renderSeq === before) { renderCurrent(); }
+  }
+  ui.back = goBack;
+
+  function syncBack() {
+    var can = false;
+    if (!E.btnBack) { return; }
+    if (isFn(ctx.engine, 'canGoBack')) { try { can = !!ctx.engine.canGoBack(); } catch (e) { can = false; } }
+    E.btnBack.disabled = !can;
+  }
+
+  /* An exercise the learner has already answered (they came back to it) is
+     replayed as practice: the answer was on screen last time, so a second go
+     is not evidence, and marking it assisted keeps it out of the report. */
+  function answeredBefore(nodeId) {
+    var list = ctx.state && ctx.state.attempts, i;
+    if (!nodeId || !list || !list.length) { return false; }
+    for (i = 0; i < list.length; i++) {
+      if (list[i] && list[i].nodeId === nodeId) { return true; }
+    }
+    return false;
+  }
+
+  function markRevisit(host) {
+    V.assisted = true;
+    if (host) {
+      host.appendChild(h('p', { class: 'l-note', text: 'You have answered this one already, so this try is practice and is not scored.' }));
+    }
+  }
+
   function setNext(enabled, label) {
     if (!E.btnNext) { return; }
     E.btnNext.disabled = !enabled;
@@ -845,6 +902,7 @@ window.RU = window.RU || {};
   function showPanel(children) {
     if (!E.panel) { return; }
     clear(E.panel);
+    E.panel.classList.remove('lesson-panel');          /* renderLesson re-adds it for its own panel */
     E.panel.appendChild(h('div', { class: 'pwrap' }, children));
     E.panel.hidden = false;
     if (E.stage) { E.stage.classList.add('panelled'); }
@@ -853,6 +911,7 @@ window.RU = window.RU || {};
     if (!E.panel) { return; }
     E.panel.hidden = true;
     clear(E.panel);
+    E.panel.classList.remove('lesson-panel');
     if (E.stage) { E.stage.classList.remove('panelled'); }
   }
 
@@ -868,8 +927,8 @@ window.RU = window.RU || {};
     else if (node.teaches && node.teaches.length) { showTeaches(node.teaches); }
     setNext(true, node.stop ? 'Continue' : 'Continue');
     if (node.stop) { markStoppingPoint(); }
-    if (setting('autoplay') && !setting('guided')) { playClip(V.clip, setting('slowDefault')); }
-    else { V.audioEndedAt = Date.now(); maybeAutoAdvance(); }
+    if (setting('autoplay')) { playClip(V.clip, setting('slowDefault')); }
+    else { V.audioEndedAt = Date.now(); }
   }
 
   /* a safe stopping point is offered, never pushed (audit §5) */
@@ -923,7 +982,7 @@ window.RU = window.RU || {};
       translit: node.translit, en: node.en || node.intro
     });
     setNext(true, 'Continue');
-    if (setting('autoplay') && !setting('guided') && V.clip) { playClip(V.clip, setting('slowDefault')); }
+    if (setting('autoplay') && V.clip) { playClip(V.clip, setting('slowDefault')); }
   }
 
   function letterCard(id, L) {
@@ -984,8 +1043,9 @@ window.RU = window.RU || {};
     setClip(p.audio, p.stressed, p.ru);
     showText({ who: node.who || 'anya', stressed: p.stressed, ru: p.ru, translit: p.translit, en: p.en });
     buildAnswer(node, E.answer);
+    if (node.graded !== false && answeredBefore(node.id)) { markRevisit(E.answer); }
     setNext(false, 'Answer first');
-    if (setting('autoplay') && !setting('guided')) { playClip(V.clip, setting('slowDefault')); }
+    if (setting('autoplay')) { playClip(V.clip, setting('slowDefault')); }
     else { V.audioEndedAt = Date.now(); }
   }
 
@@ -1546,6 +1606,7 @@ window.RU = window.RU || {};
         showText({ who: node.who || 'anya', en: str(task.en) });
       }
       buildAnswer(q, qhost);
+      if (q.graded !== false && answeredBefore(node.id)) { markRevisit(qhost); }
       setNext(false, 'Answer first');
       if (setting('autoplay') && V.clip) { playClip(V.clip, setting('slowDefault')); }
     } else {
@@ -1941,16 +2002,15 @@ window.RU = window.RU || {};
     openModal('Settings', [
       h('div', { class: 'msec' }, [
         h('h3', { text: 'the text box' }),
-        toggleRow('Beginner guidance', 'English first, with Russian to explore when you choose.', 'guided'),
         toggleRow('Stress marks', 'The acute over the stressed vowel: метро́', 'stressMarks'),
         toggleRow('Transliteration', 'Latin spelling under the Russian. On for Arc 0.', 'translit'),
         toggleRow('English', 'The translation line.', 'english')
       ]),
       h('div', { class: 'msec' }, [
         h('h3', { text: 'pace and sound' }),
-        toggleRow('Play her voice automatically', 'In beginner mode, play after you open the Russian. Otherwise use Listen.', 'autoplay'),
+        toggleRow('Play her voice automatically', 'Otherwise press Listen (R) on each line.', 'autoplay'),
         toggleRow('Slow take by default', 'The −30% recording, every time.', 'slowDefault'),
-        toggleRow('Auto-advance', 'Move on by itself once she has finished speaking.', 'autoAdvance'),
+        toggleRow('Auto-advance', 'Move on by itself once she has finished speaking. Needs her voice on.', 'autoAdvance'),
         toggleRow('Reduce motion', 'No text reveal, no transitions.', 'reducedMotion')
       ]),
       h('div', { class: 'msec' }, [
@@ -1992,6 +2052,7 @@ window.RU = window.RU || {};
   function keyboardRows() {
     var pairs = [
       ['Space  /  Enter', 'advance, or answer when a box is focused'],
+      ['B', 'go back one step'],
       ['1 – 9', 'pick that choice'],
       ['R', 'replay the line'],
       ['S', 'replay it slowly'],
@@ -2173,6 +2234,11 @@ window.RU = window.RU || {};
     if (code === 'KeyR' || k === 'r' || k === 'R') { e.preventDefault(); replay(false); return; }
     if (code === 'KeyS' || k === 's' || k === 'S') { e.preventDefault(); replay(true); return; }
     if (code === 'KeyT' || k === 't' || k === 'T') { e.preventDefault(); setSetting('translit', !setting('translit')); return; }
+    if (code === 'KeyB' || k === 'b' || k === 'B') {
+      e.preventDefault();
+      if (!modalOpen && !(E.title && !E.title.hidden)) { goBack(); }
+      return;
+    }
 
     n = -1;
     if (/^Digit[1-9]$/.test(code)) { n = parseInt(code.slice(5), 10); }
