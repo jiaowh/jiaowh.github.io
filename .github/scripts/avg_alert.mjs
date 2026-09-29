@@ -2,14 +2,14 @@
 // sends a message only when the traded position (the card's "last rebalance target") changes.
 // The strategy code is NOT copied: the functions/constants below are extracted from btc.html at run time,
 // so the alert always runs exactly what the page shows.
-// env: TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, AVG_MODE (spot | vt60 | vt80, default vt60), STATE_FILE,
+// env: TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, AVG_MODE (spot | vt60 | vt80, default spot = full size), STATE_FILE,
 //      DRY_RUN=1 (print instead of sending), FORCE_CANDLES / FORCE_FUNDING (test a fallback source)
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
-const MODE = process.env.AVG_MODE || "vt60";
+const MODE = process.env.AVG_MODE || "spot";
 const STATE_FILE = process.env.STATE_FILE || resolve(ROOT, ".alert-state/avg.json");
 const DRY = process.env.DRY_RUN === "1";
 const H4 = 14400, DAYS = 86400;
@@ -185,8 +185,7 @@ async function main() {
   const state = inn === 1 ? `IN · ${L.ENS_STEP_TXT(lv)}${R.trim[n] < 1 ? " · crowded ⅔" : ""}` : "OUT";
   const detail = `vote ${(R.E[n] * 100).toFixed(0)}% long · ${state} · desired ${fx(R.pos[MODE][n])}\n` +
     `funding 14d ${isNaN(f) ? "—" : (f * 100).toFixed(1) + "%/yr"} (${fund.error ? "unavailable — positions untrimmed" : fund.src}${fundStale && !fund.error ? `, STALE since ${utc(lastStamp)} — last valid reading frozen` : ""})\n` +
-    `BTC ${price.toLocaleString("en-US", { maximumFractionDigits: 0 })} · bar closed ${utc(barClose)} · candles ${src}\n` +
-    `all sizings: ` + Object.keys(L.ENS_SIZING).map(k => `${k} ${fx(R.banded[k][n])}`).join(" · ");
+    `BTC ${price.toLocaleString("en-US", { maximumFractionDigits: 0 })} · bar closed ${utc(barClose)} · candles ${src}`;
   const label = L.ENS_SIZING[MODE].label;
   console.log(`[${utc(now)}] ${MODE} target ${fx(tgt)} | ${detail.replace(/\n/g, " | ")}`);
 

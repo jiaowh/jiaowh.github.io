@@ -2,7 +2,7 @@ name: BTC Average alert
 
 # Runs a few minutes after every 4h candle close (00/04/08/12/16/20 UTC) and sends a Telegram message
 # when the btc.html Average-tab position changes. Secrets: TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID.
-# Optional repository variable AVG_MODE = spot | vt60 | vt80 (default vt60).
+# Optional repository variable AVG_MODE = spot | vt60 | vt80 (default spot = full size).
 on:
   schedule:
     - cron: "7 0,4,8,12,16,20 * * *"
@@ -42,7 +42,7 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          AVG_MODE: ${{ vars.AVG_MODE || 'vt60' }}
+          AVG_MODE: ${{ vars.AVG_MODE || 'spot' }}
         run: node .github/scripts/avg_alert.mjs
 
       - uses: actions/cache/save@v4
