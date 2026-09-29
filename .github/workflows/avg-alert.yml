@@ -1,0 +1,52 @@
+name: BTC Average alert
+
+# Runs a few minutes after every 4h candle close (00/04/08/12/16/20 UTC) and sends a Telegram message
+# when the btc.html Average-tab position changes. Secrets: TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID.
+# Optional repository variable AVG_MODE = spot | vt60 | vt80 (default vt60).
+on:
+  schedule:
+    - cron: "7 0,4,8,12,16,20 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: avg-alert
+  cancel-in-progress: false
+
+jobs:
+  alert:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            btc.html
+            .github/scripts
+          sparse-checkout-cone-mode: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # last notified target + cached funding stamps, carried between runs
+      - uses: actions/cache/restore@v4
+        with:
+          path: .alert-state
+          key: avg-alert-state-${{ github.run_id }}
+          restore-keys: avg-alert-state-
+
+      - name: Check and notify
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          AVG_MODE: ${{ vars.AVG_MODE || 'vt60' }}
+        run: node .github/scripts/avg_alert.mjs
+
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: .alert-state
+          key: avg-alert-state-${{ github.run_id }}
