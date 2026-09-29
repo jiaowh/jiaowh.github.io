@@ -872,8 +872,12 @@ function scalpTrades(f5,f1h,cfg){
 // when E < ENS_OUT (hysteresis). While IN the step level is the size of the highest
 // ENS_STEPS floor E still clears (full ≥60%, ⅔ ≥50%, ⅓ ≥40%). Spot only, never levered:
 // position = level (full size) or level × min(1, target/σ), σ = EW realised vol of 4h returns (half-life 20 d)
-// re-read at each UTC daily close; resized only when the size moves > ENS_BAND (exits
-// always trade). A decision at a bar's close applies from the next bar.
+// re-read at each UTC daily close. The band applies to the FINAL position (vol resizes, exit steps
+// and the funding trim alike): it is traded only when it moves > ENS_BAND from the held size (exits
+// always trade), so small steps/trims — ⅔→4/9 while crowded, anything at low vol-target sizes — are
+// skipped. Forcing every step/trim/entry through regardless was a wash (r16_review.py, 2026-09-29:
+// ΔSharpe +0.00/+0.01 over 8 phases, 2/7 eras, +8 trades/yr), so the lower-turnover rule stays.
+// A decision at a bar's close applies from the next bar.
 // Research: quant/reports/iMACD ensemble.md, quant/reports/Average strategy v2 research.md.
 const ENS_TF=[4,8,12,24,48,72],ENS_N=[21,34,55],ENS_MODES=["zero","state"],ENS_BAND=0.25,ENS_IN=0.60,ENS_OUT=0.40;
 const ENS_STEPS=[[0.60,1],[0.50,2/3],[0.40,1/3]];     // [E floor, size] while IN, highest first
@@ -900,15 +904,22 @@ async function fetchFundingHistory(fromSec){
     if(!m.size)throw new Error("funding history unavailable");}
   return {src,stamps:[...m.entries()].sort((a,b)=>a[0]-b[0])};
 }
-// annualised 14-day funding known at each closed 4h bar: the value as of the latest 00:00 UTC ≤ bar close (NaN if not covered)
+// annualised 14-day funding known at each closed 4h bar: the value as of the latest 00:00 UTC ≤ bar close (NaN if not covered).
+// Missing-data policy: a reading is taken only when the feed is FRESH at the read time (a stamp within
+// ENS_FUND_STALE before it) and at least half the window's 42 stamps are present; it is then the MEAN of the stamps
+// in the window × 3 stamps/day × 365 (= the 14-day sum × 365/14 when complete). Otherwise the last valid reading is
+// frozen — during an outage the window must not slide onto only the newest stamps (that can switch the trim off
+// without any new evidence). The card flags a stale feed.
+const ENS_FUND_STALE=9*3600;   // 8h stamp cadence + 1h slack
 function ensFunding14(B,stamps){
   const n=B.length,o=new Array(n).fill(NaN);if(!stamps||!stamps.length)return o;
   const t=stamps.map(s=>s[0]),cs=[0];for(const s of stamps)cs.push(cs[cs.length-1]+s[1]);
   const upTo=x=>{let lo=0,hi=t.length;while(lo<hi){const md=(lo+hi)>>1;if(t[md]<=x)lo=md+1;else hi=md;}return lo;};  // # stamps with t ≤ x
-  const W=ENS_FUND_DAYS*DAY;
+  const W=ENS_FUND_DAYS*DAY,need=ENS_FUND_DAYS*3/2;let last=NaN;
   for(let i=0;i<n;i++){const A=Math.floor((B[i].time+14400)/DAY)*DAY;
-    if(t[0]>A-W)continue;const hi=upTo(A),lo=upTo(A-W);if(hi-lo<1)continue;
-    o[i]=(cs[hi]-cs[lo])*365/ENS_FUND_DAYS;}
+    if(t[0]>A-W)continue;const hi=upTo(A),lo=upTo(A-W);
+    const fresh=hi>0&&A-t[hi-1]<=ENS_FUND_STALE;
+    o[i]=fresh&&hi-lo>=need?(last=(cs[hi]-cs[lo])/(hi-lo)*3*365):last;}
   return o;
 }
 const ENS_SMA=[20,50,100,150,200],ENS_MOM=[14,28,56,84,168],ENS_DON=[10,20,50,100];
@@ -919,14 +930,20 @@ const ENS_SIZING={
   spot:{label:"Full size · spot",tgt:null,cap:1},
   vt60:{label:"Vol-target 60% · spot ≤1×",tgt:0.6,cap:1},
   vt80:{label:"Vol-target 80% · spot ≤1×",tgt:0.8,cap:1}};
-// Backtest of this exact logic: IN >60% / stepped exit / OUT <40% / funding trim, band 0.25
-// (quant/research_notes/ensemble_v2/page_rows_spot_trim.py): 2019-01 → 2026-09, Binance 4h, 10 bp/side,
-// idle cash earns 0; funding stamps BitMEX before 2019-09-10, Binance after.
+// Backtest SNAPSHOT (not recomputed live) of this exact logic: IN >60% / stepped exit / OUT <40% / funding
+// trim, band 0.25 (quant/research_notes/ensemble_v2/r17_open.py part 0, run dir runs/r17_part0_20260929T085408Z_*):
+// 2019-01-01 → 2026-09-28, Binance 4h, phase 0. Spot ledger: fixed BTC units between trades (the weight
+// drifts), trade to the displayed position at the NEXT bar's open when it changes, 10 bp per side on
+// traded notional with the fee reserved from cash (never borrows), idle cash earns 0; page funding rule. Max DD = worst peak-to-trough on 4h closes of this one bar alignment. Over all 8 alignments (r17_open.py part 3) the 2019+ full-size
+// DD is −31.6% mean / −34.9% worst at 4h closes and −32.6% / −35.6% on 1h lows; 2023+ −22.2% → −24.0% intrabar.
+// Sharpe = mean/sd of daily LOG returns × √365, rf 0 (arithmetic returns read higher for every row:
+// B&H 0.97, strategies ~1.60). Funding stamps BitMEX before 2019-09-10, Binance after.
+const ENS_BT_END="2026-09-28";
 const ENS_BT=[
   {k:"bh",  label:"Buy & hold",                c19:50,d19:-77,s19:0.65,c23:54,d23:-53},
-  {k:"spot",label:"Full size · spot",          c19:65,d19:-23,s19:1.50,c23:47,d23:-21},
-  {k:"vt60",label:"Vol-target 60% · spot ≤1×", c19:59,d19:-22,s19:1.51,c23:47,d23:-21},
-  {k:"vt80",label:"Vol-target 80% · spot ≤1×", c19:61,d19:-21,s19:1.48,c23:47,d23:-21}];
+  {k:"spot",label:"Full size · spot",          c19:65,d19:-29,s19:1.46,c23:46,d23:-22},
+  {k:"vt60",label:"Vol-target 60% · spot ≤1×", c19:58,d19:-28,s19:1.46,c23:46,d23:-22},
+  {k:"vt80",label:"Vol-target 80% · spot ≤1×", c19:61,d19:-27,s19:1.45,c23:46,d23:-22}];
 // MSTR overlay: hold MSTR at the BTC position of the 4h bar that closes at 16:00 UTC, filled at that
 // day's US close (MSTR ≈ 1.3× BTC moves since it began buying BTC in 2020-08). Backtest of exactly
 // this mapping, Yahoo adjusted daily, 5 bp/side, idle cash 0: 2020-08-11 → 2026-09 and 2023+.
@@ -1014,7 +1031,8 @@ function computeEnsemble(c4,funding){
       if(isNaN(c)||Math.abs(p-c)>ENS_BAND||(p===0&&c!==0))c=p;return c;});}
   for(const q of members){q.now=q.st[n-1];q.since=-1;       // last flip = bar whose close changed it
     for(let i=n-1;i>0;i--)if(!isNaN(q.st[i-1])&&q.st[i]!==q.st[i-1]){q.since=i;break;}}
-  return {t:B.map(b=>b.time),E,inn,lvl,f14,trim,fundSrc:funding?funding.src:null,fam,vol,pos,banded,members};
+  const fundLast=funding&&funding.stamps.length?funding.stamps[funding.stamps.length-1][0]:NaN;
+  return {t:B.map(b=>b.time),E,inn,lvl,f14,trim,fundSrc:funding?funding.src:null,fundLast,fam,vol,pos,banded,members};
 }
 
 function makeView(cfg){
@@ -1696,9 +1714,12 @@ const AVG=(()=>{
       if(C4){const m=new Map(C4.map(c=>[c.time,c]));data.forEach(c=>m.set(c.time,c));
         C4=[...m.values()].sort((a,b)=>a.time-b.time);}
       else C4=data;
-      if(fr){if(FUND&&FUND.src===fr.src){const m=new Map(FUND.stamps);fr.stamps.forEach(([t,r])=>m.set(t,r));
-          FUND={src:fr.src,stamps:[...m.entries()].sort((a,b)=>a[0]-b[0])};}
-        else if(!FUND||fr.stamps[0][0]<=C4[0].time)FUND=fr;}
+      // merge new stamps into the history; a fallback source (usually only recent stamps) fills in newer
+      // times but never overwrites stamps already held from the other venue
+      if(fr){if(!FUND)FUND=fr;
+        else{const same=FUND.src===fr.src,m=new Map(FUND.stamps);fr.stamps.forEach(([t,r])=>{if(same||!m.has(t))m.set(t,r);});
+          const src=same||FUND.src.includes(fr.src)?FUND.src:FUND.src+"+"+fr.src;
+          FUND={src,stamps:[...m.entries()].sort((a,b)=>a[0]-b[0])};}}
       R=computeEnsemble(C4,FUND);
       $("avg_src").textContent=`${src} · ${C4.length} × 4h bars · funding ${FUND?FUND.src:"unavailable"}`;
       render(!loaded);loaded=true;
@@ -1809,11 +1830,14 @@ const AVG=(()=>{
         (s>0?` · back to ${ENS_STEP_TXT(ENS_STEPS[s-1][1])} if ${pl(cnt(ENS_STEPS[s-1][0])-nl)} turn long (${pct(ENS_STEPS[s-1][0])}+)`:"");}
     const cls=on?"long":"flat",f=R.f14[n];
     let fs=n;while(fs>0&&R.trim[fs-1]===R.trim[n])fs--;
+    const stale=Date.now()/1000-R.fundLast>ENS_FUND_STALE;
     const fundTxt=!R.fundSrc?'<span class="bad">Funding history unavailable — positions shown untrimmed (the backtest rows assume the trim).</span>'
       :isNaN(f)?"Funding 14d: not enough history yet — untrimmed."
       :`Funding 14d (${R.fundSrc} perp, annualised): <b style="color:${f>ENS_FUND_THR?"#d29922":"var(--text)"}">${f>=0?"+":""}${(f*100).toFixed(1)}%/yr</b> · `+
        (f>ENS_FUND_THR?`<b style="color:#d29922">crowded — holding ⅔ of the position</b> since ${tstr(R.t[fs]+14400)} UTC; lifts when it falls to ${Math.round(ENS_FUND_THR*100)}% or below`
-        :`below the ${Math.round(ENS_FUND_THR*100)}% crowding line, no trim`)+" · re-read daily at 00:00 UTC";
+        :`below the ${Math.round(ENS_FUND_THR*100)}% crowding line, no trim`)+" · re-read daily at 00:00 UTC · "+
+       (stale?`<span class="bad">last funding stamp ${tstr(R.fundLast)} UTC — feed stale; the last valid reading is frozen until it resumes</span>`
+        :`last stamp ${tstr(R.fundLast)} UTC`);
     const famTxt=FAMS.map(f=>{const ms=R.members.filter(q=>q.fam===f);
       return `<span style="color:${ENS_FAM[f].color}">${ENS_FAM[f].label} ${ms.filter(q=>q.now===1).length}/${ms.length}</span>`;}).join(" · ");
     const flip=q=>q.since>0?tstr(R.t[q.since]+14400).slice(0,10):"—";
@@ -1827,7 +1851,7 @@ const AVG=(()=>{
     return `<h2>Average · position</h2>
       <div class="sig-head"><span class="sig-status ${cls}">${on?"IN · "+ENS_STEP_TXT(lv)+(R.trim[n]<1?" · crowded":"")+" · "+fx(p)+" LONG":"OUT · FLAT"}</span>
         <span class="sig-sub">${since} · ${nl}/${M} members long (${(e*100).toFixed(0)}%) · ${nextTxt}</span></div>
-      <div class="sig-sub" style="margin-bottom:4px">${ENS_SIZING[mode].label}${ENS_SIZING[mode].tgt?` · 20d vol ${(R.vol[n]*100).toFixed(0)}% · untraded size ${fx(R.pos[mode][n])}`:""}</div>
+      <div class="sig-sub" style="margin-bottom:4px">${ENS_SIZING[mode].label}${ENS_SIZING[mode].tgt?` · 20d vol ${(R.vol[n]*100).toFixed(0)}%`:""} · desired ${fx(R.pos[mode][n])} · last rebalance target <b>${fx(p)}</b>${Math.abs(R.pos[mode][n]-p)>1e-9?` <span style="color:#d29922">(gap ≤ ${ENS_BAND.toFixed(2)} — not traded until it exceeds the band)</span>`:""}</div>
       <div class="sig-sub" style="margin-bottom:4px">${fundTxt}</div>
       <div class="sig-sub" style="margin-bottom:6px">${famTxt}</div>
       <div class="avg-cols">
@@ -1835,8 +1859,8 @@ const AVG=(()=>{
         <div><table class="tt"><tr><th>Member</th><th>now</th><th>last flip</th></tr>${gen}</table></div>
       </div>
       <table class="tt"><tr><th>Latest member flips (bar close, UTC)</th><th style="text-align:left">member</th><th></th></tr>${recent}</table>
-      <table class="tt"><tr><th>Backtest 2019→now</th><th>CAGR</th><th>max DD</th><th>Sharpe</th><th>2023+ CAGR</th><th>2023+ DD</th></tr>${bt}</table>
-      <div class="sig-sub">Go IN at full size when more than ${pct(ENS_IN)} of the ${M} members are long. While IN, step down as the vote weakens: full at ${pct(ENS_STEPS[0][0])}+, ⅔ at ${pct(ENS_STEPS[1][0])}–${pct(ENS_STEPS[0][0])}, ⅓ at ${pct(ENS_STEPS[2][0])}–${pct(ENS_STEPS[1][0])}, OUT below ${pct(ENS_OUT)} (labelled arrows). Trades fill at the next bar's open; acting up to ~12 h late cost nothing in the backtest. Spot only: every sizing stays at or below 1× (the rest in cash). Funding trim: while the 14-day perp funding rate (the price leveraged longs pay) is above ${Math.round(ENS_FUND_THR*100)}% a year, every sizing holds ⅔ of its position; crowded longs tend to end in liquidation cascades. It was active ~22% of the time since 2017 (8% since 2023) and was the only crowding signal of ten that held up; basis, premium and open interest added nothing on top. Vol-target sizings hold less than full size when BTC's 20-day vol is above the target, and resize only when the size moves by more than ${ENS_BAND.toFixed(2)} (small arrows). With the funding trim, full size and vol-target 60% ended up nearly equal on risk (2019+ Sharpe 1.50 vs 1.51, max DD −23% vs −22%), full size keeping a few more points of CAGR; over 2013+ (before funding existed) vol-target 60% halved full size's worst drawdown (−38% vs −73%). Every sizing beats buy &amp; hold on Sharpe and drawdown; beating its return is not proven without leverage (p≈0.2–0.4). Fees matter on spot (~35 position changes a year): at 60 bp per side the 2019+ CAGR drops by ~10 points, and at Coinbase-retail taker fees it falls below buy &amp; hold. Use a low-fee venue or maker orders. Thresholds come from sweeps, ~280 variants tried overall. Research: quant/reports/Average strategy v2 research.md.</div>`;
+      <table class="tt" title="Snapshot, not recomputed live. Spot ledger: fixed BTC units between trades, fills at the next 4h open, 10 bp per side, idle cash 0. Max DD on 4h closes for the page's bar alignment. Averaged over 8 alignments it is ~2–3 pts deeper (full size 2019+ −31.6%, worst alignment −34.9%), and on 1h lows another ~1–2 pts (−32.6%; 2023+ −24%). Before 2017, intrabar wicks were much deeper. Sharpe = daily log returns × √365, rf 0 — arithmetic returns read higher for every row (buy &amp; hold 0.97)."><tr><th>Backtest 2019-01 → ${ENS_BT_END}</th><th>CAGR</th><th>max DD (4h closes)</th><th>Sharpe (daily log)</th><th>2023+ CAGR</th><th>2023+ DD</th></tr>${bt}</table>
+      <div class="sig-sub">Go IN at full size when more than ${pct(ENS_IN)} of the ${M} members are long. While IN, step down as the vote weakens: full at ${pct(ENS_STEPS[0][0])}+, ⅔ at ${pct(ENS_STEPS[1][0])}–${pct(ENS_STEPS[0][0])}, ⅓ at ${pct(ENS_STEPS[2][0])}–${pct(ENS_STEPS[1][0])}, OUT below ${pct(ENS_OUT)} (labelled arrows). Trades fill at the next bar's open; acting up to ~12 h late cost nothing in the backtest (24 h late: −0.06 Sharpe). If you miss a change, do it late rather than skip it, and trade to the CURRENT target, not the one you missed: skipping 1 in 10 changes cost ~0.1 Sharpe and 3–5 points of CAGR. Spot only: every sizing stays at or below 1× (the rest in cash). Funding trim: while the 14-day perp funding rate (the price leveraged longs pay) is above ${Math.round(ENS_FUND_THR*100)}% a year, every sizing holds ⅔ of its position; crowded longs tend to end in liquidation cascades. It was active ~22% of the time since 2017 (8% since 2023) and was the only crowding signal of ten that held up; basis, premium and open interest added nothing on top. Vol-target sizings hold less than full size when BTC's 20-day vol is above the target. Every change — vol resize, exit step or funding trim — is traded only when the desired size moves by more than ${ENS_BAND.toFixed(2)} from the last rebalance target (exits always trade), so a small step or trim (⅔ → 4/9 while crowded, a low vol-target entry) can stay untraded; the desired / target line above shows when, and the backtest includes it (forcing them through tested as a wash). Between rebalances you hold fixed BTC units, so your actual exposure drifts with the price (a ⅔ allocation is ~80% invested after BTC doubles) — the backtest models exactly that; rebalance to the target only when the target changes. Full size and vol-target 60% ended up nearly equal on risk since 2019 (Sharpe 1.46 both, max DD −29% vs −28%), and since 2023 all three sizings held the same position ~97% of the time, so their similar results are not separate evidence; over 2013+ (before funding existed) vol-target 60% cut full size's worst drawdown from −76% to −53%. Every sizing beat buy &amp; hold on Sharpe and drawdown in each of the four BTC cycles since 2013 (block bootstrap p&lt;0.01 on that one price history). About 320 variants were scored while building it, so read every backtest number here as optimistic. Beating its return is not proven (p≈0.2–0.4), and the result leans on a few long trends: the best 5 of 55 IN spells made ~⅔ of the log return. Fees matter on spot (~30–35 position changes a year): at 60 bp per side the 2019+ CAGR drops by ~10 points, and at Coinbase-retail taker fees it falls below buy &amp; hold. Use a low-fee venue or maker orders. Research: quant/reports/Average strategy v2 research.md.</div>`;
   }
   function onShow(){
     if(!window.LightweightCharts){$("avgCard").innerHTML='<div class="sig-sub">chart library blocked.</div>';return;}
