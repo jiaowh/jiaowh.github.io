@@ -266,7 +266,7 @@
       <div class="step rv"><span class="kseal">網</span>01 · Deployments — 発信中<span class="rule"></span></div>
       <div class="cmd rv d1"><span class="p">$</span> curl --silent https://nahnew.dev/deploys | render --crt</div>
       <h2 class="rv d1">Live on the Wire</h2>
-      <p class="lead rv d2">Four machines answer on this frequency. <b>Rest your light on a monitor</b> and it powers on — what glows inside each glass is not a screenshot but the page itself, alive. Launch to step through.</p>
+      <p class="lead rv d2">Ten machines answer on this frequency. <b>Rest your light on a monitor</b> and it powers on — what glows inside each glass is not a screenshot but the page itself, alive. Launch to step through.</p>
       <div id="deploygrid"><!-- rendered from SITES[] --></div>
     </div>
   </section>
@@ -310,7 +310,8 @@
        title   display name (Cinzel)
        path    fake terminal path shown in the titlebar (keep the ~/deploys/ vibe)
        status  'live' (green pulsing LED) or 'archive' (amber LED)
-       year    short year label, e.g. '2026 —'
+       year    short date label shown on the card, e.g. 'Sep 2026'
+       date    ISO creation date (first commit) — cards sort newest first by this
        href    real link opened by LAUNCH (relative to site root)
        frame   page loaded into the live iframe preview (usually same as href;
                use a sub-page if the entry page redirects, like the old site)
@@ -340,42 +341,66 @@
 
 const SITES = [
   {
-    id:'nahnew', title:'NAHNEW', path:'~/deploys/nahnew', status:'live', year:'now',
-    href:'index.html', frame:'index.html', poster:'assets/developer/web/preview-nahnew.webp',
-    desc:'The house you are standing in. A portfolio dealt as a hand of vintage trading cards — six disciplines, six rooms, every page a single hand-built file.',
-    stack:['HTML/CSS/JS','three.js','GitHub Pages']
+    id:'art', title:'SALON', path:'~/deploys/salon', status:'live', year:'Sep 2026', date:'2026-09-30',
+    href:'art/index.html', frame:'art/index.html', poster:'assets/developer/web/preview-art.webp',
+    desc:'A lamplit salon of 1,800 paintings and illustrations — painters, illustrators and study pieces, each work opening onto its own dossier of year, medium and provenance.',
+    stack:['vanilla JS','Python build','per-work dossiers']
   },
   {
-    id:'old', title:'The Old Site', path:'~/deploys/legacy', status:'archive', year:'archived',
-    href:'old/index.html', frame:'old/index.html', poster:'assets/developer/web/preview-old.webp',
-    desc:'The previous incarnation — a floating deck of cards over an orange void, where the trading-card idea was first dealt. Redrawn in pure CSS and kept as a museum piece.',
-    stack:['HTML/CSS/JS','CSS 3D scene','no frameworks']
+    id:'russian', title:'Session Zero — A Little Russian', path:'~/deploys/russian', status:'live', year:'Sep 2026', date:'2026-09-10',
+    href:'russian/index.html', frame:'russian/index.html', poster:'assets/developer/web/preview-russian.webp',
+    desc:'A voiced visual-novel tutor: one evening on a Petersburg embankment with Аня, learning the sounds and first words of Russian, with spaced repetition saving every answer.',
+    stack:['visual novel','edge-tts voice','FSRS review']
   },
   {
-    id:'btc', title:'BTC Cycle Lows', path:'~/deploys/btc-cycles', status:'live', year:'live feed',
-    href:'btc.html', frame:'btc.html', poster:'assets/developer/web/preview-btc.webp',
-    desc:'A cycle-low tracker reading the Binance tape in real time — daily and weekly lows, impulse MACD, and the next window, drawn on candlelight.',
-    stack:['lightweight-charts','Binance API','live data']
+    id:'explore', title:'EXPLORE — 行きたい場所', path:'~/deploys/explore', status:'live', year:'Jul 2026', date:'2026-07-07T17:41',
+    href:'explore.html', frame:'explore.html', poster:'assets/developer/web/preview-explore.webp',
+    desc:'A paper world atlas of 100,000 places worth the ride — mountains, shrines, museums and onsen pinned from Wikidata, with a starred layer of my own saved wishlist.',
+    stack:['MapLibre GL','Wikidata','offline basemap']
   },
   {
-    id:'gyokai', title:'GYOKAI — Acid Pop Archive', path:'~/deploys/gyokai', status:'live', year:'2026',
-    href:'gyokai/site/dist/index.html', frame:'gyokai/site/dist/index.html', poster:'assets/developer/web/preview-gyokai.webp',
-    desc:'A fan shrine to the illustrator 魚介 — acid yellow, halftone and barcode stickers, built as a Vite site and shipped static.',
-    stack:['Vite','vanilla JS','fan archive']
-  },
-  {
-    id:'shiro', title:'真昼の月 — Midday Moon', path:'~/deploys/shiro', status:'live', year:'2026',
+    id:'shiro', title:'真昼の月 — Midday Moon', path:'~/deploys/shiro', status:'live', year:'Jul 2026', date:'2026-07-07T11:10',
     href:'shiro/index.html', frame:'shiro/site/dist/index.html', poster:'assets/developer/web/preview-shiro.webp',
     desc:'An unofficial tribute to illustrator 白身魚 — their self-selected collection staged as a warm-paper moon you scroll through, the one that hangs unseen at midday.',
     stack:['Vite','TypeScript','tribute site']
   },
   {
-    id:'moto', title:'MOTO VAULT', path:'~/deploys/moto-vault', status:'live', year:'2026',
+    id:'moto', title:'MOTO VAULT', path:'~/deploys/moto-vault', status:'live', year:'Jul 2026', date:'2026-07-07T11:10',
     href:'moto.html', frame:'moto.html', poster:'assets/developer/web/preview-moto.webp',
     desc:'走行記憶庫 — a riding time-vault where every motorcycle trip is replayed across a hand-tinted paper atlas, with a chase-camera RIDE mode and an odometer counting the years.',
     stack:['MapLibre GL','GPS atlas','no framework']
+  },
+  {
+    id:'gyokai', title:'GYOKAI — Acid Pop Archive', path:'~/deploys/gyokai', status:'live', year:'Jul 2026', date:'2026-07-06',
+    href:'gyokai/site/dist/index.html', frame:'gyokai/site/dist/index.html', poster:'assets/developer/web/preview-gyokai.webp',
+    desc:'A fan shrine to the illustrator 魚介 — acid yellow, halftone and barcode stickers, built as a Vite site and shipped static.',
+    stack:['Vite','vanilla JS','fan archive']
+  },
+  {
+    id:'nahnew', title:'NAHNEW', path:'~/deploys/nahnew', status:'live', year:'Jun 2026', date:'2026-06-27',
+    href:'index.html', frame:'index.html', poster:'assets/developer/web/preview-nahnew.webp',
+    desc:'The house you are standing in. A portfolio dealt as a hand of vintage trading cards — six disciplines, six rooms, every page a single hand-built file.',
+    stack:['HTML/CSS/JS','three.js','GitHub Pages']
+  },
+  {
+    id:'persona', title:'TAKE YOUR DESIGN', path:'~/deploys/persona-ui', status:'live', year:'Jun 2026', date:'2026-06-20T18:07',
+    href:'personaUI/index.html', frame:'personaUI/index.html?preview', poster:'assets/developer/web/preview-persona.webp',
+    desc:'A designer landing page played as an ATLUS pause menu — acid red and black, skewed name-plates, a Confidant card and an ALL-OUT ATTACK button that splatters the screen.',
+    stack:['HTML/CSS/JS','GSAP','Persona-style UI']
+  },
+  {
+    id:'btc', title:'BTC Cycle Lows', path:'~/deploys/btc-cycles', status:'live', year:'Jun 2026', date:'2026-06-20T17:54',
+    href:'btc.html', frame:'btc.html', poster:'assets/developer/web/preview-btc.webp',
+    desc:'A cycle-low tracker reading the Binance tape in real time — daily and weekly lows, impulse MACD, and the next window, drawn on candlelight.',
+    stack:['lightweight-charts','Binance API','live data']
+  },
+  {
+    id:'old', title:'The Old Site', path:'~/deploys/legacy', status:'archive', year:'2023', date:'2023-09-17',
+    href:'old/index.html', frame:'old/index.html', poster:'assets/developer/web/preview-old.webp',
+    desc:'The previous incarnation — a floating deck of cards over an orange void, where the trading-card idea was first dealt. Redrawn in pure CSS and kept as a museum piece.',
+    stack:['HTML/CSS/JS','CSS 3D scene','no frameworks']
   }
-];
+].sort((a,b)=>b.date.localeCompare(a.date));   /* newest first, by page creation date */
 
 const BUILDS = [
   {
