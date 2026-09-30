@@ -1,0 +1,4354 @@
+{
+ "raw_records": 1835,
+ "unverified": [],
+ "failed": [
+  [
+   "Ryōhei Koiso",
+   "https://api.artplatform.go.jp/img/work/M100268/W1291901-001_thumbnail.webp?ts=2501221722",
+   "too small 180x134"
+  ],
+  [
+   "Nikolai Blokhin",
+   "https://media.mutualart.com/Images/2024_09/22/19/74072383/nikolai-blokhin-nikolai-blokhin--russian-SOZ8P-338.Jpeg",
+   "too small 151x338"
+  ],
+  [
+   "Nikolai Blokhin",
+   "https://media.mutualart.com/Images/2016_11/24/08/083603882/97ad8965-766f-48a0-b6fd-4833deb3bcb7_338.Jpeg",
+   "too small 137x338"
+  ],
+  [
+   "Li Guijun",
+   "https://www.christies.com/img/LotImages/2011/HGK/2011_HGK_02885_1156_000(li_guijun122843).jpg?maxwidth=1390&maxheight=1300",
+   "TimeoutError: The read operation timed out"
+  ],
+  [
+   "Li Guijun",
+   "https://www.christies.com/img/LotImages/2014/HGK/2014_HGK_03308_0120_000(li_gui_jun094132).jpg?maxwidth=1390&maxheight=1300",
+   "TimeoutError: The read operation timed out"
+  ],
+  [
+   "Zeng Chuanxing",
+   "https://www.christies.com/img/LotImages/2012/HGK/2012_HGK_02957_0553_000(zeng_chuanxing_paper_bride_the_prayer085738).jpg?maxwidth=1390&maxheight=1300",
+   "TimeoutError: The read operation timed out"
+  ],
+  [
+   "Zeng Chuanxing",
+   "https://www.christies.com/img/LotImages/2014/HGK/2014_HGK_03361_0679_000(zeng_chuanxing_paper_lady083118).jpg?maxwidth=1390&maxheight=1300",
+   "TimeoutError: The read operation timed out"
+  ],
+  [
+   "Zeng Chuanxing",
+   "https://www.christies.com/img/LotImages/2010/HGK/2010_HGK_02808_1642_000(zeng_chuanxing013648).jpg?maxwidth=1390&maxheight=1300",
+   "TimeoutError: The read operation timed out"
+  ],
+  [
+   "Zeng Chuanxing",
+   "https://www.christies.com/img/LotImages/2007/HGK/2007_HGK_02362_0528_000(021248).jpg?maxwidth=1390&maxheight=1300",
+   "TimeoutError: The read operation timed out"
+  ],
+  [
+   "Mao Yan",
+   "https://www.christies.com/img/LotImages/2013/HGK/2013_HGK_03257_0417_000(mao_yan_thomas111259).jpg?maxwidth=1390&maxheight=1300",
+   "TimeoutError: The read operation timed out"
+  ],
+  [
+   "Mao Yan",
+   "https://www.christies.com/img/LotImages/2014/SHA/2014_SHA_03397_0235_000(mao_yan_portrait122340).jpg?maxwidth=1390&maxheight=1300",
+   "TimeoutError: The read operation timed out"
+  ],
+  [
+   "Mao Yan",
+   "https://www.christies.com/img/LotImages/2017/HGK/2017_HGK_13269_0139_000(mao_yan_untitled075210).jpg?maxwidth=1390&maxheight=1300",
+   "TimeoutError: The read operation timed out"
+  ],
+  [
+   "He Duoling",
+   "https://www.christies.com/img/LotImages/2016/HGK/2016_HGK_12516_0151_000(he_duoling_rear_window_no_2064328).jpg?maxwidth=1390&maxheight=1300",
+   "TimeoutError: The read operation timed out"
+  ],
+  [
+   "He Duoling",
+   "https://www.christies.com/img/LotImages/2014/HGK/2014_HGK_03307_0024_000(he_duoling090118).jpg?maxwidth=1390&maxheight=1300",
+   "TimeoutError: The read operation timed out"
+  ],
+  [
+   "Wang Yidong",
+   "https://www.christies.com/img/LotImages/2012/HGK/2012_HGK_02906_2124_000(wang_yidong123321).jpg?maxwidth=1390&maxheight=1300",
+   "TimeoutError: The read operation timed out"
+  ],
+  [
+   "Wang Yidong",
+   "https://www.christies.com/img/LotImages/2007/HGK/2007_HGK_02381_0321_000(025921).jpg?maxwidth=1390&maxheight=1300",
+   "TimeoutError: The read operation timed out"
+  ]
+ ],
+ "browser_failed": [
+  [
+   "Li Guijun",
+   "https://sothebys-com.brightspotcdn.com/dims4/default/f90df53/2147483647/strip/true/crop/3498x4000+0+0/resize/2880x3293!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot-migration.s3.amazonaws.com%2F67%2F72%2Fea%2F80f3d5903679827974fe1978cb6393f68e82ce0f6f9f1697ab58628575%2Ft162hk0384-62tg6.jpg",
+   "error"
+  ],
+  [
+   "Li Guijun",
+   "https://sothebys-com.brightspotcdn.com/dims4/default/cb10694/2147483647/strip/true/crop/1660x2000+0+0/resize/2880x3468!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot-migration.s3.amazonaws.com%2Ff0%2F9f%2F0a%2F088fc4ede711569c5037d1b2ca7f7e5f45571098733e5b286f35381c6f%2Ft304hk0472-3-8k.jpg",
+   "error"
+  ],
+  [
+   "He Duoling",
+   "https://sothebys-com.brightspotcdn.com/dims4/default/da78e44/2147483647/strip/true/crop/2000x1626+0+0/resize/2880x2341!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot-migration.s3.amazonaws.com%2Fa6%2F13%2F8d%2Fa2c638bb3f146eb0b267b6027a11c15f40a377f0d0ae710302e659096e%2Fr0265hk0534-7mgq4-v5.jpg",
+   "error"
+  ],
+  [
+   "Chen Yifei",
+   "https://sothebys-com.brightspotcdn.com/dims4/default/0262747/2147483647/strip/true/crop/2000x2000+0+0/resize/2880x2880!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot-migration.s3.amazonaws.com%2F13%2F40%2Fab%2F1b4467e04298687bc50855c2fcacb5c5612f6b60bd7908bc4ee992d9ae%2Fn08343-13-lr-1.jpg",
+   "error"
+  ],
+  [
+   "Chen Yifei",
+   "https://sothebys-com.brightspotcdn.com/dims4/default/147903e/2147483647/strip/true/crop/2000x2000+0+0/resize/2880x2880!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot-migration.s3.amazonaws.com%2Fea%2Fe1%2Fb4%2F490c256d5dc1725434896a573acd9dc740d4796a6b2652a86188d5bed5%2Fhk0292-32-lr-1.jpg",
+   "error"
+  ],
+  [
+   "Chen Yifei",
+   "https://sothebys-com.brightspotcdn.com/dims4/default/af7cc9e/2147483647/strip/true/crop/1518x2000+0+0/resize/2880x3791!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot-migration.s3.amazonaws.com%2F2a%2Faa%2Fd5%2F9e7ca109a5532ebbba9bed65fec2cd5e1b3fc6069074257cb5b50f9faa%2Ft191hk0458-6t847.jpg",
+   "error"
+  ],
+  [
+   "Chen Yifei",
+   "https://sothebys-com.brightspotcdn.com/dims4/default/248843a/2147483647/strip/true/crop/1957x2000+0+0/resize/2880x2942!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot-migration.s3.amazonaws.com%2Fd4%2Ff2%2F96%2F8b274341b6af429b4f9a2834671ba852ff15a6f46bef6aebd0735c890d%2Ft1001hk0488-72dbb.jpg",
+   "error"
+  ],
+  [
+   "Chen Yifei",
+   "https://sothebys-com.brightspotcdn.com/dims4/default/a71fa25/2147483647/strip/true/crop/1590x2000+0+0/resize/2880x3622!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot-migration.s3.amazonaws.com%2F1c%2F2a%2Fab%2Fed572b89340fffa5932f2ce25caba33271ef7aa2e24f30b983f876029a%2Ft1178hk0498-797fk.jpg",
+   "error"
+  ],
+  [
+   "Wang Yidong",
+   "https://sothebys-com.brightspotcdn.com/dims4/default/18cca4a/2147483647/strip/true/crop/2000x2000+0+0/resize/2880x2880!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot-migration.s3.amazonaws.com%2Fcf%2F1d%2F9f%2Fd610f04bb8a24e6b2a01a6177f0e0f2598a595123769cc50d019968818%2Fhk0326-308-lr-1.jpg",
+   "error"
+  ],
+  [
+   "Wang Yidong",
+   "https://sothebys-com.brightspotcdn.com/dims4/default/d34aed7/2147483647/strip/true/crop/1689x2000+0+0/resize/2880x3410!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot.s3.amazonaws.com%2Fdotcom%2F10%2F41%2Fbb%2F7ed944241131e026a1029e38003cd400ebb375959e7735b3e4e271b923%2F299hk0812-9wsd2.jpg",
+   "error"
+  ]
+ ],
+ "browser_unprobed": [],
+ "dup_url": [],
+ "dup_image": [
+  [
+   "Hiroshi Yoshida",
+   "https://openaccess-cdn.clevelandart.org/2016.78/2016.78_web.jpg",
+   "https://openaccess-cdn.clevelandart.org/2014.359/2014.359_web.jpg"
+  ]
+ ],
+ "cross_artist_same_image": [],
+ "by_origin": {
+  "works_painters.json": {
+   "raw": 173,
+   "kept": 170
+  },
+  "works_illus.json": {
+   "raw": 82,
+   "kept": 79
+  },
+  "enrich_painters.json": {
+   "raw": 330,
+   "kept": 307
+  },
+  "enrich_illus.json": {
+   "raw": 140,
+   "kept": 138
+  },
+  "works/b01_depth.json": {
+   "raw": 449,
+   "kept": 449
+  },
+  "works/b02_illus.json": {
+   "raw": 157,
+   "kept": 157
+  },
+  "works/b03_museums.json": {
+   "raw": 47,
+   "kept": 46
+  },
+  "works/b04_discover.json": {
+   "raw": 335,
+   "kept": 334
+  },
+  "works/b05_study.json": {
+   "raw": 122,
+   "kept": 122
+  }
+ },
+ "excluded": [
+  [
+   "Mika Pikazo",
+   "https://www.mikapikazo.com/ogp.jpg",
+   "website logo banner (text only), not an artwork (2026-09-30)"
+  ],
+  [
+   "LAM",
+   "https://cdn.kdkw.jp/cover_1000/322505/322505000753.webp",
+   "manga adaptation cover drawn by another artist; the listed artist only has the character-design credit (checked KADOKAWA product page title/credit 2026-09-30)"
+  ],
+  [
+   "Naoki Saito",
+   "https://cdn.kdkw.jp/cover_1000/322212/322212000775.webp",
+   "manga adaptation cover drawn by another artist; the listed artist only has the character-design credit (checked KADOKAWA product page title/credit 2026-09-30)"
+  ],
+  [
+   "Chuuou Higashiguchi",
+   "https://cdn.kdkw.jp/cover_1000/201204/201204000049.webp",
+   "manga adaptation cover drawn by another artist; the listed artist only has the character-design credit (checked KADOKAWA product page title/credit 2026-09-30)"
+  ],
+  [
+   "Nardack",
+   "https://cdn.kdkw.jp/cover_1000/301307/301307000924.webp",
+   "manga adaptation cover drawn by another artist; the listed artist only has the character-design credit (checked KADOKAWA product page title/credit 2026-09-30)"
+  ],
+  [
+   "ゆずききの",
+   "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:7ce6owtdglvuruwxckbwaazp/bafkreiekr67nmd2lnla3gaely5r6o5goiiqzkjrddgc4gvhdqc3ypf7vpi",
+   "photo of the artist's event booth (merch table), not an artwork — post: \"設営完了しました！\" (2026-09-30)"
+  ]
+ ],
+ "depth_by_origin": {
+  "Sōsuke Morimoto": {
+   "works_painters.json": 4,
+   "works/b01_depth.json": 1
+  },
+  "Nobuyuki Shimamura": {
+   "works_painters.json": 6
+  },
+  "Hiroshi Ikushima": {
+   "works_painters.json": 4
+  },
+  "Kei Mieno": {
+   "works_painters.json": 4
+  },
+  "Yasutomo Oka": {
+   "works_painters.json": 6
+  },
+  "Serge Marshennikov": {
+   "works_painters.json": 8
+  },
+  "Rei Kamoi": {
+   "works_painters.json": 8
+  },
+  "Ryōhei Koiso": {
+   "works_painters.json": 5
+  },
+  "Nikolai Fechin": {
+   "works_painters.json": 8,
+   "works/b01_depth.json": 11
+  },
+  "Nikolai Blokhin": {
+   "works_painters.json": 6,
+   "works/b05_study.json": 8
+  },
+  "Nick Alm": {
+   "works_painters.json": 8,
+   "works/b01_depth.json": 28
+  },
+  "Steven Assael": {
+   "works_painters.json": 8,
+   "works/b01_depth.json": 28
+  },
+  "Casey Baugh": {
+   "works_painters.json": 8
+  },
+  "Richard Schmid": {
+   "works_painters.json": 7
+  },
+  "Jeremy Lipking": {
+   "works_painters.json": 8,
+   "works/b01_depth.json": 12
+  },
+  "Roberto Ferri": {
+   "works_painters.json": 7,
+   "works/b01_depth.json": 26
+  },
+  "Guillermo Lorca": {
+   "works_painters.json": 5,
+   "works/b01_depth.json": 13
+  },
+  "Ken Currie": {
+   "works_painters.json": 7,
+   "works/b01_depth.json": 15
+  },
+  "Daniel Sprick": {
+   "works_painters.json": 8,
+   "works/b01_depth.json": 22
+  },
+  "Alyssa Monks": {
+   "works_painters.json": 8,
+   "works/b01_depth.json": 28
+  },
+  "David Jon Kassan": {
+   "works_painters.json": 6
+  },
+  "Zoey Frank": {
+   "works_painters.json": 8,
+   "works/b01_depth.json": 25
+  },
+  "Rose Frantzen": {
+   "works_painters.json": 7,
+   "works/b01_depth.json": 7
+  },
+  "Nelson Shanks": {
+   "works_painters.json": 8
+  },
+  "Burton Silverman": {
+   "works_painters.json": 8,
+   "works/b01_depth.json": 26
+  },
+  "Hiroki Yamamoto": {
+   "enrich_painters.json": 4
+  },
+  "Makoto Ogiso": {
+   "enrich_painters.json": 4
+  },
+  "Hikari Motoki": {
+   "enrich_painters.json": 5,
+   "works/b01_depth.json": 13
+  },
+  "Ruriko Matsunaga": {
+   "enrich_painters.json": 2
+  },
+  "Masaaki Hikida": {
+   "enrich_painters.json": 4
+  },
+  "Ouka Fukui": {
+   "enrich_painters.json": 4
+  },
+  "Kenta Nakajima": {
+   "enrich_painters.json": 4,
+   "works/b01_depth.json": 12
+  },
+  "Zeng Chuanxing": {
+   "enrich_painters.json": 6
+  },
+  "Mao Yan": {
+   "enrich_painters.json": 1
+  },
+  "Kang Kang Hoon": {
+   "enrich_painters.json": 5
+  },
+  "Helena Parada Kim": {
+   "enrich_painters.json": 4
+  },
+  "Denis Sarazhin": {
+   "enrich_painters.json": 6
+  },
+  "Andrii Kateryniuk": {
+   "enrich_painters.json": 6
+  },
+  "Sergei Chepik": {
+   "enrich_painters.json": 6
+  },
+  "Colin Davidson": {
+   "enrich_painters.json": 5,
+   "works/b01_depth.json": 10
+  },
+  "Craig Wylie": {
+   "enrich_painters.json": 5,
+   "works/b01_depth.json": 9
+  },
+  "Peter Howson": {
+   "enrich_painters.json": 4
+  },
+  "Sam Drukker": {
+   "enrich_painters.json": 5,
+   "works/b01_depth.json": 12
+  },
+  "Alexander Klingspor": {
+   "enrich_painters.json": 6,
+   "works/b01_depth.json": 9
+  },
+  "Helene Knoop": {
+   "enrich_painters.json": 5,
+   "works/b01_depth.json": 15
+  },
+  "Jordi Díaz Alamà": {
+   "enrich_painters.json": 3
+  },
+  "Alejandro Carpintero": {
+   "enrich_painters.json": 3
+  },
+  "Eloy Morales": {
+   "enrich_painters.json": 2
+  },
+  "Nicola Verlato": {
+   "enrich_painters.json": 5
+  },
+  "Taner Ceylan": {
+   "enrich_painters.json": 5,
+   "works/b01_depth.json": 10
+  },
+  "Miriam Escofet": {
+   "enrich_painters.json": 4,
+   "works/b01_depth.json": 5
+  },
+  "Jeremy Mann": {
+   "enrich_painters.json": 9,
+   "works/b01_depth.json": 14
+  },
+  "Alex Venezia": {
+   "enrich_painters.json": 8
+  },
+  "Daniel Bilmes": {
+   "enrich_painters.json": 5,
+   "works/b01_depth.json": 9
+  },
+  "Aaron Westerberg": {
+   "enrich_painters.json": 5
+  },
+  "Malcolm T. Liepke": {
+   "enrich_painters.json": 5
+  },
+  "Ron Hicks": {
+   "enrich_painters.json": 8
+  },
+  "Loribelle Spirovski": {
+   "enrich_painters.json": 8
+  },
+  "Sean Cheetham": {
+   "enrich_painters.json": 5
+  },
+  "Robert Liberace": {
+   "enrich_painters.json": 5,
+   "works/b01_depth.json": 10
+  },
+  "Robert Malherbe": {
+   "enrich_painters.json": 6,
+   "works/b01_depth.json": 10
+  },
+  "Shaun Downey": {
+   "enrich_painters.json": 5
+  },
+  "Reisha Perlmutter": {
+   "enrich_painters.json": 3,
+   "works/b01_depth.json": 6
+  },
+  "Samantha French": {
+   "enrich_painters.json": 4,
+   "works/b01_depth.json": 12
+  },
+  "Eric Zener": {
+   "enrich_painters.json": 4,
+   "works/b01_depth.json": 12
+  },
+  "Linnea Strid": {
+   "enrich_painters.json": 4
+  },
+  "Isabel Emrich": {
+   "enrich_painters.json": 4,
+   "works/b01_depth.json": 13
+  },
+  "Alex Kanevsky": {
+   "enrich_painters.json": 4
+  },
+  "Fletcher Sibthorp": {
+   "enrich_painters.json": 4
+  },
+  "Kai Samuels-Davis": {
+   "enrich_painters.json": 5,
+   "works/b01_depth.json": 12
+  },
+  "Omar Ortiz": {
+   "enrich_painters.json": 6,
+   "works/b01_depth.json": 10
+  },
+  "Santiago Carbonell": {
+   "enrich_painters.json": 6,
+   "works/b01_depth.json": 4
+  },
+  "Alejandro Rosemberg": {
+   "enrich_painters.json": 3
+  },
+  "Salony Garg": {
+   "enrich_painters.json": 5
+  },
+  "Ayuesh Agarwal": {
+   "enrich_painters.json": 3
+  },
+  "Gaia Yoel": {
+   "enrich_painters.json": 2
+  },
+  "Marcos Rey": {
+   "enrich_painters.json": 3
+  },
+  "Nicolás Fasolino": {
+   "enrich_painters.json": 2
+  },
+  "Tomás Ortolani": {
+   "enrich_painters.json": 2
+  },
+  "Alon Martsiano": {
+   "enrich_painters.json": 2
+  },
+  "Arsen Kurbanov": {
+   "enrich_painters.json": 6
+  },
+  "Iman Maleki": {
+   "enrich_painters.json": 6
+  },
+  "Morteza Katouzian": {
+   "enrich_painters.json": 6
+  },
+  "Agostino Arrivabene": {
+   "enrich_painters.json": 6
+  },
+  "Marco Grassi": {
+   "enrich_painters.json": 5
+  },
+  "Yuqi Wang": {
+   "enrich_painters.json": 6
+  },
+  "Vincent Xeus": {
+   "enrich_painters.json": 6
+  },
+  "Tina Spratt": {
+   "enrich_painters.json": 6
+  },
+  "Rosmery Mamani Ventura": {
+   "enrich_painters.json": 6
+  },
+  "Ricardo Fernández Ortega": {
+   "enrich_painters.json": 6
+  },
+  "Shiromizakana": {
+   "works_illus.json": 6
+  },
+  "loundraw": {
+   "works_illus.json": 6
+  },
+  "Kantoku": {
+   "works_illus.json": 6,
+   "works/b02_illus.json": 8
+  },
+  "Kurehito Misaki": {
+   "works_illus.json": 6
+  },
+  "DSMile": {
+   "works_illus.json": 5
+  },
+  "Mai Yoneyama": {
+   "works_illus.json": 4,
+   "works/b02_illus.json": 28
+  },
+  "Yom": {
+   "works_illus.json": 6
+  },
+  "nekojira": {
+   "works_illus.json": 6
+  },
+  "Kei Mochizuki": {
+   "works_illus.json": 5,
+   "works/b02_illus.json": 6
+  },
+  "Mika Pikazo": {
+   "works_illus.json": 6,
+   "works/b02_illus.json": 21
+  },
+  "LAM": {
+   "works_illus.json": 2
+  },
+  "Shigure Ui": {
+   "works_illus.json": 5,
+   "works/b02_illus.json": 12
+  },
+  "Naoki Saito": {
+   "works_illus.json": 4,
+   "works/b02_illus.json": 18
+  },
+  "redjuice": {
+   "works_illus.json": 5
+  },
+  "abec": {
+   "works_illus.json": 7
+  },
+  "Shirabi": {
+   "enrich_illus.json": 6,
+   "works/b02_illus.json": 3
+  },
+  "fusui": {
+   "enrich_illus.json": 5
+  },
+  "Yukihiro Nakamura": {
+   "enrich_illus.json": 5
+  },
+  "gemi": {
+   "enrich_illus.json": 6
+  },
+  "Honojiro Towoji": {
+   "enrich_illus.json": 4
+  },
+  "Nekosuke": {
+   "enrich_illus.json": 4
+  },
+  "shikimi": {
+   "enrich_illus.json": 5,
+   "works/b02_illus.json": 9
+  },
+  "Miho Takeoka": {
+   "enrich_illus.json": 6
+  },
+  "Eeji Komatsu": {
+   "enrich_illus.json": 7
+  },
+  "Kouhaku Kuroboshi": {
+   "enrich_illus.json": 4
+  },
+  "Kouji Ogata": {
+   "enrich_illus.json": 5
+  },
+  "Chuuou Higashiguchi": {
+   "enrich_illus.json": 2
+  },
+  "Anmi": {
+   "enrich_illus.json": 5,
+   "works/b02_illus.json": 10
+  },
+  "Hiten": {
+   "enrich_illus.json": 5,
+   "works/b02_illus.json": 10
+  },
+  "Miyuu": {
+   "enrich_illus.json": 5
+  },
+  "Kogecha": {
+   "enrich_illus.json": 5
+  },
+  "Nardack": {
+   "enrich_illus.json": 4,
+   "works/b04_discover.json": 6
+  },
+  "U35": {
+   "enrich_illus.json": 5
+  },
+  "raemz": {
+   "enrich_illus.json": 6,
+   "works/b02_illus.json": 9
+  },
+  "Nagu": {
+   "enrich_illus.json": 3,
+   "works/b04_discover.json": 10
+  },
+  "Masayoshi Tanaka": {
+   "enrich_illus.json": 3
+  },
+  "Shiho Enta": {
+   "enrich_illus.json": 5
+  },
+  "Sumeragi Kohaku": {
+   "enrich_illus.json": 3
+  },
+  "Takehana Note": {
+   "enrich_illus.json": 6,
+   "works/b02_illus.json": 9
+  },
+  "Ako Arisaka": {
+   "enrich_illus.json": 4
+  },
+  "Hazano Kazutake": {
+   "enrich_illus.json": 4
+  },
+  "Rella": {
+   "enrich_illus.json": 5
+  },
+  "ATDAN": {
+   "enrich_illus.json": 5,
+   "works/b04_discover.json": 7
+  },
+  "ASK": {
+   "enrich_illus.json": 6
+  },
+  "nagabe": {
+   "works/b02_illus.json": 14
+  },
+  "Anders Zorn": {
+   "works/b03_museums.json": 15
+  },
+  "James McNeill Whistler": {
+   "works/b03_museums.json": 9
+  },
+  "Winslow Homer": {
+   "works/b03_museums.json": 8
+  },
+  "John Singer Sargent": {
+   "works/b03_museums.json": 5
+  },
+  "Hiroshi Yoshida": {
+   "works/b03_museums.json": 6
+  },
+  "Vilhelm Hammershøi": {
+   "works/b03_museums.json": 1
+  },
+  "Mary Cassatt": {
+   "works/b03_museums.json": 2
+  },
+  "toi8": {
+   "works/b04_discover.json": 10
+  },
+  "Loish": {
+   "works/b04_discover.json": 16
+  },
+  "Yuko Shimizu": {
+   "works/b04_discover.json": 12
+  },
+  "James Jean": {
+   "works/b04_discover.json": 8
+  },
+  "Kilian Eng": {
+   "works/b04_discover.json": 9
+  },
+  "Sachin Teng": {
+   "works/b04_discover.json": 7
+  },
+  "MANOdeMARINA": {
+   "works/b04_discover.json": 12
+  },
+  "Canis Albus": {
+   "works/b04_discover.json": 9
+  },
+  "Mengxuan Li": {
+   "works/b04_discover.json": 7
+  },
+  "Henrik Aa. Uldalen": {
+   "works/b04_discover.json": 3
+  },
+  "Șerban Savu": {
+   "works/b04_discover.json": 14
+  },
+  "Harding Meyer": {
+   "works/b04_discover.json": 8
+  },
+  "Michael Carson": {
+   "works/b04_discover.json": 12
+  },
+  "Chie Yoshii": {
+   "works/b04_discover.json": 12
+  },
+  "Joseph Lorusso": {
+   "works/b04_discover.json": 6
+  },
+  "Kamome Shirahama": {
+   "works/b04_discover.json": 8
+  },
+  "mocha": {
+   "works/b04_discover.json": 14
+  },
+  "コーラ": {
+   "works/b04_discover.json": 3
+  },
+  "Annie Stegg Gerard": {
+   "works/b04_discover.json": 12
+  },
+  "Arthur Gain": {
+   "works/b04_discover.json": 12
+  },
+  "Michael C Hayes": {
+   "works/b04_discover.json": 12
+  },
+  "Wayne Haag": {
+   "works/b04_discover.json": 10
+  },
+  "Daniel Danger": {
+   "works/b04_discover.json": 2
+  },
+  "ゆずききの": {
+   "works/b04_discover.json": 4
+  },
+  "すり餌": {
+   "works/b04_discover.json": 9
+  },
+  "わいっしゅ": {
+   "works/b04_discover.json": 12
+  },
+  "こまちみゆた": {
+   "works/b04_discover.json": 12
+  },
+  "はねこと": {
+   "works/b04_discover.json": 12
+  },
+  "ときわた": {
+   "works/b04_discover.json": 6
+  },
+  "ぶくろて": {
+   "works/b04_discover.json": 8
+  },
+  "Quang Ho": {
+   "works/b04_discover.json": 16
+  },
+  "Casey Childs": {
+   "works/b04_discover.json": 14
+  },
+  "Jordan Sokol": {
+   "works/b05_study.json": 12
+  },
+  "Amaya Gurpide": {
+   "works/b05_study.json": 8
+  },
+  "Cornelia Hernes": {
+   "works/b05_study.json": 17
+  },
+  "Patrick Byrnes": {
+   "works/b05_study.json": 11
+  },
+  "Adam Miller": {
+   "works/b05_study.json": 14
+  },
+  "Nicolás Uribe": {
+   "works/b05_study.json": 8
+  },
+  "Zin Lim": {
+   "works/b05_study.json": 10
+  },
+  "Colleen Barry": {
+   "works/b05_study.json": 15
+  },
+  "Juliette Aristides": {
+   "works/b05_study.json": 19
+  }
+ },
+ "built": "2026-09-30 10:08",
+ "artists": 235,
+ "artists_with_works": 183,
+ "verified_unique_works": 1802,
+ "by_tab": {
+  "cont": {
+   "artists": 113,
+   "with_works": 109,
+   "works": 1109
+  },
+  "study": {
+   "artists": 70,
+   "with_works": 22,
+   "works": 337
+  },
+  "illu": {
+   "artists": 67,
+   "with_works": 67,
+   "works": 599
+  }
+ },
+ "depth": [
+  [
+   "Nick Alm",
+   36
+  ],
+  [
+   "Steven Assael",
+   36
+  ],
+  [
+   "Alyssa Monks",
+   36
+  ],
+  [
+   "Burton Silverman",
+   34
+  ],
+  [
+   "Roberto Ferri",
+   33
+  ],
+  [
+   "Zoey Frank",
+   33
+  ],
+  [
+   "Mai Yoneyama",
+   32
+  ],
+  [
+   "Daniel Sprick",
+   30
+  ],
+  [
+   "Mika Pikazo",
+   27
+  ],
+  [
+   "Jeremy Mann",
+   23
+  ],
+  [
+   "Ken Currie",
+   22
+  ],
+  [
+   "Naoki Saito",
+   22
+  ],
+  [
+   "Jeremy Lipking",
+   20
+  ],
+  [
+   "Helene Knoop",
+   20
+  ],
+  [
+   "Nikolai Fechin",
+   19
+  ],
+  [
+   "Juliette Aristides",
+   19
+  ],
+  [
+   "Guillermo Lorca",
+   18
+  ],
+  [
+   "Hikari Motoki",
+   18
+  ],
+  [
+   "Sam Drukker",
+   17
+  ],
+  [
+   "Isabel Emrich",
+   17
+  ],
+  [
+   "Kai Samuels-Davis",
+   17
+  ],
+  [
+   "Shigure Ui",
+   17
+  ],
+  [
+   "Cornelia Hernes",
+   17
+  ],
+  [
+   "Kenta Nakajima",
+   16
+  ],
+  [
+   "Robert Malherbe",
+   16
+  ],
+  [
+   "Samantha French",
+   16
+  ],
+  [
+   "Eric Zener",
+   16
+  ],
+  [
+   "Omar Ortiz",
+   16
+  ],
+  [
+   "Loish",
+   16
+  ],
+  [
+   "Quang Ho",
+   16
+  ],
+  [
+   "Colin Davidson",
+   15
+  ],
+  [
+   "Alexander Klingspor",
+   15
+  ],
+  [
+   "Taner Ceylan",
+   15
+  ],
+  [
+   "Robert Liberace",
+   15
+  ],
+  [
+   "Anmi",
+   15
+  ],
+  [
+   "Hiten",
+   15
+  ],
+  [
+   "raemz",
+   15
+  ],
+  [
+   "Takehana Note",
+   15
+  ],
+  [
+   "Anders Zorn",
+   15
+  ],
+  [
+   "Colleen Barry",
+   15
+  ],
+  [
+   "Nikolai Blokhin",
+   14
+  ],
+  [
+   "Rose Frantzen",
+   14
+  ],
+  [
+   "Craig Wylie",
+   14
+  ],
+  [
+   "Daniel Bilmes",
+   14
+  ],
+  [
+   "Kantoku",
+   14
+  ],
+  [
+   "shikimi",
+   14
+  ],
+  [
+   "nagabe",
+   14
+  ],
+  [
+   "Șerban Savu",
+   14
+  ],
+  [
+   "mocha",
+   14
+  ],
+  [
+   "Casey Childs",
+   14
+  ],
+  [
+   "Adam Miller",
+   14
+  ],
+  [
+   "Nagu",
+   13
+  ],
+  [
+   "ATDAN",
+   12
+  ],
+  [
+   "Yuko Shimizu",
+   12
+  ],
+  [
+   "MANOdeMARINA",
+   12
+  ],
+  [
+   "Michael Carson",
+   12
+  ],
+  [
+   "Chie Yoshii",
+   12
+  ],
+  [
+   "Annie Stegg Gerard",
+   12
+  ],
+  [
+   "Arthur Gain",
+   12
+  ],
+  [
+   "Michael C Hayes",
+   12
+  ],
+  [
+   "わいっしゅ",
+   12
+  ],
+  [
+   "こまちみゆた",
+   12
+  ],
+  [
+   "はねこと",
+   12
+  ],
+  [
+   "Jordan Sokol",
+   12
+  ],
+  [
+   "Kei Mochizuki",
+   11
+  ],
+  [
+   "Patrick Byrnes",
+   11
+  ],
+  [
+   "Santiago Carbonell",
+   10
+  ],
+  [
+   "Nardack",
+   10
+  ],
+  [
+   "toi8",
+   10
+  ],
+  [
+   "Wayne Haag",
+   10
+  ],
+  [
+   "Zin Lim",
+   10
+  ],
+  [
+   "Miriam Escofet",
+   9
+  ],
+  [
+   "Reisha Perlmutter",
+   9
+  ],
+  [
+   "Shirabi",
+   9
+  ],
+  [
+   "James McNeill Whistler",
+   9
+  ],
+  [
+   "Kilian Eng",
+   9
+  ],
+  [
+   "Canis Albus",
+   9
+  ],
+  [
+   "すり餌",
+   9
+  ],
+  [
+   "Serge Marshennikov",
+   8
+  ],
+  [
+   "Rei Kamoi",
+   8
+  ],
+  [
+   "Casey Baugh",
+   8
+  ],
+  [
+   "Nelson Shanks",
+   8
+  ],
+  [
+   "Alex Venezia",
+   8
+  ],
+  [
+   "Ron Hicks",
+   8
+  ],
+  [
+   "Loribelle Spirovski",
+   8
+  ],
+  [
+   "Winslow Homer",
+   8
+  ],
+  [
+   "James Jean",
+   8
+  ],
+  [
+   "Harding Meyer",
+   8
+  ],
+  [
+   "Kamome Shirahama",
+   8
+  ],
+  [
+   "ぶくろて",
+   8
+  ],
+  [
+   "Amaya Gurpide",
+   8
+  ],
+  [
+   "Nicolás Uribe",
+   8
+  ],
+  [
+   "Richard Schmid",
+   7
+  ],
+  [
+   "abec",
+   7
+  ],
+  [
+   "Eeji Komatsu",
+   7
+  ],
+  [
+   "Sachin Teng",
+   7
+  ],
+  [
+   "Mengxuan Li",
+   7
+  ],
+  [
+   "Nobuyuki Shimamura",
+   6
+  ],
+  [
+   "Yasutomo Oka",
+   6
+  ],
+  [
+   "David Jon Kassan",
+   6
+  ],
+  [
+   "Zeng Chuanxing",
+   6
+  ],
+  [
+   "Denis Sarazhin",
+   6
+  ],
+  [
+   "Andrii Kateryniuk",
+   6
+  ],
+  [
+   "Sergei Chepik",
+   6
+  ],
+  [
+   "Arsen Kurbanov",
+   6
+  ],
+  [
+   "Iman Maleki",
+   6
+  ],
+  [
+   "Morteza Katouzian",
+   6
+  ],
+  [
+   "Agostino Arrivabene",
+   6
+  ],
+  [
+   "Yuqi Wang",
+   6
+  ],
+  [
+   "Vincent Xeus",
+   6
+  ],
+  [
+   "Tina Spratt",
+   6
+  ],
+  [
+   "Rosmery Mamani Ventura",
+   6
+  ],
+  [
+   "Ricardo Fernández Ortega",
+   6
+  ],
+  [
+   "Shiromizakana",
+   6
+  ],
+  [
+   "loundraw",
+   6
+  ],
+  [
+   "Kurehito Misaki",
+   6
+  ],
+  [
+   "Yom",
+   6
+  ],
+  [
+   "nekojira",
+   6
+  ],
+  [
+   "gemi",
+   6
+  ],
+  [
+   "Miho Takeoka",
+   6
+  ],
+  [
+   "ASK",
+   6
+  ],
+  [
+   "Hiroshi Yoshida",
+   6
+  ],
+  [
+   "Joseph Lorusso",
+   6
+  ],
+  [
+   "ときわた",
+   6
+  ],
+  [
+   "Sōsuke Morimoto",
+   5
+  ],
+  [
+   "Ryōhei Koiso",
+   5
+  ],
+  [
+   "Kang Kang Hoon",
+   5
+  ],
+  [
+   "Nicola Verlato",
+   5
+  ],
+  [
+   "Aaron Westerberg",
+   5
+  ],
+  [
+   "Malcolm T. Liepke",
+   5
+  ],
+  [
+   "Sean Cheetham",
+   5
+  ],
+  [
+   "Shaun Downey",
+   5
+  ],
+  [
+   "Salony Garg",
+   5
+  ],
+  [
+   "Marco Grassi",
+   5
+  ],
+  [
+   "DSMile",
+   5
+  ],
+  [
+   "redjuice",
+   5
+  ],
+  [
+   "fusui",
+   5
+  ],
+  [
+   "Yukihiro Nakamura",
+   5
+  ],
+  [
+   "Kouji Ogata",
+   5
+  ],
+  [
+   "Miyuu",
+   5
+  ],
+  [
+   "Kogecha",
+   5
+  ],
+  [
+   "U35",
+   5
+  ],
+  [
+   "Shiho Enta",
+   5
+  ],
+  [
+   "Rella",
+   5
+  ],
+  [
+   "John Singer Sargent",
+   5
+  ],
+  [
+   "Hiroshi Ikushima",
+   4
+  ],
+  [
+   "Kei Mieno",
+   4
+  ],
+  [
+   "Hiroki Yamamoto",
+   4
+  ],
+  [
+   "Makoto Ogiso",
+   4
+  ],
+  [
+   "Masaaki Hikida",
+   4
+  ],
+  [
+   "Ouka Fukui",
+   4
+  ],
+  [
+   "Helena Parada Kim",
+   4
+  ],
+  [
+   "Peter Howson",
+   4
+  ],
+  [
+   "Linnea Strid",
+   4
+  ],
+  [
+   "Alex Kanevsky",
+   4
+  ],
+  [
+   "Fletcher Sibthorp",
+   4
+  ],
+  [
+   "Honojiro Towoji",
+   4
+  ],
+  [
+   "Nekosuke",
+   4
+  ],
+  [
+   "Kouhaku Kuroboshi",
+   4
+  ],
+  [
+   "Ako Arisaka",
+   4
+  ],
+  [
+   "Hazano Kazutake",
+   4
+  ],
+  [
+   "ゆずききの",
+   4
+  ],
+  [
+   "Jordi Díaz Alamà",
+   3
+  ],
+  [
+   "Alejandro Carpintero",
+   3
+  ],
+  [
+   "Alejandro Rosemberg",
+   3
+  ],
+  [
+   "Ayuesh Agarwal",
+   3
+  ],
+  [
+   "Marcos Rey",
+   3
+  ],
+  [
+   "Masayoshi Tanaka",
+   3
+  ],
+  [
+   "Sumeragi Kohaku",
+   3
+  ],
+  [
+   "Henrik Aa. Uldalen",
+   3
+  ],
+  [
+   "コーラ",
+   3
+  ],
+  [
+   "Ruriko Matsunaga",
+   2
+  ],
+  [
+   "Eloy Morales",
+   2
+  ],
+  [
+   "Gaia Yoel",
+   2
+  ],
+  [
+   "Nicolás Fasolino",
+   2
+  ],
+  [
+   "Tomás Ortolani",
+   2
+  ],
+  [
+   "Alon Martsiano",
+   2
+  ],
+  [
+   "LAM",
+   2
+  ],
+  [
+   "Chuuou Higashiguchi",
+   2
+  ],
+  [
+   "Mary Cassatt",
+   2
+  ],
+  [
+   "Daniel Danger",
+   2
+  ],
+  [
+   "Mao Yan",
+   1
+  ],
+  [
+   "Vilhelm Hammershøi",
+   1
+  ]
+ ],
+ "no_works": [
+  "Li Guijun",
+  "He Duoling",
+  "Chen Yifei",
+  "Wang Yidong",
+  "Stephen Bauman",
+  "Vincent Desiderio & Bernardo Siciliano",
+  "Michael Van Zeyl",
+  "New York Academy of Art",
+  "Daniel Gerhartz",
+  "Michelle Dunaway",
+  "Scottsdale Artists' School",
+  "白日会 Hakujitsu-kai",
+  "アトリエ・エビス Atelier Ebis",
+  "塩谷亮 Shiotani Ryō",
+  "武蔵野美術大学 油絵学科",
+  "広島市立大学 油絵専攻",
+  "東京藝術大学 油画専攻",
+  "すいどーばた美術学院 留学生科",
+  "新宿美術学院 留学生科",
+  "中野デッサン教室 amps",
+  "東京クロッキー会",
+  "山本周 amane art school",
+  "光風会 Kofūkai",
+  "二紀会 Niki-kai",
+  "Divya Marie Kato",
+  "Jacob Collins",
+  "Florence Academy of Art",
+  "Michael John Angel",
+  "Kerry Dunn & Lea Colie Wight",
+  "Jeff Watts",
+  "Anthony Waichulis",
+  "LARA · London Atelier of Representational Art",
+  "Florence Classical Arts Academy",
+  "Dutch Atelier of Realist Art",
+  "London Fine Art Studios",
+  "Academy of Realist Art",
+  "Vladimir Mogilevtsev",
+  "Repin Academy · preparatory department",
+  "Repin Academy · the degree, and its price",
+  "Repin Academy Summer School",
+  "Surikov Institute · preparatory department",
+  "Glazunov Academy",
+  "The 2026 conditions · read before planning",
+  "中国艺术研究院油画院",
+  "中央美术学院 CAFA",
+  "New Masters Academy",
+  "Watts Atelier Online",
+  "The Aristides Atelier · online year",
+  "Proko",
+  "Teaching Studios",
+  "The New School of Art",
+  "Vanessa Lemen"
+ ],
+ "artist_meta": {
+  "Sōsuke Morimoto": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": "森本草介"
+  },
+  "Nobuyuki Shimamura": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": "島村信之"
+  },
+  "Hiroshi Ikushima": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": "生島浩"
+  },
+  "Kei Mieno": {
+   "kind": "painter",
+   "tabs": [
+    "cont",
+    "study"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": "三重野慶"
+  },
+  "Yasutomo Oka": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": "岡靖知"
+  },
+  "Serge Marshennikov": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Rei Kamoi": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": "鴨居玲"
+  },
+  "Ryōhei Koiso": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": "小磯良平"
+  },
+  "Nikolai Fechin": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Nikolai Blokhin": {
+   "kind": "painter",
+   "tabs": [
+    "cont",
+    "study"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Nick Alm": {
+   "kind": "painter",
+   "tabs": [
+    "cont",
+    "study"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Steven Assael": {
+   "kind": "painter",
+   "tabs": [
+    "cont",
+    "study"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Casey Baugh": {
+   "kind": "painter",
+   "tabs": [
+    "cont",
+    "study"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Richard Schmid": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Jeremy Lipking": {
+   "kind": "painter",
+   "tabs": [
+    "cont",
+    "study"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Roberto Ferri": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Guillermo Lorca": {
+   "kind": "painter",
+   "tabs": [
+    "cont",
+    "study"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Ken Currie": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Daniel Sprick": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Alyssa Monks": {
+   "kind": "painter",
+   "tabs": [
+    "cont",
+    "study"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "David Jon Kassan": {
+   "kind": "painter",
+   "tabs": [
+    "cont",
+    "study"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Zoey Frank": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Rose Frantzen": {
+   "kind": "painter",
+   "tabs": [
+    "cont",
+    "study"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Nelson Shanks": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Burton Silverman": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Hiroki Yamamoto": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "山本大貴"
+  },
+  "Makoto Ogiso": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "小木曽誠"
+  },
+  "Hikari Motoki": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "本木ひかり"
+  },
+  "Ruriko Matsunaga": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "松永瑠利子"
+  },
+  "Masaaki Hikida": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "疋田正章"
+  },
+  "Ouka Fukui": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "福井欧夏"
+  },
+  "Kenta Nakajima": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "中島健太"
+  },
+  "Li Guijun": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "李贵君"
+  },
+  "Zeng Chuanxing": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "曾传兴"
+  },
+  "Mao Yan": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "毛焰"
+  },
+  "He Duoling": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "何多苓"
+  },
+  "Chen Yifei": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "陈逸飞"
+  },
+  "Wang Yidong": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "王沂东"
+  },
+  "Kang Kang Hoon": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "강강훈"
+  },
+  "Helena Parada Kim": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "헬레나 파라다 킴"
+  },
+  "Denis Sarazhin": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "Денис Саражин"
+  },
+  "Andrii Kateryniuk": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "Андрій Катеринюк"
+  },
+  "Sergei Chepik": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "Сергей Чепик"
+  },
+  "Colin Davidson": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Craig Wylie": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Peter Howson": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Sam Drukker": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Alexander Klingspor": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Helene Knoop": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Jordi Díaz Alamà": {
+   "kind": "painter",
+   "tabs": [
+    "cont",
+    "study"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Alejandro Carpintero": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Eloy Morales": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Nicola Verlato": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Taner Ceylan": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Miriam Escofet": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Jeremy Mann": {
+   "kind": "painter",
+   "tabs": [
+    "cont",
+    "study"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Alex Venezia": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Daniel Bilmes": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Aaron Westerberg": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Malcolm T. Liepke": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Ron Hicks": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Loribelle Spirovski": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Sean Cheetham": {
+   "kind": "painter",
+   "tabs": [
+    "cont",
+    "study"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Robert Liberace": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Robert Malherbe": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Shaun Downey": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Reisha Perlmutter": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Samantha French": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Eric Zener": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Linnea Strid": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Isabel Emrich": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Alex Kanevsky": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Fletcher Sibthorp": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Kai Samuels-Davis": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Omar Ortiz": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Santiago Carbonell": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Alejandro Rosemberg": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Salony Garg": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Ayuesh Agarwal": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Gaia Yoel": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Marcos Rey": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Nicolás Fasolino": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Tomás Ortolani": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Alon Martsiano": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Arsen Kurbanov": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "Арсен Курбанов"
+  },
+  "Iman Maleki": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "ایمان ملکی"
+  },
+  "Morteza Katouzian": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "مرتضی کاتوزیان"
+  },
+  "Agostino Arrivabene": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Marco Grassi": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Yuqi Wang": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "王玉琦"
+  },
+  "Vincent Xeus": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Tina Spratt": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Rosmery Mamani Ventura": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Ricardo Fernández Ortega": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Shiromizakana": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": "白身魚"
+  },
+  "loundraw": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Kantoku": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": "カントク"
+  },
+  "Kurehito Misaki": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": "深崎暮人"
+  },
+  "DSMile": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": "DSマイル"
+  },
+  "Mai Yoneyama": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": "米山舞"
+  },
+  "Yom": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": "よむ"
+  },
+  "nekojira": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Kei Mochizuki": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": "望月けい"
+  },
+  "Mika Pikazo": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "LAM": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Shigure Ui": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": "しぐれうい"
+  },
+  "Naoki Saito": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": "さいとうなおき"
+  },
+  "redjuice": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "abec": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "seed",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Shirabi": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "しらび"
+  },
+  "fusui": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "ふすい"
+  },
+  "Yukihiro Nakamura": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "中村至宏"
+  },
+  "gemi": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "げみ"
+  },
+  "Honojiro Towoji": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "ホノジロトヲジ"
+  },
+  "Nekosuke": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "ねこ助"
+  },
+  "shikimi": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "しきみ"
+  },
+  "Miho Takeoka": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "竹岡美穂"
+  },
+  "Eeji Komatsu": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "駒都えーじ"
+  },
+  "Kouhaku Kuroboshi": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "黒星紅白"
+  },
+  "Kouji Ogata": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "緒方剛志"
+  },
+  "Chuuou Higashiguchi": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "中央東口"
+  },
+  "Anmi": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "Anmi"
+  },
+  "Hiten": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "Hiten"
+  },
+  "Miyuu": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "深遊"
+  },
+  "Kogecha": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "焦茶"
+  },
+  "Nardack": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "Nardack"
+  },
+  "U35": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "U35"
+  },
+  "raemz": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "raemz"
+  },
+  "Nagu": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "Nagu"
+  },
+  "Masayoshi Tanaka": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "田中将賀"
+  },
+  "Shiho Enta": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "遠田志帆"
+  },
+  "Sumeragi Kohaku": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "すめらぎ琥珀"
+  },
+  "Takehana Note": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "竹花ノート"
+  },
+  "Ako Arisaka": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "有坂あこ"
+  },
+  "Hazano Kazutake": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "和武はざの"
+  },
+  "Rella": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "Rella"
+  },
+  "ATDAN": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "ATDAN-"
+  },
+  "ASK": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "enrich",
+   "disc": null,
+   "reason": null,
+   "jp": "ASK"
+  },
+  "nagabe": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "exploratory",
+   "reason": "Designed colour taken to its most economical: red, black and jade, hard graphic shadow, almost screen-print. Shares the graphic-invention pole (Mika Pikazo, redjuice) but with none of the luminous-girl idiom — a deliberate stretch in subject and palette.",
+   "jp": "ながべ"
+  },
+  "Anders Zorn": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "adjacent",
+   "reason": "The bravura-line ancestor of Fechin and Nick Alm, and bathers in moving water — the Monks/Mieno interest in figures seen through water, drawn with a needle instead of a brush.",
+   "jp": ""
+  },
+  "James McNeill Whistler": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "adjacent",
+   "reason": "Haze and night as the whole subject — the atmosphere side of the collection (Baugh, Mieno) a century earlier, with almost nothing described.",
+   "jp": ""
+  },
+  "Winslow Homer": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "exploratory",
+   "reason": "Water and weather handled in transparent washes — light on the sea as the subject; also a painter who began as a magazine illustrator.",
+   "jp": ""
+  },
+  "John Singer Sargent": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "adjacent",
+   "reason": "The source Lipking and Schmid both point back to: alla prima confidence and light on white fabric.",
+   "jp": ""
+  },
+  "Hiroshi Yoshida": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "exploratory",
+   "reason": "Printmaking wildcard: lamplit canals and night streets built from flat, graded woodblock colour — atmosphere and light without a figure, from the same country as the hush cluster.",
+   "jp": "吉田博"
+  },
+  "Vilhelm Hammershøi": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "adjacent",
+   "reason": "Sprick's 'air doing something' in a room, pushed to silence — the Morimoto hush without the figure.",
+   "jp": ""
+  },
+  "Mary Cassatt": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "exploratory",
+   "reason": "Quiet domestic figures in printmaking — the hush cluster's subject in line and flat colour.",
+   "jp": ""
+  },
+  "toi8": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "close",
+   "reason": "The Kantoku/深崎暮人 idiom with more air and less rendering — pale line, pale light, figures that sit quietly in the white of the page.",
+   "jp": ""
+  },
+  "Loish": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "adjacent",
+   "reason": "Luminous illustration from outside the Japanese idiom: backlit figures, water and starlight done as designed colour and flowing shape rather than rendered detail.",
+   "jp": ""
+  },
+  "Yuko Shimizu": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "adjacent",
+   "reason": "Graphic invention in ink: the energy and designed colour of the Yoneyama/Mika Pikazo pole, but carried by a brush line with ukiyo-e ancestry.",
+   "jp": ""
+  },
+  "James Jean": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu",
+    "cont"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "adjacent",
+   "reason": "Sits on the line between the two tabs: painted on canvas, but with an illustrator's invented colour and ornament — luminous without being photographic.",
+   "jp": ""
+  },
+  "Kilian Eng": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "exploratory",
+   "reason": "Wildcard: no figures to speak of, but atmosphere and designed colour at full strength — haze, scale and a strictly limited print palette.",
+   "jp": ""
+  },
+  "Sachin Teng": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "adjacent",
+   "reason": "Graphic invention and pattern — cover work with the same designed-colour logic as redjuice and Mika Pikazo, drawn from a different tradition.",
+   "jp": "晴晴"
+  },
+  "MANOdeMARINA": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "adjacent",
+   "reason": "Designed colour reduced to two or three flat inks and a lot of white — the graphic-invention pole (Mika Pikazo, redjuice) crossed with poster design.",
+   "jp": "まのでまりな"
+  },
+  "Canis Albus": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "exploratory",
+   "reason": "Wildcard: staged, theatrical solemnity (the Kamoi/Ferri appetite for performed feeling) transposed onto dogs in the format of religious icons — deadpan, tender and odd.",
+   "jp": ""
+  },
+  "Mengxuan Li": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "adjacent",
+   "reason": "Light and colour carrying the whole picture with the figure small or absent — the loundraw instinct applied to plants and water.",
+   "jp": ""
+  },
+  "Henrik Aa. Uldalen": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "close",
+   "reason": "Staged, lit figures against darkness — the Currie/Lorca line — but with the figure literally breaking up into brushwork.",
+   "jp": ""
+  },
+  "Șerban Savu": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "exploratory",
+   "reason": "Atmosphere and quiet at landscape scale: haze, muted light, small figures — the hush without a close-up face, in a subject the collection had never touched.",
+   "jp": ""
+  },
+  "Harding Meyer": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "adjacent",
+   "reason": "The face seen through something again — here the interference is the brushwork itself, like Mieno's water rebuilt as paint marks.",
+   "jp": ""
+  },
+  "Michael Carson": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "adjacent",
+   "reason": "Nick Alm's social scenes and Assael's caught-not-posed figures, with more graphic, flattened grounds and fashion-plate poise.",
+   "jp": ""
+  },
+  "Chie Yoshii": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "adjacent",
+   "reason": "Theatrical, staged figuration (Lorca, Ferri) crossed with Japanese folk tales — ornament and invented colour in oil.",
+   "jp": ""
+  },
+  "Joseph Lorusso": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "adjacent",
+   "reason": "Lamplight and interior warmth — the quiet-figure line with amber light instead of Morimoto's grey.",
+   "jp": ""
+  },
+  "Kamome Shirahama": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "adjacent",
+   "reason": "Luminous illustration by way of pen-and-ink: ornamental line and printed-looking colour, closer to golden-age book illustration than to anime rendering.",
+   "jp": "白浜鴎"
+  },
+  "mocha": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "close",
+   "reason": "loundraw's atmosphere with the figure almost gone: skies, reflections and station platforms at dusk — light and air as the whole subject.",
+   "jp": ""
+  },
+  "コーラ": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "adjacent",
+   "reason": "Night reflections and low sun painted by someone whose job is atmosphere — the background-art craft behind the luminous-illustration idiom.",
+   "jp": ""
+  },
+  "Annie Stegg Gerard": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "adjacent",
+   "reason": "Staged, lit figures in the Lorca/Ferri line, but pastoral rather than dark: folklore theatre in a Rococo palette.",
+   "jp": ""
+  },
+  "Arthur Gain": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "close",
+   "reason": "Alla prima portraits with visible, confident brushwork — the Schmid/Blokhin handling in the present tense, and a working teacher.",
+   "jp": ""
+  },
+  "Michael C Hayes": {
+   "kind": "painter",
+   "tabs": [
+    "cont",
+    "illu"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "adjacent",
+   "reason": "Theatrical figures lit against darkness, painted for fantasy illustration — illustration that is traditional oil and charcoal.",
+   "jp": ""
+  },
+  "Wayne Haag": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "exploratory",
+   "reason": "Wildcard: vast hazy landscapes and tiny figures — atmosphere and scale over portraiture, painted in oil by a film concept artist.",
+   "jp": ""
+  },
+  "Daniel Danger": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "exploratory",
+   "reason": "Printmaking wildcard: night atmosphere from a few flat inks — Whistler's nocturnes as a screen print.",
+   "jp": ""
+  },
+  "ゆずききの": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "close",
+   "reason": "The weightless, high-key light of loundraw and 白身魚 at its most distilled — cloud, moon and water in pale blues.",
+   "jp": ""
+  },
+  "すり餌": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "adjacent",
+   "reason": "Line-led, near-monochrome figures with a few spot colours — graphic restraint (redjuice) crossed with the delicacy of the hush cluster.",
+   "jp": ""
+  },
+  "わいっしゅ": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "adjacent",
+   "reason": "Dense, lamplit cityscapes and towers in haze — atmosphere and light built as architecture, the background craft behind luminous illustration.",
+   "jp": ""
+  },
+  "こまちみゆた": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "exploratory",
+   "reason": "Traditional illustration with a light, patient brush — quiet like the hush cluster, but botanical, humorous and hand-painted rather than rendered.",
+   "jp": ""
+  },
+  "はねこと": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "close",
+   "reason": "The backlit after-school idiom of カントク and 深崎暮人 — soft rim light, reflections, sunflowers — but with more sky and water around the figure.",
+   "jp": ""
+  },
+  "ときわた": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "adjacent",
+   "reason": "Designed colour held to one palette — the LAM/redjuice discipline of a limited, artificial colour scheme.",
+   "jp": ""
+  },
+  "ぶくろて": {
+   "kind": "illustrator",
+   "tabs": [
+    "illu"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "adjacent",
+   "reason": "Graphic invention in character design: flat colour, sharp silhouettes and a lot of white — closer to fashion plates than to rendered anime.",
+   "jp": ""
+  },
+  "Quang Ho": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "close",
+   "reason": "The Schmid/Lipking handling at full strength — shapes, edges and colour doing the work, with the same painterly ease across figures, snow and flowers.",
+   "jp": ""
+  },
+  "Casey Childs": {
+   "kind": "painter",
+   "tabs": [
+    "cont"
+   ],
+   "origin": "research-2026-09-30",
+   "disc": "close",
+   "reason": "The hush in an American key — a figure alone in a room with one source of light, soft edges and a still, withheld mood.",
+   "jp": ""
+  },
+  "Jordan Sokol": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Amaya Gurpide": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Stephen Bauman": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Cornelia Hernes": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Patrick Byrnes": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Vincent Desiderio & Bernardo Siciliano": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Adam Miller": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Michael Van Zeyl": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Nicolás Uribe": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "New York Academy of Art": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Zin Lim": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Daniel Gerhartz": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Michelle Dunaway": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Scottsdale Artists' School": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "白日会 Hakujitsu-kai": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "アトリエ・エビス Atelier Ebis": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "塩谷亮 Shiotani Ryō": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "武蔵野美術大学 油絵学科": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "広島市立大学 油絵専攻": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "東京藝術大学 油画専攻": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "すいどーばた美術学院 留学生科": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "新宿美術学院 留学生科": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "中野デッサン教室 amps": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "東京クロッキー会": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "山本周 amane art school": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "光風会 Kofūkai": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "二紀会 Niki-kai": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Divya Marie Kato": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Jacob Collins": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Colleen Barry": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Florence Academy of Art": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Michael John Angel": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Kerry Dunn & Lea Colie Wight": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Jeff Watts": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Juliette Aristides": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Anthony Waichulis": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "LARA · London Atelier of Representational Art": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Florence Classical Arts Academy": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Dutch Atelier of Realist Art": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "London Fine Art Studios": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Academy of Realist Art": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Vladimir Mogilevtsev": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Repin Academy · preparatory department": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Repin Academy · the degree, and its price": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Repin Academy Summer School": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Surikov Institute · preparatory department": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Glazunov Academy": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "The 2026 conditions · read before planning": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "中国艺术研究院油画院": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "中央美术学院 CAFA": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "New Masters Academy": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Watts Atelier Online": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "The Aristides Atelier · online year": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Proko": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Teaching Studios": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "The New School of Art": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  },
+  "Vanessa Lemen": {
+   "kind": "teacher",
+   "tabs": [
+    "study"
+   ],
+   "origin": "study",
+   "disc": null,
+   "reason": null,
+   "jp": ""
+  }
+ },
+ "thumbnails": 738,
+ "pixiv_embed_crops": 22,
+ "domains": [
+  [
+   "bsky.app",
+   406
+  ],
+  [
+   "kadokawa.co.jp",
+   148
+  ],
+  [
+   "arcadiacontemporary.com",
+   74
+  ],
+  [
+   "wooarts.com",
+   65
+  ],
+  [
+   "clevelandart.org",
+   46
+  ],
+  [
+   "honto.jp",
+   45
+  ],
+  [
+   "nickalm.com",
+   36
+  ],
+  [
+   "alyssamonks.com",
+   36
+  ],
+  [
+   "burtonsilverman.com",
+   34
+  ],
+  [
+   "robertoferri.net",
+   33
+  ],
+  [
+   "zoeyfrank.com",
+   33
+  ],
+  [
+   "danielsprick.com",
+   30
+  ],
+  [
+   "stevenassael.com",
+   28
+  ],
+  [
+   "commons.wikimedia.org",
+   25
+  ],
+  [
+   "flowersgallery.com",
+   22
+  ],
+  [
+   "artrenewal.org",
+   22
+  ],
+  [
+   "pixiv.net",
+   22
+  ],
+  [
+   "heleneknoop.com",
+   20
+  ],
+  [
+   "jeremymann.com",
+   20
+  ],
+  [
+   "aristidesarts.com",
+   19
+  ],
+  [
+   "hoki-museum.jp",
+   17
+  ],
+  [
+   "motokihikari.com",
+   17
+  ],
+  [
+   "samdrukker.com",
+   17
+  ],
+  [
+   "isabelemrich.com",
+   17
+  ],
+  [
+   "kaisamuelsdavis.com",
+   17
+  ],
+  [
+   "corneliahernes.com",
+   17
+  ],
+  [
+   "nakajimakenta.com",
+   16
+  ],
+  [
+   "robertmalherbe.com",
+   16
+  ],
+  [
+   "samanthafrench.com",
+   16
+  ],
+  [
+   "ericzener.com",
+   16
+  ],
+  [
+   "omarortiz.com.mx",
+   16
+  ],
+  [
+   "quangho.com",
+   16
+  ],
+  [
+   "colindavidson.com",
+   15
+  ],
+  [
+   "alexanderklingspor.com",
+   15
+  ],
+  [
+   "tanerceylan.com",
+   15
+  ],
+  [
+   "robertliberace.com",
+   15
+  ],
+  [
+   "colleenbarryart.com",
+   15
+  ],
+  [
+   "mutualart.com",
+   14
+  ],
+  [
+   "craigwylie.com",
+   14
+  ],
+  [
+   "danielbilmes.com",
+   14
+  ],
+  [
+   "nicodimgallery.com",
+   14
+  ],
+  [
+   "caseychilds.com",
+   14
+  ],
+  [
+   "adammillerart.com",
+   14
+  ],
+  [
+   "guillermolorca.com",
+   13
+  ],
+  [
+   "bonnerdavid.com",
+   12
+  ],
+  [
+   "chieyoshii.com",
+   12
+  ],
+  [
+   "jordansokol.com",
+   12
+  ],
+  [
+   "oldcityhallgallery.com",
+   11
+  ],
+  [
+   "patrickbyrnespaintings.com",
+   11
+  ],
+  [
+   "santiagocarbonell.com",
+   10
+  ],
+  [
+   "zinlim.com",
+   10
+  ],
+  [
+   "miriamescofet.com",
+   9
+  ],
+  [
+   "reishaperlmutter.com",
+   9
+  ],
+  [
+   "blokhinart.com",
+   8
+  ],
+  [
+   "forumgallery.com",
+   8
+  ],
+  [
+   "1stdibs.com",
+   8
+  ],
+  [
+   "nichido-garo.co.jp",
+   8
+  ],
+  [
+   "galleryseek.jp",
+   8
+  ],
+  [
+   "meam.es",
+   8
+  ],
+  [
+   "galeries-bartoux.com",
+   8
+  ],
+  [
+   "amayagurpide.com",
+   8
+  ],
+  [
+   "ourpaintedlives.com",
+   8
+  ],
+  [
+   "ishibi.pref.ishikawa.jp",
+   7
+  ],
+  [
+   "richardschmid.com",
+   7
+  ],
+  [
+   "artplatform.go.jp",
+   6
+  ],
+  [
+   "nelsonshanks.com",
+   6
+  ],
+  [
+   "cattogallery.co.uk",
+   6
+  ],
+  [
+   "josephlorusso.com",
+   6
+  ],
+  [
+   "mymodernmet.com",
+   5
+  ],
+  [
+   "maxwellalexandergallery.com",
+   5
+  ],
+  [
+   "johyungallery.com",
+   5
+  ],
+  [
+   "nicolaverlato.com",
+   5
+  ],
+  [
+   "seancheethamfineart.com",
+   5
+  ],
+  [
+   "choiandchoi.com",
+   4
+  ],
+  [
+   "peterhowson.co.uk",
+   4
+  ],
+  [
+   "beinart.org",
+   4
+  ],
+  [
+   "hollistaggart.com",
+   4
+  ],
+  [
+   "realismtoday.com",
+   3
+  ],
+  [
+   "redrabbit7.com",
+   3
+  ],
+  [
+   "jdmalat.com",
+   3
+  ],
+  [
+   "seikougarou.co.jp",
+   2
+  ],
+  [
+   "hoki-museum.info",
+   2
+  ],
+  [
+   "mikapikazo.com",
+   2
+  ],
+  [
+   "soranews24.com",
+   1
+  ],
+  [
+   "galleryhenoch.com",
+   1
+  ],
+  [
+   "en.wikipedia.org",
+   1
+  ],
+  [
+   "artpr.jp",
+   1
+  ],
+  [
+   "mplus.org.hk",
+   1
+  ],
+  [
+   "loribellespirovski.com",
+   1
+  ]
+ ]
+}

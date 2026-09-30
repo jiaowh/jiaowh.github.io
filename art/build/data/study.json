@@ -1,0 +1,819 @@
+{
+ "audit": [
+  {
+   "n": "Jordan Sokol",
+   "status": "ok",
+   "note": "Still at Lyme Academy; title has grown — he now holds the Deane Keller Chair alongside Artistic Director and Director of Painting. Lyme itself is out of its accreditation trouble: accredited Associate Member of NASAD since 19 May 2025, next review 2029-30. It awards a two-year Core Drawing & Painting diploma, not a degree.",
+   "newB": "Deane Keller Chair, Artistic Director and Director of Painting; formerly Academic Director of the Florence Academy's US branch. His own portraits are muted, interior and utterly still — the closest Western kin to Morimoto's hush."
+  },
+  {
+   "n": "Amaya Gurpide",
+   "status": "ok",
+   "note": "Faculty page live; still Co-Artistic Director and Director of Drawing at Lyme Academy. No change."
+  },
+  {
+   "n": "Stephen Bauman",
+   "status": "stale",
+   "note": "Correct that he is online-only, but thin. He lives in Asgardstrand, Norway; his own site sells only self-paced courses (The Block In, Drawing Essentials) with no cohort or live teaching. He is an active instructor on both Proko and New Masters Academy (Sight-Size Figure Painting, 13 lessons, ~56 hours).",
+   "newB": "Ex-Florence Academy, now in Asgardstrand, Norway; teaches entirely online — self-paced courses on his own site plus Proko and New Masters Academy. Tonal drawing and painting of great gentleness; no live cohort, no in-person teaching."
+  },
+  {
+   "n": "Cornelia Hernes",
+   "status": "stale",
+   "note": "Two errors. (1) The September 2026 Florence Academy workshop is NOT hers — the 14-25 Sept 2026 figure-painting session is taught by Toby Neve and is fully booked. (2) She was a Principal Instructor across FAA Italy/Sweden/US from 2007 to 2020, not currently; she now lives in Asgardstrand, Norway (the same town as Bauman — they are a couple). What is real and bookable: she teaches two of the four 2027 'Figure Painting, the FAA Approach' two-week Florence sessions, 22 Feb-5 Mar 2027 and 24 May-4 Jun 2027.",
+   "newB": "Florence Academy Principal Instructor 2007-2020, now based in Norway; teaches two of the 2027 two-week Florence figure-painting intensives (22 Feb-5 Mar and 24 May-4 Jun 2027) plus courses on New Masters Academy.",
+   "newSite": "https://www.florenceacademyofart.edu/workshops/figure-painting-the-faa-approach/"
+  },
+  {
+   "n": "Odd Nerdrum",
+   "status": "ok",
+   "note": "Verified live and actively accepting: cost-free, rolling, no deadlines or cohort dates; apply by email or post with a half-page self-review and photos of three paintings from life. Apprentices model, prepare canvases and live with the family, typically 1-10 at a time. He is 82 (b. 8 April 1944) and still working at scale — a 4x6m 2026 canvas, 'Opening of the Prisons', hangs in the Nerdrum Museum, which ran a full 1 May-12 Oct 2026 season. No health news. REMOVED ANYWAY: the user has rejected him as an artist, and mythic despair is not the staged despair they want."
+  },
+  {
+   "n": "Nicolás Uribe",
+   "status": "stale",
+   "note": "Still on the New School of Art tutor roster and still teaching Life Drawing and Painting at Universidad Javeriana, Bogotá, plus private Blank Atelier workshops. But the New School link is misleading — both of his course pages there are finished 2017 workshops marked 'This course has finished.' Nothing is scheduled in London.",
+   "newB": "Raw, close-quarters psychological portraiture; teaches Life Drawing and Painting at Universidad Javeriana, Bogotá, and privately through Blank Atelier. Listed as a New School of Art tutor, but his London workshops last ran in 2017 — nothing currently scheduled."
+  },
+  {
+   "n": "Golucho",
+   "status": "dead",
+   "note": "No teaching anywhere in 2026-27. TIAC's master-workshops page shows only Barcelona 2020 (sold out); tiac.group's archive ends at 2019. MEAM lists no Golucho workshop — his MEAM presence is a retrospective exhibition, not teaching. Barcelona Academy of Art's roster does not include him. REMOVED: rejected as an artist, and there is nothing to book even if he weren't."
+  },
+  {
+   "n": "Daniel Gerhartz",
+   "status": "stale",
+   "note": "The listed URL is Cloudflare-gated and returns 403 to any non-browser request, so it cannot be verified. The 2026 studio workshop ('Training the Eye to See', 10-13 Aug 2026, Kewaskum WI, $1,195) is FULL, waitlist only, and no 2027 dates are posted anywhere. His live offering is the online 'Sharing the Journey' membership and video courses.",
+   "newB": "Lush figures dissolved in light. His 2026 Wisconsin studio workshop is full and no 2027 dates are posted; the reliable route in is the online 'Sharing the Journey' membership — monthly live lessons, video library, group critiques — plus one-to-one mentoring.",
+   "newSite": "https://www.danielgerhartzteaches.com/"
+  },
+  {
+   "n": "Michelle Dunaway",
+   "status": "stale",
+   "note": "dunawayfineart.com is Cloudflare-gated (403 on /workshops and /events) and cannot be verified. The 'Scottsdale spring 2026' claim does not hold: Scottsdale Artists' School is thriving and already publishing 2027 programmes, but Dunaway sits on its instructor roster with nothing scheduled. Her most recent concrete listing was the Booth Western Art Museum portrait workshop, March 2026, marked FULL. Nothing confirmed later than March 2026.",
+   "newB": "Portraits in the Richard Schmid color lineage; her dependable format is Zoom — a seven-week mentorship and multi-week Advanced Techniques in Oils. On the Scottsdale Artists' School roster but with nothing currently scheduled there.",
+   "newSite": "https://www.scottsdaleartschool.org/artists/286-michelle-dunaway/"
+  },
+  {
+   "n": "Quang Ho",
+   "status": "dead",
+   "note": "quangho.com/workshops returns 200 but the content is unfilled Squarespace boilerplate — 'Event Zero' through 'Event Five', dated January 2025, with the template text 'It all begins with an idea.' It is not a schedule. His homepage advertises no teaching at all. The only genuine product is a recording of a May 2021 Workshops in France online workshop. REMOVED from the live groups.",
+   "newB": "No longer teaching publicly — his workshops page is an abandoned template of placeholder events. The only material available is a paid recording of his 2021 online workshop.",
+   "newSite": "https://workshopsinfrance.com/quang-ho-live/"
+  },
+  {
+   "n": "Rose Frantzen",
+   "status": "stale",
+   "note": "Two fixes. (1) Her Iowa page is accurate but empty — 'The dates for the next workshop have not yet been announced', filled by lottery from a waiting list. (2) She is NO LONGER a Gage Academy instructor: her Gage page lists her as a 'Speaker', not faculty, and her last Gage workshop traces to January 2022. The live bookings are at Scottsdale Artists' School: 'The Figure: Arriving at Full Color' 11-15 Feb 2027 and 'Portrait Painting FAQ' 18-20 Feb 2027 — now an annual fixture there.",
+   "newB": "Alla prima portrait and figure. Her own Iowa intensives are announced irregularly and filled by lottery from a waiting list; the dependable route is Scottsdale Artists' School — 'The Figure: Arriving at Full Color' 11-15 Feb 2027 and 'Portrait Painting FAQ' 18-20 Feb 2027.",
+   "newSite": "https://www.scottsdaleartschool.org/events/"
+  },
+  {
+   "n": "Jacob Collins",
+   "status": "stale",
+   "note": "Collins is still Founder, Artistic Director and Board Chair, and still teaches drawing and painting in the Core Program — but GCA has MOVED. It is no longer in Long Island City; it is at The Box Factory, 15-19 Decatur Street, Ridgewood, Queens, NY 11385. Executive Director is Justine Kalb. Core Program runs Drawing Year to Painting Year to Advanced Study, with a separate sculpture track.",
+   "newB": "Founder and Artistic Director; still teaching in the Core Program at GCA's Ridgewood, Queens studios. The most rigorous drawing culture in the US.",
+   "newSite": "https://grandcentralatelier.org/about/about-us/"
+  },
+  {
+   "n": "Colleen Barry",
+   "status": "ok",
+   "note": "Still at GCA; the site's exact title is 'Drawing Director'. She has not left."
+  },
+  {
+   "n": "Daniel Graves",
+   "status": "stale",
+   "note": "Graves is NO LONGER director. He stepped down at the end of 2022 to head the etching program and the board page now lists him only as 'Founder'. Current leadership: Tom Richards, President and Academic Director; Antonio Vanni, Executive Director. All three campuses are current — Florence, Mölndal (Sweden), and Jersey City NJ (the MA in Studio Art). 38 artists graduated across Florence and Sweden in 2026.",
+   "newB": "Founder of the school that restarted the atelier movement; he stepped down as director in 2022 and now leads the etching program, with Tom Richards as President. Sight-size drawing through to full painting, on campuses in Florence, Sweden and New Jersey.",
+   "newSite": "https://www.florenceacademyofart.edu/about-board-of-trustees/"
+  },
+  {
+   "n": "Michael John Angel",
+   "status": "ok",
+   "note": "Alive at 80 and still listed as founder, Studio Director and Senior Instructor, with Lynne Barton as Director; day-to-day teaching by Jered Woznicki and Valerio Testa. School running: three-year diploma at €5,300/trimester, four-week intensive €2,700, workshops €1,200-2,400, deadlines published through 2026-27. Address is Via Nardo di Cione 10, Florence — not the Palazzo Tornabuoni address in older writeups."
+  },
+  {
+   "n": "Jordi Díaz Alamà",
+   "status": "ok",
+   "note": "Still founder-director; his instructor page is titled 'BAA Director' and he teaches portrait, long-pose and cast curricula. School fully operating — full-time, part-time, evening, weekend, short and online programmes, plus the MEAM affiliation."
+  },
+  {
+   "n": "Kerry Dunn & Lea Colie Wight",
+   "status": "stale",
+   "note": "Both still on faculty; no closure or teach-out. But the degree claim is out of date: Studio Incamminati is no longer degree-granting on its own — the BFA is now awarded through a partnership with Rowan University ('BFA in Studio Art: Atelier Concentration'), alongside its own accredited Advanced Fine Art Program diploma. Dunn taught a summer 2026 Color & Portrait Painting evening course. Note: the domain returns 406 to a bare 'Mozilla/5.0' UA and needs a full browser UA.",
+   "newB": "Senior faculty carrying Nelson Shanks's color-driven figure method. The school awards its own Advanced Fine Art diploma, with the BFA now conferred through a Rowan University partnership.",
+   "newSite": "https://studioincamminati.edu/faculty/"
+  },
+  {
+   "n": "Jeff Watts",
+   "status": "ok",
+   "note": "Fully operating. Watts is Founder and Lead Instructor; senior instructors Erik Gist, Robert Watts, Meadow Gist, Ben Young, Jim Hahn, Tom Babbey. Encinitas studio at 171 Calle Magdalena, six five-week terms a year, no application, 18+. Online: 50+ courses, Full Access $99/mo, Mastery Access $129/mo with graded critique submissions."
+  },
+  {
+   "n": "Juliette Aristides",
+   "status": "stale",
+   "note": "The largest correction in the atelier group. The Aristides Atelier has LEFT Terracotta and now runs independently from her own site, which has been rebuilt as the school itself — she signs as 'Founder & Director, The Aristides Atelier'. A year-long fully-online 2026-27 programme is enrolling now, 1 Sept 2026 to 28 May 2027, meeting twice weekly. Terracotta still sells an 'Aristides Method Private Mentorship', but that is a self-paced video curriculum built from her books and guided by assigned mentors, not her live atelier. Describing her as Terracotta's artistic director is wrong on both counts.",
+   "newB": "Author of the Classical Painting Atelier books; left Gage in 2022 and now runs her own independent Aristides Atelier — a year-long fully online programme, 1 Sept 2026 to 28 May 2027, meeting twice weekly.",
+   "newSite": "https://www.aristidesarts.com/aristides-atelier"
+  },
+  {
+   "n": "Anthony Waichulis",
+   "status": "stale",
+   "note": "Operating and still effectively tuition-free — full merit scholarships to all accepted students, maintained by quarterly performance reviews, no prior experience required, applications reviewed January/April/July/October. But the campus list is wrong: there are five — Waichulis (PA), Dominicana, Sri Lanka, Thailand and Anguilla. Thailand was missing; ÀNI Academies America (Red Bank NJ) is gone, its page 404s.",
+   "newB": "Tuition-free, methodical, trompe-l'oeil-grade training on five campuses — Pennsylvania, Dominican Republic, Sri Lanka, Thailand and Anguilla. Full merit scholarships to all accepted students.",
+   "newSite": "https://aniartacademies.org/enrollment/"
+  },
+  {
+   "n": "Vladimir Mogilevtsev",
+   "status": "ok",
+   "note": "Confirmed on the Academy's legally-mandated disclosure page: Кафедра рисунка — Могилевцев Владимир Александрович, Заведующий. Still Head of the Drawing Department, in post since 2013, on the Academic Council, teaching drawing in Yu. V. Kalyuta's easel-painting studio. Born 29 May 1960 in Bryansk, not 1955.",
+   "newSite": "https://www.artsacademy.ru/sveden/struct/"
+  },
+  {
+   "n": "Nikolai Blokhin",
+   "status": "stale",
+   "note": "The site is live but it is a gallery and sales site — Home / Gallery / Portraiture / Figurative / Drawings / Exhibitions / Contact. NO workshops and NO video courses are offered anywhere on it, so the 'teaches through filmed courses' claim should go. The second official site, nikolai-blokhin.com, likewise sells work and prints. Both confirm he is Professor of Drawing at the St Petersburg Academy, teaching there since 1995.",
+   "newB": "Professor of drawing at the Repin Academy since 1995 and the most bravura draughtsman working in that tradition; his own site sells work only — no workshops or courses are currently offered."
+  },
+  {
+   "n": "Nick Alm",
+   "status": "stale",
+   "note": "The TIAC Florence reference is wrong twice over: TIAC's Alm page describes a 'Painting from Nature Rituals' workshop held in September 2018, at the TIAC Art Centre on the China Academy of Oil Painting campus in BEIJING, not Florence. It is an eight-year-old archive page. His news page lists exactly one upcoming item: an art retreat in Greece, 26 Sept - 3 Oct 2026, via Uptrek. Uptrek is his active channel.",
+   "newB": "Intensive figure-painting retreats, no permanent school; his active channel is Uptrek, with a Greece retreat 26 Sept - 3 Oct 2026 and further Tuscany, Portugal and Sicily dates.",
+   "newSite": "https://nickalm.com/news/"
+  },
+  {
+   "n": "Jeremy Lipking",
+   "status": "stale",
+   "note": "lipking.com sits behind a Cloudflare managed challenge returning 403 to every non-browser client, so the /workshops path cannot be verified at all. Substantively, no in-person 2026 or 2027 dates are discoverable: his workshops, books and DVDs moved to Dark Creek Press, which currently sells only pre-recorded streaming workshops at $250 plus a 'Painter's Club' membership offering early registration for future workshops — i.e. live dates are membership-gated, not openly listed. The main 2026 Lipking event is a retrospective, '30 Years a Painter', at the Booth Western Art Museum, 11 April - 16 Aug 2026.",
+   "newB": "Light-filled figures in landscape. No open 2026-27 workshop dates: his teaching has moved to Dark Creek Press, which sells recorded workshops and gates live registration behind a Painter's Club membership.",
+   "newSite": "https://www.darkcreekpress.com/"
+  },
+  {
+   "n": "Sean Cheetham",
+   "status": "stale",
+   "note": "The school is gone, the painter is fine. laafa.edu is dead — the host serves a mismatched wildcard certificate so browsers hard-fail on TLS, and plain HTTP 404s; last good Wayback capture February 2026, redirect stub by August 2026. LAAFA now survives as laafa.org and has exited art education entirely, stating it is 'focusing on strategic partnerships to deliver specialized skills for professional creative teams' — corporate creative-industry training, office by appointment only, degree and certificate programmes in figurative art gone. Cheetham teaches independently: Sacramento portrait workshop 17-18 Oct 2026 at Patris Art Studio, plus Rome Workshops, Carmel Visual Arts, Patreon and recorded livestream classes.",
+   "newB": "Punchy alla prima portraiture, taught independently since LAAFA ceased operating as an art school in 2026 — a Sacramento workshop 17-18 Oct 2026, plus Rome dates, Patreon and recorded livestreams.",
+   "newSite": "https://www.seancheethamfineart.com/classes"
+  }
+ ],
+ "groups": [
+  {
+   "group": "The quiet tonal line · for the 森本草介 in you",
+   "artists": [
+    {
+     "n": "Jordan Sokol",
+     "r": "Lyme Academy of Fine Arts · Old Lyme, CT",
+     "b": "Deane Keller Chair, Artistic Director and Director of Painting; formerly Academic Director of the Florence Academy's US branch. Lyme runs a two-year Core Drawing & Painting diploma, NASAD-accredited since 2025.",
+     "site": "https://lymeacademy.edu/core-drawing-painting/faculty/jordan-sokol/",
+     "siteLabel": "lymeacademy.edu",
+     "why": "His own portraits are muted, interior and utterly still — the closest Western kin to Morimoto's hush."
+    },
+    {
+     "n": "Amaya Gurpide",
+     "r": "Lyme Academy of Fine Arts · Old Lyme, CT",
+     "b": "Co-Artistic Director and Director of Drawing; quiet, exacting figure drawing of silverpoint patience.",
+     "site": "https://lymeacademy.edu/core-drawing-painting/faculty/amaya-gurpide/",
+     "siteLabel": "lymeacademy.edu",
+     "why": "The drawing discipline underneath a Shimamura or an Oka — form found slowly, with no drama at all."
+    },
+    {
+     "n": "Stephen Bauman",
+     "r": "online only · Åsgårdstrand, Norway",
+     "b": "Ex-Florence Academy; teaches entirely online through self-paced courses on his own site plus Proko and New Masters Academy (Sight-Size Figure Painting, 13 lessons). No live cohort, no in-person teaching.",
+     "site": "https://www.stephenbaumanartwork.com/",
+     "siteLabel": "stephenbaumanartwork.com",
+     "why": "Tonal drawing of great gentleness — the soft-edged, even-light handling that Morimoto's surfaces are built from."
+    },
+    {
+     "n": "Cornelia Hernes",
+     "r": "Florence Academy workshops · Florence",
+     "b": "Principal Instructor across the Florence Academy's Italy, Sweden and US branches 2007-2020, now based in Norway. Teaches two of the four 2027 two-week 'Figure Painting, the FAA Approach' sessions in Florence: 22 Feb-5 Mar and 24 May-4 Jun 2027.",
+     "site": "https://www.florenceacademyofart.edu/workshops/figure-painting-the-faa-approach/",
+     "siteLabel": "florenceacademyofart.edu",
+     "why": "Sealed, softly lit female figures painted from life — the FAA method applied to exactly the Morimoto register."
+    },
+    {
+     "n": "Patrick Byrnes",
+     "r": "twelve workshops across Europe and the US · 2026",
+     "b": "Academic portrait construction — form, value, limited palette, trois crayons. His 2026 calendar is the densest of anyone in this directory: London Fine Art Studios (26-30 May), Dutch Atelier of Realist Art in Haarlem (8-12 and 15-19 June), Copenhagen (6-10 July), Palette & Chisel Chicago (31 July-2 Aug), Barcelona Academy of Art (21-25 Sept), Vienna (13-16 Nov), plus an online session in June.",
+     "site": "https://www.patrickbyrnespaintings.com/workshops-2026",
+     "siteLabel": "patrickbyrnespaintings.com",
+     "why": "Not theatrical, but the most bookable way in Europe to build the quiet tonal control that both Morimoto and the Hoki painters rest on.",
+     "isNew": true
+    }
+   ]
+  },
+  {
+   "group": "The staged light · for the 鴨居玲 in you",
+   "artists": [
+    {
+     "n": "Steven Assael",
+     "r": "Sicily Artist Retreats · Marsala, Sicily",
+     "b": "Six-day residential masterclass, 'Painting the Portrait from Life', 19-25 November 2026: morning lectures on his approach, live demos, one-to-one mentoring. $4,200 for a working place, $2,500 to audit. His only forward-dated teaching anywhere.",
+     "site": "https://www.sicilyartistretreats.com/event-details/steven-assael-painting-the-portrait-from-life",
+     "siteLabel": "sicilyartistretreats.com",
+     "why": "The living master of the figure lit against darkness — the single closest teacher to what Kamoi actually does.",
+     "isNew": true
+    },
+    {
+     "n": "Vincent Desiderio & Bernardo Siciliano",
+     "r": "International Center for the Study of Painting · Orvieto",
+     "b": "Two-week workshop on technique, theory and historical context, founded and taught by the two of them, 22 June-3 July 2026 at Palazzo Bisenzi, $3,000. Desiderio is Senior Critic at the New York Academy of Art.",
+     "site": "https://www.internationalcenterforthestudyofpainting.com/workshops",
+     "siteLabel": "internationalcenterforthestudyofpainting.com",
+     "why": "Desiderio's territory is dark, staged, machine-scale figure composition — the thinking behind a Currie or a Lorca, taught directly.",
+     "isNew": true
+    },
+    {
+     "n": "Adam Miller",
+     "r": "private workshops · Florence",
+     "b": "Baroque and mannerist large-scale figure composition — the mechanics of painting, working habits, and composition studied against the Old Masters in situ. No published dates; enquire directly. Also an on-demand advanced course on glazing, indirect method and luminous shadows.",
+     "site": "https://www.adammillerart.com/painting-and-composition",
+     "siteLabel": "adammillerart.com",
+     "why": "Multi-figure theatrical staging in the grand manner — the compositional machinery Lorca borrows.",
+     "isNew": true
+    },
+    {
+     "n": "Michael Van Zeyl",
+     "r": "North Shore Art League + Palette & Chisel · Chicago",
+     "b": "Genuinely chiaroscuro painter in the seventeenth-century Dutch line; Palette & Chisel faculty and board member. Currently teaching two five-week classes at North Shore Art League — 'Oil Painting Techniques & Step-by-Step Processes' and 'The Path to Painting Success', $425 each.",
+     "site": "https://northshoreartleague.org/adult-classes",
+     "siteLabel": "northshoreartleague.org",
+     "why": "The cheapest sustained instruction anywhere in single-source dramatic light on a figure.",
+     "isNew": true
+    },
+    {
+     "n": "Guillermo Lorca",
+     "r": "recorded masterclass · Bound",
+     "b": "'Figurative Painting and Magical Realism' — eight modules, 15.5 hours, on-demand with lifetime access and subtitles in twelve languages, covering how he plans and builds a painting. He runs no school and does no live teaching; 2026 brings solo shows at the National Gallery, Sofia and MEAM Barcelona.",
+     "site": "https://bound.site/en/masterclass/guillermo-lorca",
+     "siteLabel": "bound.site",
+     "why": "One of their own painters, explaining the construction of a theatrically lit scene — the only way to study with him that exists.",
+     "isNew": true
+    },
+    {
+     "n": "Nicolás Uribe",
+     "r": "Universidad Javeriana · Bogotá + Blank Atelier",
+     "b": "Raw, close-quarters psychological portraiture; teaches Life Drawing and Painting at Javeriana and privately through Blank Atelier. Listed as a New School of Art tutor, but his London workshops last ran in 2017 — nothing scheduled there.",
+     "site": "https://thenewschoolart.org/our-tutors/nicolas-uribe/",
+     "siteLabel": "thenewschoolart.org",
+     "why": "Emotion carried by paint handling rather than by subject — held over from the old dark-figurative group, the one survivor of it."
+    },
+    {
+     "n": "New York Academy of Art",
+     "r": "MFA + continuing studies · New York",
+     "b": "The main figurative graduate school in the US, still operating: Paul R. Provost became president in 2025, Peter Drake is Provost, Michael Grimaldi heads Drawing & Anatomy and Wade Schuman heads Painting. Note the continuing-studies catalogue is mid-migration from academyeverywhere.com and its pages carry placeholder text — contact them rather than trusting the listings.",
+     "site": "https://nyaa.edu/mfa/",
+     "siteLabel": "nyaa.edu",
+     "why": "The institutional home of the Assael/Desiderio/Monks axis — where nearly every American painter on their list either taught or trained.",
+     "isNew": true
+    }
+   ]
+  },
+  {
+   "group": "The figure through water, steam and glass",
+   "artists": [
+    {
+     "n": "Alyssa Monks",
+     "r": "workshops + mentorship · New York and travelling",
+     "b": "Her workshop 'Transcending the Photo-Reference' runs online preparation — lighting, lenses, Photoshop, printing — then in-person painting: palette building, colour relationships that carry volume, activating the surface. Her teaching record runs through New York Academy of Art masterclasses annually since 2022, most recently 2026, plus Patreon and one-to-one mentorship.",
+     "site": "https://www.alyssamonks.com/workshop/",
+     "siteLabel": "alyssamonks.com",
+     "why": "She is the painter of the figure behind glass and steam, and she teaches the actual method — the single most direct hit in this whole directory.",
+     "isNew": true
+    },
+    {
+     "n": "Casey Baugh",
+     "r": "waiting list + recorded masterclass · online",
+     "b": "His live-workshops page is still up but lists only the 2025 season — LA, Miami, London, Greece, Barcelona — with no 2026 or 2027 dates and a waiting-list form. His archive site is explicitly framed as 'Realism Period 2000-2024'; he says his practice has moved past strict realism since. He remains faculty at Teaching Studios.",
+     "site": "https://caseybaugh.com/live-workshops",
+     "siteLabel": "caseybaugh.com",
+     "why": "Soft-focus charcoal-and-oil figures in dissolving light — one of their own painters, but be honest that only the archive is currently on sale.",
+     "isNew": true
+    },
+    {
+     "n": "Zin Lim",
+     "r": "online programme + mentorship",
+     "b": "Twelve years of university teaching and over a hundred workshops in fifty cities; the reliable current offering is an on-demand online course plus one-to-one mentorship, with city workshops arranged on request.",
+     "site": "https://www.zinlim.com/onlineprogram",
+     "siteLabel": "zinlim.com",
+     "why": "Figures dissolving into their surroundings — the closest anyone teaching gets to the figure-seen-through-water effect.",
+     "isNew": true
+    },
+    {
+     "n": "David Kassan",
+     "r": "Studio Incamminati + Teaching Studios · Philadelphia, Long Island, online",
+     "b": "Four-day charcoal portrait-from-life workshop at Studio Incamminati ($825), a five-day painting workshop with Shana Levenson 7-11 August 2026, and standing faculty at Teaching Studios in person and online.",
+     "site": "https://studioincamminati.edu/workshops-david-kassan/",
+     "siteLabel": "studioincamminati.edu",
+     "why": "Skin as a translucent surface read at very close range — the technical problem shared by Monks and by the Hoki painters.",
+     "isNew": true
+    }
+   ]
+  },
+  {
+   "group": "The color-and-light line · for the Donna Young in you",
+   "artists": [
+    {
+     "n": "Daniel Gerhartz",
+     "r": "online membership · Kewaskum, WI",
+     "b": "His 2026 Wisconsin studio workshop (10-13 August, 'Training the Eye to See') is full with no 2027 dates posted; the reliable route in is the online 'Sharing the Journey' membership — monthly live lessons, a video library, group critiques — plus one-to-one mentoring.",
+     "site": "https://www.danielgerhartzteaches.com/",
+     "siteLabel": "danielgerhartzteaches.com",
+     "why": "Lush figures dissolved in light; the closest American equivalent to what Donna Young does with colour."
+    },
+    {
+     "n": "Michelle Dunaway",
+     "r": "Zoom courses + occasional museum workshops",
+     "b": "Portraits in the Richard Schmid colour lineage; her dependable format is Zoom — a seven-week mentorship and multi-week Advanced Techniques in Oils. On the Scottsdale Artists' School instructor roster but with nothing currently scheduled there.",
+     "site": "https://www.scottsdaleartschool.org/artists/286-michelle-dunaway/",
+     "siteLabel": "scottsdaleartschool.org",
+     "why": "Colour temperature as the whole subject of a head — the Schmid line, taught patiently."
+    },
+    {
+     "n": "Rose Frantzen",
+     "r": "Scottsdale Artists' School · Feb 2027",
+     "b": "Alla prima portrait and figure. Her own Iowa intensives are announced irregularly and filled by lottery from a waiting list; the dependable route is Scottsdale — 'The Figure: Arriving at Full Color' 11-15 February 2027 and 'Portrait Painting FAQ' 18-20 February 2027. No longer at Gage Academy.",
+     "site": "https://www.scottsdaleartschool.org/events/",
+     "siteLabel": "scottsdaleartschool.org",
+     "why": "Full-colour figure built wet-into-wet in a week — the most concentrated colour training available on a fixed date."
+    },
+    {
+     "n": "Scottsdale Artists' School",
+     "r": "Scottsdale, AZ · workshops",
+     "b": "The institution behind two of the entries above: a large workshop programme already publishing its 2027 calendar, with Frantzen, Dunaway and Assael all on its artist roster.",
+     "site": "https://www.scottsdaleartschool.org/events/",
+     "siteLabel": "scottsdaleartschool.org",
+     "why": "The most reliable single calendar in the US for the colour-and-light painters they care about.",
+     "isNew": true
+    }
+   ]
+  },
+  {
+   "group": "日本 · studying the Morimoto line from inside",
+   "artists": [
+    {
+     "n": "白日会 Hakujitsu-kai",
+     "r": "exhibition society · National Art Center, Tokyo",
+     "b": "The society nearly every Hoki Museum realist belongs to. The 2026 prospectus says 「どなたでも応募することが出来ます」 — anyone may apply, with no nationality, age or membership clause. ¥10,000, up to two works, hand delivery only to the National Art Center on 8-9 March 2026; the 102nd exhibition runs 19-30 March. Strong entrants are nominated upward through 会友 → 準会員 → 会員 by the jury. President since 2002 is 中山彦彦 Nakayama Tadahiko, who steers it explicitly toward 写実.",
+     "site": "https://www.hakujitsu.com/syuppinnitsuite/",
+     "siteLabel": "hakujitsu.com",
+     "why": "This is the actual career structure of the Morimoto world, and it is the most open door in Japanese realism — no school, no application, just submit and get promoted.",
+     "isNew": true
+    },
+    {
+     "n": "アトリエ・エビス Atelier Ebis",
+     "r": "Ebisu, Tokyo · weekly life-model class",
+     "b": "The same model held for five consecutive weeks — ten hours on one pose — alternating five weeks nude and five weeks clothed, with slots Tuesday to Sunday including evenings 18:30-21:00. ¥11,000 to enrol, ¥19,500 a month including model fees. Instructors are Geidai, Musabi and Hiroshima City University oil-painting graduates.",
+     "site": "https://www.atebis.com/course/costume/",
+     "siteLabel": "atebis.com",
+     "why": "Long-pose oil from a single sustained model is precisely the format a Morimoto requires, and nothing in the West offers it this cheaply.",
+     "isNew": true
+    },
+    {
+     "n": "塩谷亮 Shiotani Ryō",
+     "r": "広尾アートアカデミー · Toranomon, Tokyo",
+     "b": "A Hakujitsukai-circle realist, Musashino Art University 1998, Bunkachō overseas fellow in Florence 2008-09, Musabi lecturer 2010-2020, 二紀会 member — teaching a six-session 油絵講座 for painters with oil experience, ¥47,700, on January/April/July/October terms. The academy also runs 森吉健's figure croquis and figure-oil courses.",
+     "site": "https://hiroo-aa.jp/teacher/Shiotani-Ryo.html",
+     "siteLabel": "hiroo-aa.jp",
+     "why": "The single best 'study under a Hoki-circle realist' option that actually exists — a working member of that world teaching a public course in Tokyo.",
+     "isNew": true
+    },
+    {
+     "n": "三重野慶 Mieno Kei",
+     "r": "Coloso · online course",
+     "b": "One of their own painters teaching his realist oil method as a paid on-demand course. He lives in Kure, Hiroshima and runs no studio class. Japanese audio with Japanese subtitles — English subtitling is not confirmed.",
+     "site": "https://coloso.jp/products/artist-mienokei-jp",
+     "siteLabel": "coloso.jp",
+     "why": "A painter already on their list, explaining his own method — the only Hoki-circle teaching reachable without moving to Japan.",
+     "isNew": true
+    },
+    {
+     "n": "武蔵野美術大学 油絵学科",
+     "r": "Musashino Art University · Kodaira, Tokyo",
+     "b": "The strongest representational faculty in Tokyo by a wide margin: 諏訪敦 Suwa Atsushi is professor and department chair, and the Hoki-circle realist 小尾修 Obi Osamu is on staff. 島村信之 and 塩谷亮 are both alumni of this exact department. A correspondence course (通信教育課程) runs about ¥385,000 for the first year — the cheapest legitimate degree route in Japan, though it grants no student visa.",
+     "site": "https://www.musabi.ac.jp/course/undergraduate/pa/faculty/",
+     "siteLabel": "musabi.ac.jp",
+     "why": "If a Japanese degree is the goal, this is where the painters they admire actually came from — not Geidai.",
+     "isNew": true
+    },
+    {
+     "n": "広島市立大学 油絵専攻",
+     "r": "Hiroshima City University · 油絵専攻",
+     "b": "Arguably the most genuinely realist oil department in Japan. 野田弘志 taught here; 石黒賢一郎 Ishiguro Ken'ichirō — Madrid-trained under Manuel Franquelo — became full professor in 2025 and states plainly that his classes teach 人物を描く基礎. 三重野慶 graduated from this programme in 2007. Departmental motto is 基礎力を重視. No international-student support listed; assume Japanese-language admission.",
+     "site": "https://www.aburae.art.hiroshima-cu.ac.jp/member/kenichiro-ishiguro/",
+     "siteLabel": "aburae.art.hiroshima-cu.ac.jp",
+     "why": "Mieno Kei came out of this room; it is the one Japanese university department built around figure realism rather than around free expression.",
+     "isNew": true
+    },
+    {
+     "n": "東京藝術大学 油画専攻",
+     "r": "Tokyo University of the Arts · Ueno",
+     "b": "Included so it can be ruled out honestly. The oil-painting entrance exam has no cast drawing and no life model: stage one is 想定素描, a drawing invented from a given word, and stage two is an F30 oil painted from a written text, judged on 発想力 and 構想力. Foreigners take the EJU in place of the common test; the only English-medium fine-art route at master's level is Global Art Practice, which is a contemporary programme. 研究生 status under a willing professor is the realistic soft entry.",
+     "site": "https://geidai-oil.com/admissions",
+     "siteLabel": "geidai-oil.com",
+     "why": "The most prestigious oil department in Japan is also the least academic — high cost, low fit for anyone chasing Morimoto's surface.",
+     "isNew": true
+    },
+    {
+     "n": "すいどーばた美術学院 留学生科",
+     "r": "Suidōbata · Nishi-Ikebukuro, Tokyo",
+     "b": "The strongest 油画 prep school in Japan, top Geidai pass rates twelve years running, with a dedicated international-student division. Adults are handled through the sister school 創形美術学校's Ikebukuro ART School. Instruction is Japanese-only; the 'international' part is admissions and pastoral support.",
+     "site": "https://suidobata.ac.jp/course/foreign-students",
+     "siteLabel": "suidobata.ac.jp",
+     "why": "The 予備校 is where Japanese observational drawing actually gets taught — this and Shinbi are the two verified structures built for foreigners.",
+     "isNew": true
+    },
+    {
+     "n": "新宿美術学院 留学生科",
+     "r": "Shinbi · Shinjuku, Tokyo",
+     "b": "International students are placed in the same ateliers as Japanese students with specialist support staff. Free trial enrolment for up to a week, including the evening division and weekend one-day courses.",
+     "site": "https://www.art-shinbi.com/ryugaku/",
+     "siteLabel": "art-shinbi.com",
+     "why": "The lowest-commitment way to test the Japanese drawing pipeline — a free trial week, evenings, no exam track required.",
+     "isNew": true
+    },
+    {
+     "n": "中野デッサン教室 amps",
+     "r": "Nakano, Tokyo · drop-in drawing sessions",
+     "b": "Drop-in nude and clothed drawing, ¥2,000 for six twenty-minute poses, 10:00-13:00 and 16:00-19:00, with an instructor present giving individual advice. No registration commitment.",
+     "site": "https://amps-web.biz/dessin/",
+     "siteLabel": "amps-web.biz",
+     "why": "The cheapest possible first step in Tokyo, and the one that needs the least Japanese.",
+     "isNew": true
+    },
+    {
+     "n": "東京クロッキー会",
+     "r": "Tokyo · monthly nude croquis",
+     "b": "Monthly nude croquis sessions across Tokyo, ¥2,500, open to anyone who respects model etiquette; a separate ヌードデッサン勉強会 has an instructor.",
+     "site": "https://www.tokyoarts.net/",
+     "siteLabel": "tokyoarts.net",
+     "why": "The lowest-barrier life drawing in the city — no school, no application, no credentials.",
+     "isNew": true
+    },
+    {
+     "n": "山本周 amane art school",
+     "r": "online nationwide + Hannan, Osaka",
+     "b": "Yamamoto Shū, born 1991, a 白日会 member since 2023 and Holbein Prize winner, teaching online across Japan as well as in person in Osaka.",
+     "site": "https://www.amane-artschool.com/",
+     "siteLabel": "amane-artschool.com",
+     "why": "A working Hakujitsukai realist teaching online at low cost — the most accessible instruction in that lineage outside Tokyo.",
+     "isNew": true
+    },
+    {
+     "n": "光風会 Kofūkai",
+     "r": "exhibition society · National Art Center, Tokyo",
+     "b": "The second open-submission route, tagged 年齢不問・国籍不問・所属不問. ¥12,000, free for students and anyone forty or under; F30 to F100 size limit, frames under 6cm; delivery 3-4 April, 112th exhibition 15-27 April 2026, touring Nagoya, Kyoto and Hiroshima. The old standalone 研究所 is gone — what remains is a members' workshop programme, including a figure-painting 講習会 30 July-1 Aug 2026.",
+     "site": "https://kofu-kai.jp/",
+     "siteLabel": "kofu-kai.jp",
+     "why": "A second shot at the promotion ladder, and free to enter under forty — but the study institute route runs through submission, not before it.",
+     "isNew": true
+    },
+    {
+     "n": "二紀会 Niki-kai",
+     "r": "exhibition society · Tokyo",
+     "b": "Kamoi Rei's own society — he showed at the second Niki exhibition in 1948 and was elevated to 同人 in 1949, following his teacher 宮本三郎 from Kanazawa. Guidelines are issued each July and requested from the office directly. Aesthetically it remains the more expressive and dramatic of the 洋画 bodies, though nobody there is making Kamoi paintings now.",
+     "site": "https://niki-kai.or.jp/",
+     "siteLabel": "niki-kai.or.jp",
+     "why": "The historically correct address for the Kamoi side rather than the Morimoto side — the honest answer being that his theatrical despair was a temperament, not a method, and has no pipeline.",
+     "isNew": true
+    },
+    {
+     "n": "Divya Marie Kato",
+     "r": "Atelier Kato · Tokyo, in English",
+     "b": "A structured English-language course running pencil drawing through ink, colour, drawing-to-painting and self-portraits, in person or remote. Honest caveat: general drawing and painting, not academic realism.",
+     "site": "https://www.divyamariekato.com/classes-workshops/",
+     "siteLabel": "divyamariekato.com",
+     "why": "There is no classical-realism atelier in Tokyo operating in English; this is the nearest verified thing, and it is a bridge rather than a destination.",
+     "isNew": true
+    }
+   ]
+  },
+  {
+   "group": "The big Western ateliers · full-time training",
+   "artists": [
+    {
+     "n": "Jacob Collins",
+     "r": "Grand Central Atelier · Ridgewood, Queens",
+     "b": "Founder and Artistic Director, still teaching drawing and painting in the Core Program — Drawing Year, Painting Year, Advanced Study, plus a sculpture track. Note the school has moved out of Long Island City to The Box Factory in Ridgewood.",
+     "site": "https://grandcentralatelier.org/about/about-us/",
+     "siteLabel": "grandcentralatelier.org",
+     "why": "The most rigorous drawing culture in the US, and the base layer under everything else in this tab."
+    },
+    {
+     "n": "Colleen Barry",
+     "r": "Grand Central Atelier · Ridgewood, Queens",
+     "b": "GCA's Drawing Director; classical figure with a personal, poetic edge.",
+     "site": "https://grandcentralatelier.org/about/instructors/",
+     "siteLabel": "grandcentralatelier.org",
+     "why": "Classical training that keeps the figure interior and quiet rather than merely correct."
+    },
+    {
+     "n": "Florence Academy of Art",
+     "r": "Florence · Mölndal · Jersey City",
+     "b": "Founded 1991 by Daniel Graves, who stepped down as director at the end of 2022 and now heads the etching programme; Tom Richards is President and Academic Director. Sight-size drawing through to full painting, on three campuses, with an MA in Studio Art in New Jersey. 38 artists graduated across Florence and Sweden in 2026.",
+     "site": "https://www.florenceacademyofart.edu/about-board-of-trustees/",
+     "siteLabel": "florenceacademyofart.edu",
+     "why": "The school that restarted the atelier movement, and where Sokol, Bauman and Hernes all come from."
+    },
+    {
+     "n": "Michael John Angel",
+     "r": "Angel Academy of Art · Florence",
+     "b": "Pietro Annigoni's student, still founder, Studio Director and Senior Instructor at 80, with Lynne Barton as Director and daily teaching by Jered Woznicki and Valerio Testa. Three-year diploma at €5,300 a trimester, four-week intensive €2,700, workshops €1,200-2,400, with deadlines published through 2026-27.",
+     "site": "https://angelacademyofart.com/tuition-and-fees/",
+     "siteLabel": "angelacademyofart.com",
+     "why": "The Annigoni lineage — Italian portrait tradition taught by someone one step from it."
+    },
+    {
+     "n": "Jordi Díaz Alamà",
+     "r": "Barcelona Academy of Art",
+     "b": "Founder-director; academic training with a young, international studio culture, tied to the MEAM museum scene. Full-time, part-time, evening, weekend, short and online programmes.",
+     "site": "https://www.academyofartbarcelona.com/en/instructor/jordi-diaz-alama/",
+     "siteLabel": "academyofartbarcelona.com",
+     "why": "The Barcelona realist scene is where the dramatic Spanish figurative work lives, and this is its school."
+    },
+    {
+     "n": "Kerry Dunn & Lea Colie Wight",
+     "r": "Studio Incamminati · Philadelphia",
+     "b": "Senior faculty carrying Nelson Shanks's colour-driven figure method. The school awards its own accredited Advanced Fine Art diploma, with the BFA now conferred through a Rowan University partnership rather than in its own right.",
+     "site": "https://studioincamminati.edu/faculty/",
+     "siteLabel": "studioincamminati.edu",
+     "why": "Colour and light applied to the figure from day one — the opposite of grisaille-first academies, and closer to how their painters actually work."
+    },
+    {
+     "n": "Jeff Watts",
+     "r": "Watts Atelier · Encinitas, CA + online",
+     "b": "Founder and Lead Instructor; six five-week terms a year in Encinitas with no application required, and 50+ online courses at $99 a month Full Access or $129 Mastery Access with graded critiques.",
+     "site": "https://www.wattsatelier.com/in-person",
+     "siteLabel": "wattsatelier.com",
+     "why": "Portrait and figure in the Reilly lineage, and still the best value in classical training anywhere."
+    },
+    {
+     "n": "Juliette Aristides",
+     "r": "The Aristides Atelier · online",
+     "b": "Author of the Classical Painting Atelier books; she left Gage in 2022 and has now also left Terracotta, running her own independent atelier from her site. A year-long fully online programme is enrolling for 1 September 2026 to 28 May 2027, meeting twice weekly. Terracotta still sells an 'Aristides Method' self-paced mentorship, but that is video and assigned mentors, not her live class.",
+     "site": "https://www.aristidesarts.com/aristides-atelier",
+     "siteLabel": "aristidesarts.com",
+     "why": "A genuine year-long atelier cohort with no relocation — the strongest structured online training in the classical line."
+    },
+    {
+     "n": "Anthony Waichulis",
+     "r": "ÀNI Art Academies · PA, Dominican Republic, Sri Lanka, Thailand, Anguilla",
+     "b": "Tuition-free and methodical: full merit scholarships to every accepted student, maintained by quarterly performance reviews, no prior experience required, applications reviewed each January, April, July and October. Five campuses; the New Jersey one has closed.",
+     "site": "https://aniartacademies.org/enrollment/",
+     "siteLabel": "aniartacademies.org",
+     "why": "Free, full-time, trompe-l'oeil-grade control — the cheapest serious training in the world if you can move to a campus."
+    },
+    {
+     "n": "LARA · London Atelier of Representational Art",
+     "r": "Clapham, London + Bristol",
+     "b": "Founded 2008; all work from life, sight-size, with sustained poses held from one week to a month. Full-time diploma plus part-time and evening classes. Note the site blocks scripted requests, so verify in a browser.",
+     "site": "https://www.drawpaintsculpt.com/",
+     "siteLabel": "drawpaintsculpt.com",
+     "why": "Month-long single poses are the format that produces sealed, still, fully resolved figures — the London answer to what Atelier Ebis does in Tokyo.",
+     "isNew": true
+    },
+    {
+     "n": "Florence Classical Arts Academy",
+     "r": "Florence · certificate, diploma, master + online",
+     "b": "Faculty is largely Russian- and Eastern-European-trained, teaching the St Petersburg academic method in Italy. Certificate, diploma and master programmes plus short workshops, evening courses and online Foundation Year, Portraiture and Figure programmes. Autumn 2026-27 diploma enrolment is open.",
+     "site": "https://artac.org/",
+     "siteLabel": "artac.org",
+     "why": "Repin-lineage training with none of the visa, language or payment problems of actually going to Russia.",
+     "isNew": true
+    },
+    {
+     "n": "Dutch Atelier of Realist Art",
+     "r": "Haarlem, Netherlands",
+     "b": "A working atelier that also hosts the visiting-teacher circuit — Patrick Byrnes runs two June 2026 sessions there and Teresa Oaxaca teaches there too.",
+     "site": "https://www.dutchartatelier.com/",
+     "siteLabel": "dutchartatelier.com",
+     "why": "The cheapest European base from which to collect several of the teachers in this tab in one summer.",
+     "isNew": true
+    },
+    {
+     "n": "London Fine Art Studios",
+     "r": "Battersea, London",
+     "b": "Full-time and part-time atelier training with a visiting-artist programme; Patrick Byrnes teaches there 26-30 May 2026.",
+     "site": "https://www.londonfineartstudios.com/",
+     "siteLabel": "londonfineartstudios.com",
+     "why": "The other London option, and the one with the busier visiting-teacher calendar.",
+     "isNew": true
+    },
+    {
+     "n": "Academy of Realist Art",
+     "r": "Toronto · full-time + online",
+     "b": "A long-running North American atelier on the Bargue-to-life-painting sequence, with an online programme for students who cannot attend.",
+     "site": "https://academyofrealistart.com/",
+     "siteLabel": "academyofrealistart.com",
+     "why": "The nearest full atelier to anyone in eastern North America who cannot get to New York.",
+     "isNew": true
+    }
+   ]
+  },
+  {
+   "group": "Russia · the long game",
+   "artists": [
+    {
+     "n": "Vladimir Mogilevtsev",
+     "r": "Repin Academy · St Petersburg",
+     "b": "Head of the drawing department since 2013, confirmed on the Academy's own statutory disclosure page; born 1960, on the Academic Council, teaching drawing in Kalyuta's easel-painting studio. His textbooks 「Основы рисунка」 are the modern academy's bible.",
+     "site": "https://www.artsacademy.ru/sveden/struct/",
+     "siteLabel": "artsacademy.ru",
+     "why": "The living authority on the drawing system that produced Blokhin and Fechin's descendants."
+    },
+    {
+     "n": "Repin Academy · preparatory department",
+     "r": "St Petersburg · 9 months, foreigners",
+     "b": "The realistic entry point: 1 October to 30 June, 38 weeks, with 950 hours of drawing, 570 of painting, 114 of composition and 570 of Russian for foreigners. 2026-27 cost for foreign citizens is 1,305,000 ₽ with Russian language or 1,215,000 ₽ without. Portfolio window 1 August to 20 September 2026, and it must already show academic drawing and painting. Foreign prep students pay the year up front and must live in the Academy hostel on arrival.",
+     "site": "https://www.artsacademy.ru/applicants/podkursy/",
+     "siteLabel": "artsacademy.ru",
+     "why": "The only honest on-ramp to the Repin degree — a language year that happens to contain thirty hours a week of drawing and painting.",
+     "isNew": true
+    },
+    {
+     "n": "Repin Academy · the degree, and its price",
+     "r": "St Petersburg · Живопись, 6-year specialist",
+     "b": "Three entrance exams — a drawing and painting test from the head and full figure, a six-hour monochrome tonal composition, and a colour composition colloquium — plus Russian language and literature, minimum 55 points on each. Students enter personal мастерские after the second year. Foreigners pay 2,000,000 ₽ a year, twelve million roubles across the six years, against 540,000 ₽ for Russian citizens.",
+     "site": "https://www.artsacademy.ru/applicants/cost_of_training/",
+     "siteLabel": "artsacademy.ru",
+     "why": "Worth seeing the number written down before treating this as a long game: it is roughly a $150,000 project, paid through a broken banking channel.",
+     "isNew": true
+    },
+    {
+     "n": "Repin Academy Summer School",
+     "r": "St Petersburg · four weeks, June or July",
+     "b": "Held inside the Repin Institute in professors' studios, four weeks, 170,000 ₽ including tuition, models, easels, interpreters, museum tours, a visa invitation and a certificate — accommodation and food excluded. 2026 sessions ran 8 June-3 July and 6-31 July; portfolio of 6-10 classical academic works, nothing digital or from photographs. Run with interpreters, so no Russian is required. The site is a blogspot page — confirm by email before relying on dates.",
+     "site": "https://rai-summer.blogspot.com/",
+     "siteLabel": "rai-summer.blogspot.com",
+     "why": "The lowest-friction real contact with the institution: a month inside the building, with an interpreter, for the price of a Western workshop.",
+     "isNew": true
+    },
+    {
+     "n": "Surikov Institute · preparatory department",
+     "r": "Moscow · 9 months, foreigners",
+     "b": "The cleaner and cheaper of the two Russian on-ramps: 1 October 2026 to 20 June, fifteen hours a week each of drawing and painting plus composition and Russian, 620,000 ₽ for the year, applications 1 March to 1 August. Its own page states plainly that without Russian the institute admits foreigners only to the preparatory department or as interns — there is no English-medium route into the degree.",
+     "site": "https://surikov-vuz.com/podgotovka_v_vuz/podgotovitelnoe_otdelenie_dlya_inostrannyh_grazhdan/",
+     "siteLabel": "surikov-vuz.com",
+     "why": "Less than half Repin's preparatory price for the same thirty hours a week of academic drawing and painting.",
+     "isNew": true
+    },
+    {
+     "n": "Glazunov Academy",
+     "r": "Moscow · weekend preparatory courses",
+     "b": "Preparatory courses on weekends, eight sessions a month, autumn 2026 to June 2027, 35,000 ₽ a month for painting or restoration; apply by showing five to seven works, no appointment, contract signed the same day. The published terms say nothing about foreign citizens and the requirement to produce a Russian tax ID at signing implies a resident-oriented process.",
+     "site": "https://glazunov-academy.ru/",
+     "siteLabel": "glazunov-academy.ru",
+     "why": "The Moscow alternative if you are already resident — but check foreigner eligibility before assuming anything.",
+     "isNew": true
+    },
+    {
+     "n": "The 2026 conditions · read before planning",
+     "r": "flights, payment, language",
+     "b": "There have been no direct flights between Russia and the EU, UK, US, Japan or Korea since March 2022 — everything routes via Istanbul, Dubai, Belgrade or Yerevan. Visa and Mastercard suspended Russian operations in 2022, so no foreign-issued card works inside Russia, and tuition wires to a Russian institution face sanctions screening and correspondent-bank refusal even where the education itself is lawful. The visa is routine; the money is not. Both institutions gate the degree behind Russian.",
+     "site": "https://www.artsacademy.ru/students/foreign_students/",
+     "siteLabel": "artsacademy.ru",
+     "why": "The realistic ladder is New Masters Academy to test the method, then the Summer School as reconnaissance, then Florence for the long training — and only then, if the payment problem is genuinely solved, Surikov's prep year.",
+     "isNew": true
+    }
+   ]
+  },
+  {
+   "group": "中国 · the other academic long game",
+   "artists": [
+    {
+     "n": "中国艺术研究院油画院",
+     "r": "China Oil Painting Academy · Beijing · 研修班",
+     "b": "Led by 杨飞云 Yang Feiyun, the institution most committed to classical realist oil painting in China. It runs one-year full-time 研修班 in classical realist figure construction and in realist-and-expressive form, entering in autumn, with the 2026 prospectus published and interview and admission lists posted on the site. Chinese-language throughout.",
+     "site": "https://www.opcn.org.cn/",
+     "siteLabel": "opcn.org.cn",
+     "why": "A real, open-enrolment teaching institution built entirely around the sealed, softly lit realist figure — the closest institutional analogue to the Hoki circle outside Japan.",
+     "isNew": true
+    },
+    {
+     "n": "中央美术学院 CAFA",
+     "r": "Central Academy of Fine Arts · Beijing",
+     "b": "China's only fine-art institution directly under the Ministry of Education, with about 200 international students and a full oil-painting department; its International Art Education Exchange Center ran an Antonio López García masterclass in Spain in February-March 2026. A dedicated international visiting-student (进修生) route in oil painting is not published — enquire through the global office.",
+     "site": "https://global.cafa.edu.cn/",
+     "siteLabel": "global.cafa.edu.cn",
+     "why": "The institutional heavyweight, and the one Chinese school whose oil department has an actual international door.",
+     "isNew": true
+    }
+   ]
+  },
+  {
+   "group": "Online · if you cannot relocate",
+   "artists": [
+    {
+     "n": "New Masters Academy",
+     "r": "subscription · nma.art",
+     "b": "The largest library of classical figure instruction, including Stephen Bauman's 13-lesson Sight-Size Figure Painting, Cornelia Hernes, and an explicitly assembled Russian academic drawing track taught by Russian-trained instructors.",
+     "site": "https://www.nma.art/introducing-the-russian-academic-tradition/",
+     "siteLabel": "nma.art",
+     "why": "The cheap, zero-friction way to test whether the Russian academic method actually suits them before spending years on it.",
+     "isNew": true
+    },
+    {
+     "n": "Watts Atelier Online",
+     "r": "subscription · $99-129 a month",
+     "b": "Fifty-plus structured courses in the Reilly portrait and figure lineage, with graded critique submissions on the higher tier — a full atelier curriculum rather than a video library.",
+     "site": "https://www.wattsatelier.com/",
+     "siteLabel": "wattsatelier.com",
+     "why": "Still the best value in classical training anywhere, and the only online programme that grades your work in sequence.",
+     "isNew": true
+    },
+    {
+     "n": "The Aristides Atelier · online year",
+     "r": "1 Sept 2026 - 28 May 2027 · twice weekly",
+     "b": "A year-long, live, fully online atelier cohort meeting twice a week on a Monday core curriculum, run independently by Juliette Aristides since leaving Terracotta.",
+     "site": "https://www.aristidesarts.com/aristides-atelier",
+     "siteLabel": "aristidesarts.com",
+     "why": "The one online option that is a genuine cohort with live teaching, not a subscription."
+    },
+    {
+     "n": "Proko",
+     "r": "course platform · proko.com",
+     "b": "Course-by-course purchase rather than subscription, with Stephen Bauman's drawing and portrait courses among the strongest figure material on the platform.",
+     "site": "https://www.proko.com/courses",
+     "siteLabel": "proko.com",
+     "why": "The cleanest place to buy a single specific skill — Bauman's block-in — without committing to a programme.",
+     "isNew": true
+    },
+    {
+     "n": "Teaching Studios",
+     "r": "Long Island + online",
+     "b": "In-person and online faculty including David Kassan, Casey Baugh and Adam Miller, with an on-demand catalogue covering glazing, indirect method and luminous shadows.",
+     "site": "https://online.teachingstudios.com/",
+     "siteLabel": "online.teachingstudios.com",
+     "why": "The single platform that carries three of the painters in this tab's staged-light and water-and-glass groups.",
+     "isNew": true
+    },
+    {
+     "n": "The New School of Art",
+     "r": "online tutorials · London",
+     "b": "Tutor-led online instruction with a roster that includes Nicolás Uribe, though his own courses there have not run since 2017.",
+     "site": "https://thenewschoolart.org/",
+     "siteLabel": "thenewschoolart.org",
+     "why": "Worth watching rather than joining — the roster is right even where the calendar is empty.",
+     "isNew": true
+    }
+   ]
+  },
+  {
+   "group": "The workshop circuit",
+   "artists": [
+    {
+     "n": "Nikolai Blokhin",
+     "r": "Repin Academy · St Petersburg",
+     "b": "Professor of drawing at the Repin Academy since 1995 and the most bravura draughtsman in that tradition. His site is a gallery and sales site — no workshops and no video courses are currently offered anywhere on it.",
+     "site": "https://www.blokhinart.com/",
+     "siteLabel": "blokhinart.com",
+     "why": "Kept as a name to watch, not a place to book — the bravura brush of THE BRUSH cluster, currently unteachable."
+    },
+    {
+     "n": "Nick Alm",
+     "r": "Uptrek retreats · Greece, Tuscany, Portugal",
+     "b": "Intensive figure-painting retreats, no permanent school; his active channel is Uptrek, with a Greece retreat 26 September - 3 October 2026 and further dates across 2026-27. The old TIAC listing is an eight-year-old Beijing archive page, not Florence.",
+     "site": "https://nickalm.com/news/",
+     "siteLabel": "nickalm.com",
+     "why": "One of their own painters, teaching the loose theatrical figure group in a week — book the Uptrek dates, not TIAC."
+    },
+    {
+     "n": "Jeremy Lipking",
+     "r": "Dark Creek Press · recorded + membership",
+     "b": "No open 2026-27 workshop dates: his teaching moved to Dark Creek Press, which sells recorded streaming workshops at $250 and gates live registration behind a Painter's Club membership. The 2026 event is a retrospective, '30 Years a Painter', at the Booth Western Art Museum, 11 April - 16 August.",
+     "site": "https://www.darkcreekpress.com/",
+     "siteLabel": "darkcreekpress.com",
+     "why": "Light-filled figures in landscape; join the membership if you want a shot at a live seat."
+    },
+    {
+     "n": "Sean Cheetham",
+     "r": "independent · Sacramento, Rome, Patreon",
+     "b": "Punchy alla prima portraiture, taught independently since LAAFA ceased operating as an art school in 2026 — the school's degree and certificate programmes in figurative art are gone and it now sells corporate creative training. Cheetham teaches a Sacramento portrait workshop 17-18 October 2026 at Patris Art Studio, plus Rome dates, Patreon and recorded livestreams.",
+     "site": "https://www.seancheethamfineart.com/classes",
+     "siteLabel": "seancheethamfineart.com",
+     "why": "Visible paint, hard light, a head in three days — the fastest taste of the BRUSH cluster available."
+    },
+    {
+     "n": "Jeremy Mann",
+     "r": "Spain · retreats, dates lapsed",
+     "b": "Moody, scraped, dramatically lit figures. Now based in Spain; his events page shows nothing after 2025, the last entries being the Catalunya plein air retreat in July 2025 and the Menorca group workshop in April 2025. Watch the Menorca and Catalunya organisers rather than his own site.",
+     "site": "https://jeremymann.com/events",
+     "siteLabel": "jeremymann.com",
+     "why": "The closest living painter to Kamoi's atmosphere in oil — worth tracking even though nothing is currently scheduled.",
+     "isNew": true
+    },
+    {
+     "n": "Vanessa Lemen",
+     "r": "online classes + mentorship",
+     "b": "Online classes, weekend workshops and private mentorship in atmospheric, half-emergent figures. No verifiable 2026 in-person dates; the online programme is the live part.",
+     "site": "https://lemenaid.com/online-classes/",
+     "siteLabel": "lemenaid.com",
+     "why": "Figures surfacing out of ambiguity — the mood side of the hush rather than its finish.",
+     "isNew": true
+    }
+   ]
+  }
+ ]
+}

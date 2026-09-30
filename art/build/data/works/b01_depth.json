@@ -1,0 +1,3160 @@
+[
+ {
+  "n": "Nick Alm",
+  "works": [
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2021/04/a495af80-e862-438a-82de-926bc8d797c4-edited.jpg",
+    "src": "https://nickalm.com/portfolio/oil/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2021/04/friends-by-the-shoreline-2020-oil-on-canvas-60x60cm-nick-alm-800.jpg",
+    "src": "https://nickalm.com/portfolio/oil/",
+    "med": "oil on canvas",
+    "t": "Friends by the shoreline",
+    "y": "2020",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2021/04/Katja-2019-oil-on-canvas-65x53cm-nick-alm-800-edited.jpg",
+    "src": "https://nickalm.com/portfolio/oil/",
+    "med": "oil on canvas",
+    "t": "Katja",
+    "y": "2019",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2022/03/the-basement-door-2022-oil-on-canvas-100x100cm-nick-alm-800.jpg",
+    "src": "https://nickalm.com/portfolio/oil/oil-gallery-1/",
+    "med": "oil on canvas",
+    "t": "The basement door",
+    "y": "2022",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2025/11/behind-the-curtain-2025-oil-on-canvas-85x105cm-nick-alm-2-800.jpg",
+    "src": "https://nickalm.com/portfolio/oil/oil-gallery-1/",
+    "med": "oil on canvas",
+    "t": "Behind the curtain",
+    "y": "2025",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2022/03/window-plants-2021-oil-on-canvas-90x105cm-nick-alm.jpg",
+    "src": "https://nickalm.com/portfolio/oil/oil-gallery-1/",
+    "med": "oil on canvas",
+    "t": "Window plants",
+    "y": "2021",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2023/09/cat-2023-oil-painting-62x80cm-nick-alm-3-800.jpg",
+    "src": "https://nickalm.com/portfolio/oil/oil-gallery-1/",
+    "med": "oil",
+    "t": "Cat",
+    "y": "2023",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2023/01/clementine-2022-oil-on-canvas-75x90cm-nick-alm-800.jpg",
+    "src": "https://nickalm.com/portfolio/oil/oil-gallery-1/",
+    "med": "oil on canvas",
+    "t": "Clementine",
+    "y": "2022",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2026/04/subway-2019-oil-on-canvas-95x135cm-nick-alm-800.jpg",
+    "src": "https://nickalm.com/portfolio/oil/oil-gallery-1/",
+    "med": "oil on canvas",
+    "t": "Subway",
+    "y": "2019",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2023/07/fishes-2023-oil-on-canvas-60x43cm-nick-alm-800.jpg",
+    "src": "https://nickalm.com/portfolio/oil/oil-gallery-1/",
+    "med": "oil on canvas",
+    "t": "Fishes",
+    "y": "2023",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2025/11/legs-up-2025-oil-on-canvas-73x66cm-nick-alm-800.jpg",
+    "src": "https://nickalm.com/portfolio/oil/oil-gallery-1/",
+    "med": "oil on canvas",
+    "t": "Legs up",
+    "y": "2025",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2025/11/the-entrance-2025-oil-on-canvas-81x70cm-nick-alm-800.jpg",
+    "src": "https://nickalm.com/portfolio/oil/oil-gallery-1/",
+    "med": "oil on canvas",
+    "t": "The entrance",
+    "y": "2025",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2022/03/boat-2022-oil-on-canvas-92x100cm-nick-alm-800.jpg",
+    "src": "https://nickalm.com/portfolio/oil/oil-gallery-2/",
+    "med": "oil on canvas",
+    "t": "Boat",
+    "y": "2022",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2022/03/the-portal-800.jpg",
+    "src": "https://nickalm.com/portfolio/oil/oil-gallery-2/",
+    "t": "The portal",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2022/09/galjon-2021-oil-on-canvas-100x130cm-nick-alm-800-1.jpg",
+    "src": "https://nickalm.com/portfolio/oil/oil-gallery-2/",
+    "med": "oil on canvas",
+    "t": "Galjon",
+    "y": "2021",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2022/09/drying-the-hair-2021-oil-on-canvas-61x61cm-nick-alm-3-800-2.jpg",
+    "src": "https://nickalm.com/portfolio/oil/oil-gallery-2/",
+    "med": "oil on canvas",
+    "t": "Drying the hair",
+    "y": "2021",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2025/11/in-green-valley-2023-oil-on-canvas-48x69cm-nick-alm-800.jpg",
+    "src": "https://nickalm.com/portfolio/oil/oil-gallery-2/",
+    "med": "oil on canvas",
+    "t": "In green valley",
+    "y": "2023",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2025/11/astra-viridia-2025-oil-on-canvas-89x85cm-nick-alm-800.jpg",
+    "src": "https://nickalm.com/portfolio/oil/oil-gallery-2/",
+    "med": "oil on canvas",
+    "t": "Astra viridia",
+    "y": "2025",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2025/11/nordiska-2025-oil-on-canvas-85x92cm-nick-alm-800.jpg",
+    "src": "https://nickalm.com/portfolio/oil/oil-gallery-2/",
+    "med": "oil on canvas",
+    "t": "Nordiska",
+    "y": "2025",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2023/07/leaving-home-2023-oil-on-canvas-90x60cm-nick-alm-800.jpg",
+    "src": "https://nickalm.com/portfolio/oil/oil-gallery-2/",
+    "med": "oil on canvas",
+    "t": "Leaving home",
+    "y": "2023",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2026/08/change-of-seasons-2024-oil-on-canvas-80x115cm-nick-alm-800.jpg",
+    "src": "https://nickalm.com/portfolio/oil/oil-gallery-2/",
+    "med": "oil on canvas",
+    "t": "Change of seasons",
+    "y": "2024",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2025/11/lemons-2023-oil-800.jpg",
+    "src": "https://nickalm.com/portfolio/oil/oil-gallery-2/",
+    "med": "oil",
+    "t": "Lemons",
+    "y": "2023",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2026/04/imelda-2022-oil-on-canvas-35x28cm-nick-alm-800.jpg",
+    "src": "https://nickalm.com/portfolio/oil/oil-gallery-3/",
+    "med": "oil on canvas",
+    "t": "Imelda",
+    "y": "2022",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2022/04/anders-2022-oil-on-canvas-100x85cm-nick-alm-800.jpg",
+    "src": "https://nickalm.com/portfolio/oil/oil-gallery-3/",
+    "med": "oil on canvas",
+    "t": "Anders",
+    "y": "2022",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2024/08/elvira-2024-oil-on-canvas-40x32cm-nick-alm-800.jpg",
+    "src": "https://nickalm.com/portfolio/oil/oil-gallery-3/",
+    "med": "oil on canvas",
+    "t": "Elvira",
+    "y": "2024",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2026/04/maria-2025-oil-on-canvas-51x42cm-nick-alm-800.jpg",
+    "src": "https://nickalm.com/portfolio/oil/oil-gallery-3/",
+    "med": "oil on canvas",
+    "t": "Maria",
+    "y": "2025",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2026/04/dominik-2025-oil-on-canvas-31x25cm-nick-alm-800-1.jpg",
+    "src": "https://nickalm.com/portfolio/oil/oil-gallery-3/",
+    "med": "oil on canvas",
+    "t": "Dominik",
+    "y": "2025",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://nickalm.com/wp-content/uploads/2026/04/gabriella-2024-oil-on-canvas-39x38cm-nick-alm-800.jpg",
+    "src": "https://nickalm.com/portfolio/oil/oil-gallery-3/",
+    "med": "oil on canvas",
+    "t": "Gabriella",
+    "y": "2024",
+    "found": "2026-09-30"
+   }
+  ]
+ },
+ {
+  "n": "Daniel Sprick",
+  "works": [
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/6a90644973b7e75671960b20/b7de413e-f766-4277-8ccc-a714baab326b/B0003079.jpeg",
+    "src": "https://www.danielsprick.com/artwork",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/6a90644973b7e75671960b20/49eb3989-7df2-4bea-882d-de5999c5421d/B0002798.jpeg",
+    "src": "https://www.danielsprick.com/artwork",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/6a90644973b7e75671960b20/631d395d-b263-465a-9cb7-b1924cad7aa9/Sprick_An-Angel-Landed-Behind-the-Studio.jpeg",
+    "src": "https://www.danielsprick.com/artwork",
+    "t": "An Angel Landed Behind the Studio",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/6a90644973b7e75671960b20/37fdf690-1ac4-4df7-a887-a747d08ad84e/Sprick_Bird-and-Mirror.jpg",
+    "src": "https://www.danielsprick.com/artwork",
+    "t": "Bird and Mirror",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/6a90644973b7e75671960b20/937c1566-817e-4ab4-a6bc-17889f6edf34/Sprick_Bird-Skeleton-and-Flower.jpg",
+    "src": "https://www.danielsprick.com/artwork",
+    "t": "Bird Skeleton and Flower",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/6a90644973b7e75671960b20/77d81120-a174-4b22-ba0f-e0635b42122a/Sprick_Cherry-Creek-at-Colorado-Blvd.jpg",
+    "src": "https://www.danielsprick.com/artwork",
+    "t": "Cherry Creek at Colorado Blvd",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/6a90644973b7e75671960b20/4e49f8bd-7041-4089-b66a-e97b155f933e/B0002964.jpg",
+    "src": "https://www.danielsprick.com/artwork",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/6a90644973b7e75671960b20/ce3dd047-cfac-4008-b638-7f46c3415ae8/Sprick_Death-and-the-Maiden.jpg",
+    "src": "https://www.danielsprick.com/artwork",
+    "t": "Death and the Maiden",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/6a90644973b7e75671960b20/ca5f168a-4dd2-4e6e-ba70-b02fafd0a45b/Sprick_Horse-and-Rider-in-the-Snow.jpeg",
+    "src": "https://www.danielsprick.com/artwork",
+    "t": "Horse and Rider in the Snow",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/6a90644973b7e75671960b20/c572fa15-a9e0-44ac-997b-8a1c1882eee0/Sprick_In-Search-of-an-Honest-Man.jpg",
+    "src": "https://www.danielsprick.com/artwork",
+    "t": "In Search of an Honest Man",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/6a90644973b7e75671960b20/6a117a39-0907-44c6-8fe9-89a951ff46bd/Sprick_Jen-Starling.jpg",
+    "src": "https://www.danielsprick.com/artwork",
+    "t": "Jen Starling",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/6a90644973b7e75671960b20/a3d197d5-4d00-42b8-8543-6d24f76c928a/Sprick_My-Father-at-Night.jpg",
+    "src": "https://www.danielsprick.com/artwork",
+    "t": "My Father at Night",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/6a90644973b7e75671960b20/11407a47-9687-4394-b651-03da533f41a6/Sprick_Shadow-Flower-1.jpg",
+    "src": "https://www.danielsprick.com/artwork",
+    "t": "Shadow Flower",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/6a90644973b7e75671960b20/bfcc5ee0-1133-4c1c-aa9e-0c4ac2e31be6/Sprick_Souls-in-Purgatory.jpg",
+    "src": "https://www.danielsprick.com/artwork",
+    "t": "Souls in Purgatory",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/6a90644973b7e75671960b20/6ff6cbf3-7729-4418-ab5f-e4c325ccbeda/Sprick_The-Profit-Daniel-with-Writing-on-the-Wall.jpeg",
+    "src": "https://www.danielsprick.com/artwork",
+    "t": "The Profit Daniel with Writing on the Wall",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/6a90644973b7e75671960b20/197c85bf-422b-4859-93e2-6034c3417bd7/Sprick_The-Speed-of-Light.jpg",
+    "src": "https://www.danielsprick.com/artwork",
+    "t": "The Speed of Light",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/6a90644973b7e75671960b20/eb7f535d-6ad6-4ae8-b03d-d1154e8ac0db/Sprick_Shadow-Branches-with-Plate-and-Fruit.jpg",
+    "src": "https://www.danielsprick.com/artwork",
+    "t": "Shadow Branches with Plate and Fruit",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/6a90644973b7e75671960b20/8946b2d5-8d38-4cee-bfd6-5e97a7563a1e/B0002431.jpeg",
+    "src": "https://www.danielsprick.com/artwork",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/6a90644973b7e75671960b20/aaf4e00d-4d53-4ea1-891d-a0cbd2ada283/B0002557.jpeg",
+    "src": "https://www.danielsprick.com/artwork",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/6a90644973b7e75671960b20/60407c1a-3168-47f5-9d55-2537300145ce/B0002580.jpeg",
+    "src": "https://www.danielsprick.com/artwork",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/6a90644973b7e75671960b20/ee8a505c-38a0-441c-b42b-b51595e9034a/B0003020.jpeg",
+    "src": "https://www.danielsprick.com/artwork",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/6a90644973b7e75671960b20/84c2bc0d-8407-4614-ab50-a9afc2654bc3/B0003031.jpeg",
+    "src": "https://www.danielsprick.com/artwork",
+    "med": "oil",
+    "found": "2026-09-30"
+   }
+  ]
+ },
+ {
+  "n": "Alyssa Monks",
+  "works": [
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/AlyssaMonks_Seven.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "Seven",
+    "found": "2026-09-30",
+    "med": "oil"
+   },
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/AlyssaMonks_Swipe.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "Swipe",
+    "found": "2026-09-30",
+    "med": "oil"
+   },
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/AlyssaMonks_allmydesires2.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "All My Desires",
+    "found": "2026-09-30",
+    "med": "oil"
+   },
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/AlyssaMonks_Two-1.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "Two",
+    "found": "2026-09-30",
+    "med": "oil"
+   },
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/Play-It-Again-scaled.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "Play It Again",
+    "found": "2026-09-30",
+    "med": "oil"
+   },
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/AlyssaMonks_ScreamIII-3.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "Scream III",
+    "found": "2026-09-30",
+    "med": "oil"
+   },
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/AlyssaMonks_TrueNorth.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "True North",
+    "found": "2026-09-30",
+    "med": "oil"
+   },
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/AlyssaMonks_Is-This-The-Real-Life.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "Is This The Real Life",
+    "found": "2026-09-30",
+    "med": "oil"
+   },
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/AlyssaMonks_Where-Longing-Meets-Limits.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "Where Longing Meets Limits",
+    "found": "2026-09-30",
+    "med": "oil"
+   },
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/AlyssaMonks_Critical-Mass.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "Critical Mass",
+    "found": "2026-09-30",
+    "med": "oil"
+   },
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/AlyssaMonks_Stay-Focused.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "Stay Focused",
+    "found": "2026-09-30",
+    "med": "oil"
+   },
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/AlyssaMonks_Between-Here-and-There.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "Between Here and There",
+    "found": "2026-09-30",
+    "med": "oil"
+   },
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/AlyssaMonks_Truce.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "Truce",
+    "found": "2026-09-30",
+    "med": "oil"
+   },
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/AlyssaMonks_No-Going-Back5.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "No Going Back",
+    "found": "2026-09-30",
+    "med": "oil"
+   },
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/AlyssaMonks_I-Accept-2.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "I Accept",
+    "found": "2026-09-30",
+    "med": "oil"
+   },
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/AlyssaMonks_Watch-The-Only-Way-Out-Disappear-copy.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "Watch the Only Way Out Disappear",
+    "found": "2026-09-30",
+    "med": "oil"
+   },
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/AlyssaMonks_The-Shadow-Self.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "The Shadow Self",
+    "found": "2026-09-30",
+    "med": "oil"
+   },
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/AlyssaMonks_Selective-Perception-new.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "Selective Perception",
+    "found": "2026-09-30",
+    "med": "oil"
+   },
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/AlyssaMonks_IamU.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "I Am U",
+    "found": "2026-09-30",
+    "med": "oil"
+   },
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/AlyssaMonks_Be-Perfectly-Still.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "Be Perfectly Still",
+    "found": "2026-09-30",
+    "med": "oil"
+   },
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/AlyssaMonks_Entropy.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "Entropy",
+    "found": "2026-09-30",
+    "med": "oil"
+   },
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/AlyssaMonks_Stay-Open.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "Stay Open",
+    "found": "2026-09-30",
+    "med": "oil"
+   },
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/AlyssaMonks_New-Eyes.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "New Eyes",
+    "found": "2026-09-30",
+    "med": "oil"
+   },
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/AlyssaMonks_Captive.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "Captive",
+    "found": "2026-09-30",
+    "med": "oil"
+   },
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/AlyssaMonks_TransfixedDrawing-1.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "Transfixed",
+    "found": "2026-09-30",
+    "med": "drawing"
+   },
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/AlyssaMonks_Gaea-1.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "Gaea",
+    "found": "2026-09-30",
+    "med": "oil"
+   },
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/AlyssaMonks_Rain_drawing.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "Rain",
+    "found": "2026-09-30",
+    "med": "drawing"
+   },
+   {
+    "img": "https://www.alyssamonks.com/wp-content/uploads/2019/05/AlyssaMonks_Elpis.jpg",
+    "src": "https://www.alyssamonks.com/2015-2026/",
+    "t": "Elpis",
+    "found": "2026-09-30",
+    "med": "oil"
+   }
+  ]
+ },
+ {
+  "n": "Zoey Frank",
+  "works": [
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/57dc02dce4fcb573a59bebdd/1770155780565-LMD6B8OQILCCS35F8HEK/image-asset.jpeg",
+    "src": "https://zoeyfrank.com/work",
+    "t": "Picnic #2",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/57dc02dce4fcb573a59bebdd/1725901309113-53D1S87C2J9DJ4ZH76WP/image-asset.jpeg",
+    "src": "https://zoeyfrank.com/work",
+    "t": "Picnic #1",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/57dc02dce4fcb573a59bebdd/1789575806496-225EHMNOK9LPV35APCQX/image-asset.jpeg",
+    "src": "https://zoeyfrank.com/work",
+    "t": "Pink Patio",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/57dc02dce4fcb573a59bebdd/1725900895476-OX1IXQFNQ76PFY6IPNZ5/image-asset.jpeg",
+    "src": "https://zoeyfrank.com/work",
+    "t": "Back Garden",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/57dc02dce4fcb573a59bebdd/1664470203136-7J4JS4W6SPYCLORKFB18/image-asset.jpeg",
+    "src": "https://zoeyfrank.com/work",
+    "t": "Apartment in Rome",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/57dc02dce4fcb573a59bebdd/1770155866398-GSB7DB871SQDLMT8OQ3Y/image-asset.jpeg",
+    "src": "https://zoeyfrank.com/work",
+    "t": "White Roses",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/57dc02dce4fcb573a59bebdd/1664470232337-W4JFLBSLZ1SKRN8F3SMV/image-asset.jpeg",
+    "src": "https://zoeyfrank.com/work",
+    "t": "Breakfast Table #1",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/57dc02dce4fcb573a59bebdd/1664464941261-KNIKK6LKRN7QV3G7RSQQ/image-asset.jpeg",
+    "src": "https://zoeyfrank.com/work",
+    "t": "Breakfast Table #2",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/57dc02dce4fcb573a59bebdd/1636059270025-DMWCPZWIEA33NG3HOVXJ/image-asset.jpeg",
+    "src": "https://zoeyfrank.com/work",
+    "t": "Self-Portrait with a Geranium",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/57dc02dce4fcb573a59bebdd/1543593937644-OVRCA5MUWJXGMKIHQGZA/Frank-Wedding.jpg",
+    "src": "https://zoeyfrank.com/work",
+    "t": "Wedding",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/57dc02dce4fcb573a59bebdd/1615826756396-6EQ04I7LEFOYCAK195HG/image-asset.jpeg",
+    "src": "https://zoeyfrank.com/work",
+    "t": "Pool Party",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/57dc02dce4fcb573a59bebdd/1564269606550-GC8GKCSNDKOCC9X27WSO/Zoey_Frank_Swimming_Pool_%232x.jpeg",
+    "src": "https://zoeyfrank.com/work",
+    "t": "Swimming Pool #2",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/57dc02dce4fcb573a59bebdd/1584742875586-BDNRCLY76HWTU047R01Z/image-asset.jpeg",
+    "src": "https://zoeyfrank.com/work",
+    "t": "Watermelon",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/57dc02dce4fcb573a59bebdd/1597358675708-T0HH1459Y7SIXSO6NKCA/image-asset.jpeg",
+    "src": "https://zoeyfrank.com/work",
+    "t": "Hannah at Twelve",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/57dc02dce4fcb573a59bebdd/1597358549126-OD6PI0L81LVR0SXVU8NW/image-asset.jpeg",
+    "src": "https://zoeyfrank.com/work",
+    "t": "Nieces",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/57dc02dce4fcb573a59bebdd/1485300495591-Z6GJRK30RGD0VIUH7H18/Zoey-Frank-Civita-Kitchen.jpg",
+    "src": "https://zoeyfrank.com/work",
+    "t": "Civita Kitchen",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/57dc02dce4fcb573a59bebdd/1485300892966-6M6XQX6QJ8QJCSWXWR8B/Zoey-Frank-Conversations.jpg",
+    "src": "https://zoeyfrank.com/work",
+    "t": "Conversations",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/57dc02dce4fcb573a59bebdd/1501628730364-KEWJW11ZIRYRUHDUCJAP/Zoey-Frank-Peter%27s-Desk.jpg",
+    "src": "https://zoeyfrank.com/work",
+    "t": "Peter's Desk",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/57dc02dce4fcb573a59bebdd/1543593820653-4F390QYSCCIFLSKX8B49/Frank-Living-Room.jpg",
+    "src": "https://zoeyfrank.com/work",
+    "t": "Living Room",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/57dc02dce4fcb573a59bebdd/1485300580347-8ODFAIVC0P30MWYKSBKR/Zoey-Frank-Brunch.jpg",
+    "src": "https://zoeyfrank.com/work",
+    "t": "Brunch",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/57dc02dce4fcb573a59bebdd/1485301029843-N6OYE974NHZHFW1KFYX7/Zoey-Frank-Sonya.jpg",
+    "src": "https://zoeyfrank.com/work",
+    "t": "Sonya",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/57dc02dce4fcb573a59bebdd/1550589477051-LJCZBNRAZ57ANQSW65EE/Zoey_Frank_Peter_Reading.jpeg",
+    "src": "https://zoeyfrank.com/work",
+    "t": "Peter Reading",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/57dc02dce4fcb573a59bebdd/1485301287451-TEOGSH682GZSY63YGZ3T/Zoey-Frank-Girl-in-Striped-Shirt.jpg",
+    "src": "https://zoeyfrank.com/work",
+    "t": "Girl in Striped Shirt",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/57dc02dce4fcb573a59bebdd/1485301182046-CTRSN7WKF7BZH9038EKJ/Zoey-Frank-Bedroom.jpg",
+    "src": "https://zoeyfrank.com/work",
+    "t": "Bedroom",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/57dc02dce4fcb573a59bebdd/1485301073451-81X9W16YVF7RDRPMWKDX/Zoey-Frank-Kirsten.jpg",
+    "src": "https://zoeyfrank.com/work",
+    "t": "Kirsten",
+    "med": "oil",
+    "found": "2026-09-30"
+   }
+  ]
+ },
+ {
+  "n": "Burton Silverman",
+  "works": [
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b0c3f8a45776ee022f28da4/1527533033539-U5LS0KEX4GA2U29MAMVG/Behind+The+Scenes%2C+oil+%3A+linen%2C+1982%2C+32%2522x46+.jpg?format=2500w",
+    "src": "https://burtonsilverman.com/portraiture",
+    "t": "Behind the Scenes",
+    "y": "1985",
+    "found": "2026-09-30",
+    "med": "oil on linen"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b0c3f8a45776ee022f28da4/1527533028550-FFD93ZPI99EP7VI8P2BM/Afternoon+in+Tuscany+1983+39x47+.jpg?format=2500w",
+    "src": "https://burtonsilverman.com/portraiture",
+    "t": "Afternoon in Tuscany",
+    "y": "1983",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b0c3f8a45776ee022f28da4/1527533039855-BBEQVXUNLVY7DVH49L89/the-signora-1984-52x34_0.jpg?format=2500w",
+    "src": "https://burtonsilverman.com/portraiture",
+    "t": "The Signora",
+    "y": "1984",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b0c3f8a45776ee022f28da4/1529787462254-OVW1M2UDUD7DBL6GQ7KK/Two+Women%2C+1994%2C+oil+%3A+linen%2C+32%2522x54%2522+..jpg?format=2500w",
+    "src": "https://burtonsilverman.com/portraiture",
+    "t": "Two Women",
+    "y": "1994",
+    "found": "2026-09-30",
+    "med": "oil on linen"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b0c3f8a45776ee022f28da4/1530296336100-ZEQB11V914UQQBS83TRL/Bagel-Nosh-1995-oil%3Alinen+52x30.jpg?format=2500w",
+    "src": "https://burtonsilverman.com/portraiture",
+    "t": "Bagel Nosh",
+    "y": "1995",
+    "found": "2026-09-30",
+    "med": "oil on linen"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b0c3f8a45776ee022f28da4/1530295928130-52C0CTD2RL6IWSTDQFC7/Waiting+1995%2C18x24+in.+Pvt.+Coll.+No.+Carolina.jpg?format=2500w",
+    "src": "https://burtonsilverman.com/portraiture",
+    "t": "Waiting",
+    "y": "1995",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b0c3f8a45776ee022f28da4/1527533036653-KXA2PZ3L9CD8WG8CIK2K/nNationa%3B+Monument%2C+2002%2C+oi%3B%3Alinen.+48x40.jpg?format=2500w",
+    "src": "https://burtonsilverman.com/portraiture",
+    "t": "National Monument",
+    "y": "2002",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b0c3f8a45776ee022f28da4/1527533025124-PZ2YX10BPPTG66DL6OUA/Park+Bench%2C2003%2C+oil+%3A+linen%2C+.32%2522x50%2522+.jpg?format=2500w",
+    "src": "https://burtonsilverman.com/portraiture",
+    "t": "Park Bench",
+    "y": "2003",
+    "found": "2026-09-30",
+    "med": "oil on linen"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b0c3f8a45776ee022f28da4/1527533037140-K5IWBJSOESQZ30P6NOXL/sodastraw.jpg?format=2500w",
+    "src": "https://burtonsilverman.com/portraiture",
+    "t": "Soda Straw",
+    "y": "2003",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b0c3f8a45776ee022f28da4/1527533038084-DLBISIUR212GYCT7CDY2/Store+front+2004%2C+oil%3Alinen%2C+54x40+.jpg?format=2500w",
+    "src": "https://burtonsilverman.com/portraiture",
+    "t": "Storefront",
+    "y": "2004",
+    "found": "2026-09-30",
+    "med": "oil on linen"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b0c3f8a45776ee022f28da4/1527533037083-U3W2FDIUY7ZAQXGWDNDC/Road+Warrior.+2002%2C+oi%5B%3Alinen%2C+42%2522x72%2522+.jpg?format=2500w",
+    "src": "https://burtonsilverman.com/portraiture",
+    "t": "Road Warrior",
+    "y": "2004",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b0c3f8a45776ee022f28da4/1529685736340-HKRJNOYAWGNHYLTI6DCD/Morning+Nude%2C+oil+%3A+linen%2C+2005%2C+24%2522x31%2522+.jpg?format=2500w",
+    "src": "https://burtonsilverman.com/portraiture",
+    "t": "Morning Nude II",
+    "y": "2005",
+    "found": "2026-09-30",
+    "med": "oil on linen"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b0c3f8a45776ee022f28da4/1527533020566-KL0RC762I39L8F6GI4X9/Beach+Ball%2C+2006+oil%3Alinen.+16x20.jpg?format=2500w",
+    "src": "https://burtonsilverman.com/portraiture",
+    "t": "Beach Ball",
+    "y": "2006",
+    "found": "2026-09-30",
+    "med": "oil on linen"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b0c3f8a45776ee022f28da4/1527533041440-SNOZ918RCDI6BJ50VTMZ/Womanwith+a+Small+Dog+2009%2Coil%3Alinen%2C+30x39+in..jpg?format=2500w",
+    "src": "https://burtonsilverman.com/portraiture",
+    "t": "Woman with a Small Dog",
+    "y": "2009",
+    "found": "2026-09-30",
+    "med": "oil on linen"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b0c3f8a45776ee022f28da4/1527533025531-TKCA0F80460FQ8K3PF7J/Near+the+Shenandoah%2C+2010%2C+oil%3Alinen+42x46+in.jpg?format=2500w",
+    "src": "https://burtonsilverman.com/portraiture",
+    "t": "Near the Shenandoah",
+    "y": "2010",
+    "found": "2026-09-30",
+    "med": "oil on linen"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b0c3f8a45776ee022f28da4/1527533034374-Z4M0DPOFXVTHNDO5DKLZ/Fishing+the+Bog.+2010%2C+oil%3Alinen%2C+24x36.jpg?format=2500w",
+    "src": "https://burtonsilverman.com/portraiture",
+    "t": "Fishing the Bog",
+    "y": "2010",
+    "found": "2026-09-30",
+    "med": "oil on linen"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b0c3f8a45776ee022f28da4/1527533035861-KSOH6YPRKGXFLWXB5AM5/Garment+Shop%2C+oil+%3A+linen+2011%2C+30%2522x24%2522+.jpg?format=2500w",
+    "src": "https://burtonsilverman.com/portraiture",
+    "t": "Garment Shop",
+    "y": "2010",
+    "found": "2026-09-30",
+    "med": "oil on linen"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b0c3f8a45776ee022f28da4/1527533033787-L05MM1P2IAS1H6CXZAXC/Black+Hat+2%2C+2012+oil%3Alinen%2C16x14+.jpg?format=2500w",
+    "src": "https://burtonsilverman.com/portraiture",
+    "t": "Black Hat II",
+    "y": "2012",
+    "found": "2026-09-30",
+    "med": "oil on linen"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b0c3f8a45776ee022f28da4/1732064029269-0HCKWE7KLHSYX2JQ7NL5/4.Behind+the+Scenes+II+.jpg?format=2500w",
+    "src": "https://burtonsilverman.com/portraiture",
+    "t": "Behind the Scenes II",
+    "y": "2016",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b0c3f8a45776ee022f28da4/1527533026838-KB33FXOZKS2V3FXMTH6R/Study+for+a+self+portrait%2C2018%2C+oil+%3Alinen+on+wood%2C+12x10in.+.jpg?format=2500w",
+    "src": "https://burtonsilverman.com/portraiture",
+    "t": "Study for a Self Portrait",
+    "y": "2017",
+    "found": "2026-09-30",
+    "med": "oil on linen"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b0c3f8a45776ee022f28da4/1527533086722-SWI94S1T478NTD995YVE/passage-1993.jpg?format=2500w",
+    "src": "https://burtonsilverman.com/humannature",
+    "t": "Passage",
+    "y": "1993",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b0c3f8a45776ee022f28da4/1527533078461-3C0YXLEJI3ILL8FUJL3P/Beach+Chairs%2C+2004%2C+oil+%3A+linen%2C+35%2522x52%2522Collection+of+the+Jule+Collins+Smith+Museum+of+art%2C+Auburn%2C+AL+.JPG?format=2500w",
+    "src": "https://burtonsilverman.com/humannature",
+    "t": "Beach Chair",
+    "y": "2006",
+    "found": "2026-09-30",
+    "med": "oil on linen"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b0c3f8a45776ee022f28da4/1530133937680-P9I263OQ6VLBWK9P8QG7/Study+for+_Survivor_36x24.jpg?format=2500w",
+    "src": "https://burtonsilverman.com/humannature",
+    "t": "Study for \"Survivor\"",
+    "y": "2002-07",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b0c3f8a45776ee022f28da4/1531588814640-540AN3U35LOSO9PEQEHI/Alabama+Spring+2011%2C+oil%3Alinen+%3A32x50+Collection+The+smithsonian+american+art+Museum+Wash.+DC+.jpg?format=2500w",
+    "src": "https://burtonsilverman.com/humannature",
+    "t": "Alabama Spring",
+    "y": "2008",
+    "found": "2026-09-30",
+    "med": "oil on linen"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b0c3f8a45776ee022f28da4/1527533082465-OYXPD58O27XFS2390385/-Study+forWall+Poster+2010%2C+oil%3Alinen%2C+30%2522x24%2522+Coll.+The+Mattatuck+Museum+of+Art%2C+Mattatuck%2C+CT.jpg?format=2500w",
+    "src": "https://burtonsilverman.com/humannature",
+    "t": "Study for Wall Poster",
+    "y": "2010",
+    "found": "2026-09-30",
+    "med": "oil on linen"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b0c3f8a45776ee022f28da4/1527533079577-AMCTS4VLAVYIP7K4UE0O/Movie+Poster%2C+oil+%3A+linen%2C+2013%2C+24%2522x+36%2522+Coll.+The+Nre+Britain+Museum+of+Art.jpg?format=2500w",
+    "src": "https://burtonsilverman.com/humannature",
+    "t": "Movie Poster",
+    "y": "2013",
+    "found": "2026-09-30",
+    "med": "oil on linen"
+   }
+  ]
+ },
+ {
+  "n": "Roberto Ferri",
+  "works": [
+   {
+    "img": "https://www.robertoferri.net/wp-content/uploads/2024/12/TRITONE-E-NEREIDE-olio-su-tela-100-x-150-cm-anno-2024.jpg",
+    "src": "https://www.robertoferri.net/gallery-solodipinti/",
+    "t": "Tritone e Nereide",
+    "y": "2024",
+    "found": "2026-09-30",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://www.robertoferri.net/wp-content/uploads/2024/12/ICARO-olio-su-tela-150-x-200-cm-anno-2024.jpg",
+    "src": "https://www.robertoferri.net/gallery-solodipinti/",
+    "t": "Icaro",
+    "y": "2024",
+    "found": "2026-09-30",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://www.robertoferri.net/wp-content/uploads/2024/12/IL-FILO-NASCOSTO-olio-su-tela-150-x-150-cm-anno-2023.jpg",
+    "src": "https://www.robertoferri.net/gallery-solodipinti/",
+    "t": "Il Filo Nascosto",
+    "y": "2023",
+    "found": "2026-09-30",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://www.robertoferri.net/wp-content/uploads/2024/12/COME-VELENO-olio-su-tela-120-x-90-cm-anno-2023.jpg",
+    "src": "https://www.robertoferri.net/gallery-solodipinti/",
+    "t": "Come Veleno",
+    "y": "2023",
+    "found": "2026-09-30",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://www.robertoferri.net/wp-content/uploads/2024/12/AMADRIADE-olio-su-tela-465-x-36-cm-anno-2022.jpg",
+    "src": "https://www.robertoferri.net/gallery-solodipinti/",
+    "t": "Amadriade",
+    "y": "2022",
+    "found": "2026-09-30",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://www.robertoferri.net/wp-content/uploads/2024/12/MADDALENA-PENITENTE-olio-su-tela-1195-x-1625-cm-anno-2022.jpg",
+    "src": "https://www.robertoferri.net/gallery-solodipinti/",
+    "t": "Maddalena Penitente",
+    "y": "2022",
+    "found": "2026-09-30",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://www.robertoferri.net/wp-content/uploads/2021/04/SOGNO-DI-RUGIADA-tempera-grassa-su-tela-110-x-110-cm-anno-2020.jpg",
+    "src": "https://www.robertoferri.net/gallery-solodipinti/",
+    "t": "Sogno di Rugiada",
+    "y": "2020",
+    "found": "2026-09-30",
+    "med": "fat tempera on canvas"
+   },
+   {
+    "img": "https://www.robertoferri.net/wp-content/uploads/2021/04/PERSEFONE-tempera-grassa-su-lino-90-x-80-cm-anno-2020.jpg",
+    "src": "https://www.robertoferri.net/gallery-solodipinti/",
+    "t": "Persefone",
+    "y": "2020",
+    "found": "2026-09-30",
+    "med": "fat tempera on linen"
+   },
+   {
+    "img": "https://www.robertoferri.net/wp-content/uploads/2021/04/IL-RISVEGLIO-O-SONNO-DI-RUGIADA-II-tempera-grassa-su-tela-110-x-110-anno-2020.jpg",
+    "src": "https://www.robertoferri.net/gallery-solodipinti/",
+    "t": "Il Risveglio o Sonno di Rugiada II",
+    "y": "2020",
+    "found": "2026-09-30",
+    "med": "fat tempera on canvas"
+   },
+   {
+    "img": "https://www.robertoferri.net/wp-content/uploads/2021/04/ADE-tempera-grassa-su-tela-160-x-150-cm-anno-2020.jpg",
+    "src": "https://www.robertoferri.net/gallery-solodipinti/",
+    "t": "Ade",
+    "y": "2020",
+    "found": "2026-09-30",
+    "med": "fat tempera on canvas"
+   },
+   {
+    "img": "https://www.robertoferri.net/wp-content/uploads/2019/06/SAN-GIOVANNI-olio-su-tela-40-x-30-cm-anno-2017.jpg",
+    "src": "https://www.robertoferri.net/gallery-solodipinti/",
+    "t": "San Giovanni",
+    "y": "2017",
+    "found": "2026-09-30",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://www.robertoferri.net/wp-content/uploads/2019/06/OPHELIA-olio-su-tela-70-x-50-cm-anno-2018.jpg",
+    "src": "https://www.robertoferri.net/gallery-solodipinti/",
+    "t": "Ophelia",
+    "y": "2018",
+    "found": "2026-09-30",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://www.robertoferri.net/wp-content/uploads/2019/06/IL-PRIMO-GERMOGLIO-SULLA-TERRA-olio-su-tela-60-x-80-cm-anno-2018.jpg",
+    "src": "https://www.robertoferri.net/gallery-solodipinti/",
+    "t": "Il Primo Germoglio sulla Terra",
+    "y": "2018",
+    "found": "2026-09-30",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://www.robertoferri.net/wp-content/uploads/2019/06/SCHIAVA-DELLA-LUCE-olio-su-tela-110-x-80-cm-anno-2017.jpg",
+    "src": "https://www.robertoferri.net/gallery-solodipinti/",
+    "t": "Schiava della Luce",
+    "y": "2017",
+    "found": "2026-09-30",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://www.robertoferri.net/wp-content/uploads/2019/06/NARCISSUS-olio-su-tela-150-x-110-cm-anno-2017.jpg",
+    "src": "https://www.robertoferri.net/gallery-solodipinti/",
+    "t": "Narcissus",
+    "y": "2017",
+    "found": "2026-09-30",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://www.robertoferri.net/wp-content/uploads/2019/06/EVOCAZIONE-olio-su-tela-80-x-150-cm-anno-2017.jpg",
+    "src": "https://www.robertoferri.net/gallery-solodipinti/",
+    "t": "Evocazione",
+    "y": "2017",
+    "found": "2026-09-30",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://www.robertoferri.net/wp-content/uploads/2019/06/IL-RITO-olio-su-tela-170-x-120-cm-anno-2016-.jpg",
+    "src": "https://www.robertoferri.net/gallery-solodipinti/",
+    "t": "Il Rito",
+    "y": "2016",
+    "found": "2026-09-30",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://www.robertoferri.net/wp-content/uploads/2019/06/IL-DONO-olio-su-tela-200-x-100-cm-anno-2016.jpg",
+    "src": "https://www.robertoferri.net/gallery-solodipinti/",
+    "t": "Il Dono",
+    "y": "2016",
+    "found": "2026-09-30",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://www.robertoferri.net/wp-content/uploads/2019/06/AMOR-SACRO-olio-su-tela-100-x-70-cm-anno-2016.jpg",
+    "src": "https://www.robertoferri.net/gallery-solodipinti/",
+    "t": "Amor Sacro",
+    "y": "2016",
+    "found": "2026-09-30",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://www.robertoferri.net/wp-content/uploads/2019/06/LE-GOCCE-DI-URANO-olio-su-tela-50-x-90-cm-anno-2015.jpg",
+    "src": "https://www.robertoferri.net/gallery-solodipinti/",
+    "t": "Le Gocce di Urano",
+    "y": "2015",
+    "found": "2026-09-30",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://www.robertoferri.net/wp-content/uploads/2019/06/IL-SOSPETTO-olio-su-tela-100-x-140-cm-anno-2015.jpg",
+    "src": "https://www.robertoferri.net/gallery-solodipinti/",
+    "t": "Il Sospetto",
+    "y": "2015",
+    "found": "2026-09-30",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://www.robertoferri.net/wp-content/uploads/2021/04/CHLORIS-olio-su-tela-100-x-80-cm-anno-2014.jpg",
+    "src": "https://www.robertoferri.net/gallery-solodipinti/",
+    "t": "Chloris",
+    "y": "2014",
+    "found": "2026-09-30",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://www.robertoferri.net/wp-content/uploads/2021/04/NOLI-FORAS-IRE-olio-su-tela-50-x-70-cm-anno-2013.jpg",
+    "src": "https://www.robertoferri.net/gallery-solodipinti/",
+    "t": "Noli Foras Ire",
+    "y": "2013",
+    "found": "2026-09-30",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://www.robertoferri.net/wp-content/uploads/2021/04/SANTA-ROSALIA-olio-su-tela-50-x-70-cm-anno-2012.jpg",
+    "src": "https://www.robertoferri.net/gallery-solodipinti/",
+    "t": "Santa Rosalia",
+    "y": "2012",
+    "found": "2026-09-30",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://www.robertoferri.net/wp-content/uploads/2021/04/NOTTURNO-olio-su-tela-80-x-60-cm-anno-2012.jpg",
+    "src": "https://www.robertoferri.net/gallery-solodipinti/",
+    "t": "Notturno",
+    "y": "2012",
+    "found": "2026-09-30",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://www.robertoferri.net/wp-content/uploads/2021/04/I-CAVALIERI-DELLAPOCALISSE-olio-su-tela-200-x-300-cm-anno-2012.jpg",
+    "src": "https://www.robertoferri.net/gallery-solodipinti/",
+    "t": "I Cavalieri dell'Apocalisse",
+    "y": "2012",
+    "found": "2026-09-30",
+    "med": "oil on canvas"
+   }
+  ]
+ },
+ {
+  "n": "Colin Davidson",
+  "works": [
+   {
+    "img": "https://www.colindavidson.com/wp-content/uploads/2016/09/DSC03975.jpg",
+    "src": "https://www.colindavidson.com/figure-paintings/",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.colindavidson.com/wp-content/uploads/2016/09/DSC03766.jpg",
+    "src": "https://www.colindavidson.com/figure-paintings/",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.colindavidson.com/wp-content/uploads/2016/09/night-painting-01.jpg",
+    "src": "https://www.colindavidson.com/figure-paintings/",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.colindavidson.com/wp-content/uploads/2016/09/night-painting-02.jpg",
+    "src": "https://www.colindavidson.com/figure-paintings/",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.colindavidson.com/wp-content/uploads/2016/09/night-painting-04.jpg",
+    "src": "https://www.colindavidson.com/figure-paintings/",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.colindavidson.com/wp-content/uploads/2016/09/night-painting-05.jpg",
+    "src": "https://www.colindavidson.com/figure-paintings/",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.colindavidson.com/wp-content/uploads/2016/09/night-painting-06.jpg",
+    "src": "https://www.colindavidson.com/figure-paintings/",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.colindavidson.com/wp-content/uploads/2016/09/night-painting-07.jpg",
+    "src": "https://www.colindavidson.com/figure-paintings/",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.colindavidson.com/wp-content/uploads/2016/09/night-painting-09.jpg",
+    "src": "https://www.colindavidson.com/figure-paintings/",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.colindavidson.com/wp-content/uploads/2016/09/night-painting-10.jpg",
+    "src": "https://www.colindavidson.com/figure-paintings/",
+    "med": "oil",
+    "found": "2026-09-30"
+   }
+  ]
+ },
+ {
+  "n": "Craig Wylie",
+  "works": [
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/61b6091ba770c2057a2810cc/1643037859366-XAP6FSMH7MF8TGA21PFA/Craig%2BWylie_KC%2B%2528Sentinel%2529_oil%2Bon%2Blinen%252C%2B2019_408x404mm%2B2.jpg?format=2500w",
+    "src": "https://www.craigwylie.com/figure",
+    "t": "KC (Sentinel)",
+    "y": "2019",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/61b6091ba770c2057a2810cc/1652707044344-4587IGN429P8528N2XVP/Craig%2BWylie_KC%2B%2528Shield%2529_oil%2Bon%2Blinen%252C%2B2019_563x462mm%2B2.jpg?format=2500w",
+    "src": "https://www.craigwylie.com/figure",
+    "t": "KC (Shield)",
+    "y": "2019",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/61b6091ba770c2057a2810cc/df0f929c-815d-46aa-821e-e039a7c029a7/Crop_Portrait+of+T%2C+110x110cm%2C+oil+on+canvas+copy.jpg?format=2500w",
+    "src": "https://www.craigwylie.com/figure",
+    "t": "Portrait of T",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/61b6091ba770c2057a2810cc/1652707075870-UH4BXQK772DXZPDW9BTW/Craig%2BWylie_Portrait%2Bof%2BM_Oil%2Bon%2BCanvas_110x110cm.jpg?format=2500w",
+    "src": "https://www.craigwylie.com/figure",
+    "t": "Portrait of M",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/61b6091ba770c2057a2810cc/1f4e1d15-bf97-4be5-8b5d-94e144ae2445/2_after+%27Sphinx%27+2007+%28destroyed%29+70x70cm+Oil+on+canvas+edit+copy.jpg?format=2500w",
+    "src": "https://www.craigwylie.com/figure",
+    "t": "After 'Sphinx'",
+    "y": "2007",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/61b6091ba770c2057a2810cc/1643037602751-UUV939M436LBZNKPHN0G/EW%2528hood%2529%2B183x134.5cm%2BOil%2Bon%2Blinen.jpg?format=2500w",
+    "src": "https://www.craigwylie.com/figure",
+    "t": "EW (hood)",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/61b6091ba770c2057a2810cc/af6dd4fb-9e40-4cc2-bac0-36ba1ceb4fb4/2_Naked+man+standing+by+a+plant+%28self+portrait%29%2C+130x80cm%2C+Oil+on+canvas.jpg?format=2500w",
+    "src": "https://www.craigwylie.com/figure",
+    "t": "Naked man standing by a plant (self portrait)",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/61b6091ba770c2057a2810cc/1643037473525-97LUDP8A5X4K6S4TA0ZG/Craig%2BWylie_nude%2Bcopy.jpg?format=2500w",
+    "src": "https://www.craigwylie.com/figure",
+    "med": "oil",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/61b6091ba770c2057a2810cc/620cfffc-1bd9-447f-a2b4-ac288eaf8712/AB%28prayer%29+200x300cm+Oil+on+linen.jpg?format=2500w",
+    "src": "https://www.craigwylie.com/",
+    "med": "oil",
+    "found": "2026-09-30"
+   }
+  ]
+ },
+ {
+  "n": "Sam Drukker",
+  "works": [
+   {
+    "img": "https://samdrukker.com/wp-content/uploads/2024/04/Vrouw-bij-deur-olieverf-op-doek-90-x-60-cm.jpg",
+    "src": "https://samdrukker.com/schilderijen/",
+    "t": "Vrouw bij deur",
+    "found": "2026-09-30",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://samdrukker.com/wp-content/uploads/2024/04/De-brief-olieverf-doek-90-x-65-cm-2024.jpg",
+    "src": "https://samdrukker.com/schilderijen/",
+    "t": "De brief",
+    "y": "2024",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://samdrukker.com/wp-content/uploads/2024/04/vrouw-in-rode-jurk.jpg",
+    "src": "https://samdrukker.com/schilderijen/",
+    "t": "Vrouw in rode jurk",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://samdrukker.com/wp-content/uploads/2024/04/MG_8582-2048x2044.jpg",
+    "src": "https://samdrukker.com/schilderijen/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://samdrukker.com/wp-content/uploads/2021/12/Lena-olieverf-op-paneel-diameter-2014.jpg",
+    "src": "https://samdrukker.com/schilderijen/",
+    "t": "Lena",
+    "y": "2014",
+    "found": "2026-09-30",
+    "med": "oil on panel"
+   },
+   {
+    "img": "https://samdrukker.com/wp-content/uploads/2021/12/Zwarte-man-olieverf-op-doek-70-x-70-cm-2014.jpeg",
+    "src": "https://samdrukker.com/schilderijen/",
+    "t": "Zwarte man",
+    "y": "2014",
+    "found": "2026-09-30",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://samdrukker.com/wp-content/uploads/2021/12/Dobby-friese-stabij-olieverf-op-doek-110-x-65-cm-2016.jpg",
+    "src": "https://samdrukker.com/schilderijen/",
+    "found": "2026-09-30",
+    "t": "Dobby (Friese stabij)",
+    "y": "2016",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://samdrukker.com/wp-content/uploads/2021/12/DSC0021-.jpg",
+    "src": "https://samdrukker.com/schilderijen/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://samdrukker.com/wp-content/uploads/2023/02/Zelfportret-2021-kopie.jpg",
+    "src": "https://samdrukker.com/schilderijen/",
+    "t": "Zelfportret",
+    "y": "2021",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://samdrukker.com/wp-content/uploads/2023/11/joke-stoker-moeder-coosje-verdam-70-x-50-cm-2021.jpg",
+    "src": "https://samdrukker.com/schilderijen/",
+    "t": "Coosje Verdam",
+    "y": "2021",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://samdrukker.com/wp-content/uploads/2021/12/Portret-van-Lex-Kater-olieverf-op-paneel-2016.jpg",
+    "src": "https://samdrukker.com/schilderijen/",
+    "t": "Portret van Lex Kater",
+    "y": "2016",
+    "found": "2026-09-30",
+    "med": "oil on panel"
+   },
+   {
+    "img": "https://samdrukker.com/wp-content/uploads/2021/12/Portret-van-Matthijs-Roling-olieverf-op-doek-80-x-55-cm-2012.jpg",
+    "src": "https://samdrukker.com/schilderijen/",
+    "t": "Portret van Matthijs Röling",
+    "y": "2012",
+    "found": "2026-09-30",
+    "med": "oil on canvas"
+   }
+  ]
+ },
+ {
+  "n": "Alexander Klingspor",
+  "works": [
+   {
+    "img": "https://www.alexanderklingspor.com/wp-content/uploads/2025/12/Lobster-scaled.jpeg",
+    "src": "https://www.alexanderklingspor.com/art/",
+    "t": "Lobster",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.alexanderklingspor.com/wp-content/uploads/2020/09/Iron-Gate-HI-RES-1-scaled.jpg",
+    "src": "https://www.alexanderklingspor.com/art/",
+    "t": "Iron Gate",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.alexanderklingspor.com/wp-content/uploads/2021/05/Burial-at-sea-III-scaled.jpg",
+    "src": "https://www.alexanderklingspor.com/art/",
+    "t": "Burial at Sea III",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.alexanderklingspor.com/wp-content/uploads/2022/02/Untitled-I-scaled.jpg",
+    "src": "https://www.alexanderklingspor.com/art/",
+    "t": "Untitled I",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.alexanderklingspor.com/wp-content/uploads/2021/01/klingspor_moose-riders_00x00_2020-scaled.jpg",
+    "src": "https://www.alexanderklingspor.com/art/",
+    "t": "Moose Riders",
+    "y": "2020",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.alexanderklingspor.com/wp-content/uploads/2022/02/Ham-Baby-Butchers-Feast-llJPEG-scaled.jpg",
+    "src": "https://www.alexanderklingspor.com/art/",
+    "t": "Ham Baby – Butcher's Feast II",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.alexanderklingspor.com/wp-content/uploads/2020/09/CONTROLJPEG-scaled.jpg",
+    "src": "https://www.alexanderklingspor.com/art/",
+    "t": "Control",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.alexanderklingspor.com/wp-content/uploads/2020/10/14-Study-Of-Naughty-Pears-copy-scaled.jpg",
+    "src": "https://www.alexanderklingspor.com/art/",
+    "t": "Study of Naughty Pears",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.alexanderklingspor.com/wp-content/uploads/2020/09/13-PIG-HEAD-copy-scaled.jpg",
+    "src": "https://www.alexanderklingspor.com/art/",
+    "t": "Pig Head",
+    "found": "2026-09-30"
+   }
+  ]
+ },
+ {
+  "n": "Helene Knoop",
+  "works": [
+   {
+    "img": "https://heleneknoop.com/wp-content/uploads/2016/05/Madonna-of-the-woods.web_.jpg",
+    "src": "https://heleneknoop.com/portraits/",
+    "t": "Madonna of the Woods",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://heleneknoop.com/wp-content/uploads/2023/03/rod-nymfe-scaled.jpg",
+    "src": "https://heleneknoop.com/portraits/",
+    "t": "Rød nymfe",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://heleneknoop.com/wp-content/uploads/2022/01/despair-scaled.jpg",
+    "src": "https://heleneknoop.com/portraits/",
+    "t": "Despair",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://heleneknoop.com/wp-content/uploads/2022/01/pike-med-kattsmall.jpg",
+    "src": "https://heleneknoop.com/portraits/",
+    "t": "Pike med katt",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://heleneknoop.com/wp-content/uploads/2022/01/havfrue-scaled.jpg",
+    "src": "https://heleneknoop.com/portraits/",
+    "t": "Havfrue",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://heleneknoop.com/wp-content/uploads/2022/01/the-death-of-fortune-scaled.jpg",
+    "src": "https://heleneknoop.com/portraits/",
+    "t": "The Death of Fortune",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://heleneknoop.com/wp-content/uploads/2012/12/Woman-Crying-in-the-Summer-Sun.jpg",
+    "src": "https://heleneknoop.com/portraits/",
+    "t": "Woman Crying in the Summer Sun",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://heleneknoop.com/wp-content/uploads/2012/12/Fair.jpg",
+    "src": "https://heleneknoop.com/portraits/",
+    "t": "Fair",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://heleneknoop.com/wp-content/uploads/2016/05/Newborn.jpg",
+    "src": "https://heleneknoop.com/portraits/",
+    "t": "Newborn",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://heleneknoop.com/wp-content/uploads/2025/09/1amor-og-psyke-1-scaled.jpeg",
+    "src": "https://heleneknoop.com/paintings/recent-works/",
+    "t": "Amor og Psyke",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://heleneknoop.com/wp-content/uploads/2025/09/6kassandra-scaled.jpeg",
+    "src": "https://heleneknoop.com/paintings/recent-works/",
+    "t": "Kassandra",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://heleneknoop.com/wp-content/uploads/2024/03/stillife-with-lost-fortunes-scaled.jpg",
+    "src": "https://heleneknoop.com/paintings/recent-works/",
+    "t": "Still Life with Lost Fortunes",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://heleneknoop.com/wp-content/uploads/2023/06/29fcc7b7-65aa-4940-8201-d23055421e80-1-201-a-scaled.jpeg",
+    "src": "https://heleneknoop.com/paintings/recent-works/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://heleneknoop.com/wp-content/uploads/2023/08/ekko-tresnitt-49x69cm-scaled.jpeg",
+    "src": "https://heleneknoop.com/paintings/recent-works/",
+    "t": "Ekko",
+    "found": "2026-09-30",
+    "med": "woodcut"
+   },
+   {
+    "img": "https://heleneknoop.com/wp-content/uploads/2023/08/spinning-morkbla-tresnitt-120x80cm-scaled.jpeg",
+    "src": "https://heleneknoop.com/paintings/recent-works/",
+    "t": "Spinning",
+    "found": "2026-09-30",
+    "med": "woodcut"
+   }
+  ]
+ },
+ {
+  "n": "Taner Ceylan",
+  "works": [
+   {
+    "img": "https://tanerceylan.com/wp-content/uploads/2025/03/Afife-scaled.jpg",
+    "src": "https://tanerceylan.com/paintings/",
+    "t": "Afife",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://tanerceylan.com/wp-content/uploads/2024/06/Kulup_180x150cm_tuv.uz_.yagliboya_-kopya.jpg",
+    "src": "https://tanerceylan.com/paintings/",
+    "t": "Kulüp",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://tanerceylan.com/wp-content/uploads/2023/08/11_Lucas_THMB.jpg",
+    "src": "https://tanerceylan.com/paintings/",
+    "t": "Lucas",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://tanerceylan.com/wp-content/uploads/2023/08/15_MusicLesson_THMB.jpg",
+    "src": "https://tanerceylan.com/paintings/",
+    "t": "Music Lesson",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://tanerceylan.com/wp-content/uploads/2023/08/10_Koral_THMB.jpg",
+    "src": "https://tanerceylan.com/paintings/",
+    "t": "Koral",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://tanerceylan.com/wp-content/uploads/2023/08/The-Man-of-Sorrows_THUMB.jpg",
+    "src": "https://tanerceylan.com/paintings/",
+    "t": "The Man of Sorrows",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://tanerceylan.com/wp-content/uploads/2023/08/Resignation_THUMB.jpg",
+    "src": "https://tanerceylan.com/paintings/",
+    "t": "Resignation",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://tanerceylan.com/wp-content/uploads/2023/08/ILoveYou_SelfPortrait_THUMB.jpg",
+    "src": "https://tanerceylan.com/paintings/",
+    "t": "I Love You (Self-Portrait)",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://tanerceylan.com/wp-content/uploads/2023/08/Wenowmustsaygoodbye_Ingres-THUMB.jpg",
+    "src": "https://tanerceylan.com/paintings/",
+    "t": "We Now Must Say Goodbye (Ingres)",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://tanerceylan.com/wp-content/uploads/2023/08/Wenowmustsaygoodbye_PrincessBroglie-THUMB.jpg",
+    "src": "https://tanerceylan.com/paintings/",
+    "t": "We Now Must Say Goodbye (Princesse de Broglie)",
+    "found": "2026-09-30"
+   }
+  ]
+ },
+ {
+  "n": "Jeremy Mann",
+  "works": [
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/51c15e1be4b03a0f7c9daece/1613421028071-CMHDY2G1H2CS97SQJP8G/Shibusa+s.jpg",
+    "src": "https://jeremymann.com/figures",
+    "t": "Shibusa",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/51c15e1be4b03a0f7c9daece/1789481792336-DU6F06NDPYV4WVYR4X5M/Minoa+%28sharpened%29.jpg",
+    "src": "https://jeremymann.com/figures",
+    "t": "Minoa",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/51c15e1be4b03a0f7c9daece/1789481811366-0BZJL8FTXFV3FGN4E87N/principle+%287%29.jpg",
+    "src": "https://jeremymann.com/figures",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/51c15e1be4b03a0f7c9daece/1789481820652-DVFXAAKRALB0NQC1L49W/principle+%2811%29.jpg",
+    "src": "https://jeremymann.com/figures",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/51c15e1be4b03a0f7c9daece/1789481828574-12UI6OM8XDTKY5EOVTXW/PROTON.jpg",
+    "src": "https://jeremymann.com/figures",
+    "t": "Proton",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/51c15e1be4b03a0f7c9daece/1789481788453-M4RGHKCX86J7XR3AKH28/FUSION.jpg",
+    "src": "https://jeremymann.com/figures",
+    "t": "Fusion",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/51c15e1be4b03a0f7c9daece/1789481798494-U0A8QACAK6B0X22LMZV6/principle+%284%29.jpg",
+    "src": "https://jeremymann.com/figures",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/51c15e1be4b03a0f7c9daece/1789481812188-76MFP6P22VCF4BGPIJ2C/principle+%289%29.jpg",
+    "src": "https://jeremymann.com/figures",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/51c15e1be4b03a0f7c9daece/1789481823789-K3GS332SVHCD4U9D5VHT/principle+%2810%29.jpg",
+    "src": "https://jeremymann.com/figures",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/51c15e1be4b03a0f7c9daece/1621729914472-4UF5R9XJ97VVMTF67I12/Beatus+Domina+s.jpg",
+    "src": "https://jeremymann.com/figures",
+    "t": "Beatus Domina",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/51c15e1be4b03a0f7c9daece/1671879821668-ZJOF8CZ0XL5453QDR1I2/MYRRH.jpg",
+    "src": "https://jeremymann.com/figures",
+    "t": "Myrrh",
+    "y": "2021",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/51c15e1be4b03a0f7c9daece/1671879817395-EP2N9B3XEE6GGIOMZ04T/Behind+the+Mirror.jpg",
+    "src": "https://jeremymann.com/figures",
+    "t": "Behind the Mirror",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/51c15e1be4b03a0f7c9daece/1671879826628-DPCPM5ER2OTVMH4PWCI8/Through+the+Mirror.jpg",
+    "src": "https://jeremymann.com/figures",
+    "t": "Through the Mirror",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/51c15e1be4b03a0f7c9daece/1475965779786-SPGQYFWVR8ZAZ4N98KI2/the+advent+of+winter.jpg",
+    "src": "https://jeremymann.com/figures",
+    "t": "The Advent of Winter",
+    "found": "2026-09-30"
+   }
+  ]
+ },
+ {
+  "n": "Daniel Bilmes",
+  "works": [
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/559af42be4b0b768fa52ded2/1528848400160-ANYOJQZ3DA0UIY6V6FUE/Burnt-Amber.jpg",
+    "src": "https://www.danielbilmes.com/",
+    "t": "Burnt Amber",
+    "med": "oil on panel",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/559af42be4b0b768fa52ded2/1564442457548-LYLJC966H790HRB5SG2P/Woven-small.jpg",
+    "src": "https://www.danielbilmes.com/",
+    "t": "Woven",
+    "med": "oil on panel",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/559af42be4b0b768fa52ded2/1564442882196-GDZWJ0A1R6O345W5XLGJ/Anonymous-XII.jpg",
+    "src": "https://www.danielbilmes.com/",
+    "t": "Anonymous XII",
+    "med": "oil on panel",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/559af42be4b0b768fa52ded2/1564442487901-3O8IX1QT6WXR9OO8QUUP/Esper-small.jpg",
+    "src": "https://www.danielbilmes.com/",
+    "t": "Esper",
+    "med": "oil on panel",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/559af42be4b0b768fa52ded2/1564443741606-N3JMWPK4AVP4I60V482T/Queen-Of-Hearts.jpg",
+    "src": "https://www.danielbilmes.com/",
+    "t": "Queen of Hearts",
+    "med": "oil on panel",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/559af42be4b0b768fa52ded2/1528848631936-615IJKT0YATL2UYA70MA/Oracle.JPG",
+    "src": "https://www.danielbilmes.com/",
+    "t": "Oracle",
+    "med": "oil on panel",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/559af42be4b0b768fa52ded2/1528848689045-Z1MIG2PYMGWB75ZLAVXG/Breath.JPG",
+    "src": "https://www.danielbilmes.com/",
+    "t": "Breath",
+    "med": "oil on panel",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/559af42be4b0b768fa52ded2/1528844407498-PDUGTKMDHXKJXJ5G47L7/Polaris+%28Study%29.JPG",
+    "src": "https://www.danielbilmes.com/",
+    "t": "Polaris (study)",
+    "med": "oil on panel",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/559af42be4b0b768fa52ded2/1528844331212-158TT3TBW8EP0U0U1VUB/Secret.JPG",
+    "src": "https://www.danielbilmes.com/",
+    "t": "Secret",
+    "med": "oil on panel",
+    "found": "2026-09-30"
+   }
+  ]
+ },
+ {
+  "n": "Miriam Escofet",
+  "works": [
+   {
+    "img": "https://miriamescofet.com/wp-content/uploads/2021/01/STARGAZING-childhood-ontology-series-pastel-and-mixed-media-on-paper-74-x-54-cm-Miriam-Escofet.jpg",
+    "src": "https://miriamescofet.com/portraits/",
+    "t": "Stargazing (Childhood Ontology series)",
+    "found": "2026-09-30",
+    "med": "pastel and mixed media on paper"
+   },
+   {
+    "img": "https://miriamescofet.com/wp-content/uploads/2020/07/Portrait-with-Chinoiserie-Wallpaper-oil-on-linen-over-panel-50-x-40-cm-Miriam-Escofet.jpg",
+    "src": "https://miriamescofet.com/portraits/",
+    "t": "Portrait with Chinoiserie Wallpaper",
+    "found": "2026-09-30",
+    "med": "oil on linen over panel"
+   },
+   {
+    "img": "https://miriamescofet.com/wp-content/uploads/2020/07/VANITAS-pastel-and-mixed-media-on-paper-70-x-50-cm-Miriam-Escofet.jpg",
+    "src": "https://miriamescofet.com/portraits/",
+    "t": "Vanitas",
+    "found": "2026-09-30",
+    "med": "pastel and mixed media on paper"
+   },
+   {
+    "img": "https://miriamescofet.com/wp-content/uploads/2020/07/VERONIQUE-pastel-on-paper-49-x-39-cm-Miriam-Escofet.jpg",
+    "src": "https://miriamescofet.com/portraits/",
+    "t": "Véronique",
+    "found": "2026-09-30",
+    "med": "pastel and mixed media on paper"
+   },
+   {
+    "img": "https://miriamescofet.com/wp-content/uploads/2020/07/LORENZO-oil-on-linen-over-panel-50-x-40-cm-Miriam-Escofet.jpg",
+    "src": "https://miriamescofet.com/portraits/",
+    "t": "Lorenzo",
+    "found": "2026-09-30",
+    "med": "oil on linen over panel"
+   }
+  ]
+ },
+ {
+  "n": "Robert Liberace",
+  "works": [
+   {
+    "img": "https://i0.wp.com/robertliberace.com/wp-content/uploads/2017/05/Huntress-cropped-for-web.jpg?fit=509%2C600&ssl=1",
+    "src": "https://robertliberace.com/artwork/figure/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://i0.wp.com/robertliberace.com/wp-content/uploads/2017/05/Icarus3.png?fit=468%2C600&ssl=1",
+    "src": "https://robertliberace.com/artwork/figure/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://i0.wp.com/robertliberace.com/wp-content/uploads/2017/05/John-with-Sheepskin-oil-on-denim-2011-4022x5222-cropped.png?fit=554%2C600&ssl=1",
+    "src": "https://robertliberace.com/artwork/figure/",
+    "t": "John with Sheepskin",
+    "y": "2011",
+    "found": "2026-09-30",
+    "med": "oil on denim"
+   },
+   {
+    "img": "https://i0.wp.com/robertliberace.com/wp-content/uploads/2017/04/THIS-WILL-GO-IN-FIGURES.jpg?fit=600%2C458&ssl=1",
+    "src": "https://robertliberace.com/artwork/figure/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://i0.wp.com/robertliberace.com/wp-content/uploads/2017/05/Muses-oil-on-panel-2009-1122x1422cropped.jpg?fit=548%2C600&ssl=1",
+    "src": "https://robertliberace.com/artwork/figure/",
+    "t": "Muses",
+    "y": "2009",
+    "found": "2026-09-30",
+    "med": "oil on panel"
+   },
+   {
+    "img": "https://i0.wp.com/robertliberace.com/wp-content/uploads/2020/12/Visions-of-Adventure-ARC-entry.jpg?fit=2073%2C2488&ssl=1",
+    "src": "https://robertliberace.com/artwork/figure/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://i0.wp.com/robertliberace.com/wp-content/uploads/2017/05/Figure-Throwing-Ball-chalk-on-paper-2005-2422x3622.png?fit=600%2C411&ssl=1",
+    "src": "https://robertliberace.com/artwork/figure/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://i0.wp.com/robertliberace.com/wp-content/uploads/2017/05/Figure-ThrowingSmall.jpg?fit=600%2C448&ssl=1",
+    "src": "https://robertliberace.com/artwork/figure/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://i0.wp.com/robertliberace.com/wp-content/uploads/2017/05/reclining-figure-red-chalk.jpg?fit=745%2C547&ssl=1",
+    "src": "https://robertliberace.com/artwork/figure/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://i0.wp.com/robertliberace.com/wp-content/uploads/2017/05/3995234246196.jpg?fit=450%2C600&ssl=1",
+    "src": "https://robertliberace.com/artwork/figure/",
+    "found": "2026-09-30"
+   }
+  ]
+ },
+ {
+  "n": "Robert Malherbe",
+  "works": [
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53fab034e4b04b212863f275/1536294373003-870IZBXXAE8A0KXQWBFU/French+Girls+in+the+Domain.+91+x+71+cm.jpg",
+    "src": "https://www.robertmalherbe.com/gallery",
+    "t": "French girls in the domain",
+    "found": "2026-09-30",
+    "y": "2012",
+    "med": "oil on linen"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53fab034e4b04b212863f275/1536294099329-K8WW8BKS760LZOBU87BY/Naked+back.2013+oil+on+linen+55x66cmtif.jpg",
+    "src": "https://www.robertmalherbe.com/gallery",
+    "t": "Naked back",
+    "found": "2026-09-30",
+    "y": "2013",
+    "med": "oil on linen"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53fab034e4b04b212863f275/1536295787977-OSO7OIXZUW86ZCOSJ3IV/River_at_HillEnd_2014_OL_56x66cm.jpg",
+    "src": "https://www.robertmalherbe.com/gallery",
+    "t": "River at hill end",
+    "found": "2026-09-30",
+    "y": "2014",
+    "med": "oil on linen"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53fab034e4b04b212863f275/1536361559183-GMOQ6FPQAASP0S2GRK2B/RM1216_010.jpg",
+    "src": "https://www.robertmalherbe.com/gallery",
+    "t": "Nude with head thrown back",
+    "found": "2026-09-30",
+    "y": "2016",
+    "med": "oil on linen"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53fab034e4b04b212863f275/1765956729936-AQ95SF8ZEHIILGW5AKSI/RM1216_006.jpg",
+    "src": "https://www.robertmalherbe.com/gallery",
+    "t": "Nude back view",
+    "found": "2026-09-30",
+    "y": "2016",
+    "med": "oil on board"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53fab034e4b04b212863f275/1536297372301-23YPQSQ5I2DKGBEFODGL/Blackheath+Street+Landscape_91x71cm_2014.jpg",
+    "src": "https://www.robertmalherbe.com/gallery",
+    "t": "Blackheath street landscape",
+    "found": "2026-09-30",
+    "y": "2014",
+    "med": "oil on linen"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53fab034e4b04b212863f275/1765948254914-TBO3ILMYER7TY63LXHQO/Figure+on+a+grey+blanket.+2024+Oil+on+Linen.+51x61cm.jpg",
+    "src": "https://www.robertmalherbe.com/gallery",
+    "t": "Figure on a grey blanket",
+    "found": "2026-09-30",
+    "y": "2024",
+    "med": "oil on linen"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53fab034e4b04b212863f275/1765948758594-OLLZELSPK6QIRZXHBZPW/Woman+leaning+back.2020+oil+on+linen.46x38cm.jpg",
+    "src": "https://www.robertmalherbe.com/gallery",
+    "t": "Woman leaning back",
+    "found": "2026-09-30",
+    "y": "2020",
+    "med": "oil on linen"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53fab034e4b04b212863f275/1536360988022-CUVWS0JJBJGRBBUNN35M/Landscape+1+2017+Oil+on+Linen+56x66cm.jpg",
+    "src": "https://www.robertmalherbe.com/gallery",
+    "t": "Landscape 1",
+    "found": "2026-09-30",
+    "y": "2017",
+    "med": "oil on linen"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53fab034e4b04b212863f275/1765948638891-NRX900WBFC88EG3ED7XI/RM0622_018Afternoon+Lake+4+2022+Oil+on+Linen+61x51cm+2.jpg",
+    "src": "https://www.robertmalherbe.com/gallery",
+    "t": "Afternoon lake 4",
+    "found": "2026-09-30",
+    "y": "2022",
+    "med": "oil on linen"
+   }
+  ]
+ },
+ {
+  "n": "Reisha Perlmutter",
+  "works": [
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/532c7a8ee4b08e1b0a186803/ba645f16-1d25-44e2-8abc-74ed20c1a34c/4P4A0843.jpg?format=2500w",
+    "src": "https://www.reishaperlmutter.com/select-paintings",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/532c7a8ee4b08e1b0a186803/eb080def-c270-4d1c-a2ef-345f0c434646/4P4A0846-Edit.jpg?format=2500w",
+    "src": "https://www.reishaperlmutter.com/select-paintings",
+    "t": "Threshold",
+    "found": "2026-09-30",
+    "y": "2025",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/532c7a8ee4b08e1b0a186803/9132766e-dcc5-4d28-9558-1a7d6cb882f8/DSC00610-Edit.jpg?format=2500w",
+    "src": "https://www.reishaperlmutter.com/select-paintings",
+    "t": "The Double",
+    "found": "2026-09-30",
+    "y": "2026",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/532c7a8ee4b08e1b0a186803/6fb0fe64-26f3-4a50-8382-54bbd6833928/DSC00608-Edit.jpg?format=2500w",
+    "src": "https://www.reishaperlmutter.com/select-paintings",
+    "t": "Surrender",
+    "found": "2026-09-30",
+    "y": "2026",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/532c7a8ee4b08e1b0a186803/a6f92d92-4da5-4e54-82b8-36b8e428648b/DSC00603-Edit.jpg?format=2500w",
+    "src": "https://www.reishaperlmutter.com/select-paintings",
+    "t": "The Crossing",
+    "found": "2026-09-30",
+    "y": "2026",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "http://static1.squarespace.com/static/532c7a8ee4b08e1b0a186803/t/68c9e03533caec1698dcd279/1758060597305/edited%2B%281%2Bof%2B1%29-11-1.jpg?format=1500w",
+    "src": "https://www.reishaperlmutter.com/select-paintings",
+    "found": "2026-09-30"
+   }
+  ]
+ },
+ {
+  "n": "Samantha French",
+  "works": [
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/528cf103e4b046d0c5188837/1776032513211-F4S3PJJDJ2QIKECT4CHW/2026_LateAugust_Sfrench+copy.jpg",
+    "src": "https://www.samanthafrench.com/paintings",
+    "t": "Late August",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/528cf103e4b046d0c5188837/1770751646932-IIX9YM7JWISFHMD14NTU/2026_betweenwaterandair_Samantha_French_40x48_1.jpg",
+    "src": "https://www.samanthafrench.com/paintings",
+    "t": "Between water and air",
+    "found": "2026-09-30",
+    "y": "2026",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/528cf103e4b046d0c5188837/1770745252127-FGCTKZHKQMUQKIF49I1L/2026_betweenwaterandair_Samantha_French_40x48_4.jpg",
+    "src": "https://www.samanthafrench.com/paintings",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/528cf103e4b046d0c5188837/1770750713801-NDRHHXZTT4NY8KLKCQQA/2026_StillAbove_36x48+_SamanthaFrench8.jpg",
+    "src": "https://www.samanthafrench.com/paintings",
+    "t": "Of the sea / de la mer",
+    "found": "2026-09-30",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/528cf103e4b046d0c5188837/1770750855372-QT2MIUJRJ5AGS6UZ2VLW/2025_oil_20x20_2_samantha_french.jpg",
+    "src": "https://www.samanthafrench.com/paintings",
+    "t": "Untitled 2",
+    "found": "2026-09-30",
+    "y": "2025",
+    "med": "oil on panel"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/528cf103e4b046d0c5188837/1770750866798-WOA3I1DDZI3M3LWSQKMP/2025_oil_20x20_5_samantha_french.jpg",
+    "src": "https://www.samanthafrench.com/paintings",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/528cf103e4b046d0c5188837/1770743160688-GNRWCJNR3FM1M4VYDR1X/2025_oil_12x12_3_samantha_french.jpg",
+    "src": "https://www.samanthafrench.com/paintings",
+    "t": "Pool side",
+    "found": "2026-09-30",
+    "med": "oil on panel"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/528cf103e4b046d0c5188837/1770744199000-H7VOBBRIARUKURY3XZN0/2026_waterandlight_Samantha_French_24x24_1.jpg",
+    "src": "https://www.samanthafrench.com/paintings",
+    "t": "Water and light",
+    "found": "2026-09-30",
+    "med": "oil on panel"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/528cf103e4b046d0c5188837/1770744201199-4M9XHQDST38WUIEKJK3J/2025_waterandlight_24x24_4.jpg",
+    "src": "https://www.samanthafrench.com/paintings",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/528cf103e4b046d0c5188837/1763655213470-48MGQ8C5IEADJZ41IIP3/2025_IntoblueI_SamanthaFrench.JPG",
+    "src": "https://www.samanthafrench.com/paintings",
+    "t": "Open blue",
+    "found": "2026-09-30",
+    "y": "2025",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/528cf103e4b046d0c5188837/1753740620245-3GOKGT68RT1LAS5IUFYU/IMG_8086.JPG",
+    "src": "https://www.samanthafrench.com/paintings",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/528cf103e4b046d0c5188837/1753740428856-2HGEEWTVBBJS8SEBUPAA/2025_24x24_oilpanel.jpg",
+    "src": "https://www.samanthafrench.com/paintings",
+    "t": "Moving forward",
+    "found": "2026-09-30",
+    "y": "2025",
+    "med": "oil on panel"
+   }
+  ]
+ },
+ {
+  "n": "Eric Zener",
+  "works": [
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/66e489fdc61e5b65fbd12084/fa1c7d7b-df24-4693-9fd8-87063cde693b/Blue_Rotation_60x48_2024.jpeg?format=2500w",
+    "src": "https://www.ericzener.com/selected-past-work",
+    "t": "Blue Rotation",
+    "found": "2026-09-30",
+    "y": "2024"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/66e489fdc61e5b65fbd12084/4eca887c-a314-4b4a-8c89-1889487e181f/thumbnail_superbloom48x48.jpg?format=2500w",
+    "src": "https://www.ericzener.com/selected-past-work",
+    "t": "Superbloom",
+    "found": "2026-09-30",
+    "y": "2023"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/66e489fdc61e5b65fbd12084/51287b3d-cffb-457a-9664-32a9492a44da/Summer_Cascade_48x48_2024.jpeg?format=2500w",
+    "src": "https://www.ericzener.com/selected-past-work",
+    "t": "Summer Cascade",
+    "found": "2026-09-30",
+    "y": "2024"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/66e489fdc61e5b65fbd12084/3656cebb-3d8e-4cdb-9642-a646a52b2d22/Keep_Moving_24x36_2022.jpg?format=2500w",
+    "src": "https://www.ericzener.com/selected-past-work",
+    "t": "Keep Moving",
+    "found": "2026-09-30",
+    "y": "2022"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/66e489fdc61e5b65fbd12084/b4897f2b-4305-49fc-9f59-6c7a0404d0fe/bloom%2C48x60%2C2024.jpg?format=2500w",
+    "src": "https://www.ericzener.com/selected-past-work",
+    "t": "Bloom",
+    "found": "2026-09-30",
+    "y": "2024"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/66e489fdc61e5b65fbd12084/eec1419a-9a27-4830-b3cb-d8f554de3b1e/A_Launching_Into_54x66.jpg?format=2500w",
+    "src": "https://www.ericzener.com/selected-past-work",
+    "t": "A Launching Into",
+    "found": "2026-09-30",
+    "y": "2014"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/66e489fdc61e5b65fbd12084/195806a5-b18c-4702-bc04-d997367c2f13/acrossTheDivide.jpg?format=2500w",
+    "src": "https://www.ericzener.com/selected-past-work",
+    "t": "Across the Divide",
+    "found": "2026-09-30",
+    "y": "2019"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/66e489fdc61e5b65fbd12084/c921999e-b0b3-410a-8429-316a61a00ccc/Acsending_84x72_oiloncanvas_2023.jpg?format=2500w",
+    "src": "https://www.ericzener.com/selected-past-work",
+    "t": "Ascending",
+    "found": "2026-09-30",
+    "y": "2023"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/66e489fdc61e5b65fbd12084/a44b1e74-1eab-4c02-b235-27ee306b70e5/between.jpg?format=2500w",
+    "src": "https://www.ericzener.com/selected-past-work",
+    "t": "Between Two Worlds",
+    "found": "2026-09-30",
+    "y": "2020"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/66e489fdc61e5b65fbd12084/de686153-ab04-4219-9cc2-07042880cc6b/blue-cradle-38x48-2012.jpg?format=2500w",
+    "src": "https://www.ericzener.com/selected-past-work",
+    "t": "Blue Cradle",
+    "found": "2026-09-30",
+    "y": "2012"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/66e489fdc61e5b65fbd12084/7df495a9-e142-4258-a577-18e98653e09e/carriage54x66_2010.jpg?format=2500w",
+    "src": "https://www.ericzener.com/selected-past-work",
+    "t": "Carriage",
+    "found": "2026-09-30",
+    "y": "2010"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/66e489fdc61e5b65fbd12084/e08bc8fa-15fb-4dde-a083-0edbfa4f2418/chandelier.jpg?format=2500w",
+    "src": "https://www.ericzener.com/selected-past-work",
+    "t": "Chandelier",
+    "found": "2026-09-30",
+    "y": "2019"
+   }
+  ]
+ },
+ {
+  "n": "Isabel Emrich",
+  "works": [
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5721c01a2eeb81e76d872571/1573534615157-D09GBN11W9V04J4JQ3EB/Speaking+from+the+HEART%21%2C60_x40_%2Coil+on+canvas%2C+2018.jpeg",
+    "src": "https://www.isabelemrich.com/underwater-paintings-1/",
+    "t": "Speaking from the HEART!",
+    "found": "2026-09-30",
+    "y": "2018",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5721c01a2eeb81e76d872571/1580926599835-CWHFN9YIMAAW3LPSVZ6G/IMG_7645.jpg",
+    "src": "https://www.isabelemrich.com/underwater-paintings-1/",
+    "t": "Speak up",
+    "found": "2026-09-30",
+    "y": "2018",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5721c01a2eeb81e76d872571/1574054521688-HC7ICY7VJP515X25AQLC/IMG_8371.jpeg",
+    "src": "https://www.isabelemrich.com/underwater-paintings-1/",
+    "t": "Environmental Dream",
+    "found": "2026-09-30",
+    "y": "2018",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5721c01a2eeb81e76d872571/1573534645854-J5IKUAELXBDZNSV7PQYX/Calm%2BBrilliance%252C%2B40_x40_%252Coil%2Bon%2Bcanvas%252C%2B2018.jpg",
+    "src": "https://www.isabelemrich.com/underwater-paintings-1/",
+    "t": "Calm Brilliance",
+    "found": "2026-09-30",
+    "y": "2018",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5721c01a2eeb81e76d872571/1713915143474-ZHQA0VPQTZNGDP0EB73F/%252522SaltyFlow%252C36x36inches_oiloncanvas_2016_%25243000.jpg",
+    "src": "https://www.isabelemrich.com/underwater-paintings-1/",
+    "t": "Salty Flow",
+    "found": "2026-09-30",
+    "y": "2016",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5721c01a2eeb81e76d872571/1573615394158-BRDL44KQFHJ51V9U37Z8/%2522%2C2015%2C48x60in%2Coilonpanel%2Ccourtesyoftheartist.jpg",
+    "src": "https://www.isabelemrich.com/underwater-paintings-1/",
+    "t": "Dancing Reflection",
+    "found": "2026-09-30",
+    "y": "2015",
+    "med": "oil on panel"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5721c01a2eeb81e76d872571/1573615684081-62FUJVAOEHST4SAYTTFW/%2522_oilonpanel_36x36inches_2016_%243000.jpg",
+    "src": "https://www.isabelemrich.com/underwater-paintings-1/",
+    "t": "Dancing Red Bikini",
+    "found": "2026-09-30",
+    "y": "2016",
+    "med": "oil on panel"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5721c01a2eeb81e76d872571/1573615736257-4FIG9Y8DPB72XFHE34K0/%2522%2C%2B2016%2C%2B30x30in%2C%2Boilonpanel%2C%2Bcourtesyoftheartist.JPG",
+    "src": "https://www.isabelemrich.com/underwater-paintings-1/",
+    "t": "Dazzling Vernazza",
+    "found": "2026-09-30",
+    "y": "2016",
+    "med": "oil on panel"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5721c01a2eeb81e76d872571/1573868598343-8FVYVK7OP1KHT845ZPV9/%2522%2C2015%2C36x36in%2Coiloncanvas%2Ccourtesyoftheartist.jpg",
+    "src": "https://www.isabelemrich.com/underwater-paintings-1/",
+    "t": "Riptide",
+    "found": "2026-09-30",
+    "y": "2015",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5721c01a2eeb81e76d872571/1591162334638-B32AJT4LQHS7GGNJ9N41/Serenity%2C+48%2522x60%2522%2C+acrylic+on+canvas%2C+2020.jpg",
+    "src": "https://www.isabelemrich.com/underwater-paintings-1/",
+    "t": "Serenity",
+    "found": "2026-09-30",
+    "y": "2020",
+    "med": "acrylic on canvas"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5721c01a2eeb81e76d872571/1573868838410-H9UENHA2VMJHHW2U3P9F/IMG_5489.jpeg",
+    "src": "https://www.isabelemrich.com/underwater-paintings-1/",
+    "t": "Learning from the past",
+    "found": "2026-09-30",
+    "y": "2018",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5721c01a2eeb81e76d872571/1573868896724-SUFRF7N768OQE05FYDOV/IMG_0912.jpeg",
+    "src": "https://www.isabelemrich.com/underwater-paintings-1/",
+    "t": "Spherical wonders",
+    "found": "2026-09-30",
+    "y": "2019",
+    "med": "oil on canvas"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5721c01a2eeb81e76d872571/1573868931029-JLDJRE54K7P28VEQTV7L/IMG_7770.jpeg",
+    "src": "https://www.isabelemrich.com/underwater-paintings-1/",
+    "t": "Seeking forward",
+    "found": "2026-09-30",
+    "y": "2018",
+    "med": "oil on canvas"
+   }
+  ]
+ },
+ {
+  "n": "Kai Samuels-Davis",
+  "works": [
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b3128f8fcf7fd8589486845/1529949562425-0C3LWZ4GGFJEJ710G0R4/ADistantShore.jpg",
+    "src": "https://www.kaisamuelsdavis.com/portraiture",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b3128f8fcf7fd8589486845/1529949576586-T0ILQAU9NCQDDQHQQ8OK/AQuietDawn.jpg",
+    "src": "https://www.kaisamuelsdavis.com/portraiture",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b3128f8fcf7fd8589486845/1529949576439-AM0DKVCC2JE4GH3NT47Y/NoReturn.jpg",
+    "src": "https://www.kaisamuelsdavis.com/portraiture",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b3128f8fcf7fd8589486845/1529949590501-8QVNMNMJPOA3L1E3HG09/TheDreamerII.jpg",
+    "src": "https://www.kaisamuelsdavis.com/portraiture",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b3128f8fcf7fd8589486845/1529949608819-F6P0UKK19JMHTDNBT0W0/TheFragile.jpg",
+    "src": "https://www.kaisamuelsdavis.com/portraiture",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b3128f8fcf7fd8589486845/1529949620300-D5Q1A0WGBBAV8I6X52RN/TheSecret.jpg",
+    "src": "https://www.kaisamuelsdavis.com/portraiture",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b3128f8fcf7fd8589486845/1529949627199-3Y46MT8U7VWRONWE2YNA/TheSilence.jpg",
+    "src": "https://www.kaisamuelsdavis.com/portraiture",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b3128f8fcf7fd8589486845/1529949642619-3AYQBBD7NIG2PE5UHXQY/WaveOnStillWater.jpg",
+    "src": "https://www.kaisamuelsdavis.com/portraiture",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b3128f8fcf7fd8589486845/1634852675693-BESL8NQN1DC52ZBIM2CD/Glimmer.jpg",
+    "src": "https://www.kaisamuelsdavis.com/2019",
+    "t": "Glimmer",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b3128f8fcf7fd8589486845/1665045346256-ZY9H6GBTP3K4YVNOY6PG/Carried_.jpg",
+    "src": "https://www.kaisamuelsdavis.com/2019",
+    "t": "Carried",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b3128f8fcf7fd8589486845/1665044533811-NDELQGHRTCVYL7W1IY8C/Nowhere+II.jpg",
+    "src": "https://www.kaisamuelsdavis.com/2019",
+    "t": "Nowhere II",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/5b3128f8fcf7fd8589486845/1634852672861-TX0Q3UOKAQV1GOEU95Y5/FarFromHere.jpg",
+    "src": "https://www.kaisamuelsdavis.com/2019",
+    "t": "Far From Here",
+    "found": "2026-09-30"
+   }
+  ]
+ },
+ {
+  "n": "Omar Ortiz",
+  "works": [
+   {
+    "img": "https://www.omarortiz.com.mx/obras/wp-content/uploads/2026/08/Ámbar-Helénico-180-x-140-1-5.jpg",
+    "src": "https://www.omarortiz.com.mx/obras/en/omar-ortiz-work/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.omarortiz.com.mx/obras/wp-content/uploads/2025/12/Luz-ambar-150-x-100-1-1.jpg",
+    "src": "https://www.omarortiz.com.mx/obras/en/omar-ortiz-work/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.omarortiz.com.mx/obras/wp-content/uploads/2024/04/Libertad-180-x-140-1.jpg",
+    "src": "https://www.omarortiz.com.mx/obras/en/omar-ortiz-work/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.omarortiz.com.mx/obras/wp-content/uploads/2024/04/El-Equino-Barroco-pinto-180-x-160-1-1.jpg",
+    "src": "https://www.omarortiz.com.mx/obras/en/omar-ortiz-work/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.omarortiz.com.mx/obras/wp-content/uploads/2022/03/Sunset-in-DUMBO-Brooklyn-New-York-110-x-78.5-1.jpg",
+    "src": "https://www.omarortiz.com.mx/obras/en/omar-ortiz-work/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.omarortiz.com.mx/obras/wp-content/uploads/2021/05/Otoño-120-x-90-1.jpg",
+    "src": "https://www.omarortiz.com.mx/obras/en/omar-ortiz-work/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.omarortiz.com.mx/obras/wp-content/uploads/2019/11/IMG_2899-1.jpg",
+    "src": "https://www.omarortiz.com.mx/obras/en/omar-ortiz-work/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.omarortiz.com.mx/obras/wp-content/uploads/2019/08/el-ocaso-de-la-voluntad-180-x-140.jpg",
+    "src": "https://www.omarortiz.com.mx/obras/en/omar-ortiz-work/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.omarortiz.com.mx/obras/wp-content/uploads/2019/07/2015.jpg",
+    "src": "https://www.omarortiz.com.mx/obras/en/omar-ortiz-work/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.omarortiz.com.mx/obras/wp-content/uploads/2019/09/Flaming-June-1.jpg",
+    "src": "https://www.omarortiz.com.mx/obras/en/omar-ortiz-work/",
+    "found": "2026-09-30"
+   }
+  ]
+ },
+ {
+  "n": "Santiago Carbonell",
+  "works": [
+   {
+    "img": "https://santiagocarbonell.com/wp-content/uploads/sites/101/2023/03/Escultura-AltaRes-scaled.jpg",
+    "src": "https://santiagocarbonell.com/en/obra/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://santiagocarbonell.mybuq.app/wp-content/uploads/sites/101/2024/07/Imagen-para-contenido-general-7.jpg",
+    "src": "https://santiagocarbonell.com/en/obra/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://santiagocarbonell.mybuq.app/wp-content/uploads/sites/101/2024/07/64.jpeg",
+    "src": "https://santiagocarbonell.com/en/obra/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://santiagocarbonell.mybuq.app/wp-content/uploads/sites/101/2024/07/dit-1.jpeg",
+    "src": "https://santiagocarbonell.com/en/obra/",
+    "found": "2026-09-30"
+   }
+  ]
+ },
+ {
+  "n": "Kenta Nakajima",
+  "works": [
+   {
+    "img": "https://www.nakajimakenta.com/wp-content/uploads/2024/11/S__68296737_0-1.jpg",
+    "src": "https://www.nakajimakenta.com/gallery/",
+    "t": "白石麻衣さん",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.nakajimakenta.com/wp-content/uploads/2023/08/25_S__63750200.jpg",
+    "src": "https://www.nakajimakenta.com/gallery/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.nakajimakenta.com/wp-content/uploads/2023/08/24_S__63750195.jpg",
+    "src": "https://www.nakajimakenta.com/gallery/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.nakajimakenta.com/wp-content/uploads/2023/08/20_【E-80】そうだね。.jpg",
+    "src": "https://www.nakajimakenta.com/gallery/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.nakajimakenta.com/wp-content/uploads/2023/04/order_top01.jpg",
+    "src": "https://www.nakajimakenta.com/gallery/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.nakajimakenta.com/wp-content/uploads/2023/08/15_【E-302】Frozen-Time-上弦の月-.jpg",
+    "src": "https://www.nakajimakenta.com/gallery/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.nakajimakenta.com/wp-content/uploads/2023/08/14_frozentime月の砂漠-.jpg",
+    "src": "https://www.nakajimakenta.com/gallery/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.nakajimakenta.com/wp-content/uploads/2023/06/10「marblemarble-星が降りそうな日には-」.jpg",
+    "src": "https://www.nakajimakenta.com/gallery/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.nakajimakenta.com/wp-content/uploads/2023/08/8_03.jpg",
+    "src": "https://www.nakajimakenta.com/gallery/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.nakajimakenta.com/wp-content/uploads/2023/08/7_【E-92】yucca.jpg",
+    "src": "https://www.nakajimakenta.com/gallery/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.nakajimakenta.com/wp-content/uploads/2023/06/74「滑走路に限りなく近い場所」.jpg",
+    "src": "https://www.nakajimakenta.com/gallery/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://www.nakajimakenta.com/wp-content/uploads/2023/06/★80「-frozen-time-不変-」.jpg",
+    "src": "https://www.nakajimakenta.com/gallery/",
+    "found": "2026-09-30"
+   }
+  ]
+ },
+ {
+  "n": "Hikari Motoki",
+  "works": [
+   {
+    "img": "http://motokihikari.com/wp-content/uploads/7510a09241e7b41acd784d8203b2fa912.jpeg",
+    "src": "http://motokihikari.com/?cat=10",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "http://motokihikari.com/wp-content/uploads/IMG_8417.jpeg",
+    "src": "http://motokihikari.com/?cat=10",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "http://motokihikari.com/wp-content/uploads/b1db6e1102f559d15d64d95ecb8a0462.jpg",
+    "src": "http://motokihikari.com/?cat=10",
+    "t": "幽か",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "http://motokihikari.com/wp-content/uploads/221fbde2b9126dd837fe3d2ac63d2202.jpg",
+    "src": "http://motokihikari.com/?cat=10",
+    "t": "ここに置いて",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "http://motokihikari.com/wp-content/uploads/1ea325938d49c1b16da8b255f53fc646.jpg",
+    "src": "http://motokihikari.com/?cat=10",
+    "t": "ひとりたどる",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "http://motokihikari.com/wp-content/uploads/72264fb1b12f112dee0c38ac0910eee62.jpg",
+    "src": "http://motokihikari.com/?cat=10",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "http://motokihikari.com/wp-content/uploads/7890fd1b6cd11cab83f6f8171731ad401.jpg",
+    "src": "http://motokihikari.com/?cat=10",
+    "t": "幻影",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "http://motokihikari.com/wp-content/uploads/87e3f9a91332d8b623cf888fc00dae6c3.jpg",
+    "src": "http://motokihikari.com/?cat=10",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "http://motokihikari.com/wp-content/uploads/73b28fd164e3a1f838535566e8a3186b2.jpg",
+    "src": "http://motokihikari.com/?cat=10",
+    "t": "想えるひと",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "http://motokihikari.com/wp-content/uploads/45044f0115e660ac0dbd21401d12b862.jpg",
+    "src": "http://motokihikari.com/?cat=10",
+    "t": "夢幻",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "http://motokihikari.com/wp-content/uploads/90d0482d5a9ebe3cc1565d1320c0c3101.jpg",
+    "src": "http://motokihikari.com/?cat=10",
+    "t": "誰にも聞こえないおと",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "http://motokihikari.com/wp-content/uploads/mudai05.jpg",
+    "src": "http://motokihikari.com/?cat=10",
+    "t": "無題",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "http://motokihikari.com/wp-content/uploads/kowakunai545_550motokihikari.jpg",
+    "src": "http://motokihikari.com/?cat=10",
+    "t": "恐くない",
+    "found": "2026-09-30"
+   }
+  ]
+ },
+ {
+  "n": "Steven Assael",
+  "works": [
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398285091547-KFVIADTMYZ3PL3DLD3YH/D+.jpg",
+    "src": "https://www.stevenassael.com/paintings",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398285504669-KMQTOKBY4QIUGTZXIAUJ/preperation+of+the+bride.jpg",
+    "src": "https://www.stevenassael.com/paintings",
+    "t": "Preparation of the Bride",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398285090794-WELNV64D6PD1BPW5R9H8/Bride+with+Cards%2C+Hi+Res+2-3.jpg",
+    "src": "https://www.stevenassael.com/paintings",
+    "t": "Bride with Cards",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398285144002-TBHCJ5T9MGSUVF0MJBYH/A+Crowd++a.jpg",
+    "src": "https://www.stevenassael.com/paintings",
+    "t": "A Crowd",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398297840999-708ZIHT6A1PX8NMNEW5J/sa1.jpg",
+    "src": "https://www.stevenassael.com/paintings",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398304458013-D51P7BGQT713CZVZ6KPY/Club+Kids+copy.jpg",
+    "src": "https://www.stevenassael.com/paintings",
+    "t": "Club Kids",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398285224757-PK4B493MFP9PJX6QIGVV/casandra+and+julie.jpg",
+    "src": "https://www.stevenassael.com/paintings",
+    "t": "Casandra and Julie",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398285249745-8HEM75DMA61K8ZRCI67A/Costume+Party+%231+888%2C+FO+19651.jpg",
+    "src": "https://www.stevenassael.com/paintings",
+    "t": "Costume Party #1",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398285281763-8YHO6RPRJD55HFA8AJMC/Dancing+Figures%28cmyk%2911.jpg",
+    "src": "https://www.stevenassael.com/paintings",
+    "t": "Dancing Figures",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398286932587-S56XZY6LWUPWHCMG8NDR/June+Bride1.jpg",
+    "src": "https://www.stevenassael.com/paintings",
+    "t": "June Bride",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398285404800-473PD2T2WLF3EBIOPWTW/nichol+and+james.jpg",
+    "src": "https://www.stevenassael.com/paintings",
+    "t": "Nichol and James",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398285417643-1E7JISUT9GJIE5BC8NV5/Passengers%2C++Hi+Res+copy.jpg",
+    "src": "https://www.stevenassael.com/paintings",
+    "t": "Passengers",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398285686807-BT9MN48WSF4DOWL1GASO/Skye+and+Marney%2C+FO+16393.jpg",
+    "src": "https://www.stevenassael.com/paintings",
+    "t": "Skye and Marney",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398287230601-74B4342UUUL7YU3K4G5G/br1closeup.jpg",
+    "src": "https://www.stevenassael.com/paintings",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398287508182-JF9HF6ZWW8RCXNOEK8RP/homeless+part+1.jpg",
+    "src": "https://www.stevenassael.com/paintings",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398287523220-2SL40FSTGKSBE5541Y6F/homeless+part2.jpg",
+    "src": "https://www.stevenassael.com/paintings",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398287717029-M6A5IKHUKEDIO1YV1Q7B/IMG_8545.jpg",
+    "src": "https://www.stevenassael.com/paintings",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398287892255-2H49UMEKCB1PZTTYVI2M/Mother+%282002%29%2C+high+rez+copy.jpg",
+    "src": "https://www.stevenassael.com/paintings",
+    "t": "Mother",
+    "y": "2002",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398288592349-J5NNO6XM7MQIZM2WUACL/Antonia%2C+FO+20922.jpg",
+    "src": "https://www.stevenassael.com/paintings",
+    "t": "Antonia",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398288770104-Y52UYIQE0U3MHR3VV8X5/Home+Bound%2C+FO+18455+77.jpg",
+    "src": "https://www.stevenassael.com/paintings",
+    "t": "Home Bound",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398288831486-B1WH2D8IHH4FGNVOLV2F/Natalie+Twice%2C+recto%2C+hi+res+copy.jpg",
+    "src": "https://www.stevenassael.com/paintings",
+    "t": "Natalie Twice",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398305685524-H6WIR54O9RMZRTVX7ZF9/bride.jpg",
+    "src": "https://www.stevenassael.com/paintings",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398348232243-GVC21ZOODONFV0NWNH3H/Amber+Ray.jpg",
+    "src": "https://www.stevenassael.com/paintings",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398348246967-1AY51YZJA27YO8X879UT/michael+and+james+2.jpg",
+    "src": "https://www.stevenassael.com/paintings",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398348252315-3LILPZCGV2LD32Y2K4IW/img017+copy.jpg",
+    "src": "https://www.stevenassael.com/paintings",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398305209663-FMQS41DRVKPRQTDK8ST9/Nellie+hi+res+tiff.jpg",
+    "src": "https://www.stevenassael.com/drawings",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398297703160-6LTY3LFXTHLXIXWFPZC5/IMG_4402.JPG",
+    "src": "https://www.stevenassael.com/drawings",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://images.squarespace-cdn.com/content/v1/53581f67e4b0e4fde086d5b9/1398287617629-3CCECBNF5VAEOTIH70YM/IMG_3051.jpg",
+    "src": "https://www.stevenassael.com/drawings",
+    "found": "2026-09-30"
+   }
+  ]
+ },
+ {
+  "n": "Guillermo Lorca",
+  "works": [
+   {
+    "img": "https://static.wixstatic.com/media/91304a_50732faf92d7464882247b6a3ea53716~mv2.jpg/v1/fill/w_480,h_360,fp_0.76_0.39,q_90,enc_avif,quality_auto/91304a_50732faf92d7464882247b6a3ea53716~mv2.jpg",
+    "src": "https://www.guillermolorca.com/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static.wixstatic.com/media/91304a_14c2accaefff44348a2fef4214bad20b~mv2.jpg/v1/fill/w_480,h_360,fp_0.56_0.26,q_90,enc_avif,quality_auto/91304a_14c2accaefff44348a2fef4214bad20b~mv2.jpg",
+    "src": "https://www.guillermolorca.com/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static.wixstatic.com/media/91304a_b7cacf0da4314a7aacc7fa9b73e4d78b~mv2.jpg/v1/fit/w_480,h_359,q_90,enc_avif,quality_auto/91304a_b7cacf0da4314a7aacc7fa9b73e4d78b~mv2.jpg",
+    "src": "https://www.guillermolorca.com/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static.wixstatic.com/media/91304a_c921efec333e4ff4ba8cb2dabd7c5ed7~mv2.jpg/v1/fill/w_480,h_360,fp_0.68_0.26,q_90,enc_avif,quality_auto/91304a_c921efec333e4ff4ba8cb2dabd7c5ed7~mv2.jpg",
+    "src": "https://www.guillermolorca.com/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static.wixstatic.com/media/91304a_4565a17c23ac4f00b916cbc9aec05ba0~mv2_d_4134_2526_s_4_2.jpg/v1/fill/w_480,h_360,fp_0.18_0.19,q_90,enc_avif,quality_auto/91304a_4565a17c23ac4f00b916cbc9aec05ba0~mv2_d_4134_2526_s_4_2.jpg",
+    "src": "https://www.guillermolorca.com/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static.wixstatic.com/media/91304a_64c53e49f9dc4bf780e4e2fa04138d4f~mv2.png/v1/fill/w_480,h_360,fp_0.66_0.41,q_90,enc_avif,quality_auto/91304a_64c53e49f9dc4bf780e4e2fa04138d4f~mv2.png",
+    "src": "https://www.guillermolorca.com/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static.wixstatic.com/media/c50580_09b7efc562c44c7bba62f7f25e7d7d96~mv2.jpg/v1/crop/x_0,y_436,w_2670,h_2450/fill/w_490,h_450,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/guillermo-lorca-leopard-girl-oil-painting.jpg",
+    "src": "https://www.guillermolorca.com/exhibitions",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static.wixstatic.com/media/91304a_50732faf92d7464882247b6a3ea53716~mv2.jpg/v1/fill/w_490,h_450,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/The%20Tea%20House%2C%20oil%2C%20222x340%20baja.jpg",
+    "src": "https://www.guillermolorca.com/exhibitions",
+    "t": "The Tea House",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static.wixstatic.com/media/91304a_39df697f41004c7bbb8e25d234b45290~mv2.jpg/v1/crop/x_0,y_853,w_2501,h_2297/fill/w_490,h_450,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/The%20sheep.jpg",
+    "src": "https://www.guillermolorca.com/exhibitions",
+    "t": "The Sheep",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static.wixstatic.com/media/91304a_439dc7093fe346449cb791522695469a~mv2.jpg/v1/fill/w_490,h_450,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Beti.jpg",
+    "src": "https://www.guillermolorca.com/exhibitions",
+    "t": "Beti",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static.wixstatic.com/media/91304a_4a1e70edd1854349be99add670f87504~mv2.jpg/v1/fill/w_490,h_450,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/The%20Encounter.jpg",
+    "src": "https://www.guillermolorca.com/exhibitions",
+    "t": "The Encounter",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static.wixstatic.com/media/91304a_b2505cb0149f4c4c96c9e3b409a8b9f0~mv2_d_6441_3402_s_4_2.jpg/v1/fill/w_490,h_450,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/The%20black%20dragon.jpg",
+    "src": "https://www.guillermolorca.com/exhibitions",
+    "t": "The Black Dragon",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static.wixstatic.com/media/91304a_ebb373855f72469cb18a4b929baaeb7e~mv2.jpg/v1/crop/x_0,y_0,w_6713,h_6161/fill/w_490,h_450,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Laura%20and%20the%20dogs.jpg",
+    "src": "https://www.guillermolorca.com/exhibitions",
+    "t": "Laura and the Dogs",
+    "found": "2026-09-30"
+   }
+  ]
+ },
+ {
+  "n": "Ken Currie",
+  "works": [
+   {
+    "img": "https://static-assets.artlogic.net/w_800,c_limit,f_auto,fl_lossy,q_auto:good/artlogicstorage/flowers/images/view/0fdcdb0df58e7f54cef77b503e992f4cj.jpg",
+    "src": "https://www.flowersgallery.com/artists/174-ken-currie/works/",
+    "t": "Sea Jaw",
+    "y": "2025",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static-assets.artlogic.net/w_800,c_limit,f_auto,fl_lossy,q_auto:good/artlogicstorage/flowers/images/view/c6b14147f8c7d1cf595e0c1fe57c6c02j.jpg",
+    "src": "https://www.flowersgallery.com/artists/174-ken-currie/works/",
+    "t": "Tight Line",
+    "y": "2025",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static-assets.artlogic.net/w_800,c_limit,f_auto,fl_lossy,q_auto:good/artlogicstorage/flowers/images/view/b1c30d698f746da6732d45aba0b35708j.jpg",
+    "src": "https://www.flowersgallery.com/artists/174-ken-currie/works/",
+    "t": "Untitled",
+    "y": "2025",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static-assets.artlogic.net/w_800,c_limit,f_auto,fl_lossy,q_auto:good/artlogicstorage/flowers/images/view/0b10a1331b563eef0acde59fb998cf61j.jpg",
+    "src": "https://www.flowersgallery.com/artists/174-ken-currie/works/",
+    "t": "Salt Cod",
+    "y": "2025",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static-assets.artlogic.net/w_800,c_limit,f_auto,fl_lossy,q_auto:good/artlogicstorage/flowers/images/view/a53a3bc0cf501205837ccb3322f1daf1j.jpg",
+    "src": "https://www.flowersgallery.com/artists/174-ken-currie/works/",
+    "t": "Whale Milking",
+    "y": "2024",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static-assets.artlogic.net/w_800,c_limit,f_auto,fl_lossy,q_auto:good/artlogicstorage/flowers/images/view/0ecdcb5be13f862c71a96aca47755dbfj.jpg",
+    "src": "https://www.flowersgallery.com/artists/174-ken-currie/works/",
+    "t": "Fogbank",
+    "y": "2021",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static-assets.artlogic.net/w_800,c_limit,f_auto,fl_lossy,q_auto:good/artlogicstorage/flowers/images/view/dfb0aaed2790a8ca64be4c0f42dab9a7j.jpg",
+    "src": "https://www.flowersgallery.com/artists/174-ken-currie/works/",
+    "t": "Study for at the Edge III",
+    "y": "2021",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static-assets.artlogic.net/w_800,c_limit,f_auto,fl_lossy,q_auto:good/artlogicstorage/flowers/images/view/879dedfb88e3da1beb58440d6a029849j.jpg",
+    "src": "https://www.flowersgallery.com/artists/174-ken-currie/works/",
+    "t": "Apparatus",
+    "y": "2021",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static-assets.artlogic.net/w_800,c_limit,f_auto,fl_lossy,q_auto:good/artlogicstorage/flowers/images/view/a3d6030e078fc2748ce603b9dbd5487bj.jpg",
+    "src": "https://www.flowersgallery.com/artists/174-ken-currie/works/",
+    "t": "Blue Veil III",
+    "y": "2016",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static-assets.artlogic.net/w_800,c_limit,f_auto,fl_lossy,q_auto:good/artlogicstorage/flowers/images/view/4eb3fc3a5b5692aa57b61ddcd51f57c8j.jpg",
+    "src": "https://www.flowersgallery.com/artists/174-ken-currie/works/",
+    "t": "Head With Bandage J",
+    "y": "2016",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static-assets.artlogic.net/w_800,c_limit,f_auto,fl_lossy,q_auto:good/artlogicstorage/flowers/images/view/dae11c6e8a6ce7ae70d6c14c8ae71d98j.jpg",
+    "src": "https://www.flowersgallery.com/artists/174-ken-currie/works/",
+    "t": "Equinox",
+    "y": "2020",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static-assets.artlogic.net/w_800,c_limit,f_auto,fl_lossy,q_auto:good/artlogicstorage/flowers/images/view/4fb5b0ba9818a478bea35266c0b0a18aa2ef99d5.jpg",
+    "src": "https://www.flowersgallery.com/artists/174-ken-currie/works/",
+    "t": "A Gate",
+    "y": "2007",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static-assets.artlogic.net/w_800,c_limit,f_auto,fl_lossy,q_auto:good/artlogicstorage/flowers/images/view/8a731883a4c3c635308ff3eb32ab91ccf3898f69.jpg",
+    "src": "https://www.flowersgallery.com/artists/174-ken-currie/works/",
+    "t": "Study (Pathetic Fallacy)",
+    "y": "2007",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static-assets.artlogic.net/w_800,c_limit,f_auto,fl_lossy,q_auto:good/artlogicstorage/flowers/images/view/edb7e615653af1f216dadbbe63268740349d5c10.jpg",
+    "src": "https://www.flowersgallery.com/artists/174-ken-currie/works/",
+    "t": "Parasite",
+    "y": "2008",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static-assets.artlogic.net/w_800,c_limit,f_auto,fl_lossy,q_auto:good/artlogicstorage/flowers/images/view/5e3783f773c83e285d412daaa39685e3a07cef16.jpg",
+    "src": "https://www.flowersgallery.com/artists/174-ken-currie/works/",
+    "t": "Coiled Wire",
+    "y": "2009",
+    "found": "2026-09-30"
+   }
+  ]
+ },
+ {
+  "n": "Jeremy Lipking",
+  "works": [
+   {
+    "img": "https://static-assets.artlogic.net/w_740,c_limit,f_auto,fl_lossy,q_auto/artlogicstorage/arcadiacontemporary/images/view/e6e8c373d20878a1d9a6cfedc0725133j/arcadiacontemporary-jeremy-lipking-juniper-2026.jpg",
+    "src": "https://arcadiacontemporary.com/artists/41-jeremy-lipking/works/",
+    "t": "Juniper",
+    "y": "2026",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static-assets.artlogic.net/w_740,c_limit,f_auto,fl_lossy,q_auto/artlogicstorage/arcadiacontemporary/images/view/ec20812877f9fe90bcd9ccea6824c585j/arcadiacontemporary-jeremy-lipking-the-messenger-2025.jpg",
+    "src": "https://arcadiacontemporary.com/artists/41-jeremy-lipking/works/",
+    "t": "The Messenger",
+    "y": "2025",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static-assets.artlogic.net/w_740,c_limit,f_auto,fl_lossy,q_auto/artlogicstorage/arcadiacontemporary/images/view/7652eda8b5c9aefcbd24a576f8802341j/arcadiacontemporary-jeremy-lipking-silver-ripples-2017.jpg",
+    "src": "https://arcadiacontemporary.com/artists/41-jeremy-lipking/works/",
+    "t": "Silver Ripples",
+    "y": "2017",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static-assets.artlogic.net/w_740,c_limit,f_auto,fl_lossy,q_auto/artlogicstorage/arcadiacontemporary/images/view/63da2eedc0788bc38b60885ee676f613j/arcadiacontemporary-jeremy-lipking-light-catcher-2017.jpg",
+    "src": "https://arcadiacontemporary.com/artists/41-jeremy-lipking/works/",
+    "t": "Light Catcher",
+    "y": "2017",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static-assets.artlogic.net/w_740,c_limit,f_auto,fl_lossy,q_auto/artlogicstorage/arcadiacontemporary/images/view/f8b9b083dd7d6b5e023f733dd55cf61aj/arcadiacontemporary-jeremy-lipking-october-aspens-2013.jpg",
+    "src": "https://arcadiacontemporary.com/artists/41-jeremy-lipking/works/",
+    "t": "October Aspens",
+    "y": "2013",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static-assets.artlogic.net/w_740,c_limit,f_auto,fl_lossy,q_auto/artlogicstorage/arcadiacontemporary/images/view/d0e85a9b249de13053fe436c00dbc5b8j/arcadiacontemporary-jeremy-lipking-interlude-2013.jpg",
+    "src": "https://arcadiacontemporary.com/artists/41-jeremy-lipking/works/",
+    "t": "Interlude",
+    "y": "2013",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static-assets.artlogic.net/w_740,c_limit,f_auto,fl_lossy,q_auto/artlogicstorage/arcadiacontemporary/images/view/2daf563c43e0e5d33f1479c484f31451j/arcadiacontemporary-jeremy-lipking-the-little-flower-2020.jpg",
+    "src": "https://arcadiacontemporary.com/artists/41-jeremy-lipking/works/",
+    "t": "The Little Flower",
+    "y": "2020",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static-assets.artlogic.net/w_740,c_limit,f_auto,fl_lossy,q_auto/artlogicstorage/arcadiacontemporary/images/view/469b3b488461d14d5109665bf2ccc6b0p/arcadiacontemporary-jeremy-lipking-halcyon-sea-2019.png",
+    "src": "https://arcadiacontemporary.com/artists/41-jeremy-lipking/works/",
+    "t": "Halcyon Sea",
+    "y": "2019",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static-assets.artlogic.net/w_740,c_limit,f_auto,fl_lossy,q_auto/artlogicstorage/arcadiacontemporary/images/view/508eb7c9ecaa1d4063348f725d0551d6p/arcadiacontemporary-jeremy-lipking-danielle-2017.png",
+    "src": "https://arcadiacontemporary.com/artists/41-jeremy-lipking/works/",
+    "t": "Danielle",
+    "y": "2017",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static-assets.artlogic.net/w_740,c_limit,f_auto,fl_lossy,q_auto/artlogicstorage/arcadiacontemporary/images/view/5bbed3f19aa4bc15d29da9cc047dd1dfj/arcadiacontemporary-jeremy-lipking-window-2020.jpg",
+    "src": "https://arcadiacontemporary.com/artists/41-jeremy-lipking/works/",
+    "t": "Window",
+    "y": "2020",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static-assets.artlogic.net/w_740,c_limit,f_auto,fl_lossy,q_auto/artlogicstorage/arcadiacontemporary/images/view/61ddc0491a51c991817a27da085dd3f6j/arcadiacontemporary-jeremy-lipking-serenity-2018.jpg",
+    "src": "https://arcadiacontemporary.com/artists/41-jeremy-lipking/works/",
+    "t": "Serenity",
+    "y": "2018",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://static-assets.artlogic.net/w_740,c_limit,f_auto,fl_lossy,q_auto/artlogicstorage/arcadiacontemporary/images/view/dfcb90928e04b6775cbc840ee478e625j/arcadiacontemporary-jeremy-lipking-outdoor-nude-2017.jpg",
+    "src": "https://arcadiacontemporary.com/artists/41-jeremy-lipking/works/",
+    "t": "Outdoor Nude",
+    "y": "2017",
+    "found": "2026-09-30"
+   }
+  ]
+ },
+ {
+  "n": "Rose Frantzen",
+  "works": [
+   {
+    "img": "https://oldcityhallgallery.com/files/stacks-image-c8f3356-498x498.jpg",
+    "src": "https://oldcityhallgallery.com/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://oldcityhallgallery.com/files/stacks-image-6c561f4-500x500.jpg",
+    "src": "https://oldcityhallgallery.com/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://oldcityhallgallery.com/files/stacks-image-fae44f4-500x500.jpg",
+    "src": "https://oldcityhallgallery.com/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://oldcityhallgallery.com/files/stacks-image-da0fc65-500x500.jpg",
+    "src": "https://oldcityhallgallery.com/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://oldcityhallgallery.com/files/stacks-image-83fd01a-498x498.jpg",
+    "src": "https://oldcityhallgallery.com/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://oldcityhallgallery.com/files/stacks-image-b3f68f8-498x498.jpg",
+    "src": "https://oldcityhallgallery.com/",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://oldcityhallgallery.com/files/stacks-image-e5cb5a8-500x500.jpg",
+    "src": "https://oldcityhallgallery.com/",
+    "found": "2026-09-30"
+   }
+  ]
+ },
+ {
+  "n": "Sōsuke Morimoto",
+  "works": [
+   {
+    "img": "https://www.hoki-museum.jp/wp-content/uploads/2025/05/Screenshot-2025-11-19-at-10.41.25.png",
+    "src": "https://www.hoki-museum.jp/exhibition/4048/",
+    "t": "みちのく早春",
+    "y": "2004",
+    "found": "2026-09-30"
+   }
+  ]
+ },
+ {
+  "n": "Nikolai Fechin",
+  "works": [
+   {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/7/74/Alexander_Fomin_%281910s%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "src": "https://commons.wikimedia.org/wiki/File:Alexander_Fomin_(1910s).jpg",
+    "t": "Alexander Fomin",
+    "y": "1910s",
+    "lic": "Public domain",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Elizaveta_Oshustovich_%28Fechin%2C_1916%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "src": "https://commons.wikimedia.org/wiki/File:Elizaveta_Oshustovich_(Fechin,_1916).jpg",
+    "t": "Elizaveta Oshustovich",
+    "y": "1916",
+    "lic": "Public domain",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/24/Nikolai_Fechin%2C_Vasily_Bogatyryov%2C_1916%2C_%D0%9D%D0%98%D0%9C%D0%A0%D0%90%D0%A5_%D0%9A%D0%9F-664_149._%D0%9C%D0%91%D1%80_%D0%96-146.jpeg/1280px-Nikolai_Fechin%2C_Vasily_Bogatyryov%2C_1916%2C_%D0%9D%D0%98%D0%9C%D0%A0%D0%90%D0%A5_%D0%9A%D0%9F-664_149._%D0%9C%D0%91%D1%80_%D0%96-146.jpeg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "src": "https://commons.wikimedia.org/wiki/File:Nikolai_Fechin,_Vasily_Bogatyryov,_1916,_%D0%9D%D0%98%D0%9C%D0%A0%D0%90%D0%A5_%D0%9A%D0%9F-664_149._%D0%9C%D0%91%D1%80_%D0%96-146.jpeg",
+    "t": "Vasily Bogatyryov",
+    "y": "1916",
+    "lic": "Public domain",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/8/86/Nikolay_Evlampiev_%28Fechin%2C_1905%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "src": "https://commons.wikimedia.org/wiki/File:Nikolay_Evlampiev_(Fechin,_1905).jpg",
+    "t": "Nikolay Evlampiev",
+    "y": "1905",
+    "lic": "Public domain",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://upload.wikimedia.org/wikipedia/commons/8/87/Sapoznikova_nadezda_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "src": "https://commons.wikimedia.org/wiki/File:Sapoznikova_nadezda_1.jpg",
+    "t": "Nadezhda Sapozhnikova",
+    "y": "1908",
+    "lic": "Public domain",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/02/%D0%94%D0%B0%D0%BC%D0%B0_%D0%B2_%D0%BB%D0%B8%D0%BB%D0%BE%D0%B2%D0%BE%D0%BC_%28%D0%BF%D0%BE%D1%80%D1%82%D1%80%D0%B5%D1%82_%D0%BD%D0%B5%D0%B8%D0%B7%D0%B2%D0%B5%D1%81%D1%82%D0%BD%D0%BE%D0%B9%29.jpg/1280px-%D0%94%D0%B0%D0%BC%D0%B0_%D0%B2_%D0%BB%D0%B8%D0%BB%D0%BE%D0%B2%D0%BE%D0%BC_%28%D0%BF%D0%BE%D1%80%D1%82%D1%80%D0%B5%D1%82_%D0%BD%D0%B5%D0%B8%D0%B7%D0%B2%D0%B5%D1%81%D1%82%D0%BD%D0%BE%D0%B9%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "src": "https://commons.wikimedia.org/wiki/File:%D0%94%D0%B0%D0%BC%D0%B0_%D0%B2_%D0%BB%D0%B8%D0%BB%D0%BE%D0%B2%D0%BE%D0%BC_(%D0%BF%D0%BE%D1%80%D1%82%D1%80%D0%B5%D1%82_%D0%BD%D0%B5%D0%B8%D0%B7%D0%B2%D0%B5%D1%81%D1%82%D0%BD%D0%BE%D0%B9).jpg",
+    "t": "Lady in Purple (Portrait of an Unknown Woman)",
+    "y": "1908",
+    "lic": "Public domain",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f1/%D0%9F%D0%BE%D1%80%D1%82%D1%80%D0%B5%D1%82_%D1%81%D1%82%D1%83%D0%B4%D0%B5%D0%BD%D1%82%D0%BA%D0%B8_%D0%9C.%D0%9D._%D0%91%D1%8B%D1%81%D1%82%D1%80%D0%BE%D0%B2%D0%BE%D0%B9%2C_1913._%D0%A4%D0%B5%D1%88%D0%B8%D0%BD_%D0%9D._%D0%98.jpg/1280px-%D0%9F%D0%BE%D1%80%D1%82%D1%80%D0%B5%D1%82_%D1%81%D1%82%D1%83%D0%B4%D0%B5%D0%BD%D1%82%D0%BA%D0%B8_%D0%9C.%D0%9D._%D0%91%D1%8B%D1%81%D1%82%D1%80%D0%BE%D0%B2%D0%BE%D0%B9%2C_1913._%D0%A4%D0%B5%D1%88%D0%B8%D0%BD_%D0%9D._%D0%98.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "src": "https://commons.wikimedia.org/wiki/File:%D0%9F%D0%BE%D1%80%D1%82%D1%80%D0%B5%D1%82_%D1%81%D1%82%D1%83%D0%B4%D0%B5%D0%BD%D1%82%D0%BA%D0%B8_%D0%9C.%D0%9D._%D0%91%D1%8B%D1%81%D1%82%D1%80%D0%BE%D0%B2%D0%BE%D0%B9,_1913._%D0%A4%D0%B5%D1%88%D0%B8%D0%BD_%D0%9D._%D0%98.jpg",
+    "t": "Portrait of the Student M. N. Bystrova",
+    "y": "1913",
+    "lic": "Public domain",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f6/Bearing_Away_the_Bride.jpg/1280px-Bearing_Away_the_Bride.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "src": "https://commons.wikimedia.org/wiki/File:Bearing_Away_the_Bride.jpg",
+    "t": "Bearing Away the Bride (Cheremis Wedding)",
+    "lic": "Public domain",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5a/%D0%A4%D0%B5%D1%88%D0%B8%D0%BD_%D0%AD%D1%81%D0%BA%D0%B8%D0%B7_%D0%BA_%C2%AB%D0%A7%D0%B5%D1%80%D0%B5%D0%BC%D0%B8%D1%81%D1%81%D0%BA%D0%BE%D0%B9_%D1%81%D0%B2%D0%B0%D0%B4%D1%8C%D0%B1%D0%B5%C2%BB.png/1280px-%D0%A4%D0%B5%D1%88%D0%B8%D0%BD_%D0%AD%D1%81%D0%BA%D0%B8%D0%B7_%D0%BA_%C2%AB%D0%A7%D0%B5%D1%80%D0%B5%D0%BC%D0%B8%D1%81%D1%81%D0%BA%D0%BE%D0%B9_%D1%81%D0%B2%D0%B0%D0%B4%D1%8C%D0%B1%D0%B5%C2%BB.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "src": "https://commons.wikimedia.org/wiki/File:%D0%A4%D0%B5%D1%88%D0%B8%D0%BD_%D0%AD%D1%81%D0%BA%D0%B8%D0%B7_%D0%BA_%C2%AB%D0%A7%D0%B5%D1%80%D0%B5%D0%BC%D0%B8%D1%81%D1%81%D0%BA%D0%BE%D0%B9_%D1%81%D0%B2%D0%B0%D0%B4%D1%8C%D0%B1%D0%B5%C2%BB.png",
+    "t": "Sketch for 'Cheremis Wedding'",
+    "lic": "Public domain",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cc/%D0%9A%D0%B0%D0%BF%D1%83%D1%81%D1%82%D0%BD%D0%B8%D1%86%D0%B0.jpg/1280px-%D0%9A%D0%B0%D0%BF%D1%83%D1%81%D1%82%D0%BD%D0%B8%D1%86%D0%B0.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "src": "https://commons.wikimedia.org/wiki/File:%D0%9A%D0%B0%D0%BF%D1%83%D1%81%D1%82%D0%BD%D0%B8%D1%86%D0%B0.jpg",
+    "t": "Kapustnitsa (Cabbage Harvest)",
+    "y": "1909",
+    "lic": "Public domain",
+    "found": "2026-09-30"
+   },
+   {
+    "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c9/%D0%A4%D0%B5%D1%88%D0%B8%D0%BD._%D0%9E%D0%B1%D0%BB%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5_%281914%29.jpg/1280px-%D0%A4%D0%B5%D1%88%D0%B8%D0%BD._%D0%9E%D0%B1%D0%BB%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5_%281914%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "src": "https://commons.wikimedia.org/wiki/File:%D0%A4%D0%B5%D1%88%D0%B8%D0%BD._%D0%9E%D0%B1%D0%BB%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5_(1914).jpg",
+    "t": "Pouring",
+    "y": "1914",
+    "lic": "Public domain",
+    "found": "2026-09-30"
+   }
+  ]
+ }
+]

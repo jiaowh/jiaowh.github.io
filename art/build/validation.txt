@@ -1,0 +1,46 @@
+PASS feed renders artworks in first viewport  — 36 cards
+PASS first artwork is above the fold  — top=108
+PASS fresh opening gives a different order
+PASS reload gives a different order
+PASS scrolling loads more batches  — 36 → 252
+PASS scrolling does not reshuffle existing works
+PASS no repeats before exhaustion
+PASS Load more fallback works without auto-loading  — 36 → 108
+PASS artwork click opens internal artist page  — Harding Meyer
+PASS clicked work is featured on artist page  — harding-meyer~34da651b
+PASS Back restores feed order
+PASS Back restores loaded state  — 252 vs 252
+PASS Back restores scroll position  — 2600 → 2600
+PASS Forward returns to artist page
+PASS artist page shows more than eight works when available  — 36 of 36
+PASS viewer opens with focus inside
+PASS viewer next with arrow key  — 2 / 36 → 3 / 36
+PASS viewer traps focus
+PASS viewer caption has source link
+PASS Escape closes viewer and returns focus
+PASS direct artist link works
+PASS invalid route handled
+PASS tab cont renders works
+PASS tab illu renders works
+PASS Study guide renders groups
+PASS Study works feed renders
+PASS directory lists artists without images too
+PASS empty search result has message
+PASS search narrows to one artist  — 5 for Sōsuke Morimoto
+PASS end of pool offers another pass
+PASS another pass is marked with a divider
+PASS no immediate repeat across pass boundary
+PASS legacy salon:hiddenDir names are honoured and migrated  — ["nikolai-fechin"]
+PASS favourite persists across reload  — colin-davidson~e8aa3e99 in ["colin-davidson~e8aa3e99"] ls=[["colin-davidson~e8aa3e99",1790722015195]]
+PASS works with storage unavailable
+PASS works with corrupted storage
+PASS broken images are removed from the layout  — blocked images.squarespace-cdn.com
+PASS feed still has works after failures
+PASS desktop: aspect ratios preserved, no horizontal scroll  — mismatched=0 overflow=false
+PASS tablet: aspect ratios preserved, no horizontal scroll  — mismatched=0 overflow=false
+PASS mobile: aspect ratios preserved, no horizontal scroll  — mismatched=0 overflow=false
+PASS whole pool reachable by paging  — 1804 of 1804 in 5563 ms
+PASS long feed scrolls smoothly  — 20 frames in 323 ms
+PASS no uncaught page errors
+
+44/44 checks passed
