@@ -15,7 +15,7 @@ const DRY = process.env.DRY_RUN === "1";
 const H4 = 14400, DAYS = 86400;
 
 // ---------- 1. pull the strategy out of btc.html ----------
-const NAMES = ["DAY", "iEMA", "iSMMA", "iZLEMA", "iSMAv", "impulseMACD", "smaN", "ENS_TF", "ENS_STEPS", "ENS_STEP_TXT",
+const NAMES = ["DAY", "iEMA", "iSMMA", "iZLEMA", "iSMAv", "impulseMACD", "smaN", "ENS_TF", "ENS_STEPS", "ENS_STEP_UP_MARGIN", "ensLevels", "ENS_STEP_TXT",
   "ENS_FUND_THR", "ENS_FUND_STALE", "ensFunding14", "ENS_SMA", "ENS_FAM", "ENS_SIZING", "ensGroup", "ensSpread", "computeEnsemble"];
 function statementAt(src, start, isFn) {
   // scan one top-level declaration: skips strings, template literals (with ${} nesting) and comments
