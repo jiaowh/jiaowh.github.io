@@ -690,7 +690,7 @@ function findDivergences(lows,highs,osc,opt){
 }
 
 // ---------- scalp layer: the alert bot's rule, ported line-for-line ----------
-// Ported from the (since removed) quant/alertbot/{indicators,signals,levels}.py. Everything here is
+// Ported from the (since removed) alertbot/{indicators,signals,levels}.py in the quant repo. Everything here is
 // causal with explicit confirm indices, so what the chart marks is exactly what the
 // bot would have sent (verified against the bot's --export on the same candles).
 const SCALP_RULE={window_bars:12,max_age_bars:24,require_classA:false,h1_max_age_hours:0,
@@ -878,7 +878,7 @@ function scalpTrades(f5,f1h,cfg){
 // skipped. Forcing every step/trim/entry through regardless was a wash (r16_review.py, 2026-09-29:
 // ΔSharpe +0.00/+0.01 over 8 phases, 2/7 eras, +8 trades/yr), so the lower-turnover rule stays.
 // A decision at a bar's close applies from the next bar.
-// Research: quant/reports/iMACD ensemble.md, quant/reports/Average strategy v2 research.md.
+// Research (quant repo): reports/iMACD ensemble.md, reports/Average strategy v2 research.md.
 const ENS_TF=[4,8,12,24,48,72],ENS_N=[21,34,55],ENS_MODES=["zero","state"],ENS_BAND=0.25,ENS_IN=0.60,ENS_OUT=0.40;
 const ENS_STEPS=[[0.60,1],[0.50,2/3],[0.40,1/3]];     // [E floor, size] while IN, highest first
 const ENS_STEP_UP_MARGIN=0.03; // rebuild size only 3 percentage points above the next floor
@@ -905,7 +905,7 @@ const ENS_STEP_TXT=l=>l===1?"full":l>0.5?"⅔":l>0?"⅓":"out";
 // Funding-crowding trim (research round 3): perp funding is the price of leveraged long demand, and
 // crowded longs precede liquidation cascades. When the 14-day SUM of BTCUSDT perp funding, annualised,
 // is above ENS_FUND_THR, hold ENS_FUND_MULT of the position. Re-read at each 00:00 UTC from the stamps
-// published by then (window (T−14d, T]), exactly as quant/research_notes/ensemble_v2/crowd.py.
+// published by then (window (T−14d, T]), exactly as research_notes/ensemble_v2/crowd.py in the quant repo.
 const ENS_FUND_THR=0.15,ENS_FUND_MULT=2/3,ENS_FUND_DAYS=14;
 // funding stamps since fromSec → [[tSec, rate], …] ascending. Binance first, Bybit fallback; throws if both fail.
 async function fetchFundingHistory(fromSec){

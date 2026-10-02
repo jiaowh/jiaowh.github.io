@@ -32,10 +32,6 @@ mucha/
 *.mov
 *.MOV
 
-# Trading strategy work (moomoo Algo ports + the vendored Algo Manual) — private,
-# not part of the published site. Nothing here is referenced by any page.
-quant/
-
 # Art gallery (art/index.html) — build caches and review artefacts stay local.
 # verify.json/browser.json are kept: build.py needs them to publish only checked images.
 art/.claude/
