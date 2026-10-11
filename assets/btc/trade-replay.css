@@ -1,0 +1,23 @@
+.btr{color:var(--text);font:14px/1.55 "IBM Plex Sans",system-ui,sans-serif;min-width:0}
+.btr h2{margin:0 0 6px;font-size:21px;letter-spacing:-.02em;color:var(--text)}
+.btr p{margin:8px 0}.btr small,.btr .sub{color:var(--muted);font-size:12px}
+.btr .controls{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:end;margin:18px 0}
+.btr label{display:grid;gap:5px;font-size:12px;min-width:0}
+.btr select{width:100%;min-width:0;max-width:100%;color:var(--text);background:var(--panel2);border:1px solid var(--grid);border-radius:4px;padding:9px;font-family:inherit;font-size:13px}
+.btr button{font:inherit;color:var(--text);background:var(--panel2);border:1px solid var(--grid);border-radius:4px;padding:7px 10px;cursor:pointer}
+.btr button:hover{border-color:var(--cyan)}.btr button:focus-visible,.btr select:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.btr .summary{font-size:16px;margin:12px 0}.btr .summary strong{font-family:"IBM Plex Mono",monospace}
+.btr .context{border-left:3px solid var(--amber);padding:8px 12px;background:var(--panel);font-size:12px}
+.btr .legend{display:flex;flex-wrap:wrap;gap:7px 16px;font-size:12px;margin:12px 0}
+.btr .sell{color:var(--amber)}.btr .buy{color:var(--cyan)}.btr .gain{color:var(--up)}.btr .loss{color:var(--down)}
+.btr .priceplot,.btr .equityplot{width:100%;min-width:0}.btr svg{display:block;max-width:100%;overflow:visible;font-family:"IBM Plex Mono",monospace}
+.btr svg .mark{cursor:pointer}.btr svg .mark:focus-visible{outline:2px solid var(--cyan)}
+.btr .detail{min-height:72px;padding:10px 0;border-top:1px solid var(--grid);font-size:13px}
+.btr .detail b{font-family:"IBM Plex Mono",monospace}.btr .tablewrap{max-width:100%;overflow-x:auto}
+.btr table{width:100%;border-collapse:collapse;font-size:12px;font-family:"IBM Plex Mono",monospace}
+.btr th,.btr td{text-align:right;padding:10px 8px;border-bottom:1px solid var(--grid);white-space:nowrap}
+.btr th{font-weight:500;color:var(--muted)}.btr th:first-child,.btr td:first-child{text-align:left}
+.btr td .sub{display:block;font-size:11px}.btr tr.selected{background:var(--panel)}
+.btr .ledgerheading{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:18px}
+.btr h3{font-size:14px;margin:0}.btr a{color:var(--cyan)}
+@media(max-width:600px){.btr .controls{display:grid;grid-template-columns:1fr 1fr}.btr label:nth-child(2){grid-column:1/-1;grid-row:2}.btr label:nth-child(4){grid-column:1/-1;grid-row:3}.btr select{font-size:16px;min-height:44px}.btr button{min-height:44px}.btr h2{font-size:19px}.btr .summary{font-size:14px}}

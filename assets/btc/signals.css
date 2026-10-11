@@ -1,0 +1,16 @@
+.tabs{overflow-x:auto}.tab{flex-shrink:0}
+.signal-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.signal-card{border:1px solid var(--grid);background:var(--panel2);padding:18px;border-radius:5px}
+.signal-card small{display:block;color:var(--muted);font-size:12px;margin-bottom:10px}
+.signal-card strong{display:block;font:500 25px 'IBM Plex Mono',monospace;margin-bottom:8px}
+.signal-card p{font-size:13px;line-height:1.6;margin:0}
+.signal-decision{border-left:3px solid var(--amber);padding:14px 18px;background:var(--panel2);line-height:1.6;font-size:14px}
+.signal-legend{display:flex;flex-wrap:wrap;gap:10px 20px;font-size:12px}
+.signal-chart{min-height:440px;border:1px solid var(--grid);background:var(--panel2);border-radius:5px;overflow:hidden}
+.signal-chart svg{display:block;width:100%;touch-action:pan-y}
+.signal-chart text{font-family:'IBM Plex Mono',monospace;font-size:11px;fill:#99a8b5}
+.signal-read{font:12px/1.7 'IBM Plex Mono',monospace;min-height:42px;margin:0;color:var(--text)}
+#panel_signals a{color:var(--cyan)}
+#signalSource{margin:0;overflow-wrap:anywhere}
+#signalCounts{margin:0}
+@media(max-width:760px){.signal-cards{grid-template-columns:1fr}.signal-card{padding:14px}.signal-card strong{font-size:23px}.signal-chart{min-height:400px}}

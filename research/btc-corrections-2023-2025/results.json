@@ -1,0 +1,4179 @@
+{
+  "source_hash": "149bbd4308eb53fc5a7f7e66485c83a91e7ddcc8b50d9dfd90ecc30125881072",
+  "bars": 19958,
+  "first": "2017-08-17 04:00",
+  "last": "2026-09-28 00:00",
+  "study_bars": 6576,
+  "annual": {
+    "2023": {
+      "spot": {
+        "return_pct": 96.82707299298454,
+        "cagr_pct": 96.91838355452676,
+        "dd_close_pct": -17.07909313112713,
+        "dd_intrabar_bound_pct": -17.967134846312582,
+        "trades": 32,
+        "mean_exposure_pct": 59.6423290287032
+      },
+      "vt60": {
+        "return_pct": 96.27979429418939,
+        "cagr_pct": 96.37047646613696,
+        "dd_close_pct": -16.81805985809659,
+        "dd_intrabar_bound_pct": -17.69625227144026,
+        "trades": 32,
+        "mean_exposure_pct": 59.369419094148036
+      },
+      "vt80": {
+        "return_pct": 96.82707299298457,
+        "cagr_pct": 96.91838355452677,
+        "dd_close_pct": -17.07909313112713,
+        "dd_intrabar_bound_pct": -17.967134846312582,
+        "trades": 32,
+        "mean_exposure_pct": 59.6423290287032
+      },
+      "buy_hold": {
+        "return_pct": 155.61702284580184,
+        "cagr_pct": 155.78139016652807,
+        "dd_close_pct": -21.185976603209788,
+        "dd_intrabar_bound_pct": -22.577861386138608,
+        "trades": 0,
+        "mean_exposure_pct": 100.0
+      }
+    },
+    "2024": {
+      "spot": {
+        "return_pct": 79.72825068404079,
+        "cagr_pct": 79.51245753821735,
+        "dd_close_pct": -17.581726870729607,
+        "dd_intrabar_bound_pct": -18.67893853797732,
+        "trades": 31,
+        "mean_exposure_pct": 51.258120509115514
+      },
+      "vt60": {
+        "return_pct": 79.72825068404083,
+        "cagr_pct": 79.51245753821739,
+        "dd_close_pct": -17.581726870729597,
+        "dd_intrabar_bound_pct": -18.678938537977285,
+        "trades": 31,
+        "mean_exposure_pct": 51.258120509115514
+      },
+      "vt80": {
+        "return_pct": 79.72825068404077,
+        "cagr_pct": 79.51245753821732,
+        "dd_close_pct": -17.581726870729643,
+        "dd_intrabar_bound_pct": -18.67893853797732,
+        "trades": 31,
+        "mean_exposure_pct": 51.258120509115514
+      },
+      "buy_hold": {
+        "return_pct": 121.30576455446769,
+        "cagr_pct": 120.94581212926042,
+        "dd_close_pct": -30.006091405991388,
+        "dd_intrabar_bound_pct": -33.58363717689795,
+        "trades": 0,
+        "mean_exposure_pct": 100.0
+      }
+    },
+    "2025": {
+      "spot": {
+        "return_pct": 2.0883119441970077,
+        "cagr_pct": 2.089757137272974,
+        "dd_close_pct": -17.05010007968797,
+        "dd_intrabar_bound_pct": -24.172388738109085,
+        "trades": 31,
+        "mean_exposure_pct": 42.39560164342876
+      },
+      "vt60": {
+        "return_pct": 2.0883119441969855,
+        "cagr_pct": 2.0897571372729518,
+        "dd_close_pct": -17.05010007968797,
+        "dd_intrabar_bound_pct": -24.172388738109085,
+        "trades": 31,
+        "mean_exposure_pct": 42.39560164342876
+      },
+      "vt80": {
+        "return_pct": 2.088311944196941,
+        "cagr_pct": 2.0897571372729074,
+        "dd_close_pct": -17.050100079688015,
+        "dd_intrabar_bound_pct": -24.172388738109106,
+        "trades": 31,
+        "mean_exposure_pct": 42.39560164342876
+      },
+      "buy_hold": {
+        "return_pct": -6.3347225784389005,
+        "cagr_pct": -6.338920910901513,
+        "dd_close_pct": -34.36797035279494,
+        "dd_intrabar_bound_pct": -36.13293477960276,
+        "trades": 0,
+        "mean_exposure_pct": 100.0
+      }
+    },
+    "2023-2025": {
+      "spot": {
+        "return_pct": 261.1413391733152,
+        "cagr_pct": 53.40870325769973,
+        "dd_close_pct": -17.581726870729607,
+        "dd_intrabar_bound_pct": -24.172388738109085,
+        "trades": 94,
+        "mean_exposure_pct": 51.09882919859895
+      },
+      "vt60": {
+        "return_pct": 260.1371838039421,
+        "cagr_pct": 53.266419154363234,
+        "dd_close_pct": -17.581726870729597,
+        "dd_intrabar_bound_pct": -24.172388738109085,
+        "trades": 94,
+        "mean_exposure_pct": 51.0079422222188
+      },
+      "vt80": {
+        "return_pct": 261.141339173315,
+        "cagr_pct": 53.408703257699685,
+        "dd_close_pct": -17.581726870729643,
+        "dd_intrabar_bound_pct": -24.172388738109106,
+        "trades": 94,
+        "mean_exposure_pct": 51.09882919859895
+      },
+      "buy_hold": {
+        "return_pct": 429.8599847537477,
+        "cagr_pct": 74.31388407219215,
+        "dd_close_pct": -34.36797035279494,
+        "dd_intrabar_bound_pct": -36.13293477960276,
+        "trades": 0,
+        "mean_exposure_pct": 100.0
+      }
+    }
+  },
+  "events": [
+    {
+      "peak_time": "2023-02-16 16:00",
+      "trough_time": "2023-03-10 12:00",
+      "peak_close": 25072.67,
+      "trough_close": 19760.78,
+      "btc_close_pct": -21.185976603209788,
+      "strategy_return_pct": -10.444093230214479,
+      "strategy_dd_pct": -10.444093230214479,
+      "peak_state": {
+        "vote": 0.82,
+        "target": 1.0,
+        "funding": 0.09580519999998893,
+        "actual_exposure": 1.0
+      },
+      "trades": [
+        {
+          "i": 12115,
+          "time": "2023-03-01 00:00",
+          "price": 23141.57,
+          "target": 0.6666666666666666,
+          "turnover": 0.333555703802535
+        },
+        {
+          "i": 12128,
+          "time": "2023-03-03 04:00",
+          "price": 22319.69,
+          "target": 0.3333333333333333,
+          "turnover": 0.3253580988022298
+        },
+        {
+          "i": 12159,
+          "time": "2023-03-08 08:00",
+          "price": 21971.83,
+          "target": 0.0,
+          "turnover": 0.3298518372508171
+        }
+      ],
+      "warnings": {
+        "Ensemble <60%": {
+          "time": "2023-03-01 00:00",
+          "price": 23141.57,
+          "fall_from_peak_pct": -7.702011792122654,
+          "days_to_trough": 9.5,
+          "already_active_at_peak": false
+        },
+        "Ensemble <50%": {
+          "time": "2023-03-03 04:00",
+          "price": 22319.69,
+          "fall_from_peak_pct": -10.980003326331023,
+          "days_to_trough": 7.333333333333333,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2023-03-04 00:00",
+          "price": 22354.34,
+          "fall_from_peak_pct": -10.8418050411065,
+          "days_to_trough": 6.5,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2023-03-05 00:00",
+          "price": 22346.57,
+          "fall_from_peak_pct": -10.872794959611397,
+          "days_to_trough": 5.5,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2023-03-08 08:00",
+      "next_positive_trade": {
+        "i": 12199,
+        "time": "2023-03-15 00:00",
+        "price": 24670.41,
+        "target": 0.9701624759545743,
+        "turnover": 0.969222172971494
+      },
+      "recovery_15pct_time": "2023-03-13 16:00"
+    },
+    {
+      "peak_time": "2023-04-14 12:00",
+      "trough_time": "2023-06-15 16:00",
+      "peak_close": 30801.89,
+      "trough_close": 24959.95,
+      "btc_close_pct": -18.96617382894361,
+      "strategy_return_pct": -16.810715553040446,
+      "strategy_dd_pct": -16.81805985809659,
+      "peak_state": {
+        "vote": 0.98,
+        "target": 0.9701624759545743,
+        "funding": 0.046323453571448125,
+        "actual_exposure": 0.9759591968932383
+      },
+      "trades": [
+        {
+          "i": 12427,
+          "time": "2023-04-22 00:00",
+          "price": 27262.84,
+          "target": 0.6666666666666666,
+          "turnover": 0.30646054896860353
+        },
+        {
+          "i": 12460,
+          "time": "2023-04-27 12:00",
+          "price": 28934.21,
+          "target": 1.0,
+          "turnover": 0.3199248360191591
+        },
+        {
+          "i": 12485,
+          "time": "2023-05-01 16:00",
+          "price": 28170.64,
+          "target": 0.6666666666666666,
+          "turnover": 0.3335557038025351
+        },
+        {
+          "i": 12487,
+          "time": "2023-05-02 00:00",
+          "price": 28068.26,
+          "target": 0.3333333333333333,
+          "turnover": 0.3326346322232512
+        },
+        {
+          "i": 12499,
+          "time": "2023-05-04 00:00",
+          "price": 29026.16,
+          "target": 0.6666666666666666,
+          "turnover": 0.3256176651320508
+        },
+        {
+          "i": 12510,
+          "time": "2023-05-05 20:00",
+          "price": 29561.66,
+          "target": 1.0,
+          "turnover": 0.3289544400847611
+        },
+        {
+          "i": 12519,
+          "time": "2023-05-07 08:00",
+          "price": 28910.42,
+          "target": 0.6666666666666666,
+          "turnover": 0.3335557038025353
+        },
+        {
+          "i": 12529,
+          "time": "2023-05-09 00:00",
+          "price": 27668.8,
+          "target": 0.3333333333333333,
+          "turnover": 0.32361608820666843
+        },
+        {
+          "i": 12553,
+          "time": "2023-05-13 00:00",
+          "price": 26795.01,
+          "target": 0.0,
+          "turnover": 0.32624081957215295
+        },
+        {
+          "i": 12655,
+          "time": "2023-05-30 00:00",
+          "price": 27736.39,
+          "target": 1.0,
+          "turnover": 0.9990009990009991
+        },
+        {
+          "i": 12665,
+          "time": "2023-05-31 16:00",
+          "price": 26911.55,
+          "target": 0.6666666666666666,
+          "turnover": 0.3335557038025351
+        },
+        {
+          "i": 12669,
+          "time": "2023-06-01 08:00",
+          "price": 26802.66,
+          "target": 0.3333333333333333,
+          "turnover": 0.33254258926702557
+        },
+        {
+          "i": 12673,
+          "time": "2023-06-02 00:00",
+          "price": 26817.93,
+          "target": 0.0,
+          "turnover": 0.3334599136443752
+        }
+      ],
+      "warnings": {
+        "Ensemble <60%": {
+          "time": "2023-04-22 00:00",
+          "price": 27262.84,
+          "fall_from_peak_pct": -11.489717027104508,
+          "days_to_trough": 54.666666666666664,
+          "already_active_at_peak": false
+        },
+        "Ensemble <50%": {
+          "time": "2023-05-02 00:00",
+          "price": 28068.26,
+          "fall_from_peak_pct": -8.874877483167431,
+          "days_to_trough": 44.666666666666664,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2023-04-22 00:00",
+          "price": 27262.84,
+          "fall_from_peak_pct": -11.489717027104508,
+          "days_to_trough": 54.666666666666664,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2023-05-09 00:00",
+          "price": 27668.79,
+          "fall_from_peak_pct": -10.17177842009045,
+          "days_to_trough": 37.666666666666664,
+          "already_active_at_peak": false
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2023-04-22 00:00",
+          "price": 27262.84,
+          "fall_from_peak_pct": -11.489717027104508,
+          "days_to_trough": 54.666666666666664,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2023-05-13 00:00",
+      "next_positive_trade": {
+        "i": 12787,
+        "time": "2023-06-21 00:00",
+        "price": 28308.0,
+        "target": 1.0,
+        "turnover": 0.999000999000999
+      },
+      "recovery_15pct_time": "2023-06-21 04:00"
+    },
+    {
+      "peak_time": "2023-07-13 20:00",
+      "trough_time": "2023-09-11 20:00",
+      "peak_close": 31606.01,
+      "trough_close": 25020.66,
+      "btc_close_pct": -20.835752440754142,
+      "strategy_return_pct": -6.957541714038862,
+      "strategy_dd_pct": -7.119579662349107,
+      "peak_state": {
+        "vote": 0.78,
+        "target": 1.0,
+        "funding": 0.07624719642854605,
+        "actual_exposure": 1.0
+      },
+      "trades": [
+        {
+          "i": 12961,
+          "time": "2023-07-20 00:00",
+          "price": 29909.21,
+          "target": 0.6666666666666666,
+          "turnover": 0.3335557038025351
+        },
+        {
+          "i": 12991,
+          "time": "2023-07-25 00:00",
+          "price": 29176.5,
+          "target": 0.3333333333333333,
+          "turnover": 0.32790829321947584
+        },
+        {
+          "i": 13009,
+          "time": "2023-07-28 00:00",
+          "price": 29222.78,
+          "target": 0.0,
+          "turnover": 0.3336856377413938
+        }
+      ],
+      "warnings": {
+        "Ensemble <60%": {
+          "time": "2023-07-20 00:00",
+          "price": 29909.21,
+          "fall_from_peak_pct": -5.368599199962287,
+          "days_to_trough": 53.833333333333336,
+          "already_active_at_peak": false
+        },
+        "Ensemble <50%": {
+          "time": "2023-07-25 00:00",
+          "price": 29176.5,
+          "fall_from_peak_pct": -7.686860821723462,
+          "days_to_trough": 48.833333333333336,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2023-07-20 00:00",
+          "price": 29909.21,
+          "fall_from_peak_pct": -5.368599199962287,
+          "days_to_trough": 53.833333333333336,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2023-08-01 00:00",
+          "price": 29232.25,
+          "fall_from_peak_pct": -7.510470318777973,
+          "days_to_trough": 41.833333333333336,
+          "already_active_at_peak": false
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2023-09-02 08:00",
+          "price": 25795.47,
+          "fall_from_peak_pct": -18.384288304661034,
+          "days_to_trough": 9.5,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2023-07-28 00:00",
+      "next_positive_trade": {
+        "i": 13409,
+        "time": "2023-10-02 16:00",
+        "price": 28026.3,
+        "target": 1.0,
+        "turnover": 0.9990009990009989
+      },
+      "recovery_15pct_time": "2023-10-20 04:00"
+    },
+    {
+      "peak_time": "2024-01-11 12:00",
+      "trough_time": "2024-01-23 12:00",
+      "peak_close": 47060.0,
+      "trough_close": 38845.56,
+      "btc_close_pct": -17.455248618784537,
+      "strategy_return_pct": -7.254154108440858,
+      "strategy_dd_pct": -7.7831227518376895,
+      "peak_state": {
+        "vote": 0.94,
+        "target": 0.6666666666666666,
+        "funding": 0.2533973392857118,
+        "actual_exposure": 0.6821189955573123
+      },
+      "trades": [
+        {
+          "i": 14056,
+          "time": "2024-01-18 12:00",
+          "price": 42544.6,
+          "target": 0.3333333333333333,
+          "turnover": 0.3266324401658994
+        },
+        {
+          "i": 14065,
+          "time": "2024-01-20 00:00",
+          "price": 41659.03,
+          "target": 0.0,
+          "turnover": 0.3286754379134131
+        }
+      ],
+      "warnings": {
+        "Funding >15%": {
+          "time": "2024-01-11 12:00",
+          "price": 47060.0,
+          "fall_from_peak_pct": 0.0,
+          "days_to_trough": 12.0,
+          "already_active_at_peak": true
+        },
+        "Ensemble <60%": {
+          "time": "2024-01-14 16:00",
+          "price": 42904.38,
+          "fall_from_peak_pct": -8.830471738206548,
+          "days_to_trough": 8.833333333333334,
+          "already_active_at_peak": false
+        },
+        "Ensemble <50%": {
+          "time": "2024-01-18 12:00",
+          "price": 42544.59,
+          "fall_from_peak_pct": -9.595006374840631,
+          "days_to_trough": 5.0,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2024-01-14 16:00",
+          "price": 42904.38,
+          "fall_from_peak_pct": -8.830471738206548,
+          "days_to_trough": 8.833333333333334,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2024-01-16 00:00",
+          "price": 42511.1,
+          "fall_from_peak_pct": -9.66617084572886,
+          "days_to_trough": 7.5,
+          "already_active_at_peak": false
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2024-01-14 16:00",
+          "price": 42904.38,
+          "fall_from_peak_pct": -8.830471738206548,
+          "days_to_trough": 8.833333333333334,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2024-01-20 00:00",
+      "next_positive_trade": {
+        "i": 14125,
+        "time": "2024-01-30 00:00",
+        "price": 43302.71,
+        "target": 1.0,
+        "turnover": 0.9990009990009991
+      },
+      "recovery_15pct_time": "2024-02-08 12:00"
+    },
+    {
+      "peak_time": "2024-03-13 20:00",
+      "trough_time": "2024-03-20 04:00",
+      "peak_close": 73349.24,
+      "trough_close": 61860.81,
+      "btc_close_pct": -15.662643539319577,
+      "strategy_return_pct": -11.277770827055821,
+      "strategy_dd_pct": -11.277770827055821,
+      "peak_state": {
+        "vote": 0.98,
+        "target": 0.6666666666666666,
+        "funding": 0.5406017607143063,
+        "actual_exposure": 0.7200426159699057
+      },
+      "trades": [],
+      "warnings": {
+        "Funding >15%": {
+          "time": "2024-03-13 20:00",
+          "price": 73349.24,
+          "fall_from_peak_pct": 0.0,
+          "days_to_trough": 6.333333333333333,
+          "already_active_at_peak": true
+        }
+      },
+      "first_flat": null,
+      "next_positive_trade": {
+        "i": 14575,
+        "time": "2024-04-14 00:00",
+        "price": 63924.52,
+        "target": 0.2222222222222222,
+        "turnover": 0.4693826330147295
+      },
+      "recovery_15pct_time": "2024-03-28 16:00"
+    },
+    {
+      "peak_time": "2024-04-08 12:00",
+      "trough_time": "2024-05-01 16:00",
+      "peak_close": 72404.0,
+      "trough_close": 56886.0,
+      "btc_close_pct": -21.432517540467376,
+      "strategy_return_pct": -8.506987802403165,
+      "strategy_dd_pct": -9.133163820091383,
+      "peak_state": {
+        "vote": 0.74,
+        "target": 0.6666666666666666,
+        "funding": 0.2343425142857134,
+        "actual_exposure": 0.7174205400322573
+      },
+      "trades": [
+        {
+          "i": 14575,
+          "time": "2024-04-14 00:00",
+          "price": 63924.52,
+          "target": 0.2222222222222222,
+          "turnover": 0.4693826330147295
+        },
+        {
+          "i": 14593,
+          "time": "2024-04-17 00:00",
+          "price": 63793.4,
+          "target": 0.0,
+          "turnover": 0.22186753749758034
+        }
+      ],
+      "warnings": {
+        "Funding >15%": {
+          "time": "2024-04-08 12:00",
+          "price": 72404.0,
+          "fall_from_peak_pct": 0.0,
+          "days_to_trough": 23.166666666666668,
+          "already_active_at_peak": true
+        },
+        "Ensemble <60%": {
+          "time": "2024-04-13 00:00",
+          "price": 67116.52,
+          "fall_from_peak_pct": -7.302745704657198,
+          "days_to_trough": 18.666666666666668,
+          "already_active_at_peak": false
+        },
+        "Ensemble <50%": {
+          "time": "2024-04-14 00:00",
+          "price": 63924.51,
+          "fall_from_peak_pct": -11.711355726202965,
+          "days_to_trough": 17.666666666666668,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2024-04-14 00:00",
+          "price": 63924.51,
+          "fall_from_peak_pct": -11.711355726202965,
+          "days_to_trough": 17.666666666666668,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2024-04-15 00:00",
+          "price": 65661.84,
+          "fall_from_peak_pct": -9.311861223136852,
+          "days_to_trough": 16.666666666666668,
+          "already_active_at_peak": false
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2024-04-13 00:00",
+          "price": 67116.52,
+          "fall_from_peak_pct": -7.302745704657198,
+          "days_to_trough": 18.666666666666668,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2024-04-17 00:00",
+      "next_positive_trade": {
+        "i": 14771,
+        "time": "2024-05-16 16:00",
+        "price": 65818.89,
+        "target": 1.0,
+        "turnover": 0.9990009990009991
+      },
+      "recovery_15pct_time": "2024-05-15 20:00"
+    },
+    {
+      "peak_time": "2024-06-07 12:00",
+      "trough_time": "2024-07-05 08:00",
+      "peak_close": 71699.99,
+      "trough_close": 54415.05,
+      "btc_close_pct": -24.107311590977908,
+      "strategy_return_pct": -6.966780246867266,
+      "strategy_dd_pct": -7.608801619079742,
+      "peak_state": {
+        "vote": 0.88,
+        "target": 1.0,
+        "funding": 0.11670588214285127,
+        "actual_exposure": 1.0000000000000002
+      },
+      "trades": [
+        {
+          "i": 14929,
+          "time": "2024-06-12 00:00",
+          "price": 67314.23,
+          "target": 0.6666666666666666,
+          "turnover": 0.33355570380253524
+        },
+        {
+          "i": 14941,
+          "time": "2024-06-14 00:00",
+          "price": 66773.01,
+          "target": 0.3333333333333333,
+          "turnover": 0.3316475423555589
+        },
+        {
+          "i": 14953,
+          "time": "2024-06-16 00:00",
+          "price": 66228.25,
+          "target": 0.0,
+          "turnover": 0.3315154148729964
+        }
+      ],
+      "warnings": {
+        "Ensemble <60%": {
+          "time": "2024-06-12 00:00",
+          "price": 67314.24,
+          "fall_from_peak_pct": -6.116806989791767,
+          "days_to_trough": 23.333333333333332,
+          "already_active_at_peak": false
+        },
+        "Ensemble <50%": {
+          "time": "2024-06-14 00:00",
+          "price": 66773.01,
+          "fall_from_peak_pct": -6.871660651556589,
+          "days_to_trough": 21.333333333333332,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2024-06-13 00:00",
+          "price": 68263.99,
+          "fall_from_peak_pct": -4.792190347585823,
+          "days_to_trough": 22.333333333333332,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2024-06-20 00:00",
+          "price": 64974.37,
+          "fall_from_peak_pct": -9.38022446028235,
+          "days_to_trough": 15.333333333333334,
+          "already_active_at_peak": false
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2024-06-12 00:00",
+          "price": 67314.24,
+          "fall_from_peak_pct": -6.116806989791767,
+          "days_to_trough": 23.333333333333332,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2024-06-16 00:00",
+      "next_positive_trade": {
+        "i": 15157,
+        "time": "2024-07-20 00:00",
+        "price": 66660.01,
+        "target": 1.0,
+        "turnover": 0.9990009990009991
+      },
+      "recovery_15pct_time": "2024-07-15 04:00"
+    },
+    {
+      "peak_time": "2024-07-29 12:00",
+      "trough_time": "2024-08-05 12:00",
+      "peak_close": 69580.01,
+      "trough_close": 51340.0,
+      "btc_close_pct": -26.21444003816613,
+      "strategy_return_pct": -7.971650560567278,
+      "strategy_dd_pct": -7.971650560567278,
+      "peak_state": {
+        "vote": 0.78,
+        "target": 1.0,
+        "funding": 0.05046985357144232,
+        "actual_exposure": 1.0
+      },
+      "trades": [
+        {
+          "i": 15223,
+          "time": "2024-07-31 00:00",
+          "price": 66188.0,
+          "target": 0.6666666666666666,
+          "turnover": 0.333555703802535
+        },
+        {
+          "i": 15229,
+          "time": "2024-08-01 00:00",
+          "price": 64628.01,
+          "target": 0.3333333333333333,
+          "turnover": 0.3281215244989274
+        },
+        {
+          "i": 15241,
+          "time": "2024-08-03 00:00",
+          "price": 61498.34,
+          "target": 0.0,
+          "turnover": 0.32239546189140833
+        }
+      ],
+      "warnings": {
+        "Ensemble <60%": {
+          "time": "2024-07-31 00:00",
+          "price": 66188.0,
+          "fall_from_peak_pct": -4.874977741451881,
+          "days_to_trough": 5.5,
+          "already_active_at_peak": false
+        },
+        "Ensemble <50%": {
+          "time": "2024-08-01 00:00",
+          "price": 64628.0,
+          "fall_from_peak_pct": -7.117000989220889,
+          "days_to_trough": 4.5,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2024-08-02 00:00",
+          "price": 65354.02,
+          "fall_from_peak_pct": -6.073569118486755,
+          "days_to_trough": 3.5,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2024-08-04 00:00",
+          "price": 60697.99,
+          "fall_from_peak_pct": -12.765189312275172,
+          "days_to_trough": 1.5,
+          "already_active_at_peak": false
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2024-07-31 12:00",
+          "price": 66094.01,
+          "fall_from_peak_pct": -5.0100596421299715,
+          "days_to_trough": 5.0,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2024-08-03 00:00",
+      "next_positive_trade": {
+        "i": 15529,
+        "time": "2024-09-20 00:00",
+        "price": 62948.0,
+        "target": 1.0,
+        "turnover": 0.999000999000999
+      },
+      "recovery_15pct_time": "2024-08-08 16:00"
+    },
+    {
+      "peak_time": "2024-08-24 08:00",
+      "trough_time": "2024-09-06 20:00",
+      "peak_close": 64315.0,
+      "trough_close": 53534.28,
+      "btc_close_pct": -16.762372696882533,
+      "strategy_return_pct": 0.0,
+      "strategy_dd_pct": 0.0,
+      "peak_state": {
+        "vote": 0.54,
+        "target": 0.0,
+        "funding": -0.013798042857151187,
+        "actual_exposure": 0.0
+      },
+      "trades": [],
+      "warnings": {
+        "Ensemble <60%": {
+          "time": "2024-08-24 08:00",
+          "price": 64315.0,
+          "fall_from_peak_pct": 0.0,
+          "days_to_trough": 13.5,
+          "already_active_at_peak": true
+        },
+        "Ensemble <50%": {
+          "time": "2024-08-27 12:00",
+          "price": 62417.0,
+          "fall_from_peak_pct": -2.951100054419653,
+          "days_to_trough": 10.333333333333334,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2024-08-29 00:00",
+          "price": 59034.9,
+          "fall_from_peak_pct": -8.209748892171342,
+          "days_to_trough": 8.833333333333334,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2024-08-29 00:00",
+          "price": 59034.9,
+          "fall_from_peak_pct": -8.209748892171342,
+          "days_to_trough": 8.833333333333334,
+          "already_active_at_peak": false
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2024-08-28 00:00",
+          "price": 59415.0,
+          "fall_from_peak_pct": -7.618751457669282,
+          "days_to_trough": 9.833333333333334,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2024-08-24 08:00",
+      "next_positive_trade": {
+        "i": 15529,
+        "time": "2024-09-20 00:00",
+        "price": 62948.0,
+        "target": 1.0,
+        "turnover": 0.999000999000999
+      },
+      "recovery_15pct_time": "2024-09-19 00:00"
+    },
+    {
+      "peak_time": "2025-01-20 12:00",
+      "trough_time": "2025-02-28 08:00",
+      "peak_close": 108239.19,
+      "trough_close": 79204.59,
+      "btc_close_pct": -26.82448011667493,
+      "strategy_return_pct": -9.570357024893184,
+      "strategy_dd_pct": -10.569556502703536,
+      "peak_state": {
+        "vote": 0.86,
+        "target": 1.0,
+        "funding": 0.07663461785714222,
+        "actual_exposure": 1.0000000000000002
+      },
+      "trades": [
+        {
+          "i": 16342,
+          "time": "2025-02-02 12:00",
+          "price": 98864.6,
+          "target": 0.6666666666666666,
+          "turnover": 0.3335557038025352
+        },
+        {
+          "i": 16345,
+          "time": "2025-02-03 00:00",
+          "price": 97700.59,
+          "target": 0.3333333333333333,
+          "turnover": 0.33080650768047354
+        },
+        {
+          "i": 16362,
+          "time": "2025-02-05 20:00",
+          "price": 97370.0,
+          "target": 0.0,
+          "turnover": 0.33258054976586154
+        }
+      ],
+      "warnings": {
+        "Ensemble <60%": {
+          "time": "2025-02-02 12:00",
+          "price": 98864.6,
+          "fall_from_peak_pct": -8.66099422953922,
+          "days_to_trough": 25.833333333333332,
+          "already_active_at_peak": false
+        },
+        "Ensemble <50%": {
+          "time": "2025-02-03 00:00",
+          "price": 97700.59,
+          "fall_from_peak_pct": -9.736399542531693,
+          "days_to_trough": 25.333333333333332,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2025-02-03 00:00",
+          "price": 97700.59,
+          "fall_from_peak_pct": -9.736399542531693,
+          "days_to_trough": 25.333333333333332,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2025-02-06 00:00",
+          "price": 96612.43,
+          "fall_from_peak_pct": -10.74172857354162,
+          "days_to_trough": 22.333333333333332,
+          "already_active_at_peak": false
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2025-02-03 00:00",
+          "price": 97700.59,
+          "fall_from_peak_pct": -9.736399542531693,
+          "days_to_trough": 25.333333333333332,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2025-02-05 20:00",
+      "next_positive_trade": {
+        "i": 16819,
+        "time": "2025-04-23 00:00",
+        "price": 93442.99,
+        "target": 1.0,
+        "turnover": 0.999000999000999
+      },
+      "recovery_15pct_time": "2025-03-02 20:00"
+    },
+    {
+      "peak_time": "2025-03-03 00:00",
+      "trough_time": "2025-04-09 04:00",
+      "peak_close": 94270.0,
+      "trough_close": 75073.33,
+      "btc_close_pct": -20.36349846186486,
+      "strategy_return_pct": 0.0,
+      "strategy_dd_pct": 0.0,
+      "peak_state": {
+        "vote": 0.32,
+        "target": 0.0,
+        "funding": 0.042779825000003324,
+        "actual_exposure": 0.0
+      },
+      "trades": [],
+      "warnings": {
+        "Ensemble <60%": {
+          "time": "2025-03-03 00:00",
+          "price": 94270.0,
+          "fall_from_peak_pct": 0.0,
+          "days_to_trough": 37.166666666666664,
+          "already_active_at_peak": true
+        },
+        "Ensemble <50%": {
+          "time": "2025-03-03 00:00",
+          "price": 94270.0,
+          "fall_from_peak_pct": 0.0,
+          "days_to_trough": 37.166666666666664,
+          "already_active_at_peak": true
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2025-03-05 00:00",
+          "price": 87281.98,
+          "fall_from_peak_pct": -7.412771825607301,
+          "days_to_trough": 35.166666666666664,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2025-03-03 00:00",
+          "price": 94270.0,
+          "fall_from_peak_pct": 0.0,
+          "days_to_trough": 37.166666666666664,
+          "already_active_at_peak": true
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2025-03-10 00:00",
+          "price": 80734.37,
+          "fall_from_peak_pct": -14.358364272833358,
+          "days_to_trough": 30.166666666666668,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2025-03-03 00:00",
+      "next_positive_trade": {
+        "i": 16819,
+        "time": "2025-04-23 00:00",
+        "price": 93442.99,
+        "target": 1.0,
+        "turnover": 0.999000999000999
+      },
+      "recovery_15pct_time": "2025-04-21 04:00"
+    },
+    {
+      "peak_time": "2025-10-06 20:00",
+      "trough_time": "2025-11-21 12:00",
+      "peak_close": 125410.81,
+      "trough_close": 82309.66,
+      "btc_close_pct": -34.36797035279494,
+      "strategy_return_pct": -11.288243752620907,
+      "strategy_dd_pct": -11.375939975971228,
+      "peak_state": {
+        "vote": 0.86,
+        "target": 1.0,
+        "funding": 0.06490951428571558,
+        "actual_exposure": 1.0000000000000002
+      },
+      "trades": [
+        {
+          "i": 17845,
+          "time": "2025-10-11 00:00",
+          "price": 112774.49,
+          "target": 0.6666666666666666,
+          "turnover": 0.3335557038025352
+        },
+        {
+          "i": 17851,
+          "time": "2025-10-12 00:00",
+          "price": 110644.4,
+          "target": 0.3333333333333333,
+          "turnover": 0.3291921929195003
+        },
+        {
+          "i": 17852,
+          "time": "2025-10-12 04:00",
+          "price": 110676.0,
+          "target": 0.0,
+          "turnover": 0.33339679387694116
+        }
+      ],
+      "warnings": {
+        "Ensemble <60%": {
+          "time": "2025-10-11 00:00",
+          "price": 112774.5,
+          "fall_from_peak_pct": -10.075933645592428,
+          "days_to_trough": 41.5,
+          "already_active_at_peak": false
+        },
+        "Ensemble <50%": {
+          "time": "2025-10-12 00:00",
+          "price": 110644.4,
+          "fall_from_peak_pct": -11.774431566146493,
+          "days_to_trough": 40.5,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2025-10-12 00:00",
+          "price": 110644.4,
+          "fall_from_peak_pct": -11.774431566146493,
+          "days_to_trough": 40.5,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2025-10-12 00:00",
+          "price": 110644.4,
+          "fall_from_peak_pct": -11.774431566146493,
+          "days_to_trough": 40.5,
+          "already_active_at_peak": false
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2025-10-11 00:00",
+          "price": 112774.5,
+          "fall_from_peak_pct": -10.075933645592428,
+          "days_to_trough": 41.5,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2025-10-12 04:00",
+      "next_positive_trade": {
+        "i": 18415,
+        "time": "2026-01-14 00:00",
+        "price": 95413.99,
+        "target": 1.0,
+        "turnover": 0.999000999000999
+      },
+      "recovery_15pct_time": null
+    }
+  ],
+  "events10": [
+    {
+      "peak_time": "2023-02-16 16:00",
+      "trough_time": "2023-03-10 12:00",
+      "peak_close": 25072.67,
+      "trough_close": 19760.78,
+      "btc_close_pct": -21.185976603209788,
+      "strategy_return_pct": -10.444093230214479,
+      "strategy_dd_pct": -10.444093230214479,
+      "peak_state": {
+        "vote": 0.82,
+        "target": 1.0,
+        "funding": 0.09580519999998893,
+        "actual_exposure": 1.0
+      },
+      "trades": [
+        {
+          "i": 12115,
+          "time": "2023-03-01 00:00",
+          "price": 23141.57,
+          "target": 0.6666666666666666,
+          "turnover": 0.333555703802535
+        },
+        {
+          "i": 12128,
+          "time": "2023-03-03 04:00",
+          "price": 22319.69,
+          "target": 0.3333333333333333,
+          "turnover": 0.3253580988022298
+        },
+        {
+          "i": 12159,
+          "time": "2023-03-08 08:00",
+          "price": 21971.83,
+          "target": 0.0,
+          "turnover": 0.3298518372508171
+        }
+      ],
+      "warnings": {
+        "Ensemble <60%": {
+          "time": "2023-03-01 00:00",
+          "price": 23141.57,
+          "fall_from_peak_pct": -7.702011792122654,
+          "days_to_trough": 9.5,
+          "already_active_at_peak": false
+        },
+        "Ensemble <50%": {
+          "time": "2023-03-03 04:00",
+          "price": 22319.69,
+          "fall_from_peak_pct": -10.980003326331023,
+          "days_to_trough": 7.333333333333333,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2023-03-04 00:00",
+          "price": 22354.34,
+          "fall_from_peak_pct": -10.8418050411065,
+          "days_to_trough": 6.5,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2023-03-05 00:00",
+          "price": 22346.57,
+          "fall_from_peak_pct": -10.872794959611397,
+          "days_to_trough": 5.5,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2023-03-08 08:00",
+      "next_positive_trade": {
+        "i": 12199,
+        "time": "2023-03-15 00:00",
+        "price": 24670.41,
+        "target": 0.9701624759545743,
+        "turnover": 0.969222172971494
+      },
+      "recovery_15pct_time": "2023-03-13 00:00"
+    },
+    {
+      "peak_time": "2023-04-14 12:00",
+      "trough_time": "2023-06-15 16:00",
+      "peak_close": 30801.89,
+      "trough_close": 24959.95,
+      "btc_close_pct": -18.96617382894361,
+      "strategy_return_pct": -16.810715553040446,
+      "strategy_dd_pct": -16.81805985809659,
+      "peak_state": {
+        "vote": 0.98,
+        "target": 0.9701624759545743,
+        "funding": 0.046323453571448125,
+        "actual_exposure": 0.9759591968932383
+      },
+      "trades": [
+        {
+          "i": 12427,
+          "time": "2023-04-22 00:00",
+          "price": 27262.84,
+          "target": 0.6666666666666666,
+          "turnover": 0.30646054896860353
+        },
+        {
+          "i": 12460,
+          "time": "2023-04-27 12:00",
+          "price": 28934.21,
+          "target": 1.0,
+          "turnover": 0.3199248360191591
+        },
+        {
+          "i": 12485,
+          "time": "2023-05-01 16:00",
+          "price": 28170.64,
+          "target": 0.6666666666666666,
+          "turnover": 0.3335557038025351
+        },
+        {
+          "i": 12487,
+          "time": "2023-05-02 00:00",
+          "price": 28068.26,
+          "target": 0.3333333333333333,
+          "turnover": 0.3326346322232512
+        },
+        {
+          "i": 12499,
+          "time": "2023-05-04 00:00",
+          "price": 29026.16,
+          "target": 0.6666666666666666,
+          "turnover": 0.3256176651320508
+        },
+        {
+          "i": 12510,
+          "time": "2023-05-05 20:00",
+          "price": 29561.66,
+          "target": 1.0,
+          "turnover": 0.3289544400847611
+        },
+        {
+          "i": 12519,
+          "time": "2023-05-07 08:00",
+          "price": 28910.42,
+          "target": 0.6666666666666666,
+          "turnover": 0.3335557038025353
+        },
+        {
+          "i": 12529,
+          "time": "2023-05-09 00:00",
+          "price": 27668.8,
+          "target": 0.3333333333333333,
+          "turnover": 0.32361608820666843
+        },
+        {
+          "i": 12553,
+          "time": "2023-05-13 00:00",
+          "price": 26795.01,
+          "target": 0.0,
+          "turnover": 0.32624081957215295
+        },
+        {
+          "i": 12655,
+          "time": "2023-05-30 00:00",
+          "price": 27736.39,
+          "target": 1.0,
+          "turnover": 0.9990009990009991
+        },
+        {
+          "i": 12665,
+          "time": "2023-05-31 16:00",
+          "price": 26911.55,
+          "target": 0.6666666666666666,
+          "turnover": 0.3335557038025351
+        },
+        {
+          "i": 12669,
+          "time": "2023-06-01 08:00",
+          "price": 26802.66,
+          "target": 0.3333333333333333,
+          "turnover": 0.33254258926702557
+        },
+        {
+          "i": 12673,
+          "time": "2023-06-02 00:00",
+          "price": 26817.93,
+          "target": 0.0,
+          "turnover": 0.3334599136443752
+        }
+      ],
+      "warnings": {
+        "Ensemble <60%": {
+          "time": "2023-04-22 00:00",
+          "price": 27262.84,
+          "fall_from_peak_pct": -11.489717027104508,
+          "days_to_trough": 54.666666666666664,
+          "already_active_at_peak": false
+        },
+        "Ensemble <50%": {
+          "time": "2023-05-02 00:00",
+          "price": 28068.26,
+          "fall_from_peak_pct": -8.874877483167431,
+          "days_to_trough": 44.666666666666664,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2023-04-22 00:00",
+          "price": 27262.84,
+          "fall_from_peak_pct": -11.489717027104508,
+          "days_to_trough": 54.666666666666664,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2023-05-09 00:00",
+          "price": 27668.79,
+          "fall_from_peak_pct": -10.17177842009045,
+          "days_to_trough": 37.666666666666664,
+          "already_active_at_peak": false
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2023-04-22 00:00",
+          "price": 27262.84,
+          "fall_from_peak_pct": -11.489717027104508,
+          "days_to_trough": 54.666666666666664,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2023-05-13 00:00",
+      "next_positive_trade": {
+        "i": 12787,
+        "time": "2023-06-21 00:00",
+        "price": 28308.0,
+        "target": 1.0,
+        "turnover": 0.999000999000999
+      },
+      "recovery_15pct_time": "2023-06-20 20:00"
+    },
+    {
+      "peak_time": "2023-07-13 20:00",
+      "trough_time": "2023-09-11 20:00",
+      "peak_close": 31606.01,
+      "trough_close": 25020.66,
+      "btc_close_pct": -20.835752440754142,
+      "strategy_return_pct": -6.957541714038862,
+      "strategy_dd_pct": -7.119579662349107,
+      "peak_state": {
+        "vote": 0.78,
+        "target": 1.0,
+        "funding": 0.07624719642854605,
+        "actual_exposure": 1.0
+      },
+      "trades": [
+        {
+          "i": 12961,
+          "time": "2023-07-20 00:00",
+          "price": 29909.21,
+          "target": 0.6666666666666666,
+          "turnover": 0.3335557038025351
+        },
+        {
+          "i": 12991,
+          "time": "2023-07-25 00:00",
+          "price": 29176.5,
+          "target": 0.3333333333333333,
+          "turnover": 0.32790829321947584
+        },
+        {
+          "i": 13009,
+          "time": "2023-07-28 00:00",
+          "price": 29222.78,
+          "target": 0.0,
+          "turnover": 0.3336856377413938
+        }
+      ],
+      "warnings": {
+        "Ensemble <60%": {
+          "time": "2023-07-20 00:00",
+          "price": 29909.21,
+          "fall_from_peak_pct": -5.368599199962287,
+          "days_to_trough": 53.833333333333336,
+          "already_active_at_peak": false
+        },
+        "Ensemble <50%": {
+          "time": "2023-07-25 00:00",
+          "price": 29176.5,
+          "fall_from_peak_pct": -7.686860821723462,
+          "days_to_trough": 48.833333333333336,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2023-07-20 00:00",
+          "price": 29909.21,
+          "fall_from_peak_pct": -5.368599199962287,
+          "days_to_trough": 53.833333333333336,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2023-08-01 00:00",
+          "price": 29232.25,
+          "fall_from_peak_pct": -7.510470318777973,
+          "days_to_trough": 41.833333333333336,
+          "already_active_at_peak": false
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2023-09-02 08:00",
+          "price": 25795.47,
+          "fall_from_peak_pct": -18.384288304661034,
+          "days_to_trough": 9.5,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2023-07-28 00:00",
+      "next_positive_trade": {
+        "i": 13409,
+        "time": "2023-10-02 16:00",
+        "price": 28026.3,
+        "target": 1.0,
+        "turnover": 0.9990009990009989
+      },
+      "recovery_15pct_time": "2023-10-02 00:00"
+    },
+    {
+      "peak_time": "2024-01-11 12:00",
+      "trough_time": "2024-01-23 12:00",
+      "peak_close": 47060.0,
+      "trough_close": 38845.56,
+      "btc_close_pct": -17.455248618784537,
+      "strategy_return_pct": -7.254154108440858,
+      "strategy_dd_pct": -7.7831227518376895,
+      "peak_state": {
+        "vote": 0.94,
+        "target": 0.6666666666666666,
+        "funding": 0.2533973392857118,
+        "actual_exposure": 0.6821189955573123
+      },
+      "trades": [
+        {
+          "i": 14056,
+          "time": "2024-01-18 12:00",
+          "price": 42544.6,
+          "target": 0.3333333333333333,
+          "turnover": 0.3266324401658994
+        },
+        {
+          "i": 14065,
+          "time": "2024-01-20 00:00",
+          "price": 41659.03,
+          "target": 0.0,
+          "turnover": 0.3286754379134131
+        }
+      ],
+      "warnings": {
+        "Funding >15%": {
+          "time": "2024-01-11 12:00",
+          "price": 47060.0,
+          "fall_from_peak_pct": 0.0,
+          "days_to_trough": 12.0,
+          "already_active_at_peak": true
+        },
+        "Ensemble <60%": {
+          "time": "2024-01-14 16:00",
+          "price": 42904.38,
+          "fall_from_peak_pct": -8.830471738206548,
+          "days_to_trough": 8.833333333333334,
+          "already_active_at_peak": false
+        },
+        "Ensemble <50%": {
+          "time": "2024-01-18 12:00",
+          "price": 42544.59,
+          "fall_from_peak_pct": -9.595006374840631,
+          "days_to_trough": 5.0,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2024-01-14 16:00",
+          "price": 42904.38,
+          "fall_from_peak_pct": -8.830471738206548,
+          "days_to_trough": 8.833333333333334,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2024-01-16 00:00",
+          "price": 42511.1,
+          "fall_from_peak_pct": -9.66617084572886,
+          "days_to_trough": 7.5,
+          "already_active_at_peak": false
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2024-01-14 16:00",
+          "price": 42904.38,
+          "fall_from_peak_pct": -8.830471738206548,
+          "days_to_trough": 8.833333333333334,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2024-01-20 00:00",
+      "next_positive_trade": {
+        "i": 14125,
+        "time": "2024-01-30 00:00",
+        "price": 43302.71,
+        "target": 1.0,
+        "turnover": 0.9990009990009991
+      },
+      "recovery_15pct_time": "2024-01-29 20:00"
+    },
+    {
+      "peak_time": "2024-03-05 00:00",
+      "trough_time": "2024-03-05 20:00",
+      "peak_close": 68245.71,
+      "trough_close": 61410.98,
+      "btc_close_pct": -10.014885917371219,
+      "strategy_return_pct": -7.063270231087615,
+      "strategy_dd_pct": -7.063270231087615,
+      "peak_state": {
+        "vote": 1.0,
+        "target": 0.6666666666666666,
+        "funding": 0.3580008642857371,
+        "actual_exposure": 0.7052771533658794
+      },
+      "trades": [],
+      "warnings": {
+        "Funding >15%": {
+          "time": "2024-03-05 00:00",
+          "price": 68245.71,
+          "fall_from_peak_pct": 0.0,
+          "days_to_trough": 0.8333333333333334,
+          "already_active_at_peak": true
+        }
+      },
+      "first_flat": null,
+      "next_positive_trade": {
+        "i": 14575,
+        "time": "2024-04-14 00:00",
+        "price": 63924.52,
+        "target": 0.2222222222222222,
+        "turnover": 0.4693826330147295
+      },
+      "recovery_15pct_time": "2024-03-08 12:00"
+    },
+    {
+      "peak_time": "2024-03-13 20:00",
+      "trough_time": "2024-03-20 04:00",
+      "peak_close": 73349.24,
+      "trough_close": 61860.81,
+      "btc_close_pct": -15.662643539319577,
+      "strategy_return_pct": -11.277770827055821,
+      "strategy_dd_pct": -11.277770827055821,
+      "peak_state": {
+        "vote": 0.98,
+        "target": 0.6666666666666666,
+        "funding": 0.5406017607143063,
+        "actual_exposure": 0.7200426159699057
+      },
+      "trades": [],
+      "warnings": {
+        "Funding >15%": {
+          "time": "2024-03-13 20:00",
+          "price": 73349.24,
+          "fall_from_peak_pct": 0.0,
+          "days_to_trough": 6.333333333333333,
+          "already_active_at_peak": true
+        }
+      },
+      "first_flat": null,
+      "next_positive_trade": {
+        "i": 14575,
+        "time": "2024-04-14 00:00",
+        "price": 63924.52,
+        "target": 0.2222222222222222,
+        "turnover": 0.4693826330147295
+      },
+      "recovery_15pct_time": "2024-03-25 16:00"
+    },
+    {
+      "peak_time": "2024-04-08 12:00",
+      "trough_time": "2024-04-17 16:00",
+      "peak_close": 72404.0,
+      "trough_close": 60304.95,
+      "btc_close_pct": -16.710471797138283,
+      "strategy_return_pct": -8.506987802403165,
+      "strategy_dd_pct": -9.133163820091383,
+      "peak_state": {
+        "vote": 0.74,
+        "target": 0.6666666666666666,
+        "funding": 0.2343425142857134,
+        "actual_exposure": 0.7174205400322573
+      },
+      "trades": [
+        {
+          "i": 14575,
+          "time": "2024-04-14 00:00",
+          "price": 63924.52,
+          "target": 0.2222222222222222,
+          "turnover": 0.4693826330147295
+        },
+        {
+          "i": 14593,
+          "time": "2024-04-17 00:00",
+          "price": 63793.4,
+          "target": 0.0,
+          "turnover": 0.22186753749758034
+        }
+      ],
+      "warnings": {
+        "Funding >15%": {
+          "time": "2024-04-08 12:00",
+          "price": 72404.0,
+          "fall_from_peak_pct": 0.0,
+          "days_to_trough": 9.166666666666666,
+          "already_active_at_peak": true
+        },
+        "Ensemble <60%": {
+          "time": "2024-04-13 00:00",
+          "price": 67116.52,
+          "fall_from_peak_pct": -7.302745704657198,
+          "days_to_trough": 4.666666666666667,
+          "already_active_at_peak": false
+        },
+        "Ensemble <50%": {
+          "time": "2024-04-14 00:00",
+          "price": 63924.51,
+          "fall_from_peak_pct": -11.711355726202965,
+          "days_to_trough": 3.6666666666666665,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2024-04-14 00:00",
+          "price": 63924.51,
+          "fall_from_peak_pct": -11.711355726202965,
+          "days_to_trough": 3.6666666666666665,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2024-04-15 00:00",
+          "price": 65661.84,
+          "fall_from_peak_pct": -9.311861223136852,
+          "days_to_trough": 2.6666666666666665,
+          "already_active_at_peak": false
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2024-04-13 00:00",
+          "price": 67116.52,
+          "fall_from_peak_pct": -7.302745704657198,
+          "days_to_trough": 4.666666666666667,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2024-04-17 00:00",
+      "next_positive_trade": {
+        "i": 14771,
+        "time": "2024-05-16 16:00",
+        "price": 65818.89,
+        "target": 1.0,
+        "turnover": 0.9990009990009991
+      },
+      "recovery_15pct_time": "2024-04-22 20:00"
+    },
+    {
+      "peak_time": "2024-04-23 00:00",
+      "trough_time": "2024-05-01 16:00",
+      "peak_close": 66819.32,
+      "trough_close": 56886.0,
+      "btc_close_pct": -14.865939970655207,
+      "strategy_return_pct": 0.0,
+      "strategy_dd_pct": 0.0,
+      "peak_state": {
+        "vote": 0.56,
+        "target": 0.0,
+        "funding": 0.08933009999998742,
+        "actual_exposure": 0.0
+      },
+      "trades": [],
+      "warnings": {
+        "Ensemble <60%": {
+          "time": "2024-04-23 00:00",
+          "price": 66819.32,
+          "fall_from_peak_pct": 0.0,
+          "days_to_trough": 8.666666666666666,
+          "already_active_at_peak": true
+        },
+        "Ensemble <50%": {
+          "time": "2024-04-25 04:00",
+          "price": 64282.01,
+          "fall_from_peak_pct": -3.7972700111285285,
+          "days_to_trough": 6.5,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2024-04-25 00:00",
+          "price": 64289.59,
+          "fall_from_peak_pct": -3.78592598667572,
+          "days_to_trough": 6.666666666666667,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2024-04-23 00:00",
+          "price": 66819.32,
+          "fall_from_peak_pct": 0.0,
+          "days_to_trough": 8.666666666666666,
+          "already_active_at_peak": true
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2024-04-27 08:00",
+          "price": 62966.83,
+          "fall_from_peak_pct": -5.7655330823480515,
+          "days_to_trough": 4.333333333333333,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2024-04-23 00:00",
+      "next_positive_trade": {
+        "i": 14771,
+        "time": "2024-05-16 16:00",
+        "price": 65818.89,
+        "target": 1.0,
+        "turnover": 0.9990009990009991
+      },
+      "recovery_15pct_time": "2024-05-04 00:00"
+    },
+    {
+      "peak_time": "2024-06-07 12:00",
+      "trough_time": "2024-07-05 08:00",
+      "peak_close": 71699.99,
+      "trough_close": 54415.05,
+      "btc_close_pct": -24.107311590977908,
+      "strategy_return_pct": -6.966780246867266,
+      "strategy_dd_pct": -7.608801619079742,
+      "peak_state": {
+        "vote": 0.88,
+        "target": 1.0,
+        "funding": 0.11670588214285127,
+        "actual_exposure": 1.0000000000000002
+      },
+      "trades": [
+        {
+          "i": 14929,
+          "time": "2024-06-12 00:00",
+          "price": 67314.23,
+          "target": 0.6666666666666666,
+          "turnover": 0.33355570380253524
+        },
+        {
+          "i": 14941,
+          "time": "2024-06-14 00:00",
+          "price": 66773.01,
+          "target": 0.3333333333333333,
+          "turnover": 0.3316475423555589
+        },
+        {
+          "i": 14953,
+          "time": "2024-06-16 00:00",
+          "price": 66228.25,
+          "target": 0.0,
+          "turnover": 0.3315154148729964
+        }
+      ],
+      "warnings": {
+        "Ensemble <60%": {
+          "time": "2024-06-12 00:00",
+          "price": 67314.24,
+          "fall_from_peak_pct": -6.116806989791767,
+          "days_to_trough": 23.333333333333332,
+          "already_active_at_peak": false
+        },
+        "Ensemble <50%": {
+          "time": "2024-06-14 00:00",
+          "price": 66773.01,
+          "fall_from_peak_pct": -6.871660651556589,
+          "days_to_trough": 21.333333333333332,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2024-06-13 00:00",
+          "price": 68263.99,
+          "fall_from_peak_pct": -4.792190347585823,
+          "days_to_trough": 22.333333333333332,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2024-06-20 00:00",
+          "price": 64974.37,
+          "fall_from_peak_pct": -9.38022446028235,
+          "days_to_trough": 15.333333333333334,
+          "already_active_at_peak": false
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2024-06-12 00:00",
+          "price": 67314.24,
+          "fall_from_peak_pct": -6.116806989791767,
+          "days_to_trough": 23.333333333333332,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2024-06-16 00:00",
+      "next_positive_trade": {
+        "i": 15157,
+        "time": "2024-07-20 00:00",
+        "price": 66660.01,
+        "target": 1.0,
+        "turnover": 0.9990009990009991
+      },
+      "recovery_15pct_time": "2024-07-14 08:00"
+    },
+    {
+      "peak_time": "2024-07-29 12:00",
+      "trough_time": "2024-08-05 12:00",
+      "peak_close": 69580.01,
+      "trough_close": 51340.0,
+      "btc_close_pct": -26.21444003816613,
+      "strategy_return_pct": -7.971650560567278,
+      "strategy_dd_pct": -7.971650560567278,
+      "peak_state": {
+        "vote": 0.78,
+        "target": 1.0,
+        "funding": 0.05046985357144232,
+        "actual_exposure": 1.0
+      },
+      "trades": [
+        {
+          "i": 15223,
+          "time": "2024-07-31 00:00",
+          "price": 66188.0,
+          "target": 0.6666666666666666,
+          "turnover": 0.333555703802535
+        },
+        {
+          "i": 15229,
+          "time": "2024-08-01 00:00",
+          "price": 64628.01,
+          "target": 0.3333333333333333,
+          "turnover": 0.3281215244989274
+        },
+        {
+          "i": 15241,
+          "time": "2024-08-03 00:00",
+          "price": 61498.34,
+          "target": 0.0,
+          "turnover": 0.32239546189140833
+        }
+      ],
+      "warnings": {
+        "Ensemble <60%": {
+          "time": "2024-07-31 00:00",
+          "price": 66188.0,
+          "fall_from_peak_pct": -4.874977741451881,
+          "days_to_trough": 5.5,
+          "already_active_at_peak": false
+        },
+        "Ensemble <50%": {
+          "time": "2024-08-01 00:00",
+          "price": 64628.0,
+          "fall_from_peak_pct": -7.117000989220889,
+          "days_to_trough": 4.5,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2024-08-02 00:00",
+          "price": 65354.02,
+          "fall_from_peak_pct": -6.073569118486755,
+          "days_to_trough": 3.5,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2024-08-04 00:00",
+          "price": 60697.99,
+          "fall_from_peak_pct": -12.765189312275172,
+          "days_to_trough": 1.5,
+          "already_active_at_peak": false
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2024-07-31 12:00",
+          "price": 66094.01,
+          "fall_from_peak_pct": -5.0100596421299715,
+          "days_to_trough": 5.0,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2024-08-03 00:00",
+      "next_positive_trade": {
+        "i": 15529,
+        "time": "2024-09-20 00:00",
+        "price": 62948.0,
+        "target": 1.0,
+        "turnover": 0.999000999000999
+      },
+      "recovery_15pct_time": "2024-08-06 20:00"
+    },
+    {
+      "peak_time": "2024-08-24 08:00",
+      "trough_time": "2024-09-06 20:00",
+      "peak_close": 64315.0,
+      "trough_close": 53534.28,
+      "btc_close_pct": -16.762372696882533,
+      "strategy_return_pct": 0.0,
+      "strategy_dd_pct": 0.0,
+      "peak_state": {
+        "vote": 0.54,
+        "target": 0.0,
+        "funding": -0.013798042857151187,
+        "actual_exposure": 0.0
+      },
+      "trades": [],
+      "warnings": {
+        "Ensemble <60%": {
+          "time": "2024-08-24 08:00",
+          "price": 64315.0,
+          "fall_from_peak_pct": 0.0,
+          "days_to_trough": 13.5,
+          "already_active_at_peak": true
+        },
+        "Ensemble <50%": {
+          "time": "2024-08-27 12:00",
+          "price": 62417.0,
+          "fall_from_peak_pct": -2.951100054419653,
+          "days_to_trough": 10.333333333333334,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2024-08-29 00:00",
+          "price": 59034.9,
+          "fall_from_peak_pct": -8.209748892171342,
+          "days_to_trough": 8.833333333333334,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2024-08-29 00:00",
+          "price": 59034.9,
+          "fall_from_peak_pct": -8.209748892171342,
+          "days_to_trough": 8.833333333333334,
+          "already_active_at_peak": false
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2024-08-28 00:00",
+          "price": 59415.0,
+          "fall_from_peak_pct": -7.618751457669282,
+          "days_to_trough": 9.833333333333334,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2024-08-24 08:00",
+      "next_positive_trade": {
+        "i": 15529,
+        "time": "2024-09-20 00:00",
+        "price": 62948.0,
+        "target": 1.0,
+        "turnover": 0.999000999000999
+      },
+      "recovery_15pct_time": "2024-09-13 16:00"
+    },
+    {
+      "peak_time": "2024-12-17 04:00",
+      "trough_time": "2024-12-30 16:00",
+      "peak_close": 106866.49,
+      "trough_close": 92130.21,
+      "btc_close_pct": -13.789430157198945,
+      "strategy_return_pct": -9.34529083542679,
+      "strategy_dd_pct": -10.77389433250644,
+      "peak_state": {
+        "vote": 0.96,
+        "target": 0.6666666666666666,
+        "funding": 0.17699579999999993,
+        "actual_exposure": 0.702818888238426
+      },
+      "trades": [
+        {
+          "i": 16075,
+          "time": "2024-12-20 00:00",
+          "price": 97461.86,
+          "target": 1.0,
+          "turnover": 0.31645728595941486
+        },
+        {
+          "i": 16084,
+          "time": "2024-12-21 12:00",
+          "price": 98262.08,
+          "target": 0.6666666666666666,
+          "turnover": 0.3335557038025352
+        },
+        {
+          "i": 16107,
+          "time": "2024-12-25 08:00",
+          "price": 98084.33,
+          "target": 1.0,
+          "turnover": 0.33340240249342223
+        },
+        {
+          "i": 16118,
+          "time": "2024-12-27 04:00",
+          "price": 96417.84,
+          "target": 0.6666666666666666,
+          "turnover": 0.3335557038025352
+        },
+        {
+          "i": 16123,
+          "time": "2024-12-28 00:00",
+          "price": 94299.03,
+          "target": 0.3333333333333333,
+          "turnover": 0.32848682473268953
+        }
+      ],
+      "warnings": {
+        "Funding >15%": {
+          "time": "2024-12-17 04:00",
+          "price": 106866.49,
+          "fall_from_peak_pct": 0.0,
+          "days_to_trough": 13.5,
+          "already_active_at_peak": true
+        },
+        "Ensemble <60%": {
+          "time": "2024-12-21 12:00",
+          "price": 98262.08,
+          "fall_from_peak_pct": -8.051551052158635,
+          "days_to_trough": 9.166666666666666,
+          "already_active_at_peak": false
+        },
+        "Ensemble <50%": {
+          "time": "2024-12-28 00:00",
+          "price": 94299.03,
+          "fall_from_peak_pct": -11.759963296258736,
+          "days_to_trough": 2.6666666666666665,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2024-12-21 12:00",
+          "price": 98262.08,
+          "fall_from_peak_pct": -8.051551052158635,
+          "days_to_trough": 9.166666666666666,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2024-12-29 00:00",
+          "price": 95300.0,
+          "fall_from_peak_pct": -10.823308597484582,
+          "days_to_trough": 1.6666666666666667,
+          "already_active_at_peak": false
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2024-12-21 12:00",
+          "price": 98262.08,
+          "fall_from_peak_pct": -8.051551052158635,
+          "days_to_trough": 9.166666666666666,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": null,
+      "next_positive_trade": {
+        "i": 16156,
+        "time": "2025-01-02 12:00",
+        "price": 96733.0,
+        "target": 0.6666666666666666,
+        "turnover": 0.32742815679197046
+      },
+      "recovery_15pct_time": "2025-01-06 16:00"
+    },
+    {
+      "peak_time": "2025-01-07 00:00",
+      "trough_time": "2025-01-13 12:00",
+      "peak_close": 102235.6,
+      "trough_close": 90851.22,
+      "btc_close_pct": -11.13543618856837,
+      "strategy_return_pct": -8.191329507783019,
+      "strategy_dd_pct": -8.37013362072183,
+      "peak_state": {
+        "vote": 0.82,
+        "target": 1.0,
+        "funding": 0.09841912142856521,
+        "actual_exposure": 1.0
+      },
+      "trades": [
+        {
+          "i": 16194,
+          "time": "2025-01-08 20:00",
+          "price": 94243.89,
+          "target": 0.6666666666666666,
+          "turnover": 0.333555703802535
+        },
+        {
+          "i": 16195,
+          "time": "2025-01-09 00:00",
+          "price": 95060.61,
+          "target": 0.3333333333333333,
+          "turnover": 0.3353598414824434
+        },
+        {
+          "i": 16201,
+          "time": "2025-01-10 00:00",
+          "price": 92552.49,
+          "target": 0.0,
+          "turnover": 0.3274181033673065
+        }
+      ],
+      "warnings": {
+        "Ensemble <60%": {
+          "time": "2025-01-08 20:00",
+          "price": 94243.89,
+          "fall_from_peak_pct": -7.816954172519164,
+          "days_to_trough": 4.666666666666667,
+          "already_active_at_peak": false
+        },
+        "Ensemble <50%": {
+          "time": "2025-01-09 00:00",
+          "price": 95060.61,
+          "fall_from_peak_pct": -7.018093501676526,
+          "days_to_trough": 4.5,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2025-01-10 00:00",
+          "price": 92552.49,
+          "fall_from_peak_pct": -9.471368094871057,
+          "days_to_trough": 3.5,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2025-01-09 00:00",
+          "price": 95060.61,
+          "fall_from_peak_pct": -7.018093501676526,
+          "days_to_trough": 4.5,
+          "already_active_at_peak": false
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2025-01-09 00:00",
+          "price": 95060.61,
+          "fall_from_peak_pct": -7.018093501676526,
+          "days_to_trough": 4.5,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2025-01-10 00:00",
+      "next_positive_trade": {
+        "i": 16238,
+        "time": "2025-01-16 04:00",
+        "price": 99478.04,
+        "target": 1.0,
+        "turnover": 0.9990009990009991
+      },
+      "recovery_15pct_time": "2025-01-16 00:00"
+    },
+    {
+      "peak_time": "2025-01-20 12:00",
+      "trough_time": "2025-02-28 08:00",
+      "peak_close": 108239.19,
+      "trough_close": 79204.59,
+      "btc_close_pct": -26.82448011667493,
+      "strategy_return_pct": -9.570357024893184,
+      "strategy_dd_pct": -10.569556502703536,
+      "peak_state": {
+        "vote": 0.86,
+        "target": 1.0,
+        "funding": 0.07663461785714222,
+        "actual_exposure": 1.0000000000000002
+      },
+      "trades": [
+        {
+          "i": 16342,
+          "time": "2025-02-02 12:00",
+          "price": 98864.6,
+          "target": 0.6666666666666666,
+          "turnover": 0.3335557038025352
+        },
+        {
+          "i": 16345,
+          "time": "2025-02-03 00:00",
+          "price": 97700.59,
+          "target": 0.3333333333333333,
+          "turnover": 0.33080650768047354
+        },
+        {
+          "i": 16362,
+          "time": "2025-02-05 20:00",
+          "price": 97370.0,
+          "target": 0.0,
+          "turnover": 0.33258054976586154
+        }
+      ],
+      "warnings": {
+        "Ensemble <60%": {
+          "time": "2025-02-02 12:00",
+          "price": 98864.6,
+          "fall_from_peak_pct": -8.66099422953922,
+          "days_to_trough": 25.833333333333332,
+          "already_active_at_peak": false
+        },
+        "Ensemble <50%": {
+          "time": "2025-02-03 00:00",
+          "price": 97700.59,
+          "fall_from_peak_pct": -9.736399542531693,
+          "days_to_trough": 25.333333333333332,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2025-02-03 00:00",
+          "price": 97700.59,
+          "fall_from_peak_pct": -9.736399542531693,
+          "days_to_trough": 25.333333333333332,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2025-02-06 00:00",
+          "price": 96612.43,
+          "fall_from_peak_pct": -10.74172857354162,
+          "days_to_trough": 22.333333333333332,
+          "already_active_at_peak": false
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2025-02-03 00:00",
+          "price": 97700.59,
+          "fall_from_peak_pct": -9.736399542531693,
+          "days_to_trough": 25.333333333333332,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2025-02-05 20:00",
+      "next_positive_trade": {
+        "i": 16819,
+        "time": "2025-04-23 00:00",
+        "price": 93442.99,
+        "target": 1.0,
+        "turnover": 0.999000999000999
+      },
+      "recovery_15pct_time": "2025-03-02 16:00"
+    },
+    {
+      "peak_time": "2025-03-03 00:00",
+      "trough_time": "2025-03-04 16:00",
+      "peak_close": 94270.0,
+      "trough_close": 82985.06,
+      "btc_close_pct": -11.970870902726215,
+      "strategy_return_pct": 0.0,
+      "strategy_dd_pct": 0.0,
+      "peak_state": {
+        "vote": 0.32,
+        "target": 0.0,
+        "funding": 0.042779825000003324,
+        "actual_exposure": 0.0
+      },
+      "trades": [],
+      "warnings": {
+        "Ensemble <60%": {
+          "time": "2025-03-03 00:00",
+          "price": 94270.0,
+          "fall_from_peak_pct": 0.0,
+          "days_to_trough": 1.6666666666666667,
+          "already_active_at_peak": true
+        },
+        "Ensemble <50%": {
+          "time": "2025-03-03 00:00",
+          "price": 94270.0,
+          "fall_from_peak_pct": 0.0,
+          "days_to_trough": 1.6666666666666667,
+          "already_active_at_peak": true
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2025-03-03 00:00",
+          "price": 94270.0,
+          "fall_from_peak_pct": 0.0,
+          "days_to_trough": 1.6666666666666667,
+          "already_active_at_peak": true
+        }
+      },
+      "first_flat": "2025-03-03 00:00",
+      "next_positive_trade": {
+        "i": 16819,
+        "time": "2025-04-23 00:00",
+        "price": 93442.99,
+        "target": 1.0,
+        "turnover": 0.999000999000999
+      },
+      "recovery_15pct_time": "2025-03-06 04:00"
+    },
+    {
+      "peak_time": "2025-03-06 04:00",
+      "trough_time": "2025-03-11 00:00",
+      "peak_close": 91605.01,
+      "trough_close": 78595.86,
+      "btc_close_pct": -14.201352087620533,
+      "strategy_return_pct": 0.0,
+      "strategy_dd_pct": 0.0,
+      "peak_state": {
+        "vote": 0.32,
+        "target": 0.0,
+        "funding": 0.03154668928571675,
+        "actual_exposure": 0.0
+      },
+      "trades": [],
+      "warnings": {
+        "Ensemble <60%": {
+          "time": "2025-03-06 04:00",
+          "price": 91605.01,
+          "fall_from_peak_pct": 0.0,
+          "days_to_trough": 4.833333333333333,
+          "already_active_at_peak": true
+        },
+        "Ensemble <50%": {
+          "time": "2025-03-06 04:00",
+          "price": 91605.01,
+          "fall_from_peak_pct": 0.0,
+          "days_to_trough": 4.833333333333333,
+          "already_active_at_peak": true
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2025-03-06 04:00",
+          "price": 91605.01,
+          "fall_from_peak_pct": 0.0,
+          "days_to_trough": 4.833333333333333,
+          "already_active_at_peak": true
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2025-03-06 04:00",
+          "price": 91605.01,
+          "fall_from_peak_pct": 0.0,
+          "days_to_trough": 4.833333333333333,
+          "already_active_at_peak": true
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2025-03-10 00:00",
+          "price": 80734.37,
+          "fall_from_peak_pct": -11.866861867052902,
+          "days_to_trough": 1.0,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2025-03-06 04:00",
+      "next_positive_trade": {
+        "i": 16819,
+        "time": "2025-04-23 00:00",
+        "price": 93442.99,
+        "target": 1.0,
+        "turnover": 0.999000999000999
+      },
+      "recovery_15pct_time": "2025-03-20 00:00"
+    },
+    {
+      "peak_time": "2025-03-24 16:00",
+      "trough_time": "2025-04-09 04:00",
+      "peak_close": 88350.01,
+      "trough_close": 75073.33,
+      "btc_close_pct": -15.027366720162217,
+      "strategy_return_pct": 0.0,
+      "strategy_dd_pct": 0.0,
+      "peak_state": {
+        "vote": 0.4,
+        "target": 0.0,
+        "funding": 0.02729600357142227,
+        "actual_exposure": 0.0
+      },
+      "trades": [],
+      "warnings": {
+        "Ensemble <60%": {
+          "time": "2025-03-24 16:00",
+          "price": 88350.01,
+          "fall_from_peak_pct": 0.0,
+          "days_to_trough": 15.5,
+          "already_active_at_peak": true
+        },
+        "Ensemble <50%": {
+          "time": "2025-03-24 16:00",
+          "price": 88350.01,
+          "fall_from_peak_pct": 0.0,
+          "days_to_trough": 15.5,
+          "already_active_at_peak": true
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2025-03-31 00:00",
+          "price": 82389.99,
+          "fall_from_peak_pct": -6.745918874259315,
+          "days_to_trough": 9.166666666666666,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2025-03-24 16:00",
+          "price": 88350.01,
+          "fall_from_peak_pct": 0.0,
+          "days_to_trough": 15.5,
+          "already_active_at_peak": true
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2025-03-30 00:00",
+          "price": 82648.54,
+          "fall_from_peak_pct": -6.453276009815956,
+          "days_to_trough": 10.166666666666666,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2025-03-24 16:00",
+      "next_positive_trade": {
+        "i": 16819,
+        "time": "2025-04-23 00:00",
+        "price": 93442.99,
+        "target": 1.0,
+        "turnover": 0.999000999000999
+      },
+      "recovery_15pct_time": "2025-04-10 00:00"
+    },
+    {
+      "peak_time": "2025-05-22 04:00",
+      "trough_time": "2025-06-22 20:00",
+      "peak_close": 111780.84,
+      "trough_close": 98882.84,
+      "btc_close_pct": -11.53865009423798,
+      "strategy_return_pct": -9.439450110712722,
+      "strategy_dd_pct": -9.439450110712722,
+      "peak_state": {
+        "vote": 1.0,
+        "target": 1.0,
+        "funding": 0.06834911785712684,
+        "actual_exposure": 1.0
+      },
+      "trades": [
+        {
+          "i": 17079,
+          "time": "2025-06-05 08:00",
+          "price": 104518.05,
+          "target": 0.6666666666666666,
+          "turnover": 0.33355570380253513
+        },
+        {
+          "i": 17102,
+          "time": "2025-06-09 04:00",
+          "price": 105659.14,
+          "target": 1.0,
+          "turnover": 0.33059412881233896
+        },
+        {
+          "i": 17137,
+          "time": "2025-06-15 00:00",
+          "price": 105414.63,
+          "target": 0.6666666666666666,
+          "turnover": 0.33355570380253513
+        },
+        {
+          "i": 17149,
+          "time": "2025-06-17 00:00",
+          "price": 106794.53,
+          "target": 1.0,
+          "turnover": 0.3301194436945877
+        },
+        {
+          "i": 17155,
+          "time": "2025-06-18 00:00",
+          "price": 104551.17,
+          "target": 0.6666666666666666,
+          "turnover": 0.333555703802535
+        },
+        {
+          "i": 17173,
+          "time": "2025-06-21 00:00",
+          "price": 103297.98,
+          "target": 0.3333333333333333,
+          "turnover": 0.33075848988746
+        }
+      ],
+      "warnings": {
+        "Ensemble <60%": {
+          "time": "2025-06-05 08:00",
+          "price": 104518.05,
+          "fall_from_peak_pct": -6.497347846017254,
+          "days_to_trough": 17.5,
+          "already_active_at_peak": false
+        },
+        "Ensemble <50%": {
+          "time": "2025-06-21 00:00",
+          "price": 103297.99,
+          "fall_from_peak_pct": -7.58882291455315,
+          "days_to_trough": 1.8333333333333333,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2025-06-05 08:00",
+          "price": 104518.05,
+          "fall_from_peak_pct": -6.497347846017254,
+          "days_to_trough": 17.5,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2025-06-22 00:00",
+          "price": 102120.01,
+          "fall_from_peak_pct": -8.642652891139491,
+          "days_to_trough": 0.8333333333333334,
+          "already_active_at_peak": false
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2025-06-15 00:00",
+          "price": 105414.64,
+          "fall_from_peak_pct": -5.695251529689704,
+          "days_to_trough": 7.833333333333333,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": null,
+      "next_positive_trade": {
+        "i": 17195,
+        "time": "2025-06-24 16:00",
+        "price": 105244.72,
+        "target": 0.6666666666666666,
+        "turnover": 0.32895220580896856
+      },
+      "recovery_15pct_time": "2025-07-02 20:00"
+    },
+    {
+      "peak_time": "2025-08-14 04:00",
+      "trough_time": "2025-09-01 04:00",
+      "peak_close": 123337.14,
+      "trough_close": 107660.01,
+      "btc_close_pct": -12.710794169542128,
+      "strategy_return_pct": -7.771172758631506,
+      "strategy_dd_pct": -7.82403066746602,
+      "peak_state": {
+        "vote": 0.94,
+        "target": 1.0,
+        "funding": 0.07509457857143242,
+        "actual_exposure": 1.0
+      },
+      "trades": [
+        {
+          "i": 17527,
+          "time": "2025-08-19 00:00",
+          "price": 116227.05,
+          "target": 0.6666666666666666,
+          "turnover": 0.3335557038025351
+        },
+        {
+          "i": 17533,
+          "time": "2025-08-20 00:00",
+          "price": 112872.95,
+          "target": 0.3333333333333333,
+          "turnover": 0.32690357739379367
+        },
+        {
+          "i": 17545,
+          "time": "2025-08-22 00:00",
+          "price": 112500.0,
+          "target": 0.0,
+          "turnover": 0.3325982665273991
+        }
+      ],
+      "warnings": {
+        "Ensemble <60%": {
+          "time": "2025-08-19 00:00",
+          "price": 116227.05,
+          "fall_from_peak_pct": -5.764759909302253,
+          "days_to_trough": 13.166666666666666,
+          "already_active_at_peak": false
+        },
+        "Ensemble <50%": {
+          "time": "2025-08-20 00:00",
+          "price": 112872.94,
+          "fall_from_peak_pct": -8.484224622040038,
+          "days_to_trough": 12.166666666666666,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2025-08-20 00:00",
+          "price": 112872.94,
+          "fall_from_peak_pct": -8.484224622040038,
+          "days_to_trough": 12.166666666666666,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2025-08-21 00:00",
+          "price": 114271.24,
+          "fall_from_peak_pct": -7.350502857452346,
+          "days_to_trough": 11.166666666666666,
+          "already_active_at_peak": false
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2025-08-19 00:00",
+          "price": 116227.05,
+          "fall_from_peak_pct": -5.764759909302253,
+          "days_to_trough": 13.166666666666666,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2025-08-22 00:00",
+      "next_positive_trade": {
+        "i": 17679,
+        "time": "2025-09-13 08:00",
+        "price": 115778.72,
+        "target": 1.0,
+        "turnover": 0.9990009990009991
+      },
+      "recovery_15pct_time": "2025-10-02 00:00"
+    },
+    {
+      "peak_time": "2025-10-06 20:00",
+      "trough_time": "2025-11-21 12:00",
+      "peak_close": 125410.81,
+      "trough_close": 82309.66,
+      "btc_close_pct": -34.36797035279494,
+      "strategy_return_pct": -11.288243752620907,
+      "strategy_dd_pct": -11.375939975971228,
+      "peak_state": {
+        "vote": 0.86,
+        "target": 1.0,
+        "funding": 0.06490951428571558,
+        "actual_exposure": 1.0000000000000002
+      },
+      "trades": [
+        {
+          "i": 17845,
+          "time": "2025-10-11 00:00",
+          "price": 112774.49,
+          "target": 0.6666666666666666,
+          "turnover": 0.3335557038025352
+        },
+        {
+          "i": 17851,
+          "time": "2025-10-12 00:00",
+          "price": 110644.4,
+          "target": 0.3333333333333333,
+          "turnover": 0.3291921929195003
+        },
+        {
+          "i": 17852,
+          "time": "2025-10-12 04:00",
+          "price": 110676.0,
+          "target": 0.0,
+          "turnover": 0.33339679387694116
+        }
+      ],
+      "warnings": {
+        "Ensemble <60%": {
+          "time": "2025-10-11 00:00",
+          "price": 112774.5,
+          "fall_from_peak_pct": -10.075933645592428,
+          "days_to_trough": 41.5,
+          "already_active_at_peak": false
+        },
+        "Ensemble <50%": {
+          "time": "2025-10-12 00:00",
+          "price": 110644.4,
+          "fall_from_peak_pct": -11.774431566146493,
+          "days_to_trough": 40.5,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2025-10-12 00:00",
+          "price": 110644.4,
+          "fall_from_peak_pct": -11.774431566146493,
+          "days_to_trough": 40.5,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2025-10-12 00:00",
+          "price": 110644.4,
+          "fall_from_peak_pct": -11.774431566146493,
+          "days_to_trough": 40.5,
+          "already_active_at_peak": false
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2025-10-11 00:00",
+          "price": 112774.5,
+          "fall_from_peak_pct": -10.075933645592428,
+          "days_to_trough": 41.5,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2025-10-12 04:00",
+      "next_positive_trade": {
+        "i": 18415,
+        "time": "2026-01-14 00:00",
+        "price": 95413.99,
+        "target": 1.0,
+        "turnover": 0.999000999000999
+      },
+      "recovery_15pct_time": "2025-11-27 04:00"
+    }
+  ],
+  "focus": {
+    "2024 March-August": {
+      "peak_time": "2024-03-14 08:00",
+      "trough_time": "2024-08-05 08:00",
+      "peak_close": 73224.0,
+      "trough_close": 52674.19,
+      "btc_close_pct": -28.064309516005682,
+      "strategy_return_pct": -13.564477308744284,
+      "strategy_dd_pct": -13.564477308744284,
+      "peak_state": {
+        "vote": 0.98,
+        "target": 0.6666666666666666,
+        "funding": 0.5374481607142989,
+        "actual_exposure": 0.7196980028291963
+      },
+      "trades": [
+        {
+          "i": 14575,
+          "time": "2024-04-14 00:00",
+          "price": 63924.52,
+          "target": 0.2222222222222222,
+          "turnover": 0.4693826330147295
+        },
+        {
+          "i": 14593,
+          "time": "2024-04-17 00:00",
+          "price": 63793.4,
+          "target": 0.0,
+          "turnover": 0.22186753749758034
+        },
+        {
+          "i": 14771,
+          "time": "2024-05-16 16:00",
+          "price": 65818.89,
+          "target": 1.0,
+          "turnover": 0.9990009990009991
+        },
+        {
+          "i": 14929,
+          "time": "2024-06-12 00:00",
+          "price": 67314.23,
+          "target": 0.6666666666666666,
+          "turnover": 0.33355570380253524
+        },
+        {
+          "i": 14941,
+          "time": "2024-06-14 00:00",
+          "price": 66773.01,
+          "target": 0.3333333333333333,
+          "turnover": 0.3316475423555589
+        },
+        {
+          "i": 14953,
+          "time": "2024-06-16 00:00",
+          "price": 66228.25,
+          "target": 0.0,
+          "turnover": 0.3315154148729964
+        },
+        {
+          "i": 15157,
+          "time": "2024-07-20 00:00",
+          "price": 66660.01,
+          "target": 1.0,
+          "turnover": 0.9990009990009991
+        },
+        {
+          "i": 15188,
+          "time": "2024-07-25 04:00",
+          "price": 64093.58,
+          "target": 0.6666666666666666,
+          "turnover": 0.33355570380253524
+        },
+        {
+          "i": 15198,
+          "time": "2024-07-26 20:00",
+          "price": 67990.0,
+          "target": 1.0,
+          "turnover": 0.32003001320589386
+        },
+        {
+          "i": 15223,
+          "time": "2024-07-31 00:00",
+          "price": 66188.0,
+          "target": 0.6666666666666666,
+          "turnover": 0.333555703802535
+        },
+        {
+          "i": 15229,
+          "time": "2024-08-01 00:00",
+          "price": 64628.01,
+          "target": 0.3333333333333333,
+          "turnover": 0.3281215244989274
+        },
+        {
+          "i": 15241,
+          "time": "2024-08-03 00:00",
+          "price": 61498.34,
+          "target": 0.0,
+          "turnover": 0.32239546189140833
+        }
+      ],
+      "warnings": {
+        "Funding >15%": {
+          "time": "2024-03-14 08:00",
+          "price": 73224.0,
+          "fall_from_peak_pct": 0.0,
+          "days_to_trough": 144.0,
+          "already_active_at_peak": true
+        },
+        "Ensemble <60%": {
+          "time": "2024-03-23 00:00",
+          "price": 63796.64,
+          "fall_from_peak_pct": -12.874685895334858,
+          "days_to_trough": 135.33333333333334,
+          "already_active_at_peak": false
+        },
+        "Ensemble <50%": {
+          "time": "2024-04-14 00:00",
+          "price": 63924.51,
+          "fall_from_peak_pct": -12.7000573582432,
+          "days_to_trough": 113.33333333333333,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2024-03-23 00:00",
+          "price": 63796.64,
+          "fall_from_peak_pct": -12.874685895334858,
+          "days_to_trough": 135.33333333333334,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2024-04-15 00:00",
+          "price": 65661.84,
+          "fall_from_peak_pct": -10.327433628318595,
+          "days_to_trough": 112.33333333333333,
+          "already_active_at_peak": false
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2024-04-03 12:00",
+          "price": 66059.76,
+          "fall_from_peak_pct": -9.784005244182248,
+          "days_to_trough": 123.83333333333333,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2024-04-17 00:00",
+      "next_positive_trade": {
+        "i": 15529,
+        "time": "2024-09-20 00:00",
+        "price": 62948.0,
+        "target": 1.0,
+        "turnover": 0.999000999000999
+      },
+      "recovery_15pct_time": null,
+      "intraday_peak": 73777.0,
+      "intraday_low": 49000.0,
+      "btc_intraday_pct": -33.58363717689795,
+      "peak_bar_time": "2024-03-14 04:00",
+      "trough_bar_time": "2024-08-05 04:00",
+      "strategy_peak_to_low_mark_pct": -14.031738940756233
+    },
+    "2025 January-March": {
+      "peak_time": "2025-01-20 08:00",
+      "trough_time": "2025-03-11 04:00",
+      "peak_close": 107120.65,
+      "trough_close": 79522.29,
+      "btc_close_pct": -25.763809312210117,
+      "strategy_return_pct": -8.62610236574598,
+      "strategy_dd_pct": -10.569556502703536,
+      "peak_state": {
+        "vote": 0.84,
+        "target": 1.0,
+        "funding": 0.07663461785714222,
+        "actual_exposure": 1.0000000000000002
+      },
+      "trades": [
+        {
+          "i": 16342,
+          "time": "2025-02-02 12:00",
+          "price": 98864.6,
+          "target": 0.6666666666666666,
+          "turnover": 0.3335557038025352
+        },
+        {
+          "i": 16345,
+          "time": "2025-02-03 00:00",
+          "price": 97700.59,
+          "target": 0.3333333333333333,
+          "turnover": 0.33080650768047354
+        },
+        {
+          "i": 16362,
+          "time": "2025-02-05 20:00",
+          "price": 97370.0,
+          "target": 0.0,
+          "turnover": 0.33258054976586154
+        }
+      ],
+      "warnings": {
+        "Ensemble <60%": {
+          "time": "2025-02-02 12:00",
+          "price": 98864.6,
+          "fall_from_peak_pct": -7.707244121464896,
+          "days_to_trough": 36.666666666666664,
+          "already_active_at_peak": false
+        },
+        "Ensemble <50%": {
+          "time": "2025-02-03 00:00",
+          "price": 97700.59,
+          "fall_from_peak_pct": -8.793878677920642,
+          "days_to_trough": 36.166666666666664,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2025-02-03 00:00",
+          "price": 97700.59,
+          "fall_from_peak_pct": -8.793878677920642,
+          "days_to_trough": 36.166666666666664,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2025-02-06 00:00",
+          "price": 96612.43,
+          "fall_from_peak_pct": -9.809705224902954,
+          "days_to_trough": 33.166666666666664,
+          "already_active_at_peak": false
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2025-02-03 00:00",
+          "price": 97700.59,
+          "fall_from_peak_pct": -8.793878677920642,
+          "days_to_trough": 36.166666666666664,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2025-02-05 20:00",
+      "next_positive_trade": {
+        "i": 16819,
+        "time": "2025-04-23 00:00",
+        "price": 93442.99,
+        "target": 1.0,
+        "turnover": 0.999000999000999
+      },
+      "recovery_15pct_time": null,
+      "intraday_peak": 109588.0,
+      "intraday_low": 76606.0,
+      "btc_intraday_pct": -30.0963609154287,
+      "peak_bar_time": "2025-01-20 04:00",
+      "trough_bar_time": "2025-03-11 00:00",
+      "strategy_peak_to_low_mark_pct": -10.683365809990587
+    },
+    "2025 January-April": {
+      "peak_time": "2025-01-20 08:00",
+      "trough_time": "2025-04-07 08:00",
+      "peak_close": 107120.65,
+      "trough_close": 75126.01,
+      "btc_close_pct": -29.867854610665635,
+      "strategy_return_pct": -8.62610236574598,
+      "strategy_dd_pct": -10.569556502703536,
+      "peak_state": {
+        "vote": 0.84,
+        "target": 1.0,
+        "funding": 0.07663461785714222,
+        "actual_exposure": 1.0000000000000002
+      },
+      "trades": [
+        {
+          "i": 16342,
+          "time": "2025-02-02 12:00",
+          "price": 98864.6,
+          "target": 0.6666666666666666,
+          "turnover": 0.3335557038025352
+        },
+        {
+          "i": 16345,
+          "time": "2025-02-03 00:00",
+          "price": 97700.59,
+          "target": 0.3333333333333333,
+          "turnover": 0.33080650768047354
+        },
+        {
+          "i": 16362,
+          "time": "2025-02-05 20:00",
+          "price": 97370.0,
+          "target": 0.0,
+          "turnover": 0.33258054976586154
+        }
+      ],
+      "warnings": {
+        "Ensemble <60%": {
+          "time": "2025-02-02 12:00",
+          "price": 98864.6,
+          "fall_from_peak_pct": -7.707244121464896,
+          "days_to_trough": 63.833333333333336,
+          "already_active_at_peak": false
+        },
+        "Ensemble <50%": {
+          "time": "2025-02-03 00:00",
+          "price": 97700.59,
+          "fall_from_peak_pct": -8.793878677920642,
+          "days_to_trough": 63.333333333333336,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA20 and E<60%": {
+          "time": "2025-02-03 00:00",
+          "price": 97700.59,
+          "fall_from_peak_pct": -8.793878677920642,
+          "days_to_trough": 63.333333333333336,
+          "already_active_at_peak": false
+        },
+        "Two daily closes <SMA50 and E<60%": {
+          "time": "2025-02-06 00:00",
+          "price": 96612.43,
+          "fall_from_peak_pct": -9.809705224902954,
+          "days_to_trough": 60.333333333333336,
+          "already_active_at_peak": false
+        },
+        "E falls 20pp in 3d, below 60%": {
+          "time": "2025-02-03 00:00",
+          "price": 97700.59,
+          "fall_from_peak_pct": -8.793878677920642,
+          "days_to_trough": 63.333333333333336,
+          "already_active_at_peak": false
+        }
+      },
+      "first_flat": "2025-02-05 20:00",
+      "next_positive_trade": {
+        "i": 16819,
+        "time": "2025-04-23 00:00",
+        "price": 93442.99,
+        "target": 1.0,
+        "turnover": 0.999000999000999
+      },
+      "recovery_15pct_time": null,
+      "intraday_peak": 109588.0,
+      "intraday_low": 74508.0,
+      "btc_intraday_pct": -32.01080410263898,
+      "peak_bar_time": "2025-01-20 04:00",
+      "trough_bar_time": "2025-04-07 04:00",
+      "strategy_peak_to_low_mark_pct": -10.683365809990587
+    }
+  },
+  "alarm_summary": {
+    "Funding >15%": {
+      "episodes": 3,
+      "hits": 0,
+      "precision_pct": 0.0,
+      "active_pct": 9.854014598540147
+    },
+    "Ensemble <60%": {
+      "episodes": 19,
+      "hits": 7,
+      "precision_pct": 36.84210526315789,
+      "active_pct": 50.745133819951334
+    },
+    "Ensemble <50%": {
+      "episodes": 17,
+      "hits": 6,
+      "precision_pct": 35.294117647058826,
+      "active_pct": 41.6970802919708
+    },
+    "Two daily closes <SMA20 and E<60%": {
+      "episodes": 27,
+      "hits": 8,
+      "precision_pct": 29.629629629629626,
+      "active_pct": 36.25304136253041
+    },
+    "Two daily closes <SMA50 and E<60%": {
+      "episodes": 16,
+      "hits": 6,
+      "precision_pct": 37.5,
+      "active_pct": 36.48114355231144
+    },
+    "E falls 20pp in 3d, below 60%": {
+      "episodes": 27,
+      "hits": 8,
+      "precision_pct": 29.629629629629626,
+      "active_pct": 5.35279805352798
+    }
+  },
+  "alarms": {
+    "Funding >15%": [
+      {
+        "i": 13890,
+        "time": "2023-12-22 00:00",
+        "price": 43861.79,
+        "further_drawdown_pct": -6.764612205749021,
+        "max_up_pct": 7.291562884232494,
+        "hit": false
+      },
+      {
+        "i": 14298,
+        "time": "2024-02-28 00:00",
+        "price": 57037.35,
+        "further_drawdown_pct": -0.21205403126196565,
+        "max_up_pct": 28.598611260866804,
+        "hit": false
+      },
+      {
+        "i": 15858,
+        "time": "2024-11-14 00:00",
+        "price": 90375.21,
+        "further_drawdown_pct": -3.3743987980774937,
+        "max_up_pct": 13.929472473701576,
+        "hit": false
+      }
+    ],
+    "Ensemble <60%": [
+      {
+        "i": 11761,
+        "time": "2023-01-01 04:00",
+        "price": 16533.04,
+        "further_drawdown_pct": -0.04143218670009663,
+        "max_up_pct": 44.545951621722324,
+        "hit": false
+      },
+      {
+        "i": 12000,
+        "time": "2023-02-10 00:00",
+        "price": 21797.83,
+        "further_drawdown_pct": -9.345196287887381,
+        "max_up_pct": 15.023697312989404,
+        "hit": false
+      },
+      {
+        "i": 12114,
+        "time": "2023-03-01 00:00",
+        "price": 23141.57,
+        "further_drawdown_pct": -14.609164373895123,
+        "max_up_pct": 24.127317204493902,
+        "hit": true
+      },
+      {
+        "i": 12426,
+        "time": "2023-04-22 00:00",
+        "price": 27262.84,
+        "further_drawdown_pct": -3.4894383710574517,
+        "max_up_pct": 9.379763810373376,
+        "hit": false
+      },
+      {
+        "i": 12960,
+        "time": "2023-07-20 00:00",
+        "price": 29909.21,
+        "further_drawdown_pct": -13.063568044759455,
+        "max_up_pct": 1.256101381480823,
+        "hit": true
+      },
+      {
+        "i": 13944,
+        "time": "2023-12-31 00:00",
+        "price": 42140.29,
+        "further_drawdown_pct": -7.818479654506416,
+        "max_up_pct": 11.6745992967775,
+        "hit": false
+      },
+      {
+        "i": 14032,
+        "time": "2024-01-14 16:00",
+        "price": 42904.39,
+        "further_drawdown_pct": -9.460174122042064,
+        "max_up_pct": 16.510501606012816,
+        "hit": false
+      },
+      {
+        "i": 14442,
+        "time": "2024-03-23 00:00",
+        "price": 63796.64,
+        "further_drawdown_pct": -5.473156580033056,
+        "max_up_pct": 13.491870418253992,
+        "hit": false
+      },
+      {
+        "i": 14511,
+        "time": "2024-04-03 12:00",
+        "price": 66059.75,
+        "further_drawdown_pct": -13.887049224376414,
+        "max_up_pct": 9.603805645646556,
+        "hit": true
+      },
+      {
+        "i": 14568,
+        "time": "2024-04-13 00:00",
+        "price": 67116.52,
+        "further_drawdown_pct": -15.242923798790532,
+        "max_up_pct": 0.8335950672055059,
+        "hit": true
+      },
+      {
+        "i": 14928,
+        "time": "2024-06-12 00:00",
+        "price": 67314.23,
+        "further_drawdown_pct": -19.162634705915814,
+        "max_up_pct": 3.594737695135186,
+        "hit": true
+      },
+      {
+        "i": 15600,
+        "time": "2024-10-02 00:00",
+        "price": 60804.92,
+        "further_drawdown_pct": -1.7722907948896194,
+        "max_up_pct": 19.62258975096094,
+        "hit": false
+      },
+      {
+        "i": 16083,
+        "time": "2024-12-21 12:00",
+        "price": 98262.08,
+        "further_drawdown_pct": -7.541932757784087,
+        "max_up_pct": 10.153570940081869,
+        "hit": false
+      },
+      {
+        "i": 16341,
+        "time": "2025-02-02 12:00",
+        "price": 98864.6,
+        "further_drawdown_pct": -19.885793297095223,
+        "max_up_pct": 3.0500300410864822,
+        "hit": true
+      },
+      {
+        "i": 17078,
+        "time": "2025-06-05 08:00",
+        "price": 104518.05,
+        "further_drawdown_pct": -5.391614175733284,
+        "max_up_pct": 5.507508033301423,
+        "hit": false
+      },
+      {
+        "i": 17136,
+        "time": "2025-06-15 00:00",
+        "price": 105414.63,
+        "further_drawdown_pct": -6.196284140066711,
+        "max_up_pct": 16.431694538035167,
+        "hit": false
+      },
+      {
+        "i": 17424,
+        "time": "2025-08-02 00:00",
+        "price": 113297.92,
+        "further_drawdown_pct": -4.488970318254748,
+        "max_up_pct": 8.860904066023444,
+        "hit": false
+      },
+      {
+        "i": 17526,
+        "time": "2025-08-19 00:00",
+        "price": 116227.05,
+        "further_drawdown_pct": -7.370951942770643,
+        "max_up_pct": 0.8048298567330026,
+        "hit": false
+      },
+      {
+        "i": 17844,
+        "time": "2025-10-11 00:00",
+        "price": 112774.49,
+        "further_drawdown_pct": -10.962230908780878,
+        "max_up_pct": 2.676447483823674,
+        "hit": true
+      }
+    ],
+    "Ensemble <50%": [
+      {
+        "i": 11761,
+        "time": "2023-01-01 04:00",
+        "price": 16533.04,
+        "further_drawdown_pct": -0.04143218670009663,
+        "max_up_pct": 44.545951621722324,
+        "hit": false
+      },
+      {
+        "i": 12127,
+        "time": "2023-03-03 04:00",
+        "price": 22319.69,
+        "further_drawdown_pct": -11.464809771103457,
+        "max_up_pct": 28.698068835185442,
+        "hit": true
+      },
+      {
+        "i": 12486,
+        "time": "2023-05-02 00:00",
+        "price": 28068.26,
+        "further_drawdown_pct": -6.900997781836127,
+        "max_up_pct": 5.320600564481026,
+        "hit": false
+      },
+      {
+        "i": 12990,
+        "time": "2023-07-25 00:00",
+        "price": 29176.5,
+        "further_drawdown_pct": -11.641252377769773,
+        "max_up_pct": 2.439703185783082,
+        "hit": true
+      },
+      {
+        "i": 13452,
+        "time": "2023-10-10 00:00",
+        "price": 27590.12,
+        "further_drawdown_pct": -3.316839506316027,
+        "max_up_pct": 29.12129414442561,
+        "hit": false
+      },
+      {
+        "i": 14055,
+        "time": "2024-01-18 12:00",
+        "price": 42544.6,
+        "further_drawdown_pct": -8.694499419432788,
+        "max_up_pct": 23.031642088537673,
+        "hit": false
+      },
+      {
+        "i": 14574,
+        "time": "2024-04-14 00:00",
+        "price": 63924.52,
+        "further_drawdown_pct": -11.010673212720246,
+        "max_up_pct": 4.5284657593049005,
+        "hit": true
+      },
+      {
+        "i": 14940,
+        "time": "2024-06-14 00:00",
+        "price": 66773.01,
+        "further_drawdown_pct": -18.50741789234901,
+        "max_up_pct": 0.39385673942211596,
+        "hit": true
+      },
+      {
+        "i": 15228,
+        "time": "2024-08-01 00:00",
+        "price": 64628.01,
+        "further_drawdown_pct": -20.560759955319686,
+        "max_up_pct": 1.123367406794662,
+        "hit": true
+      },
+      {
+        "i": 15603,
+        "time": "2024-10-02 12:00",
+        "price": 61164.01,
+        "further_drawdown_pct": -2.3489794079884607,
+        "max_up_pct": 18.92029315932686,
+        "hit": false
+      },
+      {
+        "i": 16122,
+        "time": "2024-12-28 00:00",
+        "price": 94299.03,
+        "further_drawdown_pct": -3.656251819345324,
+        "max_up_pct": 14.782930428870799,
+        "hit": false
+      },
+      {
+        "i": 16194,
+        "time": "2025-01-09 00:00",
+        "price": 95060.61,
+        "further_drawdown_pct": -4.428111706836302,
+        "max_up_pct": 13.863344659791267,
+        "hit": false
+      },
+      {
+        "i": 16344,
+        "time": "2025-02-03 00:00",
+        "price": 97700.59,
+        "further_drawdown_pct": -18.931308398444678,
+        "max_up_pct": 4.277773552851638,
+        "hit": true
+      },
+      {
+        "i": 17172,
+        "time": "2025-06-21 00:00",
+        "price": 103297.98,
+        "further_drawdown_pct": -4.274178449568911,
+        "max_up_pct": 18.817463807133493,
+        "hit": false
+      },
+      {
+        "i": 17532,
+        "time": "2025-08-20 00:00",
+        "price": 112872.95,
+        "further_drawdown_pct": -4.618413889244499,
+        "max_up_pct": 4.1733736913937225,
+        "hit": false
+      },
+      {
+        "i": 17736,
+        "time": "2025-09-23 00:00",
+        "price": 112650.99,
+        "further_drawdown_pct": -6.229186268136666,
+        "max_up_pct": 11.326860065765953,
+        "hit": false
+      },
+      {
+        "i": 17850,
+        "time": "2025-10-12 00:00",
+        "price": 110644.4,
+        "further_drawdown_pct": -9.248104739146301,
+        "max_up_pct": 4.653141053681886,
+        "hit": false
+      }
+    ],
+    "Two daily closes <SMA20 and E<60%": [
+      {
+        "i": 11761,
+        "time": "2023-01-01 04:00",
+        "price": 16533.04,
+        "further_drawdown_pct": -0.04143218670009663,
+        "max_up_pct": 44.545951621722324,
+        "hit": false
+      },
+      {
+        "i": 12000,
+        "time": "2023-02-10 00:00",
+        "price": 21797.83,
+        "further_drawdown_pct": -9.345196287887381,
+        "max_up_pct": 15.023697312989404,
+        "hit": false
+      },
+      {
+        "i": 12132,
+        "time": "2023-03-04 00:00",
+        "price": 22354.34,
+        "further_drawdown_pct": -11.602042377453337,
+        "max_up_pct": 28.498582378186967,
+        "hit": true
+      },
+      {
+        "i": 12426,
+        "time": "2023-04-22 00:00",
+        "price": 27262.84,
+        "further_drawdown_pct": -3.4894383710574517,
+        "max_up_pct": 9.379763810373376,
+        "hit": false
+      },
+      {
+        "i": 12714,
+        "time": "2023-06-09 00:00",
+        "price": 26498.62,
+        "further_drawdown_pct": -5.806604268448689,
+        "max_up_pct": 17.952708480668058,
+        "hit": false
+      },
+      {
+        "i": 12960,
+        "time": "2023-07-20 00:00",
+        "price": 29909.21,
+        "further_drawdown_pct": -13.063568044759455,
+        "max_up_pct": 1.256101381480823,
+        "hit": true
+      },
+      {
+        "i": 13128,
+        "time": "2023-08-17 00:00",
+        "price": 28730.51,
+        "further_drawdown_pct": -12.912579693155458,
+        "max_up_pct": -0.2547814152968342,
+        "hit": true
+      },
+      {
+        "i": 13368,
+        "time": "2023-09-26 00:00",
+        "price": 26304.8,
+        "further_drawdown_pct": -0.6772148049025262,
+        "max_up_pct": 32.44654967914602,
+        "hit": false
+      },
+      {
+        "i": 13470,
+        "time": "2023-10-13 00:00",
+        "price": 26759.63,
+        "further_drawdown_pct": -0.19731214519781437,
+        "max_up_pct": 39.39516353551973,
+        "hit": false
+      },
+      {
+        "i": 13944,
+        "time": "2023-12-31 00:00",
+        "price": 42140.29,
+        "further_drawdown_pct": -7.818479654506416,
+        "max_up_pct": 11.6745992967775,
+        "hit": false
+      },
+      {
+        "i": 14032,
+        "time": "2024-01-14 16:00",
+        "price": 42904.39,
+        "further_drawdown_pct": -9.460174122042064,
+        "max_up_pct": 16.510501606012816,
+        "hit": false
+      },
+      {
+        "i": 14442,
+        "time": "2024-03-23 00:00",
+        "price": 63796.64,
+        "further_drawdown_pct": -5.473156580033056,
+        "max_up_pct": 13.491870418253992,
+        "hit": false
+      },
+      {
+        "i": 14514,
+        "time": "2024-04-04 00:00",
+        "price": 65963.27,
+        "further_drawdown_pct": -13.761097653284937,
+        "max_up_pct": 9.764115696508057,
+        "hit": true
+      },
+      {
+        "i": 14574,
+        "time": "2024-04-14 00:00",
+        "price": 63924.52,
+        "further_drawdown_pct": -11.010673212720246,
+        "max_up_pct": 4.5284657593049005,
+        "hit": true
+      },
+      {
+        "i": 14934,
+        "time": "2024-06-13 00:00",
+        "price": 68263.98,
+        "further_drawdown_pct": -20.287316971556592,
+        "max_up_pct": -0.767593685571788,
+        "hit": true
+      },
+      {
+        "i": 15234,
+        "time": "2024-08-02 00:00",
+        "price": 65354.02,
+        "further_drawdown_pct": -21.443240981962543,
+        "max_up_pct": -1.0619239642794653,
+        "hit": true
+      },
+      {
+        "i": 15396,
+        "time": "2024-08-29 00:00",
+        "price": 59034.9,
+        "further_drawdown_pct": -9.317573164348547,
+        "max_up_pct": 11.808455676218621,
+        "hit": false
+      },
+      {
+        "i": 15606,
+        "time": "2024-10-03 00:00",
+        "price": 60649.27,
+        "further_drawdown_pct": -1.520199666047095,
+        "max_up_pct": 19.929588600159587,
+        "hit": false
+      },
+      {
+        "i": 16083,
+        "time": "2024-12-21 12:00",
+        "price": 98262.08,
+        "further_drawdown_pct": -7.541932757784087,
+        "max_up_pct": 10.153570940081869,
+        "hit": false
+      },
+      {
+        "i": 16344,
+        "time": "2025-02-03 00:00",
+        "price": 97700.59,
+        "further_drawdown_pct": -18.931308398444678,
+        "max_up_pct": 4.277773552851638,
+        "hit": true
+      },
+      {
+        "i": 16680,
+        "time": "2025-03-31 00:00",
+        "price": 82390.0,
+        "further_drawdown_pct": -8.880531617914789,
+        "max_up_pct": 15.69364000485496,
+        "hit": false
+      },
+      {
+        "i": 17078,
+        "time": "2025-06-05 08:00",
+        "price": 104518.05,
+        "further_drawdown_pct": -5.391614175733284,
+        "max_up_pct": 5.507508033301423,
+        "hit": false
+      },
+      {
+        "i": 17136,
+        "time": "2025-06-15 00:00",
+        "price": 105414.63,
+        "further_drawdown_pct": -6.196284140066711,
+        "max_up_pct": 16.431694538035167,
+        "hit": false
+      },
+      {
+        "i": 17424,
+        "time": "2025-08-02 00:00",
+        "price": 113297.92,
+        "further_drawdown_pct": -4.488970318254748,
+        "max_up_pct": 8.860904066023444,
+        "hit": false
+      },
+      {
+        "i": 17532,
+        "time": "2025-08-20 00:00",
+        "price": 112872.95,
+        "further_drawdown_pct": -4.618413889244499,
+        "max_up_pct": 4.1733736913937225,
+        "hit": false
+      },
+      {
+        "i": 17742,
+        "time": "2025-09-24 00:00",
+        "price": 111998.8,
+        "further_drawdown_pct": -5.683141247941947,
+        "max_up_pct": 11.975137233613209,
+        "hit": false
+      },
+      {
+        "i": 17850,
+        "time": "2025-10-12 00:00",
+        "price": 110644.4,
+        "further_drawdown_pct": -9.248104739146301,
+        "max_up_pct": 4.653141053681886,
+        "hit": false
+      }
+    ],
+    "Two daily closes <SMA50 and E<60%": [
+      {
+        "i": 11761,
+        "time": "2023-01-01 04:00",
+        "price": 16533.04,
+        "further_drawdown_pct": -0.04143218670009663,
+        "max_up_pct": 44.545951621722324,
+        "hit": false
+      },
+      {
+        "i": 12138,
+        "time": "2023-03-05 00:00",
+        "price": 22346.57,
+        "further_drawdown_pct": -11.571306021461014,
+        "max_up_pct": 28.54326189656846,
+        "hit": true
+      },
+      {
+        "i": 12528,
+        "time": "2023-05-09 00:00",
+        "price": 27668.8,
+        "further_drawdown_pct": -7.368624587983574,
+        "max_up_pct": 1.7507083791129308,
+        "hit": false
+      },
+      {
+        "i": 13032,
+        "time": "2023-08-01 00:00",
+        "price": 29232.26,
+        "further_drawdown_pct": -11.80979506887253,
+        "max_up_pct": 2.2443013301058468,
+        "hit": true
+      },
+      {
+        "i": 14040,
+        "time": "2024-01-16 00:00",
+        "price": 42511.1,
+        "further_drawdown_pct": -8.622547993347618,
+        "max_up_pct": 21.839166711752924,
+        "hit": false
+      },
+      {
+        "i": 14166,
+        "time": "2024-02-06 00:00",
+        "price": 42708.7,
+        "further_drawdown_pct": 0.2137737744300372,
+        "max_up_pct": 59.79346128540557,
+        "hit": false
+      },
+      {
+        "i": 14580,
+        "time": "2024-04-15 00:00",
+        "price": 65661.85,
+        "further_drawdown_pct": -13.36521892088024,
+        "max_up_pct": 1.7627739699688671,
+        "hit": true
+      },
+      {
+        "i": 14976,
+        "time": "2024-06-20 00:00",
+        "price": 64974.37,
+        "further_drawdown_pct": -16.25151578999534,
+        "max_up_pct": 3.3596170305306483,
+        "hit": true
+      },
+      {
+        "i": 15246,
+        "time": "2024-08-04 00:00",
+        "price": 60697.99,
+        "further_drawdown_pct": -15.41729800278394,
+        "max_up_pct": 5.959027638312242,
+        "hit": true
+      },
+      {
+        "i": 15654,
+        "time": "2024-10-11 00:00",
+        "price": 60326.4,
+        "further_drawdown_pct": 0.476739868448961,
+        "max_up_pct": 27.494065616380215,
+        "hit": false
+      },
+      {
+        "i": 16128,
+        "time": "2024-12-29 00:00",
+        "price": 95300.0,
+        "further_drawdown_pct": -4.668184679958021,
+        "max_up_pct": 13.577324239244493,
+        "hit": false
+      },
+      {
+        "i": 16362,
+        "time": "2025-02-06 00:00",
+        "price": 96612.44,
+        "further_drawdown_pct": -18.01822829441012,
+        "max_up_pct": 2.3449878711271577,
+        "hit": true
+      },
+      {
+        "i": 17178,
+        "time": "2025-06-22 00:00",
+        "price": 102120.02,
+        "further_drawdown_pct": -3.1699758774038744,
+        "max_up_pct": 20.188029732074074,
+        "hit": false
+      },
+      {
+        "i": 17538,
+        "time": "2025-08-21 00:00",
+        "price": 114271.23,
+        "further_drawdown_pct": -5.7855507462377,
+        "max_up_pct": 2.89865611842981,
+        "hit": false
+      },
+      {
+        "i": 17742,
+        "time": "2025-09-24 00:00",
+        "price": 111998.8,
+        "further_drawdown_pct": -5.683141247941947,
+        "max_up_pct": 11.975137233613209,
+        "hit": false
+      },
+      {
+        "i": 17850,
+        "time": "2025-10-12 00:00",
+        "price": 110644.4,
+        "further_drawdown_pct": -9.248104739146301,
+        "max_up_pct": 4.653141053681886,
+        "hit": false
+      }
+    ],
+    "E falls 20pp in 3d, below 60%": [
+      {
+        "i": 12426,
+        "time": "2023-04-22 00:00",
+        "price": 27262.84,
+        "further_drawdown_pct": -3.4894383710574517,
+        "max_up_pct": 9.379763810373376,
+        "hit": false
+      },
+      {
+        "i": 12485,
+        "time": "2023-05-01 20:00",
+        "price": 27843.35,
+        "further_drawdown_pct": -6.148972734961844,
+        "max_up_pct": 6.171347916109227,
+        "hit": false
+      },
+      {
+        "i": 12672,
+        "time": "2023-06-02 00:00",
+        "price": 26817.93,
+        "further_drawdown_pct": -6.928126070878693,
+        "max_up_pct": 16.481771710195382,
+        "hit": false
+      },
+      {
+        "i": 13226,
+        "time": "2023-09-02 08:00",
+        "price": 25795.46,
+        "further_drawdown_pct": -3.0036293208184683,
+        "max_up_pct": 9.755398818241655,
+        "hit": false
+      },
+      {
+        "i": 13374,
+        "time": "2023-09-27 00:00",
+        "price": 26221.68,
+        "further_drawdown_pct": 0.09404431752657594,
+        "max_up_pct": 32.86639147453558,
+        "hit": false
+      },
+      {
+        "i": 13460,
+        "time": "2023-10-11 08:00",
+        "price": 27021.95,
+        "further_drawdown_pct": -1.28395619117051,
+        "max_up_pct": 37.236653905436114,
+        "hit": false
+      },
+      {
+        "i": 14032,
+        "time": "2024-01-14 16:00",
+        "price": 42904.39,
+        "further_drawdown_pct": -9.460174122042064,
+        "max_up_pct": 16.510501606012816,
+        "hit": false
+      },
+      {
+        "i": 14511,
+        "time": "2024-04-03 12:00",
+        "price": 66059.75,
+        "further_drawdown_pct": -13.887049224376414,
+        "max_up_pct": 9.603805645646556,
+        "hit": true
+      },
+      {
+        "i": 14568,
+        "time": "2024-04-13 00:00",
+        "price": 67116.52,
+        "further_drawdown_pct": -15.242923798790532,
+        "max_up_pct": 0.8335950672055059,
+        "hit": true
+      },
+      {
+        "i": 14654,
+        "time": "2024-04-27 08:00",
+        "price": 62966.84,
+        "further_drawdown_pct": -9.657210048971798,
+        "max_up_pct": 13.467056628536533,
+        "hit": false
+      },
+      {
+        "i": 14928,
+        "time": "2024-06-12 00:00",
+        "price": 67314.23,
+        "further_drawdown_pct": -19.162634705915814,
+        "max_up_pct": 3.594737695135186,
+        "hit": true
+      },
+      {
+        "i": 15066,
+        "time": "2024-07-05 00:00",
+        "price": 57050.02,
+        "further_drawdown_pct": -4.618701273023207,
+        "max_up_pct": 21.96316495594568,
+        "hit": false
+      },
+      {
+        "i": 15225,
+        "time": "2024-07-31 12:00",
+        "price": 66094.01,
+        "further_drawdown_pct": -22.322764196029254,
+        "max_up_pct": 0.4326867139700097,
+        "hit": true
+      },
+      {
+        "i": 15390,
+        "time": "2024-08-28 00:00",
+        "price": 59415.0,
+        "further_drawdown_pct": -9.897702600353453,
+        "max_up_pct": 9.785458217621802,
+        "hit": false
+      },
+      {
+        "i": 15600,
+        "time": "2024-10-02 00:00",
+        "price": 60804.92,
+        "further_drawdown_pct": -1.7722907948896194,
+        "max_up_pct": 19.62258975096094,
+        "hit": false
+      },
+      {
+        "i": 16083,
+        "time": "2024-12-21 12:00",
+        "price": 98262.08,
+        "further_drawdown_pct": -7.541932757784087,
+        "max_up_pct": 10.153570940081869,
+        "hit": false
+      },
+      {
+        "i": 16194,
+        "time": "2025-01-09 00:00",
+        "price": 95060.61,
+        "further_drawdown_pct": -4.428111706836302,
+        "max_up_pct": 13.863344659791267,
+        "hit": false
+      },
+      {
+        "i": 16344,
+        "time": "2025-02-03 00:00",
+        "price": 97700.59,
+        "further_drawdown_pct": -18.931308398444678,
+        "max_up_pct": 4.277773552851638,
+        "hit": true
+      },
+      {
+        "i": 16470,
+        "time": "2025-02-24 00:00",
+        "price": 96258.0,
+        "further_drawdown_pct": -18.348750233746802,
+        "max_up_pct": -0.40098485320699817,
+        "hit": true
+      },
+      {
+        "i": 16554,
+        "time": "2025-03-10 00:00",
+        "price": 80734.48,
+        "further_drawdown_pct": -6.946808847966823,
+        "max_up_pct": 9.432809872560032,
+        "hit": false
+      },
+      {
+        "i": 16674,
+        "time": "2025-03-30 00:00",
+        "price": 82648.53,
+        "further_drawdown_pct": -9.165559266450352,
+        "max_up_pct": 15.331742742429899,
+        "hit": false
+      },
+      {
+        "i": 17136,
+        "time": "2025-06-15 00:00",
+        "price": 105414.63,
+        "further_drawdown_pct": -6.196284140066711,
+        "max_up_pct": 16.431694538035167,
+        "hit": false
+      },
+      {
+        "i": 17187,
+        "time": "2025-06-23 12:00",
+        "price": 101289.0,
+        "further_drawdown_pct": 0.13002399075912052,
+        "max_up_pct": 21.174105776540397,
+        "hit": false
+      },
+      {
+        "i": 17526,
+        "time": "2025-08-19 00:00",
+        "price": 116227.05,
+        "further_drawdown_pct": -7.370951942770643,
+        "max_up_pct": 0.8048298567330026,
+        "hit": false
+      },
+      {
+        "i": 17736,
+        "time": "2025-09-23 00:00",
+        "price": 112650.99,
+        "further_drawdown_pct": -6.229186268136666,
+        "max_up_pct": 11.326860065765953,
+        "hit": false
+      },
+      {
+        "i": 17844,
+        "time": "2025-10-11 00:00",
+        "price": 112774.49,
+        "further_drawdown_pct": -10.962230908780878,
+        "max_up_pct": 2.676447483823674,
+        "hit": true
+      },
+      {
+        "i": 17958,
+        "time": "2025-10-30 00:00",
+        "price": 110021.3,
+        "further_drawdown_pct": -25.187522779679938,
+        "max_up_pct": 1.2228722983640417,
+        "hit": true
+      }
+    ]
+  },
+  "overlays": {
+    "SMA20 confirmed cap 1/3": {
+      "2019-2022": {
+        "return_pct": 769.249657773317,
+        "cagr_pct": 71.70626130640314,
+        "dd_close_pct": -25.23573025802922,
+        "dd_intrabar_bound_pct": -25.52343020111748,
+        "trades": 89,
+        "mean_exposure_pct": 31.3248862674355
+      },
+      "2023-2025": {
+        "return_pct": 212.09027165897777,
+        "cagr_pct": 46.124317238070134,
+        "dd_close_pct": -21.73051573762742,
+        "dd_intrabar_bound_pct": -26.607559650782044,
+        "trades": 90,
+        "mean_exposure_pct": 47.569255654731855
+      },
+      "rapid_reversals_24h": 0
+    },
+    "SMA50 confirmed cap 1/3": {
+      "2019-2022": {
+        "return_pct": 717.3870336760401,
+        "cagr_pct": 69.08572190296312,
+        "dd_close_pct": -25.54269707119914,
+        "dd_intrabar_bound_pct": -25.829215777113767,
+        "trades": 90,
+        "mean_exposure_pct": 31.8448382096304
+      },
+      "2023-2025": {
+        "return_pct": 230.91150734184666,
+        "cagr_pct": 49.00394750135975,
+        "dd_close_pct": -18.706672478807107,
+        "dd_intrabar_bound_pct": -24.907902029442685,
+        "trades": 93,
+        "mean_exposure_pct": 49.808471836265696
+      },
+      "rapid_reversals_24h": 1
+    },
+    "Current": {
+      "2019-2022": {
+        "return_pct": 721.9081703362239,
+        "cagr_pct": 69.3190505089957,
+        "dd_close_pct": -27.47367378372525,
+        "dd_intrabar_bound_pct": -28.008220948052553,
+        "trades": 91,
+        "mean_exposure_pct": 32.81090627043688
+      },
+      "2023-2025": {
+        "return_pct": 260.1371838039421,
+        "cagr_pct": 53.266419154363234,
+        "dd_close_pct": -17.581726870729597,
+        "dd_intrabar_bound_pct": -24.172388738109085,
+        "trades": 94,
+        "mean_exposure_pct": 51.0079422222188
+      },
+      "rapid_reversals_24h": 2
+    },
+    "No funding trim": {
+      "2019-2022": {
+        "return_pct": 865.0091159977677,
+        "cagr_pct": 76.25151307392298,
+        "dd_close_pct": -31.692081359748116,
+        "dd_intrabar_bound_pct": -32.20607242306579,
+        "trades": 98,
+        "mean_exposure_pct": 36.994275824771265
+      },
+      "2023-2025": {
+        "return_pct": 265.0952167489859,
+        "cagr_pct": 53.96639894143866,
+        "dd_close_pct": -22.7876325755057,
+        "dd_intrabar_bound_pct": -24.172388738109074,
+        "trades": 98,
+        "mean_exposure_pct": 53.803304797522
+      },
+      "rapid_reversals_24h": 2
+    },
+    "Without existing 3pp recovery buffer": {
+      "2023-2025": {
+        "return_pct": 259.7984364474268,
+        "cagr_pct": 53.21836058215168,
+        "dd_close_pct": -17.10799450420428,
+        "dd_intrabar_bound_pct": -24.225312200592708,
+        "trades": 112,
+        "mean_exposure_pct": 51.39697849124868
+      },
+      "rapid_reversals_24h": 22
+    }
+  },
+  "diagnostics": {
+    "worst_intrabar_bar": "2025-10-10 20:00",
+    "worst_intrabar_bound_pct": -24.172388738109085,
+    "exposure_before_bar": 100.00000000000003,
+    "vote_prior_close": 0.78,
+    "bar_open": 116661.5,
+    "bar_low": 102000.0,
+    "daily_base_rate_further10pct_30d": 29.643527204502814,
+    "snapshot": {
+      "2023-08-16": {
+        "price": 29200.0,
+        "vote": 0.3,
+        "funding": 0.10191373571428097,
+        "level": 0.0,
+        "desired": 0,
+        "target": 0.0,
+        "vol": 0.2782265378533848
+      },
+      "2024-03-23": {
+        "price": 63796.64,
+        "vote": 0.58,
+        "funding": 0.3250179000000194,
+        "level": 0.6666666666666666,
+        "desired": 0.43142653512059725,
+        "target": 0.6666666666666666,
+        "vol": 0.6181044626569503
+      },
+      "2024-07-31": {
+        "price": 66188.0,
+        "vote": 0.58,
+        "funding": 0.05766478571430271,
+        "level": 0.6666666666666666,
+        "desired": 0.6666666666666666,
+        "target": 0.6666666666666666,
+        "vol": 0.44678122712114865
+      },
+      "2024-08-01": {
+        "price": 64628.0,
+        "vote": 0.48,
+        "funding": 0.06147251785715718,
+        "level": 0.3333333333333333,
+        "desired": 0.3333333333333333,
+        "target": 0.3333333333333333,
+        "vol": 0.4449514425759294
+      },
+      "2024-08-03": {
+        "price": 61498.33,
+        "vote": 0.3,
+        "funding": 0.07318223928572176,
+        "level": 0.0,
+        "desired": 0,
+        "target": 0.0,
+        "vol": 0.47071970635871574
+      },
+      "2024-08-05": {
+        "price": 58161.0,
+        "vote": 0.12,
+        "funding": 0.08338894285713716,
+        "level": 0.0,
+        "desired": 0,
+        "target": 0.0,
+        "vol": 0.47939105220659967
+      },
+      "2025-01-20": {
+        "price": 101331.57,
+        "vote": 0.86,
+        "funding": 0.07663461785714222,
+        "level": 1.0,
+        "desired": 1,
+        "target": 1.0,
+        "vol": 0.5221533388090698
+      },
+      "2025-02-03": {
+        "price": 97700.59,
+        "vote": 0.42,
+        "funding": 0.08498321071427015,
+        "level": 0.3333333333333333,
+        "desired": 0.3333333333333333,
+        "target": 0.3333333333333333,
+        "vol": 0.5316998655193161
+      },
+      "2025-02-06": {
+        "price": 96612.43,
+        "vote": 0.36,
+        "funding": 0.07138696071427426,
+        "level": 0.0,
+        "desired": 0,
+        "target": 0.0,
+        "vol": 0.5591640228148741
+      },
+      "2025-03-11": {
+        "price": 78595.86,
+        "vote": 0.1,
+        "funding": 0.028442103571432648,
+        "level": 0.0,
+        "desired": 0,
+        "target": 0.0,
+        "vol": 0.6670545237024771
+      },
+      "2025-04-07": {
+        "price": 78430.0,
+        "vote": 0.1,
+        "funding": 0.029659117857143147,
+        "level": 0.0,
+        "desired": 0,
+        "target": 0.0,
+        "vol": 0.5542835583594875
+      },
+      "2025-04-22": {
+        "price": 87516.23,
+        "vote": 0.5,
+        "funding": 0.04051995357142307,
+        "level": 0.0,
+        "desired": 0,
+        "target": 0.0,
+        "vol": 0.5560496731640936
+      }
+    }
+  },
+  "fee_sensitivity": {
+    "0.003": {
+      "return_pct": 231.28843357217485,
+      "cagr_pct": 49.06048766941331,
+      "dd_close_pct": -18.94242913829317,
+      "dd_intrabar_bound_pct": -24.97430291532052,
+      "trades": 94,
+      "mean_exposure_pct": 51.0079422222188
+    },
+    "0.006": {
+      "return_pct": 192.28891268998822,
+      "cagr_pct": 42.9668547819595,
+      "dd_close_pct": -20.94120229966795,
+      "dd_intrabar_bound_pct": -26.161328620272386,
+      "trades": 94,
+      "mean_exposure_pct": 51.0079422222188
+    }
+  }
+}

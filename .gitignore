@@ -43,3 +43,11 @@ art/build/screenshots/
 art/build/snapshots/
 art/build/explore.pre-redesign.html
 art/explore.html.bak
+
+# BTC research: keep site assets, linked reports/downloads, sources and test
+# fixtures. Unpublished search dumps and duplicate exports stay local.
+/research/btc-bull-accumulation-2026/results.json
+/research/btc-bull-accumulation-2026/trade-replay-data.json
+/research/btc-bull-accumulation-2026/*-log.txt
+/research/btc-corrections-2023-2025/accumulation-results.json
+/research/btc-strategy-search-2026/*-results.json

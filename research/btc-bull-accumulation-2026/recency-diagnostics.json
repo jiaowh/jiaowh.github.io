@@ -1,0 +1,608 @@
+{
+ "carried2025": {
+  "recentOnly": {
+   "base": 0.9368451024566584,
+   "min": 0.9331977043776201,
+   "max": 0.994114250285676,
+   "above1": 0,
+   "rows": [
+    {
+     "phase": 0,
+     "ratio": 0.9368451024566584,
+     "cashEntering2025": 152657.40533366363,
+     "unitsEntering2025": 0.0
+    },
+    {
+     "phase": 3,
+     "ratio": 0.9419962913441301,
+     "cashEntering2025": 164538.19996806042,
+     "unitsEntering2025": 0.0
+    },
+    {
+     "phase": 6,
+     "ratio": 0.9663874641475756,
+     "cashEntering2025": 144001.79670277255,
+     "unitsEntering2025": 0.0
+    },
+    {
+     "phase": 9,
+     "ratio": 0.9892024077505107,
+     "cashEntering2025": 156296.38662602298,
+     "unitsEntering2025": 0.0
+    },
+    {
+     "phase": 12,
+     "ratio": 0.994114250285676,
+     "cashEntering2025": 151256.42574554347,
+     "unitsEntering2025": 0.0
+    },
+    {
+     "phase": 15,
+     "ratio": 0.9331977043776201,
+     "cashEntering2025": 147035.6601917585,
+     "unitsEntering2025": 0.0
+    },
+    {
+     "phase": 18,
+     "ratio": 0.9446786843807772,
+     "cashEntering2025": 137225.4144156732,
+     "unitsEntering2025": 0.0
+    },
+    {
+     "phase": 21,
+     "ratio": 0.9743089726137477,
+     "cashEntering2025": 156976.20061165898,
+     "unitsEntering2025": 0.0
+    }
+   ]
+  },
+  "recentWeighted": {
+   "base": 1.051678950155026,
+   "min": 1.0182020791352835,
+   "max": 1.2375075609106747,
+   "above1": 8,
+   "rows": [
+    {
+     "phase": 0,
+     "ratio": 1.051678950155026,
+     "cashEntering2025": 144500.58013983027,
+     "unitsEntering2025": 0.0
+    },
+    {
+     "phase": 3,
+     "ratio": 1.0182020791352835,
+     "cashEntering2025": 158344.68466970208,
+     "unitsEntering2025": 0.0
+    },
+    {
+     "phase": 6,
+     "ratio": 1.062495684749515,
+     "cashEntering2025": 137521.38957589943,
+     "unitsEntering2025": 0.0
+    },
+    {
+     "phase": 9,
+     "ratio": 1.0786486970363636,
+     "cashEntering2025": 143771.61266924345,
+     "unitsEntering2025": 0.0
+    },
+    {
+     "phase": 12,
+     "ratio": 1.2375075609106747,
+     "cashEntering2025": 140287.49721308163,
+     "unitsEntering2025": 0.0
+    },
+    {
+     "phase": 15,
+     "ratio": 1.0476629616344333,
+     "cashEntering2025": 108585.13838404372,
+     "unitsEntering2025": 0.0
+    },
+    {
+     "phase": 18,
+     "ratio": 1.0685155875719112,
+     "cashEntering2025": 155072.70251535645,
+     "unitsEntering2025": 0.0
+    },
+    {
+     "phase": 21,
+     "ratio": 1.0838641099549682,
+     "cashEntering2025": 141470.36782849356,
+     "unitsEntering2025": 0.0
+    }
+   ]
+  },
+  "fullCycleHindsight": {
+   "base": 1.3334676423964726,
+   "min": 1.0528857135082816,
+   "max": 1.3334676423964726,
+   "above1": 8,
+   "rows": [
+    {
+     "phase": 0,
+     "ratio": 1.3334676423964726,
+     "cashEntering2025": 122080.48745026827,
+     "unitsEntering2025": 0.0
+    },
+    {
+     "phase": 3,
+     "ratio": 1.0528857135082816,
+     "cashEntering2025": 115639.37024770874,
+     "unitsEntering2025": 0.0
+    },
+    {
+     "phase": 6,
+     "ratio": 1.2595374796675431,
+     "cashEntering2025": 124842.56572153886,
+     "unitsEntering2025": 0.0
+    },
+    {
+     "phase": 9,
+     "ratio": 1.0978641454807005,
+     "cashEntering2025": 135424.25048962544,
+     "unitsEntering2025": 0.0
+    },
+    {
+     "phase": 12,
+     "ratio": 1.2692248067355436,
+     "cashEntering2025": 120606.95767772717,
+     "unitsEntering2025": 0.0
+    },
+    {
+     "phase": 15,
+     "ratio": 1.2299949260785368,
+     "cashEntering2025": 99417.99891426638,
+     "unitsEntering2025": 0.0
+    },
+    {
+     "phase": 18,
+     "ratio": 1.3106967549383324,
+     "cashEntering2025": 141421.6919638391,
+     "unitsEntering2025": 0.0
+    },
+    {
+     "phase": 21,
+     "ratio": 1.3040938256038719,
+     "cashEntering2025": 110045.40841483908,
+     "unitsEntering2025": 0.0
+    }
+   ]
+  },
+  "baseline": {
+   "base": 1.202457808354367,
+   "min": 1.0780011262966933,
+   "max": 1.3032633397182496,
+   "above1": 8,
+   "rows": [
+    {
+     "phase": 0,
+     "ratio": 1.202457808354367,
+     "cashEntering2025": 0.0,
+     "unitsEntering2025": 1.108346365888878
+    },
+    {
+     "phase": 3,
+     "ratio": 1.1316354590273474,
+     "cashEntering2025": 0.0,
+     "unitsEntering2025": 1.0472446153301034
+    },
+    {
+     "phase": 6,
+     "ratio": 1.108090313047705,
+     "cashEntering2025": 0.0,
+     "unitsEntering2025": 1.0716933570545986
+    },
+    {
+     "phase": 9,
+     "ratio": 1.0780011262966933,
+     "cashEntering2025": 0.0,
+     "unitsEntering2025": 1.0322833431999925
+    },
+    {
+     "phase": 12,
+     "ratio": 1.173123639969464,
+     "cashEntering2025": 0.0,
+     "unitsEntering2025": 1.1403385004053819
+    },
+    {
+     "phase": 15,
+     "ratio": 1.3032633397182496,
+     "cashEntering2025": 0.0,
+     "unitsEntering2025": 0.8897626079015561
+    },
+    {
+     "phase": 18,
+     "ratio": 1.2153922272252211,
+     "cashEntering2025": 0.0,
+     "unitsEntering2025": 0.9791705970897167
+    },
+    {
+     "phase": 21,
+     "ratio": 1.1340254106007817,
+     "cashEntering2025": 0.0,
+     "unitsEntering2025": 0.9765114713948242
+    }
+   ]
+  }
+ },
+ "neighbors": [
+  {
+   "name": "e40_ma200_gain0.05_time14",
+   "fullCycleBase": 1.240351364423604,
+   "fresh2025Base": 1.0654507127696269,
+   "fresh2025Min": 0.9299313795515278,
+   "fresh2025Max": 1.0654507127696269,
+   "fresh2025Above1": 7
+  },
+  {
+   "name": "e40_ma200_gain0.1_time14",
+   "fullCycleBase": 1.5587864184621387,
+   "fresh2025Base": 1.2695341679302228,
+   "fresh2025Min": 1.0071084185970334,
+   "fresh2025Max": 1.2695341679302228,
+   "fresh2025Above1": 8
+  },
+  {
+   "name": "e40_ma200_gain0.15_time14",
+   "fullCycleBase": 1.027826586214732,
+   "fresh2025Base": 1.170524765414476,
+   "fresh2025Min": 0.970374577354825,
+   "fresh2025Max": 1.2108517377919785,
+   "fresh2025Above1": 6
+  },
+  {
+   "name": "e50_ma200_gain0.05_time14",
+   "fullCycleBase": 1.4918516022515074,
+   "fresh2025Base": 0.9112631049931863,
+   "fresh2025Min": 0.8813003210961867,
+   "fresh2025Max": 1.182448262951585,
+   "fresh2025Above1": 1
+  },
+  {
+   "name": "e50_ma200_gain0.1_time14",
+   "fullCycleBase": 1.6223861034478146,
+   "fresh2025Base": 0.9738985556556338,
+   "fresh2025Min": 0.9414249575969755,
+   "fresh2025Max": 1.2060698730502082,
+   "fresh2025Above1": 1
+  },
+  {
+   "name": "e50_ma200_gain0.15_time14",
+   "fullCycleBase": 1.4141899673802847,
+   "fresh2025Base": 1.0347507941930005,
+   "fresh2025Min": 0.9963542479024678,
+   "fresh2025Max": 1.2519289641444857,
+   "fresh2025Above1": 6
+  }
+ ],
+ "recentWeightedOtherWindows": {
+  "0": {
+   "2020-21": {
+    "btc": 1.1227533598460373,
+    "units": 1.1227533598460373,
+    "cash": 0.0,
+    "lastPrice": 46216.93,
+    "btcDD": -0.2370283651905858,
+    "usdDD": -0.5117735042793156,
+    "trades": 20,
+    "cashFraction": 0.17377423033067274,
+    "roundTrips": 10,
+    "wins": 5,
+    "openCash": false
+   },
+   "2022": {
+    "btc": 1.0,
+    "units": 1.0,
+    "cash": 0.0,
+    "lastPrice": 16542.4,
+    "btcDD": 0.0,
+    "usdDD": -0.6721392902034937,
+    "trades": 0,
+    "cashFraction": 0.0,
+    "roundTrips": 0,
+    "wins": 0,
+    "openCash": false
+   },
+   "2026 through Oct 9": {
+    "btc": 1.0,
+    "units": 1.0,
+    "cash": 0.0,
+    "lastPrice": 82635.55,
+    "btcDD": 0.0,
+    "usdDD": -0.39977856922698274,
+    "trades": 0,
+    "cashFraction": 0.0,
+    "roundTrips": 0,
+    "wins": 0,
+    "openCash": false
+   }
+  },
+  "3": {
+   "2020-21": {
+    "btc": 1.1701111500585955,
+    "units": 1.1701111500585955,
+    "cash": 0.0,
+    "lastPrice": 46811.77,
+    "btcDD": -0.1635657569441895,
+    "usdDD": -0.5284938267308747,
+    "trades": 18,
+    "cashFraction": 0.15275877792977657,
+    "roundTrips": 9,
+    "wins": 5,
+    "openCash": false
+   },
+   "2022": {
+    "btc": 1.0,
+    "units": 1.0,
+    "cash": 0.0,
+    "lastPrice": 16548.19,
+    "btcDD": 0.0,
+    "usdDD": -0.6729800656605169,
+    "trades": 0,
+    "cashFraction": 0.0,
+    "roundTrips": 0,
+    "wins": 0,
+    "openCash": false
+   },
+   "2026 through Oct 9": {
+    "btc": 1.0,
+    "units": 1.0,
+    "cash": 0.0,
+    "lastPrice": 82635.95,
+    "btcDD": 0.0,
+    "usdDD": -0.3963272904965135,
+    "trades": 0,
+    "cashFraction": 0.0,
+    "roundTrips": 0,
+    "wins": 0,
+    "openCash": false
+   }
+  },
+  "6": {
+   "2020-21": {
+    "btc": 1.2435550546181,
+    "units": 1.2435550546181,
+    "cash": 0.0,
+    "lastPrice": 46778.14,
+    "btcDD": -0.16323427259697343,
+    "usdDD": -0.5635664688265934,
+    "trades": 18,
+    "cashFraction": 0.14712591240875914,
+    "roundTrips": 9,
+    "wins": 4,
+    "openCash": false
+   },
+   "2022": {
+    "btc": 1.0,
+    "units": 1.0,
+    "cash": 0.0,
+    "lastPrice": 16551.47,
+    "btcDD": 0.0,
+    "usdDD": -0.6722921074630066,
+    "trades": 0,
+    "cashFraction": 0.0,
+    "roundTrips": 0,
+    "wins": 0,
+    "openCash": false
+   },
+   "2026 through Oct 9": {
+    "btc": 1.0,
+    "units": 1.0,
+    "cash": 0.0,
+    "lastPrice": 82536.78,
+    "btcDD": 0.0,
+    "usdDD": -0.40254427862736253,
+    "trades": 0,
+    "cashFraction": 0.0,
+    "roundTrips": 0,
+    "wins": 0,
+    "openCash": false
+   }
+  },
+  "9": {
+   "2020-21": {
+    "btc": 1.2667820756994697,
+    "units": 1.2667820756994697,
+    "cash": 0.0,
+    "lastPrice": 46656.13,
+    "btcDD": -0.1576159666577961,
+    "usdDD": -0.5036712440930278,
+    "trades": 18,
+    "cashFraction": 0.1475484606613455,
+    "roundTrips": 9,
+    "wins": 5,
+    "openCash": false
+   },
+   "2022": {
+    "btc": 1.0,
+    "units": 1.0,
+    "cash": 0.0,
+    "lastPrice": 16529.67,
+    "btcDD": 0.0,
+    "usdDD": -0.6718455197781648,
+    "trades": 0,
+    "cashFraction": 0.0,
+    "roundTrips": 0,
+    "wins": 0,
+    "openCash": false
+   },
+   "2026 through Oct 9": {
+    "btc": 1.0,
+    "units": 1.0,
+    "cash": 0.0,
+    "lastPrice": 82514.01,
+    "btcDD": 0.0,
+    "usdDD": -0.4018551787471194,
+    "trades": 0,
+    "cashFraction": 0.0,
+    "roundTrips": 0,
+    "wins": 0,
+    "openCash": false
+   }
+  },
+  "12": {
+   "2020-21": {
+    "btc": 1.2488229253726906,
+    "units": 1.2488229253726906,
+    "cash": 0.0,
+    "lastPrice": 46216.93,
+    "btcDD": -0.2559556323339145,
+    "usdDD": -0.5145438310440527,
+    "trades": 20,
+    "cashFraction": 0.1637400228050171,
+    "roundTrips": 10,
+    "wins": 4,
+    "openCash": false
+   },
+   "2022": {
+    "btc": 1.0,
+    "units": 1.0,
+    "cash": 0.0,
+    "lastPrice": 16542.4,
+    "btcDD": 0.0,
+    "usdDD": -0.6721392902034937,
+    "trades": 0,
+    "cashFraction": 0.0,
+    "roundTrips": 0,
+    "wins": 0,
+    "openCash": false
+   },
+   "2026 through Oct 9": {
+    "btc": 1.0,
+    "units": 1.0,
+    "cash": 0.0,
+    "lastPrice": 82635.55,
+    "btcDD": 0.0,
+    "usdDD": -0.39977856922698274,
+    "trades": 0,
+    "cashFraction": 0.0,
+    "roundTrips": 0,
+    "wins": 0,
+    "openCash": false
+   }
+  },
+  "15": {
+   "2020-21": {
+    "btc": 1.4004793709624455,
+    "units": 1.4004793709624455,
+    "cash": 0.0,
+    "lastPrice": 46811.77,
+    "btcDD": -0.1475847742143377,
+    "usdDD": -0.5289218256902628,
+    "trades": 20,
+    "cashFraction": 0.16279069767441862,
+    "roundTrips": 10,
+    "wins": 6,
+    "openCash": false
+   },
+   "2022": {
+    "btc": 1.0,
+    "units": 1.0,
+    "cash": 0.0,
+    "lastPrice": 16548.19,
+    "btcDD": 0.0,
+    "usdDD": -0.6729800656605169,
+    "trades": 0,
+    "cashFraction": 0.0,
+    "roundTrips": 0,
+    "wins": 0,
+    "openCash": false
+   },
+   "2026 through Oct 9": {
+    "btc": 1.0,
+    "units": 1.0,
+    "cash": 0.0,
+    "lastPrice": 82635.95,
+    "btcDD": 0.0,
+    "usdDD": -0.3963272904965135,
+    "trades": 0,
+    "cashFraction": 0.0,
+    "roundTrips": 0,
+    "wins": 0,
+    "openCash": false
+   }
+  },
+  "18": {
+   "2020-21": {
+    "btc": 1.1473614881121668,
+    "units": 1.1473614881121668,
+    "cash": 0.0,
+    "lastPrice": 46778.14,
+    "btcDD": -0.19425204788116912,
+    "usdDD": -0.5624931081836151,
+    "trades": 18,
+    "cashFraction": 0.14940693430656934,
+    "roundTrips": 9,
+    "wins": 5,
+    "openCash": false
+   },
+   "2022": {
+    "btc": 1.0,
+    "units": 1.0,
+    "cash": 0.0,
+    "lastPrice": 16551.47,
+    "btcDD": 0.0,
+    "usdDD": -0.6722921074630066,
+    "trades": 0,
+    "cashFraction": 0.0,
+    "roundTrips": 0,
+    "wins": 0,
+    "openCash": false
+   },
+   "2026 through Oct 9": {
+    "btc": 1.0,
+    "units": 1.0,
+    "cash": 0.0,
+    "lastPrice": 82536.78,
+    "btcDD": 0.0,
+    "usdDD": -0.40254427862736253,
+    "trades": 0,
+    "cashFraction": 0.0,
+    "roundTrips": 0,
+    "wins": 0,
+    "openCash": false
+   }
+  },
+  "21": {
+   "2020-21": {
+    "btc": 1.454515509036458,
+    "units": 1.454515509036458,
+    "cash": 0.0,
+    "lastPrice": 46656.13,
+    "btcDD": -0.1349071874541894,
+    "usdDD": -0.4989507961987871,
+    "trades": 18,
+    "cashFraction": 0.14777651083238313,
+    "roundTrips": 9,
+    "wins": 6,
+    "openCash": false
+   },
+   "2022": {
+    "btc": 1.0,
+    "units": 1.0,
+    "cash": 0.0,
+    "lastPrice": 16529.67,
+    "btcDD": 0.0,
+    "usdDD": -0.6718455197781648,
+    "trades": 0,
+    "cashFraction": 0.0,
+    "roundTrips": 0,
+    "wins": 0,
+    "openCash": false
+   },
+   "2026 through Oct 9": {
+    "btc": 1.0,
+    "units": 1.0,
+    "cash": 0.0,
+    "lastPrice": 82514.01,
+    "btcDD": 0.0,
+    "usdDD": -0.4018551787471194,
+    "trades": 0,
+    "cashFraction": 0.0,
+    "roundTrips": 0,
+    "wins": 0,
+    "openCash": false
+   }
+  }
+ }
+}

@@ -1,0 +1,939 @@
+{
+  "selected": "e20_ma200_gain0.05_trend",
+  "rules": {
+    "trigger": "e20",
+    "gate": 200,
+    "gain": 0.05,
+    "recovery": "trend"
+  },
+  "result": {
+    "2015-17": {
+      "btc": 1.065753468499464,
+      "units": 1.065753468499464,
+      "cash": 0.0,
+      "lastPrice": 13716.36,
+      "btcDD": -0.05362607928013041,
+      "usdDD": -0.46601246105919003,
+      "trades": 2,
+      "cashFraction": 0.005474452554744526,
+      "roundTrips": 1,
+      "wins": 1,
+      "openCash": false
+    },
+    "2019-21": {
+      "btc": 1.3026837472236248,
+      "units": 0.0,
+      "cash": 60266.24960112952,
+      "lastPrice": 46216.93,
+      "btcDD": -0.1064417750862624,
+      "usdDD": -0.6310707859176412,
+      "trades": 9,
+      "cashFraction": 0.02663217166336935,
+      "roundTrips": 4,
+      "wins": 4,
+      "openCash": true
+    },
+    "2023-25": {
+      "btc": 1.3327397420242677,
+      "units": 1.3327397420242677,
+      "cash": 0.0,
+      "lastPrice": 87648.22,
+      "btcDD": -0.1591045113598203,
+      "usdDD": -0.3199692125904564,
+      "trades": 20,
+      "cashFraction": 0.05611313868613139,
+      "roundTrips": 10,
+      "wins": 8,
+      "openCash": false
+    },
+    "2020-21": {
+      "btc": 1.2165877067002446,
+      "units": 0.0,
+      "cash": 56283.17582830515,
+      "lastPrice": 46216.93,
+      "btcDD": -0.1064417750862624,
+      "usdDD": -0.5365850270532262,
+      "trades": 7,
+      "cashFraction": 0.037628278221208664,
+      "roundTrips": 3,
+      "wins": 3,
+      "openCash": true
+    }
+  },
+  "stress": {
+    "0.001/0": {
+      "allCyclePasses": 8,
+      "windows": {
+        "2015-17": {
+          "mean": 1.055444997320945,
+          "min": 1.0510162200355366,
+          "max": 1.065753468499464,
+          "wins": 8
+        },
+        "2019-21": {
+          "mean": 1.3587989073854234,
+          "min": 1.1819270429483024,
+          "max": 1.6708089474763697,
+          "wins": 8
+        },
+        "2023-25": {
+          "mean": 1.2016240890752805,
+          "min": 1.1073888223048889,
+          "max": 1.3377580523928816,
+          "wins": 8
+        },
+        "2020-21": {
+          "mean": 1.269752379279502,
+          "min": 1.0784347731076973,
+          "max": 1.5509036224575339,
+          "wins": 8
+        }
+      }
+    },
+    "0.003/0": {
+      "allCyclePasses": 8,
+      "windows": {
+        "2015-17": {
+          "mean": 1.0512316314233585,
+          "min": 1.0468205339405263,
+          "max": 1.061498950897118,
+          "wins": 8
+        },
+        "2019-21": {
+          "mean": 1.3316933614193431,
+          "min": 1.1678286170763368,
+          "max": 1.6377245717284656,
+          "wins": 8
+        },
+        "2023-25": {
+          "mean": 1.157806611237394,
+          "min": 1.068231711903027,
+          "max": 1.2853035860928428,
+          "wins": 8
+        },
+        "2020-21": {
+          "mean": 1.2493762235001993,
+          "min": 1.069841675904848,
+          "max": 1.5262865198100397,
+          "wins": 8
+        }
+      }
+    },
+    "0.006/0": {
+      "allCyclePasses": 8,
+      "windows": {
+        "2015-17": {
+          "mean": 1.0449429943505693,
+          "min": 1.0405582847639276,
+          "max": 1.055148893064193,
+          "wins": 8
+        },
+        "2019-21": {
+          "mean": 1.2920716961557457,
+          "min": 1.146995326590577,
+          "max": 1.5893214945197298,
+          "wins": 8
+        },
+        "2023-25": {
+          "mean": 1.095087347470276,
+          "min": 1.012075873318168,
+          "max": 1.2104518070641743,
+          "wins": 8
+        },
+        "2020-21": {
+          "mean": 1.2194479645781675,
+          "min": 1.0570800308118091,
+          "max": 1.490090967262677,
+          "wins": 8
+        }
+      }
+    },
+    "0.001/1": {
+      "allCyclePasses": 8,
+      "windows": {
+        "2015-17": {
+          "mean": 1.075252204646945,
+          "min": 1.0570180507886462,
+          "max": 1.098330740566413,
+          "wins": 8
+        },
+        "2019-21": {
+          "mean": 1.5671144867572024,
+          "min": 1.2162251519403742,
+          "max": 1.7710081260537816,
+          "wins": 8
+        },
+        "2023-25": {
+          "mean": 1.1971037308580552,
+          "min": 1.0383118224481152,
+          "max": 1.3217629254762062,
+          "wins": 8
+        },
+        "2020-21": {
+          "mean": 1.4953239192083028,
+          "min": 1.1400806869004354,
+          "max": 1.6846486911219454,
+          "wins": 8
+        }
+      }
+    },
+    "0.001/6": {
+      "allCyclePasses": 0,
+      "windows": {
+        "2015-17": {
+          "mean": 1.0641545057272144,
+          "min": 1.016043045002484,
+          "max": 1.1052922736492716,
+          "wins": 8
+        },
+        "2019-21": {
+          "mean": 1.7162212299465094,
+          "min": 1.2222182055100175,
+          "max": 2.0104943251770018,
+          "wins": 8
+        },
+        "2023-25": {
+          "mean": 0.7700094195620623,
+          "min": 0.7174009478706563,
+          "max": 0.8194845517591132,
+          "wins": 0
+        },
+        "2020-21": {
+          "mean": 1.6636256573068868,
+          "min": 1.17483409546394,
+          "max": 1.916546092004216,
+          "wins": 8
+        }
+      }
+    }
+  },
+  "regimes": {
+    "2015-17": {
+      "always": {
+        "daily": {
+          "n": 1067,
+          "crashes": 290,
+          "crashRate": 0.2717900656044986,
+          "quiet": 172,
+          "quietRate": 0.16119962511715089,
+          "upBreaks": 579,
+          "downBreaks": 142,
+          "eitherBreaks": 707,
+          "crashDayRecall": 1.0
+        },
+        "spaced30days": {
+          "n": 36,
+          "crashes": 6,
+          "crashRate": 0.16666666666666666,
+          "quiet": 6,
+          "quietRate": 0.16666666666666666,
+          "upBreaks": 19,
+          "downBreaks": 6,
+          "eitherBreaks": 24,
+          "crashDayRecall": 0.020689655172413793
+        }
+      },
+      "breadth<40%": {
+        "daily": {
+          "n": 243,
+          "crashes": 44,
+          "crashRate": 0.18106995884773663,
+          "quiet": 77,
+          "quietRate": 0.3168724279835391,
+          "upBreaks": 59,
+          "downBreaks": 58,
+          "eitherBreaks": 110,
+          "crashDayRecall": 0.15172413793103448
+        },
+        "spaced30days": {
+          "n": 14,
+          "crashes": 5,
+          "crashRate": 0.35714285714285715,
+          "quiet": 4,
+          "quietRate": 0.2857142857142857,
+          "upBreaks": 4,
+          "downBreaks": 5,
+          "eitherBreaks": 8,
+          "crashDayRecall": 0.017241379310344827
+        }
+      },
+      "breadth<20%": {
+        "daily": {
+          "n": 77,
+          "crashes": 16,
+          "crashRate": 0.2077922077922078,
+          "quiet": 10,
+          "quietRate": 0.12987012987012986,
+          "upBreaks": 14,
+          "downBreaks": 28,
+          "eitherBreaks": 40,
+          "crashDayRecall": 0.05517241379310345
+        },
+        "spaced30days": {
+          "n": 6,
+          "crashes": 1,
+          "crashRate": 0.16666666666666666,
+          "quiet": 0,
+          "quietRate": 0.0,
+          "upBreaks": 2,
+          "downBreaks": 3,
+          "eitherBreaks": 5,
+          "crashDayRecall": 0.0034482758620689655
+        }
+      },
+      "close<SMA50": {
+        "daily": {
+          "n": 297,
+          "crashes": 56,
+          "crashRate": 0.18855218855218855,
+          "quiet": 68,
+          "quietRate": 0.22895622895622897,
+          "upBreaks": 73,
+          "downBreaks": 74,
+          "eitherBreaks": 138,
+          "crashDayRecall": 0.19310344827586207
+        },
+        "spaced30days": {
+          "n": 17,
+          "crashes": 5,
+          "crashRate": 0.29411764705882354,
+          "quiet": 3,
+          "quietRate": 0.17647058823529413,
+          "upBreaks": 6,
+          "downBreaks": 6,
+          "eitherBreaks": 10,
+          "crashDayRecall": 0.017241379310344827
+        }
+      },
+      "close<SMA200": {
+        "daily": {
+          "n": 232,
+          "crashes": 46,
+          "crashRate": 0.19827586206896552,
+          "quiet": 56,
+          "quietRate": 0.2413793103448276,
+          "upBreaks": 79,
+          "downBreaks": 52,
+          "eitherBreaks": 129,
+          "crashDayRecall": 0.15862068965517243
+        },
+        "spaced30days": {
+          "n": 8,
+          "crashes": 1,
+          "crashRate": 0.125,
+          "quiet": 1,
+          "quietRate": 0.125,
+          "upBreaks": 3,
+          "downBreaks": 4,
+          "eitherBreaks": 6,
+          "crashDayRecall": 0.0034482758620689655
+        }
+      },
+      "breadth<20% and close<SMA50": {
+        "daily": {
+          "n": 77,
+          "crashes": 16,
+          "crashRate": 0.2077922077922078,
+          "quiet": 10,
+          "quietRate": 0.12987012987012986,
+          "upBreaks": 14,
+          "downBreaks": 28,
+          "eitherBreaks": 40,
+          "crashDayRecall": 0.05517241379310345
+        },
+        "spaced30days": {
+          "n": 6,
+          "crashes": 1,
+          "crashRate": 0.16666666666666666,
+          "quiet": 0,
+          "quietRate": 0.0,
+          "upBreaks": 2,
+          "downBreaks": 3,
+          "eitherBreaks": 5,
+          "crashDayRecall": 0.0034482758620689655
+        }
+      },
+      "rare gated breadth crossing": {
+        "daily": {
+          "n": 1,
+          "crashes": 0,
+          "crashRate": 0.0,
+          "quiet": 0,
+          "quietRate": 0.0,
+          "upBreaks": 0,
+          "downBreaks": 1,
+          "eitherBreaks": 1,
+          "crashDayRecall": 0.0
+        },
+        "spaced30days": {
+          "n": 1,
+          "crashes": 0,
+          "crashRate": 0.0,
+          "quiet": 0,
+          "quietRate": 0.0,
+          "upBreaks": 0,
+          "downBreaks": 1,
+          "eitherBreaks": 1,
+          "crashDayRecall": 0.0
+        }
+      },
+      "low efficiency + narrow range": {
+        "daily": {
+          "n": 134,
+          "crashes": 20,
+          "crashRate": 0.14925373134328357,
+          "quiet": 31,
+          "quietRate": 0.23134328358208955,
+          "upBreaks": 103,
+          "downBreaks": 21,
+          "eitherBreaks": 123,
+          "crashDayRecall": 0.06896551724137931
+        },
+        "spaced30days": {
+          "n": 13,
+          "crashes": 3,
+          "crashRate": 0.23076923076923078,
+          "quiet": 3,
+          "quietRate": 0.23076923076923078,
+          "upBreaks": 8,
+          "downBreaks": 3,
+          "eitherBreaks": 11,
+          "crashDayRecall": 0.010344827586206896
+        }
+      },
+      "ADX14<20": {
+        "daily": {
+          "n": 215,
+          "crashes": 31,
+          "crashRate": 0.14418604651162792,
+          "quiet": 47,
+          "quietRate": 0.2186046511627907,
+          "upBreaks": 141,
+          "downBreaks": 23,
+          "eitherBreaks": 162,
+          "crashDayRecall": 0.10689655172413794
+        },
+        "spaced30days": {
+          "n": 14,
+          "crashes": 4,
+          "crashRate": 0.2857142857142857,
+          "quiet": 3,
+          "quietRate": 0.21428571428571427,
+          "upBreaks": 7,
+          "downBreaks": 2,
+          "eitherBreaks": 9,
+          "crashDayRecall": 0.013793103448275862
+        }
+      },
+      "range + ADX14<20": {
+        "daily": {
+          "n": 87,
+          "crashes": 9,
+          "crashRate": 0.10344827586206896,
+          "quiet": 27,
+          "quietRate": 0.3103448275862069,
+          "upBreaks": 69,
+          "downBreaks": 10,
+          "eitherBreaks": 78,
+          "crashDayRecall": 0.03103448275862069
+        },
+        "spaced30days": {
+          "n": 6,
+          "crashes": 1,
+          "crashRate": 0.16666666666666666,
+          "quiet": 4,
+          "quietRate": 0.6666666666666666,
+          "upBreaks": 3,
+          "downBreaks": 1,
+          "eitherBreaks": 4,
+          "crashDayRecall": 0.0034482758620689655
+        }
+      }
+    },
+    "2019-21": {
+      "always": {
+        "daily": {
+          "n": 1067,
+          "crashes": 323,
+          "crashRate": 0.302717900656045,
+          "quiet": 70,
+          "quietRate": 0.06560449859418932,
+          "upBreaks": 625,
+          "downBreaks": 227,
+          "eitherBreaks": 825,
+          "crashDayRecall": 1.0
+        },
+        "spaced30days": {
+          "n": 36,
+          "crashes": 12,
+          "crashRate": 0.3333333333333333,
+          "quiet": 3,
+          "quietRate": 0.08333333333333333,
+          "upBreaks": 20,
+          "downBreaks": 7,
+          "eitherBreaks": 26,
+          "crashDayRecall": 0.03715170278637771
+        }
+      },
+      "breadth<40%": {
+        "daily": {
+          "n": 304,
+          "crashes": 92,
+          "crashRate": 0.3026315789473684,
+          "quiet": 21,
+          "quietRate": 0.06907894736842106,
+          "upBreaks": 96,
+          "downBreaks": 98,
+          "eitherBreaks": 189,
+          "crashDayRecall": 0.2848297213622291
+        },
+        "spaced30days": {
+          "n": 20,
+          "crashes": 6,
+          "crashRate": 0.3,
+          "quiet": 3,
+          "quietRate": 0.15,
+          "upBreaks": 7,
+          "downBreaks": 6,
+          "eitherBreaks": 13,
+          "crashDayRecall": 0.018575851393188854
+        }
+      },
+      "breadth<20%": {
+        "daily": {
+          "n": 101,
+          "crashes": 25,
+          "crashRate": 0.24752475247524752,
+          "quiet": 6,
+          "quietRate": 0.0594059405940594,
+          "upBreaks": 22,
+          "downBreaks": 32,
+          "eitherBreaks": 54,
+          "crashDayRecall": 0.07739938080495357
+        },
+        "spaced30days": {
+          "n": 10,
+          "crashes": 2,
+          "crashRate": 0.2,
+          "quiet": 1,
+          "quietRate": 0.1,
+          "upBreaks": 4,
+          "downBreaks": 5,
+          "eitherBreaks": 9,
+          "crashDayRecall": 0.006191950464396285
+        }
+      },
+      "close<SMA50": {
+        "daily": {
+          "n": 406,
+          "crashes": 129,
+          "crashRate": 0.31773399014778325,
+          "quiet": 35,
+          "quietRate": 0.08620689655172414,
+          "upBreaks": 132,
+          "downBreaks": 135,
+          "eitherBreaks": 259,
+          "crashDayRecall": 0.3993808049535604
+        },
+        "spaced30days": {
+          "n": 20,
+          "crashes": 7,
+          "crashRate": 0.35,
+          "quiet": 3,
+          "quietRate": 0.15,
+          "upBreaks": 6,
+          "downBreaks": 8,
+          "eitherBreaks": 13,
+          "crashDayRecall": 0.021671826625386997
+        }
+      },
+      "close<SMA200": {
+        "daily": {
+          "n": 356,
+          "crashes": 67,
+          "crashRate": 0.18820224719101122,
+          "quiet": 23,
+          "quietRate": 0.06460674157303371,
+          "upBreaks": 186,
+          "downBreaks": 69,
+          "eitherBreaks": 246,
+          "crashDayRecall": 0.20743034055727555
+        },
+        "spaced30days": {
+          "n": 16,
+          "crashes": 4,
+          "crashRate": 0.25,
+          "quiet": 2,
+          "quietRate": 0.125,
+          "upBreaks": 7,
+          "downBreaks": 4,
+          "eitherBreaks": 10,
+          "crashDayRecall": 0.01238390092879257
+        }
+      },
+      "breadth<20% and close<SMA50": {
+        "daily": {
+          "n": 101,
+          "crashes": 25,
+          "crashRate": 0.24752475247524752,
+          "quiet": 6,
+          "quietRate": 0.0594059405940594,
+          "upBreaks": 22,
+          "downBreaks": 32,
+          "eitherBreaks": 54,
+          "crashDayRecall": 0.07739938080495357
+        },
+        "spaced30days": {
+          "n": 10,
+          "crashes": 2,
+          "crashRate": 0.2,
+          "quiet": 1,
+          "quietRate": 0.1,
+          "upBreaks": 4,
+          "downBreaks": 5,
+          "eitherBreaks": 9,
+          "crashDayRecall": 0.006191950464396285
+        }
+      },
+      "rare gated breadth crossing": {
+        "daily": {
+          "n": 4,
+          "crashes": 3,
+          "crashRate": 0.75,
+          "quiet": 0,
+          "quietRate": 0.0,
+          "upBreaks": 0,
+          "downBreaks": 3,
+          "eitherBreaks": 3,
+          "crashDayRecall": 0.009287925696594427
+        },
+        "spaced30days": {
+          "n": 3,
+          "crashes": 2,
+          "crashRate": 0.6666666666666666,
+          "quiet": 0,
+          "quietRate": 0.0,
+          "upBreaks": 0,
+          "downBreaks": 3,
+          "eitherBreaks": 3,
+          "crashDayRecall": 0.006191950464396285
+        }
+      },
+      "low efficiency + narrow range": {
+        "daily": {
+          "n": 76,
+          "crashes": 15,
+          "crashRate": 0.19736842105263158,
+          "quiet": 2,
+          "quietRate": 0.02631578947368421,
+          "upBreaks": 52,
+          "downBreaks": 23,
+          "eitherBreaks": 73,
+          "crashDayRecall": 0.04643962848297214
+        },
+        "spaced30days": {
+          "n": 8,
+          "crashes": 2,
+          "crashRate": 0.25,
+          "quiet": 1,
+          "quietRate": 0.125,
+          "upBreaks": 3,
+          "downBreaks": 4,
+          "eitherBreaks": 7,
+          "crashDayRecall": 0.006191950464396285
+        }
+      },
+      "ADX14<20": {
+        "daily": {
+          "n": 246,
+          "crashes": 57,
+          "crashRate": 0.23170731707317074,
+          "quiet": 26,
+          "quietRate": 0.10569105691056911,
+          "upBreaks": 153,
+          "downBreaks": 50,
+          "eitherBreaks": 193,
+          "crashDayRecall": 0.17647058823529413
+        },
+        "spaced30days": {
+          "n": 16,
+          "crashes": 4,
+          "crashRate": 0.25,
+          "quiet": 1,
+          "quietRate": 0.0625,
+          "upBreaks": 8,
+          "downBreaks": 3,
+          "eitherBreaks": 11,
+          "crashDayRecall": 0.01238390092879257
+        }
+      },
+      "range + ADX14<20": {
+        "daily": {
+          "n": 56,
+          "crashes": 8,
+          "crashRate": 0.14285714285714285,
+          "quiet": 2,
+          "quietRate": 0.03571428571428571,
+          "upBreaks": 44,
+          "downBreaks": 11,
+          "eitherBreaks": 53,
+          "crashDayRecall": 0.02476780185758514
+        },
+        "spaced30days": {
+          "n": 6,
+          "crashes": 1,
+          "crashRate": 0.16666666666666666,
+          "quiet": 1,
+          "quietRate": 0.16666666666666666,
+          "upBreaks": 3,
+          "downBreaks": 2,
+          "eitherBreaks": 5,
+          "crashDayRecall": 0.0030959752321981426
+        }
+      }
+    },
+    "2023-25": {
+      "always": {
+        "daily": {
+          "n": 1067,
+          "crashes": 174,
+          "crashRate": 0.16307403936269915,
+          "quiet": 213,
+          "quietRate": 0.19962511715089035,
+          "upBreaks": 523,
+          "downBreaks": 271,
+          "eitherBreaks": 739,
+          "crashDayRecall": 1.0
+        },
+        "spaced30days": {
+          "n": 36,
+          "crashes": 5,
+          "crashRate": 0.1388888888888889,
+          "quiet": 10,
+          "quietRate": 0.2777777777777778,
+          "upBreaks": 18,
+          "downBreaks": 10,
+          "eitherBreaks": 26,
+          "crashDayRecall": 0.028735632183908046
+        }
+      },
+      "breadth<40%": {
+        "daily": {
+          "n": 309,
+          "crashes": 58,
+          "crashRate": 0.18770226537216828,
+          "quiet": 47,
+          "quietRate": 0.15210355987055016,
+          "upBreaks": 93,
+          "downBreaks": 97,
+          "eitherBreaks": 181,
+          "crashDayRecall": 0.3333333333333333
+        },
+        "spaced30days": {
+          "n": 21,
+          "crashes": 4,
+          "crashRate": 0.19047619047619047,
+          "quiet": 3,
+          "quietRate": 0.14285714285714285,
+          "upBreaks": 9,
+          "downBreaks": 9,
+          "eitherBreaks": 16,
+          "crashDayRecall": 0.022988505747126436
+        }
+      },
+      "breadth<20%": {
+        "daily": {
+          "n": 87,
+          "crashes": 14,
+          "crashRate": 0.16091954022988506,
+          "quiet": 15,
+          "quietRate": 0.1724137931034483,
+          "upBreaks": 20,
+          "downBreaks": 29,
+          "eitherBreaks": 48,
+          "crashDayRecall": 0.08045977011494253
+        },
+        "spaced30days": {
+          "n": 12,
+          "crashes": 2,
+          "crashRate": 0.16666666666666666,
+          "quiet": 2,
+          "quietRate": 0.16666666666666666,
+          "upBreaks": 5,
+          "downBreaks": 3,
+          "eitherBreaks": 8,
+          "crashDayRecall": 0.011494252873563218
+        }
+      },
+      "close<SMA50": {
+        "daily": {
+          "n": 403,
+          "crashes": 71,
+          "crashRate": 0.1761786600496278,
+          "quiet": 62,
+          "quietRate": 0.15384615384615385,
+          "upBreaks": 115,
+          "downBreaks": 163,
+          "eitherBreaks": 251,
+          "crashDayRecall": 0.40804597701149425
+        },
+        "spaced30days": {
+          "n": 22,
+          "crashes": 4,
+          "crashRate": 0.18181818181818182,
+          "quiet": 2,
+          "quietRate": 0.09090909090909091,
+          "upBreaks": 10,
+          "downBreaks": 10,
+          "eitherBreaks": 17,
+          "crashDayRecall": 0.022988505747126436
+        }
+      },
+      "close<SMA200": {
+        "daily": {
+          "n": 213,
+          "crashes": 21,
+          "crashRate": 0.09859154929577464,
+          "quiet": 39,
+          "quietRate": 0.18309859154929578,
+          "upBreaks": 102,
+          "downBreaks": 26,
+          "eitherBreaks": 127,
+          "crashDayRecall": 0.1206896551724138
+        },
+        "spaced30days": {
+          "n": 11,
+          "crashes": 1,
+          "crashRate": 0.09090909090909091,
+          "quiet": 2,
+          "quietRate": 0.18181818181818182,
+          "upBreaks": 5,
+          "downBreaks": 4,
+          "eitherBreaks": 9,
+          "crashDayRecall": 0.005747126436781609
+        }
+      },
+      "breadth<20% and close<SMA50": {
+        "daily": {
+          "n": 87,
+          "crashes": 14,
+          "crashRate": 0.16091954022988506,
+          "quiet": 15,
+          "quietRate": 0.1724137931034483,
+          "upBreaks": 20,
+          "downBreaks": 29,
+          "eitherBreaks": 48,
+          "crashDayRecall": 0.08045977011494253
+        },
+        "spaced30days": {
+          "n": 12,
+          "crashes": 2,
+          "crashRate": 0.16666666666666666,
+          "quiet": 2,
+          "quietRate": 0.16666666666666666,
+          "upBreaks": 5,
+          "downBreaks": 3,
+          "eitherBreaks": 8,
+          "crashDayRecall": 0.011494252873563218
+        }
+      },
+      "rare gated breadth crossing": {
+        "daily": {
+          "n": 12,
+          "crashes": 3,
+          "crashRate": 0.25,
+          "quiet": 2,
+          "quietRate": 0.16666666666666666,
+          "upBreaks": 2,
+          "downBreaks": 7,
+          "eitherBreaks": 9,
+          "crashDayRecall": 0.017241379310344827
+        },
+        "spaced30days": {
+          "n": 8,
+          "crashes": 2,
+          "crashRate": 0.25,
+          "quiet": 1,
+          "quietRate": 0.125,
+          "upBreaks": 2,
+          "downBreaks": 3,
+          "eitherBreaks": 5,
+          "crashDayRecall": 0.011494252873563218
+        }
+      },
+      "low efficiency + narrow range": {
+        "daily": {
+          "n": 313,
+          "crashes": 46,
+          "crashRate": 0.14696485623003194,
+          "quiet": 60,
+          "quietRate": 0.19169329073482427,
+          "upBreaks": 166,
+          "downBreaks": 112,
+          "eitherBreaks": 243,
+          "crashDayRecall": 0.26436781609195403
+        },
+        "spaced30days": {
+          "n": 24,
+          "crashes": 4,
+          "crashRate": 0.16666666666666666,
+          "quiet": 6,
+          "quietRate": 0.25,
+          "upBreaks": 13,
+          "downBreaks": 7,
+          "eitherBreaks": 18,
+          "crashDayRecall": 0.022988505747126436
+        }
+      },
+      "ADX14<20": {
+        "daily": {
+          "n": 299,
+          "crashes": 37,
+          "crashRate": 0.12374581939799331,
+          "quiet": 45,
+          "quietRate": 0.1505016722408027,
+          "upBreaks": 168,
+          "downBreaks": 87,
+          "eitherBreaks": 239,
+          "crashDayRecall": 0.21264367816091953
+        },
+        "spaced30days": {
+          "n": 19,
+          "crashes": 3,
+          "crashRate": 0.15789473684210525,
+          "quiet": 2,
+          "quietRate": 0.10526315789473684,
+          "upBreaks": 9,
+          "downBreaks": 7,
+          "eitherBreaks": 14,
+          "crashDayRecall": 0.017241379310344827
+        }
+      },
+      "range + ADX14<20": {
+        "daily": {
+          "n": 162,
+          "crashes": 14,
+          "crashRate": 0.08641975308641975,
+          "quiet": 26,
+          "quietRate": 0.16049382716049382,
+          "upBreaks": 98,
+          "downBreaks": 44,
+          "eitherBreaks": 135,
+          "crashDayRecall": 0.08045977011494253
+        },
+        "spaced30days": {
+          "n": 15,
+          "crashes": 2,
+          "crashRate": 0.13333333333333333,
+          "quiet": 2,
+          "quietRate": 0.13333333333333333,
+          "upBreaks": 8,
+          "downBreaks": 5,
+          "eitherBreaks": 11,
+          "crashDayRecall": 0.011494252873563218
+        }
+      }
+    }
+  },
+  "researchOnly": true
+}

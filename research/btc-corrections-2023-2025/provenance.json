@@ -1,0 +1,21 @@
+{
+  "researchDate": "2026-10-10",
+  "inputs": [
+    {
+      "path": "C:\\Users\\Jiaow\\Documents\\github\\jiaowh.github.io\\btc.html",
+      "sha256": "149bbd4308eb53fc5a7f7e66485c83a91e7ddcc8b50d9dfd90ecc30125881072"
+    },
+    {
+      "path": "C:\\Users\\Jiaow\\Documents\\github\\quant\\research_notes\\ensemble_v2\\runs\\r18_verify_20260930T065706Z_3615\\fixture.json",
+      "sha256": "a0e47239f386bdaa4f901cbdadda05e9469342fa6c88a8fc641b4c6a7bcdfa2c"
+    },
+    {
+      "path": "C:\\Users\\Jiaow\\Documents\\github\\quant\\research_notes\\imacd_ensemble\\btc_1h.npy",
+      "sha256": "482470f64a5c6ab63ac98e7934d08156c655f9a4c2ac25306205640b4d1d6d38"
+    },
+    {
+      "path": "C:\\Users\\Jiaow\\Documents\\github\\quant\\research_notes\\ensemble_v2\\core.py",
+      "sha256": "b701ddf79488ac13309409eaebe7e5a4d517618f77bc5b1c923f813a2ba26a62"
+    }
+  ]
+}
