@@ -10,6 +10,7 @@ assets/developer/rheed analysis pipeline.mp4
 # Dependencies — never commit
 node_modules/
 __pycache__/
+.alert-state/
 
 # Developer source videos — huge originals stay local; web-ready encodes live in assets/developer/web/
 assets/developer/*.mp4
