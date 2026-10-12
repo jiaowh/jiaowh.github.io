@@ -38,26 +38,14 @@ window.BTC_SIGNALS = (() => {
     });
   }
 
-  function describe(r) {
-    if (r.eligible) return 'New eligible sell signal. If the tactical account holds BTC, sell at the next 4h open.';
-    if (r.confirmed) return r.gate ? 'Weakness is already confirmed, but this is not a new transition. No new sell signal.' : 'Weakness is confirmed, but the SMA200 filter is bearish. No tactical sell signal.';
-    if (!r.gate) return 'SMA200 filter is bearish. This bull-market overlay does not trigger a new sale.';
-    if (r.streak) return `Waiting for confirmation: ${r.streak} of 3 consecutive closes below 50%.`;
-    return 'No new sell signal. SMA200 filter is bullish, but breadth is not below 50%.';
-  }
-
   function render() {
     if (!rows.length) return;
     const r = rows.at(-1), votes = Math.round(r.breadth * 50);
     el('signalCards').innerHTML = `
-      <div class="signal-card"><small>DAILY SMA200 FILTER · LATEST</small><strong style="color:var(--${r.gate ? 'up' : 'down'})">${r.gate ? 'Bullish' : 'Bearish'}</strong><p>SMA200 ${usd(r.ma)}<br>Latest daily close ${usd(r.dailyClose)}<br>Upper / lower thresholds ${usd(r.ma * 1.02)} / ${usd(r.ma * .98)}</p></div>
-      <div class="signal-card"><small>4H BREADTH · LATEST</small><strong>${percent(r.breadth)} <span style="font-size:14px;color:var(--muted)">${votes}/50 votes</span></strong><p>Last three closes: ${rows.slice(-3).map(v => percent(v.breadth)).join(' → ')}<br>50% exactly is not below the threshold.</p></div>
-      <div class="signal-card"><small>WEAKNESS CONFIRMATION · LATEST</small><strong>${Math.min(3, r.streak)} / 3 closes</strong><p>${r.streak > 3 ? `Weakness has continued for ${r.streak} bars.` : 'Consecutive closed 4h bars below 50%.'}<br>${r.eligible ? 'New transition with bullish filter.' : 'No new eligible sale on this bar.'}</p></div>`;
-    el('signalDecision').textContent = `${describe(r)} Latest 4h close: ${stamp(r.closeTime)}. Daily reading: ${stamp(r.dailyTime)}.`;
+      <div class="signal-card" title="Daily regime: two closes above SMA200 +2% turn bullish; two below −2% turn bearish."><small>SMA200 REGIME</small><strong style="color:var(--${r.gate ? 'up' : 'down'})">${r.gate ? 'Bullish' : 'Bearish'}</strong><span>SMA200 ${usd(r.ma)}</span></div>
+      <div class="signal-card" title="Original 50-vote breadth, as in Average. The percentage is bullish votes, not a crash probability."><small>4H BREADTH · ORIGINAL</small><strong>${percent(r.breadth)}</strong><span>${votes} / 50 bullish votes</span></div>`;
     const range = el('signalRange').value, year = Number(range);
     const visible = rows.filter(r => range === '90' ? r.closeTime > rows.at(-1).closeTime - 90 * 86400 : new Date(r.time * 1000).getUTCFullYear() === year);
-    const bullish = visible.filter(r => r.gate), weak = bullish.filter(r => r.breadth < .5), confirmed = bullish.filter(r => r.confirmed), signals = visible.filter(r => r.eligible);
-    el('signalCounts').textContent = `Selected window: ${bullish.length.toLocaleString()} bullish-filter bars · ${weak.length.toLocaleString()} also below 50% · ${confirmed.length.toLocaleString()} also in confirmed weakness · ${signals.length} new eligible sell signals. Counts use completed 4h bars; cards above always show the latest data.`;
     draw(visible);
   }
 
@@ -115,11 +103,11 @@ window.BTC_SIGNALS = (() => {
       while (low < high) { const mid = (low + high) >> 1; if (data[mid].closeTime < target) low = mid + 1; else high = mid; }
       const i = low > 0 && target - data[low - 1].closeTime < data[low].closeTime - target ? low - 1 : low, r = data[i];
       el('signalCursor').setAttribute('d', `M${x(r.closeTime)} ${top}V${bbottom}`);
-      el('signalRead').textContent = `${stamp(r.closeTime)} · BTC ${usd(r.close)} · SMA200 ${usd(r.ma)} · ${r.gate ? 'bullish' : 'bearish'} filter · breadth ${percent(r.breadth)} · ${Math.min(r.streak, 3)}/3 weak closes. ${describe(r)}`;
+      el('signalRead').textContent = `${stamp(r.closeTime)} · BTC ${usd(r.close)} · SMA200 ${usd(r.ma)} · ${r.gate ? 'Bullish' : 'Bearish'} · breadth ${percent(r.breadth)}${r.eligible ? ' · Sell signal' : ''}`;
     };
     el('signalHit').onpointermove = inspect;
     el('signalHit').onclick = inspect;
-    el('signalRead').textContent = 'Hover or tap the chart to inspect a closed 4h bar. Chart timestamps are UTC close times; year selection uses each bar’s opening year.';
+    el('signalRead').textContent = 'Hover or tap to inspect · green = bull regime · ▼ = sell signal';
   }
 
   function updateYears() {
@@ -135,14 +123,14 @@ window.BTC_SIGNALS = (() => {
     const seed = await response.json();
     bars = seed.bars.map(([time, open, high, low, close]) => ({time, open, high, low, close}));
     rows = calculate(bars); loaded = true; updateYears(); render();
-    el('signalSource').textContent = `Saved snapshot through ${stamp(rows.at(-1).closeTime)}. Checking for newer completed candles…`;
+    el('signalSource').textContent = `Saved · ${stamp(rows.at(-1).closeTime)} · updating…`;
   }
 
   async function refresh() {
     if (busy) return; busy = true; el('signalRefresh').disabled = true;
     try {
       if (!loaded) await load();
-      el('signalSource').textContent = `Checking Binance… displayed data through ${stamp(rows.at(-1).closeTime)}.`;
+      el('signalSource').textContent = `Checking… · last close ${stamp(rows.at(-1).closeTime)}`;
       const merged = new Map(bars.map(b => [b.time, b]));
       let start = bars.at(-1).time * 1000;
       const cutoff = Date.now();
@@ -171,9 +159,11 @@ window.BTC_SIGNALS = (() => {
       for (let i = bars.length; i < next.length; i++) if (next[i].time !== next[i - 1].time + 14400) throw new Error('Missing new 4h candle; last complete history retained.');
       rows = calculate(next); bars = next; updateYears(); render();
       const stale = cutoff / 1000 - rows.at(-1).closeTime >= 14400;
-      el('signalSource').textContent = `${stale ? 'Feed is behind' : 'Binance checked'} · closed candles through ${stamp(rows.at(-1).closeTime)} · checked ${stamp(cutoff / 1000)}. Refreshes every five minutes while this tab is open. Earlier history uses the research dataset.`;
+      el('signalSource').textContent = `${stale ? 'Feed is behind' : 'Binance checked'} · last close ${stamp(rows.at(-1).closeTime)}`;
+      el('signalSource').title = `Checked ${stamp(cutoff / 1000)}. Closed candles only; auto-refresh every five minutes.`;
     } catch (error) {
-      el('signalSource').textContent = `${loaded ? `Refresh unavailable. Showing saved/last verified data through ${stamp(rows.at(-1).closeTime)}.` : 'Signal history unavailable.'} ${error.message}`;
+      el('signalSource').textContent = loaded ? `Refresh unavailable · saved close ${stamp(rows.at(-1).closeTime)}` : 'Signal history unavailable. Try refresh.';
+      el('signalSource').title = error.message;
     } finally { busy = false; el('signalRefresh').disabled = false; }
   }
   function onShow() { shown = true; if (!loaded) refresh(); else render(); }
@@ -181,7 +171,7 @@ window.BTC_SIGNALS = (() => {
   el('signalRange').onchange = render;
   new ResizeObserver(() => { if (shown && !el('panel_signals').hidden) render(); }).observe(el('signalChart'));
   setInterval(() => { if (shown && !el('panel_signals').hidden) refresh(); }, 300000);
-  // Standalone entry link; does not change the page's default tab.
-  if (new URLSearchParams(location.search).get('tab') === 'signals') setTimeout(() => showTab('signals'), 0);
+  // Signals is the default; explicit links to other tabs still work.
+  setTimeout(() => showTab(new URLSearchParams(location.search).get('tab') || 'signals'), 0);
   return {onShow, refresh, calculate};
 })();

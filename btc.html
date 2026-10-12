@@ -3,8 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BTC · Accumulation Research</title>
-<link rel="stylesheet" href="assets/btc/trade-replay.css">
+<title>BTC · Market Signals</title>
 <link rel="stylesheet" href="assets/btc/signals.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -70,10 +69,10 @@
     border:1px solid var(--grid);color:var(--muted);cursor:default;user-select:none;white-space:nowrap}
   .sig.scalp h2{color:var(--up)}
   .sig .sig-status.long{color:var(--up)} .sig .sig-status.short{color:var(--down)} .sig .sig-status.flat{color:var(--muted)}
-  .sig .tt{width:100%;border-collapse:collapse;font-family:"IBM Plex Mono",monospace;font-size:12px;margin:10px 0 6px}
-  .sig .tt th{text-align:right;color:var(--muted);font-weight:500;font-size:10px;text-transform:uppercase;letter-spacing:.06em;padding:4px 8px;border-bottom:1px solid var(--grid)}
-  .sig .tt td{text-align:right;padding:4px 8px;border-bottom:1px solid var(--grid);white-space:nowrap}
-  .sig .tt th:first-child,.sig .tt td:first-child{text-align:left}
+  .sig .tt,.acc-research .tt{width:100%;border-collapse:collapse;font-family:"IBM Plex Mono",monospace;font-size:12px;margin:10px 0 6px}
+  .sig .tt th,.acc-research .tt th{text-align:right;color:var(--muted);font-weight:500;font-size:10px;text-transform:uppercase;letter-spacing:.06em;padding:4px 8px;border-bottom:1px solid var(--grid)}
+  .sig .tt td,.acc-research .tt td{text-align:right;padding:4px 8px;border-bottom:1px solid var(--grid);white-space:nowrap}
+  .sig .tt th:first-child,.sig .tt td:first-child,.acc-research .tt th:first-child,.acc-research .tt td:first-child{text-align:left}
   .sig .tt td.up{color:var(--up)} .sig .tt td.dn{color:var(--down)} .sig .tt td.mid{color:var(--muted)} .sig .tt td.amb{color:var(--amber)}
   .sig .tt tr.open td{background:rgba(255,176,0,0.05)}
   /* iMACD pane */
@@ -150,9 +149,9 @@
 
 </style>
 </head>
-<body>
+<body data-tab="signals">
 <header>
-  <div class="title"><b>BTC</b> · Accumulation Research</div>
+  <div class="title"><b>BTC</b> · Market Signals</div>
   <div class="price mono" id="price">—<small id="src"></small></div>
 
   <span class="chip" id="funding" title="BTC perp funding rate — loading">funding —</span>
@@ -161,8 +160,7 @@
 </header>
 
 <nav class="tabs">
-  <button class="tab active" data-tab="accum">BTC accumulation</button>
-  <button class="tab" data-tab="signals">SMA200 + breadth</button>
+  <button class="tab active" data-tab="signals">SMA200 + breadth</button>
   <button class="tab" data-tab="d">Daily</button>
   <button class="tab" data-tab="h">4-Hour</button>
   <button class="tab" data-tab="1h">1-Hour</button>
@@ -172,94 +170,6 @@
 </nav>
 
 <main>
-  <section class="panel" id="panel_accum">
-    <div class="acc-intro"><h1>Does trading leave you with more BTC?</h1>
-      <p>Start with BTC. End with BTC. Holding 1 BTC is the benchmark: every sale and buyback must beat that after fees, including any cash still waiting to re-enter.</p>
-      <p class="acc-note"><a href="btc-trades.html">Explore every sale and buyback on the BTC chart · 2018–2026 →</a></p></div>
-    <div class="acc-policy"><b>Current objective: add BTC inside the bull window.</b> The supplied cycle framework handles the strategic bear exit. Test the accumulation overlay during 2015–2017, 2019–2021 and 2023–2025, starting each period with 1 BTC.</div>
-    <div class="sig" id="accBullResearch"><h2>A promising bull-window candidate</h2>
-      <p class="acc-note">Wait for a rare breadth break below 20% while the buffered SMA200 regime remains bullish. Sell at the next 4h open; buy back after a close reaches the 5% BTC-gain hurdle or breadth recovers above 60%. Each trade uses the full account. These are retrospective simulations, with 0.10% costs per side and fee-net valuation of ending cash.</p>
-      <div class="acc-scroll"><table class="tt"><tr><th>Fresh 1 BTC window</th><th>Hold</th><th>Candidate</th><th>Eight candle alignments</th></tr>
-        <tr><td>2015–2017</td><td>1.0000 BTC</td><td>1.0658 BTC</td><td>1.0510–1.0658 BTC</td></tr>
-        <tr><td>2019–2021</td><td>1.0000 BTC</td><td>1.3027 BTC*</td><td>1.1819–1.6708 BTC</td></tr>
-        <tr><td>2023–2025</td><td>1.0000 BTC</td><td>1.3327 BTC</td><td>1.1074–1.3378 BTC</td></tr>
-        <tr><td>2020–2021 diagnostic</td><td>1.0000 BTC</td><td>1.2166 BTC*</td><td>1.0784–1.5509 BTC</td></tr>
-      </table></div>
-      <p class="acc-note">*Ends in cash, shown as BTC equivalent after its purchase fee. The diagnostic overlaps 2019–2021. This table always starts with 1 BTC; controls below apply to the earlier models.</p>
-      <p class="acc-note"><b>It does not always beat holding.</b> The separate 2023 test ends at <b>0.9318 BTC</b>; the continuous recent-cycle account suffers a <b>15.91% BTC drawdown</b>. The earliest cycle contains only one completed trade. A <b>24-hour extra execution delay</b> reduces 2023–2025 to <b>0.7174–0.8195 BTC</b> across alignments.</p>
-      <details class="acc-research"><summary>Exact rules, validation and BTC paths</summary>
-        <p class="acc-note">The daily SMA200 gate turns bullish after two closes above 102% of the moving average, bearish after two below 98%, and retains its state between those events. Sell only on a fresh breadth crossing from at least 20% to below 20%. Breadth is the fraction of the existing 50 members voting bullish, not a crash probability.</p>
-        <p class="acc-note">After the actual sale, the buyback hurdle is sale price × 0.999 ÷ (1.001 × 1.05), about 95.048% of the sale price. Buy after a close reaches that hurdle or breadth exceeds 60%, filling at the next 4h open. Buyback remains active if the SMA gate turns off. Gaps can change the gain, and a recovery buyback can lose BTC.</p>
-        <p class="acc-note">The 216-rule bull-only search found two rules that beat holding across all three cycles and all eight alignments. This 5% target also passes separate 0.30% and 0.60% per-side cost tests and an extra 4h delay. The nearby 3% target passes at base costs but is weaker under stress. Alignments reuse the same history; they are not independent tests. The candidate was selected after reviewing historical results and has no untouched forward validation.</p>
-        <a href="research/btc-bull-accumulation-2026/bull-accumulation.png"><img src="research/btc-bull-accumulation-2026/bull-accumulation.png" alt="Three bull-window BTC paths: recent-cycle holdings fall below 1 BTC before recovering; holding stays at 1 BTC." loading="lazy" style="display:block;width:100%;height:auto;border-radius:4px"></a>
-      </details>
-      <p class="acc-note"><a href="research/btc-bull-accumulation-2026/REPORT.md">Full bull-window study and failed tests</a> · <a href="research/btc-bull-accumulation-2026/trades.csv">Every trade</a> · <a href="research/btc-bull-accumulation-2026/summary.json">Download results</a></p>
-    </div>
-    <details class="acc-research" id="accRecentResearch"><summary>Recent-cycle alternative · give modern data more weight</summary>
-      <p class="acc-note">The 2023–2025 sample had 46.2% annualized daily volatility, versus 76.9% in 2019–2021. A separate comparison ranks the same 216 rules using illustrative weights: 60% on 2023–2024, 30% on 2019–2021 and 10% on 2015–2017. Scores use the lower quartile of annualized BTC growth across eight candle alignments. Selection excludes 2025 returns, but all history has already been examined; this is a retrospective chronological check.</p>
-      <p class="acc-note"><b>Selected alternative:</b> keep the buffered SMA200 gate, sell after breadth crosses below <b>50%</b>, and buy back after a close reaches the fee-adjusted <b>10% BTC-gain target</b> or after <b>14 days in cash</b>. Fill at the next 4h open. This replaces the conservative candidate’s 20% crossing, 5% target and breadth-recovery buyback.</p>
-      <div class="acc-scroll"><table class="tt"><tr><th>Fresh 1 BTC test</th><th>Conservative candidate</th><th>Recent-weighted alternative</th></tr>
-        <tr><td>2023–2024 selection window</td><td>1.1083 BTC</td><td>1.5427 BTC equivalent</td></tr>
-        <tr><td>Continuous 2023–2025</td><td>1.3327 BTC</td><td>1.6224 BTC equivalent</td></tr>
-        <tr><td>Fresh January 2025 account</td><td>1.2025 BTC</td><td>0.9739 BTC equivalent</td></tr>
-        <tr><td>2020–2021 diagnostic</td><td>1.2166 BTC equivalent</td><td>1.1228 BTC equivalent</td></tr>
-      </table></div>
-      <p class="acc-note"><b>Starting position matters:</b> continuing the weighted rule’s existing account through 2025 adds 5.2% BTC equivalent, with gains on all eight alignments. It enters that year in cash. A fresh account starting with 1 BTC instead loses 2.6%, with gains on only 1/8 alignments. The full-cycle result mixes selection and evaluation; it is not an untouched forecast test.</p>
-      <p class="acc-note">Continuous 2023–2025 results range from 1.2077–1.8534 BTC across alignments. Separate higher-cost and execution-delay tests remain above 1 BTC for that full window, including a 24h delay, but the fresh-2025 weakness remains. The 2015–2017 base result is 0.8853 BTC. Selecting using only 2023–2024 chooses another rule that loses BTC during the subsequent carried 2025 period on all eight alignments.</p>
-      <p class="acc-note">Recent data can receive more weight while older periods remain stress scenarios. This study supports comparing the alternative, not assuming maturity guarantees better future performance. The calendar bear exit remains separate. <a href="research/btc-bull-accumulation-2026/RECENCY_REPORT.md">Selection method, neighboring parameters and full results</a> · <a href="research/btc-bull-accumulation-2026/recency-comparison.png">Compare BTC paths</a></p>
-    </details>
-    <details class="acc-research" id="accRefinement"><summary>Focused refinement · three weak closes and a seven-day buyback</summary>
-      <p class="acc-note">A further 192-rule search varies breadth, confirmation, BTC targets and buyback timing. Ranking only 2023–2024 results selects the same 50% breadth and 10% target, but requires <b>three consecutive weak 4h closes</b> and shortens the fallback from 14 to <b>seven days</b>. All history was already examined; this chronological check is retrospective.</p>
-      <p class="acc-note">Fresh 2025: <b>1.1506 BTC</b>, versus 0.9739 for the original recent-weighted rule. Continuous 2023–2025: <b>1.6638 BTC</b>, versus 1.6224. The refined rule remains above 1 BTC across all eight alignments in both windows under separate 0.30% cost and 4h/24h delay tests. Fresh 2020–2021 falls to 1.0306 BTC at the default alignment.</p>
-      <p class="acc-note">It still has four losing trades in 2025 and a 14.99% BTC-equivalent drawdown. The seven-day timeout helps more than confirmation alone; nearby three-day and 14-day timeouts do not consistently win. Optimizing directly on 2025 reaches 1.3350 BTC there but loses BTC in 2023–2024. <a href="research/btc-bull-accumulation-2026/REFINEMENT_REPORT.md">All selection methods, sensitivities and failures</a> · <a href="btc-trades.html?rule=refined">Inspect the refined fills on the chart</a></p>
-    </details>
-    <details class="acc-research" id="accTradeExplorer"><summary>Interactive trade chart and ledger · every year 2018–2026</summary><div id="btcTradeReplay">Loading historical trade replay…</div></details>
-    <div class="sig" id="accRegimeResearch"><h2>Crash warning or sideways chop?</h2>
-      <p class="acc-note"><b>Recognizing a past range does not guarantee its future.</b> A large correction can happen inside a longer consolidation. In 2023–2025, only <b>2 of 8</b> rare warning observations spaced at least 30 days apart preceded a further 15% fall within 30 days. A successful 5% buyback does not require a large crash.</p>
-      <p class="acc-note">A fixed sideways screen—20-day price efficiency below 0.20 and a trailing 30-day high/low range no wider than 20%—produced 24 spaced observations. <b>18 of 24</b> broke a frozen boundary within the next 30 days; only 6 stayed entirely within ±10% of the next-open price. Adding ADX below 20 left 11 boundary breaks in 15 observations.</p>
-      <p class="acc-note">A boundary break means a daily close over 1% beyond the frozen range high or low. These historical counts describe these particular screens, not every possible classifier or range strategy. They do not rule out shorter range trades before a breakout. <a href="research/btc-bull-accumulation-2026/REPORT.md#can-crashes-consolidations-and-chop-be-separated-with-certainty">Definitions, false alarms and all diagnostic results</a></p>
-    </div>
-    <details class="acc-research" id="accExpandedSearch"><summary>Earlier search · combined bull and bear requirements</summary>
-      <p class="acc-note">Completed October 11, 2026 on a frozen sample through October 9. The expanded search included full-position trend rules, dip buybacks, separate bear exits, fixed allocations and delayed on-chain MVRV signals. Nine configurations added BTC in both bull periods and both bear periods while cutting bear drawdowns by at least 25% relative to holding. None passed that entire screen across all eight candle alignments.</p>
-      <div class="acc-scroll"><table class="tt"><tr><th>Fresh 1 BTC test</th><th>Illustrated 50/50 candidate</th><th>Candidate USD drawdown</th><th>Hold USD drawdown</th></tr>
-        <tr><td>2020–2021</td><td>1.0206 BTC</td><td>−42.0%</td><td>−56.0%</td></tr>
-        <tr><td>2022</td><td>1.7915 BTC</td><td>−43.1%</td><td>−67.2%</td></tr>
-        <tr><td>2023–2025</td><td>1.2165 BTC</td><td>−28.2%</td><td>−34.4%</td></tr>
-        <tr><td>2026 through Oct 9</td><td>1.1394 BTC</td><td>−21.1%</td><td>−40.0%</td></tr>
-      </table></div>
-      <p class="acc-note">The candidate starts 50% in a bull-regime dip account, which sells a fresh breadth crossing below 40% and buys back at a 10% BTC-gain hurdle or breadth above 60%. The other 50% follows a full-in/full-out defense rule: enter above 60%, exit below 50%. Both accounts can sell, run independently and pay their own fees. Base fee: 0.10% per side; closed-bar signals, next-open fills, all ending cash counted.</p>
-      <p class="acc-note"><b>Rejected as a dependable replacement:</b> this candidate passes the complete screen on only 3/8 candle alignments. At 0.30% cost per side, its 2020–2021 result falls to 0.9756 BTC. Even at base costs, the separate 2020 test ends at 0.8266 BTC. Its worst overlapping 12-month result is 0.7351 BTC. Selecting a rule each year using only the previous four years also failed: 0.8460 BTC from January 2019 through the cutoff.</p>
-      <p class="acc-note">Larger backtest gains were found, but they did not remove the trade-off between missed bull-market rises and bear-market exposure. The configurations were selected using already examined history; no live or untouched forward test exists. <a href="research/btc-strategy-search-2026/REPORT.md">Exact rules, all search batches and failed validation</a> · <a href="research/btc-strategy-search-2026/search-validation.png">View the search and sensitivity chart</a> · <a href="research/btc-strategy-search-2026/summary.json">Download the summary</a></p>
-    </details>
-    <div class="acc-policy"><b>Earlier Average audit:</b> Average turned 1 BTC into <b>0.678 BTC</b> in 2023–2025. A fresh 2026 run reaches <b>1.218 BTC</b>, but the continuous January 2023 run reaches only <b>0.828 BTC</b> through October 9, 2026. Compare those earlier models below.</div>
-    <div class="acc-controls">
-      <label>Starting BTC<input id="accStart" type="number" min="0.00000001" max="1000000" step="any" value="1"></label>
-      <label>Historical window<select id="accWindow"><option value="bull">2023–2025</option><option value="ytd2026">2026 through Oct 9</option><option value="extended">2023 through Oct 9, 2026</option><option value="oldbull">2020–2021 bull comparison</option><option value="earlier">2019–2022</option><option value="full">2019–2025</option></select></label>
-      <label>Research comparison<select id="accModel"><option value="legacy">Previous Average · 60% vol target</option><option value="dip20">Experimental · 20% dip sleeve</option><option value="binary">Full in / out · 60% / 40%</option><option value="core80">Hold 80% · trade 20% with Average</option></select></label>
-    </div>
-    <div id="accResults"><div class="acc-note">Historical audit unavailable. Holding BTC remains the benchmark; no trading result can be shown without the audit data.</div></div>
-    <div class="sig"><h2>Why Average lost BTC in 2023–2025</h2>
-      <p class="acc-note">1 BTC − <b>0.2909 BTC from cash timing</b> − <b>0.0308 BTC in fees</b> = 0.6783 BTC. Selling during weakness and waiting for recovery often meant buying back higher. Avoiding part of a crash can improve dollar drawdowns while still losing BTC across the full cycle.</p>
-      <p class="acc-note">Removing the funding trim ends at 0.6877 BTC; removing partial sizing, funding and volatility sizing ends at 0.7016 BTC. Neither fixes the main problem. Simply switching between holding in a slow bull regime and Average otherwise also failed: 0.5322 BTC.</p>
-    </div>
-    <details class="acc-research"><summary>Experimental dip sleeve · rules and limitations</summary>
-      <p class="acc-note">Keep 0.8 of the original BTC untouched. Trade the remaining sleeve only when a buffered daily SMA200 regime is bullish: two closes more than 2% above SMA200 turn it on; two closes more than 2% below turn it off. Between those events, retain the regime.</p>
-      <p class="acc-note">Sell the sleeve after the closed-bar ensemble crosses below 40%. Buy back after a close reaches the fee-adjusted price for 5% more sleeve BTC, or when the ensemble rises above 60%, whichever comes first. Fill at the next 4h open. A fresh crossing below 40% can trigger another sale while the regime is bullish; a full recovery above 60% is not required to re-arm. Buyback rules remain active if the regime turns bearish while waiting in cash. Gaps can change the realized gain.</p>
-      <p class="acc-note">2023–2025: <b>1.0814 BTC</b>, 17 round trips, 11 winners and 6 losers. Across eight candle alignments: <b>1.0513–1.1520 BTC</b>. However, 2020–2021 ended at <b>0.9780 BTC</b>; the eight-alignment average was 0.9973 BTC. This is an exploratory candidate using already examined history, with no untouched validation period.</p>
-      <p class="acc-note"><b>Accumulation does not protect dollar value.</b> The sleeve made no trades in 2026 and remained at 1 BTC. Its 2026 dollar drawdown was about 40%, versus 8% for Average. Across January 2023–October 9, 2026, its dollar drawdown reached 53%. No live allocation has been switched to this candidate.</p>
-    </details>
-    <div class="sig"><h2>Before selling: the buyback hurdle</h2>
-      <div class="acc-note">Selling only adds BTC if the buyback price is low enough after both fees. Waiting in cash while BTC rises reduces the amount you can buy back.</div>
-      <div class="acc-controls" style="margin-top:12px">
-        <label>Hypothetical sale price · USD<input id="accSale" type="number" min="1" step="any" value="100000"></label>
-        <label>Fee on each side · %<input id="accFee" type="number" min="0" max="5" step="0.01" value="0.10"></label>
-        <label>Desired BTC gain · %<input id="accGain" type="number" min="0" max="100" step="0.1" value="1"></label>
-      </div><div id="accHurdle" class="acc-note" style="margin-top:12px"></div>
-    </div>
-    <div class="acc-note">The bull overlay is evaluated within the supplied cycle windows; the strategic bear exit remains a separate assumption. Count costs, missed recoveries and unfinished cash positions. Extra deposits, leverage and lending yield are excluded. A higher dollar balance alone does not demonstrate BTC accumulation.</div>
-    <button id="accOpenResearch" type="button" style="justify-self:start">Inspect Average model and risk context →</button>
-  </section>
-  <!-- ================= DAILY ================= -->
   <section class="panel" id="panel_d" hidden>
     <div class="toolbar">
       <label><input type="checkbox" id="tFast_d" checked><span class="sw" style="background:var(--amber)"></span>Daily lows (DCL)</label>
@@ -495,23 +405,29 @@
     </details>
   </section>
 
-  <section class="panel" id="panel_signals" hidden>
-    <div class="acc-intro"><h1>SMA200 + breadth</h1><p class="acc-note">Refined accumulation rule · three weak 4-hour closes · 10% BTC target · seven-day buyback</p></div>
-    <div class="toolbar"><label>View <select id="signalRange" class="rng"><option value="90">Last 90 days</option></select></label><button id="signalRefresh">Refresh signals</button><a href="btc-trades.html?rule=refined">See actual simulated trades ↗</a></div>
-    <p id="signalSource" class="acc-note" role="status">Open this tab to load the signal history.</p>
-    <div id="signalCards" class="signal-cards"></div>
-    <div id="signalDecision" class="signal-decision" aria-live="polite"></div>
-    <div class="signal-legend"><span style="color:#e6edf3">— BTC close</span><span style="color:var(--amber)">— Daily SMA200</span><span style="color:var(--muted)">┄ ±2% thresholds</span><span style="color:var(--up)">Shading: bullish filter</span><span style="color:var(--down)">▼ New eligible sell signal</span></div>
+  <section class="panel" id="panel_signals">
+    <div id="signalCards" class="signal-cards" aria-live="polite">
+      <div class="signal-card"><small>SMA200</small><strong>—</strong></div>
+      <div class="signal-card"><small>Breadth</small><strong>—</strong></div>
+    </div>
+    <div class="signal-toolbar">
+      <label class="sr-only" for="signalRange">Chart period</label><select id="signalRange" class="rng"><option value="90">Last 90 days</option></select>
+      <span class="signal-legend"><span style="color:#e6edf3">BTC</span><span style="color:var(--amber)">SMA200</span><span style="color:var(--cyan)">Breadth</span></span>
+      <button id="signalRefresh" aria-label="Refresh signals">Refresh</button>
+    </div>
     <div id="signalChart" class="signal-chart"></div>
-    <p id="signalRead" class="signal-read">Hover or tap the chart to inspect a closed 4h bar.</p>
-    <p id="signalCounts" class="acc-note"></p>
-    <details class="acc-research"><summary>How the two signals work together</summary>
-      <p class="acc-note"><b>SMA200 filter:</b> two consecutive completed daily closes above 102% of the daily SMA200 turn the filter bullish. Two below 98% turn it bearish. Between those events it keeps its previous state. The SMA200 is calculated from 200 daily closes, not 200 four-hour bars; an upward slope alone does not define this filter.</p>
-      <p class="acc-note"><b>Breadth:</b> the share of the existing 50 members voting bullish. Below 50% means fewer than 25 bullish votes; exactly 50% does not count. Three consecutive completed 4h closes below 50% confirm weakness.</p>
-      <p class="acc-note"><b>Sale:</b> the filter must be bullish on the third weak close, when confirmed weakness first appears. If holding BTC, the model sells at the next 4h open. Continued weakness creates no additional signal. Breadth must recover to at least 50%, then produce another three weak closes to rearm. Markers show eligible signals, not account-specific fills.</p>
-      <p class="acc-note"><b>Buyback:</b> after a sale, buy at the next 4h open after a close reaches sale price × 0.999 ÷ (1.001 × 1.10), or seven days have elapsed since the sale. This assumes 0.10% costs per side; a timed buyback can lose BTC. Buyback remains active if the SMA200 filter turns bearish.</p>
-      <p class="acc-note"><b>Starting-account caveat:</b> in early 2022, the bullish filter and already-confirmed weak breadth overlapped for 23 bars. A fresh account starting with 1 BTC did not sell because the transition into weakness happened before January 1. A fresh start can therefore miss an existing warning.</p>
-      <p class="acc-note">This tab shows the tactical signal, not your holdings. The separate four-year calendar exit can keep the calendar model in cash during 2026 even when the SMA200 filter is bullish. The rule is retrospective research; breadth is not a crash probability.</p>
+    <p id="signalRead" class="signal-read">Hover or tap to inspect.</p>
+    <p id="signalSource" class="acc-note" role="status">Loading closed candles…</p>
+    <details class="signal-results" id="signalResults"><summary>Latest strategy results</summary>
+      <div class="acc-scroll"><table class="tt"><thead><tr><th>Starting with 1 BTC</th><th>2020</th><th>2025</th><th>2023–25</th></tr></thead><tbody>
+        <tr><td>Current refined</td><td>0.9073</td><td>1.1506</td><td>1.6638</td></tr>
+        <tr><td>Signal smoothing 13</td><td>1.0780</td><td>1.1388</td><td>1.8767</td></tr>
+        <tr><td>Fast iMACD + recovery</td><td>0.9646</td><td>1.2256</td><td>2.1072</td></tr>
+        <tr><td>iMACD / MACD 50:50 + recovery</td><td>0.9955</td><td>1.2313</td><td>1.9300</td></tr>
+      </tbody></table></div>
+      <p>Backtested BTC after fees. Fast iMACD: 14/21/34, signal 13; buy back when breadth recovers above 50%. It also lost: 0.9283 BTC in 2019–21 and 0.9774 in 2026 through Oct 9.</p>
+      <p>The live chart uses the original 50-vote breadth. Historical tuning is not a guarantee.</p>
+      <div class="signal-links"><a href="research/btc-bull-accumulation-2026/IMACD_REPORT.md">Full results ↗</a><a href="btc-trades.html?rule=refined">Current strategy trades ↗</a></div>
     </details>
   </section>
 
@@ -552,9 +468,6 @@
   </section>
 </main>
 
-<script src="assets/btc/accumulation-audit.js"></script>
-<script src="assets/btc/trade-replay-data.js"></script>
-<script src="assets/btc/trade-replay.js"></script>
 <script>
 const SYMBOL="BTCUSDT";
 const $=id=>document.getElementById(id);
@@ -1242,49 +1155,6 @@ function computeEnsemble(c4,funding){
 // Accumulation accounting is independent of live exchange/chart availability.
 // Cash counts only as the BTC it could buy after the conversion fee.
 function accumulationBuybackPrice(sale,fee,gain=0){return sale*(1-fee)/((1+fee)*(1+gain));}
-const ACC_LABELS={hold:'Hold BTC',legacy:'Previous Average',binary:'Full in / out',core80:'Hold 80% · trade 20% with Average',dip20:'Experimental 20% dip sleeve'};
-function accumulationPlot(curve,start,compact=false){
-  const values=curve.map(q=>q[1]*start),low=Math.min(start,...values),high=Math.max(start,...values);
-  const pad=Math.max((high-low)*.12,start*.04),min=low-pad,max=high+pad;
-  const left=compact?50:70,right=compact?390:890,width=compact?410:960;
-  const X=t=>left+(t-curve[0][0])/(curve[curve.length-1][0]-curve[0][0]||1)*(right-left),Y=v=>220-(v-min)/(max-min)*185;
-  const date=t=>new Date(t*1000).toISOString().slice(0,10),number=v=>v.toFixed(start<.01?5:3);
-  const pts=curve.map(q=>X(q[0]).toFixed(1)+','+Y(q[1]*start).toFixed(1)).join(' ');
-  const grid=[min,(min+max)/2,max].map(v=>`<line x1="${left}" y1="${Y(v)}" x2="${right}" y2="${Y(v)}" stroke="#1e262e"/><text x="${left-9}" y="${Y(v)+4}" text-anchor="end" fill="#8c99a4" font-size="12">${number(v)}</text>`).join('');
-  return `<svg viewBox="0 0 ${width} 255" role="img" aria-label="BTC purchasing power versus a constant holding benchmark"><text x="${left}" y="17" fill="#8c99a4" font-size="12">BTC after cash conversion</text>${grid}
-    <line x1="${left}" y1="${Y(start)}" x2="${right}" y2="${Y(start)}" stroke="#ffb000" stroke-dasharray="6 5"/>
-    <polyline points="${pts}" fill="none" stroke="#38bdf8" stroke-width="2"/>
-    <text x="${left}" y="246" fill="#8c99a4" font-size="12">${date(curve[0][0])}</text><text x="${right}" y="246" text-anchor="end" fill="#8c99a4" font-size="12">${date(curve[curve.length-1][0])}</text></svg>`;
-}
-function renderAccumulation(){
-  const el=$('accResults'),data=window.BTC_ACCUM_AUDIT;if(!el||!data)return;
-  const start=Number($('accStart').value),key=$('accWindow').value,model=$('accModel').value;
-  if(!Number.isFinite(start)||start<=0||start>1e6){el.innerHTML='<div class="acc-note">Enter starting BTC above 0 and at most 1,000,000.</div>';return;}
-  const w=data.windows[key],r=w&&w.rows[model];if(!r)return;
-  const btc=x=>(x*start).toLocaleString('en-US',{minimumFractionDigits:4,maximumFractionDigits:8}),signed=x=>(x>=0?'+':'')+x.toFixed(1)+'%';
-  const change=r.btc-1,color=change<0?'var(--down)':change>0?'var(--up)':'var(--text)';
-  const stats=`<div class="acc-stats">
-    <div class="acc-stat"><div class="label">Holding benchmark</div><strong class="number">${btc(1)} BTC</strong><div class="note">The same BTC units throughout. No trading fees.</div></div>
-    <div class="acc-stat"><div class="label">${ACC_LABELS[model]} · ending BTC equivalent</div><strong class="number" style="color:${color}">${btc(r.btc)} BTC</strong><div class="note">${btc(r.units)} BTC held + $${(r.cash*start).toLocaleString('en-US',{maximumFractionDigits:0})} cash before final conversion.</div></div>
-    <div class="acc-stat"><div class="label">BTC gained / lost versus holding</div><strong class="number" style="color:${color}">${signed(change*100)}</strong><div class="note">${change<0?'Less BTC than holding. This window fails the accumulation objective.':change>0?'More BTC than holding in this historical window. Future outperformance is unproven.':'Same BTC as holding. No accumulation advantage in this window.'}</div></div></div>`;
-  const rows=Object.entries(w.rows).map(([k,v])=>`<tr${k===model?' class="open"':''}><td>${ACC_LABELS[k]}</td><td>${btc(v.btc)}</td><td class="${v.btc<1?'dn':v.btc>1?'up':'mid'}">${signed((v.btc-1)*100)}</td><td>${v.trades}</td></tr>`).join('');
-  const rolling=data.rolling12m[model==='core80'?'legacy':model];
-  el.innerHTML=stats+`<div class="acc-chart" style="margin-top:16px"><div class="siglegend"><span style="color:var(--cyan)">━━ ${ACC_LABELS[model]}</span><span style="color:var(--amber)">┄┄ Hold BTC</span><span>${w.label} · fixed historical snapshot</span></div>${accumulationPlot(r.curve,start,window.innerWidth<600)}</div>
-    <div class="sig" style="margin-top:16px"><h2>Same starting BTC · same window</h2><div class="acc-scroll"><table class="tt"><tr><th>Comparison</th><th>Ending BTC</th><th>vs holding</th><th>Rebalances</th></tr>${rows}</table></div>
-    <div class="acc-note">Starts with ${btc(1)} BTC, no new deposits. 0.10% fee per side, including an initial sale if required and buying BTC with ending cash. Closed-bar decisions, next-open fills, no leverage or cash yield. Spread, slippage and taxes are excluded. Rebalance counts exclude the hypothetical final cash conversion.</div>
-    <div class="acc-note" style="margin-top:8px">The “trade 20% with Average” row keeps 80% of the initial BTC untouched and applies Average only to the other 20%, without rebalancing from the core. The experimental dip sleeve uses different buyback rules, described below. Reducing the traded amount alone does not create an edge.</div></div>
-    ${model==='dip20'?`<div class="acc-policy" style="margin-top:12px"><b>Experimental, retrospective result.</b> Older bull-market performance is mixed. This window's dollar drawdown was ${(Math.abs(r.usdDD)*100).toFixed(1)}% at 4h closes. The permanent BTC core remains exposed to bear markets.</div>`:''}
-    <div class="acc-note" style="margin-top:12px">${rolling?`Starting each month from January 2019 through ${data.rollingThrough||'December 2024'}, ${model==='core80'?'the underlying Average model':ACC_LABELS[model]} beat holding in ${rolling.wins}/${rolling.total} overlapping 12-month windows; median ending value ${rolling.median.toFixed(3)} BTC per starting BTC${model==='core80'?' for the traded slice':''}. `:''}The chart and table use the page's candle alignment; eight-alignment sensitivity is in the report. These are overlapping retrospective comparisons on previously examined data, not independent or forward trials. Audit: ${data.generated}.</div>
-    <div class="acc-note"><a href="research/btc-corrections-2023-2025/BULL_BEAR_2026.md">Read the loss attribution, 2026 test and bull alternatives</a> · <a href="assets/btc/accumulation-audit.json">Download the audit data</a></div>`;
-}
-function renderAccumulationHurdle(){
-  const el=$('accHurdle');if(!el)return;
-  const sale=Number($('accSale').value),fee=Number($('accFee').value)/100,gain=Number($('accGain').value)/100;
-  if(['accSale','accFee','accGain'].some(id=>$(id).value==='')||![sale,fee,gain].every(Number.isFinite)||sale<1||fee<0||fee>.05||gain<0||gain>1){el.textContent='Enter a sale price of at least $1, fees from 0–5%, and a BTC gain from 0–100%.';return;}
-  const usd=x=>x.toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2});
-  el.innerHTML=`Keep the same BTC: buy back at or below <b style="color:var(--text)">${usd(accumulationBuybackPrice(sale,fee))}</b>. To add ${(gain*100).toFixed(1)}% BTC: buy back at or below <b style="color:var(--cyan)">${usd(accumulationBuybackPrice(sale,fee,gain))}</b>. This is a fee calculation, not a price forecast or an instruction to sell.`;
-}
-
 function makeView(cfg){
   const E=cfg.el;
   let chart,candles,fastSine,slowSine,winD;
@@ -1857,13 +1727,13 @@ const CFG_5M={
 };
 
 const VIEWS={};
-let activeTab="accum";
+let activeTab="signals";
 function showTab(tab){
-  activeTab=tab;
+  if(!["signals","d","h","1h","5m","avg","liq"].includes(tab))tab="signals";
+  activeTab=tab;document.body.dataset.tab=tab;
   $$(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));
-  ["accum","signals","d","h","1h","5m","avg","liq"].forEach(k=>{const p=$("panel_"+k);if(p)p.hidden=(k!==tab);});
+  ["signals","d","h","1h","5m","avg","liq"].forEach(k=>{const p=$("panel_"+k);if(p)p.hidden=(k!==tab);});
   if(tab==="signals"){window.BTC_SIGNALS?.onShow();return;}
-  if(tab==="accum"){renderAccumulation();return;}
   if(tab==="liq"){LIQ.onShow();return;}
   if(tab==="avg"){AVG.onShow();return;}
   if(VIEWS[tab])VIEWS[tab].onShow();
@@ -2449,11 +2319,6 @@ const LIQ=(()=>{
 // the Liq Map tab has no charting-library dependency — wire tabs here too so it
 // still works if both chart CDNs are blocked (the .then() wiring never runs then)
 $$(".tab").forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
-['accStart','accWindow','accModel'].forEach(id=>$(id).addEventListener('input',renderAccumulation));
-['accSale','accFee','accGain'].forEach(id=>$(id).addEventListener('input',renderAccumulationHurdle));
-$('accOpenResearch').onclick=()=>showTab('avg');
-renderAccumulation();renderAccumulationHurdle();
-window.addEventListener('resize',()=>{if(activeTab==='accum')renderAccumulation();});
 </script>
 <script src="assets/btc/signals.js"></script>
 </body>

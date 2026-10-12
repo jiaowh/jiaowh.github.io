@@ -42,11 +42,11 @@ if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)){con
 assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
 await q('ledger').locator('button').first().click();assert.match(await q('detail').innerText(),/-8.52% BTC/);
 await q('reset').click();await page.screenshot({path:process.env.TEMP+'/btc-trades-mobile.png',fullPage:true});
-await page.goto(base+'/btc.html');await page.locator('#accTradeExplorer summary').click();assert.equal(await q('price').locator('.mark').count(),16);
+await page.goto(base+'/btc.html');await page.locator('#signalResults summary').click();assert.equal(await page.locator('#signalResults a[href="btc-trades.html?rule=refined"]').count(),1);
 assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);assert.deepEqual(errors,[]);
 await page.goto(base+'/btc-trades.html?rule=refined');assert.match(await q('summary').innerText(),/1.150565 BTC equivalent/);
 await page.setViewportSize({width:1280,height:1000});await page.waitForFunction(()=>Number(document.querySelector('[data-role="price"] svg').getAttribute('width'))>1000);
 await page.screenshot({path:process.env.TEMP+'/btc-trades-refined.png',fullPage:true});
-console.log(`PASS: ${combinations} year/account/strategy views, exact marker counts, year-crossing trades, zoom/reset, cash exits, no-trade years, mobile layout, embedded chart and no JS errors.`);
+console.log(`PASS: ${combinations} year/account/strategy views, exact marker counts, year-crossing trades, zoom/reset, cash exits, no-trade years, mobile layout, compact results link and no JS errors.`);
 }finally{await browser.close();await new Promise(r=>server.close(r));}
 })().catch(e=>{console.error(e);process.exit(1)});
