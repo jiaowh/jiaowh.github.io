@@ -394,10 +394,10 @@
     </div>
     <div id="avgline" class="imacdbox"></div>
     <div class="sig" id="avgCard"></div>
-    <details class="acc-research"><summary>MSTR comparison · separate research, not BTC accumulation</summary>
+    <details class="acc-research"><summary>MSTR · legacy Average comparison</summary>
     <div class="imacd-head">
       <span class="h">MSTR · same signal</span>
-      <span class="sub">daily MSTR (CNBC, split-adjusted) · green step = the BTC position above, read at the 16:00 UTC 4h close and traded at that day's US close</span>
+      <span class="sub">Legacy experiment. The adopted MSTR strategy is in the first tab's MSTR selector. This chart uses the Average tab's BTC signal at the US close.</span>
     </div>
     <div id="chart_mstr" class="chartbox" style="height:340px"></div>
     <div class="siglegend"><span class="lg mono" id="mstrRead"></span></div>
@@ -406,28 +406,39 @@
   </section>
 
   <section class="panel" id="panel_signals">
+    <div class="signal-toolbar"><label for="signalAsset">Asset</label><select id="signalAsset" class="rng"><option value="BTC">BTC · fast recovery</option><option value="MSTR">MSTR · BTC fast + Vortex</option></select></div>
     <div id="signalCards" class="signal-cards" aria-live="polite">
       <div class="signal-card"><small>SMA200</small><strong>—</strong></div>
       <div class="signal-card"><small>Breadth</small><strong>—</strong></div>
     </div>
     <div class="signal-toolbar">
       <label class="sr-only" for="signalRange">Chart period</label><select id="signalRange" class="rng"><option value="90">Last 90 days</option></select>
-      <span class="signal-legend"><span style="color:#e6edf3">BTC</span><span style="color:var(--amber)">SMA200</span><span style="color:var(--cyan)">Breadth</span></span>
+      <span class="signal-legend"><span id="signalPriceLabel" style="color:#e6edf3">BTC</span><span style="color:var(--amber)">SMA200</span><span style="color:var(--cyan)">Breadth</span></span>
       <button id="signalRefresh" aria-label="Refresh signals">Refresh</button>
     </div>
     <div id="signalChart" class="signal-chart"></div>
     <p id="signalRead" class="signal-read">Hover or tap to inspect.</p>
     <p id="signalSource" class="acc-note" role="status">Loading closed candles…</p>
+    <p id="signalStockSource" class="acc-note" role="status" hidden></p>
     <details class="signal-results" id="signalResults"><summary>Latest strategy results</summary>
-      <div class="acc-scroll"><table class="tt"><thead><tr><th>Starting with 1 BTC</th><th>2020</th><th>2025</th><th>2023–25</th></tr></thead><tbody>
-        <tr><td>Current refined</td><td>0.9073</td><td>1.1506</td><td>1.6638</td></tr>
-        <tr><td>Signal smoothing 13</td><td>1.0780</td><td>1.1388</td><td>1.8767</td></tr>
-        <tr><td>Fast iMACD + recovery</td><td>0.9646</td><td>1.2256</td><td>2.1072</td></tr>
-        <tr><td>iMACD / MACD 50:50 + recovery</td><td>0.9955</td><td>1.2313</td><td>1.9300</td></tr>
+      <div id="signalBTCResults">
+      <div class="acc-scroll"><table class="tt"><thead><tr><th>Starting with 1 BTC</th><th>2020–21</th><th>2023–25</th><th>2025–26*</th></tr></thead><tbody>
+        <tr><td>Fast iMACD + recovery</td><td>0.9304</td><td>2.1072</td><td>1.1979</td></tr>
+        <tr><td>Fast + Vortex</td><td>1.1615†</td><td>1.8016</td><td>1.0944</td></tr>
+        <tr><td>Fast 40/65 thresholds</td><td>1.8243†</td><td>1.6282</td><td>1.0559</td></tr>
       </tbody></table></div>
-      <p>Backtested BTC after fees. Fast iMACD: 14/21/34, signal 13; buy back when breadth recovers above 50%. It also lost: 0.9283 BTC in 2019–21 and 0.9774 in 2026 through Oct 9.</p>
-      <p>The live chart uses the original 50-vote breadth. Historical tuning is not a guarantee.</p>
-      <div class="signal-links"><a href="research/btc-bull-accumulation-2026/IMACD_REPORT.md">Full results ↗</a><a href="btc-trades.html?rule=refined">Current strategy trades ↗</a></div>
+      <p>Backtested BTC after fees. * Through Oct 9, 2026. † Cash valued as BTC. Current strategy lost to holding in 2020–21 and ended 2026 at 0.9774 BTC.</p>
+      <p>Chart and Telegram: fast iMACD + recovery. Trades carry from Jan 2023; earlier years start with BTC each January. Historical tuning is not a guarantee.</p>
+      <div class="signal-links"><a href="research/mstr-fast-recovery-2026/ICHIMOKU_REPORT.md">Latest comparison ↗</a><a href="btc-trades.html?rule=refined">Previous strategy trades ↗</a></div>
+      </div>
+      <div id="signalMSTRResults" hidden>
+        <div class="acc-scroll"><table class="tt"><thead><tr><th>Starting with 1 share</th><th>2023–25</th><th>2025–26*</th></tr></thead><tbody>
+          <tr><td>Fast + joint SMA200</td><td>4.665†</td><td>2.352</td></tr>
+          <tr><td>Fast + Vortex + joint SMA200</td><td>6.057†</td><td>2.723</td></tr>
+        </tbody></table></div>
+        <p>Daily opening model · 0.1% cost per side. * Through Oct 9, 2026. † Cash valued as shares. Lost shares in 2020; historical results depend on timing.</p>
+        <div class="signal-links"><a href="research/mstr-fast-recovery-2026/ICHIMOKU_REPORT.md">Latest comparison ↗</a></div>
+      </div>
     </details>
   </section>
 
@@ -2320,6 +2331,6 @@ const LIQ=(()=>{
 // still works if both chart CDNs are blocked (the .then() wiring never runs then)
 $$(".tab").forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
 </script>
-<script src="assets/btc/signals.js"></script>
+<script type="module" src="assets/btc/signals.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-// Compare every historical signal with the independent Python research arrays,
+// Compare fast-strategy fills and daily regimes with independent Python research,
 // then exercise the tab with failed and successful public-feed responses.
 const fs=require('fs'),path=require('path'),http=require('http'),assert=require('assert/strict');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'C:/Users/Jiaow/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
@@ -7,7 +7,7 @@ const root=path.resolve(__dirname,'..');
   const server=http.createServer((req,res)=>{
     const p=path.resolve(root,'.'+new URL(req.url,'http://localhost').pathname);
     if(!p.startsWith(root+path.sep)){res.writeHead(403);return res.end();}
-    try{res.setHeader('Content-Type',p.endsWith('.js')?'application/javascript':p.endsWith('.css')?'text/css':p.endsWith('.html')?'text/html; charset=utf-8':'application/json');res.end(fs.readFileSync(p));}catch{res.writeHead(404);res.end();}
+    try{res.setHeader('Content-Type',(p.endsWith('.js')||p.endsWith('.mjs'))?'application/javascript':p.endsWith('.css')?'text/css':p.endsWith('.html')?'text/html; charset=utf-8':'application/json');res.end(fs.readFileSync(p));}catch{res.writeHead(404);res.end();}
   });
   await new Promise(r=>server.listen(0,'127.0.0.1',r));
   const browser=await chromium.launch({headless:true,executablePath:process.env.CHROMIUM_PATH||'C:/Users/Jiaow/AppData/Local/ms-playwright/chromium-1228/chrome-win64/chrome.exe'});
@@ -24,21 +24,29 @@ const root=path.resolve(__dirname,'..');
     await page.goto(`http://127.0.0.1:${server.address().port}/btc.html`);
     await page.waitForFunction(()=>document.getElementById('signalSource').textContent.includes('Refresh unavailable'));
     const result=await page.evaluate(async()=>{
-      const [seed,expected]=await Promise.all(['assets/btc/signal-snapshot.json','research/btc-bull-accumulation-2026/signal-parity.json'].map(p=>fetch(p).then(r=>r.json())));
+      const [seed,expected,research]=await Promise.all(['assets/btc/signal-snapshot.json','research/btc-bull-accumulation-2026/signal-parity.json','research/btc-bull-accumulation-2026/imacd-summary.json'].map(p=>fetch(p).then(r=>r.json())));
       const bars=seed.bars.map(([time,open,high,low,close])=>({time,open,high,low,close}));
       const rows=BTC_SIGNALS.calculate(bars),byTime=new Map(rows.map(r=>[r.time,r]));
       let checked=0;
       for(const [time,E,ma,gate,signal] of expected){
         const r=byTime.get(time);
-        if(!r||Math.abs(r.breadth-E)>1e-10||Math.abs(r.ma-ma)>.000001||r.gate!==gate||r.eligible!==signal)throw new Error('Parity mismatch '+JSON.stringify({time,expected:[E,ma,gate,signal],got:r}));
+        if(!r||Math.abs(r.ma-ma)>.000001||r.gate!==gate)throw new Error('Parity mismatch '+JSON.stringify({time,expected:[E,ma,gate,signal],got:r}));
         checked++;
+      }
+      let fills=0;
+      for(let y=2018;y<=2026;y++) {
+        const start=Date.UTC(y,0,1)/1000,end=y===2026?Date.UTC(2026,9,10)/1000:Date.UTC(y+1,0,1)/1000;
+        const trades=BTC_SIGNALS.replay(bars.filter(b=>b.time<end),rows.filter(r=>r.time<end),start);
+        const want=research.details.fast_s13_im100_e50[String(y)].ledger;
+        if(JSON.stringify(trades.map(t=>[t.side,t.time,t.price]))!==JSON.stringify(want.map(t=>[t.side,t.time,t.price])))throw Error('Fast trade parity '+y);
+        fills+=trades.length;
       }
       // Future candles must never affect a closed-bar reading.
       const future={...bars.at(-1),time:Math.ceil(Date.now()/14400000)*14400,close:1};
       const futureRows=BTC_SIGNALS.calculate([...bars,future]);
       if(JSON.stringify(rows.at(-1))!==JSON.stringify(futureRows.at(-1)))throw new Error('Forming candle changed signal');
       const counts=year=>{const v=rows.filter(r=>new Date(r.time*1000).getUTCFullYear()===year&&r.gate);return [v.length,v.filter(r=>r.breadth<.5).length,v.filter(r=>r.confirmed).length,v.filter(r=>r.eligible).length];};
-      return {checked,last:rows.at(-1),y2022:counts(2022),y2026:counts(2026)};
+      return {checked,fills,last:rows.at(-1),y2022:counts(2022),y2026:counts(2026)};
     });
     assert.ok(result.checked>19000);
     assert.equal(await page.locator('#panel_signals').isVisible(),true);
@@ -50,11 +58,14 @@ const root=path.resolve(__dirname,'..');
     assert.match(await page.locator('#signalResults').innerText(),/2.1072/);
     assert.match(await page.locator('#signalResults').innerText(),/0.9774/);
     await page.locator('#signalResults summary').click();
-    assert.match(await page.locator('#signalCards').innerText(),/56%/);
+    assert.match(await page.locator('#signalCards').innerText(),/FAST iMACD/);
+    assert.ok((await page.locator('#signalCards').innerText()).includes(Math.round(result.last.breadth*100)+'%'));
+    assert.equal(result.fills,117);
     await page.selectOption('#signalRange','2026');
-    assert.deepEqual(result.y2026,[302,0,0,0]);
+    assert.equal(await page.locator('.signal-marker[data-side="sell"]').count(),1);
+    assert.equal(await page.locator('.signal-marker[data-side="buy"]').count(),1);
     await page.selectOption('#signalRange','2022');
-    assert.deepEqual(result.y2022,[23,23,23,0]);
+    assert.equal(await page.locator('.signal-marker').count(),0);
     await page.selectOption('#signalRange','2025');
     assert.ok(await page.locator('.signal-marker').count()>0);
     await page.locator('#signalHit').click({position:{x:200,y:100}});
@@ -71,9 +82,24 @@ const root=path.resolve(__dirname,'..');
     await page.screenshot({path:process.env.TEMP+'/btc-signals-mobile.png',fullPage:true});
     await page.locator('#signalResults summary').click();
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+    await page.selectOption('#signalAsset','MSTR');
+    assert.match(await page.locator('#signalCards').innerText(),/BTC FAST \+ VORTEX/);
+    assert.match(await page.locator('#signalCards').innerText(),/86 bullish vote weights/);
+    assert.match(await page.locator('#signalMSTRResults').innerText(),/6.057/);
+    await page.selectOption('#signalRange','2025');
+    assert.ok(await page.locator('.signal-marker').count()>0);
+    assert.match(await page.locator('#signalChart svg').getAttribute('aria-label'),/MSTR/);
+    await page.locator('#signalHit').click({position:{x:140,y:100}});
+    assert.match(await page.locator('#signalRead').innerText(),/MSTR .*SMA200 .*breadth/);
+    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+    await page.screenshot({path:process.env.TEMP+'/mstr-signals-mobile.png',fullPage:true});
+    await page.setViewportSize({width:1280,height:1050});
+    await page.waitForFunction(()=>document.querySelector('#signalChart svg').viewBox.baseVal.width>600);
+    await page.locator('#signalResults summary').click();
+    await page.screenshot({path:process.env.TEMP+'/mstr-signals-desktop.png',fullPage:true});
     await page.goto(`http://127.0.0.1:${server.address().port}/btc.html?tab=d`);
     assert.equal(await page.locator('#panel_d').isVisible(),true);
     assert.deepEqual(errors,[]);
-    console.log(`PASS: ${result.checked} independent signal comparisons, forming-bar exclusion, default signals tab, removed accumulation, collapsed latest results, 2022/2026 counts, refresh fallback, chart inspection, explicit tab links and mobile layout.`);
+    console.log(`PASS: ${result.checked} independent daily-regime comparisons and ${result.fills} fast-strategy fills, forming-bar exclusion, default signals tab, removed accumulation, collapsed latest results, 2022/2026 counts, refresh fallback, chart inspection, explicit tab links and mobile layout.`);
   }finally{await browser.close();await new Promise(r=>server.close(r));}
 })().catch(e=>{console.error(e);process.exit(1)});

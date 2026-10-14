@@ -1,0 +1,6 @@
+cache/
+__pycache__/
+# Reproducible detailed curves; keep compact overview and reviewable exports.
+expanded-summary.json
+expanded-validation.json
+ichimoku-primary.json

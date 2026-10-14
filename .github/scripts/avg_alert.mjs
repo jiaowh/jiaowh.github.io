@@ -31,7 +31,7 @@ export function mergeCandles(saved,incoming,now) {
   return bars;
 }
 
-async function candles(saved,now) {
+export async function candles(saved,now) {
   // Both endpoints serve Binance BTCUSDT. Do not silently change exchanges.
   for (const host of ['data-api.binance.vision','api.binance.com']) {
     try {
