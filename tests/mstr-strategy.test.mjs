@@ -39,8 +39,10 @@ const prior={strategy:STRATEGY,lastOpen:t-86400,lastDaily:t-86400,outbox:[]};
 const s=alertState(result,[daily],t+60,prior);assert.equal(s.outbox.length,2);
 assert.deepEqual(alertState(result,[daily],t+60,s),s);
 assert.throws(()=>alertState(result,[daily],t+14400,s),/stale/);
-assert.throws(()=>mergeStock([last],[{...last,close:last.close+1}],end),/history changed/);
-assert.doesNotThrow(()=>mergeStock([{...last,complete:false}],[{...last,close:last.open}],end));
+// The published snapshot advances independently of the frozen research end date.
+const feedNow=last.closeTime+86401;
+assert.throws(()=>mergeStock([last],[{...last,close:last.close+1,high:Math.max(last.high,last.close+1)}],feedNow),/history changed/);
+assert.doesNotThrow(()=>mergeStock([{...last,complete:false}],[{...last,close:last.open}],feedNow));
 assert.equal(sessionClose(Date.UTC(2025,10,28,14,30)/1000),Date.UTC(2025,10,28,18)/1000);
 assert.equal(sessionClose(Date.UTC(2025,6,3,13,30)/1000),Date.UTC(2025,6,3,17)/1000);
 console.log(`PASS: ${fills} MSTR fills and fee-net units match independent research, causal prefixes, forming-stock exclusion, half days, bootstrap, catch-up, retry outbox and data revision guards.`);

@@ -8,12 +8,20 @@ export function sessionClose(time) {
 }
 export function mergeStock(saved,incoming,now) {
   const map=new Map(saved.map(b=>[b.time,b]));
+  const latestClosed=saved.reduce((t,b)=>b.closeTime<=now&&b.complete!==false?Math.max(t,b.time):t,-Infinity);
   for(const b of incoming){
     if(b.time>now)continue;
     if(![b.time,b.open,b.high,b.low,b.close,b.closeTime].every(Number.isFinite)||Math.min(b.open,b.high,b.low,b.close)<=0||b.high<Math.max(b.open,b.close,b.low)||b.low>Math.min(b.open,b.close)||b.closeTime<=b.time)throw Error('Invalid MSTR candle');
     const old=map.get(b.time);
-    // A previously incomplete session is allowed to finish; historical revisions fail closed.
-    if(old&&old.closeTime<=now&&old.complete!==false&&['open','high','low','close'].some(k=>Math.abs(old[k]-b[k])>.021))throw Error('MSTR history changed; review split/source before updating');
+    // Yahoo can finalize daily OHLC overnight, after the regular session has closed.
+    // Permit only small corrections to the latest completed session within 24 hours.
+    // Older history, larger revisions and split events still require review.
+    const fields=['open','high','low','close'];
+    if(old&&old.closeTime<=now&&old.complete!==false&&fields.some(k=>Math.abs(old[k]-b[k])>.021)){
+      const finalizing=old.time===latestClosed&&now-old.closeTime<=86400&&fields.every(k=>Math.abs(old[k]-b[k])<=Math.max(.021,old[k]*.001));
+      if(!finalizing)throw Error(`MSTR history changed at ${new Date(b.time*1000).toISOString()}; review split/source before updating`);
+      console.warn(`MSTR recent-session correction ${new Date(b.time*1000).toISOString()}: ${fields.filter(k=>old[k]!==b[k]).map(k=>`${k} ${old[k]} -> ${b[k]}`).join(', ')}`);
+    }
     map.set(b.time,{...b,complete:b.closeTime<=now});
   }
   return [...map.values()].sort((a,b)=>a.time-b.time);
