@@ -92,15 +92,6 @@
   .siglegend .dsh{width:14px;border-top:2px dashed;display:inline-block}
   .siglegend .gl{font-size:9px}
   .imacdbox{height:210px;border:1px solid var(--grid);border-radius:4px;background:var(--panel2)}
-  .avg-cols{display:grid;grid-template-columns:auto auto;gap:0 28px;justify-content:start;align-items:start}
-  .avg-risk{margin:14px 0;padding:14px;border:1px solid var(--grid);border-radius:4px;background:var(--panel2)}
-  .avg-risk h3{margin:0 0 5px;font-size:12px;font-weight:500;color:var(--text)}
-  .avg-risk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 24px;margin:12px 0}
-  .avg-risk-item{min-width:0;font-size:12px;line-height:1.5}
-  .avg-risk-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
-  .avg-risk-state{display:block;font-weight:500;margin:2px 0 3px}
-  .avg-risk-state.warn{color:var(--amber)} .avg-risk-state.risk{color:var(--down)}
-  .avg-risk-detail{color:var(--muted);overflow-wrap:anywhere}
   .acc-intro{max-width:850px;font-size:14px;line-height:1.7;color:var(--muted)}
   .acc-intro h1{color:var(--text);font-size:25px;letter-spacing:-.02em;margin:0 0 8px}
   .acc-intro p{margin:6px 0}
@@ -120,12 +111,6 @@
   .acc-note{font-size:12px;line-height:1.7;color:var(--muted)}
   .acc-note a{color:var(--cyan)}
   @media(max-width:600px){.acc-stats{grid-template-columns:1fr}.acc-intro h1{font-size:21px}.acc-controls{display:grid;grid-template-columns:1fr}.acc-controls label{min-width:0}.tabs{overflow-x:auto;max-width:100%}.tab{flex-shrink:0}main{padding:12px}.panel{padding:12px}.acc-stat .number{font-size:23px}}
-  @media(max-width:600px){.avg-risk-grid{grid-template-columns:1fr}}
-  @media(max-width:760px){.avg-cols{grid-template-columns:1fr}}
-  .ens-mode{font-family:"IBM Plex Mono",monospace;font-size:11px;background:var(--panel2);color:var(--text);border:1px solid var(--grid);border-radius:3px;padding:2px 6px}
-  .sig .tt.ens-grid{max-width:560px}
-  .sig .tt.ens-grid td{text-align:center} .sig .tt.ens-grid th{text-align:center}
-  .sig .tt.ens-grid td:first-child,.sig .tt.ens-grid th:first-child{text-align:left}
   .rsibox{height:160px;border:1px solid var(--grid);border-radius:4px;background:var(--panel2)}
 
   /* liquidation heatmap */
@@ -166,7 +151,6 @@
   <button class="tab" data-tab="h">4-Hour</button>
   <button class="tab" data-tab="1h">1-Hour</button>
   <button class="tab" data-tab="5m">5-Min</button>
-  <button class="tab" data-tab="avg">Average · research</button>
   <button class="tab" data-tab="liq">Liq Map</button>
 </nav>
 
@@ -372,38 +356,6 @@
     </div>
     <div class="sig" id="signal_5m"></div>
     <div class="sig scalp" id="scalp_5m"></div>
-  </section>
-
-  <!-- ================= LIQUIDATION HEATMAP ================= -->
-  <!-- ================= AVERAGE ================= -->
-  <section class="panel" id="panel_avg" hidden>
-    <div class="acc-policy"><b>Research model · not an accumulation instruction.</b> This model ended 2023–2025 with about 0.678 BTC per starting BTC after fees, versus 1 BTC from holding. IN / OUT and position sizes below describe the model, not what to do with your core BTC.</div>
-    <div class="toolbar">
-      <span style="color:var(--text);font-weight:500">Sizing</span>
-      <select id="avgMode" class="ens-mode"></select>
-      <label title="Historical and current model transitions, not accumulation recommendations."><input type="checkbox" id="avgMarks">Model IN / OUT markers</label>
-      <span class="integrity" id="avg_src" style="margin-left:auto"></span>
-    </div>
-    <div id="chart_avg" class="chartbox"></div>
-    <div class="siglegend">
-      <span class="lg"><span class="gl" style="color:#3fb950">&#9650;</span><span class="gl" style="color:#f85149">&#9660;</span> <b>IN</b> when more than 60% of members are long / <b>OUT</b> below 40%, at that bar's close &mdash; labelled arrows = exit steps full / ⅔ (50&ndash;60%) / ⅓ (40&ndash;50%) or the funding trim (crowded / uncrowded), small arrows = vol-target resizes</span>
-      <span class="lg mono" id="avgRead"></span>
-    </div>
-    <div class="imacd-head">
-      <span class="h">Position · 4H</span>
-      <span class="sub">green step = model BTC allocation; a research target, not an accumulation recommendation</span>
-    </div>
-    <div id="avgline" class="imacdbox"></div>
-    <div class="sig" id="avgCard"></div>
-    <details class="acc-research"><summary>MSTR · legacy Average comparison</summary>
-    <div class="imacd-head">
-      <span class="h">MSTR · same signal</span>
-      <span class="sub">Legacy experiment. The adopted MSTR strategy is in the first tab's MSTR selector. This chart uses the Average tab's BTC signal at the US close.</span>
-    </div>
-    <div id="chart_mstr" class="chartbox" style="height:340px"></div>
-    <div class="siglegend"><span class="lg mono" id="mstrRead"></span></div>
-    <div class="sig" id="mstrCard"></div>
-    </details>
   </section>
 
   <section class="panel" id="panel_signals">
@@ -947,117 +899,7 @@ function scalpTrades(f5,f1h,cfg){
 //  VIEW FACTORY — one instance per timeframe (daily, 4h). All chart
 //  state and rendering live in the closure; the math above is shared.
 // =================================================================
-// ---------- Average tab: trend-member ensemble (position sizing, not a trigger) ----------
-// 50 long/flat members, all on CLOSED bars built from 4h candles (epoch-aligned, exactly
-// as the research harness): 36 iMACD = {impulse > 0, impulse > signal} × TF
-// {4,8,12,24,48,72}h × MA length {21,34,55}; on daily bars 5 SMA (close > SMA n),
-// 5 momentum (close > close n days ago), 4 Donchian (close > prior n-day high enters,
-// close < prior n/2-day low exits). E = share of members long. IN when E > ENS_IN, OUT
-// when E < ENS_OUT (hysteresis). While IN the step level is the size of the highest
-// ENS_STEPS floors govern reductions; rebuilding needs floor + 3pp (63% / 53%). Spot only, never levered:
-// position = level (full size) or level × min(1, target/σ), σ = EW realised vol of 4h returns (half-life 20 d)
-// re-read at each UTC daily close. The band applies to the FINAL position (vol resizes, exit steps
-// and the funding trim alike): it is traded only when it moves > ENS_BAND from the held size (exits
-// always trade), so small steps/trims — ⅔→4/9 while crowded, anything at low vol-target sizes — are
-// skipped. Forcing every step/trim/entry through regardless was a wash (r16_review.py, 2026-09-29:
-// ΔSharpe +0.00/+0.01 over 8 phases, 2/7 eras, +8 trades/yr), so the lower-turnover rule stays.
-// A decision at a bar's close applies from the next bar.
-// Research (quant repo): reports/iMACD ensemble.md, reports/Average strategy v2 research.md.
-const ENS_TF=[4,8,12,24,48,72],ENS_N=[21,34,55],ENS_MODES=["zero","state"],ENS_BAND=0.25,ENS_IN=0.60,ENS_OUT=0.40;
-const ENS_STEPS=[[0.60,1],[0.50,2/3],[0.40,1/3]];     // [E floor, size] while IN, highest first
-const ENS_STEP_UP_MARGIN=0.03; // rebuild size only 3 percentage points above the next floor
-function ensLevels(E){
-  const out=new Array(E.length).fill(NaN);let level=0;
-  for(let i=0;i<E.length;i++){
-    const e=E[i];if(!Number.isFinite(e))continue;
-    if(level===0){if(e>ENS_IN)level=1;}
-    else{
-      let k=ENS_STEPS.findIndex(q=>q[1]===level);
-      // Reductions and exits never wait for the recovery buffer.
-      while(k<ENS_STEPS.length&&e<ENS_STEPS[k][0])k++;
-      if(k===ENS_STEPS.length)level=0;
-      else{
-        while(k>0&&e>=ENS_STEPS[k-1][0]+ENS_STEP_UP_MARGIN)k--;
-        level=ENS_STEPS[k][1];
-      }
-    }
-    out[i]=level;
-  }
-  return out;
-}
-const ENS_STEP_TXT=l=>l===1?"full":l>0.5?"⅔":l>0?"⅓":"out";
-// Funding-crowding trim (research round 3): perp funding is the price of leveraged long demand, and
-// crowded longs precede liquidation cascades. When the 14-day SUM of BTCUSDT perp funding, annualised,
-// is above ENS_FUND_THR, hold ENS_FUND_MULT of the position. Re-read at each 00:00 UTC from the stamps
-// published by then (window (T−14d, T]), exactly as research_notes/ensemble_v2/crowd.py in the quant repo.
-const ENS_FUND_THR=0.15,ENS_FUND_MULT=2/3,ENS_FUND_DAYS=14;
-// funding stamps since fromSec → [[tSec, rate], …] ascending. Binance first, Bybit fallback; throws if both fail.
-async function fetchFundingHistory(fromSec){
-  const m=new Map();let src="Binance";
-  try{let s=fromSec*1000;
-    for(let k=0;k<15;k++){const r=await fetch(`https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&startTime=${s}&limit=1000`);
-      if(!r.ok)throw new Error("binance funding "+r.status);const j=await r.json();
-      for(const x of j)m.set(Math.floor(x.fundingTime/1000),+x.fundingRate);
-      if(j.length<1000)break;s=j[j.length-1].fundingTime+1;}
-    if(!m.size)throw new Error("binance funding empty");
-  }catch(e){m.clear();src="Bybit";let end=Date.now();
-    for(let k=0;k<40;k++){const r=await fetch(`https://api.bybit.com/v5/market/funding/history?category=linear&symbol=BTCUSDT&limit=200&endTime=${end}`);
-      if(!r.ok)throw new Error("bybit funding "+r.status);const l=((await r.json()).result||{}).list||[];if(!l.length)break;
-      let old=Infinity;for(const x of l){const t=+x.fundingRateTimestamp;m.set(Math.floor(t/1000),+x.fundingRate);old=Math.min(old,t);}
-      if(old/1000<=fromSec)break;end=old-1;}
-    if(!m.size)throw new Error("funding history unavailable");}
-  return {src,stamps:[...m.entries()].sort((a,b)=>a[0]-b[0])};
-}
-// annualised 14-day funding known at each closed 4h bar: the value as of the latest 00:00 UTC ≤ bar close (NaN if not covered).
-// Missing-data policy: a reading is taken only when the feed is FRESH at the read time (a stamp within
-// ENS_FUND_STALE before it) and at least half the window's 42 stamps are present; it is then the MEAN of the stamps
-// in the window × 3 stamps/day × 365 (= the 14-day sum × 365/14 when complete). Otherwise the last valid reading is
-// frozen — during an outage the window must not slide onto only the newest stamps (that can switch the trim off
-// without any new evidence). The card flags a stale feed.
-const ENS_FUND_STALE=9*3600;   // 8h stamp cadence + 1h slack
-function ensFunding14(B,stamps){
-  const n=B.length,o=new Array(n).fill(NaN);if(!stamps||!stamps.length)return o;
-  const t=stamps.map(s=>s[0]),cs=[0];for(const s of stamps)cs.push(cs[cs.length-1]+s[1]);
-  const upTo=x=>{let lo=0,hi=t.length;while(lo<hi){const md=(lo+hi)>>1;if(t[md]<=x)lo=md+1;else hi=md;}return lo;};  // # stamps with t ≤ x
-  const W=ENS_FUND_DAYS*DAY,need=ENS_FUND_DAYS*3/2;let last=NaN;
-  for(let i=0;i<n;i++){const A=Math.floor((B[i].time+14400)/DAY)*DAY;
-    if(t[0]>A-W)continue;const hi=upTo(A),lo=upTo(A-W);
-    const fresh=hi>0&&A-t[hi-1]<=ENS_FUND_STALE;
-    o[i]=fresh&&hi-lo>=need?(last=(cs[hi]-cs[lo])/(hi-lo)*3*365):last;}
-  return o;
-}
-const ENS_SMA=[20,50,100,150,200],ENS_MOM=[14,28,56,84,168],ENS_DON=[10,20,50,100];
-const ENS_FAM={imacd:{label:"iMACD",color:"#ffb000"},sma:{label:"SMA",color:"#38bdf8"},
-  mom:{label:"Momentum",color:"#a78bfa"},donch:{label:"Donchian",color:"#f472b6"}};
-// spot only (2026-09-29): every sizing is capped at 1× — no perps, no leverage, no shorts
-const ENS_SIZING={
-  spot:{label:"Full size · spot",tgt:null,cap:1},
-  vt60:{label:"Vol-target 60% · spot ≤1×",tgt:0.6,cap:1},
-  vt80:{label:"Vol-target 80% · spot ≤1×",tgt:0.8,cap:1}};
-// Buffered-step backtest snapshot, not recomputed live: r18_verify.py, 2026-09-30.
-// Binance phase 0, 2019-01-01 through 2026-09-28. Current funding policy; fixed BTC units,
-// next-open fills, 10 bp/side reserved from cash, no leverage, idle cash 0.
-// Drawdown at 4h closes; Sharpe from daily log returns, rf 0. Other alignments differ.
-const ENS_BT_END="2026-09-28";
-const ENS_BT=[
-  {k:"bh",  label:"Buy & hold",                c19:50,d19:-77,s19:0.65,c23:54,d23:-53},
-  {k:"spot",label:"Full size · spot",          c19:64,d19:-29,s19:1.45,c23:47,d23:-21},
-  {k:"vt60",label:"Vol-target 60% · spot ≤1×", c19:58,d19:-27,s19:1.46,c23:47,d23:-21},
-  {k:"vt80",label:"Vol-target 80% · spot ≤1×", c19:60,d19:-27,s19:1.44,c23:47,d23:-21}];
-// MSTR follows the buffered BTC target at the 16:00 UTC read. No updated MSTR backtest yet.
-const MSTR_HOUR=16;
-async function fetchMSTR(fromSec){
-  const f=s=>new Date(s*1000).toISOString().slice(0,10).replace(/-/g,"")+"000000";
-  const r=await fetch(`https://ts-api.cnbc.com/harmony/app/bars/MSTR/1D/${f(fromSec)}/${f(Date.now()/1000+DAY)}/adjusted/EST5EDT.json`);
-  if(!r.ok)throw new Error("CNBC "+r.status);
-  const b=(await r.json()).barData.priceBars;
-  if(!b||!b.length)throw new Error("CNBC empty");
-  // one bar per US trading date, stamped 00:00 UTC of that date
-  return b.map(x=>{const t=x.tradeTime;return {time:Date.UTC(+t.slice(0,4),+t.slice(4,6)-1,+t.slice(6,8))/1000,
-    open:+x.open,high:+x.high,low:+x.low,close:+x.close};}).filter(c=>c.close>0);
-}
-let ENS_MODE="vt60";
-try{const m=localStorage.getItem("btc_ens_mode");if(m&&ENS_SIZING[m])ENS_MODE=m;}catch(e){}
+// Shared closed-candle helpers for the current strategy and notification bot.
 // group closed 4h bars into epoch-aligned `span`-second bars; ends[k] = 4h index that closes bar k
 function ensGroup(B,span){
   const n=B.length,bars=[],ends=[];let g=null,cur=null;
@@ -1073,113 +915,6 @@ function ensSpread(v,ends,n){
   for(let i=0;i<n;i++){while(j+1<ends.length&&ends[j+1]<=i)j++;if(j>=0)st[i]=v[j];}
   return st;
 }
-// Display-only confirmation. Incomplete days/gaps cannot count toward either daily close.
-// Nothing here feeds votes, levels, sizing, or the trading band.
-function ensRiskContext(B,D,ends){
-  const ma=smaN(D.map(b=>b.close),50),values=[],counts=[],times=[];
-  let complete=0,below=0;
-  for(let j=0;j<D.length;j++){
-    const start=j?ends[j-1]+1:0,end=ends[j];
-    const ok=end-start===5&&B[start].time%DAY===0&&
-      B.slice(start,end+1).every((b,k)=>b.time===B[start].time+k*14400);
-    const consecutive=j>0&&B[end].time-B[ends[j-1]].time===DAY;
-    complete=ok?(consecutive?complete+1:1):0;
-    const ready=complete>=50&&Number.isFinite(ma[j]);
-    below=ready&&D[j].close<ma[j]?Math.min(2,below+1):0;
-    values.push(ready?ma[j]:NaN);counts.push(ready?below:NaN);times.push(B[end].time+14400);
-  }
-  return {sma50:ensSpread(values,ends,B.length),below50:ensSpread(counts,ends,B.length),
-    dailyTime:ensSpread(times,ends,B.length)};
-}
-function ensRiskCard(R,mode){
-  const i=R.t.length-1,e=R.E[i],p=R.banded[mode][i],want=R.pos[mode][i];
-  if(![e,p,want].every(Number.isFinite))return '';
-  const pct=x=>(100*x).toFixed(1)+'%',time=t=>new Date(t*1000).toISOString().slice(0,16).replace('T',' ');
-  const f=R.f14[i],fresh=Number.isFinite(R.fundLast)&&Date.now()/1000-R.fundLast<=ENS_FUND_STALE;
-  const crowded=Number.isFinite(f)&&f>ENS_FUND_THR;
-  const risk=R.risk,below=risk?risk.below50[i]:NaN,confirmed=below>=2&&e<ENS_IN;
-  const item=(label,state,detail,tone='')=>`<div class="avg-risk-item"><div class="avg-risk-label">${label}</div><strong class="avg-risk-state ${tone}">${state}</strong><div class="avg-risk-detail">${detail}</div></div>`;
-  const trend=e<ENS_OUT?'Exit regime':e<.50?'Broad trend weakness':e<ENS_IN?'Trend weakening':'No vote warning';
-  const trendDetail=`${Math.round(e*R.members.length)}/${R.members.length} members long (${Math.round(e*100)}%). `+
-    (R.inn[i]===0?'OUT; entry still requires more than 60%.':'Reductions below 60% / 50%; exit below 40%.');
-  const crowdState=!Number.isFinite(f)?'Funding unavailable':!fresh?'Stale funding reading':crowded?'Elevated crowding':'Below crowding threshold';
-  const crowdDetail=Number.isFinite(f)?`${pct(f)}/yr over 14 days${!fresh?' (last valid reading)':''}. `+
-    (crowded?'Desired size is multiplied by ⅔; the trading band can skip the trim.':'The crowding threshold is 15%/yr.'):
-    'No usable 14-day reading; the displayed target has no funding trim.';
-  const confirmation=!Number.isFinite(below)?'History unavailable':confirmed?'Confirmed trend damage':below>=2?'Price weakness only':below===1?'One daily close below SMA50':'Not confirmed';
-  const confirmDetail=Number.isFinite(below)?`${below>=2?'Two':below===1?'One':'No'} consecutive daily close${below===1?'':'s'} below SMA50`+
-    ` ($${risk.sma50[i].toLocaleString('en-US',{maximumFractionDigits:0})}), as of ${time(risk.dailyTime[i])} UTC. `+
-    (confirmed?'Votes are also below 60%.':'Confirmation also requires votes below 60%.'):
-    'Needs 50 complete, consecutive UTC days. Forming candles do not count.';
-  const gap=want-p,skipped=Math.abs(gap)>1e-9;
-  let change=i;while(change>0&&R.banded[mode][change-1]===p)change--;
-  const prior=i>0?R.banded[mode][i-1]:NaN;
-  const tradeState=skipped?(gap<0?'Reduction skipped by band':'Increase skipped by band'):
-    p===0?'Flat target':Number.isFinite(prior)&&p<prior?'Target reduced':Number.isFinite(prior)&&p>prior?'Target increased':'Target unchanged';
-  const tradeDetail=`Desired ${pct(want)}; last rebalance target ${pct(p)}. `+
-    (skipped?`The ${Math.abs(gap*100).toFixed(1)}pp gap does not exceed the 25pp band. `:'')+
-    `Target set at ${time(R.t[change]+14400)} UTC; applies from the next bar open.`;
-  return `<section class="avg-risk" aria-label="Risk context"><h3>Risk context</h3>
-    <div class="sig-sub">As of ${time(R.t[i]+14400)} UTC · closed bars · conditions, not a crash forecast</div>
-    <div class="avg-risk-grid">${item('Trend participation',trend,trendDetail,e<ENS_OUT?'risk':e<ENS_IN?'warn':'')}
-    ${item('Funding crowding',crowdState,crowdDetail,!fresh||crowded?'warn':'')}
-    ${item('Daily confirmation',confirmation,confirmDetail,confirmed?'risk':below>0?'warn':'')}
-    ${item('Rebalance status',tradeState,tradeDetail,skipped?'warn':'')}</div>
-    <div class="sig-sub">Confirmation is context only; it does not delay exits or change targets. Targets assume next-open fills; this page cannot verify your trades. Actual allocation can drift between rebalances.</div></section>`;
-}
-function computeEnsemble(c4,funding){
-  const now=Date.now()/1000;
-  const B=c4.filter(c=>c.time+14400<=now);          // closed 4h bars only (a prefix of c4)
-  const n=B.length;if(n<50)return null;
-  const members=[];
-  for(const tf of ENS_TF){
-    const {bars,ends}=ensGroup(B,tf*3600);
-    for(const len of ENS_N){
-      const {md,sb}=impulseMACD(bars,len,9);
-      for(const mode of ENS_MODES){
-        const v=md.map((x,j)=>isNaN(sb[j])?NaN:(mode==="zero"?(x>0?1:0):(x>sb[j]?1:0)));
-        members.push({fam:"imacd",tf,len,mode,label:`iMACD ${tf}h ${len} ${mode==="zero"?"> 0":"> signal"}`,st:ensSpread(v,ends,n)});}}}
-  const {bars:D,ends:De}=ensGroup(B,DAY),m=D.length,cd=D.map(b=>b.close);
-  for(const d of ENS_SMA){const s=smaN(cd,d);
-    members.push({fam:"sma",len:d,label:`SMA ${d}d`,st:ensSpread(cd.map((c,j)=>isNaN(s[j])?NaN:(c>s[j]?1:0)),De,n)});}
-  for(const d of ENS_MOM)
-    members.push({fam:"mom",len:d,label:`Momentum ${d}d`,st:ensSpread(cd.map((c,j)=>j<d?NaN:(c>cd[j-d]?1:0)),De,n)});
-  for(const d of ENS_DON){const k=Math.max(2,Math.floor(d/2)),v=new Array(m).fill(NaN);let x=0;
-    for(let j=d;j<m;j++){let hi=-Infinity,lo=Infinity;
-      for(let q=j-d;q<j;q++)if(D[q].high>hi)hi=D[q].high;
-      for(let q=j-k;q<j;q++)if(D[q].low<lo)lo=D[q].low;
-      if(cd[j]>hi)x=1;else if(cd[j]<lo)x=0;v[j]=x;}
-    members.push({fam:"donch",len:d,label:`Donchian ${d}/${k}d`,st:ensSpread(v,De,n)});}
-  const avgOf=list=>{const o=new Array(n).fill(NaN);
-    for(let i=0;i<n;i++){let s=0,ok=true;for(const q of list){if(isNaN(q.st[i])){ok=false;break;}s+=q.st[i];}
-      if(ok)o[i]=s/list.length;}return o;};
-  const E=avgOf(members),fam={};
-  for(const f in ENS_FAM)fam[f]=avgOf(members.filter(q=>q.fam===f));
-  // EW variance of 4h returns; the vol used for sizing is re-read at each daily close
-  const lam=Math.pow(0.5,1/(20*6)),vol=new Array(n);let v=0.36/2190,held=0.6;
-  for(let i=0;i<n;i++){
-    if(i>0){const r=B[i].close/B[i-1].close-1;v=lam*v+(1-lam)*r*r;}
-    if((B[i].time+14400)%DAY===0)held=Math.sqrt(v*2190);
-    vol[i]=held;}
-  // Stateful steps: immediate reductions, buffered recovery. Entry/exit thresholds unchanged.
-  const lvl=ensLevels(E),inn=lvl.map(s=>isNaN(s)?NaN:s>0?1:0);
-  // funding-crowding trim (1 when funding is unavailable or not yet covered)
-  const f14=ensFunding14(B,funding&&funding.stamps),trim=f14.map(f=>f>ENS_FUND_THR?ENS_FUND_MULT:1);
-  const pos={},banded={};
-  for(const k in ENS_SIZING){const z=ENS_SIZING[k];
-    pos[k]=lvl.map((s,i)=>isNaN(s)?NaN:s*trim[i]*(z.tgt?Math.min(z.cap,z.tgt/vol[i]):1));
-    let c=NaN;banded[k]=pos[k].map(p=>{if(isNaN(p))return NaN;
-      if(isNaN(c)||Math.abs(p-c)>ENS_BAND||(p===0&&c!==0))c=p;return c;});}
-  for(const q of members){q.now=q.st[n-1];q.since=-1;       // last flip = bar whose close changed it
-    for(let i=n-1;i>0;i--)if(!isNaN(q.st[i-1])&&q.st[i]!==q.st[i-1]){q.since=i;break;}}
-  const fundLast=funding&&funding.stamps.length?funding.stamps[funding.stamps.length-1][0]:NaN;
-  return {t:B.map(b=>b.time),E,inn,lvl,f14,trim,fundSrc:funding?funding.src:null,fundLast,fam,vol,pos,banded,members,
-    risk:ensRiskContext(B,D,De)};
-}
-
-// Accumulation accounting is independent of live exchange/chart availability.
-// Cash counts only as the BTC it could buy after the conversion fee.
-function accumulationBuybackPrice(sale,fee,gain=0){return sale*(1-fee)/((1+fee)*(1+gain));}
 function makeView(cfg){
   const E=cfg.el;
   let chart,candles,fastSine,slowSine,winD;
@@ -1754,13 +1489,12 @@ const CFG_5M={
 const VIEWS={};
 let activeTab="signals";
 function showTab(tab){
-  if(!["signals","indicators","d","h","1h","5m","avg","liq"].includes(tab))tab="signals";
+  if(!["signals","indicators","d","h","1h","5m","liq"].includes(tab))tab="signals";
   activeTab=tab;document.body.dataset.tab=tab;
   $$(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));
-  ["signals","indicators","d","h","1h","5m","avg","liq"].forEach(k=>{const p=$("panel_"+k);if(p)p.hidden=(k!==tab);});
+  ["signals","indicators","d","h","1h","5m","liq"].forEach(k=>{const p=$("panel_"+k);if(p)p.hidden=(k!==tab);});
   if(tab==="signals"||tab==="indicators"){window.BTC_SIGNALS?.onShow();return;}
   if(tab==="liq"){LIQ.onShow();return;}
-  if(tab==="avg"){AVG.onShow();return;}
   if(VIEWS[tab])VIEWS[tab].onShow();
 }
 async function loadAll(){
@@ -1792,9 +1526,9 @@ loadChartLib().then(()=>{
   fetchFunding();
 }).catch(()=>{setStatus("err","chart library blocked");
   ["chart_d","chart_h","chart_1h","chart_5m"].forEach(id=>{const e=$(id);if(e)e.innerHTML='<div style="padding:22px;color:#6b7882;font-size:13px;line-height:1.5">Couldn\'t load the charting library from jsDelivr or unpkg — likely a network block. Download <span class="mono">lightweight-charts.standalone.production.js</span> and reference it locally.</div>';});});
-$("refresh").onclick=()=>{if(activeTab==="signals"||activeTab==="indicators"){window.BTC_SIGNALS?.refresh();return;}if(window.LightweightCharts&&VIEWS.d)loadAll();LIQ.refresh();AVG.refresh();};
+$("refresh").onclick=()=>{if(activeTab==="signals"||activeTab==="indicators"){window.BTC_SIGNALS?.refresh();return;}if(window.LightweightCharts&&VIEWS.d)loadAll();LIQ.refresh();};
 // auto-refresh every 5 minutes while the page sits open
-setInterval(()=>{if(window.LightweightCharts&&VIEWS.d)loadAll();LIQ.refresh();AVG.refresh();},300000);
+setInterval(()=>{if(window.LightweightCharts&&VIEWS.d)loadAll();LIQ.refresh();},300000);
 
 function fmtDur(s){return s<3600?Math.round(s/60)+" min":s<86400?(s/3600).toFixed(1)+" h"
   :s<2*365*86400?(s/86400).toFixed(1)+" d":(s/31536000).toFixed(1)+" y";}
@@ -1803,221 +1537,6 @@ const fSign=x=>(x>=0?"+":"")+x.toFixed(2);
 setInterval(async()=>{try{const p=await getPrice();$("price").firstChild.nodeValue=p.toLocaleString("en-US",{style:"currency",currency:"USD"});}catch(e){}},60000);
 
 setInterval(fetchFunding,3600000);
-
-// ---------- Average tab (lazy: nothing is fetched until the tab is first opened) ----------
-// Price (4h), the all-member average + per-family averages + the position step line, and a
-// member heatmap (one row per member, drawn against the price chart's own time scale).
-const AVG=(()=>{
-  let inited=false,loaded=false,busy=false,C4=null,R=null,FUND=null,MS=null,MSERR=null;
-  let chart,candles,lineChart,pL,mChart,mCandles,mPos;
-  const FAMS=Object.keys(ENS_FAM);
-  const fx=x=>x.toFixed(2)+"×";
-  const tstr=ts=>new Date(ts*1000).toISOString().slice(0,16).replace("T"," ");
-  const lwOpts=()=>({autoSize:true,
-    layout:{background:{color:"#0d1217"},textColor:"#6b7882",fontFamily:"IBM Plex Mono"},
-    grid:{vertLines:{color:"#1e262e"},horzLines:{color:"#1e262e"}},
-    rightPriceScale:{borderColor:"#1e262e",minimumWidth:84},leftPriceScale:{visible:false},
-    timeScale:{borderColor:"#1e262e",timeVisible:true},crosshair:{mode:0}});
-  function init(){
-    inited=true;
-    chart=LightweightCharts.createChart($("chart_avg"),lwOpts());
-    candles=chart.addCandlestickSeries({upColor:"#3fb950",downColor:"#f85149",
-      borderUpColor:"#3fb950",borderDownColor:"#f85149",wickUpColor:"#3fb950",wickDownColor:"#f85149"});
-    lineChart=LightweightCharts.createChart($("avgline"),lwOpts());
-    pL=lineChart.addLineSeries({color:"#3fb950",lineWidth:2,lineType:1,priceLineVisible:false,title:"position"});
-    pL.createPriceLine({price:1,color:"#33404a",lineWidth:1,lineStyle:2,axisLabelVisible:false,title:""});
-    let lock=false;const panes=[chart,lineChart];
-    panes.forEach(src=>src.timeScale().subscribeVisibleLogicalRangeChange(r=>{
-      if(lock||!r)return;lock=true;
-      panes.forEach(dst=>{if(dst!==src)dst.timeScale().setVisibleLogicalRange(r);});
-      lock=false;}));
-    chart.subscribeCrosshairMove(p=>readout(p&&p.time));
-    lineChart.subscribeCrosshairMove(p=>readout(p&&p.time));
-    mChart=LightweightCharts.createChart($("chart_mstr"),{...lwOpts(),timeScale:{borderColor:"#1e262e",timeVisible:false}});
-    mCandles=mChart.addCandlestickSeries({upColor:"#3fb950",downColor:"#f85149",
-      borderUpColor:"#3fb950",borderDownColor:"#f85149",wickUpColor:"#3fb950",wickDownColor:"#f85149"});
-    mPos=mChart.addLineSeries({color:"#3fb950",lineWidth:2,lineType:1,priceScaleId:"pos",priceLineVisible:false,
-      lastValueVisible:false,crosshairMarkerVisible:false,autoscaleInfoProvider:()=>({priceRange:{minValue:0,maxValue:1}})});
-    mCandles.priceScale().applyOptions({scaleMargins:{top:0.06,bottom:0.26}});
-    mChart.priceScale("pos").applyOptions({scaleMargins:{top:0.8,bottom:0.02},visible:false});
-    mChart.subscribeCrosshairMove(p=>mReadout(p&&p.time));
-    const sel=$("avgMode");
-    sel.innerHTML=Object.entries(ENS_SIZING).map(([k,z])=>`<option value="${k}">${z.label}</option>`).join("");
-    sel.value=ENS_MODE;
-    sel.onchange=()=>{ENS_MODE=sel.value;try{localStorage.setItem("btc_ens_mode",ENS_MODE);}catch(e){}render(false);};
-    $("avgMarks").onchange=()=>render(false);
-  }
-  async function load(){
-    if(busy)return;busy=true;
-    try{
-      // full history once (~2.7 y so the 72h × 55 iMACD and 200-day members warm up), then top up the tail;
-      // funding stamps in parallel (full window + 15 d of lead-in once, then only the newest ones)
-      const now=Math.floor(Date.now()/1000);
-      const fFrom=FUND?FUND.stamps[FUND.stamps.length-1][0]-DAY:now-1020*DAY;
-      const [{data,src},fr,ms]=await Promise.all([getCandles("4h",14400,C4?1000:6000),
-        fetchFundingHistory(fFrom).catch(e=>{console.warn("avg funding",e);return null;}),
-        fetchMSTR(now-1100*DAY).catch(e=>{console.warn("avg mstr",e);MSERR=String(e.message||e);return null;})]);
-      if(ms){MS=ms;MSERR=null;}
-      if(C4){const m=new Map(C4.map(c=>[c.time,c]));data.forEach(c=>m.set(c.time,c));
-        C4=[...m.values()].sort((a,b)=>a.time-b.time);}
-      else C4=data;
-      // merge new stamps into the history; a fallback source (usually only recent stamps) fills in newer
-      // times but never overwrites stamps already held from the other venue
-      if(fr){if(!FUND)FUND=fr;
-        else{const same=FUND.src===fr.src,m=new Map(FUND.stamps);fr.stamps.forEach(([t,r])=>{if(same||!m.has(t))m.set(t,r);});
-          const src=same||FUND.src.includes(fr.src)?FUND.src:FUND.src+"+"+fr.src;
-          FUND={src,stamps:[...m.entries()].sort((a,b)=>a[0]-b[0])};}}
-      R=computeEnsemble(C4,FUND);
-      $("avg_src").textContent=`${src} · ${C4.length} × 4h bars · funding ${FUND?FUND.src:"unavailable"}`;
-      render(!loaded);loaded=true;
-    }catch(e){console.error("avg",e);$("avg_src").innerHTML='<span class="bad">data unreachable</span>';}
-    busy=false;
-  }
-  // one entry per candle so both panes share bar indices (whitespace where not computed)
-  const series=arr=>C4.map((c,i)=>(i<arr.length&&!isNaN(arr[i]))?{time:c.time,value:arr[i]}:{time:c.time});
-  function render(fit){
-    candles.setData(C4);
-    if(!R){$("avgCard").innerHTML='<h2>Average · position</h2><div class="sig-sub">not enough 4h history.</div>';return;}
-    const mode=ENS_MODE,P=R.banded[mode],cap=ENS_SIZING[mode].cap;
-    pL.setData(series(P));
-    pL.applyOptions({autoscaleInfoProvider:()=>({priceRange:{minValue:0,maxValue:cap}})});
-    // markers on the bar whose close changed the traded position (filled at the next bar's open)
-    // IN / OUT = the vote crossing its thresholds; labelled mid arrows = exit steps (full/⅔/⅓) or the
-    // funding trim switching ("crowded" / "uncrowded"); small arrows = vol-target resizes while IN
-    const mk=[],I=R.inn,L=R.lvl,T=R.trim;
-    if($("avgMarks").checked)for(let i=1;i<P.length;i++){
-      if(isNaN(I[i])||isNaN(I[i-1]))continue;
-      if(I[i]!==I[i-1]){const up=I[i]===1;
-        mk.push({time:C4[i].time,position:up?"belowBar":"aboveBar",shape:up?"arrowUp":"arrowDown",
-          color:up?"#3fb950":"#f85149",size:1.8,text:up?"IN "+fx(P[i]):"OUT"});continue;}
-      if(I[i]===1&&P[i]!==P[i-1]){const up=P[i]>P[i-1],step=L[i]!==L[i-1],crowd=!step&&T[i]!==T[i-1];
-        mk.push({time:C4[i].time,position:up?"belowBar":"aboveBar",shape:up?"arrowUp":"arrowDown",
-          color:step||crowd?(up?"#3fb950":"#d29922"):(up?"rgba(63,185,80,0.6)":"rgba(248,81,73,0.6)"),
-          size:step||crowd?1.1:0.6,text:step?ENS_STEP_TXT(L[i]):crowd?(T[i]<1?"crowded":"uncrowded"):""});}}
-    candles.setMarkers(mk);
-    if(fit){const n=C4.length,go=()=>chart.timeScale().setVisibleLogicalRange({from:n-6*365,to:n+5});
-      go();requestAnimationFrame(()=>setTimeout(go,60));}
-    $("avgCard").innerHTML=card(mode);
-    readout(null);renderMstr(mode,fit);
-  }
-  // MSTR target per trading date = this tab's traded BTC position after the 4h bar closing at 16:00 UTC
-  // (NaN while the BTC average warms up); `live` marks a date whose 16:00 UTC read hasn't happened yet
-  function mstrPos(mode){
-    const P=R.banded[mode],now=Date.now()/1000,o=[];let i=-1;
-    for(const c of MS){const T=c.time+MSTR_HOUR*3600;
-      while(i+1<R.t.length&&R.t[i+1]+14400<=T)i++;
-      o.push({time:c.time,p:i>=0?P[i]:NaN,live:T>now});}
-    return o;
-  }
-  let MP=null;
-  function renderMstr(mode,fit){
-    const el=$("mstrCard");
-    if(!MS){mCandles.setData([]);mPos.setData([]);MP=null;
-      el.innerHTML=`<h2>MSTR · same signal</h2><div class="sig-sub"><span class="bad">MSTR data unreachable</span>${MSERR?" ("+MSERR+")":""} — the BTC position above still applies.</div>`;
-      $("mstrRead").textContent="";return;}
-    MP=mstrPos(mode);
-    mCandles.setData(MS);
-    mPos.setData(MP.map(z=>isNaN(z.p)?{time:z.time}:{time:z.time,value:z.p}));
-    // marker on the date whose close the order fills at
-    const mk=[];
-    if($("avgMarks").checked)for(let k=1;k<MP.length;k++){const a=MP[k-1].p,b=MP[k].p;
-      if(isNaN(a)||isNaN(b)||a===b)continue;const up=b>a;
-      mk.push({time:MP[k].time,position:up?"belowBar":"aboveBar",shape:up?"arrowUp":"arrowDown",
-        color:a===0||b===0?(up?"#3fb950":"#f85149"):(up?"rgba(63,185,80,0.6)":"rgba(210,153,34,0.7)"),
-        size:a===0||b===0?1.8:0.7,text:a===0?"IN "+fx(b):b===0?"OUT":""});}
-    mCandles.setMarkers(mk);
-    if(fit){const n=MS.length,go=()=>mChart.timeScale().setVisibleLogicalRange({from:n-420,to:n+3});
-      go();requestAnimationFrame(()=>setTimeout(go,60));}
-    mReadout(null);
-    const n=MP.length-1,last=MS[n],nowS=Date.now()/1000;
-    // between today's 16:00 UTC read and the US close (≤21:00 UTC) the order is locked; otherwise the
-    // current BTC position is only the provisional target for the next close
-    const locked=!MP[n].live&&nowS<last.time+21*3600,tgt=locked?MP[n].p:R.banded[mode][R.t.length-1];
-    let k=n;while(k>0&&MP[k-1].p===MP[n].p)k--;
-    const d=t=>new Date(t*1000).toISOString().slice(0,10);
-    const lastTrade=k>0&&!isNaN(MP[k-1].p)?`last change ${d(MP[k].time)} close: ${fx(MP[k-1].p)} → ${fx(MP[k].p)}`:"no change in loaded history";
-    const on=tgt>0,cls=on?"long":"flat";
-    const lock=locked?`locked at today's ${MSTR_HOUR}:00 UTC read — fill at today's US close`
-      :`provisional for the next US close — locks at that day's ${MSTR_HOUR}:00 UTC 4h close`;
-    el.innerHTML=`<h2>MSTR · same signal</h2>
-      <div class="sig-head"><span class="sig-status ${cls}">${on?"HOLD "+fx(tgt)+" MSTR":"OUT · FLAT"}</span>
-        <span class="sig-sub">${lock} · ${lastTrade} · MSTR ${last.close.toFixed(2)} (${d(last.time)})</span></div>
-      <div class="sig-sub">Same buffered position as the BTC card (${ENS_SIZING[mode].label}), applied to MSTR. Each US trading day uses the BTC target after the 4h bar closing at ${MSTR_HOUR}:00 UTC, filled at that day's US close. Volatility sizing uses BTC volatility, not MSTR volatility. MSTR can move independently of BTC. The earlier MSTR performance table used unbuffered steps and has been removed pending a fresh backtest.</div>`;
-  }
-  function mReadout(t){
-    const el=$("mstrRead");if(!el||!MP)return;
-    let k=MP.length-1;if(t!=null){const j=MP.findIndex(z=>z.time===t);if(j>=0)k=j;}
-    const z=MP[k];
-    el.innerHTML=`${new Date(z.time*1000).toISOString().slice(0,10)} · MSTR ${MS[k].close.toFixed(2)} · position from this close <b style="color:#3fb950">${isNaN(z.p)?"warming up":fx(z.p)}</b>${z.live?" (provisional)":""}`;
-  }
-  function readout(t){
-    const el=$("avgRead");if(!el||!R)return;
-    let i=R.t.length-1;
-    if(t!=null){let lo=0,hi=R.t.length-1;while(lo<hi){const m=(lo+hi+1)>>1;if(R.t[m]<=t)lo=m;else hi=m-1;}i=lo;}
-    if(isNaN(R.E[i])){el.textContent=tstr(R.t[i])+" UTC · warming up";return;}
-    el.innerHTML=`${tstr(R.t[i])} UTC · <b style="color:${R.inn[i]===1?"#3fb950":"#6b7882"}">${R.inn[i]===1?"IN "+ENS_STEP_TXT(R.lvl[i])+(R.trim[i]<1?" · crowded ⅔":""):"OUT"}</b> · funding 14d ${isNaN(R.f14[i])?"—":(R.f14[i]*100).toFixed(0)+"%/yr"} · position <b style="color:#3fb950">${fx(R.banded[ENS_MODE][i])}</b> · average ${(R.E[i]*100).toFixed(0)}% · `+
-      FAMS.map(f=>`<span style="color:${ENS_FAM[f].color}">${ENS_FAM[f].label} ${(R.fam[f][i]*100).toFixed(0)}%</span>`).join(" · ");
-  }
-  function card(mode){
-    const n=R.t.length-1,e=R.E[n],P=R.banded[mode],p=P[n];
-    if(isNaN(e))return '<h2>Average · position</h2><div class="sig-sub">not enough 4h history for every member to warm up (needs ~1,200 bars; the fallback source serves 1,000).</div>';
-    const I=R.inn,on=I[n]===1,lv=R.lvl[n],M=R.members.length,nl=Math.round(e*M);
-    let j=n;while(j>0&&I[j-1]===I[n])j--;
-    const since=j>0?`${on?"IN":"OUT"} since ${tstr(R.t[j]+14400)} UTC`:`${on?"IN":"OUT"} for all loaded history`;
-    // members that must flip for the next change: entry needs > ENS_IN·M long; while IN the
-    // level steps down below its floor (the last floor is the exit) and back up at the one above
-    const cnt=f=>Math.ceil(f*M-1e-9),pct=f=>Math.round(f*100)+"%",pl=k=>`${k} more member${k===1?"":"s"}`;
-    let nextTxt;
-    if(!on)nextTxt=`enter if ${pl(Math.floor(ENS_IN*M+1e-9)+1-nl)} turn long (above ${pct(ENS_IN)})`;
-    else{const s=ENS_STEPS.findIndex(q=>q[1]===lv),f=ENS_STEPS[s][0],dn=nl-cnt(f)+1;
-      nextTxt=(s===ENS_STEPS.length-1?`exit if ${pl(dn)} turn flat (below ${pct(ENS_OUT)})`
-        :`step down to ${ENS_STEP_TXT(ENS_STEPS[s+1][1])} if ${pl(dn)} turn flat (below ${pct(f)})`)+
-        (s>0?` · back to ${ENS_STEP_TXT(ENS_STEPS[s-1][1])} if ${pl(cnt(ENS_STEPS[s-1][0]+ENS_STEP_UP_MARGIN)-nl)} turn long (${pct(ENS_STEPS[s-1][0]+ENS_STEP_UP_MARGIN)}+)`:"");}
-    const cls=on?"long":"flat",f=R.f14[n];
-    let fs=n;while(fs>0&&R.trim[fs-1]===R.trim[n])fs--;
-    const stale=Date.now()/1000-R.fundLast>ENS_FUND_STALE;
-    const fundTxt=!R.fundSrc?'<span class="bad">Funding history unavailable — positions shown untrimmed (the backtest rows assume the trim).</span>'
-      :isNaN(f)?"Funding 14d: not enough history yet — untrimmed."
-      :`Funding 14d (${R.fundSrc} perp, annualised): <b style="color:${f>ENS_FUND_THR?"#d29922":"var(--text)"}">${f>=0?"+":""}${(f*100).toFixed(1)}%/yr</b> · `+
-       (f>ENS_FUND_THR?`<b style="color:#d29922">crowded — desired size ×⅔</b> since ${tstr(R.t[fs]+14400)} UTC; lifts when it falls to ${Math.round(ENS_FUND_THR*100)}% or below`
-        :`below the ${Math.round(ENS_FUND_THR*100)}% crowding line, no trim`)+" · re-read daily at 00:00 UTC · "+
-       (stale?`<span class="bad">last funding stamp ${tstr(R.fundLast)} UTC — feed stale; the last valid reading is frozen until it resumes</span>`
-        :`last stamp ${tstr(R.fundLast)} UTC`);
-    const famTxt=FAMS.map(f=>{const ms=R.members.filter(q=>q.fam===f);
-      return `<span style="color:${ENS_FAM[f].color}">${ENS_FAM[f].label} ${ms.filter(q=>q.now===1).length}/${ms.length}</span>`;}).join(" · ");
-    const flip=q=>q.since>0?tstr(R.t[q.since]+14400).slice(0,10):"—";
-    const dot=q=>`<td class="${q.now===1?"up":"mid"}" title="${q.label} · last flip ${flip(q)}">${q.now===1?"●":"○"}</td>`;
-    const im=(tf,len,md)=>R.members.find(q=>q.fam==="imacd"&&q.tf===tf&&q.len===len&&q.mode===md);
-    const grid=ENS_TF.map(tf=>`<tr><td>${tf}h</td>${ENS_N.map(l=>dot(im(tf,l,"zero"))).join("")}${ENS_N.map(l=>dot(im(tf,l,"state"))).join("")}</tr>`).join("");
-    const gen=R.members.filter(q=>q.fam!=="imacd").map(q=>`<tr><td style="color:${ENS_FAM[q.fam].color}">${q.label}</td><td class="${q.now===1?"up":"mid"}">${q.now===1?"long":"flat"}</td><td>${flip(q)}</td></tr>`).join("");
-    const recent=R.members.filter(q=>q.since>0).sort((a,b)=>b.since-a.since).slice(0,8)
-      .map(q=>`<tr><td>${tstr(R.t[q.since]+14400)}</td><td style="color:${ENS_FAM[q.fam].color};text-align:left">${q.label}</td><td class="${q.now===1?"up":"dn"}">${q.now===1?"→ long":"→ flat"}</td></tr>`).join("");
-    const bt=ENS_BT.map(r=>`<tr${r.k===mode?' class="open"':""}><td>${r.label}</td><td>${r.c19}%</td><td class="dn">${r.d19}%</td><td>${r.s19.toFixed(2)}</td><td>${r.c23}%</td><td class="dn">${r.d23}%</td></tr>`).join("");
-    return `<h2>Average · research target</h2>
-      <div class="sig-head"><span class="sig-status ${cls}">${on?"IN · "+ENS_STEP_TXT(lv)+(R.trim[n]<1?" · crowded":"")+" · "+fx(p)+" LONG":"OUT · FLAT"}</span>
-        <span class="sig-sub">${since} · ${nl}/${M} members long (${(e*100).toFixed(0)}%) · ${nextTxt}</span></div>
-      <div class="sig-sub" style="margin-bottom:4px">${ENS_SIZING[mode].label}${ENS_SIZING[mode].tgt?` · 20d vol ${(R.vol[n]*100).toFixed(0)}%`:""} · desired ${fx(R.pos[mode][n])} · last rebalance target <b>${fx(p)}</b>${Math.abs(R.pos[mode][n]-p)>1e-9?` <span style="color:#d29922">(gap ≤ ${ENS_BAND.toFixed(2)} — not traded until it exceeds the band)</span>`:""}</div>
-      <div class="sig-sub" style="margin-bottom:4px">${fundTxt}</div>
-      <div class="sig-sub" style="margin-bottom:6px">${famTxt}</div>
-      ${ensRiskCard(R,mode)}
-      <div class="avg-cols">
-        <div><table class="tt ens-grid"><tr><th>iMACD</th>${ENS_N.map(l=>`<th>&gt;0 · ${l}</th>`).join("")}${ENS_N.map(l=>`<th>&gt;sig · ${l}</th>`).join("")}</tr>${grid}</table></div>
-        <div><table class="tt"><tr><th>Member</th><th>now</th><th>last flip</th></tr>${gen}</table></div>
-      </div>
-      <table class="tt"><tr><th>Latest member flips (bar close, UTC)</th><th style="text-align:left">member</th><th></th></tr>${recent}</table>
-      <details class="acc-research"><summary>Dollar performance · secondary accounting, not BTC accumulation</summary><div class="acc-note">These older snapshots end in September 2026 and use different windows from the BTC audit. Dollar CAGR and Sharpe do not establish BTC accumulation.</div>
-      <div class="acc-scroll"><table class="tt"><tr><th>2019-01 → ${ENS_BT_END}</th><th>USD CAGR</th><th>USD max DD</th><th>USD Sharpe</th><th>2023+ USD CAGR</th><th>2023+ USD DD</th></tr>${bt}</table></div></details>
-      <div class="sig-sub">Model rules: full size when more than ${pct(ENS_IN)} of the ${M} members are long; reductions below 60% to ⅔, below 50% to ⅓, and below ${pct(ENS_OUT)} to OUT. After a reduction, the model rebuilds to ⅔ at 53% or higher and to full at 63% or higher. With ${M} members, that requires ${cnt(0.53)}/${M} and ${cnt(0.63)}/${M} long votes (54% and 64% with 50 members). The recovery buffer reduces repeated resizing; it does not establish an accumulation edge. Signals use closed bars and modeled fills occur at the next bar's open.</div>
-      <div class="sig-sub">Spot only, at most 1×; the rest stays in cash. Funding above ${Math.round(ENS_FUND_THR*100)}% annualized over 14 days trims desired size to ⅔. Volatility sizing can reduce it further. Changes must exceed the ${ENS_BAND.toFixed(2)} band; complete exits always change the target. Fixed BTC units drift between model rebalances. This model can finish with less BTC than holding.</div>`;
-  }
-  function onShow(){
-    if(!window.LightweightCharts){$("avgCard").innerHTML='<div class="sig-sub">chart library blocked.</div>';return;}
-    if(!inited)init();
-    if(!loaded)load();
-  }
-  function refresh(){if(loaded)load();}
-  return {onShow,refresh,_state:()=>({C4,R,MS,MP})};
-})();
 
 // ---------- estimated liquidation heatmap (Liq Map tab) ----------
 // Model, not exchange data: each perp candle's taker buy volume is treated as new
