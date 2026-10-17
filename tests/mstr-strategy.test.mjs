@@ -32,12 +32,19 @@ assert.deepEqual(changed.trades,original.trades);
 assert.deepEqual(changed.regimes,original.regimes);
 assert.equal(changed.holding,original.holding);
 assert.equal(stockRegimes(D,now).at(-1).time,truncated.at(-1).time);
+// Opening revisions affect modeled fill prices, not signal directions/timestamps.
+const revisedOpens=D.map(b=>({...b,open:(b.low+b.high)/2}));
+const normalReplay=replay(B,rows,D,{now:end}),openReplay=replay(B,rows,revisedOpens,{now:end});
+assert.deepEqual(openReplay.trades.map(t=>[t.side,t.time]),normalReplay.trades.map(t=>[t.side,t.time]));
+assert.deepEqual(openReplay.sessions.map(s=>[s.time,s.gate,s.holding,s.breadth]),normalReplay.sessions.map(s=>[s.time,s.gate,s.holding,s.breadth]));
 const t=Date.UTC(2026,9,9)/1000,daily={closeTime:t,breadth:.6};
 const result={sessions:[{time:t-3600}],holding:false,trades:[{time:t-3600,side:'sell',price:100}]};
 const boot=alertState(result,[daily],t+60);assert.equal(boot.outbox.length,1);assert.match(boot.outbox[0].text,/^MSTR breadth 60%/);
 const prior={strategy:STRATEGY,lastOpen:t-86400,lastDaily:t-86400,outbox:[]};
 const s=alertState(result,[daily],t+60,prior);assert.equal(s.outbox.length,2);
 assert.deepEqual(alertState(result,[daily],t+60,s),s);
+// An already processed trade is neither re-sent nor rewritten on price correction.
+assert.deepEqual(alertState({...result,trades:[{...result.trades[0],price:99}]},[daily],t+60,s),s);
 assert.throws(()=>alertState(result,[daily],t+14400,s),/stale/);
 // The published snapshot advances independently of the frozen research end date.
 const feedNow=last.closeTime+86401;

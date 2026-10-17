@@ -13,14 +13,17 @@ export function mergeStock(saved,incoming,now) {
     if(b.time>now)continue;
     if(![b.time,b.open,b.high,b.low,b.close,b.closeTime].every(Number.isFinite)||Math.min(b.open,b.high,b.low,b.close)<=0||b.high<Math.max(b.open,b.close,b.low)||b.low>Math.min(b.open,b.close)||b.closeTime<=b.time)throw Error('Invalid MSTR candle');
     const old=map.get(b.time);
-    // Yahoo can finalize daily OHLC overnight, after the regular session has closed.
-    // Permit only small corrections to the latest completed session within 24 hours.
-    // Older history, larger revisions and split events still require review.
+    // Yahoo can finalize the latest session's opening price overnight/weekends.
+    // An open-only correction inside the unchanged daily range cannot change our
+    // close-based SMA regime or BTC-based decisions. Keep the time/size limits for
+    // other OHLC revisions, and reject revisions to older completed sessions.
     const fields=['open','high','low','close'];
     if(old&&old.closeTime<=now&&old.complete!==false&&fields.some(k=>Math.abs(old[k]-b[k])>.021)){
-      const finalizing=old.time===latestClosed&&now-old.closeTime<=86400&&fields.every(k=>Math.abs(old[k]-b[k])<=Math.max(.021,old[k]*.001));
-      if(!finalizing)throw Error(`MSTR history changed at ${new Date(b.time*1000).toISOString()}; review split/source before updating`);
-      console.warn(`MSTR recent-session correction ${new Date(b.time*1000).toISOString()}: ${fields.filter(k=>old[k]!==b[k]).map(k=>`${k} ${old[k]} -> ${b[k]}`).join(', ')}`);
+      const openOnly=b.closeTime===old.closeTime&&['high','low','close'].every(k=>Math.abs(old[k]-b[k])<=1e-6)&&b.open>=old.low&&b.open<=old.high;
+      const small=now-old.closeTime<=86400&&fields.every(k=>Math.abs(old[k]-b[k])<=Math.max(.021,old[k]*.001));
+      const changes=fields.filter(k=>old[k]!==b[k]).map(k=>`${k} ${old[k]} -> ${b[k]}`).join(', ');
+      if(old.time!==latestClosed||(!openOnly&&!small))throw Error(`MSTR history changed at ${new Date(b.time*1000).toISOString()} (${changes}); review split/source before updating`);
+      console.warn(`MSTR recent-session ${openOnly?'opening-price ':''}correction ${new Date(b.time*1000).toISOString()}: ${changes}`);
     }
     map.set(b.time,{...b,complete:b.closeTime<=now});
   }
