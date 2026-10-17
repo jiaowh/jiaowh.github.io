@@ -1,3 +1,4 @@
+import './timeframes.js';
 /* Shared fast iMACD + recovery strategy, identical to Telegram. */
 import {calculate as fastCalculate, advance, newState} from './fast-strategy.mjs';
 import {calculateBTC, replay as mstrReplay, stockRegimes, before} from './mstr-strategy.mjs';
@@ -54,6 +55,7 @@ window.BTC_SIGNALS = (() => {
   function syncIndicatorSource() {
     el('indicatorSource').textContent=el('signalSource').textContent;
     el('indicatorSource').title=el('signalSource').title;
+    window.dispatchEvent(new Event('btc:signals'));
   }
   function renderIndicators() {
     const isStock=asset()==='MSTR',r=(isStock?vortexRows:rows).at(-1);
@@ -220,8 +222,8 @@ window.BTC_SIGNALS = (() => {
   el('signalAsset').onchange = ()=>{el('indicatorAsset').value=asset();render();};
   el('indicatorAsset').onchange = ()=>{el('signalAsset').value=el('indicatorAsset').value;render();};
   new ResizeObserver(() => { if (shown && !el('panel_signals').hidden) render(); }).observe(el('signalChart'));
-  setInterval(() => { if (shown && (!el('panel_signals').hidden||!el('panel_indicators').hidden)) refresh(); }, 300000);
+  setInterval(() => { if (shown && ['signals','indicators','d','h'].some(id=>!el('panel_'+id).hidden)) refresh(); }, 300000);
   // Signals is the default; explicit links to other tabs still work.
   setTimeout(() => showTab(new URLSearchParams(location.search).get('tab') || 'signals'), 0);
-  return {onShow, refresh, calculate, replay};
+  return {onShow, refresh, calculate, replay, snapshot:()=>({bars,rows,source:el('signalSource').textContent})};
 })();

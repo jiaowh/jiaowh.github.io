@@ -156,106 +156,34 @@
 
 <main>
   <section class="panel" id="panel_d" hidden>
-    <div class="toolbar">
-      <label><input type="checkbox" id="tFast_d" checked><span class="sw" style="background:var(--amber)"></span>Daily lows (DCL)</label>
-      <label><input type="checkbox" id="tSlow_d" checked><span class="sw" style="background:var(--cyan)"></span>Weekly lows (WCL)</label>
-      <label><input type="checkbox" id="tFsine_d"><span class="sw" style="background:var(--amber);opacity:.5"></span>Daily cycle wave</label>
-      <label><input type="checkbox" id="tSsine_d"><span class="sw" style="background:var(--cyan);opacity:.5"></span>Weekly cycle wave</label>
-      <label title="When a cycle runs past its window and price is still dropping, keep searching to the true low and start the next count there."><input type="checkbox" id="tChase_d" checked>Chase stretched lows</label>
-      <label title="Shaded band projects the next expected daily cycle-low timing window."><input type="checkbox" id="tWin_d" checked><span class="sw" style="background:var(--amber)"></span>Next DCL window</label>
-      <label title="200-bar SMA regime: the line runs green while price closes above it, red below, and the chart takes a faint red tint underneath. The 2026-07 audit's single strongest filter — triggers taken below it lost money."><input type="checkbox" id="tSMA_d" checked><span class="sw" style="background:var(--up)"></span>SMA200 regime</label>
-      <label title="Turtle exit rail: the Donchian-20 lower channel from the last confirmed cycle low forward. Exit on a close below the rail; it ratchets up as the trade advances and never falls."><input type="checkbox" id="tRail_d" checked><span class="sw" style="background:rgba(255,176,0,0.55)"></span>Exit rail · D20</label>
-      <label title="Bollinger reversion sleeve (off by default): BB(20,2) mid + lower band, with a cyan dot wherever price closes below the lower band while still above SMA200 — a separate quick trade that targets the mid band."><input type="checkbox" id="tBB_d"><span class="sw" style="background:var(--cyan)"></span>BB reversion sleeve</label>
-      <span class="integrity" id="integrity_d" style="margin-left:auto"></span>
+    <div class="signal-toolbar">
+      <label for="tfLength_d">iMACD</label><select id="tfLength_d" class="rng"><option value="14">14 / 13</option><option value="21">21 / 13</option><option value="34">34 / 13</option></select>
+      <label class="sr-only" for="tfRange_d">Chart period</label><select id="tfRange_d" class="rng"><option value="90">Last 90 days</option><option value="365">Last year</option></select>
+      <button id="tfRefresh_d">Refresh</button>
     </div>
-    <div id="chart_d" class="chartbox"></div>
-    <div class="siglegend">
-      <span class="lg"><span class="gl" style="color:rgba(63,185,80,0.5)">&#9679;</span>low &rarr; <span class="gl" style="color:#3fb950">&#9650;</span><b style="color:#3fb950">trg</b> &mdash; the low and the close that confirmed it, causal, never repaints</span>
-      <span class="lg"><span class="gl" style="color:rgba(255,176,0,0.55)">&#9679;</span>DCL <span class="gl" style="color:rgba(56,189,248,0.5)">&#9650;</span>WCL &mdash; hindsight labels, they repaint</span>
-      <span class="lg"><span class="dsh" style="border-top-color:var(--amber)"></span>TRIG &mdash; the close that confirms the low</span>
-      <span class="lg"><span class="ln2" style="border-top-color:#3fb950"></span><span class="ln2" style="border-top-color:#f85149"></span>SMA200 regime &middot; red tint = below</span>
-      <span class="lg"><span class="ln2" style="border-top-color:rgba(255,176,0,0.55)"></span>D20 rail &mdash; trailing exit</span>
-      <span class="lg"><span class="gl" style="color:var(--cyan)">&#9679;</span>BB reversion &mdash; opt-in sleeve</span>
-    </div>
-    <div class="imacd-head">
-      <span class="h">Impulse MACD · 34 / 9</span>
-      <span class="sub">thresholds = the major/minor crossover split (55th pct)</span>
-      <span class="imacd-legend">
-        <span class="item"><span class="ln" style="border-top-color:var(--amber)"></span>Impulse</span>
-        <span class="item"><span class="ln" style="border-top-color:#6f9fcf"></span>Signal (9)</span>
-        <span class="item"><span style="color:#3fb950;font-size:9px">&#9679;</span><span style="color:#f85149;font-size:9px">&#9679;</span> turns</span>
-        <span class="item">threshold <span class="thr" id="thr_d" style="color:var(--amber)">—</span></span>
-      </span>
-    </div>
-    <div id="imacd_d" class="imacdbox"></div>
-    <div class="imacd-head">
-      <span class="h">RSI · 14</span>
-      <span class="sub">Wilder's smoothing · 70/30 bands · arrows = confirmed price-vs-RSI divergences</span>
-      <span class="imacd-legend">
-        <span class="item"><span class="ln" style="border-top-color:#a78bfa"></span>RSI</span>
-        <span class="item">now <span class="thr" id="rsiv_d" style="color:#a78bfa">—</span></span>
-      </span>
-    </div>
-    <div id="rsi_d" class="rsibox"></div>
-    <div class="cards">
-      <div class="card fast"><h2><span class="sw" style="background:var(--amber);width:11px;height:11px;border-radius:2px"></span>Daily cycle · ~60 days</h2><div class="kv" id="fastKV_d"></div></div>
-      <div class="card slow"><h2><span class="sw" style="background:var(--cyan);width:11px;height:11px;border-radius:2px"></span>Weekly cycle · ~22 weeks</h2><div class="kv" id="slowKV_d"></div></div>
-    </div>
-    <div class="sig" id="signal_d"></div>
+    <div id="tfStatus_d" class="tf-status" aria-live="polite">Loading strategy candles…</div>
+    <div class="signal-legend"><span>BTC candles</span><span style="color:var(--amber)">Daily SMA200 / impulse</span><span style="color:var(--cyan)">Signal 13</span><span>Green / red strip: daily regime</span></div>
+    <div id="tfChart_d" class="tf-chart"></div>
+    <p id="tfRead_d" class="signal-read"></p>
+    <p id="tfSource_d" class="acc-note" role="status"></p>
   </section>
 
-  <!-- ================= 4-HOUR ================= -->
   <section class="panel" id="panel_h" hidden>
-    <div class="toolbar">
-      <label><input type="checkbox" id="tFast_h" checked><span class="sw" style="background:var(--amber)"></span>4H lows</label>
-      <label><input type="checkbox" id="tSlow_h" checked><span class="sw" style="background:var(--cyan)"></span>Daily lows</label>
-      <label><input type="checkbox" id="tFsine_h"><span class="sw" style="background:var(--amber);opacity:.5"></span>4H cycle wave</label>
-      <label><input type="checkbox" id="tSsine_h"><span class="sw" style="background:var(--cyan);opacity:.5"></span>Daily cycle wave</label>
-      <label title="When a cycle runs past its window and price is still dropping, keep searching to the true low and start the next count there."><input type="checkbox" id="tChase_h" checked>Chase stretched lows</label>
-      <label title="Shaded band projects the next expected 4H cycle-low timing window."><input type="checkbox" id="tWin_h" checked><span class="sw" style="background:var(--amber)"></span>Next 4H window</label>
-      <label title="200-bar SMA regime: the line runs green while price closes above it, red below, and the chart takes a faint red tint underneath. The 2026-07 audit's single strongest filter — triggers taken below it lost money."><input type="checkbox" id="tSMA_h" checked><span class="sw" style="background:var(--up)"></span>SMA200 regime</label>
-      <label title="Turtle exit rail: the Donchian-20 lower channel from the last confirmed cycle low forward. Exit on a close below the rail; it ratchets up as the trade advances and never falls."><input type="checkbox" id="tRail_h" checked><span class="sw" style="background:rgba(255,176,0,0.55)"></span>Exit rail · D20</label>
-      <label title="Bollinger reversion sleeve (off by default): BB(20,2) mid + lower band, with a cyan dot wherever price closes below the lower band while still above SMA200 — a separate quick trade that targets the mid band."><input type="checkbox" id="tBB_h"><span class="sw" style="background:var(--cyan)"></span>BB reversion sleeve</label>
-      <span class="integrity" id="integrity_h" style="margin-left:auto"></span>
+    <div class="signal-toolbar">
+      <label for="tfLength_h">iMACD</label><select id="tfLength_h" class="rng"><option value="14">14 / 13</option><option value="21">21 / 13</option><option value="34">34 / 13</option></select>
+      <label class="sr-only" for="tfRange_h">Chart period</label><select id="tfRange_h" class="rng"><option value="90">Last 90 days</option><option value="365">Last year</option></select>
+      <button id="tfRefresh_h">Refresh</button>
     </div>
-    <div id="chart_h" class="chartbox"></div>
-    <div class="siglegend">
-      <span class="lg"><span class="gl" style="color:rgba(63,185,80,0.5)">&#9679;</span>low &rarr; <span class="gl" style="color:#3fb950">&#9650;</span><b style="color:#3fb950">trg</b> &mdash; the low and the close that confirmed it, causal, never repaints</span>
-      <span class="lg"><span class="gl" style="color:rgba(255,176,0,0.55)">&#9679;</span>DCL <span class="gl" style="color:rgba(56,189,248,0.5)">&#9650;</span>WCL &mdash; hindsight labels, they repaint</span>
-      <span class="lg"><span class="dsh" style="border-top-color:var(--amber)"></span>TRIG &mdash; the close that confirms the low</span>
-      <span class="lg"><span class="ln2" style="border-top-color:#3fb950"></span><span class="ln2" style="border-top-color:#f85149"></span>SMA200 regime &middot; red tint = below</span>
-      <span class="lg"><span class="ln2" style="border-top-color:rgba(255,176,0,0.55)"></span>D20 rail &mdash; trailing exit</span>
-      <span class="lg"><span class="gl" style="color:var(--cyan)">&#9679;</span>BB reversion &mdash; opt-in sleeve</span>
-    </div>
-    <div class="imacd-head">
-      <span class="h">Impulse MACD · 34 / 9 · 4H</span>
-      <span class="sub">thresholds = the major/minor crossover split (55th pct)</span>
-      <span class="imacd-legend">
-        <span class="item"><span class="ln" style="border-top-color:var(--amber)"></span>Impulse</span>
-        <span class="item"><span class="ln" style="border-top-color:#6f9fcf"></span>Signal (9)</span>
-        <span class="item"><span style="color:#3fb950;font-size:9px">&#9679;</span><span style="color:#f85149;font-size:9px">&#9679;</span> turns</span>
-        <span class="item">threshold <span class="thr" id="thr_h" style="color:var(--amber)">—</span></span>
-      </span>
-    </div>
-    <div id="imacd_h" class="imacdbox"></div>
-    <div class="imacd-head">
-      <span class="h">RSI · 14 · 4H</span>
-      <span class="sub">Wilder's smoothing · 70/30 bands · arrows = confirmed price-vs-RSI divergences</span>
-      <span class="imacd-legend">
-        <span class="item"><span class="ln" style="border-top-color:#a78bfa"></span>RSI</span>
-        <span class="item">now <span class="thr" id="rsiv_h" style="color:#a78bfa">—</span></span>
-      </span>
-    </div>
-    <div id="rsi_h" class="rsibox"></div>
-    <div class="cards">
-      <div class="card fast"><h2><span class="sw" style="background:var(--amber);width:11px;height:11px;border-radius:2px"></span>4H cycle · ~8 days</h2><div class="kv" id="fastKV_h"></div></div>
-      <div class="card slow"><h2><span class="sw" style="background:var(--cyan);width:11px;height:11px;border-radius:2px"></span>Daily cycle · ~60 days</h2><div class="kv" id="slowKV_h"></div></div>
-    </div>
-    <div class="sig" id="signal_h"></div>
+    <div id="tfStatus_h" class="tf-status" aria-live="polite">Loading strategy candles…</div>
+    <div class="signal-legend"><span>BTC candles</span><span style="color:var(--amber)">Daily SMA200 / impulse</span><span style="color:var(--cyan)">Signal 13</span><span>Green / red strip: daily regime</span></div>
+    <div id="tfChart_h" class="tf-chart"></div>
+    <p id="tfRead_h" class="signal-read"></p>
+    <p id="tfSource_h" class="acc-note" role="status"></p>
   </section>
 
   <!-- ================= 1-HOUR ================= -->
   <section class="panel" id="panel_1h" hidden>
+    <p class="acc-note">Research · 108 variants tested; no validated replacement. <a href="research/btc-intraday-tuning-2026/REPORT.md">Results</a></p>
     <div class="toolbar">
       <label><input type="checkbox" id="tFast_1h" checked><span class="sw" style="background:var(--amber)"></span>1H lows</label>
       <label><input type="checkbox" id="tSlow_1h" checked><span class="sw" style="background:var(--cyan)"></span>4H lows</label>
@@ -263,7 +191,7 @@
       <label><input type="checkbox" id="tSsine_1h"><span class="sw" style="background:var(--cyan);opacity:.5"></span>4H cycle wave</label>
       <label title="When a cycle runs past its window and price is still dropping, keep searching to the true low and start the next count there."><input type="checkbox" id="tChase_1h" checked>Chase stretched lows</label>
       <label title="Shaded band projects the next expected 1H cycle-low timing window."><input type="checkbox" id="tWin_1h" checked><span class="sw" style="background:var(--amber)"></span>Next 1H window</label>
-      <label title="200-bar SMA regime: the line runs green while price closes above it, red below, and the chart takes a faint red tint underneath. The 2026-07 audit's single strongest filter — triggers taken below it lost money."><input type="checkbox" id="tSMA_1h" checked><span class="sw" style="background:var(--up)"></span>SMA200 regime</label>
+      <label title="200-bar SMA regime: the line runs green while price closes above it, red below, and the chart takes a faint red tint underneath. This is a local timeframe reference, not the daily buffered regime used by the accumulation strategy."><input type="checkbox" id="tSMA_1h" checked><span class="sw" style="background:var(--up)"></span>Local SMA200</label>
       <label title="Turtle exit rail: the Donchian-20 lower channel from the last confirmed cycle low forward. Exit on a close below the rail; it ratchets up as the trade advances and never falls."><input type="checkbox" id="tRail_1h" checked><span class="sw" style="background:rgba(255,176,0,0.55)"></span>Exit rail · D20</label>
       <label title="Bollinger reversion sleeve (off by default): BB(20,2) mid + lower band, with a cyan dot wherever price closes below the lower band while still above SMA200 — a separate quick trade that targets the mid band."><input type="checkbox" id="tBB_1h"><span class="sw" style="background:var(--cyan)"></span>BB reversion sleeve</label>
       <span class="integrity" id="integrity_1h" style="margin-left:auto"></span>
@@ -273,16 +201,18 @@
       <span class="lg"><span class="gl" style="color:rgba(63,185,80,0.5)">&#9679;</span>low &rarr; <span class="gl" style="color:#3fb950">&#9650;</span><b style="color:#3fb950">trg</b> &mdash; the low and the close that confirmed it, causal, never repaints</span>
       <span class="lg"><span class="gl" style="color:rgba(255,176,0,0.55)">&#9679;</span>DCL <span class="gl" style="color:rgba(56,189,248,0.5)">&#9650;</span>WCL &mdash; hindsight labels, they repaint</span>
       <span class="lg"><span class="dsh" style="border-top-color:var(--amber)"></span>TRIG &mdash; the close that confirms the low</span>
-      <span class="lg"><span class="ln2" style="border-top-color:#3fb950"></span><span class="ln2" style="border-top-color:#f85149"></span>SMA200 regime &middot; red tint = below</span>
+      <span class="lg"><span class="ln2" style="border-top-color:#3fb950"></span><span class="ln2" style="border-top-color:#f85149"></span>Local SMA200 &middot; 200 chart candles; red tint = below</span>
       <span class="lg"><span class="ln2" style="border-top-color:rgba(255,176,0,0.55)"></span>D20 rail &mdash; trailing exit</span>
       <span class="lg"><span class="gl" style="color:var(--cyan)">&#9679;</span>BB reversion &mdash; opt-in sleeve</span>
     </div>
     <div class="imacd-head">
-      <span class="h">Impulse MACD · 34 / 9 · 1H</span>
-      <span class="sub">thresholds = the major/minor crossover split (55th pct)</span>
+      <span class="h">Impulse MACD · 1H research</span>
+      <label for="iLength_1h" class="sr-only">iMACD length</label><select id="iLength_1h" class="rng"><option value="14">Length 14</option><option value="21">Length 21</option><option value="34" selected>Length 34</option></select>
+      <label for="iSignal_1h" class="sr-only">Signal length</label><select id="iSignal_1h" class="rng"><option value="9">Signal 9</option><option value="13">Signal 13</option></select>
+      <span class="sub">rolling threshold · dots and divergences shown at confirmation</span>
       <span class="imacd-legend">
         <span class="item"><span class="ln" style="border-top-color:var(--amber)"></span>Impulse</span>
-        <span class="item"><span class="ln" style="border-top-color:#6f9fcf"></span>Signal (9)</span>
+        <span class="item"><span class="ln" style="border-top-color:#6f9fcf"></span>Signal</span>
         <span class="item"><span style="color:#3fb950;font-size:9px">&#9679;</span><span style="color:#f85149;font-size:9px">&#9679;</span> turns</span>
         <span class="item">threshold <span class="thr" id="thr_1h" style="color:var(--amber)">—</span></span>
       </span>
@@ -306,6 +236,7 @@
 
   <!-- ================= 5-MIN ================= -->
   <section class="panel" id="panel_5m" hidden>
+    <p class="acc-note">Research · 108 variants tested; no validated replacement. <a href="research/btc-intraday-tuning-2026/REPORT.md">Results</a></p>
     <div class="toolbar">
       <label><input type="checkbox" id="tFast_5m" checked><span class="sw" style="background:var(--amber)"></span>5M lows</label>
       <label><input type="checkbox" id="tSlow_5m" checked><span class="sw" style="background:var(--cyan)"></span>Half-day lows</label>
@@ -313,10 +244,10 @@
       <label><input type="checkbox" id="tSsine_5m"><span class="sw" style="background:var(--cyan);opacity:.5"></span>Half-day cycle wave</label>
       <label title="When a cycle runs past its window and price is still dropping, keep searching to the true low and start the next count there."><input type="checkbox" id="tChase_5m" checked>Chase stretched lows</label>
       <label title="Shaded band projects the next expected 5M cycle-low timing window."><input type="checkbox" id="tWin_5m" checked><span class="sw" style="background:var(--amber)"></span>Next 5M window</label>
-      <label title="200-bar SMA regime: the line runs green while price closes above it, red below, and the chart takes a faint red tint underneath. The 2026-07 audit's single strongest filter — triggers taken below it lost money."><input type="checkbox" id="tSMA_5m" checked><span class="sw" style="background:var(--up)"></span>SMA200 regime</label>
+      <label title="200-bar SMA regime: the line runs green while price closes above it, red below, and the chart takes a faint red tint underneath. This is a local timeframe reference, not the daily buffered regime used by the accumulation strategy."><input type="checkbox" id="tSMA_5m" checked><span class="sw" style="background:var(--up)"></span>Local SMA200</label>
       <label title="Turtle exit rail: the Donchian-20 lower channel from the last confirmed cycle low forward. Exit on a close below the rail; it ratchets up as the trade advances and never falls."><input type="checkbox" id="tRail_5m" checked><span class="sw" style="background:rgba(255,176,0,0.55)"></span>Exit rail · D20</label>
       <label title="Bollinger reversion sleeve (off by default): BB(20,2) mid + lower band, with a cyan dot wherever price closes below the lower band while still above SMA200 — a separate quick trade that targets the mid band."><input type="checkbox" id="tBB_5m"><span class="sw" style="background:var(--cyan)"></span>BB reversion sleeve</label>
-      <label title="The alert bot's executable-trade rule, drawn exactly as the bot evaluates it: LONG = 5m green dot below −thr + bull divergence (RSI or iMACD) + close under the lower Bollinger band, all within ±12 bars, while the last confirmed 1h dot is an oversold green dot; the SHORT mirror is hidden (spot account, long only). Entry at the confirming close, stop beyond the leg that made the dot + 0.3 ATR, target 1.5R, time stop 8h."><input type="checkbox" id="tScalp_5m" checked><span class="sw" style="background:var(--up)"></span>Scalp trades · bot rule</label>
+      <label title="Legacy research rule: LONG = 5m green dot below −thr + bull divergence (RSI or iMACD) + close under the lower Bollinger band, all within ±12 bars, while the last confirmed 1h dot is an oversold green dot; the SHORT mirror is hidden (spot account, long only). Entry at the next open, one position at a time; stop beyond the leg that made the dot + 0.3 ATR. Target and time exit use the controls below."><input type="checkbox" id="tScalp_5m" checked><span class="sw" style="background:var(--up)"></span>Scalp trades · research</label>
       <span class="integrity" id="integrity_5m" style="margin-left:auto"></span>
     </div>
     <div id="chart_5m" class="chartbox"></div>
@@ -324,18 +255,20 @@
       <span class="lg"><span class="gl" style="color:rgba(63,185,80,0.5)">&#9679;</span>low &rarr; <span class="gl" style="color:#3fb950">&#9650;</span><b style="color:#3fb950">trg</b> &mdash; the low and the close that confirmed it, causal, never repaints</span>
       <span class="lg"><span class="gl" style="color:rgba(255,176,0,0.55)">&#9679;</span>DCL <span class="gl" style="color:rgba(56,189,248,0.5)">&#9650;</span>WCL &mdash; hindsight labels, they repaint</span>
       <span class="lg"><span class="dsh" style="border-top-color:var(--amber)"></span>TRIG &mdash; the close that confirms the low</span>
-      <span class="lg"><span class="ln2" style="border-top-color:#3fb950"></span><span class="ln2" style="border-top-color:#f85149"></span>SMA200 regime &middot; red tint = below</span>
+      <span class="lg"><span class="ln2" style="border-top-color:#3fb950"></span><span class="ln2" style="border-top-color:#f85149"></span>Local SMA200 &middot; 200 chart candles; red tint = below</span>
       <span class="lg"><span class="ln2" style="border-top-color:rgba(255,176,0,0.55)"></span>D20 rail &mdash; trailing exit</span>
       <span class="lg"><span class="gl" style="color:var(--cyan)">&#9679;</span>BB reversion &mdash; opt-in sleeve</span>
-      <span class="lg"><span class="gl" style="color:#3fb950">&#9650;</span><b style="color:#3fb950">LONG</b> &mdash; bot alert at that close (spot: long side only); solid line = entry, dashed = target / stop</span>
+      <span class="lg"><span class="gl" style="color:#3fb950">&#9650;</span><b style="color:#3fb950">LONG</b> &mdash; modeled next-open entry (spot: long side only); solid line = entry, dashed = target / stop</span>
       <span class="lg"><span class="gl" style="color:#3fb950">&#9632;</span>TP <span class="gl" style="color:#f85149">&#9632;</span>SL <span class="gl" style="color:#8b949e">&#9632;</span>TIME &mdash; where the trade ended</span>
     </div>
     <div class="imacd-head">
-      <span class="h">Impulse MACD · 34 / 9 · 5M</span>
-      <span class="sub">thresholds = the major/minor crossover split (55th pct)</span>
+      <span class="h">Impulse MACD · 5M research</span>
+      <label for="iLength_5m" class="sr-only">iMACD length</label><select id="iLength_5m" class="rng"><option value="14">Length 14</option><option value="21">Length 21</option><option value="34" selected>Length 34</option></select>
+      <label for="iSignal_5m" class="sr-only">Signal length</label><select id="iSignal_5m" class="rng"><option value="9">Signal 9</option><option value="13">Signal 13</option></select>
+      <span class="sub">rolling threshold · dots and divergences shown at confirmation</span>
       <span class="imacd-legend">
         <span class="item"><span class="ln" style="border-top-color:var(--amber)"></span>Impulse</span>
-        <span class="item"><span class="ln" style="border-top-color:#6f9fcf"></span>Signal (9)</span>
+        <span class="item"><span class="ln" style="border-top-color:#6f9fcf"></span>Signal</span>
         <span class="item"><span style="color:#3fb950;font-size:9px">&#9679;</span><span style="color:#f85149;font-size:9px">&#9679;</span> turns</span>
         <span class="item">threshold <span class="thr" id="thr_5m" style="color:var(--amber)">—</span></span>
       </span>
@@ -355,6 +288,7 @@
       <div class="card slow"><h2><span class="sw" style="background:var(--cyan);width:11px;height:11px;border-radius:2px"></span>Half-day cycle · ~12 hours</h2><div class="kv" id="slowKV_5m"></div></div>
     </div>
     <div class="sig" id="signal_5m"></div>
+    <div class="toolbar"><label for="scalpRR">Target</label><select id="scalpRR" class="rng"><option value="1">1R</option><option value="1.5" selected>1.5R</option><option value="2">2R</option></select><label for="scalpHours">Time exit</label><select id="scalpHours" class="rng"><option value="8">8 hours</option><option value="24">24 hours</option></select></div>
     <div class="sig scalp" id="scalp_5m"></div>
   </section>
 
@@ -725,10 +659,10 @@ function findDivergences(lows,highs,osc,opt){
   return res.sort((a,b)=>a.i-b.i);
 }
 
-// ---------- scalp layer: the alert bot's rule, ported line-for-line ----------
+// ---------- legacy scalp research: tunable inputs, no Telegram integration ----------
 // Ported from the (since removed) alertbot/{indicators,signals,levels}.py in the quant repo. Everything here is
-// causal with explicit confirm indices, so what the chart marks is exactly what the
-// bot would have sent (verified against the bot's --export on the same candles).
+// causal with explicit confirmation indices. The preview now uses next-open fills
+// and one position at a time, matching the intraday study execution convention.
 const SCALP_RULE={window_bars:12,max_age_bars:24,require_classA:false,h1_max_age_hours:0,
   long_needs_bb:true,short_needs_bb:false,bb_require_sma200:false};
 const SCALP_PARAMS={tp_r:1.5,sl_pad_atr:0.3,time_stop:96};   // = alertbot params.json
@@ -774,14 +708,14 @@ function turningPointsV(md,sw){
   return out;
 }
 // = alertbot indicators.Frame(candles, bar_secs, rolling=1000)
-function scalpFrame(C,barSecs){
+function scalpFrame(C,barSecs,{length=34,signal=9}={}){
   const n=C.length,t=C.map(c=>c.time),o=C.map(c=>c.open),h=C.map(c=>c.high),l=C.map(c=>c.low),cl=C.map(c=>c.close);
   const sma200=smaN(cl,200),bb=bollinger(cl,20,2);
   const bbDots=[],bbBelow=[];
   for(let i=0;i<n;i++){
     if(!isNaN(bb.lo[i])&&cl[i]<bb.lo[i]){bbBelow.push(i);if(!isNaN(sma200[i])&&cl[i]>sma200[i])bbDots.push(i);}
   }
-  const {md,sb}=impulseMACD(C);
+  const {md,sb}=impulseMACD(C,length,signal);
   const atr=atrWilder(h,l,cl,14);
   const thrArr=rollingThr(md,sb,1000);
   const thr=n?thrArr[n-1]:NaN;
@@ -860,37 +794,40 @@ function scalpScan(f5,f1h,cfgIn){
   return out;
 }
 // = alertbot levels.struct_stop + levels.compute (v0 rules, no confidence model)
-function scalpLevels(f5,sig){
-  const P=SCALP_PARAMS,long=sig.dir==="long",ei=sig.confirmI,entry=f5.cl[ei];
+function scalpLevels(f5,sig,params){
+  const P=Object.assign({},SCALP_PARAMS,params||{}),long=sig.dir==="long",ei=sig.confirmI,entryI=ei+1,entry=f5.o[entryI];
   let sstop=long?Infinity:-Infinity;
   for(let k=sig.dotI;k<=ei;k++)sstop=long?Math.min(sstop,f5.l[k]):Math.max(sstop,f5.h[k]);
   const a=f5.atr[ei],av=isNaN(a)?0:a;
   const pad=P.sl_pad_atr*av;
-  let sl=long?sstop-pad:sstop+pad,risk=Math.abs(entry-sl);
-  if(risk<=0){risk=av;sl=long?entry-risk:entry+risk;}
+  let sl=long?sstop-pad:sstop+pad,risk=long?entry-sl:sl-entry;
   const tp=long?entry+P.tp_r*risk:entry-P.tp_r*risk;
-  return {entry,sl,tp,risk,slPct:100*risk/entry,timeStop:P.time_stop};
+  return {entry,entryI,sl,tp,risk,slPct:100*risk/entry,timeStop:P.time_stop};
 }
 // forward-walk each alert on CLOSED bars: stop first (conservative on a double touch),
 // then target, else the close of the time-stop bar. Open = still inside the window.
-function scalpTrades(f5,f1h,cfg){
-  const sigs=scalpScan(f5,f1h,cfg),out=[];
+function scalpTrades(f5,f1h,cfg,params){
+  const sigs=scalpScan(f5,f1h,cfg),out=[];let occupiedUntil=-1;
   for(const s of sigs){
-    if(SCALP_LONG_ONLY&&s.dir!=="long")continue;   // trades are independent, so longs are unchanged
-    const lv=scalpLevels(f5,s),long=s.dir==="long",ei=s.confirmI;
-    const last=Math.min(f5.n-1,ei+lv.timeStop);
+    if(SCALP_LONG_ONLY&&s.dir!=="long")continue;
+    const lv=scalpLevels(f5,s,params),long=s.dir==="long",ei=lv.entryI;
+    if(ei>=f5.n||ei<=occupiedUntil||!(lv.risk>0)||f5.t[ei]-f5.t[s.confirmI]!==f5.barSecs)continue;
+    const last=Math.min(f5.n-1,ei+lv.timeStop-1);
     let exitI=null,exitPx=null,why="open";
-    for(let j=ei+1;j<=last;j++){
+    for(let j=ei;j<=last;j++){
+      if(j>ei&&f5.t[j]-f5.t[j-1]!==f5.barSecs){exitI=j;exitPx=long?Math.min(f5.o[j],lv.sl):Math.max(f5.o[j],lv.sl);why="gap";break;}
       const hitSl=long?f5.l[j]<=lv.sl:f5.h[j]>=lv.sl;
       const hitTp=long?f5.h[j]>=lv.tp:f5.l[j]<=lv.tp;
-      if(hitSl){exitI=j;exitPx=lv.sl;why="sl";break;}
+      if(hitSl){exitI=j;exitPx=long?Math.min(f5.o[j],lv.sl):Math.max(f5.o[j],lv.sl);why="sl";break;}
       if(hitTp){exitI=j;exitPx=lv.tp;why="tp";break;}
-      if(j===ei+lv.timeStop){exitI=j;exitPx=f5.cl[j];why="time";break;}
+      if(j===ei+lv.timeStop-1){exitI=j;exitPx=f5.cl[j];why="time";break;}
     }
+    occupiedUntil=exitI??Infinity;
     const gross=exitPx==null?null:(long?1:-1)*(exitPx/lv.entry-1)*100;
-    out.push(Object.assign({},s,lv,{exitI,exitPx,why,gross,net:gross==null?null:gross-SCALP_FEE_RT,
+    const fee=SCALP_FEE_RT/200,net=gross==null?null:long?100*(exitPx*(1-fee)/(lv.entry*(1+fee))-1):gross-SCALP_FEE_RT;
+    out.push(Object.assign({},s,lv,{exitI,exitPx,why,gross,net,
       r:gross==null?null:(long?1:-1)*(exitPx-lv.entry)/lv.risk,
-      deadlineT:f5.t[ei]+lv.timeStop*f5.barSecs}));
+      deadlineT:f5.t[ei]+(lv.timeStop-1)*f5.barSecs}));
   }
   return out;
 }
@@ -1038,11 +975,11 @@ function makeView(cfg){
           m.push({time:C[i].time,position:"belowBar",shape:"circle",size:1,color:"#38bdf8",text:"BB"});
       }
     }
-    // scalp layer: the bot's alerts (entry at the confirming close) and where each ended
+    // Research scalp fills at the next opening and their modeled exits.
     if(SCALP&&scalpOn()){
       for(const tr of SCALP.trades){
         const long=tr.dir==="long";
-        m.push({time:C[tr.confirmI].time,position:long?"belowBar":"aboveBar",shape:long?"arrowUp":"arrowDown",
+        m.push({time:C[tr.entryI].time,position:long?"belowBar":"aboveBar",shape:long?"arrowUp":"arrowDown",
           color:long?"#3fb950":"#f85149",size:2,text:long?"LONG":"SHORT"});
         if(tr.exitI!=null)
           m.push({time:C[tr.exitI].time,position:long?"aboveBar":"belowBar",shape:"square",size:1,
@@ -1202,14 +1139,15 @@ function makeView(cfg){
     winD.setData(times.map(t=>(t>=win.lo&&t<=win.hi)?{time:t,value:1}:{time:t}));
   }
 
+  function oscillatorSettings(){return {length:Number($("iLength_"+cfg.interval).value),signal:Number($("iSignal_"+cfg.interval).value)};}
   function renderIMACD(fws){
-    const d=impulseMACD(C);
+    const settings=oscillatorSettings(),d=impulseMACD(C,settings.length,settings.signal);
     // whitespace at warmup + future so the pane shares bar indices with the price chart
     const dData=C.map((c,i)=>isNaN(d.md[i])?{time:c.time}:{time:c.time,value:d.md[i]});
     const sData=C.map((c,i)=>isNaN(d.sb[i])?{time:c.time}:{time:c.time,value:d.sb[i]});
     imD.setData((fws&&fws.length)?dData.concat(fws):dData);
     imS.setData((fws&&fws.length)?sData.concat(fws):sData);
-    const thrD=pctile(crossMags(d.md,d.sb),0.55);
+    const thresholds=rollingThr(d.md,d.sb,1000),thrD=thresholds.at(-1);
     const absVals=[];
     for(const v of d.md) if(!isNaN(v)) absVals.push(Math.abs(v));
     for(const v of d.sb) if(!isNaN(v)) absVals.push(Math.abs(v));
@@ -1220,14 +1158,13 @@ function makeView(cfg){
       {price,color,lineWidth:1,lineStyle:2,axisLabelVisible:true,title})});
     if(!isNaN(thrD)){add(thrD,"#ffb000","OB");add(-thrD,"#ffb000","OS");}
     add(0,"#33404a","");
-    const minSwing=(thrD||half*0.15)*0.8;
-    const turns=turningPoints(d.md,minSwing);
-    const turnM=turns.map(t=>({time:C[t.i].time,position:"inBar",shape:"circle",size:0.5,
+    const turns=turningPointsV(d.md,thresholds.map(v=>v*.8));
+    const turnM=turns.map(t=>({time:C[t.confirm].time,position:"inBar",shape:"circle",size:0.5,
       color:t.type==="min"?"rgba(63,185,80,0.9)":"rgba(248,81,73,0.9)"}));
     // price-vs-impulse divergences (zone gate: impulse on the wrong side of zero)
     const lowA=C.map(c=>c.low),highA=C.map(c=>c.high);
     const dvM=findDivergences(lowA,highA,d.md,{d:3,minGap:5,maxGap:60,zoneLo:0,zoneHi:0,eps:0})
-      .map(v=>({time:C[v.i].time,position:v.type==="bull"?"belowBar":"aboveBar",
+      .map(v=>({time:C[v.confirmAt].time,position:v.type==="bull"?"belowBar":"aboveBar",
         shape:v.type==="bull"?"arrowUp":"arrowDown",size:1,
         color:v.type==="bull"?"#3fb950":"#f85149",text:"div"}));
     imD.setMarkers(turnM.concat(dvM).sort((a,b)=>a.time-b.time));
@@ -1242,7 +1179,7 @@ function makeView(cfg){
     // price-vs-RSI divergences; DIV = class A (RSI still stretched at the 2nd pivot)
     const divs=findDivergences(C.map(c=>c.low),C.map(c=>c.high),r,
       {d:3,minGap:5,maxGap:60,zoneLo:40,zoneHi:60,eps:2});
-    rsiL.setMarkers(divs.map(v=>({time:C[v.i].time,
+    rsiL.setMarkers(divs.map(v=>({time:C[v.confirmAt].time,
       position:v.type==="bull"?"belowBar":"aboveBar",
       shape:v.type==="bull"?"arrowUp":"arrowDown",size:1,
       color:v.type==="bull"?"#3fb950":"#f85149",text:v.classA?"DIV":"div"})));
@@ -1286,8 +1223,8 @@ function makeView(cfg){
     // the bot evaluates CLOSED bars only; the forming bar is the last one in C
     const c5=C.filter(c=>c.time+cfg.barSecs<=now),c1=AUX1H.filter(c=>c.time+3600<=now);
     if(c5.length<300||c1.length<300)return null;
-    const f5=scalpFrame(c5,cfg.barSecs),f1h=scalpFrame(c1,3600);
-    const trades=scalpTrades(f5,f1h);
+    const settings=oscillatorSettings(),f5=scalpFrame(c5,cfg.barSecs,settings),f1h=scalpFrame(c1,3600,settings);
+    const trades=scalpTrades(f5,f1h,undefined,{tp_r:Number($('scalpRR').value),time_stop:Number($('scalpHours').value)*12});
     return {f5,f1h,trades,open:trades.filter(t=>t.why==="open")};
   }
   function renderScalp(fws){
@@ -1296,13 +1233,13 @@ function makeView(cfg){
     const el=E.scalp&&$(E.scalp);
     if(!el)return;
     if(!scalpOn()){el.innerHTML="";return;}
-    if(!SCALP){el.innerHTML='<h2><span class="sw" style="background:var(--up);width:11px;height:11px;border-radius:2px"></span>Scalp trades · bot rule</h2><div class="sig-sub">waiting for the 1-hour feed (the 1h dot is the trend gate)…</div>';return;}
+    if(!SCALP){el.innerHTML='<h2><span class="sw" style="background:var(--up);width:11px;height:11px;border-radius:2px"></span>Scalp trades · research</h2><div class="sig-sub">waiting for the 1-hour feed (the 1h dot is the trend gate)…</div>';return;}
     const {f5,f1h,trades}=SCALP,lastClosedT=f5.t[f5.n-1];
     const seg=(t0,t1,v,color,style,width)=>{
       const sr=chart.addLineSeries({color,lineWidth:width||1,lineStyle:style||0,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
       sr.setData([{time:t0,value:v},{time:t1,value:v}]);scalpSeries.push(sr);};
     for(const tr of trades){
-      const long=tr.dir==="long",t0=f5.t[tr.confirmI],t1=tr.exitI!=null?f5.t[tr.exitI]:lastClosedT;
+      const long=tr.dir==="long",t0=f5.t[tr.entryI],t1=tr.exitI!=null?f5.t[tr.exitI]:lastClosedT;
       if(t1<=t0)continue;
       const col=tr.why==="open"?"#ffb000":tr.why==="tp"?"#3fb950":tr.why==="sl"?"#f85149":"#8b949e";
       seg(t0,t1,tr.entry,long?"rgba(63,185,80,0.9)":"rgba(248,81,73,0.9)",0,2);
@@ -1327,15 +1264,15 @@ function makeView(cfg){
       const tr=open[open.length-1],long=tr.dir==="long",pnl=(long?1:-1)*(px/tr.entry-1)*100;
       const left=Math.max(0,tr.deadlineT+cfg.barSecs-Date.now()/1000);
       head=(long?"OPEN LONG":"OPEN SHORT")+" · "+fSign(pnl)+"%";headCls=long?"long":"short";
-      sub="alerted "+fmtT(tr.confirmTs-cfg.barSecs)+" · time stop in "+fmtDur(left)+(open.length>1?" · "+open.length+" open":"");
-    } else {head="FLAT";headCls="flat";sub=trades.length?"last alert "+fmtT(trades[trades.length-1].confirmTs-cfg.barSecs)+" · "+trades[trades.length-1].why.toUpperCase():"no bot alert in the loaded "+Math.round(f5.n*cfg.barSecs/3600)+" h";}
+      sub="modeled "+fmtT(tr.confirmTs-cfg.barSecs)+" · time stop in "+fmtDur(left)+(open.length>1?" · "+open.length+" open":"");
+    } else {head="FLAT";headCls="flat";sub=trades.length?"last setup "+fmtT(trades[trades.length-1].confirmTs-cfg.barSecs)+" · "+trades[trades.length-1].why.toUpperCase():"no research setup in the loaded "+Math.round(f5.n*cfg.barSecs/3600)+" h";}
     const cur=open.length?open[open.length-1]:(trades.length?trades[trades.length-1]:null);
     const kv=cur?`<div class="kv">
         <div class="k">Entry</div><div class="v">${fmt(cur.entry)}</div>
-        <div class="k">Target · 1.5R</div><div class="v r">${fmt(cur.tp)} (${fSign((cur.tp/cur.entry-1)*100)}%)</div>
+        <div class="k">Target · ${$("scalpRR").value}R</div><div class="v r">${fmt(cur.tp)} (${fSign((cur.tp/cur.entry-1)*100)}%)</div>
         <div class="k">Stop</div><div class="v l">${fmt(cur.sl)} (${fSign((cur.sl/cur.entry-1)*100)}%)</div>
         <div class="k">Risk per unit</div><div class="v">${cur.slPct.toFixed(2)}%</div>
-        <div class="k">Time stop</div><div class="v">${fmtT(cur.deadlineT+cfg.barSecs)} (8 h)</div>
+        <div class="k">Time stop</div><div class="v">${fmtT(cur.deadlineT+cfg.barSecs)} (${$("scalpHours").value} h)</div>
         <div class="k">1h gate now</div><div class="v">${gate}</div>
         <div class="k">Last 5m dot</div><div class="v">${d5?((d5.type==="min"?"green":"red")+" "+fmtT(f5.t[d5.i])+(Math.abs(d5.val)>(d5.thr||f5.thr)?" · beyond thr":"")):"—"}</div>
       </div>`:`<div class="kv"><div class="k">1h gate now</div><div class="v">${gate}</div>
@@ -1345,11 +1282,11 @@ function makeView(cfg){
     const rows=trades.slice().reverse().slice(0,12).map(t=>{
       const long=t.dir==="long",cls=t.why==="open"?"amb":t.why==="tp"?"up":t.why==="sl"?"dn":"mid";
       return `<tr class="${t.why==="open"?"open":""}"><td>${fmtT(t.confirmTs-cfg.barSecs)}</td><td class="${long?"up":"dn"}">${long?"LONG":"SHORT"}</td><td>${fmt(t.entry)}</td><td>${fmt(t.sl)}</td><td>${fmt(t.tp)}</td><td class="${cls}">${t.why==="open"?"open":t.why.toUpperCase()+(t.exitI!=null?" "+fmtT(f5.t[t.exitI]).slice(6):"")}</td><td class="${t.net==null?"amb":t.net>0?"up":"dn"}">${t.net==null?fSign((long?1:-1)*(px/t.entry-1)*100)+"% live":fSign(t.net)+"%"}</td></tr>`;}).join("");
-    el.innerHTML=`<h2><span class="sw" style="background:var(--up);width:11px;height:11px;border-radius:2px"></span>Scalp trades · bot rule</h2>
+    el.innerHTML=`<h2><span class="sw" style="background:var(--up);width:11px;height:11px;border-radius:2px"></span>Scalp trades · research</h2>
       <div class="sig-head"><span class="sig-status ${headCls}">${head}</span><span class="sig-sub">${sub}</span></div>
       ${kv}
-      ${trades.length?`<table class="tt"><thead><tr><th>Alert (UTC)</th><th>Side</th><th>Entry</th><th>Stop</th><th>Target</th><th>Exit</th><th>Net</th></tr></thead><tbody>${rows}</tbody></table>`:""}
-      <div class="sig-sub">${trades.length} alert${trades.length===1?"":"s"} in the loaded ${Math.round(f5.n*cfg.barSecs/3600)} h · ${closed.length} closed, ${wins} won, net ${fSign(sum)}% after ${SCALP_FEE_RT}% round-trip fees · thr 5m ±${f5.thr.toFixed(2)} · 1h ±${f1h.thr.toFixed(2)} · same rule, levels and exits as the Telegram alerts.</div>`;
+      ${trades.length?`<table class="tt"><thead><tr><th>Setup (UTC)</th><th>Side</th><th>Entry</th><th>Stop</th><th>Target</th><th>Exit</th><th>Net</th></tr></thead><tbody>${rows}</tbody></table>`:""}
+      <div class="sig-sub">${trades.length} setup${trades.length===1?"":"s"} in the loaded ${Math.round(f5.n*cfg.barSecs/3600)} h · ${closed.length} closed, ${wins} won, sum of trade returns ${fSign(sum)}% after ${SCALP_FEE_RT}% round-trip fees · thr 5m ±${f5.thr.toFixed(2)} · 1h ±${f1h.thr.toFixed(2)} · Research only · next-open fills · one position · selected settings also apply to the 1h gate. No Telegram alerts.</div>`;
   }
 
   function renderAll(){
@@ -1390,7 +1327,7 @@ function makeView(cfg){
   async function load(){
     try{
       const {data,src}=await getCandles(cfg.interval,cfg.gran,cfg.limit);
-      C=data;SRC=src;recompute();return true;
+      C=data.filter(b=>b.time+cfg.barSecs<=Date.now()/1000);SRC=src;recompute();return true;
     }catch(e){console.error(e);
       $(E.integrity).innerHTML='<span class="bad">data unreachable — host the file or check the network</span>';
       return false;}
@@ -1400,6 +1337,8 @@ function makeView(cfg){
     requestAnimationFrame(()=>chart.timeScale().fitContent());
   }
   function wire(){
+    ["iLength_","iSignal_"].forEach(prefix=>{$(prefix+cfg.interval).onchange=()=>{if(C)renderAll();};});
+    if(E.scalp)['scalpRR','scalpHours'].forEach(id=>{$(id).onchange=()=>{if(C)renderAll();};});
     [E.tFast,E.tSlow,E.tFsine,E.tSsine].forEach(id=>{const el=$(id);if(el)el.onchange=()=>{if(C){buildMarkers();buildSines();}};});
     const ch=$(E.tChase);if(ch)ch.onchange=()=>{CHASE=ch.checked;recompute();};
     const w=$(E.tWin);if(w)w.onchange=()=>{if(C)renderAll();};
@@ -1453,24 +1392,8 @@ function makeView(cfg){
 }
 
 // ---------- view configs ----------
-const CFG_D={
-  interval:"1d", gran:86400, limit:4000, barSecs:DAY, barsPerDay:1,
-  fast:{min:40,max:75,ideal:60,amp:1.6,tag:"DCL",unit:"d"},
-  slow:{min:120,max:190,ideal:154,amp:2.4,tag:"WCL",unit:"w"},
-  el:{chart:"chart_d",imacd:"imacd_d",rsi:"rsi_d",rsiv:"rsiv_d",integrity:"integrity_d",fastKV:"fastKV_d",slowKV:"slowKV_d",thr:"thr_d",signal:"signal_d",
-      tFast:"tFast_d",tSlow:"tSlow_d",tFsine:"tFsine_d",tSsine:"tSsine_d",tChase:"tChase_d",tWin:"tWin_d",
-      tSMA:"tSMA_d",tRail:"tRail_d",tBB:"tBB_d"}
-};
-const CFG_H={
-  interval:"4h", gran:14400, limit:3000, barSecs:14400, barsPerDay:6,
-  fast:{min:36,max:72,ideal:48,amp:1.6,tag:"4HCL",unit:"d"},
-  slow:{min:240,max:450,ideal:360,amp:2.4,tag:"DCL",unit:"d"},
-  el:{chart:"chart_h",imacd:"imacd_h",rsi:"rsi_h",rsiv:"rsiv_h",integrity:"integrity_h",fastKV:"fastKV_h",slowKV:"slowKV_h",thr:"thr_h",signal:"signal_h",
-      tFast:"tFast_h",tSlow:"tSlow_h",tFsine:"tFsine_h",tSsine:"tSsine_h",tChase:"tChase_h",tWin:"tWin_h",
-      tSMA:"tSMA_h",tRail:"tRail_h",tBB:"tBB_h"}
-};
 const CFG_1H={
-  interval:"1h", gran:3600, limit:1000, barSecs:3600, barsPerDay:24,
+  interval:"1h", gran:3600, limit:3000, barSecs:3600, barsPerDay:24,
   fast:{min:30,max:72,ideal:48,amp:1.6,tag:"1HCL",unit:"d"},
   slow:{min:144,max:288,ideal:192,amp:2.4,tag:"4HCL",unit:"d"},
   el:{chart:"chart_1h",imacd:"imacd_1h",rsi:"rsi_1h",rsiv:"rsiv_1h",integrity:"integrity_1h",fastKV:"fastKV_1h",slowKV:"slowKV_1h",thr:"thr_1h",signal:"signal_1h",
@@ -1478,7 +1401,7 @@ const CFG_1H={
       tSMA:"tSMA_1h",tRail:"tRail_1h",tBB:"tBB_1h"}
 };
 const CFG_5M={
-  interval:"5m", gran:300, limit:1000, barSecs:300, barsPerDay:288,
+  interval:"5m", gran:300, limit:5000, barSecs:300, barsPerDay:288,
   fast:{min:24,max:60,ideal:36,amp:1.6,tag:"5MCL",unit:"h"},
   slow:{min:96,max:216,ideal:144,amp:2.4,tag:"HCL",unit:"h"},
   el:{chart:"chart_5m",imacd:"imacd_5m",rsi:"rsi_5m",rsiv:"rsiv_5m",integrity:"integrity_5m",fastKV:"fastKV_5m",slowKV:"slowKV_5m",thr:"thr_5m",signal:"signal_5m",
@@ -1494,6 +1417,7 @@ function showTab(tab){
   $$(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));
   ["signals","indicators","d","h","1h","5m","liq"].forEach(k=>{const p=$("panel_"+k);if(p)p.hidden=(k!==tab);});
   if(tab==="signals"||tab==="indicators"){window.BTC_SIGNALS?.onShow();return;}
+  if(tab==="d"||tab==="h"){window.BTC_TIMEFRAMES?.onShow(tab);window.BTC_SIGNALS?.onShow();return;}
   if(tab==="liq"){LIQ.onShow();return;}
   if(VIEWS[tab])VIEWS[tab].onShow();
 }
@@ -1517,18 +1441,16 @@ function loadChartLib(){
     s.onload=()=>window.LightweightCharts?res():go();s.onerror=go;document.head.appendChild(s);};go();});
 }
 loadChartLib().then(()=>{
-  VIEWS.d=makeView(CFG_D);
-  VIEWS.h=makeView(CFG_H);
   VIEWS["1h"]=makeView(CFG_1H);
   VIEWS["5m"]=makeView(CFG_5M);
   $$(".tab").forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
   loadAll();
   fetchFunding();
-}).catch(()=>{setStatus("err","chart library blocked");
-  ["chart_d","chart_h","chart_1h","chart_5m"].forEach(id=>{const e=$(id);if(e)e.innerHTML='<div style="padding:22px;color:#6b7882;font-size:13px;line-height:1.5">Couldn\'t load the charting library from jsDelivr or unpkg — likely a network block. Download <span class="mono">lightweight-charts.standalone.production.js</span> and reference it locally.</div>';});});
-$("refresh").onclick=()=>{if(activeTab==="signals"||activeTab==="indicators"){window.BTC_SIGNALS?.refresh();return;}if(window.LightweightCharts&&VIEWS.d)loadAll();LIQ.refresh();};
+}).catch(error=>{console.error('Chart initialization failed',error);setStatus("err","chart unavailable");
+  ["chart_1h","chart_5m"].forEach(id=>{const e=$(id);if(e)e.innerHTML='<div style="padding:22px;color:#6b7882;font-size:13px;line-height:1.5">Couldn\'t load the charting library from jsDelivr or unpkg — likely a network block. Download <span class="mono">lightweight-charts.standalone.production.js</span> and reference it locally.</div>';});});
+$("refresh").onclick=()=>{if(["signals","indicators","d","h"].includes(activeTab)){window.BTC_SIGNALS?.refresh();return;}if(window.LightweightCharts&&VIEWS["1h"])loadAll();LIQ.refresh();};
 // auto-refresh every 5 minutes while the page sits open
-setInterval(()=>{if(window.LightweightCharts&&VIEWS.d)loadAll();LIQ.refresh();},300000);
+setInterval(()=>{if(window.LightweightCharts&&VIEWS["1h"])loadAll();LIQ.refresh();},300000);
 
 function fmtDur(s){return s<3600?Math.round(s/60)+" min":s<86400?(s/3600).toFixed(1)+" h"
   :s<2*365*86400?(s/86400).toFixed(1)+" d":(s/31536000).toFixed(1)+" y";}

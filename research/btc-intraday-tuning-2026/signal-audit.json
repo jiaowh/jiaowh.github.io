@@ -1,0 +1,215 @@
+{
+  "prefixChecks": [
+    {
+      "frame": "5m",
+      "parameters": "14-9",
+      "cut": 411485,
+      "pass": true
+    },
+    {
+      "frame": "5m",
+      "parameters": "14-9",
+      "cut": 588850,
+      "pass": true
+    },
+    {
+      "frame": "5m",
+      "parameters": "14-13",
+      "cut": 411485,
+      "pass": true
+    },
+    {
+      "frame": "5m",
+      "parameters": "14-13",
+      "cut": 588850,
+      "pass": true
+    },
+    {
+      "frame": "5m",
+      "parameters": "21-9",
+      "cut": 411485,
+      "pass": true
+    },
+    {
+      "frame": "5m",
+      "parameters": "21-9",
+      "cut": 588850,
+      "pass": true
+    },
+    {
+      "frame": "5m",
+      "parameters": "21-13",
+      "cut": 411485,
+      "pass": true
+    },
+    {
+      "frame": "5m",
+      "parameters": "21-13",
+      "cut": 588850,
+      "pass": true
+    },
+    {
+      "frame": "5m",
+      "parameters": "34-9",
+      "cut": 411485,
+      "pass": true
+    },
+    {
+      "frame": "5m",
+      "parameters": "34-9",
+      "cut": 588850,
+      "pass": true
+    },
+    {
+      "frame": "5m",
+      "parameters": "34-13",
+      "cut": 411485,
+      "pass": true
+    },
+    {
+      "frame": "5m",
+      "parameters": "34-13",
+      "cut": 588850,
+      "pass": true
+    },
+    {
+      "frame": "1h",
+      "parameters": "14-9",
+      "cut": 34286,
+      "pass": true
+    },
+    {
+      "frame": "1h",
+      "parameters": "14-9",
+      "cut": 49065,
+      "pass": true
+    },
+    {
+      "frame": "1h",
+      "parameters": "14-13",
+      "cut": 34286,
+      "pass": true
+    },
+    {
+      "frame": "1h",
+      "parameters": "14-13",
+      "cut": 49065,
+      "pass": true
+    },
+    {
+      "frame": "1h",
+      "parameters": "21-9",
+      "cut": 34286,
+      "pass": true
+    },
+    {
+      "frame": "1h",
+      "parameters": "21-9",
+      "cut": 49065,
+      "pass": true
+    },
+    {
+      "frame": "1h",
+      "parameters": "21-13",
+      "cut": 34286,
+      "pass": true
+    },
+    {
+      "frame": "1h",
+      "parameters": "21-13",
+      "cut": 49065,
+      "pass": true
+    },
+    {
+      "frame": "1h",
+      "parameters": "34-9",
+      "cut": 34286,
+      "pass": true
+    },
+    {
+      "frame": "1h",
+      "parameters": "34-9",
+      "cut": 49065,
+      "pass": true
+    },
+    {
+      "frame": "1h",
+      "parameters": "34-13",
+      "cut": 34286,
+      "pass": true
+    },
+    {
+      "frame": "1h",
+      "parameters": "34-13",
+      "cut": 49065,
+      "pass": true
+    }
+  ],
+  "source": "Exact btc.html indicator and confluence functions",
+  "5m": {
+    "eligibleCoverage": {
+      "2020": {
+        "bars": 105159,
+        "eligible": 41859
+      },
+      "2021": {
+        "bars": 104923,
+        "eligible": 38810
+      },
+      "2022": {
+        "bars": 105120,
+        "eligible": 105120
+      },
+      "2023": {
+        "bars": 105104,
+        "eligible": 93093
+      },
+      "2024": {
+        "bars": 105408,
+        "eligible": 105408
+      },
+      "2025": {
+        "bars": 105120,
+        "eligible": 105120
+      },
+      "2026": {
+        "bars": 78624,
+        "eligible": 78624
+      }
+    },
+    "indexedScanParity": true
+  },
+  "1h": {
+    "eligibleCoverage": {
+      "2020": {
+        "bars": 8760,
+        "eligible": 0
+      },
+      "2021": {
+        "bars": 8741,
+        "eligible": 0
+      },
+      "2022": {
+        "bars": 8760,
+        "eligible": 7001
+      },
+      "2023": {
+        "bars": 8758,
+        "eligible": 4753
+      },
+      "2024": {
+        "bars": 8784,
+        "eligible": 8784
+      },
+      "2025": {
+        "bars": 8760,
+        "eligible": 8760
+      },
+      "2026": {
+        "bars": 6552,
+        "eligible": 6552
+      }
+    },
+    "indexedScanParity": true
+  }
+}

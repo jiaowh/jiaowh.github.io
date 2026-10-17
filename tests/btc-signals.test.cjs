@@ -135,6 +135,40 @@ const root=path.resolve(__dirname,'..');
     await checkIndicators(50,50);
     await page.goto(`http://127.0.0.1:${server.address().port}/btc.html?tab=d`);
     assert.equal(await page.locator('#panel_d').isVisible(),true);
+    await page.waitForSelector('#tfChart_d svg');
+    const aligned=await page.evaluate(async()=>{
+      const {timeframeRows}=await import('/assets/btc/timeframes.js');
+      const {bars,rows}=BTC_SIGNALS.snapshot(),last=rows.at(-1);
+      let comparisons=0;
+      for(const [frame,group,span] of [['d','24h',86400],['h','4h',14400]])for(const length of [14,21,34]){
+        const view=timeframeRows(bars,rows,frame,length,{impulseMACD}),r=view.at(-1);
+        for(const cross of [false,true]){
+          const label=`iMACD ${length} ${cross?'above signal':'above zero'}`;
+          const member=last.members.find(m=>m.group===group&&m.label===label);
+          if(member.bullish!==(r.md>(cross?r.sb:0)))throw Error('Oscillator vote mismatch '+label+frame);
+          comparisons++;
+        }
+        const source=rows.find(v=>v.time===r.closeTime-14400);
+        if(r.ma!==source.ma||r.gate!==source.gate)throw Error('Daily regime mismatch');
+        if(view.some(v=>v.closeTime>last.closeTime||v.time%span))throw Error('Unclosed or unaligned candle');
+        const future={...bars.at(-1),time:last.closeTime,close:1};
+        if(JSON.stringify(view)!==JSON.stringify(timeframeRows([...bars,future],rows,frame,length,{impulseMACD})))throw Error('Unconfirmed candle changed detail chart');
+      }
+      return comparisons;
+    });
+    assert.equal(aligned,12);
+    for(const frame of ['d','h']){
+      await page.locator(`.tab[data-tab="${frame}"]`).click();
+      await page.selectOption('#tfLength_'+frame,'21');
+      assert.match(await page.locator('#tfChart_'+frame+' svg').getAttribute('aria-label'),/21\/13/);
+      await page.locator('#tfHit_'+frame).click({position:{x:100,y:80}});
+      assert.match(await page.locator('#tfRead_'+frame).innerText(),/daily SMA200 .*impulse .*signal/);
+      assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+      await page.screenshot({path:process.env.TEMP+`/btc-aligned-${frame}-mobile.png`,fullPage:true});
+      await page.setViewportSize({width:1280,height:1050});
+      await page.screenshot({path:process.env.TEMP+`/btc-aligned-${frame}-desktop.png`,fullPage:true});
+      await page.setViewportSize({width:390,height:844});
+    }
     assert.deepEqual(errors,[]);
     console.log(`PASS: ${result.checked} independent daily-regime comparisons and ${result.fills} fast-strategy fills, forming-bar exclusion, default signals tab, removed accumulation, collapsed latest results, 2022/2026 counts, refresh fallback, chart inspection, explicit tab links and mobile layout.`);
   }finally{await browser.close();await new Promise(r=>server.close(r));}

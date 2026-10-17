@@ -24,7 +24,7 @@ BTC BUY · $77,383.47
 
 Daily breadth is the completed 00:00 UTC candle (08:00 Singapore). The schedule checks at seven minutes after each 4h close. GitHub scheduling is best effort and can be substantially late; the timestamp and price identify the model's bar, not a real execution or the delivery time. Missed runs replay all intervening bars and queue each trade, rather than comparing only the final position. Errors remain in Actions logs and fail the run; no weekly, startup, funding or Telegram error messages.
 
-The first website tab and this bot import the same `assets/btc/fast-strategy.mjs` model. Keep the first tab aligned whenever a newer strategy is adopted. The Indicators tab exposes the same current strategy votes. Average was retired from the page; its model is preserved in `research/btc-bull-accumulation-2026/legacy-average.js`. The other timeframe tabs retain their own methods until separately validated.
+The first website tab and this bot import the same `assets/btc/fast-strategy.mjs` model. Keep the first tab aligned whenever a newer strategy is adopted. The Indicators tab exposes the same current strategy votes. Daily and 4h inspect the same closed candles and confirmed daily SMA200 regime, with iMACD 14/21/34 and signal 13. Average was retired from the page; its model is preserved in `research/btc-bull-accumulation-2026/legacy-average.js`. The tunable 1h/5m tabs are separate research models, not Telegram instructions; the October intraday study did not validate a replacement.
 
 ## State and migration
 
