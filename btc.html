@@ -161,6 +161,7 @@
 
 <nav class="tabs">
   <button class="tab active" data-tab="signals">SMA200 + breadth</button>
+  <button class="tab" data-tab="indicators">Indicators</button>
   <button class="tab" data-tab="d">Daily</button>
   <button class="tab" data-tab="h">4-Hour</button>
   <button class="tab" data-tab="1h">1-Hour</button>
@@ -440,6 +441,19 @@
         <div class="signal-links"><a href="research/mstr-fast-recovery-2026/ICHIMOKU_REPORT.md">Latest comparison ↗</a></div>
       </div>
     </details>
+  </section>
+
+  <section class="panel" id="panel_indicators" hidden>
+    <div class="signal-toolbar">
+      <label for="indicatorAsset">Asset</label><select id="indicatorAsset" class="rng"><option value="BTC">BTC · fast recovery</option><option value="MSTR">MSTR · BTC fast + Vortex</option></select>
+      <button id="indicatorRefresh" aria-label="Refresh indicators">Refresh</button>
+    </div>
+    <div id="indicatorSummary" class="signal-cards" aria-live="polite"><div class="signal-card"><small>Breadth</small><strong>—</strong></div></div>
+    <div id="indicatorRules" class="indicator-rules"></div>
+    <p id="indicatorSource" class="acc-note" role="status">Loading closed candles…</p>
+    <p id="indicatorStockSource" class="acc-note" hidden></p>
+    <div class="indicator-key"><span><i class="indicator-dot is-up" aria-hidden="true"></i>Bullish</span><span><i class="indicator-dot is-down" aria-hidden="true"></i>Bearish</span><span><i class="indicator-dot is-unknown" aria-hidden="true"></i>Unavailable</span></div>
+    <div id="indicatorGroups" class="indicator-groups"></div>
   </section>
 
   <section class="panel" id="panel_liq" hidden>
@@ -1740,11 +1754,11 @@ const CFG_5M={
 const VIEWS={};
 let activeTab="signals";
 function showTab(tab){
-  if(!["signals","d","h","1h","5m","avg","liq"].includes(tab))tab="signals";
+  if(!["signals","indicators","d","h","1h","5m","avg","liq"].includes(tab))tab="signals";
   activeTab=tab;document.body.dataset.tab=tab;
   $$(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));
-  ["signals","d","h","1h","5m","avg","liq"].forEach(k=>{const p=$("panel_"+k);if(p)p.hidden=(k!==tab);});
-  if(tab==="signals"){window.BTC_SIGNALS?.onShow();return;}
+  ["signals","indicators","d","h","1h","5m","avg","liq"].forEach(k=>{const p=$("panel_"+k);if(p)p.hidden=(k!==tab);});
+  if(tab==="signals"||tab==="indicators"){window.BTC_SIGNALS?.onShow();return;}
   if(tab==="liq"){LIQ.onShow();return;}
   if(tab==="avg"){AVG.onShow();return;}
   if(VIEWS[tab])VIEWS[tab].onShow();
@@ -1778,7 +1792,7 @@ loadChartLib().then(()=>{
   fetchFunding();
 }).catch(()=>{setStatus("err","chart library blocked");
   ["chart_d","chart_h","chart_1h","chart_5m"].forEach(id=>{const e=$(id);if(e)e.innerHTML='<div style="padding:22px;color:#6b7882;font-size:13px;line-height:1.5">Couldn\'t load the charting library from jsDelivr or unpkg — likely a network block. Download <span class="mono">lightweight-charts.standalone.production.js</span> and reference it locally.</div>';});});
-$("refresh").onclick=()=>{if(activeTab==="signals"){window.BTC_SIGNALS?.refresh();return;}if(window.LightweightCharts&&VIEWS.d)loadAll();LIQ.refresh();AVG.refresh();};
+$("refresh").onclick=()=>{if(activeTab==="signals"||activeTab==="indicators"){window.BTC_SIGNALS?.refresh();return;}if(window.LightweightCharts&&VIEWS.d)loadAll();LIQ.refresh();AVG.refresh();};
 // auto-refresh every 5 minutes while the page sits open
 setInterval(()=>{if(window.LightweightCharts&&VIEWS.d)loadAll();LIQ.refresh();AVG.refresh();},300000);
 

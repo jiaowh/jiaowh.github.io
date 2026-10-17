@@ -6,7 +6,7 @@ export const START=Date.UTC(2023,0,1)/1000;
 export const stamp=t=>new Date(t*1000).toISOString().slice(0,16).replace('T',' ')+' UTC';
 export const tradeText=t=>`MSTR ${t.side.toUpperCase()} · $${t.price.toLocaleString('en-US',{maximumFractionDigits:2})}\n${stamp(t.time)}`;
 export const dailyText=r=>`MSTR breadth ${Math.round(r.breadth*100)}% · ${stamp(r.closeTime)}`;
-export const calculateBTC=(input,indicators,now)=>calculate(input,indicators,now,{vortex:true});
+export const calculateBTC=(input,indicators,now,options={})=>calculate(input,indicators,now,{...options,vortex:true});
 
 // Latest information strictly before an opening; never use that session's close.
 export function before(rows,time,key='closeTime') {

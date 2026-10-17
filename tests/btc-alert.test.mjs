@@ -26,6 +26,23 @@ for (const cut of [19003,23507,29002]) {
 const future={...B.at(-1),time:Math.ceil(Date.now()/1000/H4)*H4,close:1};
 assert.deepEqual(calculate([...B,future],L).at(-1),rows.at(-1));
 
+// Display metadata must reconcile with the exact BTC/MSTR votes without changing signals.
+for(const vortex of [false,true]) {
+  const detailed=calculate(B,L,undefined,{vortex,details:true});
+  const {members,...last}=detailed.at(-1),plain=calculate(B,L,undefined,{vortex});
+  assert.deepEqual(last,plain.at(-1));
+  assert.deepEqual(detailed.slice(0,-1),plain.slice(0,-1));
+  assert.equal(members.length,vortex?68:50);
+  const weight=members.reduce((s,m)=>s+m.weight,0);
+  assert.equal(weight,vortex?86:50);
+  assert.equal(members.reduce((s,m)=>s+(m.bullish?m.weight:0),0)/weight,last.breadth);
+  assert.equal(members.filter(m=>m.weight===2).length,vortex?18:0);
+  assert.deepEqual(calculate([...B,future],L,undefined,{vortex,details:true}).at(-1),detailed.at(-1));
+  const warmup=calculate(B.slice(0,12),L,undefined,{vortex,details:true}).at(-1);
+  assert.ok(warmup.members.some(m=>m.bullish===null));
+  assert.ok(Number.isNaN(warmup.breadth));
+}
+
 const t=Date.UTC(2025,0,1)/1000;
 const bar=(time,close=100,extra={})=>({time,open:100,high:110,low:80,close,closeTime:time+H4,breadth:.4,gate:true,eligible:false,...extra});
 const synthetic=[bar(t,100,{eligible:true}),bar(t+H4,101,{breadth:.52}),bar(t+2*H4)];

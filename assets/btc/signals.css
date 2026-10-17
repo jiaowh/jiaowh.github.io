@@ -23,4 +23,22 @@
 .signal-links{display:flex;gap:20px;flex-wrap:wrap}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 body[data-tab="signals"] #funding,body[data-tab="signals"] #status,body[data-tab="signals"] #refresh{display:none}
+body[data-tab="indicators"] #funding,body[data-tab="indicators"] #status,body[data-tab="indicators"] #refresh{display:none}
+.indicator-dot{display:inline-block;width:9px;height:9px;border-radius:50%;flex:0 0 9px;background:var(--muted)}
+.indicator-dot.is-up{background:var(--up)}.indicator-dot.is-down{background:var(--down)}.indicator-dot.is-unknown{background:var(--muted)}
+.indicator-key{display:flex;gap:18px;flex-wrap:wrap;font-size:11px;color:var(--muted)}
+.indicator-key span,.indicator-regime{display:flex!important;align-items:center;gap:8px}
+.indicator-groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.indicator-group{border:1px solid var(--grid);border-radius:5px;background:var(--panel2);padding:16px}
+.indicator-group h3{display:flex;justify-content:space-between;margin:0 0 12px;font:500 13px 'IBM Plex Mono',monospace;color:var(--amber)}
+.indicator-group h3 span{color:var(--muted);font-weight:400}
+.indicator-group ul{margin:0;padding:0;list-style:none}
+.indicator-item{display:flex;align-items:center;gap:8px;padding:7px 0;font-size:12px}
+.indicator-item small{margin-left:auto;color:var(--muted)}
+.indicator-rules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 24px}
+.indicator-rule{display:flex;align-items:center;gap:8px;font-size:12px;min-width:0}
+.indicator-rule b{margin-left:auto;font:400 12px 'IBM Plex Mono',monospace;color:var(--muted)}
+#indicatorSource,#indicatorStockSource{margin:0;overflow-wrap:anywhere}
+@media(max-width:950px){.indicator-groups{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.indicator-groups{grid-template-columns:1fr}.indicator-rules{grid-template-columns:1fr}.indicator-group{padding:14px}.indicator-regime{font-size:22px!important}}
 @media(max-width:760px){.signal-card{padding:14px}.signal-card strong{font-size:26px}.signal-card small{font-size:10px}.signal-chart{min-height:400px}.signal-toolbar{gap:10px}.signal-legend{gap:10px;font-size:11px}}

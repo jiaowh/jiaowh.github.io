@@ -3,24 +3,28 @@ export const STRATEGY = 'fast-imacd-14-21-34-s13-e50-v1';
 export const H4 = 14400, DAY = 86400;
 const EPS = 1e-12;
 
-export function calculate(input, indicators, now = Date.now() / 1000, {vortex = false} = {}) {
+export function calculate(input, indicators, now = Date.now() / 1000, {vortex = false, details = false} = {}) {
   const B = input.filter(b => b.time + H4 <= now), n = B.length;
   const {impulseMACD, smaN, ensGroup, ensSpread} = indicators;
-  const members = [];
+  const members = [], definitions = [];
+  const add=(values,group,label,weight=1)=>{
+    for(let i=0;i<weight;i++)members.push(values);
+    if(details)definitions.push({values,group,label,weight});
+  };
   for (const tf of [4,8,12,24,48,72]) {
     const {bars,ends} = ensGroup(B,tf*3600);
     for (const len of [14,21,34]) {
       const {md,sb} = impulseMACD(bars,len,13);
-      for (const cross of [false,true]) members.push(ensSpread(md.map((v,i) =>
-        Number.isFinite(sb[i]) ? +(v > (cross ? sb[i] : 0)) : NaN),ends,n));
+      for (const cross of [false,true]) add(ensSpread(md.map((v,i) =>
+        Number.isFinite(sb[i]) ? +(v > (cross ? sb[i] : 0)) : NaN),ends,n),`${tf}h`,`iMACD ${len} ${cross?'above signal':'above zero'}`);
     }
   }
   const {bars:D,ends} = ensGroup(B,DAY), c = D.map(b => b.close);
   for (const len of [20,50,100,150,200]) {
     const ma = smaN(c,len);
-    members.push(ensSpread(c.map((v,i) => Number.isFinite(ma[i]) ? +(v>ma[i]) : NaN),ends,n));
+    add(ensSpread(c.map((v,i) => Number.isFinite(ma[i]) ? +(v>ma[i]) : NaN),ends,n),'Daily averages',`Price above SMA${len}`);
   }
-  for (const len of [14,28,56,84,168]) members.push(ensSpread(c.map((v,i) => i<len ? NaN : +(v>c[i-len])),ends,n));
+  for (const len of [14,28,56,84,168]) add(ensSpread(c.map((v,i) => i<len ? NaN : +(v>c[i-len])),ends,n),'Daily momentum',`Momentum ${len}d`);
   for (const len of [10,20,50,100]) {
     const v = Array(c.length).fill(NaN), exit = Math.floor(len/2); let held = 0;
     for (let i=len;i<c.length;i++) {
@@ -29,7 +33,7 @@ export function calculate(input, indicators, now = Date.now() / 1000, {vortex = 
       if (c[i]>hi) held=1; else if (c[i]<lo) held=0;
       v[i]=held;
     }
-    members.push(ensSpread(v,ends,n));
+    add(ensSpread(v,ends,n),'Daily breakouts',`Donchian ${len}/${exit}`);
   }
   if (vortex) for (const tf of [4,8,12,24,48,72]) {
     const {bars,ends:ve} = ensGroup(B,tf*3600);
@@ -38,7 +42,7 @@ export function calculate(input, indicators, now = Date.now() / 1000, {vortex = 
       let sum=0;
       const votes=moves.map((v,i)=>{sum+=v;if(i>=len)sum-=moves[i-len];return i<len+1 ? NaN : +(sum>0);});
       const spread=ensSpread(votes,ve,n);
-      members.push(spread,spread); // Original research: 18 directional conditions, weight two.
+      add(spread,`${tf}h`,`Vortex ${len}`,2); // 18 directional conditions, weight two.
     }
   }
   const ma=smaN(c,200); let gate=false, up=0, down=0;
@@ -53,7 +57,9 @@ export function calculate(input, indicators, now = Date.now() / 1000, {vortex = 
     weak=E<.5-EPS ? weak+1 : 0;
     const confirmed=weak>=3, eligible=confirmed&&!previous&&G[i]===1;
     previous=confirmed;
-    return {...b,closeTime:b.time+H4,breadth:E,ma:MA[i],gate:G[i]===1,eligible,confirmed,streak:weak};
+    const row={...b,closeTime:b.time+H4,breadth:E,ma:MA[i],gate:G[i]===1,eligible,confirmed,streak:weak};
+    if(details&&i===n-1)row.members=definitions.map(({values,...member})=>({...member,bullish:Number.isFinite(values[i])?values[i]===1:null}));
+    return row;
   });
 }
 

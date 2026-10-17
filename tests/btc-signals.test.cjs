@@ -97,6 +97,42 @@ const root=path.resolve(__dirname,'..');
     await page.waitForFunction(()=>document.querySelector('#signalChart svg').viewBox.baseVal.width>600);
     await page.locator('#signalResults summary').click();
     await page.screenshot({path:process.env.TEMP+'/mstr-signals-desktop.png',fullPage:true});
+    await page.locator('[data-tab="indicators"]').click();
+    assert.equal(await page.locator('#panel_indicators').isVisible(),true);
+    assert.equal(await page.inputValue('#indicatorAsset'),'MSTR');
+    async function checkIndicators(count,weight) {
+      assert.equal(await page.locator('.indicator-item').count(),count);
+      const votes=await page.locator('.indicator-item').evaluateAll(items=>items.map(item=>({
+        weight:Number(item.dataset.weight),bullish:item.dataset.bullish,
+        dot:item.querySelector('.indicator-dot').className
+      })));
+      assert.equal(votes.reduce((s,v)=>s+v.weight,0),weight);
+      for(const v of votes)assert.ok(v.dot.includes(v.bullish==='null'?'is-unknown':v.bullish==='true'?'is-up':'is-down'));
+      const yes=votes.reduce((s,v)=>s+(v.bullish==='true'?v.weight:0),0);
+      assert.ok((await page.locator('#indicatorSummary').innerText()).includes(`${yes} / ${weight}`));
+      assert.ok((await page.locator('#indicatorSummary').innerText()).includes(Math.round(yes/weight*100)+'%'));
+      assert.equal(await page.locator('#indicatorSource').innerText(),await page.locator('#signalSource').innerText());
+      assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+    }
+    await checkIndicators(68,86);
+    assert.equal(await page.locator('.indicator-item[data-weight="2"]').count(),18);
+    await page.screenshot({path:process.env.TEMP+'/mstr-indicators-desktop.png',fullPage:true});
+    await page.selectOption('#indicatorAsset','BTC');
+    assert.equal(await page.inputValue('#signalAsset'),'BTC');
+    await checkIndicators(50,50);
+    assert.ok((await page.locator('#indicatorSummary').innerText()).includes(Math.round(result.last.breadth*100)+'%'));
+    await page.screenshot({path:process.env.TEMP+'/btc-indicators-desktop.png',fullPage:true});
+    await page.setViewportSize({width:390,height:844});
+    await checkIndicators(50,50);
+    await page.screenshot({path:process.env.TEMP+'/btc-indicators-mobile.png',fullPage:true});
+    await page.selectOption('#indicatorAsset','MSTR');
+    await checkIndicators(68,86);
+    await page.screenshot({path:process.env.TEMP+'/mstr-indicators-mobile.png',fullPage:true});
+    online=false;
+    await page.goto(`http://127.0.0.1:${server.address().port}/btc.html?tab=indicators`);
+    await page.waitForFunction(()=>document.getElementById('indicatorSource').textContent.includes('Refresh unavailable'));
+    assert.equal(await page.locator('#panel_indicators').isVisible(),true);
+    await checkIndicators(50,50);
     await page.goto(`http://127.0.0.1:${server.address().port}/btc.html?tab=d`);
     assert.equal(await page.locator('#panel_d').isVisible(),true);
     assert.deepEqual(errors,[]);

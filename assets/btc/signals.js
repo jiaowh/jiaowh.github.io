@@ -11,7 +11,7 @@ window.BTC_SIGNALS = (() => {
   const asset = () => el('signalAsset').value;
 
   function calculate(input) {
-    return fastCalculate(input, {impulseMACD, smaN, ensGroup, ensSpread});
+    return fastCalculate(input, {impulseMACD, smaN, ensGroup, ensSpread},undefined,{details:true});
   }
 
   function replay(input, calculated, start = Date.UTC(2023, 0, 1) / 1000) {
@@ -20,6 +20,7 @@ window.BTC_SIGNALS = (() => {
 
   function render() {
     if (!rows.length) return;
+    renderIndicators();
     const isStock=asset()==='MSTR', total=isStock?86:50;
     let view=rows,r=rows.at(-1),trades;
     const range = el('signalRange').value, year = Number(range);
@@ -46,6 +47,39 @@ window.BTC_SIGNALS = (() => {
       <div class="signal-card" title="${isStock?'BTC-based: 36 fast iMACD + 36 Vortex weights + 14 daily votes.':'Fast iMACD 14/21/34, signal 13 + recovery.'} Same method as Telegram; not a crash probability."><small>${isStock?'BTC FAST + VORTEX':'FAST iMACD + RECOVERY'}</small><strong>${percent(r.breadth)}</strong><span>${votes} / ${total} bullish ${isStock?'vote weights':'votes'}</span></div>`;
     const visible = view.filter(r => range === '90' ? r.closeTime > view.at(-1).closeTime - 90 * 86400 : new Date(r.time * 1000).getUTCFullYear() === year);
     draw(visible, trades);
+  }
+
+  const dot = value => `<i class="indicator-dot ${value===null?'is-unknown':value?'is-up':'is-down'}" aria-hidden="true"></i>`;
+  const status = value => value===null?'Unavailable':value?'Bullish':'Bearish';
+  function syncIndicatorSource() {
+    el('indicatorSource').textContent=el('signalSource').textContent;
+    el('indicatorSource').title=el('signalSource').title;
+  }
+  function renderIndicators() {
+    const isStock=asset()==='MSTR',r=(isStock?vortexRows:rows).at(-1);
+    if(!r?.members)return;
+    const total=r.members.reduce((s,m)=>s+m.weight,0),known=r.members.every(m=>m.bullish!==null);
+    const votes=r.members.reduce((s,m)=>s+(m.bullish?m.weight:0),0);
+    const m=isStock?stockRegimes(stock,Date.now()/1000).at(-1):null;
+    const btcGate=Number.isFinite(r.ma)?r.gate:null,mstrGate=Number.isFinite(m?.ma)?m.gate:null;
+    const gate=isStock?(mstrGate===null?null:btcGate||mstrGate):btcGate;
+    el('indicatorSummary').innerHTML=`
+      <div class="signal-card"><small>${isStock?'BTC FAST + VORTEX':'FAST iMACD + RECOVERY'}</small><strong>${known?percent(r.breadth):'—'}</strong><span>${known?votes:'—'} / ${total} bullish ${isStock?'vote weights · Vortex ×2':'votes'}</span></div>
+      <div class="signal-card"><small>${isStock?'JOINT ':''}SMA200 REGIME</small><strong class="indicator-regime">${dot(gate)}${status(gate)}</strong><span>${isStock?'Bullish when either asset is bullish':'Two daily closes beyond the ±2% band'}</span></div>`;
+    const rule=(label,value,detail)=>`<div class="indicator-rule">${dot(value)}<span>${label}</span><b>${detail??status(value)}</b></div>`;
+    el('indicatorRules').innerHTML=rule('BTC SMA200',btcGate,Number.isFinite(r.ma)?usd(r.ma):'Unavailable')+
+      (isStock?rule('MSTR SMA200',mstrGate,Number.isFinite(m?.ma)?usd(m.ma):'Unavailable'):'')+
+      rule('Breadth above 50%',known?r.breadth>.5+1e-12:null,known?(r.breadth>.5+1e-12?'Yes':'No'):'Unavailable')+
+      rule('Closes below 50%',known?!r.confirmed:null,known?`${r.streak} / 3`:'Unavailable');
+    el('indicatorRules').title='SMA200 uses the confirmed daily regime. Three weak BTC closes confirm weakness; a sale also needs the bullish BTC gate and a fresh signal. Breadth above 50% can trigger an early buyback.';
+    el('indicatorStockSource').hidden=!isStock;
+    el('indicatorStockSource').textContent=m?`${stockError?'Update unavailable · ':''}MSTR close ${stamp(m.closeTime)}`:'MSTR history unavailable';
+    const groups=['4h','8h','12h','24h','48h','72h','Daily averages','Daily momentum','Daily breakouts'];
+    el('indicatorGroups').innerHTML=groups.map(group=>{
+      const members=r.members.filter(v=>v.group===group),sum=members.reduce((s,m)=>s+m.weight,0),yes=members.reduce((s,m)=>s+(m.bullish?m.weight:0),0);
+      return `<section class="indicator-group"><h3>${group}<span>${members.every(m=>m.bullish!==null)?yes:'—'} / ${sum}</span></h3><ul>${members.map(m=>`<li class="indicator-item" data-bullish="${m.bullish}" data-weight="${m.weight}" data-group="${group}" title="${status(m.bullish)}${m.weight>1?' · two breadth votes':''}">${dot(m.bullish)}<span>${m.label}</span>${m.weight>1?'<small>×2</small>':''}<span class="sr-only">${status(m.bullish)}</span></li>`).join('')}</ul></section>`;
+    }).join('');
+    syncIndicatorSource();
   }
 
   function draw(data, trades) {
@@ -123,12 +157,12 @@ window.BTC_SIGNALS = (() => {
     if (!response.ok) throw new Error('Saved signal history could not be loaded.');
     const seed = await response.json();
     bars = seed.bars.map(([time, open, high, low, close]) => ({time, open, high, low, close}));
-    rows = calculate(bars); vortexRows=calculateBTC(bars,{impulseMACD,smaN,ensGroup,ensSpread}); loaded = true; updateYears(); render();
+    rows = calculate(bars); vortexRows=calculateBTC(bars,{impulseMACD,smaN,ensGroup,ensSpread},undefined,{details:true}); loaded = true; updateYears(); render();
     el('signalSource').textContent = `Saved · ${stamp(rows.at(-1).closeTime)} · updating…`;
   }
 
   async function refresh() {
-    if (busy) return; busy = true; el('signalRefresh').disabled = true;
+    if (busy) return; busy = true; el('signalRefresh').disabled = true;el('indicatorRefresh').disabled=true;
     try {
       if (!loaded) await load();
       try{
@@ -170,21 +204,23 @@ window.BTC_SIGNALS = (() => {
       }
       const next = [...merged.values()].sort((a, b) => a.time - b.time);
       for (let i = bars.length; i < next.length; i++) if (next[i].time !== next[i - 1].time + 14400) throw new Error('Missing new 4h candle; last complete history retained.');
-      rows = calculate(next); vortexRows=calculateBTC(next,{impulseMACD,smaN,ensGroup,ensSpread}); bars = next; liveOpen = nextOpen; updateYears(); render();
+      rows = calculate(next); vortexRows=calculateBTC(next,{impulseMACD,smaN,ensGroup,ensSpread},undefined,{details:true}); bars = next; liveOpen = nextOpen; updateYears(); render();
       const stale = cutoff / 1000 - rows.at(-1).closeTime >= 14400;
       el('signalSource').textContent = `${stale ? 'Feed is behind' : 'Binance checked'} · last close ${stamp(rows.at(-1).closeTime)}`;
       el('signalSource').title = `Checked ${stamp(cutoff / 1000)}. Closed candles only; auto-refresh every five minutes.`;
     } catch (error) {
       el('signalSource').textContent = loaded ? `Refresh unavailable · saved close ${stamp(rows.at(-1).closeTime)}` : 'Signal history unavailable. Try refresh.';
       el('signalSource').title = error.message;
-    } finally { busy = false; el('signalRefresh').disabled = false; }
+    } finally { busy = false; el('signalRefresh').disabled = false;el('indicatorRefresh').disabled=false;syncIndicatorSource(); }
   }
   function onShow() { shown = true; if (!loaded) refresh(); else render(); }
   el('signalRefresh').onclick = refresh;
+  el('indicatorRefresh').onclick = refresh;
   el('signalRange').onchange = render;
-  el('signalAsset').onchange = render;
+  el('signalAsset').onchange = ()=>{el('indicatorAsset').value=asset();render();};
+  el('indicatorAsset').onchange = ()=>{el('signalAsset').value=el('indicatorAsset').value;render();};
   new ResizeObserver(() => { if (shown && !el('panel_signals').hidden) render(); }).observe(el('signalChart'));
-  setInterval(() => { if (shown && !el('panel_signals').hidden) refresh(); }, 300000);
+  setInterval(() => { if (shown && (!el('panel_signals').hidden||!el('panel_indicators').hidden)) refresh(); }, 300000);
   // Signals is the default; explicit links to other tabs still work.
   setTimeout(() => showTab(new URLSearchParams(location.search).get('tab') || 'signals'), 0);
   return {onShow, refresh, calculate, replay};
