@@ -18,6 +18,8 @@ const root=path.resolve(__dirname,'..');
     await page.route('**/*',r=>{
       const u=r.request().url();
       if(u.startsWith('http://127.0.0.1:'))return r.continue();
+      if(u.includes('lightweight-charts'))return r.fulfill({contentType:'application/javascript',body:fs.readFileSync(path.join(root,'research/btc-intraday-tuning-2026/cache/lightweight-charts.js'),'utf8')+`
+const originalCreate=LightweightCharts.createChart;window.testCharts={};window.LightweightCharts={...LightweightCharts};LightweightCharts.createChart=(el,opts)=>{const chart=originalCreate(el,opts);testCharts[el.id]=chart;return chart;};`});
       if(online&&u.startsWith('https://data-api.binance.vision/'))return r.fulfill({json:[]});
       return r.abort();
     });
@@ -140,7 +142,7 @@ const root=path.resolve(__dirname,'..');
     await checkIndicators(50,50);
     await page.goto(`http://127.0.0.1:${server.address().port}/btc.html?tab=d`);
     assert.equal(await page.locator('#panel_d').isVisible(),true);
-    await page.waitForSelector('#tfChart_d svg');
+    await page.waitForSelector('#tfChart_d canvas');
     const aligned=await page.evaluate(async()=>{
       const {timeframeRows}=await import('/assets/btc/timeframes.js');
       const {bars,rows}=BTC_SIGNALS.snapshot(),last=rows.at(-1);
@@ -165,15 +167,41 @@ const root=path.resolve(__dirname,'..');
     for(const frame of ['d','h']){
       await page.locator(`.tab[data-tab="${frame}"]`).click();
       await page.selectOption('#tfLength_'+frame,'21');
-      assert.match(await page.locator('#tfChart_'+frame+' svg').getAttribute('aria-label'),/21\/13/);
-      await page.locator('#tfHit_'+frame).click({position:{x:100,y:80}});
+      assert.match(await page.locator('#tfImacd_'+frame).getAttribute('aria-label'),/21\/13/);
+      assert.ok(await page.locator('#tfRsi_'+frame+' canvas').count());
+      assert.ok(Number.isFinite(Number(await page.locator('#tfRsiValue_'+frame).innerText())));
+      await page.locator('#tfChart_'+frame).click({position:{x:100,y:80}});
       assert.match(await page.locator('#tfRead_'+frame).innerText(),/daily SMA200 .*impulse .*signal/);
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+      const ranges=await page.evaluate(frame=>{
+        const panes=['tfChart_','tfImacd_','tfRsi_'].map(id=>testCharts[id+frame]);
+        const initial=panes[0].timeScale().getVisibleLogicalRange();
+        panes[1].timeScale().setVisibleLogicalRange({from:initial.from+10,to:initial.to+10});
+        return panes.map(p=>p.timeScale().getVisibleLogicalRange());
+      },frame);
+      assert.deepEqual(ranges[0],ranges[1]);assert.deepEqual(ranges[1],ranges[2]);
+      // Exercise actual price-axis dragging on all three panes.
+      await page.setViewportSize({width:1280,height:1050});
+      for(const prefix of ['tfChart_','tfImacd_','tfRsi_']){
+        const box=page.locator('#'+prefix+frame);await box.scrollIntoViewIfNeeded();
+        const rect=await box.boundingBox();
+        await page.mouse.move(rect.x+rect.width-30,rect.y+rect.height*.35);
+        await page.mouse.down();await page.mouse.move(rect.x+rect.width-30,rect.y+rect.height*.65,{steps:10});await page.mouse.up();
+        assert.equal(await page.evaluate(id=>testCharts[id].priceScale('right').options().autoScale,prefix+frame),false);
+      }
+      await page.locator('#tfReset_'+frame).click();
+      assert.equal(await page.evaluate(frame=>['tfChart_','tfImacd_','tfRsi_'].every(id=>testCharts[id+frame].priceScale('right').options().autoScale),frame),true);
+      await page.selectOption('#tfRange_'+frame,'365');
+      const year=await page.evaluate(frame=>testCharts['tfChart_'+frame].timeScale().getVisibleLogicalRange(),frame);
+      assert.ok(year.to-year.from>ranges[0].to-ranges[0].from);
+      await page.selectOption('#tfRange_'+frame,'90');
+      await page.setViewportSize({width:390,height:844});
       await page.screenshot({path:process.env.TEMP+`/btc-aligned-${frame}-mobile.png`,fullPage:true});
       await page.setViewportSize({width:1280,height:1050});
       await page.screenshot({path:process.env.TEMP+`/btc-aligned-${frame}-desktop.png`,fullPage:true});
       await page.setViewportSize({width:390,height:844});
     }
+    assert.equal(await page.locator("body").innerText().then(t=>t.includes("108 variants tested")),false);
     assert.deepEqual(errors,[]);
     console.log(`PASS: ${result.checked} independent daily-regime comparisons and ${result.fills} fast-strategy fills, forming-bar exclusion, default signals tab, removed accumulation, collapsed latest results, 2022/2026 counts, refresh fallback, chart inspection, explicit tab links and mobile layout.`);
   }finally{await browser.close();await new Promise(r=>server.close(r));}

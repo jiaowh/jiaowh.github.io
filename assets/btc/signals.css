@@ -6,6 +6,7 @@
 .signal-card span{font-size:12px;color:var(--muted)}
 .signal-toolbar{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
 .signal-toolbar button{margin-left:auto}
+.signal-toolbar button+button{margin-left:0}
 .signal-legend{display:flex;gap:16px;font-size:12px}
 .signal-chart{min-height:440px;border:1px solid var(--grid);background:var(--panel2);border-radius:5px;overflow:hidden}
 .signal-chart svg{display:block;width:100%;touch-action:pan-y}
@@ -45,5 +46,4 @@ body[data-tab="indicators"] #funding,body[data-tab="indicators"] #status,body[da
 
 body[data-tab="d"] #funding,body[data-tab="d"] #status,body[data-tab="d"] #refresh,body[data-tab="h"] #funding,body[data-tab="h"] #status,body[data-tab="h"] #refresh{display:none}
 .tf-status{display:flex;flex-wrap:wrap;gap:12px 24px;font-size:12px}.tf-status span{display:flex;gap:7px;align-items:center}.tf-status b{font-weight:500}
-.tf-chart{border:1px solid var(--grid);border-radius:4px;background:var(--panel2);min-height:360px}.tf-chart svg{display:block;width:100%;height:auto}
 @media(max-width:600px){.panel .siglegend .lg{display:block;white-space:normal;overflow-wrap:anywhere;max-width:100%}.sig{overflow-x:auto}.signal-legend{flex-wrap:wrap}}

@@ -24,36 +24,74 @@ function render(){
   if(!data?.rows.length)return;
   const length=Number(el('tfLength_'+frame).value),all=timeframeRows(data.bars,data.rows,frame,length,{impulseMACD});
   const latest=all.at(-1),current=data.rows.at(-1),days=Number(el('tfRange_'+frame).value);
-  const view=all.filter(b=>b.closeTime>latest.closeTime-days*86400);
+  if(!latest)return;
   const known=Number.isFinite(latest.sb),zero=known?latest.md>0:null,cross=known?latest.md>latest.sb:null;
   el('tfStatus_'+frame).innerHTML=`<span>${dot(current.gate)}Daily regime <b>${current.gate?'Bullish':'Bearish'}</b></span><span>BTC breadth <b>${Math.round(current.breadth*100)}%</b></span><span>${dot(zero)}Above zero <b>${known?(zero?'Yes':'No'):'—'}</b></span><span>${dot(cross)}Above signal <b>${known?(cross?'Yes':'No'):'—'}</b></span>`;
   el('tfSource_'+frame).textContent=data.source;
   el('tfSource_'+frame).title='Same closed Binance candles and confirmed daily SMA200 regime as SMA200 + breadth. These oscillator conditions are individual breadth votes.';
-  draw(frame,view,length);
+  draw(frame,all,length,days);
 }
-function draw(frame,data,length){
-  const box=el('tfChart_'+frame),W=Math.max(300,box.clientWidth),H=540,L=12,R=70,T=22,B=510;
-  const width=W-L-R,n=data.length,step=width/n,x=i=>L+(i+.5)*step;
-  const prices=data.flatMap(b=>[b.low,b.high,b.ma]).filter(Number.isFinite),lo=Math.min(...prices),hi=Math.max(...prices),pad=(hi-lo)*.08||1;
-  const y=p=>T+(hi+pad-p)/(hi-lo+2*pad)*280;
-  const values=data.flatMap(b=>[b.md,b.sb]).filter(Number.isFinite),max=Math.max(1,...values.map(Math.abs))*1.1;
-  const osc=v=>420-v/max*76;
-  const path=(key,scale)=>{let pen=false;return data.map((b,i)=>{if(!Number.isFinite(b[key])){pen=false;return '';}const cmd=pen?'L':'M';pen=true;return `${cmd}${x(i).toFixed(2)},${scale(b[key]).toFixed(2)}`;}).join('');};
-  const ticks=Array.from({length:5},(_,i)=>{const p=lo+(hi-lo)*i/4;return `<line x1="${L}" x2="${W-R}" y1="${y(p)}" y2="${y(p)}" stroke="var(--grid)"/><text x="${W-R+6}" y="${y(p)+4}">${usd(p)}</text>`;}).join('');
-  const candles=data.map((b,i)=>{const color=b.close>=b.open?'var(--up)':'var(--down)',w=Math.max(.8,Math.min(9,step*.65));return `<line x1="${x(i)}" x2="${x(i)}" y1="${y(b.high)}" y2="${y(b.low)}" stroke="${color}"/><rect x="${x(i)-w/2}" y="${Math.min(y(b.open),y(b.close))}" width="${w}" height="${Math.max(1,Math.abs(y(b.open)-y(b.close)))}" fill="${color}"/>`;}).join('');
-  const gates=data.map((b,i)=>`<rect x="${L+i*step}" y="306" width="${step+.2}" height="4" fill="var(--${b.gate?'up':'down'})"/>`).join('');
-  const dates=[0,Math.floor(n/2),n-1].map((i,j)=>`<text x="${j===0?L:j===2?W-R:x(i)}" y="${B+20}" text-anchor="${j===0?'start':j===2?'end':'middle'}">${new Date(data[i].time*1000).toISOString().slice(0,10)}</text>`).join('');
-  box.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="BTC ${frame==='d'?'daily':'4-hour'} candles, daily SMA200 and iMACD ${length}/13"><g fill="var(--muted)" font-size="10" font-family="monospace">${ticks}${candles}<path d="${path('ma',y)}" fill="none" stroke="var(--amber)" stroke-width="1.5"/>${gates}<text x="${L}" y="332">iMACD ${length} / 13</text><line x1="${L}" x2="${W-R}" y1="420" y2="420" stroke="var(--grid)"/><text x="${W-R+6}" y="424">0</text><path d="${path('md',osc)}" fill="none" stroke="var(--amber)" stroke-width="1.5"/><path d="${path('sb',osc)}" fill="none" stroke="var(--cyan)" stroke-width="1.5"/>${dates}<line id="tfCursor_${frame}" y1="${T}" y2="${B}" stroke="var(--muted)" stroke-dasharray="3 4" visibility="hidden"/><rect id="tfHit_${frame}" x="${L}" y="${T}" width="${width}" height="${B-T}" fill="transparent"/></g></svg>`;
-  const inspect=event=>{const r=box.querySelector('svg').getBoundingClientRect(),px=(event.clientX-r.left)/r.width*W,i=Math.max(0,Math.min(n-1,Math.floor((px-L)/step))),b=data[i];
-    const line=el('tfCursor_'+frame);line.setAttribute('x1',x(i));line.setAttribute('x2',x(i));line.setAttribute('visibility','visible');
-    el('tfRead_'+frame).textContent=`${stamp(b.closeTime)} · close ${usd(b.close)} · daily SMA200 ${Number.isFinite(b.ma)?usd(b.ma):'—'} · impulse ${Number.isFinite(b.md)?b.md.toFixed(1):'—'} · signal ${Number.isFinite(b.sb)?b.sb.toFixed(1):'—'}`;};
-  el('tfHit_'+frame).onpointermove=inspect;el('tfHit_'+frame).onclick=inspect;
-  el('tfRead_'+frame).textContent=`Closed ${stamp(data.at(-1).closeTime)} · hover or tap to inspect`;
+const charts=new Map();
+function createPane(id,frame){
+  const chart=LightweightCharts.createChart(el(id),{
+    autoSize:true,
+    layout:{background:{color:'#0d1217'},textColor:'#6b7882',fontFamily:'IBM Plex Mono'},
+    grid:{vertLines:{color:'#1e262e'},horzLines:{color:'#1e262e'}},
+    rightPriceScale:{borderColor:'#1e262e',minimumWidth:72},
+    timeScale:{borderColor:'#1e262e',timeVisible:frame==='h',secondsVisible:false},
+    crosshair:{mode:0},
+    handleScroll:{mouseWheel:true,pressedMouseMove:true,horzTouchDrag:true,vertTouchDrag:false},
+    handleScale:{axisPressedMouseMove:{time:true,price:true},axisDoubleClickReset:true,mouseWheel:true,pinch:true}
+  });
+  return chart;
+}
+function draw(frame,data,length,days){
+  if(!window.LightweightCharts)return;
+  let v=charts.get(frame);
+  if(!v){
+    const price=createPane('tfChart_'+frame,frame),im=createPane('tfImacd_'+frame,frame),osc=createPane('tfRsi_'+frame,frame);
+    const candles=price.addCandlestickSeries({upColor:'#3fb950',downColor:'#f85149',borderUpColor:'#3fb950',borderDownColor:'#f85149',wickUpColor:'#3fb950',wickDownColor:'#f85149'});
+    const line=(chart,color,title)=>chart.addLineSeries({color,title,lineWidth:2,priceLineVisible:false});
+    v={panes:[price,im,osc],candles,ma:line(price,'#ffb000','SMA200'),md:line(im,'#ffb000','iMACD'),sb:line(im,'#6f9fcf','Signal'),rsi:line(osc,'#a78bfa','RSI'),data:[],days:null};
+    v.md.createPriceLine({price:0,color:'#33404a',lineWidth:1,lineStyle:2,axisLabelVisible:true});
+    v.rsi.applyOptions({autoscaleInfoProvider:()=>({priceRange:{minValue:0,maxValue:100}})});
+    for(const [level,color] of [[70,'#f85149'],[50,'#33404a'],[30,'#3fb950']])v.rsi.createPriceLine({price:level,color,lineWidth:1,lineStyle:2,axisLabelVisible:level!==50});
+    let lock=false;
+    for(const pane of v.panes){
+      pane.timeScale().subscribeVisibleLogicalRangeChange(range=>{
+        if(lock||!range)return;lock=true;
+        try{for(const other of v.panes)if(other!==pane)other.timeScale().setVisibleLogicalRange(range);}finally{lock=false;}
+      });
+      pane.subscribeCrosshairMove(event=>{
+        const b=v.byTime?.get(event.time);if(b)read(frame,b);
+      });
+    }
+    charts.set(frame,v);
+  }
+  const values=rsi(data.map(b=>b.close),14);
+  v.data=data.map((b,i)=>({...b,rsi:values[i]}));v.byTime=new Map(v.data.map(b=>[b.time,b]));
+  v.candles.setData(data.map(({time,open,high,low,close})=>({time,open,high,low,close})));
+  for(const key of ['ma','md','sb','rsi'])v[key].setData(v.data.map(b=>Number.isFinite(b[key])?{time:b.time,value:b[key]}:{time:b.time}));
+  el('tfImacd_'+frame).setAttribute('aria-label',`Impulse MACD ${length}/13`);
+  el('tfRsiValue_'+frame).textContent=Number.isFinite(values.at(-1))?values.at(-1).toFixed(1):'—';
+  if(v.days!==days){v.days=days;reset(frame);}
+  read(frame,v.data.at(-1));
+}
+function read(frame,b){
+  const value=n=>Number.isFinite(n)?n.toFixed(1):'—';
+  el('tfRead_'+frame).textContent=`${stamp(b.closeTime)} · close ${usd(b.close)} · daily SMA200 ${Number.isFinite(b.ma)?usd(b.ma):'—'} · impulse ${value(b.md)} · signal ${value(b.sb)} · RSI ${value(b.rsi)}`;
+}
+function reset(frame){
+  const v=charts.get(frame);if(!v?.data.length)return;
+  for(const pane of v.panes)pane.priceScale('right').applyOptions({autoScale:true});
+  const end=v.data.at(-1).time,span=frame==='d'?86400:14400;
+  v.panes[0].timeScale().setVisibleRange({from:Math.max(v.data[0].time,end-v.days*86400+span),to:end});
 }
 for(const frame of ['d','h']){
   el('tfLength_'+frame).onchange=render;el('tfRange_'+frame).onchange=render;
+  el('tfReset_'+frame).onclick=()=>reset(frame);
   el('tfRefresh_'+frame).onclick=()=>window.BTC_SIGNALS?.refresh();
-  new ResizeObserver(render).observe(el('tfChart_'+frame));
 }
 window.addEventListener('btc:signals',render);
+window.addEventListener('btc:chart-ready',render);
 window.BTC_TIMEFRAMES={onShow(frame){active=frame;render();}};
