@@ -1,7 +1,7 @@
-import './timeframes.js';
+import './timeframes.js?v=20261018-restored-charts';
 /* Shared fast iMACD + recovery strategy, identical to Telegram. */
-import {calculate as fastCalculate, advance, newState} from './fast-strategy.mjs';
-import {calculateBTC, replay as mstrReplay, stockRegimes, before} from './mstr-strategy.mjs';
+import {calculate as fastCalculate, advance, newState} from './fast-strategy.mjs?v=20261018-72h2x';
+import {calculateBTC, replay as mstrReplay, stockRegimes, before} from './mstr-strategy.mjs?v=20261018-72h2x';
 window.BTC_SIGNALS = (() => {
   const el = id => document.getElementById(id);
   const stamp = t => new Date(t * 1000).toISOString().slice(0, 16).replace('T', ' ') + ' UTC';

@@ -1,6 +1,6 @@
 // BTC fast + Vortex timing, with the BTC/MSTR joint SMA200 cash override.
 // Daily stock opening execution, matching the principal research comparison.
-import {calculate,advance,newState,H4,DAY,EQUAL_TIMEFRAME_WEIGHTS} from './fast-strategy.mjs';
+import {calculate,advance,newState,H4,DAY,EQUAL_TIMEFRAME_WEIGHTS} from './fast-strategy.mjs?v=20261018-72h2x';
 export const STRATEGY='mstr-btc-vortex-joint200-daily-v1';
 export const START=Date.UTC(2023,0,1)/1000;
 export const stamp=t=>new Date(t*1000).toISOString().slice(0,16).replace('T',' ')+' UTC';

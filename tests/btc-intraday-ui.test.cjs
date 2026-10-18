@@ -1,7 +1,7 @@
 const fs=require('fs'),path=require('path'),http=require('http'),assert=require('assert/strict');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'C:/Users/Jiaow/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
 const root=path.resolve(__dirname,'..');
-const lib=fs.readFileSync(process.env.BTC_CHART_LIBRARY||path.join(root,'research/btc-intraday-tuning-2026/cache/lightweight-charts.js'));
+const lib=fs.readFileSync(process.env.BTC_CHART_LIBRARY||path.join(root,'assets/btc/vendor/lightweight-charts-4.2.3.js'));
 (async()=>{
   const server=http.createServer((req,res)=>{const p=path.resolve(root,'.'+new URL(req.url,'http://local').pathname);if(!p.startsWith(root+path.sep)){res.writeHead(403);return res.end();}
     try{res.setHeader('Content-Type',/\.m?js$/.test(p)?'application/javascript':p.endsWith('.html')?'text/html':p.endsWith('.css')?'text/css':'application/json');res.end(fs.readFileSync(p));}catch{res.writeHead(404);res.end();}});

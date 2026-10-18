@@ -24,7 +24,7 @@ BTC BUY · $77,383.47
 
 Daily breadth is the completed 00:00 UTC candle (08:00 Singapore). The schedule checks at seven minutes after each 4h close. GitHub scheduling is best effort and can be substantially late; the timestamp and price identify the model's bar, not a real execution or the delivery time. Missed runs replay all intervening bars and queue each trade, rather than comparing only the final position. Errors remain in Actions logs and fail the run; no weekly, startup, funding or Telegram error messages.
 
-The first website tab and this bot import the same `assets/btc/fast-strategy.mjs` model. Keep the first tab aligned whenever a newer strategy is adopted. The Indicators tab exposes the same current strategy votes. Daily and 4h inspect the same closed candles and confirmed daily SMA200 regime, with iMACD 14/21/34 and signal 13. Average was retired from the page; its model is preserved in `research/btc-bull-accumulation-2026/legacy-average.js`. The tunable 1h/5m tabs are separate research models, not Telegram instructions; the October intraday study did not validate a replacement.
+The first website tab and this bot import the same `assets/btc/fast-strategy.mjs` model. Keep the first tab aligned whenever a newer strategy is adopted. The Indicators tab exposes the same current strategy votes. Daily and 4h use the same closed candle source and show the confirmed daily strategy regime above their restored interactive research charts. Their chart overlays use local SMA200, tunable iMACD 14/21/34 with signal 9/13 (default 14/13), RSI and cycle annotations; these chart controls do not change Telegram rules. Average was retired from the page; its model is preserved in `research/btc-bull-accumulation-2026/legacy-average.js`. The tunable 1h/5m tabs are separate research models, not Telegram instructions; the October intraday study did not validate a replacement.
 
 ## State and migration
 
@@ -61,3 +61,7 @@ The new MSTR rule is a historical research selection, not a promise of future ou
 ## Previous failure
 
 The old script extracted `computeEnsemble` from `btc.html` without extracting its new `ensRiskContext` dependency, causing `ReferenceError: ensRiskContext is not defined`. The old catch handler sent a Telegram error but did not set a failing exit code. The replacement extracts only the indicator primitives it uses and has annual research parity coverage; errors exit nonzero.
+
+### Browser chart releases
+
+The chart library is pinned locally at `assets/btc/vendor/lightweight-charts-4.2.3.js`, with its license and notice; CDNs are fallbacks. Browser CSS and module entry/import URLs carry release versions. Bump the affected import URL and its ancestors when changing a browser module, so cached HTML/module combinations cannot mix incompatible chart layouts. Run `tests/btc-chart-cache.test.cjs` to exercise a warm-cache upgrade, alongside the chart interaction tests.

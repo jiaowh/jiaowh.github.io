@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BTC · Market Signals</title>
-<link rel="stylesheet" href="assets/btc/signals.css">
+<link rel="stylesheet" href="assets/btc/signals.css?v=20261018-restored-charts">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<!-- charting library loaded defensively in the script below (multi-CDN fallback) -->
+<!-- Pinned local chart library, with CDN fallbacks. -->
 <style>
   :root{
     --bg:#0a0e12; --panel:#11161c; --panel2:#0d1217; --grid:#1e262e;
@@ -161,36 +161,111 @@
 
 <main>
   <section class="panel" id="panel_d" hidden>
-    <div class="signal-toolbar">
-      <label for="tfLength_d">iMACD</label><select id="tfLength_d" class="rng"><option value="14">14 / 13</option><option value="21">21 / 13</option><option value="34">34 / 13</option></select>
-      <label class="sr-only" for="tfRange_d">Chart period</label><select id="tfRange_d" class="rng"><option value="90">Last 90 days</option><option value="365">Last year</option></select>
-      <button id="tfReset_d">Reset view</button><button id="tfRefresh_d">Refresh</button>
-    </div>
+    <div class="signal-toolbar"><label for="tfRange_d">View</label><select id="tfRange_d" class="rng"><option value="90">Last 90 days</option><option value="365" selected>Last year</option></select><button id="tfReset_d">Reset view</button><button id="tfRefresh_d">Refresh</button></div>
     <div id="tfStatus_d" class="tf-status" aria-live="polite">Loading strategy candles…</div>
-    <div class="signal-legend"><span>BTC candles</span><span style="color:var(--amber)">Daily SMA200</span><span>Drag to pan · drag axes to scale</span></div>
-    <div id="tfChart_d" class="chartbox"></div>
-    <div class="imacd-head"><span class="h">Impulse MACD</span><span class="imacd-legend"><span class="item"><span class="ln" style="border-top-color:var(--amber)"></span>Impulse</span><span class="item"><span class="ln" style="border-top-color:#6f9fcf"></span>Signal 13</span></span></div>
-    <div id="tfImacd_d" class="imacdbox"></div>
-    <div class="imacd-head"><span class="h">RSI · 14</span><span class="sub">70 / 30</span><span class="imacd-legend">now <span id="tfRsiValue_d" class="thr" style="color:#a78bfa">—</span></span></div>
-    <div id="tfRsi_d" class="rsibox"></div>
-    <p id="tfRead_d" class="signal-read"></p>
+    <div class="toolbar">
+      <label><input type="checkbox" id="tFast_d" checked><span class="sw" style="background:var(--amber)"></span>Daily lows (DCL)</label>
+      <label><input type="checkbox" id="tSlow_d" checked><span class="sw" style="background:var(--cyan)"></span>Weekly lows (WCL)</label>
+      <label><input type="checkbox" id="tFsine_d"><span class="sw" style="background:var(--amber);opacity:.5"></span>Daily cycle wave</label>
+      <label><input type="checkbox" id="tSsine_d"><span class="sw" style="background:var(--cyan);opacity:.5"></span>Weekly cycle wave</label>
+      <label title="When a cycle runs past its window and price is still dropping, keep searching to the true low and start the next count there."><input type="checkbox" id="tChase_d" checked>Chase stretched lows</label>
+      <label title="Shaded band projects the next expected daily cycle-low timing window."><input type="checkbox" id="tWin_d" checked><span class="sw" style="background:var(--amber)"></span>Next DCL window</label>
+      <label title="200-bar SMA regime: the line runs green while price closes above it, red below, and the chart takes a faint red tint underneath. This is a local chart reference; the daily buffered strategy regime is shown above."><input type="checkbox" id="tSMA_d" checked><span class="sw" style="background:var(--up)"></span>Local SMA200</label>
+      <label title="Turtle exit rail: the Donchian-20 lower channel from the last confirmed cycle low forward. Exit on a close below the rail; it ratchets up as the trade advances and never falls."><input type="checkbox" id="tRail_d" checked><span class="sw" style="background:rgba(255,176,0,0.55)"></span>Exit rail · D20</label>
+      <label title="Bollinger reversion sleeve (off by default): BB(20,2) mid + lower band, with a cyan dot wherever price closes below the lower band while still above SMA200 — a separate quick trade that targets the mid band."><input type="checkbox" id="tBB_d"><span class="sw" style="background:var(--cyan)"></span>BB reversion sleeve</label>
+      <span class="integrity" id="integrity_d" style="margin-left:auto"></span>
+    </div>
+    <div id="chart_d" class="chartbox"></div>
+    <div class="siglegend">
+      <span class="lg"><span class="gl" style="color:rgba(63,185,80,0.5)">&#9679;</span>low &rarr; <span class="gl" style="color:#3fb950">&#9650;</span><b style="color:#3fb950">trg</b> &mdash; the low and the close that confirmed it, causal, never repaints</span>
+      <span class="lg"><span class="gl" style="color:rgba(255,176,0,0.55)">&#9679;</span>DCL <span class="gl" style="color:rgba(56,189,248,0.5)">&#9650;</span>WCL &mdash; hindsight labels, they repaint</span>
+      <span class="lg"><span class="dsh" style="border-top-color:var(--amber)"></span>TRIG &mdash; the close that confirms the low</span>
+      <span class="lg"><span class="ln2" style="border-top-color:#3fb950"></span><span class="ln2" style="border-top-color:#f85149"></span>Local SMA200 &middot; red tint = below</span>
+      <span class="lg"><span class="ln2" style="border-top-color:rgba(255,176,0,0.55)"></span>D20 rail &mdash; trailing exit</span>
+      <span class="lg"><span class="gl" style="color:var(--cyan)">&#9679;</span>BB reversion &mdash; opt-in sleeve</span>
+    </div>
+    <div class="imacd-head">
+      <span class="h">Impulse MACD · Daily</span>
+      <label for="iLength_d" class="sr-only">iMACD length</label><select id="iLength_d" class="rng"><option value="14" selected>Length 14</option><option value="21">Length 21</option><option value="34">Length 34</option></select>
+      <label for="iSignal_d" class="sr-only">Signal length</label><select id="iSignal_d" class="rng"><option value="9">Signal 9</option><option value="13" selected>Signal 13</option></select>
+      <span class="sub">rolling threshold · dots and divergences shown at confirmation</span>
+      <span class="imacd-legend">
+        <span class="item"><span class="ln" style="border-top-color:var(--amber)"></span>Impulse</span>
+        <span class="item"><span class="ln" style="border-top-color:#6f9fcf"></span>Signal</span>
+        <span class="item"><span style="color:#3fb950;font-size:9px">&#9679;</span><span style="color:#f85149;font-size:9px">&#9679;</span> turns</span>
+        <span class="item">threshold <span class="thr" id="thr_d" style="color:var(--amber)">—</span></span>
+      </span>
+    </div>
+    <div id="imacd_d" class="imacdbox"></div>
+    <div class="imacd-head">
+      <span class="h">RSI · 14</span>
+      <span class="sub">Wilder's smoothing · 70/30 bands · arrows = confirmed price-vs-RSI divergences</span>
+      <span class="imacd-legend">
+        <span class="item"><span class="ln" style="border-top-color:#a78bfa"></span>RSI</span>
+        <span class="item">now <span class="thr" id="rsiv_d" style="color:#a78bfa">—</span></span>
+      </span>
+    </div>
+    <div id="rsi_d" class="rsibox"></div>
+    <div class="cards">
+      <div class="card fast"><h2><span class="sw" style="background:var(--amber);width:11px;height:11px;border-radius:2px"></span>Daily cycle · ~60 days</h2><div class="kv" id="fastKV_d"></div></div>
+      <div class="card slow"><h2><span class="sw" style="background:var(--cyan);width:11px;height:11px;border-radius:2px"></span>Weekly cycle · ~22 weeks</h2><div class="kv" id="slowKV_d"></div></div>
+    </div>
+    <div class="sig" id="signal_d"></div>
     <p id="tfSource_d" class="acc-note" role="status"></p>
   </section>
 
+  <!-- ================= 4-HOUR ================= -->
   <section class="panel" id="panel_h" hidden>
-    <div class="signal-toolbar">
-      <label for="tfLength_h">iMACD</label><select id="tfLength_h" class="rng"><option value="14">14 / 13</option><option value="21">21 / 13</option><option value="34">34 / 13</option></select>
-      <label class="sr-only" for="tfRange_h">Chart period</label><select id="tfRange_h" class="rng"><option value="90">Last 90 days</option><option value="365">Last year</option></select>
-      <button id="tfReset_h">Reset view</button><button id="tfRefresh_h">Refresh</button>
-    </div>
+    <div class="signal-toolbar"><label for="tfRange_h">View</label><select id="tfRange_h" class="rng"><option value="90">Last 90 days</option><option value="365" >Last year</option></select><button id="tfReset_h">Reset view</button><button id="tfRefresh_h">Refresh</button></div>
     <div id="tfStatus_h" class="tf-status" aria-live="polite">Loading strategy candles…</div>
-    <div class="signal-legend"><span>BTC candles</span><span style="color:var(--amber)">Daily SMA200</span><span>Drag to pan · drag axes to scale</span></div>
-    <div id="tfChart_h" class="chartbox"></div>
-    <div class="imacd-head"><span class="h">Impulse MACD</span><span class="imacd-legend"><span class="item"><span class="ln" style="border-top-color:var(--amber)"></span>Impulse</span><span class="item"><span class="ln" style="border-top-color:#6f9fcf"></span>Signal 13</span></span></div>
-    <div id="tfImacd_h" class="imacdbox"></div>
-    <div class="imacd-head"><span class="h">RSI · 14</span><span class="sub">70 / 30</span><span class="imacd-legend">now <span id="tfRsiValue_h" class="thr" style="color:#a78bfa">—</span></span></div>
-    <div id="tfRsi_h" class="rsibox"></div>
-    <p id="tfRead_h" class="signal-read"></p>
+    <div class="toolbar">
+      <label><input type="checkbox" id="tFast_h" checked><span class="sw" style="background:var(--amber)"></span>4H lows</label>
+      <label><input type="checkbox" id="tSlow_h" checked><span class="sw" style="background:var(--cyan)"></span>Daily lows</label>
+      <label><input type="checkbox" id="tFsine_h"><span class="sw" style="background:var(--amber);opacity:.5"></span>4H cycle wave</label>
+      <label><input type="checkbox" id="tSsine_h"><span class="sw" style="background:var(--cyan);opacity:.5"></span>Daily cycle wave</label>
+      <label title="When a cycle runs past its window and price is still dropping, keep searching to the true low and start the next count there."><input type="checkbox" id="tChase_h" checked>Chase stretched lows</label>
+      <label title="Shaded band projects the next expected 4H cycle-low timing window."><input type="checkbox" id="tWin_h" checked><span class="sw" style="background:var(--amber)"></span>Next 4H window</label>
+      <label title="200-bar SMA regime: the line runs green while price closes above it, red below, and the chart takes a faint red tint underneath. This is a local chart reference; the daily buffered strategy regime is shown above."><input type="checkbox" id="tSMA_h" checked><span class="sw" style="background:var(--up)"></span>Local SMA200</label>
+      <label title="Turtle exit rail: the Donchian-20 lower channel from the last confirmed cycle low forward. Exit on a close below the rail; it ratchets up as the trade advances and never falls."><input type="checkbox" id="tRail_h" checked><span class="sw" style="background:rgba(255,176,0,0.55)"></span>Exit rail · D20</label>
+      <label title="Bollinger reversion sleeve (off by default): BB(20,2) mid + lower band, with a cyan dot wherever price closes below the lower band while still above SMA200 — a separate quick trade that targets the mid band."><input type="checkbox" id="tBB_h"><span class="sw" style="background:var(--cyan)"></span>BB reversion sleeve</label>
+      <span class="integrity" id="integrity_h" style="margin-left:auto"></span>
+    </div>
+    <div id="chart_h" class="chartbox"></div>
+    <div class="siglegend">
+      <span class="lg"><span class="gl" style="color:rgba(63,185,80,0.5)">&#9679;</span>low &rarr; <span class="gl" style="color:#3fb950">&#9650;</span><b style="color:#3fb950">trg</b> &mdash; the low and the close that confirmed it, causal, never repaints</span>
+      <span class="lg"><span class="gl" style="color:rgba(255,176,0,0.55)">&#9679;</span>DCL <span class="gl" style="color:rgba(56,189,248,0.5)">&#9650;</span>WCL &mdash; hindsight labels, they repaint</span>
+      <span class="lg"><span class="dsh" style="border-top-color:var(--amber)"></span>TRIG &mdash; the close that confirms the low</span>
+      <span class="lg"><span class="ln2" style="border-top-color:#3fb950"></span><span class="ln2" style="border-top-color:#f85149"></span>Local SMA200 &middot; red tint = below</span>
+      <span class="lg"><span class="ln2" style="border-top-color:rgba(255,176,0,0.55)"></span>D20 rail &mdash; trailing exit</span>
+      <span class="lg"><span class="gl" style="color:var(--cyan)">&#9679;</span>BB reversion &mdash; opt-in sleeve</span>
+    </div>
+    <div class="imacd-head">
+      <span class="h">Impulse MACD · 4H</span>
+      <label for="iLength_h" class="sr-only">iMACD length</label><select id="iLength_h" class="rng"><option value="14" selected>Length 14</option><option value="21">Length 21</option><option value="34">Length 34</option></select>
+      <label for="iSignal_h" class="sr-only">Signal length</label><select id="iSignal_h" class="rng"><option value="9">Signal 9</option><option value="13" selected>Signal 13</option></select>
+      <span class="sub">rolling threshold · dots and divergences shown at confirmation</span>
+      <span class="imacd-legend">
+        <span class="item"><span class="ln" style="border-top-color:var(--amber)"></span>Impulse</span>
+        <span class="item"><span class="ln" style="border-top-color:#6f9fcf"></span>Signal</span>
+        <span class="item"><span style="color:#3fb950;font-size:9px">&#9679;</span><span style="color:#f85149;font-size:9px">&#9679;</span> turns</span>
+        <span class="item">threshold <span class="thr" id="thr_h" style="color:var(--amber)">—</span></span>
+      </span>
+    </div>
+    <div id="imacd_h" class="imacdbox"></div>
+    <div class="imacd-head">
+      <span class="h">RSI · 14 · 4H</span>
+      <span class="sub">Wilder's smoothing · 70/30 bands · arrows = confirmed price-vs-RSI divergences</span>
+      <span class="imacd-legend">
+        <span class="item"><span class="ln" style="border-top-color:#a78bfa"></span>RSI</span>
+        <span class="item">now <span class="thr" id="rsiv_h" style="color:#a78bfa">—</span></span>
+      </span>
+    </div>
+    <div id="rsi_h" class="rsibox"></div>
+    <div class="cards">
+      <div class="card fast"><h2><span class="sw" style="background:var(--amber);width:11px;height:11px;border-radius:2px"></span>4H cycle · ~8 days</h2><div class="kv" id="fastKV_h"></div></div>
+      <div class="card slow"><h2><span class="sw" style="background:var(--cyan);width:11px;height:11px;border-radius:2px"></span>Daily cycle · ~60 days</h2><div class="kv" id="slowKV_h"></div></div>
+    </div>
+    <div class="sig" id="signal_h"></div>
     <p id="tfSource_h" class="acc-note" role="status"></p>
   </section>
 
@@ -865,7 +940,7 @@ function ensSpread(v,ends,n){
   return st;
 }
 function makeView(cfg){
-  const E=cfg.el;
+  const E=cfg.el, viewKey=cfg.el.chart.slice(6);
   let chart,candles,fastSine,slowSine,winD;
   let smaUp,smaDn,regTint,railL,bbMidS,bbLoS;
   let sigLines=[];
@@ -1151,7 +1226,7 @@ function makeView(cfg){
     winD.setData(times.map(t=>(t>=win.lo&&t<=win.hi)?{time:t,value:1}:{time:t}));
   }
 
-  function oscillatorSettings(){return {length:Number($("iLength_"+cfg.interval).value),signal:Number($("iSignal_"+cfg.interval).value)};}
+  function oscillatorSettings(){return {length:Number($("iLength_"+viewKey).value),signal:Number($("iSignal_"+viewKey).value)};}
   function renderIMACD(fws){
     const settings=oscillatorSettings(),d=impulseMACD(C,settings.length,settings.signal);
     // whitespace at warmup + future so the pane shares bar indices with the price chart
@@ -1323,7 +1398,7 @@ function makeView(cfg){
     renderWindows(win,fws);
     renderSignal();
     if(E.scalp)renderScalp(fws);
-    chart.timeScale().fitContent();
+    if(!cfg.external)chart.timeScale().fitContent();
   }
 
 
@@ -1346,10 +1421,10 @@ function makeView(cfg){
   }
   function onShow(){
     if(!chart)return;
-    requestAnimationFrame(()=>chart.timeScale().fitContent());
+    if(!cfg.external)requestAnimationFrame(()=>chart.timeScale().fitContent());
   }
   function wire(){
-    ["iLength_","iSignal_"].forEach(prefix=>{$(prefix+cfg.interval).onchange=()=>{if(C)renderAll();};});
+    ["iLength_","iSignal_"].forEach(prefix=>{$(prefix+viewKey).onchange=()=>{if(C)renderAll();};});
     if(E.scalp)['scalpRR','scalpHours'].forEach(id=>{$(id).onchange=()=>{if(C)renderAll();};});
     [E.tFast,E.tSlow,E.tFsine,E.tSsine].forEach(id=>{const el=$(id);if(el)el.onchange=()=>{if(C){buildMarkers();buildSines();}};});
     const ch=$(E.tChase);if(ch)ch.onchange=()=>{CHASE=ch.checked;recompute();};
@@ -1399,11 +1474,31 @@ function makeView(cfg){
 
   initCharts();wire();
   return {load,onShow,getCandles:()=>C,getScalp:()=>SCALP,
+    setCandles:(data,src)=>{C=data;SRC=src;recompute();},
+    resetScale:()=>{[chart,imChart,rsiChart].forEach(p=>p.priceScale("right").applyOptions({autoScale:true}));},
     setVisibleRange:(a,b)=>{try{chart.timeScale().setVisibleRange({from:a,to:b});}catch(e){}},
     setAux1h:(c)=>{AUX1H=c;if(C&&E.scalp)renderAll();}};
 }
 
 // ---------- view configs ----------
+const CFG_D={
+  external:true,
+  interval:"1d", gran:86400, limit:4000, barSecs:DAY, barsPerDay:1,
+  fast:{min:40,max:75,ideal:60,amp:1.6,tag:"DCL",unit:"d"},
+  slow:{min:120,max:190,ideal:154,amp:2.4,tag:"WCL",unit:"w"},
+  el:{chart:"chart_d",imacd:"imacd_d",rsi:"rsi_d",rsiv:"rsiv_d",integrity:"integrity_d",fastKV:"fastKV_d",slowKV:"slowKV_d",thr:"thr_d",signal:"signal_d",
+      tFast:"tFast_d",tSlow:"tSlow_d",tFsine:"tFsine_d",tSsine:"tSsine_d",tChase:"tChase_d",tWin:"tWin_d",
+      tSMA:"tSMA_d",tRail:"tRail_d",tBB:"tBB_d"}
+};
+const CFG_H={
+  external:true,
+  interval:"4h", gran:14400, limit:3000, barSecs:14400, barsPerDay:6,
+  fast:{min:36,max:72,ideal:48,amp:1.6,tag:"4HCL",unit:"d"},
+  slow:{min:240,max:450,ideal:360,amp:2.4,tag:"DCL",unit:"d"},
+  el:{chart:"chart_h",imacd:"imacd_h",rsi:"rsi_h",rsiv:"rsiv_h",integrity:"integrity_h",fastKV:"fastKV_h",slowKV:"slowKV_h",thr:"thr_h",signal:"signal_h",
+      tFast:"tFast_h",tSlow:"tSlow_h",tFsine:"tFsine_h",tSsine:"tSsine_h",tChase:"tChase_h",tWin:"tWin_h",
+      tSMA:"tSMA_h",tRail:"tRail_h",tBB:"tBB_h"}
+};
 const CFG_1H={
   interval:"1h", gran:3600, limit:3000, barSecs:3600, barsPerDay:24,
   fast:{min:30,max:72,ideal:48,amp:1.6,tag:"1HCL",unit:"d"},
@@ -1436,7 +1531,7 @@ function showTab(tab){
 async function loadAll(){
   setStatus("","loading");
   try{const p=await getPrice();$("price").firstChild.nodeValue=p.toLocaleString("en-US",{style:"currency",currency:"USD"});}catch(e){}
-  const res=await Promise.allSettled(Object.values(VIEWS).map(v=>v.load()));
+  const res=await Promise.allSettled([VIEWS["1h"],VIEWS["5m"]].filter(Boolean).map(v=>v.load()));
   // the 5m scalp layer needs the 1h candles (trend gate) — hand them over once both landed
   if(VIEWS["5m"]&&VIEWS["1h"]&&VIEWS["1h"].getCandles())VIEWS["5m"].setAux1h(VIEWS["1h"].getCandles());
   const ok=res.some(r=>r.status==="fulfilled"&&r.value);
@@ -1446,13 +1541,15 @@ async function loadAll(){
 // ---------- chart-library loader (multi-CDN fallback) ----------
 function loadChartLib(){
   if(window.LightweightCharts)return Promise.resolve();
-  const cdns=["https://cdn.jsdelivr.net/npm/lightweight-charts@4/dist/lightweight-charts.standalone.production.js",
-              "https://unpkg.com/lightweight-charts@4/dist/lightweight-charts.standalone.production.js"];
+  const cdns=["assets/btc/vendor/lightweight-charts-4.2.3.js","https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js",
+              "https://unpkg.com/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js"];
   return new Promise((res,rej)=>{let i=0;const go=()=>{if(i>=cdns.length){rej();return;}
     const s=document.createElement("script");s.src=cdns[i++];
     s.onload=()=>window.LightweightCharts?res():go();s.onerror=go;document.head.appendChild(s);};go();});
 }
 loadChartLib().then(()=>{
+  VIEWS["d"]=makeView(CFG_D);
+  VIEWS["h"]=makeView(CFG_H);
   window.dispatchEvent(new Event("btc:chart-ready"));
   VIEWS["1h"]=makeView(CFG_1H);
   VIEWS["5m"]=makeView(CFG_5M);
@@ -1460,7 +1557,7 @@ loadChartLib().then(()=>{
   loadAll();
   fetchFunding();
 }).catch(error=>{console.error('Chart initialization failed',error);setStatus("err","chart unavailable");
-  ["chart_1h","chart_5m","tfChart_d","tfChart_h"].forEach(id=>{const e=$(id);if(e)e.innerHTML='<div style="padding:22px;color:#6b7882;font-size:13px;line-height:1.5">Couldn\'t load the charting library from jsDelivr or unpkg — likely a network block. Download <span class="mono">lightweight-charts.standalone.production.js</span> and reference it locally.</div>';});});
+  ["chart_1h","chart_5m","chart_d","chart_h"].forEach(id=>{const e=$(id);if(e)e.innerHTML='<div style="padding:22px;color:#6b7882;font-size:13px;line-height:1.5">Charts could not load. Reload the page to try again.</div>';});});
 $("refresh").onclick=()=>{if(["signals","indicators","d","h"].includes(activeTab)){window.BTC_SIGNALS?.refresh();return;}if(window.LightweightCharts&&VIEWS["1h"])loadAll();LIQ.refresh();};
 // auto-refresh every 5 minutes while the page sits open
 setInterval(()=>{if(window.LightweightCharts&&VIEWS["1h"])loadAll();LIQ.refresh();},300000);
@@ -1730,6 +1827,6 @@ const LIQ=(()=>{
 // still works if both chart CDNs are blocked (the .then() wiring never runs then)
 $$(".tab").forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
 </script>
-<script type="module" src="assets/btc/signals.js"></script>
+<script type="module" src="assets/btc/signals.js?v=20261018-restored-charts"></script>
 </body>
 </html>
