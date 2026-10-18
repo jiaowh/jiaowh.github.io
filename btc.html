@@ -298,7 +298,7 @@
   </section>
 
   <section class="panel" id="panel_signals">
-    <div class="signal-toolbar"><label for="signalAsset">Asset</label><select id="signalAsset" class="rng"><option value="BTC">BTC · fast recovery</option><option value="MSTR">MSTR · BTC fast + Vortex</option></select></div>
+    <div class="signal-toolbar"><label for="signalAsset">Asset</label><select id="signalAsset" class="rng"><option value="BTC">BTC · 72h ×2 recovery</option><option value="MSTR">MSTR · BTC fast + Vortex</option></select></div>
     <div id="signalCards" class="signal-cards" aria-live="polite">
       <div class="signal-card"><small>SMA200</small><strong>—</strong></div>
       <div class="signal-card"><small>Breadth</small><strong>—</strong></div>
@@ -315,13 +315,12 @@
     <details class="signal-results" id="signalResults"><summary>Latest strategy results</summary>
       <div id="signalBTCResults">
       <div class="acc-scroll"><table class="tt"><thead><tr><th>Starting with 1 BTC</th><th>2020–21</th><th>2023–25</th><th>2025–26*</th></tr></thead><tbody>
-        <tr><td>Fast iMACD + recovery</td><td>0.9304</td><td>2.1072</td><td>1.1979</td></tr>
-        <tr><td>Fast + Vortex</td><td>1.1615†</td><td>1.8016</td><td>1.0944</td></tr>
-        <tr><td>Fast 40/65 thresholds</td><td>1.8243†</td><td>1.6282</td><td>1.0559</td></tr>
+        <tr><td>72h ×2 + recovery · current</td><td>1.0838</td><td>2.2566</td><td>1.2735</td></tr>
+        <tr><td>Equal timeframes · previous</td><td>0.9304</td><td>2.1072</td><td>1.1979</td></tr>
       </tbody></table></div>
-      <p>Backtested BTC after fees. * Through Oct 9, 2026. † Cash valued as BTC. Current strategy lost to holding in 2020–21 and ended 2026 at 0.9774 BTC.</p>
-      <p>Chart and Telegram: fast iMACD + recovery. Trades carry from Jan 2023; earlier years start with BTC each January. Historical tuning is not a guarantee.</p>
-      <div class="signal-links"><a href="research/mstr-fast-recovery-2026/ICHIMOKU_REPORT.md">Latest comparison ↗</a><a href="btc-trades.html?rule=refined">Previous strategy trades ↗</a></div>
+      <p>Backtested BTC after fees. * Through Oct 9, 2026. 2026: 1.0000 BTC held throughout; dollar drawdown remained 40%.</p>
+      <p>72h votes ×2; iMACD stays 72%. Historical model trades carry from Jan 2023; earlier years reset. Won 6/8 recent-cycle candle alignments; future results may differ.</p>
+      <div class="signal-links"><a href="research/btc-timeframe-weights-2026/REPORT.md">Latest comparison ↗</a><a href="btc-trades.html?rule=refined">Previous strategy trades ↗</a></div>
       </div>
       <div id="signalMSTRResults" hidden>
         <div class="acc-scroll"><table class="tt"><thead><tr><th>Starting with 1 share</th><th>2023–25</th><th>2025–26*</th></tr></thead><tbody>
@@ -336,7 +335,7 @@
 
   <section class="panel" id="panel_indicators" hidden>
     <div class="signal-toolbar">
-      <label for="indicatorAsset">Asset</label><select id="indicatorAsset" class="rng"><option value="BTC">BTC · fast recovery</option><option value="MSTR">MSTR · BTC fast + Vortex</option></select>
+      <label for="indicatorAsset">Asset</label><select id="indicatorAsset" class="rng"><option value="BTC">BTC · 72h ×2 recovery</option><option value="MSTR">MSTR · BTC fast + Vortex</option></select>
       <button id="indicatorRefresh" aria-label="Refresh indicators">Refresh</button>
     </div>
     <div id="indicatorSummary" class="signal-cards" aria-live="polite"><div class="signal-card"><small>Breadth</small><strong>—</strong></div></div>

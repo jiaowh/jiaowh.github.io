@@ -1,6 +1,7 @@
 name: BTC and MSTR strategy alerts
 
-# Fast iMACD 14/21/34, signal 13, >50% early buyback. Signals only; no orders.
+# BTC: fast iMACD 14/21/34, signal 13, double 72h, >50% early buyback.
+# MSTR retains its equal-timeframe BTC + Vortex rule. Signals only; no orders.
 # Daily breadth at 00:00 UTC (08:00 Singapore), plus every modeled BUY/SELL.
 # Secrets: TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID. No weekly/startup/error messages.
 on:
@@ -39,7 +40,8 @@ jobs:
         with:
           node-version: 20
 
-      # Versioned model state, unsent messages and verified candle history.
+      # Keep the shared cache namespace: the BTC runner migrates v1 to v2 in place,
+      # preserving unsent messages, the current cash lot and the separate MSTR state.
       - uses: actions/cache/restore@v4
         with:
           path: .alert-state

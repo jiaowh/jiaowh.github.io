@@ -2,12 +2,12 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {resolve} from 'node:path';
 import {loadIndicators} from '../.github/scripts/btc_indicators.mjs';
-import {calculate,newState,advance,bootstrap,drain,H4,DAY,dailyText,tradeText} from '../.github/scripts/btc_fast_strategy.mjs';
+import {calculate,newState,advance,bootstrap,drain,H4,DAY,dailyText,tradeText,migrateLegacy,LEGACY_STRATEGY,STRATEGY,EQUAL_TIMEFRAME_WEIGHTS} from '../.github/scripts/btc_fast_strategy.mjs';
 import {mergeCandles} from '../.github/scripts/avg_alert.mjs';
 const root=resolve(import.meta.dirname,'..'), L=loadIndicators(root);
 const seed=JSON.parse(readFileSync(resolve(root,'assets/btc/signal-snapshot.json'),'utf8'));
 const B=seed.bars.map(([time,open,high,low,close])=>({time,open,high,low,close}));
-const rows=calculate(B,L), expected=JSON.parse(readFileSync(resolve(root,'research/btc-bull-accumulation-2026/imacd-summary.json'),'utf8')).details.fast_s13_im100_e50;
+const rows=calculate(B,L), expected=JSON.parse(readFileSync(resolve(root,'research/btc-timeframe-weights-2026/summary.json'),'utf8')).details.w_1_1_1_1_1_2;
 let count=0;
 for (let y=2018;y<=2026;y++) {
   const start=Date.UTC(y,0,1)/1000, end=y===2026?Date.UTC(2026,9,10)/1000:Date.UTC(y+1,0,1)/1000;
@@ -34,9 +34,14 @@ for(const vortex of [false,true]) {
   assert.deepEqual(detailed.slice(0,-1),plain.slice(0,-1));
   assert.equal(members.length,vortex?68:50);
   const weight=members.reduce((s,m)=>s+m.weight,0);
-  assert.equal(weight,vortex?86:50);
+  assert.ok(Math.abs(weight-(vortex?86:50))<1e-12);
   assert.equal(members.reduce((s,m)=>s+(m.bullish?m.weight:0),0)/weight,last.breadth);
   assert.equal(members.filter(m=>m.weight===2).length,vortex?18:0);
+  if(!vortex){
+    assert.ok(Math.abs(members.filter(m=>m.group.endsWith('h')).reduce((s,m)=>s+m.weight,0)/weight-.72)<1e-12);
+    assert.ok(members.filter(m=>m.group==='72h').every(m=>m.weight===12/7));
+    assert.ok(members.filter(m=>m.group==='4h').every(m=>m.weight===6/7));
+  }
   assert.deepEqual(calculate([...B,future],L,undefined,{vortex,details:true}).at(-1),detailed.at(-1));
   const warmup=calculate(B.slice(0,12),L,undefined,{vortex,details:true}).at(-1);
   assert.ok(warmup.members.some(m=>m.bullish===null));
@@ -71,6 +76,32 @@ assert.deepEqual(delivered,['a']);assert.deepEqual(s.outbox,[{text:'b'}]);assert
 await drain(s,async m=>delivered.push(m),()=>{});assert.deepEqual(delivered,['a','b']);
 assert.equal(dailyText(daily).split('\n').length,1);
 assert.equal(tradeText({side:'buy',price:77383.47,time:t}),'BTC BUY · $77,383.47\n2025-01-01 00:00 UTC');
+
+// Migration carries the existing lot, catches up the old rule, and evaluates only
+// the latest close under the adopted rule. No historical weighted trade replay.
+const legacyRow=bar(t-H4,110,{breadth:.4}),weightedRow={...legacyRow,breadth:.6};
+const prior={...newState(t),strategy:LEGACY_STRATEGY,holding:false,sale:100,saleTime:t-DAY,outbox:[{id:'unsent',text:'old trade'}]};
+const originalPrior=structuredClone(prior);
+const migrated=migrateLegacy(prior,[legacyRow],[weightedRow],[legacyRow,bar(t,110)]);
+assert.deepEqual(prior,originalPrior);
+assert.equal(migrated.strategy,STRATEGY);assert.equal(migrated.holding,true);
+assert.equal(migrated.sale,100);assert.equal(migrated.saleTime,t-DAY);
+assert.equal(migrated.outbox[0].id,'unsent');
+assert.equal(migrated.outbox.filter(m=>m.id.startsWith('trade:')).length,1);
+assert.equal(migrated.outbox.at(-1).id,`trade:${t}:buy`);
+assert.equal(migrated.outbox.filter(m=>m.id.startsWith('daily:')).length,0);
+const after=migrated.outbox.length;advance(migrated,[weightedRow],[legacyRow,bar(t)]);assert.equal(migrated.outbox.length,after);
+const remainsCash=migrateLegacy(prior,[legacyRow],[legacyRow],[legacyRow,bar(t)]);
+assert.equal(remainsCash.holding,false);assert.equal(remainsCash.saleTime,prior.saleTime);
+assert.throws(()=>migrateLegacy(prior,[legacyRow],[weightedRow],[legacyRow]),/opening price/);
+assert.throws(()=>migrateLegacy(migrated,[legacyRow],[weightedRow],[legacyRow,bar(t)]),/Unsupported/);
+const queued={...prior,outbox:[{id:`daily:${t}`,text:'old breadth'}]};
+assert.equal(migrateLegacy(queued,[legacyRow],[weightedRow],[legacyRow,bar(t)]).outbox[0].text,dailyText(weightedRow));
+const oldSell=bar(t-2*H4,110,{eligible:true});
+const delayedPrior={...newState(t-2*H4),strategy:LEGACY_STRATEGY};
+const caughtUp=migrateLegacy(delayedPrior,[oldSell,legacyRow],[{...oldSell,eligible:false},weightedRow],[oldSell,legacyRow,bar(t)]);
+assert.deepEqual(caughtUp.outbox.filter(m=>m.id.startsWith('trade:')).map(m=>m.id),[`trade:${t-H4}:sell`,`trade:${t}:buy`]);
+
 // Reject stale, mixed-source or gapped new history before any messages are sent.
 const savedBars=[bar(t)];const incoming=[bar(t),bar(t+H4),bar(t+2*H4)];
 assert.equal(mergeCandles(savedBars,incoming,t+2*H4+60).length,3);

@@ -136,3 +136,7 @@ Validation passed: **126 baseline report comparisons**, **1330 future-truncation
 Searching many configurations can fit historical noise. [Bailey et al., The Probability of Backtest Overfitting](https://www.davidhbailey.com/dhbpapers/backtest-prob.pdf) explains this selection problem; this study does not compute a selection-adjusted probability of profit.
 
 Files: [protocol](PROTOCOL.md), [all 665 candidates](candidates.csv), [selected trade ledgers](trades.csv), [phase/stress summary](summary.json). Full all-phase outcomes remain in locally ignored `results-full.json`. Reproduce with `evaluate.py`, `verify-production.mjs`, then `report.py`, using the adjacent quant repository and frozen inputs referenced by the existing research engine.
+
+## Adoption on 18 October 2026
+
+After reviewing these results, the user authorized deploying double 72h for BTC. The first tab, Indicators tab and Telegram now share the weighted calculator. MSTR retains equal iMACD timeframe weights and its Vortex blend. Migration carries the existing position, sale details and unsent alerts, then evaluates the new rule at the latest completed close. The limitations documented above remain applicable. The production verifier now compares the adopted calculation directly against the frozen Python ledgers.

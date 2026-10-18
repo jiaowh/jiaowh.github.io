@@ -45,7 +45,7 @@ window.BTC_SIGNALS = (() => {
     const votes = Math.round(r.breadth * total);
     el('signalCards').innerHTML = `
       <div class="signal-card" title="${isStock?'Bullish if either BTC or MSTR is bullish. Both bearish forces cash. ':''}Two daily closes above SMA200 +2% turn bullish; two below −2% turn bearish."><small>${isStock?'JOINT ':''}SMA200 REGIME</small><strong style="color:var(--${r.gate ? 'up' : 'down'})">${r.gate ? 'Bullish' : 'Bearish'}</strong><span>${asset()} SMA200 ${usd(r.ma)}</span></div>
-      <div class="signal-card" title="${isStock?'BTC-based: 36 fast iMACD + 36 Vortex weights + 14 daily votes.':'Fast iMACD 14/21/34, signal 13 + recovery.'} Same method as Telegram; not a crash probability."><small>${isStock?'BTC FAST + VORTEX':'FAST iMACD + RECOVERY'}</small><strong>${percent(r.breadth)}</strong><span>${votes} / ${total} bullish ${isStock?'vote weights':'votes'}</span></div>`;
+      <div class="signal-card" title="${isStock?'BTC-based: 36 fast iMACD + 36 Vortex weights + 14 daily votes.':'Fast iMACD 14/21/34, signal 13; 72h votes x2, normalized to 72% iMACD + 28% daily; recovery.'} Same method as Telegram; not a crash probability."><small>${isStock?'BTC FAST + VORTEX':'FAST iMACD · 72h ×2'}</small><strong>${percent(r.breadth)}</strong><span>${isStock?`${votes} / ${total} bullish vote weights`:'Weighted breadth · iMACD 72%'}</span></div>`;
     const visible = view.filter(r => range === '90' ? r.closeTime > view.at(-1).closeTime - 90 * 86400 : new Date(r.time * 1000).getUTCFullYear() === year);
     draw(visible, trades);
   }
@@ -66,7 +66,7 @@ window.BTC_SIGNALS = (() => {
     const btcGate=Number.isFinite(r.ma)?r.gate:null,mstrGate=Number.isFinite(m?.ma)?m.gate:null;
     const gate=isStock?(mstrGate===null?null:btcGate||mstrGate):btcGate;
     el('indicatorSummary').innerHTML=`
-      <div class="signal-card"><small>${isStock?'BTC FAST + VORTEX':'FAST iMACD + RECOVERY'}</small><strong>${known?percent(r.breadth):'—'}</strong><span>${known?votes:'—'} / ${total} bullish ${isStock?'vote weights · Vortex ×2':'votes'}</span></div>
+      <div class="signal-card"><small>${isStock?'BTC FAST + VORTEX':'FAST iMACD · 72h ×2'}</small><strong>${known?percent(r.breadth):'—'}</strong><span>${isStock?`${known?votes:'—'} / ${total} bullish vote weights · Vortex ×2`:'Weighted breadth · iMACD 72%'}</span></div>
       <div class="signal-card"><small>${isStock?'JOINT ':''}SMA200 REGIME</small><strong class="indicator-regime">${dot(gate)}${status(gate)}</strong><span>${isStock?'Bullish when either asset is bullish':'Two daily closes beyond the ±2% band'}</span></div>`;
     const rule=(label,value,detail)=>`<div class="indicator-rule">${dot(value)}<span>${label}</span><b>${detail??status(value)}</b></div>`;
     el('indicatorRules').innerHTML=rule('BTC SMA200',btcGate,Number.isFinite(r.ma)?usd(r.ma):'Unavailable')+
@@ -79,7 +79,12 @@ window.BTC_SIGNALS = (() => {
     const groups=['4h','8h','12h','24h','48h','72h','Daily averages','Daily momentum','Daily breakouts'];
     el('indicatorGroups').innerHTML=groups.map(group=>{
       const members=r.members.filter(v=>v.group===group),sum=members.reduce((s,m)=>s+m.weight,0),yes=members.reduce((s,m)=>s+(m.bullish?m.weight:0),0);
-      return `<section class="indicator-group"><h3>${group}<span>${members.every(m=>m.bullish!==null)?yes:'—'} / ${sum}</span></h3><ul>${members.map(m=>`<li class="indicator-item" data-bullish="${m.bullish}" data-weight="${m.weight}" data-group="${group}" title="${status(m.bullish)}${m.weight>1?' · two breadth votes':''}">${dot(m.bullish)}<span>${m.label}</span>${m.weight>1?'<small>×2</small>':''}<span class="sr-only">${status(m.bullish)}</span></li>`).join('')}</ul></section>`;
+      const knownGroup=members.every(m=>m.bullish!==null),bulls=members.filter(m=>m.bullish).length;
+      const count=isStock?`${knownGroup?yes:'—'} / ${sum}`:`${knownGroup?bulls:'—'} / ${members.length}`;
+      return `<section class="indicator-group"><h3>${group}<span title="Bullish conditions; group share of total breadth">${count} · ${(sum/total*100).toFixed(1)}%</span></h3><ul>${members.map(m=>{
+        const double=isStock?m.weight===2:m.group==='72h';
+        return `<li class="indicator-item" data-bullish="${m.bullish}" data-weight="${m.weight}" data-group="${group}" title="${status(m.bullish)} · ${(m.weight/total*100).toFixed(2)}% of breadth">${dot(m.bullish)}<span>${m.label}</span>${double?'<small>×2</small>':''}<span class="sr-only">${status(m.bullish)}</span></li>`;
+      }).join('')}</ul></section>`;
     }).join('');
     syncIndicatorSource();
   }
@@ -130,7 +135,7 @@ window.BTC_SIGNALS = (() => {
       const t = t0 + (t1 - t0) * i / (labels - 1);
       svg += `<text x="${x(t)}" y="${H - 8}" text-anchor="${i === 0 ? 'start' : i === labels - 1 ? 'end' : 'middle'}">${new Date(t * 1000).toISOString().slice(5, 10)}</text>`;
     }
-    svg += `<text x="${left}" y="17">${asset()==='MSTR'?'MSTR / USD':'BTC / USDT'} · daily SMA200</text><text x="${left}" y="${btop - 15}">${asset()==='MSTR'?'BTC fast + Vortex · 86 weights':'Fast iMACD breadth · 50 votes'}</text><path id="signalCursor" stroke="#94a3b8" stroke-dasharray="3 3"/><rect id="signalHit" x="${left}" y="${top}" width="${right - left}" height="${bbottom - top}" fill="transparent"/></svg>`;
+    svg += `<text x="${left}" y="17">${asset()==='MSTR'?'MSTR / USD':'BTC / USDT'} · daily SMA200</text><text x="${left}" y="${btop - 15}">${asset()==='MSTR'?'BTC fast + Vortex · 86 weights':'Weighted iMACD breadth · 72h ×2'}</text><path id="signalCursor" stroke="#94a3b8" stroke-dasharray="3 3"/><rect id="signalHit" x="${left}" y="${top}" width="${right - left}" height="${bbottom - top}" fill="transparent"/></svg>`;
     el('signalChart').innerHTML = svg;
     const inspect = event => {
       const box = el('signalChart').querySelector('svg').getBoundingClientRect();

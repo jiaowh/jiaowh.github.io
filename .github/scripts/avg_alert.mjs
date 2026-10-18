@@ -3,7 +3,7 @@ import {readFileSync,writeFileSync,mkdirSync,renameSync,existsSync} from 'node:f
 import {dirname,resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {loadIndicators} from './btc_indicators.mjs';
-import {STRATEGY,H4,calculate,bootstrap,advance,drain} from './btc_fast_strategy.mjs';
+import {STRATEGY,LEGACY_STRATEGY,EQUAL_TIMEFRAME_WEIGHTS,H4,calculate,bootstrap,advance,drain,migrateLegacy} from './btc_fast_strategy.mjs';
 
 const ROOT=resolve(dirname(fileURLToPath(import.meta.url)),'../..');
 const STATE=process.env.STATE_FILE||resolve(ROOT,'.alert-state/fast.json');
@@ -67,17 +67,22 @@ export async function main() {
   const seed=read(resolve(ROOT,'assets/btc/signal-snapshot.json')).bars.map(([time,open,high,low,close])=>({time,open,high,low,close}));
   const saved=existsSync(CANDLES)?read(CANDLES):seed;
   const raw=process.env.CANDLES_FILE?mergeCandles(saved,read(process.env.CANDLES_FILE),now):await candles(saved,now);
-  const rows=calculate(raw,loadIndicators(ROOT),now);
+  const indicators=loadIndicators(ROOT),rows=calculate(raw,indicators,now);
   if (!Number.isFinite(rows.at(-1)?.breadth)) throw Error('Insufficient indicator history');
-  // Corrupt state fails closed. A missing/version-mismatched cache bootstraps silently.
+  // Corrupt or unknown state fails closed. Only a missing cache bootstraps silently.
   let state=existsSync(STATE)?read(STATE):null;
-  if (state?.strategy===STRATEGY) {
+  if (state) {
+    if(![STRATEGY,LEGACY_STRATEGY].includes(state.strategy))throw Error('Unknown BTC strategy state');
     if (!Array.isArray(state.outbox)||!Number.isFinite(state.lastClose)||typeof state.holding!=='boolean'||
         (!state.holding&&(!(state.sale>0)||!Number.isFinite(state.saleTime)))) throw Error('Invalid strategy state');
     if (state.lastClose>rows.at(-1).closeTime) throw Error('Feed predates saved state');
-    advance(state,rows,raw);
+    if(state.strategy===LEGACY_STRATEGY){
+      const legacyRows=calculate(raw,indicators,now,{timeframeWeights:EQUAL_TIMEFRAME_WEIGHTS});
+      state=migrateLegacy(state,legacyRows,rows,raw);
+      console.log(`Adopted double-72h weights at ${new Date(state.migratedAt*1000).toISOString()}; carried position and unsent alerts.`);
+    }else advance(state,rows,raw);
   } else {state=bootstrap(rows,raw);console.log('Initialized fast iMACD model; historical trade notifications suppressed.');}
-  if (DRY) {await drain(state,send,()=>{});console.log('Dry run: no persistent changes.');return;}
+  if (DRY) {await drain(state,send,()=>{});console.log(`Dry run: no persistent changes; ${STRATEGY}; model ${state.holding?'BTC':'cash'}.`);return;}
   save(CANDLES,raw.filter(b=>b.time+H4<=now));
   save(STATE,state); // persist the outbox before any external delivery
   await drain(state,send,s=>save(STATE,s));

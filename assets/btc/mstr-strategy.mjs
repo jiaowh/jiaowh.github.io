@@ -1,12 +1,13 @@
 // BTC fast + Vortex timing, with the BTC/MSTR joint SMA200 cash override.
 // Daily stock opening execution, matching the principal research comparison.
-import {calculate,advance,newState,H4,DAY} from './fast-strategy.mjs';
+import {calculate,advance,newState,H4,DAY,EQUAL_TIMEFRAME_WEIGHTS} from './fast-strategy.mjs';
 export const STRATEGY='mstr-btc-vortex-joint200-daily-v1';
 export const START=Date.UTC(2023,0,1)/1000;
 export const stamp=t=>new Date(t*1000).toISOString().slice(0,16).replace('T',' ')+' UTC';
 export const tradeText=t=>`MSTR ${t.side.toUpperCase()} · $${t.price.toLocaleString('en-US',{maximumFractionDigits:2})}\n${stamp(t.time)}`;
 export const dailyText=r=>`MSTR breadth ${Math.round(r.breadth*100)}% · ${stamp(r.closeTime)}`;
-export const calculateBTC=(input,indicators,now,options={})=>calculate(input,indicators,now,{...options,vortex:true});
+// This rule was researched with equal iMACD timeframe weights, independently of BTC.
+export const calculateBTC=(input,indicators,now,options={})=>calculate(input,indicators,now,{...options,vortex:true,timeframeWeights:EQUAL_TIMEFRAME_WEIGHTS});
 
 // Latest information strictly before an opening; never use that session's close.
 export function before(rows,time,key='closeTime') {

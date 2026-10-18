@@ -24,7 +24,7 @@ const root=path.resolve(__dirname,'..');
     await page.goto(`http://127.0.0.1:${server.address().port}/btc.html`);
     await page.waitForFunction(()=>document.getElementById('signalSource').textContent.includes('Refresh unavailable'));
     const result=await page.evaluate(async()=>{
-      const [seed,expected,research]=await Promise.all(['assets/btc/signal-snapshot.json','research/btc-bull-accumulation-2026/signal-parity.json','research/btc-bull-accumulation-2026/imacd-summary.json'].map(p=>fetch(p).then(r=>r.json())));
+      const [seed,expected,research]=await Promise.all(['assets/btc/signal-snapshot.json','research/btc-bull-accumulation-2026/signal-parity.json','research/btc-timeframe-weights-2026/summary.json'].map(p=>fetch(p).then(r=>r.json())));
       const bars=seed.bars.map(([time,open,high,low,close])=>({time,open,high,low,close}));
       const rows=BTC_SIGNALS.calculate(bars),byTime=new Map(rows.map(r=>[r.time,r]));
       let checked=0;
@@ -37,7 +37,7 @@ const root=path.resolve(__dirname,'..');
       for(let y=2018;y<=2026;y++) {
         const start=Date.UTC(y,0,1)/1000,end=y===2026?Date.UTC(2026,9,10)/1000:Date.UTC(y+1,0,1)/1000;
         const trades=BTC_SIGNALS.replay(bars.filter(b=>b.time<end),rows.filter(r=>r.time<end),start);
-        const want=research.details.fast_s13_im100_e50[String(y)].ledger;
+        const want=research.details.w_1_1_1_1_1_2[String(y)].ledger;
         if(JSON.stringify(trades.map(t=>[t.side,t.time,t.price]))!==JSON.stringify(want.map(t=>[t.side,t.time,t.price])))throw Error('Fast trade parity '+y);
         fills+=trades.length;
       }
@@ -55,15 +55,15 @@ const root=path.resolve(__dirname,'..');
     assert.equal(await page.locator('#signalCards .signal-card').count(),2);
     assert.equal(await page.locator('#signalResults').getAttribute('open'),null);
     await page.locator('#signalResults summary').click();
-    assert.match(await page.locator('#signalResults').innerText(),/2.1072/);
-    assert.match(await page.locator('#signalResults').innerText(),/0.9774/);
+    assert.match(await page.locator('#signalResults').innerText(),/2.2566/);
+    assert.match(await page.locator('#signalResults').innerText(),/1.0000/);
     await page.locator('#signalResults summary').click();
     assert.match(await page.locator('#signalCards').innerText(),/FAST iMACD/);
     assert.ok((await page.locator('#signalCards').innerText()).includes(Math.round(result.last.breadth*100)+'%'));
-    assert.equal(result.fills,117);
+    assert.equal(result.fills,95);
     await page.selectOption('#signalRange','2026');
-    assert.equal(await page.locator('.signal-marker[data-side="sell"]').count(),1);
-    assert.equal(await page.locator('.signal-marker[data-side="buy"]').count(),1);
+    assert.equal(await page.locator('.signal-marker[data-side="sell"]').count(),0);
+    assert.equal(await page.locator('.signal-marker[data-side="buy"]').count(),0);
     await page.selectOption('#signalRange','2022');
     assert.equal(await page.locator('.signal-marker').count(),0);
     await page.selectOption('#signalRange','2025');
@@ -106,10 +106,15 @@ const root=path.resolve(__dirname,'..');
         weight:Number(item.dataset.weight),bullish:item.dataset.bullish,
         dot:item.querySelector('.indicator-dot').className
       })));
-      assert.equal(votes.reduce((s,v)=>s+v.weight,0),weight);
+      assert.ok(Math.abs(votes.reduce((s,v)=>s+v.weight,0)-weight)<1e-12);
       for(const v of votes)assert.ok(v.dot.includes(v.bullish==='null'?'is-unknown':v.bullish==='true'?'is-up':'is-down'));
       const yes=votes.reduce((s,v)=>s+(v.bullish==='true'?v.weight:0),0);
-      assert.ok((await page.locator('#indicatorSummary').innerText()).includes(`${yes} / ${weight}`));
+      if(weight===86)assert.ok((await page.locator('#indicatorSummary').innerText()).includes(`${yes} / ${weight}`));
+      else{
+        assert.match(await page.locator('#indicatorSummary').innerText(),/72h ×2/);
+        assert.equal(await page.locator('.indicator-item[data-group="72h"] small').count(),6);
+        assert.ok(Math.abs(votes.filter(v=>Math.abs(v.weight-12/7)<1e-12).length-6)<1e-12);
+      }
       assert.ok((await page.locator('#indicatorSummary').innerText()).includes(Math.round(yes/weight*100)+'%'));
       assert.equal(await page.locator('#indicatorSource').innerText(),await page.locator('#signalSource').innerText());
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
