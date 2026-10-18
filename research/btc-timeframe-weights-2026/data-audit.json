@@ -1,0 +1,117 @@
+{
+  "rows": 129376,
+  "start": 1325376000,
+  "lastOpen": 1791586800,
+  "sha256": "5c406c2c545976ec54ee67344261e5e4112564d912d1fa93c1744c05b5458776",
+  "gaps2018Plus": [
+    {
+      "after": "2018-01-04T03:00:00+00:00",
+      "missingHours": 1
+    },
+    {
+      "after": "2018-02-08T00:00:00+00:00",
+      "missingHours": 33
+    },
+    {
+      "after": "2018-06-26T01:00:00+00:00",
+      "missingHours": 10
+    },
+    {
+      "after": "2018-06-27T12:00:00+00:00",
+      "missingHours": 1
+    },
+    {
+      "after": "2018-07-04T00:00:00+00:00",
+      "missingHours": 7
+    },
+    {
+      "after": "2018-10-19T05:00:00+00:00",
+      "missingHours": 3
+    },
+    {
+      "after": "2018-11-14T01:00:00+00:00",
+      "missingHours": 7
+    },
+    {
+      "after": "2019-03-12T01:00:00+00:00",
+      "missingHours": 6
+    },
+    {
+      "after": "2019-05-15T02:00:00+00:00",
+      "missingHours": 10
+    },
+    {
+      "after": "2019-08-15T01:00:00+00:00",
+      "missingHours": 8
+    },
+    {
+      "after": "2019-11-13T01:00:00+00:00",
+      "missingHours": 2
+    },
+    {
+      "after": "2019-11-25T01:00:00+00:00",
+      "missingHours": 2
+    },
+    {
+      "after": "2020-02-09T01:00:00+00:00",
+      "missingHours": 1
+    },
+    {
+      "after": "2020-02-19T11:00:00+00:00",
+      "missingHours": 5
+    },
+    {
+      "after": "2020-03-04T09:00:00+00:00",
+      "missingHours": 1
+    },
+    {
+      "after": "2020-04-25T01:00:00+00:00",
+      "missingHours": 2
+    },
+    {
+      "after": "2020-06-28T01:00:00+00:00",
+      "missingHours": 3
+    },
+    {
+      "after": "2020-11-30T05:00:00+00:00",
+      "missingHours": 1
+    },
+    {
+      "after": "2020-12-21T13:00:00+00:00",
+      "missingHours": 4
+    },
+    {
+      "after": "2020-12-25T01:00:00+00:00",
+      "missingHours": 1
+    },
+    {
+      "after": "2021-02-11T03:00:00+00:00",
+      "missingHours": 1
+    },
+    {
+      "after": "2021-03-06T01:00:00+00:00",
+      "missingHours": 1
+    },
+    {
+      "after": "2021-04-20T01:00:00+00:00",
+      "missingHours": 2
+    },
+    {
+      "after": "2021-04-25T04:00:00+00:00",
+      "missingHours": 3
+    },
+    {
+      "after": "2021-08-13T01:00:00+00:00",
+      "missingHours": 4
+    },
+    {
+      "after": "2021-09-29T06:00:00+00:00",
+      "missingHours": 2
+    },
+    {
+      "after": "2023-03-24T12:00:00+00:00",
+      "missingHours": 1
+    }
+  ],
+  "missingHours2018Plus": 122
+}
