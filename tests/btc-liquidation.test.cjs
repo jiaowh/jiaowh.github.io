@@ -1,0 +1,45 @@
+const assert=require('node:assert/strict');
+const {build,validate,fetchHistory}=require('../assets/btc/liquidation-model.js');
+const bar=(time,close=100,vol=1000)=>({time,close,low:close-.1,high:close+.1,vol,buy:vol*.6});
+const options={bins:400,lo:80,hi:120,tiers:[{L:10,w:1}],halfLife:86400};
+const sum=a=>a.reduce((s,v)=>s+v,0);
+const one=build([bar(0)],options);
+assert.ok(Math.abs(sum(one.long)-600)<1e-8);
+assert.ok(Math.abs(sum(one.short)-400)<1e-8);
+assert.ok(one.long.filter(v=>v>0).length>=3,'Uncertainty bands span multiple bins');
+const aged=build([bar(0),bar(86400,100,0)],options);
+assert.ok(Math.abs(sum(aged.long)-300)<1e-8);
+assert.ok(Math.abs(sum(aged.short)-200)<1e-8);
+assert.equal(sum(build([bar(0),bar(300,85,0)],options).long),0,'Gap down clears crossed long levels');
+assert.equal(sum(build([bar(0),bar(300,115,0)],options).short),0,'Gap up clears crossed short levels');
+assert.equal(sum(build([bar(0)],{...options,lo:95,hi:105}).grid[0]),0,'No clamped edge piles');
+const data=Array.from({length:20},(_,i)=>bar(i*300,100+i*.02));
+const all=build(data,options),prefix=build(data.slice(0,10),options),warm=build(data,{...options,start:10});
+assert.deepEqual(prefix.grid,all.grid.slice(0,10),'No future data affects past columns at fixed bounds');
+assert.deepEqual(warm.grid,all.grid.slice(10),'Seed history carries into visible window');
+assert.ok(sum(warm.grid[0])>sum(build(data.slice(10),options).grid[0]));
+assert.equal(sum(build(data,{...options,tiers:[]}).grid.at(-1)),0);
+assert.equal(validate(data,300,6000,20).length,20);
+assert.equal(validate([...data,bar(6000)],300,6010,20).at(-1).time,5700,'Exclude forming candle');
+assert.throws(()=>validate(data,300,6500,20),/Stale/);
+assert.throws(()=>validate(data.filter((_,i)=>i!==5),300,6000,19),/gaps/);
+assert.throws(()=>validate([{...bar(0),buy:2000}],300,300,1),/Invalid/);
+(async()=>{
+  const now=3000000,history=Array.from({length:3000},(_,i)=>bar(now-(3000-i)*300));let requests=0;
+  const request=async url=>{
+    requests++;const u=new URL(url),end=+u.searchParams.get('endTime'),n=+u.searchParams.get('limit');
+    const rows=history.filter(b=>b.time*1000<=end).slice(-n).map(b=>[b.time*1000,b.close,b.high,b.low,b.close,0,0,b.vol,0,0,b.buy]);
+    return {ok:true,json:async()=>rows};
+  };
+  const r=await fetchHistory({interval:'5m',limit:576},{now,request});
+  assert.equal(requests,3);assert.equal(r.data.length,576+2016);assert.equal(r.data.at(-1).time,now-300);
+  const fallback=await fetchHistory({interval:'4h',limit:10},{now:14400*300,request:async url=>{
+    const u=new URL(url);if(u.hostname.includes('binance'))return {ok:false,status:503};
+    const n=+u.searchParams.get('limit'),end=Math.floor(+u.searchParams.get('end')/14400000)*14400;
+    return {ok:true,json:async()=>({retCode:0,result:{list:Array.from({length:n},(_,i)=>[(end-i*14400)*1000,100,101,99,100,0,1000])}})};
+  }});
+  assert.equal(fallback.src,'Bybit perp');assert.match(fallback.split,/50\/50/);
+  assert.equal(fallback.data[0].buy,500);
+  await assert.rejects(fetchHistory({interval:'4h',limit:10},{now,request:async()=>({ok:false,status:503})}),/Binance.*Bybit/);
+  console.log('PASS: conserved band mass, decay, directional sweeps, no edge piles, warmup, prefix causality, closed/fresh/gap validation, paginated feed and explicit perpetual fallback.');
+})().catch(e=>{console.error(e);process.exitCode=1;});

@@ -114,7 +114,7 @@
   .rsibox{height:160px;border:1px solid var(--grid);border-radius:4px;background:var(--panel2)}
 
   /* liquidation heatmap */
-  #liqbox{position:relative;height:520px;border:1px solid var(--grid);border-radius:4px;background:var(--panel2);overflow:hidden}
+  #liqbox{position:relative;height:560px;border:1px solid var(--grid);border-radius:4px;background:var(--panel2);overflow:hidden}
   #liqbox canvas{position:absolute;inset:0;width:100%;height:100%}
   #liqOverlay{cursor:crosshair}
   #liqTip{position:absolute;pointer-events:none;background:rgba(13,18,23,0.92);border:1px solid var(--grid);
@@ -129,6 +129,11 @@
     background-image:linear-gradient(45deg,transparent 50%,var(--text) 50%),linear-gradient(135deg,var(--text) 50%,transparent 50%);
     background-position:calc(100% - 14px) 55%,calc(100% - 9px) 55%;background-size:5px 5px;background-repeat:no-repeat}
   .rng:hover,.rng:focus{border-color:var(--amber);color:var(--amber);outline:none}
+  #panel_liq .toolbar{flex-wrap:wrap;gap:10px}
+  #panel_liq .lg{white-space:normal;max-width:100%;display:inline-block}
+  #panel_liq .liq-prof-lg{display:inline-flex;flex-wrap:wrap;gap:8px 14px}
+  #liqTip{max-width:calc(100% - 16px);white-space:normal}
+  @media(max-width:600px){#liqbox{height:460px}#liq_src{width:100%;margin-left:0!important}.liq-foot{line-height:1.7}}
   .liq-prof-lg{display:inline-flex;gap:14px}
   .liq-prof-lg i{display:inline-block;width:10px;height:10px;border-radius:2px;vertical-align:-1px;margin-right:5px}
 
@@ -358,6 +363,8 @@
       <label><input type="checkbox" id="lv25" checked>25&times;</label>
       <label><input type="checkbox" id="lv50" checked>50&times;</label>
       <label title="Positions at 100× leverage liquidate ~1% from entry — the bright bands hugging price."><input type="checkbox" id="lv100" checked>100&times;</label>
+      <label>View <select id="liqFocus" class="rng"><option value="near">Near price</option><option value="all">All tiers</option></select></label>
+      <label>Contrast <select id="liqContrast" class="rng"><option value="balanced">Balanced</option><option value="strong">Strong only</option></select></label>
       <span class="integrity" id="liq_src" style="margin-left:auto"></span>
     </div>
     <div id="liqbox">
@@ -370,15 +377,15 @@
       <span class="liq-mag mono" id="liqMag">&mdash;</span>
     </div>
     <div class="siglegend">
-      <span class="lg"><b>estimated</b> liquidation clusters &mdash; perp taker buy/sell volume projected to 10&ndash;100&times; wipeout prices; long liqs stack below price, shorts above</span>
-      <span class="lg"><span class="ln2" style="border-top-color:#e6edf3"></span>perp close</span>
-      <span class="lg"><span class="dsh" style="border-top-color:#3b82f6"></span>last price</span>
-      <span class="lg liq-prof-lg"><span><i style="background:#2ecc71"></i>short liqs above &mdash; $ total at top of profile</span><span><i style="background:#f5a524"></i>long liqs below &mdash; $ total at bottom</span></span>
-      <span class="lg">bands persist until price trades through them, then clear &mdash; surviving bright zones are un-swept stop pools</span>
+      <span class="lg"><b>Estimated clusters</b> &middot; volume proxy, not observed liquidations or open positions.</span>
+      <span class="lg"><span class="ln2" style="border-top-color:#e6edf3"></span>closed-candle price</span>
+      <span class="lg liq-prof-lg"><span><i style="background:#2ecc71"></i>short-side estimate</span><span><i style="background:#f5a524"></i>long-side estimate</span></span>
+      <span class="lg">7-day seed &middot; swept levels clear &middot; profile % = share within view</span>
     </div>
   </section>
 </main>
 
+<script src="assets/btc/liquidation-model.js"></script>
 <script>
 const SYMBOL="BTCUSDT";
 const $=id=>document.getElementById(id);
@@ -1461,109 +1468,43 @@ setInterval(async()=>{try{const p=await getPrice();$("price").firstChild.nodeVal
 setInterval(fetchFunding,3600000);
 
 // ---------- estimated liquidation heatmap (Liq Map tab) ----------
-// Model, not exchange data: each perp candle's taker buy volume is treated as new
-// longs and taker sell volume as new shorts, projected to the prices where 10–100×
-// positions would be force-closed (long liqs below entry, shorts above). Levels
-// accumulate in a price-binned book, decay slowly, and are CONSUMED the first time
-// price trades through their bin — so surviving bright bands are un-swept pools.
-// Lazy: nothing is fetched until the tab is first opened.
+// A relative flow proxy; assumed leverage is not exchange position data.
+// Lazy: fetch only when this tab is opened; closed candles plus seven seed days.
 const LIQ=(()=>{
-  const RANGES={ "24h":{interval:"5m",limit:288}, "48h":{interval:"5m",limit:576}, "7d":{interval:"15m",limit:672}, "1mo":{interval:"1h",limit:720}, "3mo":{interval:"4h",limit:540} };
+  const RANGES=LiquidationModel.RANGES;
   const TIERS=[{L:10,w:0.40,id:"lv10"},{L:25,w:0.30,id:"lv25"},{L:50,w:0.20,id:"lv50"},{L:100,w:0.10,id:"lv100"}];
-  const BINS=420, DECAY=0.999, PROF=170, AX=82;      // ~1px bins → thin crisp bands
-  // only a slice of taker volume opens NEW leveraged positions (the rest closes,
-  // hedges or is spot-like flow). 5% calibrates the dollar readouts to the order of
-  // magnitude exchange liquidation maps report; the heat scale is percentile-based
-  // so this touches the numbers only, never the picture.
-  const OPEN_FRAC=0.05;
-  const M={l:8,r:AX+PROF+6,t:8,b:22};                  // right gutter = price axis + volume profile
-  let range="48h",rangeShown="48h",C=null,SRC="",grid=null,lastL=null,lastS=null,pLo=0,pHi=1,lmin=0,lmax=1,dpr=1,loaded=false,gen=0;
-
-  // candles with taker buy/sell split — perp first (that's where liquidations live)
-  async function fetchBinanceLiq(base,src,iv,limit){
-    const r=await fetch(`${base}/klines?symbol=${SYMBOL}&interval=${iv}&limit=${limit}`);
-    if(!r.ok)throw new Error(src+" "+r.status);
-    const j=await r.json(); if(!j.length)throw new Error(src+" empty");
-    return {src,data:j.map(k=>({time:Math.floor(k[0]/1000),high:+k[2],low:+k[3],close:+k[4],vol:+k[7],buy:+k[10]}))};
-  }
-  async function fetchBybitLiq(iv,limit){
-    const map={"5m":"5","15m":"15","1h":"60","4h":"240"};
-    const r=await fetch(`https://api.bybit.com/v5/market/kline?category=linear&symbol=${SYMBOL}&interval=${map[iv]}&limit=${Math.min(limit,1000)}`);
-    if(!r.ok)throw new Error("bybit "+r.status);
-    const j=await r.json(); const list=j.result&&j.result.list;
-    if(!list||!list.length)throw new Error("bybit empty");
-    // no taker split on this endpoint — assume a 50/50 long/short mix
-    return {src:"Bybit perp",data:list.map(k=>({time:Math.floor(+k[0]/1000),high:+k[2],low:+k[3],close:+k[4],vol:+k[6],buy:+k[6]/2})).reverse()};
-  }
-  async function getLiqCandles(rg){
-    try{return await fetchBinanceLiq("https://fapi.binance.com/fapi/v1","Binance perp",rg.interval,rg.limit);}catch(e){}
-    try{return await fetchBybitLiq(rg.interval,rg.limit);}catch(e){}
-    return await fetchBinanceLiq("https://api.binance.com/api/v3","Binance spot",rg.interval,rg.limit);
-  }
+  const BINS=200, AX=74;
+  let PROF=150;
+  const M={l:8,r:AX+PROF+6,t:16,b:26};
+  let range="48h",rangeShown="48h",C=null,HISTORY=null,SRC="",grid=null,lastL=null,lastS=null,pLo=0,pHi=1,lmin=0,lmax=1,dpr=1,loaded=false,gen=0,loading=false,lastLoad=0;
 
   const activeTiers=()=>TIERS.filter(t=>{const el=$(t.id);return !el||el.checked;});
   const binOf=p=>Math.max(0,Math.min(BINS-1,Math.floor((p-pLo)/(pHi-pLo)*BINS)));
   const binPx=b=>pLo+(b+0.5)/BINS*(pHi-pLo);
 
-  // two books (long liqs / short liqs) so the side profile can be colored by side;
-  // the heat grid stores their sum per bar. Single-bin adds: levels stay thin lines.
   function buildGrid(){
-    const n=C.length,tiers=activeTiers(),bL=new Float32Array(BINS),bS=new Float32Array(BINS);
-    grid=new Array(n);
-    for(let i=0;i<n;i++){
-      const c=C[i];
-      for(let b=0;b<BINS;b++){bL[b]*=DECAY;bS[b]*=DECAY;}
-      const b0=binOf(c.low),b1=binOf(c.high);        // sweep: price traded here,
-      for(let b=b0;b<=b1;b++){bL[b]=0;bS[b]=0;}      // those liqs already fired
-      const sell=Math.max(0,c.vol-c.buy);
-      for(const t of tiers){
-        bL[binOf(c.close*(1-1/t.L))]+=c.buy*t.w*OPEN_FRAC;  // longs liq below entry
-        bS[binOf(c.close*(1+1/t.L))]+=sell*t.w*OPEN_FRAC;   // shorts liq above entry
-      }
-      const col=new Float32Array(BINS);
-      for(let b=0;b<BINS;b++)col[b]=bL[b]+bS[b];
-      grid[i]=col;
-    }
-    lastL=bL.slice(0);lastS=bS.slice(0);
+    const result=LiquidationModel.build(HISTORY,{bins:BINS,lo:pLo,hi:pHi,tiers:activeTiers(),start:HISTORY.length-C.length});
+    grid=result.grid;lastL=result.long;lastS=result.short;
   }
-  // color scale: log density, floored at the MEDIAN populated cell and capped at
-  // p99.9 — raw quote volumes span decades, so an un-anchored log map pushes
-  // everything to the hot end. Top-weighting keeps the weak half near black so only
-  // real clusters glow; the gamma in heatT pushes mid densities down further.
+  // Balanced exposes weaker clusters; strong-only suppresses the lower half.
   function calib(){
     const vals=[];
     for(const col of grid)for(let b=0;b<BINS;b++)if(col[b]>0)vals.push(col[b]);
     vals.sort((a,b)=>a-b);
-    const q=f=>Math.log1p(vals[Math.max(0,Math.min(vals.length-1,Math.floor(vals.length*f)))]);
-    lmin=vals.length?q(0.50):0;
-    lmax=vals.length?q(0.999):1;
+    const q=f=>vals[Math.max(0,Math.min(vals.length-1,Math.floor(vals.length*f)))];
+    lmin=vals.length?q($("liqContrast").value==="strong"?.50:.05):0;
+    lmax=vals.length?q(.99):1;
     if(!(lmax>lmin))lmax=lmin+1;
     return vals;
   }
   function compute(){
     let lo=Infinity,hi=-Infinity;
-    for(const c of C){if(c.low<lo)lo=c.low;if(c.high>hi)hi=c.high;}
-    pLo=lo*0.89;pHi=hi*1.11; // room for the 10× bands beyond the traded range
-    buildGrid();
-    let vals=calib();
-    // focus pass: a strong trend leaves the wide first-pass window mostly empty
-    // (old bands swept, ±11% headroom unused) and squeezes the live bands into a
-    // sliver. Trim to the rows that ever held at least the median positive density,
-    // keep the full traded price path in view, pad, and re-bin into that window.
-    if(vals.length){
-      const thr=vals[Math.floor(vals.length*0.5)];
-      const rowMax=new Float32Array(BINS);
-      for(const col of grid)for(let b=0;b<BINS;b++)if(col[b]>rowMax[b])rowMax[b]=col[b];
-      let bmin=BINS,bmax=-1;
-      for(let b=0;b<BINS;b++)if(rowMax[b]>=thr){if(b<bmin)bmin=b;if(b>bmax)bmax=b;}
-      if(bmax>=0){
-        let wLo=Math.min(binPx(bmin),lo),wHi=Math.max(binPx(bmax),hi);
-        const pad=(wHi-wLo)*0.03;wLo-=pad;wHi+=pad;
-        if(wHi-wLo<(pHi-pLo)*0.92){pLo=wLo;pHi=wHi;buildGrid();calib();}
-      }
-    }
+    for(const c of C){lo=Math.min(lo,c.low);hi=Math.max(hi,c.high);}
+    const tiers=activeTiers(),margin=$("liqFocus").value==="near"?.04:Math.max(.015,...tiers.map(t=>1/t.L+.005));
+    pLo=lo*(1-margin);pHi=hi*(1+margin);
+    buildGrid();calib();
   }
-  const heatT=v=>v>0?Math.pow(Math.max(0,Math.min(1,(Math.log1p(v)-lmin)/(lmax-lmin))),1.6):0;
+  const heatT=v=>v>0?Math.pow(Math.log1p(8*Math.max(0,Math.min(1,(v-lmin)/(lmax-lmin))))/Math.log(9),$("liqContrast").value==="strong"?1.25:.9):0;
 
   // dark → deep blue → cyan → green → yellow: the classic liquidation-heatmap ramp,
   // where yellow is reserved for the very densest clusters
@@ -1576,11 +1517,10 @@ const LIQ=(()=>{
     return [255,233,74];
   }
   const fmtFull=p=>p.toLocaleString("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0});
-  const fmtVol=v=>v>=1e9?"$"+(v/1e9).toFixed(2)+"B":v>=1e6?"$"+(v/1e6).toFixed(1)+"M":v>=1e3?"$"+(v/1e3).toFixed(1)+"K":"$"+v.toFixed(0);
   const p2=v=>String(v).padStart(2,"0");
   function timeLbl(ts){
     const d=new Date(ts*1000),hm=p2(d.getHours())+":"+p2(d.getMinutes()),md=p2(d.getMonth()+1)+"-"+p2(d.getDate());
-    return (rangeShown==="24h"||rangeShown==="48h")?hm:rangeShown==="7d"?md+" "+hm:md;
+    return rangeShown==="24h"?hm:(rangeShown==="48h"||rangeShown==="7d")?md+" "+hm:md;
   }
   // side colors: shorts (above price) green, longs (below) orange, both lerped
   // toward the heat-ramp yellow for the densest levels
@@ -1599,6 +1539,7 @@ const LIQ=(()=>{
     const box=$("liqbox");if(!box||!grid)return;
     const base=$("liqCanvas"),over=$("liqOverlay");
     const W=box.clientWidth,H=box.clientHeight;if(!W||!H)return;
+    PROF=W<600?68:150;M.r=AX+PROF+6;
     dpr=window.devicePixelRatio||1;
     // backing store at device resolution, CSS size pinned to the box — without the
     // explicit CSS size a dpr>1 canvas lays out at its intrinsic (device) size and
@@ -1628,7 +1569,7 @@ const LIQ=(()=>{
     }
     // time labels
     g.textAlign="center";g.textBaseline="top";g.fillStyle="#8b98a5";
-    const nt=(rangeShown==="24h"||rangeShown==="48h")?6:4;
+    const nt=W<600?1:4;
     for(let s=0;s<=nt;s++){
       const i=Math.min(n-1,Math.round((n-1)*s/nt));
       g.textAlign=s===0?"left":s===nt?"right":"center";   // edge labels stay inside the box
@@ -1656,15 +1597,12 @@ const LIQ=(()=>{
     renderMagnets();
   }
 
-  // right-side volume profile: the CURRENT un-swept book per price level, bars
-  // right-anchored (shorts green above price, longs orange below), a cumulative
-  // curve from price outward, and the $ total of each side at the top/bottom
+  // Relative concentration of the surviving model book inside this view.
   function renderProfile(g,W,ph){
     const px1=W-6,px0=px1-PROF,bw=PROF-4,rowH=ph/BINS;
     const {lp,lpB,above,below}=sideTotals();
-    let maxV=0,ab=-1,abv=0,bl=-1,blv=0;
-    for(let b=0;b<BINS;b++){const v=lastL[b]+lastS[b];if(v>maxV)maxV=v;
-      if(b>lpB+1&&v>abv){abv=v;ab=b;} if(b<lpB-1&&v>blv){blv=v;bl=b;}}
+    let maxV=0;
+    for(let b=0;b<BINS;b++)maxV=Math.max(maxV,lastL[b]+lastS[b]);
     g.fillStyle="rgba(255,255,255,0.025)";g.fillRect(px0,M.t,PROF,ph);
     g.strokeStyle="rgba(255,255,255,0.08)";g.beginPath();g.moveTo(px0+0.5,M.t);g.lineTo(px0+0.5,M.t+ph);g.stroke();
     if(!(maxV>0))return;
@@ -1694,28 +1632,21 @@ const LIQ=(()=>{
     const ly=M.t+(1-(lp-pLo)/(pHi-pLo))*ph;
     g.setLineDash([2,3]);g.strokeStyle="rgba(59,130,246,0.7)";g.lineWidth=1;
     g.beginPath();g.moveTo(px0,ly);g.lineTo(px1,ly);g.stroke();g.setLineDash([]);
-    // numbered volumes: side totals + the densest level on each side
+    // Share of the visible model book on each side, not liquidation dollars.
     g.font="bold 12px 'IBM Plex Mono',monospace";g.textAlign="left";
-    g.textBaseline="top";g.fillStyle="#2ecc71";g.fillText(fmtVol(above),px0+4,M.t+4);
-    g.textBaseline="bottom";g.fillStyle="#f5a524";g.fillText(fmtVol(below),px0+4,M.t+ph-4);
-    g.font="10px 'IBM Plex Mono',monospace";g.textAlign="right";g.textBaseline="middle";
-    const lbl=(b,v,col)=>{if(b<0||!(v>0))return;
-      const y=M.t+(1-(b+0.5)/BINS)*ph,x=px1-v/maxV*bw-4;
-      if(y<M.t+20||y>M.t+ph-20)return;                 // keep clear of the totals
-      const s=fmtVol(v),w=g.measureText(s).width;
-      g.fillStyle="rgba(13,18,23,0.85)";g.fillRect(x-w-3,y-7,w+6,14);
-      g.fillStyle=col;g.fillText(s,x,y);};
-    lbl(ab,abv,"#2ecc71");lbl(bl,blv,"#f5a524");
+    g.textBaseline="top";g.fillStyle="#2ecc71";g.fillText(above+below?Math.round(above/(above+below)*100)+"% ↑":"—",px0+4,M.t+4);
+    g.textBaseline="bottom";g.fillStyle="#f5a524";g.fillText(above+below?Math.round(below/(above+below)*100)+"% ↓":"—",px0+4,M.t+ph-4);
   }
 
   function renderMagnets(){
-    const el=$("liqMag");if(!el||!grid||!grid.length)return;
+    const el=$("liqMag");if(!el||!grid?.length)return;
     const {lp,lpB,above,below}=sideTotals();
     let ab=-1,abv=0,bl=-1,blv=0;
-    for(let b=lpB+2;b<BINS;b++){const v=lastL[b]+lastS[b];if(v>abv){abv=v;ab=b;}}
-    for(let b=0;b<lpB-1;b++){const v=lastL[b]+lastS[b];if(v>blv){blv=v;bl=b;}}
-    const f=(b,v)=>b<0||v<=0?"—":`${fmtFull(binPx(b))} (${(binPx(b)/lp-1>=0?"+":"")+((binPx(b)/lp-1)*100).toFixed(1)}%) ${fmtVol(v)}`;
-    el.innerHTML=`un-swept &middot; shorts above <b>${fmtVol(above)}</b> &middot; longs below <b>${fmtVol(below)}</b> &middot; densest above <b>${f(ab,abv)}</b> &middot; below <b>${f(bl,blv)}</b>`;
+    for(let b=lpB+2;b<BINS;b++){const v=lastS[b];if(v>abv){abv=v;ab=b;}}
+    for(let b=0;b<lpB-1;b++){const v=lastL[b];if(v>blv){blv=v;bl=b;}}
+    const f=b=>b<0?"—":`${fmtFull(binPx(b))} (${binPx(b)>=lp?"+":""}${((binPx(b)/lp-1)*100).toFixed(1)}%)`;
+    el.innerHTML=`Strongest above <b>${f(ab)}</b> &middot; below <b>${f(bl)}</b>`;
+    if(!(above+below))el.textContent=activeTiers().length?"No estimated clusters in this view":"Select a leverage tier";
   }
 
   function onMove(ev){
@@ -1734,15 +1665,15 @@ const LIQ=(()=>{
       const n=grid.length,i=Math.max(0,Math.min(n-1,Math.floor((x-M.l)/pw*n)));
       g.moveTo(x,M.t);g.lineTo(x,M.t+ph);
       const v=grid[i][b];
-      txt=`${fmtFull(binPx(b))} · ${timeLbl(C[i].time)} · liq ${fmtVol(v)} (${(heatT(v)*100).toFixed(0)}%)`;
+      txt=`${fmtFull(binPx(b))} · ${timeLbl(C[i].time)} · relative heat ${(heatT(v)*100).toFixed(0)}/100`;
     }else{
-      txt=`${fmtFull(binPx(b))} · shorts ${fmtVol(lastS[b])} · longs ${fmtVol(lastL[b])}`;
+      txt=`${fmtFull(binPx(b))} · relative heat ${(heatT(lastS[b]+lastL[b])*100).toFixed(0)}/100`;
     }
     g.stroke();
     if(tipEl){
       tipEl.hidden=false;tipEl.textContent=txt;
       const tw=tipEl.offsetWidth||150,th=tipEl.offsetHeight||24;
-      tipEl.style.left=Math.min(x+14,W-tw-8)+"px";
+      tipEl.style.left=Math.max(4,Math.min(x+14,W-tw-8))+"px";
       tipEl.style.top=Math.max(4,Math.min(y-th-10,H-th-8))+"px";
     }
   }
@@ -1757,24 +1688,31 @@ const LIQ=(()=>{
   // landed during a load, leaving header, scale and bands describing different
   // ranges once the stale response painted.)
   async function load(){
-    const g=++gen,rg=range;
+    const g=++gen,rg=range;loading=true;
     const el=$("liq_src");if(el)el.textContent="loading…";
     try{
-      const r=await getLiqCandles(RANGES[rg]);
+      const r=await LiquidationModel.fetchHistory(RANGES[rg]);
       if(g!==gen)return;                 // superseded by a newer request
-      C=r.data;SRC=r.src;loaded=true;rangeShown=rg;
+      HISTORY=r.data;C=HISTORY.slice(-RANGES[rg].limit);SRC=r.src;loaded=true;rangeShown=rg;lastLoad=Date.now();
       compute();render();
-      if(el)el.innerHTML=`<b>${C.length}</b> bars · ${SRC} · estimated model`;
+      if(el)el.innerHTML=`${SRC} · ${r.split} · through ${new Date((C.at(-1).time+r.step)*1000).toLocaleString([], {month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"})} · local time`;
     }catch(e){console.error(e);
-      if(g===gen&&el)el.innerHTML='<span class="bad">liq data unreachable — host the file or check the network</span>';}
+      if(g===gen){
+        loaded=false;grid=null;C=null;HISTORY=null;
+        ["liqCanvas","liqOverlay"].forEach(id=>{const cv=$(id);cv.getContext("2d").clearRect(0,0,cv.width,cv.height);});
+        $("liqTip").hidden=true;$("liqMag").textContent="No verified perpetual data — retry with Refresh";
+        if(el)el.innerHTML='<span class="bad">Perpetual feed unavailable</span>';
+      }
+    }finally{if(g===gen)loading=false;}
   }
-  function onShow(){if(!loaded){if(!gen)load();}else if(grid)requestAnimationFrame(render);}
-  function refresh(){if(loaded)load();}
+  function onShow(){if(!loading&&(!loaded||Date.now()-lastLoad>300000))load();else if(grid)requestAnimationFrame(render);}
+  function refresh(){if(activeTab==="liq"&&!loading)load();}
 
   // controls
   const sel=$("liqRange");
   if(sel){range=sel.value||range;rangeShown=range;sel.onchange=()=>{range=sel.value;load();};}
   TIERS.forEach(t=>{const el=$(t.id);if(el)el.onchange=()=>{if(C){compute();render();}};});
+  ["liqFocus","liqContrast"].forEach(id=>{$(id).onchange=()=>{if(C){compute();render();}};});
   const ov=$("liqOverlay");
   if(ov){ov.addEventListener("mousemove",onMove);ov.addEventListener("mouseleave",onLeave);}
   const bx=$("liqbox");
