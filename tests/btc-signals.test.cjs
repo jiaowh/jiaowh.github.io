@@ -18,7 +18,7 @@ const root=path.resolve(__dirname,'..');
     await page.route('**/*',r=>{
       const u=r.request().url();
       if(u.includes('lightweight-charts'))return r.fulfill({contentType:'application/javascript',body:fs.readFileSync(path.join(root,'assets/btc/vendor/lightweight-charts-4.2.3.js'),'utf8')+`
-const originalCreate=LightweightCharts.createChart;window.testCharts={};window.LightweightCharts={...LightweightCharts};LightweightCharts.createChart=(el,opts)=>{const chart=originalCreate(el,opts);testCharts[el.id]=chart;return chart;};`});
+const originalCreate=LightweightCharts.createChart;window.testCharts={};window.testSeries={};window.LightweightCharts={...LightweightCharts};LightweightCharts.createChart=(el,opts)=>{const chart=originalCreate(el,opts);testCharts[el.id]=chart;const add=chart.addCandlestickSeries.bind(chart);chart.addCandlestickSeries=opts=>{const series=add(opts);testSeries[el.id]=series;return series;};return chart;};`});
       if(u.startsWith('http://127.0.0.1:'))return r.continue();
       if(online&&u.startsWith('https://data-api.binance.vision/'))return r.fulfill({json:[]});
       return r.abort();
@@ -63,23 +63,40 @@ const originalCreate=LightweightCharts.createChart;window.testCharts={};window.L
     assert.match(await page.locator('#signalCards').innerText(),/FAST iMACD/);
     assert.ok((await page.locator('#signalCards').innerText()).includes(Math.round(result.last.breadth*100)+'%'));
     assert.equal(result.fills,95);
+    await page.waitForSelector('#signalChart canvas');
+    const visibleMarkers=()=>page.evaluate(()=>{const year=Number(document.getElementById('signalRange').value);return testSeries.signalChart.markers().filter(t=>new Date(t.time*1000).getUTCFullYear()===year);});
     await page.selectOption('#signalRange','2026');
-    assert.equal(await page.locator('.signal-marker[data-side="sell"]').count(),0);
-    assert.equal(await page.locator('.signal-marker[data-side="buy"]').count(),0);
+    assert.equal((await visibleMarkers()).filter(t=>t.id.startsWith('sell:')).length,0);
+    assert.equal((await visibleMarkers()).filter(t=>t.id.startsWith('buy:')).length,0);
     await page.selectOption('#signalRange','2022');
-    assert.equal(await page.locator('.signal-marker').count(),0);
+    assert.equal((await visibleMarkers()).length,0);
     await page.selectOption('#signalRange','2025');
-    assert.ok(await page.locator('.signal-marker').count()>0);
-    await page.locator('#signalHit').click({position:{x:200,y:100}});
+    assert.ok((await visibleMarkers()).length>0);
+    await page.locator('#signalChart').click({position:{x:200,y:100}});
     assert.match(await page.locator('#signalRead').innerText(),/UTC · BTC .*SMA200 .*breadth/);
+    const chartTrades=await page.evaluate(()=>{
+      const {bars,rows}=BTC_SIGNALS.snapshot(),trades=BTC_SIGNALS.replay(bars,rows);
+      return {expected:trades.map(t=>({time:t.time,id:`${t.side}:${t.time}`})),actual:testSeries.signalChart.markers().map(t=>({time:t.time,id:t.id}))};
+    });
+    assert.deepEqual(chartTrades.actual,chartTrades.expected);
+    for(const id of ['signalChart','signalBreadth']){
+      const box=page.locator('#'+id);await box.scrollIntoViewIfNeeded();const rect=await box.boundingBox();
+      await page.mouse.move(rect.x+rect.width-30,rect.y+rect.height*.35);await page.mouse.down();await page.mouse.move(rect.x+rect.width-30,rect.y+rect.height*.65,{steps:10});await page.mouse.up();
+      assert.equal(await page.evaluate(id=>testCharts[id].priceScale('right').options().autoScale,id),false);
+    }
+    await page.locator('#signalReset').click();
+    assert.equal(await page.evaluate(()=>['signalChart','signalBreadth'].every(id=>testCharts[id].priceScale('right').options().autoScale)),true);
+    const linked=await page.evaluate(()=>{const scale=testCharts.signalBreadth.timeScale(),r=scale.getVisibleLogicalRange();scale.setVisibleLogicalRange({from:r.from+10,to:r.to+10});return ['signalChart','signalBreadth'].map(id=>testCharts[id].timeScale().getVisibleLogicalRange());});
+    assert.deepEqual(linked[0],linked[1]);
     await page.selectOption('#signalRange','90');
+    await page.waitForFunction(()=>testCharts.signalChart.timeScale().getVisibleRange().from>=BTC_SIGNALS.snapshot().rows.at(-1).time-91*86400);
     await page.screenshot({path:process.env.TEMP+'/btc-signals-desktop.png',fullPage:true});
     online=true;await page.locator('#signalRefresh').click();
     await page.waitForFunction(()=>/Binance checked|Feed is behind/.test(document.getElementById('signalSource').textContent));
     await page.locator('[data-tab="d"]').click();assert.equal(await page.locator('#panel_signals').isVisible(),false);
     await page.locator('[data-tab="signals"]').click();
     await page.setViewportSize({width:390,height:844});
-    await page.waitForFunction(()=>document.querySelector('#signalChart svg').viewBox.baseVal.width<400);
+    await page.waitForFunction(()=>testCharts.signalChart.chartElement().clientWidth<400);
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
     await page.screenshot({path:process.env.TEMP+'/btc-signals-mobile.png',fullPage:true});
     await page.locator('#signalResults summary').click();
@@ -89,14 +106,14 @@ const originalCreate=LightweightCharts.createChart;window.testCharts={};window.L
     assert.match(await page.locator('#signalCards').innerText(),/86 bullish vote weights/);
     assert.match(await page.locator('#signalMSTRResults').innerText(),/6.057/);
     await page.selectOption('#signalRange','2025');
-    assert.ok(await page.locator('.signal-marker').count()>0);
-    assert.match(await page.locator('#signalChart svg').getAttribute('aria-label'),/MSTR/);
-    await page.locator('#signalHit').click({position:{x:140,y:100}});
+    assert.ok((await visibleMarkers()).length>0);
+    assert.match(await page.locator('#signalChart').getAttribute('aria-label'),/MSTR/);
+    await page.locator('#signalChart').click({position:{x:140,y:100}});
     assert.match(await page.locator('#signalRead').innerText(),/MSTR .*SMA200 .*breadth/);
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
     await page.screenshot({path:process.env.TEMP+'/mstr-signals-mobile.png',fullPage:true});
     await page.setViewportSize({width:1280,height:1050});
-    await page.waitForFunction(()=>document.querySelector('#signalChart svg').viewBox.baseVal.width>600);
+    await page.waitForFunction(()=>testCharts.signalChart.chartElement().clientWidth>600);
     await page.locator('#signalResults summary').click();
     await page.screenshot({path:process.env.TEMP+'/mstr-signals-desktop.png',fullPage:true});
     await page.locator('[data-tab="indicators"]').click();
@@ -204,6 +221,14 @@ const originalCreate=LightweightCharts.createChart;window.testCharts={};window.L
       await page.setViewportSize({width:390,height:844});
     }
     assert.equal(await page.locator("body").innerText().then(t=>t.includes("108 variants tested")),false);
+    const opening=await page.evaluate(async()=>{
+      const {drawStrategyChart}=await import('/assets/btc/strategy-chart.js?v=20261018-strategy-chart');
+      const {rows}=BTC_SIGNALS.snapshot(),sample=rows.slice(-30),time=sample.at(-1).closeTime;
+      drawStrategyChart(sample,[{side:'buy',time,price:12345,reason:'recovery'}],{asset:'BTC',range:'90'});
+      return {last:testSeries.signalChart.data().at(-1),marker:testSeries.signalChart.markers().at(-1),time};
+    });
+    assert.deepEqual(opening.last,{time:opening.time,open:12345,high:12345,low:12345,close:12345});
+    assert.equal(opening.marker.time,opening.time);
     assert.deepEqual(errors,[]);
     console.log(`PASS: ${result.checked} independent daily-regime comparisons and ${result.fills} fast-strategy fills, forming-bar exclusion, default signals tab, removed accumulation, collapsed latest results, 2022/2026 counts, refresh fallback, chart inspection, explicit tab links and mobile layout.`);
   }finally{await browser.close();await new Promise(r=>server.close(r));}

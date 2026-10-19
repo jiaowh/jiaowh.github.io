@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BTC · Market Signals</title>
-<link rel="stylesheet" href="assets/btc/signals.css?v=20261018-restored-charts">
+<link rel="stylesheet" href="assets/btc/signals.css?v=20261018-strategy-chart">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -387,9 +387,11 @@
     <div class="signal-toolbar">
       <label class="sr-only" for="signalRange">Chart period</label><select id="signalRange" class="rng"><option value="90">Last 90 days</option></select>
       <span class="signal-legend"><span id="signalPriceLabel" style="color:#e6edf3">BTC</span><span style="color:var(--amber)">SMA200</span><span style="color:var(--cyan)">Breadth</span></span>
-      <button id="signalRefresh" aria-label="Refresh signals">Refresh</button>
+      <button id="signalReset">Reset view</button><button id="signalRefresh" aria-label="Refresh signals">Refresh</button>
     </div>
-    <div id="signalChart" class="signal-chart"></div>
+    <div id="signalChart" class="chartbox"></div>
+    <div class="imacd-head"><span id="signalBreadthLabel" class="h">Weighted BTC breadth · 72h ×2</span><span class="sub">50% threshold · ▲ buy · ▼ sell</span></div>
+    <div id="signalBreadth" class="imacdbox"></div>
     <p id="signalRead" class="signal-read">Hover or tap to inspect.</p>
     <p id="signalSource" class="acc-note" role="status">Loading closed candles…</p>
     <p id="signalStockSource" class="acc-note" role="status" hidden></p>
@@ -1557,7 +1559,7 @@ loadChartLib().then(()=>{
   loadAll();
   fetchFunding();
 }).catch(error=>{console.error('Chart initialization failed',error);setStatus("err","chart unavailable");
-  ["chart_1h","chart_5m","chart_d","chart_h"].forEach(id=>{const e=$(id);if(e)e.innerHTML='<div style="padding:22px;color:#6b7882;font-size:13px;line-height:1.5">Charts could not load. Reload the page to try again.</div>';});});
+  ["chart_1h","chart_5m","chart_d","chart_h","signalChart","signalBreadth"].forEach(id=>{const e=$(id);if(e)e.innerHTML='<div style="padding:22px;color:#6b7882;font-size:13px;line-height:1.5">Charts could not load. Reload the page to try again.</div>';});});
 $("refresh").onclick=()=>{if(["signals","indicators","d","h"].includes(activeTab)){window.BTC_SIGNALS?.refresh();return;}if(window.LightweightCharts&&VIEWS["1h"])loadAll();LIQ.refresh();};
 // auto-refresh every 5 minutes while the page sits open
 setInterval(()=>{if(window.LightweightCharts&&VIEWS["1h"])loadAll();LIQ.refresh();},300000);
@@ -1827,6 +1829,6 @@ const LIQ=(()=>{
 // still works if both chart CDNs are blocked (the .then() wiring never runs then)
 $$(".tab").forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
 </script>
-<script type="module" src="assets/btc/signals.js?v=20261018-restored-charts"></script>
+<script type="module" src="assets/btc/signals.js?v=20261018-strategy-chart"></script>
 </body>
 </html>

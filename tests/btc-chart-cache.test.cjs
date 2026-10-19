@@ -26,8 +26,10 @@ for(const f of ['btc.html','assets/btc/signals.js','assets/btc/timeframes.js','a
    assert.equal(await page.locator('#tfChart_'+frame).count(),0);
    assert.notEqual(await page.locator('#thr_'+frame).innerText(),'—');assert.notEqual(await page.locator('#rsiv_'+frame).innerText(),'—');
   }
-  for(const file of ['signals.js','timeframes.js','signals.css','fast-strategy.mjs','mstr-strategy.mjs'])assert.ok(requests.some(r=>r.upgraded&&r.url.startsWith('/assets/btc/'+file+'?v=')),file+' was not versioned');
+  await page.locator('.tab[data-tab="signals"]').click();
+  for(const id of ['signalChart','signalBreadth'])assert.ok(await page.locator('#'+id+' canvas').count());
+  for(const file of ['strategy-chart.js','signals.js','timeframes.js','signals.css','fast-strategy.mjs','mstr-strategy.mjs'])assert.ok(requests.some(r=>r.upgraded&&r.url.startsWith('/assets/btc/'+file+'?v=')),file+' was not versioned');
   assert.equal(requests.some(r=>r.upgraded&&r.url==='/assets/btc/timeframes.js'),false);
-  assert.deepEqual(errors,[]);console.log('PASS: cached static Daily page upgrades to restored Daily/4h candle, iMACD and RSI panes; all browser module dependencies refreshed; no script errors.');
+  assert.deepEqual(errors,[]);console.log('PASS: cached static page upgrades to interactive strategy, Daily/4h candle, iMACD and RSI panes; all browser module dependencies refreshed; no script errors.');
  }finally{await browser.close();await new Promise(r=>server.close(r));}
 })().catch(e=>{console.error(e);process.exit(1);});

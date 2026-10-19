@@ -1,3 +1,4 @@
+import {drawStrategyChart,resetStrategyChart} from './strategy-chart.js?v=20261018-strategy-chart';
 import './timeframes.js?v=20261018-restored-charts';
 /* Shared fast iMACD + recovery strategy, identical to Telegram. */
 import {calculate as fastCalculate, advance, newState} from './fast-strategy.mjs?v=20261018-72h2x';
@@ -28,11 +29,11 @@ window.BTC_SIGNALS = (() => {
     const start = year >= 2018 && year < 2023 ? Date.UTC(year, 0, 1) / 1000 : Date.UTC(2023, 0, 1) / 1000;
     const raw=liveOpen?[...bars,liveOpen]:bars;
     if(isStock){
-      if(!stock.length){el('signalCards').textContent='MSTR history unavailable.';el('signalChart').textContent='Try refresh.';return;}
+      if(!stock.length){el('signalCards').textContent='MSTR history unavailable.';drawStrategyChart([],[],{asset:asset(),range:el('signalRange').value});return;}
       const now=Date.now()/1000, result=mstrReplay(raw,vortexRows,stock,{start,now}),regimes=stockRegimes(stock,now);
       view=result.sessions.map(s=>{
         const complete=s.closeTime<=now,at=complete?s.closeTime:s.time,b=before(vortexRows,at+1),m=before(regimes,at+1);
-        return {...s,closeTime:at,close:complete?s.close:s.open,ma:m?.ma??s.ma,gate:!!(b?.gate||m?.gate),breadth:b?.breadth??s.breadth};
+        return {...s,closeTime:at,openOnly:!complete,high:complete?s.high:s.open,low:complete?s.low:s.open,close:complete?s.close:s.open,ma:m?.ma??s.ma,gate:!!(b?.gate||m?.gate),breadth:b?.breadth??s.breadth};
       });
       r={...view.at(-1),...vortexRows.at(-1),ma:regimes.at(-1)?.ma,gate:!!(vortexRows.at(-1)?.gate||regimes.at(-1)?.gate)};
       trades=result.trades;
@@ -46,8 +47,7 @@ window.BTC_SIGNALS = (() => {
     el('signalCards').innerHTML = `
       <div class="signal-card" title="${isStock?'Bullish if either BTC or MSTR is bullish. Both bearish forces cash. ':''}Two daily closes above SMA200 +2% turn bullish; two below −2% turn bearish."><small>${isStock?'JOINT ':''}SMA200 REGIME</small><strong style="color:var(--${r.gate ? 'up' : 'down'})">${r.gate ? 'Bullish' : 'Bearish'}</strong><span>${asset()} SMA200 ${usd(r.ma)}</span></div>
       <div class="signal-card" title="${isStock?'BTC-based: 36 fast iMACD + 36 Vortex weights + 14 daily votes.':'Fast iMACD 14/21/34, signal 13; 72h votes x2, normalized to 72% iMACD + 28% daily; recovery.'} Same method as Telegram; not a crash probability."><small>${isStock?'BTC FAST + VORTEX':'FAST iMACD · 72h ×2'}</small><strong>${percent(r.breadth)}</strong><span>${isStock?`${votes} / ${total} bullish vote weights`:'Weighted breadth · iMACD 72%'}</span></div>`;
-    const visible = view.filter(r => range === '90' ? r.closeTime > view.at(-1).closeTime - 90 * 86400 : new Date(r.time * 1000).getUTCFullYear() === year);
-    draw(visible, trades);
+    drawStrategyChart(view,trades,{asset:asset(),range});
   }
 
   const dot = value => `<i class="indicator-dot ${value===null?'is-unknown':value?'is-up':'is-down'}" aria-hidden="true"></i>`;
@@ -87,69 +87,6 @@ window.BTC_SIGNALS = (() => {
       }).join('')}</ul></section>`;
     }).join('');
     syncIndicatorSource();
-  }
-
-  function draw(data, trades) {
-    if (!data.length) { el('signalChart').textContent = 'No completed bars in this period.'; return; }
-    const W = Math.max(300, el('signalChart').clientWidth), H = W < 600 ? 400 : 440;
-    const left = 12, right = W - 66, top = 30, bottom = H * .60, btop = H * .72, bbottom = H - 32;
-    const t0 = asset()==='MSTR'?data[0].time:data[0].closeTime, t1 = data.at(-1).closeTime;
-    const prices = data.flatMap(r => [r.close, r.ma * .98, r.ma * 1.02]).filter(Number.isFinite);
-    const lo = Math.min(...prices) * .97, hi = Math.max(...prices) * 1.03;
-    const x = t => left + (t - t0) / Math.max(14400, t1 - t0) * (right - left);
-    const y = p => bottom - (p - lo) / (hi - lo) * (bottom - top);
-    const ey = e => bbottom - e * (bbottom - btop);
-    let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${asset()} price, daily SMA200 and its thresholds, with BTC-based breadth below. Green shading shows the bullish filter.">`;
-    let start = null;
-    data.forEach((r, i) => {
-      if (r.gate && start === null) start = x(r.closeTime);
-      if (start !== null && (!r.gate || i === data.length - 1)) {
-        svg += `<rect x="${start}" y="${top}" width="${Math.max(1, x(r.closeTime) - start)}" height="${bbottom - top}" fill="#3fb950" opacity=".07"/>`; start = null;
-      }
-    });
-    for (let k = 0; k < 4; k++) {
-      const p = lo + (hi - lo) * k / 3;
-      svg += `<path d="M${left} ${y(p)}H${right}" stroke="#26313b"/><text x="${right + 6}" y="${y(p) + 4}">${asset()==='MSTR'?p.toFixed(0):(p / 1000).toFixed(1)+'k'}</text>`;
-    }
-    for (const e of [0, .5, 1]) svg += `<path d="M${left} ${ey(e)}H${right}" stroke="${e === .5 ? '#ffb000' : '#26313b'}" stroke-dasharray="${e === .5 ? '5 4' : '0'}"/><text x="${right + 6}" y="${ey(e) + 4}">${percent(e)}</text>`;
-    const line = (value, Y, color, dash = '', step = false) => {
-      let d = '', prev = null;
-      for (const r of data) {
-        const v = value(r); if (!Number.isFinite(v)) { prev = null; continue; }
-        const xx = x(r.closeTime).toFixed(2), yy = Y(v).toFixed(2);
-        d += prev === null ? `M${xx} ${yy}` : step ? `H${xx}V${yy}` : `L${xx} ${yy}`; prev = v;
-      }
-      return `<path d="${d}" fill="none" stroke="${color}" stroke-width="1.6" stroke-dasharray="${dash}"/>`;
-    };
-    svg += line(r => r.ma * 1.02, y, '#72808d', '4 4', true) + line(r => r.ma * .98, y, '#72808d', '4 4', true);
-    svg += line(r => r.ma, y, '#ffb000', '', true) + line(r => r.close, y, '#e6edf3');
-    svg += line(r => r.breadth, ey, '#38bdf8', '', true);
-    const visibleTrades = trades.filter(t => t.time >= t0 && t.time <= t1);
-    for (const trade of visibleTrades) {
-      const xx = x(trade.time), buy = trade.side === 'buy', yy = y(trade.price) + (buy ? 12 : -12);
-      const shape = buy ? `M${xx - 5} ${yy + 7}h10l-5 -8z` : `M${xx - 5} ${yy - 7}h10l-5 8z`;
-      svg += `<path class="signal-marker" data-side="${trade.side}" data-time="${trade.time}" d="${shape}" fill="${buy ? '#3fb950' : '#f85149'}"><title>${trade.side.toUpperCase()} ${usd(trade.price)} · ${stamp(trade.time)} · ${trade.reason}</title></path>`;
-    }
-    const labels = W < 600 ? 3 : 5;
-    for (let i = 0; i < labels; i++) {
-      const t = t0 + (t1 - t0) * i / (labels - 1);
-      svg += `<text x="${x(t)}" y="${H - 8}" text-anchor="${i === 0 ? 'start' : i === labels - 1 ? 'end' : 'middle'}">${new Date(t * 1000).toISOString().slice(5, 10)}</text>`;
-    }
-    svg += `<text x="${left}" y="17">${asset()==='MSTR'?'MSTR / USD':'BTC / USDT'} · daily SMA200</text><text x="${left}" y="${btop - 15}">${asset()==='MSTR'?'BTC fast + Vortex · 86 weights':'Weighted iMACD breadth · 72h ×2'}</text><path id="signalCursor" stroke="#94a3b8" stroke-dasharray="3 3"/><rect id="signalHit" x="${left}" y="${top}" width="${right - left}" height="${bbottom - top}" fill="transparent"/></svg>`;
-    el('signalChart').innerHTML = svg;
-    const inspect = event => {
-      const box = el('signalChart').querySelector('svg').getBoundingClientRect();
-      const xx = Math.max(left, Math.min(right, (event.clientX - box.left) * W / box.width));
-      const target = t0 + (xx - left) / (right - left) * (t1 - t0);
-      let low = 0, high = data.length - 1;
-      while (low < high) { const mid = (low + high) >> 1; if (data[mid].closeTime < target) low = mid + 1; else high = mid; }
-      const i = low > 0 && target - data[low - 1].closeTime < data[low].closeTime - target ? low - 1 : low, r = data[i];
-      el('signalCursor').setAttribute('d', `M${x(r.closeTime)} ${top}V${bbottom}`);
-      el('signalRead').textContent = `${stamp(r.closeTime)} · ${asset()} ${usd(r.close)} · SMA200 ${usd(r.ma)} · ${r.gate ? 'Bullish' : 'Bearish'} · breadth ${percent(r.breadth)}${visibleTrades.filter(t => t.time >= r.time && t.time <= r.closeTime).map(t => ` · ${t.side.toUpperCase()} ${usd(t.price)}`).join('')}`;
-    };
-    el('signalHit').onpointermove = inspect;
-    el('signalHit').onclick = inspect;
-    el('signalRead').textContent = `Hover or tap · ▲ buy · ▼ sell · modeled ${asset()==='MSTR'?'daily':'4h'} opening trades`;
   }
 
   function updateYears() {
@@ -222,11 +159,12 @@ window.BTC_SIGNALS = (() => {
   }
   function onShow() { shown = true; if (!loaded) refresh(); else render(); }
   el('signalRefresh').onclick = refresh;
+  el('signalReset').onclick = resetStrategyChart;
+  window.addEventListener('btc:chart-ready',render);
   el('indicatorRefresh').onclick = refresh;
   el('signalRange').onchange = render;
   el('signalAsset').onchange = ()=>{el('indicatorAsset').value=asset();render();};
   el('indicatorAsset').onchange = ()=>{el('signalAsset').value=el('indicatorAsset').value;render();};
-  new ResizeObserver(() => { if (shown && !el('panel_signals').hidden) render(); }).observe(el('signalChart'));
   setInterval(() => { if (shown && ['signals','indicators','d','h'].some(id=>!el('panel_'+id).hidden)) refresh(); }, 300000);
   // Signals is the default; explicit links to other tabs still work.
   setTimeout(() => showTab(new URLSearchParams(location.search).get('tab') || 'signals'), 0);
