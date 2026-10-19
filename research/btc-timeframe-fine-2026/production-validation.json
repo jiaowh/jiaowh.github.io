@@ -1,0 +1,13 @@
+{
+  "profiles": 4,
+  "ledgers": 60,
+  "fills": 1319,
+  "liveWeights": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    2
+  ]
+}
