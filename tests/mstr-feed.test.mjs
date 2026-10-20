@@ -42,4 +42,28 @@ try {
   splits={[time]:{numerator:10,denominator:1}};
   await assert.rejects(fetchStock([saved],now),/split detected/);
 } finally {globalThis.fetch=originalFetch;}
+// Oct 20: Yahoo returns the finalized Oct 19 O/H/L, but close is null.
+// A verified completed cache is usable; a forming/new/conflicting bar is not.
+try {
+  let quotes={open:[saved.open],high:[saved.high],low:[saved.low],close:[null]};
+  let regularStart=time;
+  globalThis.fetch=async()=>({ok:true,json:async()=>({chart:{result:[{
+    meta:{symbol:'MSTR',currentTradingPeriod:{regular:{start:regularStart}}},
+    timestamp:[time],indicators:{quote:[quotes]}
+  }]}})});
+  assert.deepEqual(await fetchStock([saved],now),[saved]);
+  await assert.rejects(fetchStock([older],now),/no matching completed candle/);
+  await assert.rejects(fetchStock([{...saved,complete:false}],now),/no matching completed candle/);
+  await assert.rejects(fetchStock([saved],saved.closeTime-1),/no matching completed candle/);
+  quotes={...quotes,high:[saved.high+1]};
+  await assert.rejects(fetchStock([saved],now),/no matching completed candle/);
+  quotes={open:[null],high:[null],low:[null],close:[null]};
+  await assert.rejects(fetchStock([saved],now),/no matching completed candle/);
+  quotes={open:[saved.open],high:[saved.high],low:[saved.low],close:[null]};
+  regularStart=time+86400;
+  await assert.rejects(fetchStock([saved],regularStart+60),/current opening candle unavailable/);
+  quotes={...quotes,close:[saved.close+.05]};regularStart=time;
+  assert.equal((await fetchStock([saved],now))[0].close,saved.close+.05);
+} finally {globalThis.fetch=originalFetch;}
+console.log('PASS: missing close reuses only an exact matching completed candle; new, forming, conflicting and stale sessions remain blocked.');
 console.log('PASS: both observed Yahoo opening revisions and weekend finalization recover; older history, invalid ranges, split events and material HLC revisions remain blocked.');

@@ -37,10 +37,23 @@ export async function fetchStock(saved,now) {
   const payload=await response.json(),r=payload.chart?.result?.[0],q=r?.indicators?.quote?.[0];
   if(r?.meta?.symbol!=='MSTR'||!q||!r.timestamp?.length)throw Error('Invalid MSTR feed response');
   if(Object.keys(r.events?.splits||{}).length)throw Error('MSTR split detected; rebuild adjusted history before resuming');
+  const savedByTime=new Map(saved.map(b=>[b.time,b]));
   const incoming=r.timestamp.flatMap((time,i)=>{
     if(time>now)return [];
     const values=['open','high','low','close'].map(k=>q[k][i]);
-    if(values.some(v=>!Number.isFinite(v)))throw Error('MSTR session has missing prices');
+    if(values.some(v=>!Number.isFinite(v))){
+      // Yahoo sometimes blanks the close of an already finalized session (Oct 20).
+      // Reuse only that exact completed candle when all returned O/H/L agree.
+      // Never finalize an intraday cache or invent a price for a new session.
+      const old=savedByTime.get(time);
+      if(values[3]===null&&values.slice(0,3).every(Number.isFinite)&&
+          old?.complete===true&&old.closeTime<=now&&old.closeTime===sessionClose(time)&&
+          Number.isFinite(old.close)&&['open','high','low'].every((k,j)=>Math.abs(old[k]-values[j])<=1e-6)){
+        console.warn(`MSTR source omitted close at ${new Date(time*1000).toISOString()}; retained matching completed candle`);
+        return [{...old}];
+      }
+      throw Error(`MSTR session has missing prices at ${new Date(time*1000).toISOString()}; no matching completed candle`);
+    }
     return [{time,open:values[0],high:values[1],low:values[2],close:values[3],closeTime:sessionClose(time)}];
   });
   if(!incoming.length||incoming.at(-1).time<saved.at(-1).time)throw Error('MSTR feed is behind saved history');
