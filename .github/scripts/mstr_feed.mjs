@@ -14,12 +14,17 @@ export function mergeStock(saved,incoming,now) {
     if(![b.time,b.open,b.high,b.low,b.close,b.closeTime].every(Number.isFinite)||Math.min(b.open,b.high,b.low,b.close)<=0||b.high<Math.max(b.open,b.close,b.low)||b.low>Math.min(b.open,b.close)||b.closeTime<=b.time)throw Error('Invalid MSTR candle');
     const old=map.get(b.time);
     // Yahoo can finalize the latest session's opening price overnight/weekends.
-    // An open-only correction inside the unchanged daily range cannot change our
-    // close-based SMA regime or BTC-based decisions. Keep the time/size limits for
-    // other OHLC revisions, and reject revisions to older completed sessions.
+    // Opening corrections with at most two cents of H/L finalization cannot change
+    // our close-based SMA regime or BTC-based decisions when close is unchanged.
+    // Keep the time/size limits for other OHLC revisions, and reject revisions
+    // to older completed sessions.
     const fields=['open','high','low','close'];
     if(old&&old.closeTime<=now&&old.complete!==false&&fields.some(k=>Math.abs(old[k]-b[k])>.021)){
-      const openOnly=b.closeTime===old.closeTime&&['high','low','close'].every(k=>Math.abs(old[k]-b[k])<=1e-6)&&b.open>=old.low&&b.open<=old.high;
+      // Daily arrays use float32 prices; the metadata quote is decimal. Allow
+      // only representation roundoff here, not an actual closing-price revision.
+      const sameClose=Math.abs(old.close-b.close)<=Math.max(1e-6,Math.abs(old.close)*1e-7);
+      const openOnly=b.closeTime===old.closeTime&&sameClose&&
+        ['high','low'].every(k=>Math.abs(old[k]-b[k])<=.021)&&b.open>=b.low&&b.open<=b.high;
       const small=now-old.closeTime<=86400&&fields.every(k=>Math.abs(old[k]-b[k])<=Math.max(.021,old[k]*.001));
       const changes=fields.filter(k=>old[k]!==b[k]).map(k=>`${k} ${old[k]} -> ${b[k]}`).join(', ');
       if(old.time!==latestClosed||(!openOnly&&!small))throw Error(`MSTR history changed at ${new Date(b.time*1000).toISOString()} (${changes}); review split/source before updating`);
@@ -37,10 +42,21 @@ export async function fetchStock(saved,now) {
   const payload=await response.json(),r=payload.chart?.result?.[0],q=r?.indicators?.quote?.[0];
   if(r?.meta?.symbol!=='MSTR'||!q||!r.timestamp?.length)throw Error('Invalid MSTR feed response');
   if(Object.keys(r.events?.splits||{}).length)throw Error('MSTR split detected; rebuild adjusted history before resuming');
+  const regular=r.meta.currentTradingPeriod?.regular;
   const savedByTime=new Map(saved.map(b=>[b.time,b]));
   const incoming=r.timestamp.flatMap((time,i)=>{
     if(time>now)return [];
     const values=['open','high','low','close'].map(k=>q[k][i]);
+    // A null daily close can coexist with Yahoo's valid same-session closing quote.
+    // Use it only at the exact regular-session end, never an intraday/after-hours
+    // price or another session's quote. Normal merge/revision guards still apply.
+    if(values[3]===null&&values.slice(0,3).every(Number.isFinite)&&
+        regular?.start===time&&regular.end===sessionClose(time)&&now>=regular.end&&
+        r.meta.regularMarketTime===regular.end&&Number.isFinite(r.meta.regularMarketPrice)&&
+        r.meta.regularMarketPrice>0&&r.meta.regularMarketPrice>=values[2]&&r.meta.regularMarketPrice<=values[1]){
+      values[3]=r.meta.regularMarketPrice;
+      console.warn(`MSTR daily close omitted at ${new Date(time*1000).toISOString()}; used Yahoo quote timestamped at regular-session close`);
+    }
     if(values.some(v=>!Number.isFinite(v))){
       // Yahoo sometimes blanks the close of an already finalized session (Oct 20).
       // Reuse only that exact completed candle when all returned O/H/L agree.
@@ -58,7 +74,6 @@ export async function fetchStock(saved,now) {
   });
   if(!incoming.length||incoming.at(-1).time<saved.at(-1).time)throw Error('MSTR feed is behind saved history');
   // During/after an announced regular session, require that session's opening candle.
-  const regular=r.meta.currentTradingPeriod?.regular;
   if(regular?.start<=now&&now-regular.start<86400&&incoming.at(-1).time<regular.start)throw Error('MSTR current opening candle unavailable');
   return mergeStock(saved,incoming,now);
 }

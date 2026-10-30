@@ -67,3 +67,57 @@ try {
 } finally {globalThis.fetch=originalFetch;}
 console.log('PASS: missing close reuses only an exact matching completed candle; new, forming, conflicting and stale sessions remain blocked.');
 console.log('PASS: both observed Yahoo opening revisions and weekend finalization recover; older history, invalid ranges, split events and material HLC revisions remain blocked.');
+
+// Oct 28-30 recurring failures: Oct 27 open +$0.145 and low -$0.01,
+// followed by a new Oct 29 session whose daily close is null.
+const oct27=Date.UTC(2026,9,27,13,30)/1000,oct29=oct27+2*86400;
+const prior={time:oct27,open:139.93499755859375,high:142,low:138.6999969482422,close:141.39999389648438,closeTime:sessionClose(oct27),complete:true};
+const revised={...prior,open:140.0800018310547,low:138.69000244140625};
+const catchup=Date.UTC(2026,9,30,1)/1000;
+assert.deepEqual(mergeStock([prior],[revised],catchup),[revised]);
+assert.equal(mergeStock([prior],[{...revised,close:141.4}],catchup)[0].close,141.4);
+assert.throws(()=>mergeStock([prior],[{...revised,close:141.41}],catchup),/history changed/);
+assert.throws(()=>mergeStock([prior],[{...revised,low:138.6}],catchup),/history changed/);
+assert.throws(()=>mergeStock([prior],[{...revised,close:141.45}],catchup),/history changed/);
+assert.throws(()=>mergeStock([prior,{...revised,time:oct29,closeTime:sessionClose(oct29)}],[revised],catchup),/history changed/);
+try {
+  const baseMeta={symbol:'MSTR',regularMarketTime:sessionClose(oct29),regularMarketPrice:141.62,
+    currentTradingPeriod:{regular:{start:oct29,end:sessionClose(oct29)}}};
+  const baseQuotes={open:[revised.open,139.60000610351562,141.4219970703125],
+    high:[142,145.3000030517578,144.75999450683594],low:[revised.low,138.6699981689453,138.8800048828125],
+    close:[prior.close,145.16000366210938,null]};
+  let meta=structuredClone(baseMeta),quotes=structuredClone(baseQuotes),splits={};
+  globalThis.fetch=async()=>({ok:true,json:async()=>({chart:{result:[{
+    meta,timestamp:[oct27,oct27+86400,oct29],events:{splits},indicators:{quote:[quotes]}
+  }]}})});
+  const recovered=await fetchStock([prior],catchup);
+  assert.equal(recovered.length,3);
+  assert.deepEqual(recovered[0],revised);
+  assert.equal(recovered.at(-1).close,141.62);
+  assert.equal(recovered.at(-1).complete,true);
+  assert.equal(prior.open,139.93499755859375);
+  // A forming cache can be completed from the verified closing quote, not itself.
+  const formingLast={...recovered.at(-1),close:140,complete:false};
+  assert.equal((await fetchStock([revised,formingLast],catchup)).at(-1).close,141.62);
+  for(const bad of [
+    {regularMarketTime:sessionClose(oct29)-1}, // intraday quote
+    {regularMarketTime:sessionClose(oct29)+60}, // after hours
+    {regularMarketTime:sessionClose(oct29)-86400}, // stale quote
+    {regularMarketPrice:null},{regularMarketPrice:Infinity},{regularMarketPrice:200},
+    {currentTradingPeriod:{regular:{start:oct27,end:sessionClose(oct27)}}},
+    {currentTradingPeriod:{regular:{start:oct29,end:sessionClose(oct29)+3600}}}
+  ]){
+    meta={...structuredClone(baseMeta),...bad};
+    await assert.rejects(fetchStock([prior],catchup),/missing prices/);
+  }
+  meta=structuredClone(baseMeta);
+  await assert.rejects(fetchStock([prior],sessionClose(oct29)-1),/missing prices/);
+  quotes={...baseQuotes,high:[142,145.3000030517578,null]};
+  await assert.rejects(fetchStock([prior],catchup),/missing prices/);
+  // A non-null daily close takes precedence over metadata.
+  quotes={...baseQuotes,close:[prior.close,145.16000366210938,141.63]};
+  assert.equal((await fetchStock([prior],catchup)).at(-1).close,141.63);
+  splits={[oct29]:{numerator:10,denominator:1}};
+  await assert.rejects(fetchStock([prior],catchup),/split detected/);
+} finally {globalThis.fetch=originalFetch;}
+console.log('PASS: Oct 27-29 catch-up recovers; same-session closing quote required; stale/intraday/after-hours/out-of-range quotes and material revisions rejected.');
