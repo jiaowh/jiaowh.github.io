@@ -5,11 +5,11 @@ import {fetchStock,mergeStock,sessionClose} from '../.github/scripts/mstr_feed.m
 const time=Date.UTC(2026,9,14,13,30)/1000,now=Date.UTC(2026,9,15,4,20)/1000;
 const saved={time,open:149.70399475097656,high:152,low:148,close:150,closeTime:sessionClose(time),complete:true};
 const corrected={...saved,open:149.75999450683594};
-assert.equal(mergeStock([saved],[corrected],now)[0].open,corrected.open);
+assert.deepEqual(mergeStock([saved],[corrected],now),[saved]);
 assert.deepEqual(saved.open,149.70399475097656); // Do not mutate the cached input.
-assert.equal(mergeStock([saved],[corrected],saved.closeTime+86401)[0].open,corrected.open);
-assert.equal(mergeStock([saved],[{...corrected,open:150}],now)[0].open,150);
-assert.throws(()=>mergeStock([saved],[{...corrected,high:153}],now),/history changed/);
+assert.deepEqual(mergeStock([saved],[corrected],saved.closeTime+86401),[saved]);
+assert.deepEqual(mergeStock([saved],[{...corrected,open:150}],now),[saved]);
+assert.deepEqual(mergeStock([saved],[{...corrected,high:153}],now),[saved]);
 assert.throws(()=>mergeStock([saved],[{...corrected,low:151}],now),/Invalid/);
 assert.throws(()=>mergeStock([saved],[{...corrected,open:153}],now),/Invalid/);
 assert.doesNotThrow(()=>mergeStock([saved],[{...saved,close:150.05}],now));
@@ -19,14 +19,14 @@ const fridayTime=Date.UTC(2026,9,16,13,30)/1000;
 const friday={time:fridayTime,open:146.13999938964844,high:146.8300018310547,low:134.11000061035156,close:136.8300018310547,closeTime:sessionClose(fridayTime),complete:true};
 const finalized={...friday,open:145.9499969482422};
 const weekend=friday.closeTime+2*86400;
-assert.equal(mergeStock([friday],[finalized],weekend)[0].open,finalized.open);
+assert.deepEqual(mergeStock([friday],[finalized],weekend),[friday]);
 assert.throws(()=>mergeStock([friday],[{...finalized,close:136.9}],weekend),/history changed/);
 const monday={...friday,time:friday.time+3*86400,closeTime:friday.closeTime+3*86400};
-assert.throws(()=>mergeStock([friday,monday],[finalized],monday.closeTime+60),/history changed/);
+assert.deepEqual(mergeStock([friday,monday],[finalized],monday.closeTime+60),[friday,monday]);
 const older={...saved,time:time-86400,closeTime:saved.closeTime-86400};
-assert.throws(()=>mergeStock([older,saved],[{...older,open:corrected.open}],now),/history changed/);
+assert.deepEqual(mergeStock([older,saved],[{...older,open:corrected.open}],now),[older,saved]);
 const forming={...saved,time:time+86400,closeTime:saved.closeTime+86400,complete:false};
-assert.equal(mergeStock([saved,forming],[corrected],forming.time+60)[0].open,corrected.open);
+assert.equal(mergeStock([saved,forming],[corrected],forming.time+60)[0].open,saved.open);
 assert.doesNotThrow(()=>mergeStock([{...saved,complete:false}],[{...saved,high:160,close:159}],now));
 
 const originalFetch=globalThis.fetch;
@@ -38,12 +38,12 @@ try {
       open:[corrected.open],high:[corrected.high],low:[corrected.low],close:[corrected.close]
     }]}
   }]}})});
-  assert.equal((await fetchStock([saved],now))[0].open,corrected.open);
+  assert.equal((await fetchStock([saved],now))[0].open,saved.open);
   splits={[time]:{numerator:10,denominator:1}};
   await assert.rejects(fetchStock([saved],now),/split detected/);
 } finally {globalThis.fetch=originalFetch;}
 // Oct 20: Yahoo returns the finalized Oct 19 O/H/L, but close is null.
-// A verified completed cache is usable; a forming/new/conflicting bar is not.
+// A verified completed cache is usable; a forming/new/invalid bar is not.
 try {
   let quotes={open:[saved.open],high:[saved.high],low:[saved.low],close:[null]};
   let regularStart=time;
@@ -56,6 +56,8 @@ try {
   await assert.rejects(fetchStock([{...saved,complete:false}],now),/no matching completed candle/);
   await assert.rejects(fetchStock([saved],saved.closeTime-1),/no matching completed candle/);
   quotes={...quotes,high:[saved.high+1]};
+  assert.deepEqual(await fetchStock([saved],now),[saved]);
+  quotes={...quotes,low:[saved.close+1]};
   await assert.rejects(fetchStock([saved],now),/no matching completed candle/);
   quotes={open:[null],high:[null],low:[null],close:[null]};
   await assert.rejects(fetchStock([saved],now),/no matching completed candle/);
@@ -65,8 +67,8 @@ try {
   quotes={...quotes,close:[saved.close+.05]};regularStart=time;
   assert.equal((await fetchStock([saved],now))[0].close,saved.close+.05);
 } finally {globalThis.fetch=originalFetch;}
-console.log('PASS: missing close reuses only an exact matching completed candle; new, forming, conflicting and stale sessions remain blocked.');
-console.log('PASS: both observed Yahoo opening revisions and weekend finalization recover; older history, invalid ranges, split events and material HLC revisions remain blocked.');
+console.log('PASS: missing close reuses a verified completed candle; new, forming, incompatible ranges and stale sessions remain blocked.');
+console.log('PASS: opening/range revisions preserve completed observations; invalid candles, splits and material close revisions remain blocked.');
 
 // Oct 28-30 recurring failures: Oct 27 open +$0.145 and low -$0.01,
 // followed by a new Oct 29 session whose daily close is null.
@@ -74,12 +76,13 @@ const oct27=Date.UTC(2026,9,27,13,30)/1000,oct29=oct27+2*86400;
 const prior={time:oct27,open:139.93499755859375,high:142,low:138.6999969482422,close:141.39999389648438,closeTime:sessionClose(oct27),complete:true};
 const revised={...prior,open:140.0800018310547,low:138.69000244140625};
 const catchup=Date.UTC(2026,9,30,1)/1000;
-assert.deepEqual(mergeStock([prior],[revised],catchup),[revised]);
-assert.equal(mergeStock([prior],[{...revised,close:141.4}],catchup)[0].close,141.4);
+assert.deepEqual(mergeStock([prior],[revised],catchup),[prior]);
+assert.equal(mergeStock([prior],[{...revised,close:141.4}],catchup)[0].close,prior.close);
 assert.throws(()=>mergeStock([prior],[{...revised,close:141.41}],catchup),/history changed/);
-assert.throws(()=>mergeStock([prior],[{...revised,low:138.6}],catchup),/history changed/);
+assert.deepEqual(mergeStock([prior],[{...revised,low:138.6}],catchup),[prior]);
 assert.throws(()=>mergeStock([prior],[{...revised,close:141.45}],catchup),/history changed/);
-assert.throws(()=>mergeStock([prior,{...revised,time:oct29,closeTime:sessionClose(oct29)}],[revised],catchup),/history changed/);
+const later={...revised,time:oct29,closeTime:sessionClose(oct29)};
+assert.deepEqual(mergeStock([prior,later],[revised],catchup),[prior,later]);
 try {
   const baseMeta={symbol:'MSTR',regularMarketTime:sessionClose(oct29),regularMarketPrice:141.62,
     currentTradingPeriod:{regular:{start:oct29,end:sessionClose(oct29)}}};
@@ -92,7 +95,7 @@ try {
   }]}})});
   const recovered=await fetchStock([prior],catchup);
   assert.equal(recovered.length,3);
-  assert.deepEqual(recovered[0],revised);
+  assert.deepEqual(recovered[0],prior);
   assert.equal(recovered.at(-1).close,141.62);
   assert.equal(recovered.at(-1).complete,true);
   assert.equal(prior.open,139.93499755859375);
@@ -121,3 +124,25 @@ try {
   await assert.rejects(fetchStock([prior],catchup),/split detected/);
 } finally {globalThis.fetch=originalFetch;}
 console.log('PASS: Oct 27-29 catch-up recovers; same-session closing quote required; stale/intraday/after-hours/out-of-range quotes and material revisions rejected.');
+
+// Oct 31-Nov 2: close unchanged, but open +$0.18 and low -$0.04.
+// Keep the verified observation for both immediate and later weekend requests.
+const oct30=Date.UTC(2026,9,30,13,30)/1000;
+const observed={time:oct30,open:131.52000427246094,high:134.50999450683594,low:124.0999984741211,
+  close:130.51,closeTime:sessionClose(oct30),complete:true};
+const yahoo={...observed,open:131.6999969482422,low:124.05999755859375,close:130.50999450683594};
+for(const hours of [9,24,48,72])assert.deepEqual(mergeStock([observed],[yahoo],observed.closeTime+hours*3600),[observed]);
+const nextSession={...observed,time:oct30+3*86400+3600,closeTime:sessionClose(oct30+3*86400+3600)};
+assert.deepEqual(mergeStock([observed,nextSession],[yahoo],nextSession.closeTime+60),[observed,nextSession]);
+assert.throws(()=>mergeStock([observed],[{...yahoo,close:129}],observed.closeTime+9*3600),/history changed/);
+assert.throws(()=>mergeStock([observed],[{...yahoo,closeTime:yahoo.closeTime+3600}],observed.closeTime+9*3600),/timing changed/);
+assert.throws(()=>mergeStock([observed],[{...yahoo,high:120}],observed.closeTime+9*3600),/Invalid/);
+try {
+  globalThis.fetch=async()=>({ok:true,json:async()=>({chart:{result:[{
+    meta:{symbol:'MSTR',currentTradingPeriod:{regular:{start:nextSession.time,end:nextSession.closeTime}}},
+    timestamp:[oct30],indicators:{quote:[{open:[yahoo.open],high:[yahoo.high],low:[yahoo.low],close:[null]}]}
+  }]}})});
+  assert.deepEqual(await fetchStock([observed],nextSession.time-60),[observed]);
+  await assert.rejects(fetchStock([observed],nextSession.time+60),/current opening candle unavailable/);
+} finally {globalThis.fetch=originalFetch;}
+console.log('PASS: Oct 30 revision remains harmless across weekend/DST/next session; historical candle and fill stay fixed.');

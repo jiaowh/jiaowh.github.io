@@ -3,6 +3,7 @@ import {readFileSync,writeFileSync,mkdirSync,renameSync,existsSync} from 'node:f
 import {dirname,resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {loadIndicators} from './btc_indicators.mjs';
+import {fetchMarketJSON} from './market_fetch.mjs';
 import {STRATEGY,LEGACY_STRATEGY,EQUAL_TIMEFRAME_WEIGHTS,H4,calculate,bootstrap,advance,drain,migrateLegacy} from './btc_fast_strategy.mjs';
 
 const ROOT=resolve(dirname(fileURLToPath(import.meta.url)),'../..');
@@ -38,9 +39,7 @@ export async function candles(saved,now) {
       let start=saved.at(-1).time*1000; const incoming=[];
       for (let page=0;page<100;page++) {
         const url=`https://${host}/api/v3/klines?symbol=BTCUSDT&interval=4h&startTime=${start}&endTime=${Math.floor(now*1000)}&limit=1000`;
-        const r=await fetch(url,{signal:AbortSignal.timeout(20000)});
-        if (!r.ok) throw Error(`Candle feed HTTP ${r.status}`);
-        const a=await r.json(); if (!Array.isArray(a)) throw Error('Invalid feed response');
+        const a=await fetchMarketJSON(url); if (!Array.isArray(a)) throw Error('Invalid feed response');
         incoming.push(...a.map(k=>({time:+k[0]/1000,open:+k[1],high:+k[2],low:+k[3],close:+k[4]})));
         if (a.length<1000) return mergeCandles(saved,incoming,now);
         const next=+a.at(-1)[0]+H4*1000;

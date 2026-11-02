@@ -1,0 +1,44 @@
+name: Strategy regression checks
+
+on:
+  push:
+    paths:
+      - '.github/scripts/**'
+      - '.github/workflows/strategy-checks.yml'
+      - 'assets/btc/*strategy.mjs'
+      - 'btc.html'
+      - 'tests/*feed.test.mjs'
+      - 'tests/market-fetch.test.mjs'
+      - 'tests/*strategy.test.mjs'
+      - 'tests/btc-alert.test.mjs'
+  pull_request:
+    paths:
+      - '.github/scripts/**'
+      - '.github/workflows/strategy-checks.yml'
+      - 'assets/btc/*strategy.mjs'
+      - 'btc.html'
+      - 'tests/*feed.test.mjs'
+      - 'tests/market-fetch.test.mjs'
+      - 'tests/*strategy.test.mjs'
+      - 'tests/btc-alert.test.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      # Offline fixtures and mocked requests: no Telegram secrets or live feeds.
+      - name: Market feed recovery and strategy parity
+        run: |
+          node tests/market-fetch.test.mjs
+          node tests/mstr-feed.test.mjs
+          node tests/mstr-strategy.test.mjs
+          node tests/btc-alert.test.mjs
